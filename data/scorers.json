@@ -1,0 +1,43 @@
+{
+  "México-Sudáfrica": [
+    {
+      "player": "J. Quiñones",
+      "minute": "9'",
+      "team": "home"
+    },
+    {
+      "player": "R. Jiménez",
+      "minute": "67'",
+      "team": "home"
+    }
+  ],
+  "Corea del Sur-República Checa": [
+    {
+      "player": "I.B. Hwang",
+      "minute": "67'",
+      "team": "home"
+    },
+    {
+      "player": "H.G. Oh",
+      "minute": "80'",
+      "team": "home"
+    },
+    {
+      "player": "L. Krejčí",
+      "minute": "59'",
+      "team": "away"
+    }
+  ],
+  "Canadá-Bosnia y Herzegovina": [
+    {
+      "player": "C. Larin",
+      "minute": "11'",
+      "team": "home"
+    },
+    {
+      "player": "Jovo Lukić",
+      "minute": "21'",
+      "team": "away"
+    }
+  ]
+}

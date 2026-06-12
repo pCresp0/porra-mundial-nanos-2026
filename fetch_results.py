@@ -7,6 +7,7 @@ Fuente: https://worldcup26.ir/get/games (API pública, sin clave).
 """
 import json
 import os
+import re
 import sys
 import unicodedata
 import urllib.error
@@ -16,6 +17,8 @@ import openpyxl
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, BASE)
+
+SCORERS_JSON = os.path.join(BASE, "data", "scorers.json")
 
 from excel_sync import excel_paths as _excel_paths
 from team_names import to_spanish, _norm
@@ -52,12 +55,126 @@ def _norm_key(key: str) -> str:
     return "".join(c for c in s if unicodedata.category(c) != "Mn")
 
 
-def update_excel(games: list, file1: str) -> int:
+def _parse_scorers(raw, team: str) -> list:
+    """Parse the API scorer string into [{player, minute, team}].
+
+    The API is messy: values can be the string "null", a Postgres-array-like
+    string {"Name 67'","Other 80'"} with straight quotes, or with smart/curly
+    quotes {“Name 9'”,”Other 67'”}. Some entries may also be unquoted.
+    """
+    if raw is None:
+        return []
+    s = str(raw).strip()
+    if not s or s.lower() == "null":
+        return []
+    # Extract quoted segments (straight " or curly “ ” ”)
+    segments = re.findall(r"[\"\u201c\u201d\u201e]([^\"\u201c\u201d\u201e]+)[\"\u201c\u201d\u201e]", s)
+    if not segments:
+        inner = s.strip("{}").strip()
+        if inner and inner.lower() != "null":
+            segments = [p.strip() for p in inner.split(",")]
+    out = []
+    for seg in segments:
+        seg = seg.strip().strip(",").strip()
+        if not seg or seg.lower() == "null":
+            continue
+        m = re.match(r"^(.*?)\s*(\d+(?:\+\d+)?)\s*'?$", seg)
+        if m and m.group(1).strip():
+            player = m.group(1).strip()
+            minute = m.group(2) + "'"
+        else:
+            player, minute = seg, ""
+        out.append({"player": player, "minute": minute, "team": team})
+    return out
+
+
+def _scorers_for_game(g) -> list:
+    return (_parse_scorers(g.get("home_scorers"), "home")
+            + _parse_scorers(g.get("away_scorers"), "away"))
+
+
+def write_scorers_json(games: list) -> int:
+    """Write goalscorers (with minute) keyed by 'Local-Visitante' to scorers.json."""
+    scorers = {}
+    for g in games:
+        if str(g.get("finished", "")).upper() != "TRUE":
+            continue
+        home_es = to_spanish(g.get("home_team_name_en", ""))
+        away_es = to_spanish(g.get("away_team_name_en", ""))
+        if not home_es or not away_es:
+            continue
+        sc = _scorers_for_game(g)
+        if sc:
+            scorers[_match_key(home_es, away_es)] = sc
+    os.makedirs(os.path.dirname(SCORERS_JSON), exist_ok=True)
+    with open(SCORERS_JSON, "w", encoding="utf-8") as f:
+        json.dump(scorers, f, ensure_ascii=False, indent=2)
+    print(f"⚽ Goleadores guardados: {len(scorers)} partido(s) → {SCORERS_JSON}")
+    return len(scorers)
+
+
+def _patch_worldcup_scores(path: str, updates: dict) -> list:
+    """Surgically set AC/AD score cells in the WORLDCUP sheet XML.
+
+    Writing with openpyxl rewrites the whole sheet and DROPS the cached values
+    of every formula cell (team names, dates, flags are formulas), which breaks
+    the next read by both this script and build_data. Patching the raw XML keeps
+    every other cell — including formula caches — untouched.
+
+    updates: {row:int -> (gl:int, gv:int)}
+    """
+    import tempfile
+    import zipfile
+
+    with zipfile.ZipFile(path) as z:
+        names = z.namelist()
+        infos = z.infolist()
+        contents = {n: z.read(n) for n in names}
+
+    wbxml = contents["xl/workbook.xml"].decode("utf-8")
+    rels = contents["xl/_rels/workbook.xml.rels"].decode("utf-8")
+    m = (re.search(r'<sheet[^>]*name="WORLDCUP"[^>]*?r:id="(rId\d+)"', wbxml)
+         or re.search(r'<sheet[^>]*?r:id="(rId\d+)"[^>]*name="WORLDCUP"', wbxml))
+    if not m:
+        raise ValueError("Pestaña WORLDCUP no encontrada en workbook.xml")
+    rid = m.group(1)
+    t = re.search(r'Id="' + rid + r'"[^>]*Target="([^"]+)"', rels)
+    sheetpath = "xl/" + t.group(1).lstrip("/")
+    xml = contents[sheetpath].decode("utf-8")
+
+    def set_cell(xml_str, ref, value):
+        pat = re.compile(r'<c r="' + re.escape(ref) + r'"([^>]*?)(/>|>.*?</c>)', re.DOTALL)
+
+        def repl(mm):
+            attrs = re.sub(r'\s+t="[^"]*"', "", mm.group(1))
+            return f'<c r="{ref}"{attrs}><v>{value}</v></c>'
+
+        return pat.subn(repl, xml_str, count=1)
+
+    missing = []
+    for row, (gl, gv) in updates.items():
+        for col, val in (("AC", gl), ("AD", gv)):
+            ref = f"{col}{row}"
+            xml, n = set_cell(xml, ref, val)
+            if n == 0:
+                missing.append(ref)
+    contents[sheetpath] = xml.encode("utf-8")
+
+    fd, tmp = tempfile.mkstemp(suffix=".xlsx", dir=os.path.dirname(path) or ".")
+    os.close(fd)
+    with zipfile.ZipFile(tmp, "w", zipfile.ZIP_DEFLATED) as zout:
+        for info in infos:
+            zout.writestr(info, contents[info.filename])
+    os.replace(tmp, path)
+    return missing
+
+
+def update_excel(games: list, path: str, label: str = "") -> int:
     """Write finished match scores into WORLDCUP columns AC (29) and AD (30)."""
-    wb = openpyxl.load_workbook(file1, data_only=False)
-    wc = wb["WORLDCUP"]
-    # Read team names with cached values (cols AA/AF are often formulas)
-    wb_ro = openpyxl.load_workbook(file1, data_only=True)
+    wb_ro = openpyxl.load_workbook(path, data_only=True)
+    if "WORLDCUP" not in wb_ro.sheetnames:
+        print(f"  ⚠ {label or path}: sin pestaña WORLDCUP, omitido")
+        return 0
     wc_ro = wb_ro["WORLDCUP"]
 
     row_index = {}
@@ -69,7 +186,11 @@ def update_excel(games: list, file1: str) -> int:
         key = _match_key(str(home), str(away))
         row_index[_norm_key(key)] = r
 
-    updated = 0
+    if not row_index:
+        print(f"  ⚠ Excel {label}: sin nombres de equipo en WORLDCUP "
+              f"(caché de fórmulas borrada). Ábrelo y guárdalo en Excel para regenerar.")
+
+    updates = {}
     for g in games:
         if str(g.get("finished", "")).upper() != "TRUE":
             continue
@@ -84,31 +205,33 @@ def update_excel(games: list, file1: str) -> int:
         key = _norm_key(_match_key(home_es, away_es))
         row = row_index.get(key)
         if not row:
-            # try swapped (rare)
-            key2 = _norm_key(_match_key(away_es, home_es))
-            row = row_index.get(key2)
+            row = row_index.get(_norm_key(_match_key(away_es, home_es)))
             if row:
                 gl, gv = gv, gl
         if not row:
             print(f"  ⚠ Sin fila Excel: {home_es} vs {away_es}")
             continue
 
-        cur_l = wc.cell(row, 29).value
-        cur_v = wc.cell(row, 30).value
-        if cur_l == gl and cur_v == gv:
+        cur_l = wc_ro.cell(row, 29).value
+        cur_v = wc_ro.cell(row, 30).value
+        try:
+            same = cur_l is not None and cur_v is not None and int(cur_l) == gl and int(cur_v) == gv
+        except (TypeError, ValueError):
+            same = False
+        if same:
             continue
-        wc.cell(row, 29).value = gl
-        wc.cell(row, 30).value = gv
+        updates[row] = (gl, gv)
         print(f"  ✓ {home_es} {gl}-{gv} {away_es}  (fila WORLDCUP {row})")
-        updated += 1
 
-    if updated:
-        wb.save(file1)
-        print(f"💾 Excel guardado ({updated} partido(s) actualizado(s))")
-        print(f"   → {file1}")
+    if updates:
+        missing = _patch_worldcup_scores(path, updates)
+        if missing:
+            print(f"  ⚠ Celdas no encontradas en XML: {', '.join(missing)}")
+        print(f"💾 Excel {label} guardado ({len(updates)} partido(s) actualizado(s))")
+        print(f"   → {path}")
     else:
-        print("ℹ️  Sin cambios en el Excel")
-    return updated
+        print(f"ℹ️  Excel {label}: sin cambios")
+    return len(updates)
 
 
 def main():
@@ -117,7 +240,7 @@ def main():
         print("ℹ️  fetch_live_results=false en update_config.json — omitido")
         return 0
 
-    _, file1, _ = _excel_paths()
+    _, file1, file2 = _excel_paths()
     if not os.path.isfile(file1):
         print(f"❌ No encuentro: {file1}")
         return 1
@@ -132,7 +255,16 @@ def main():
 
     finished = [g for g in games if str(g.get("finished", "")).upper() == "TRUE"]
     print(f"📥 {len(finished)} partido(s) finalizado(s) en la API")
-    update_excel(games, file1)
+
+    # Update BOTH Excel files (WORLDCUP tab) with the scores
+    update_excel(games, file1, "[1]")
+    if file2 and os.path.isfile(file2):
+        update_excel(games, file2, "[2]")
+    else:
+        print("ℹ️  Excel [2] no encontrado, omitido")
+
+    # Save goalscorers (with minute) for the website
+    write_scorers_json(games)
     return 0
 
 

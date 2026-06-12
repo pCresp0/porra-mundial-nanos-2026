@@ -2,8 +2,8 @@ name: Actualizar porra
 
 on:
   schedule:
-    # Cada hora en punto (UTC) → cada hora en punto hora España
-    - cron: "0 * * * *"
+    # Cada 30 minutos (UTC) → cada 30 minutos hora España
+    - cron: "*/30 * * * *"
   workflow_dispatch:
   push:
     paths:

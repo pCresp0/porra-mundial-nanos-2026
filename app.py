@@ -130,6 +130,38 @@ def _result_from_goals(gl, gv):
     return {"sign": sign, "score": f"{gl}-{gv}"}
 
 
+def _load_scorers():
+    """Goalscorers from data/scorers.json (written by fetch_results.py).
+
+    Returns {normalized 'home-away' key -> [{player, minute, team}, …]}.
+    """
+    path = os.path.join(BASE, "data", "scorers.json")
+    out = {}
+    try:
+        with open(path, encoding="utf-8") as fh:
+            raw = json.load(fh)
+    except (FileNotFoundError, ValueError):
+        return out
+    for key, lst in raw.items():
+        if not isinstance(lst, list):
+            continue
+        out[key] = lst
+        out[key.replace(" ", "")] = lst
+    return out
+
+
+def _lookup_scorers(scorers, match_name):
+    if not match_name or not scorers:
+        return []
+    name = str(match_name).strip()
+    if name in scorers:
+        return scorers[name]
+    compact = name.replace(" ", "")
+    if compact in scorers:
+        return scorers[compact]
+    return []
+
+
 def _build_wc_scores(wb):
     """Goals from WORLDCUP AC/AD keyed by 'Local-Visitante' (Spanish team names)."""
     wc = wb["WORLDCUP"]
@@ -741,6 +773,7 @@ def build_data():
     spain_times = _build_spain_times(wb1_raw)
     wc_meta     = _build_wc_match_meta(wb1_raw)
     wc_scores   = _build_wc_scores(wb1_raw)
+    wc_scorers  = _load_scorers()
     pts_sign  = float(_val(ws1, 8,  4) or 2)
     pts_diff  = float(_val(ws1, 9,  4) or 1)
     pts_exact = float(_val(ws1, 10, 4) or 3)
@@ -863,6 +896,7 @@ def build_data():
             "played":    played,
             "goals_l":   int(goals_l) if goals_l is not None else None,
             "goals_v":   int(goals_v) if goals_v is not None else None,
+            "scorers":   _lookup_scorers(wc_scorers, match_name) if played else [],
             "predictions": predictions,
         })
 

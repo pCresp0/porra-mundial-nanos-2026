@@ -162,10 +162,17 @@
     .match-team-name { font-weight: 700; font-size: .95rem; color: #E2E8F0; }
     .match-vs { color: #64748B; font-size: .75rem; font-weight: 600; }
     .match-score-big { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--gold); letter-spacing: .08em; margin-top: .35rem; line-height: 1; }
+    .match-scorers { display: flex; align-items: flex-start; justify-content: center; gap: .6rem; margin-top: .5rem; }
+    .match-scorers .ms-col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: .15rem; }
+    .match-scorers .ms-sep { width: 1px; align-self: stretch; background: rgba(148,163,184,.25); }
+    .match-scorers .ms-line { font-size: .72rem; color: #94A3B8; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .match-scorers .ms-name { color: #CBD5E1; font-weight: 600; }
+    .match-scorers .ms-min { color: var(--gold); font-weight: 700; margin-left: .25rem; }
     @media (max-width: 480px) {
       .match-score-big { font-size: 2rem; }
       .match-flag { font-size: 1.4rem; }
       .match-team-name { font-size: .82rem; }
+      .match-scorers .ms-line { font-size: .66rem; }
     }
     .match-meta-row { display: flex; align-items: center; justify-content: center; gap: .5rem; flex-wrap: wrap; margin-bottom: .75rem; }
     .match-venue { font-size: .78rem; color: #94A3B8; }
@@ -1673,11 +1680,6 @@
         USA · CANADA · MEXICO
       </p>
     </div>
-    <button id="porra-toggle" class="porra-toggle" type="button"
-            aria-pressed="false" title="Mostrar u ocultar las apuestas de la porra">
-      <span class="porra-toggle-icon">🔓</span>
-      <span class="porra-toggle-text">Soy de la porra</span>
-    </button>
   </div>
 </header>
 
@@ -2130,25 +2132,6 @@
   <span><strong id="visitor-count">—</strong> visitas</span>
 </div>
 
-<!-- ── welcome: ¿eres de la porra? ── -->
-<div id="welcome-modal" class="cl-backdrop hidden" role="dialog" aria-modal="true" aria-label="¿Eres de la porra?">
-  <div class="welcome-modal">
-    <div class="welcome-emoji">⚽🏆</div>
-    <div class="welcome-title">¡Bienvenido a la Porra «Los Nanos»!</div>
-    <div class="welcome-sub">
-      ¿Eres uno de los participantes de la porra? Los participantes pueden ver los
-      pronósticos y puntos de cada jugador. Los invitados solo ven partidos y resultados.
-    </div>
-    <div class="welcome-actions">
-      <button id="welcome-yes" class="welcome-btn primary" type="button">🔓 Sí, soy de la porra</button>
-      <button id="welcome-no" class="welcome-btn ghost" type="button">👀 Solo estoy mirando</button>
-    </div>
-    <div class="welcome-foot">
-      Podrás cambiarlo cuando quieras con el botón de arriba a la derecha.
-    </div>
-  </div>
-</div>
-
 <!-- ── music player ── -->
 <audio id="music-audio" src="static/audio/cancion_LineaDeCal.mp3" preload="none" loop></audio>
 <div class="music-wrap" aria-label="Reproductor música">
@@ -2194,7 +2177,7 @@ let currentPhase = "all";
 let currentWeek  = "all";
 let scrollMatchesToToday = true;
 let matchesDaysBefore = 0;
-let porraUnlocked = localStorage.getItem("porra_unlocked") === "1";
+let porraUnlocked = true;
 let matchesDaysAfter  = 0;
 let teamIndex = [];
 let selectedTeamFilter = null;
@@ -2758,7 +2741,19 @@ function matchTeamsHtml(m) {
         <span class="match-flag">${fa}</span>
       </div>
       ${scoreHtml}
+      ${matchScorersHtml(m)}
     </div>`;
+}
+
+function matchScorersHtml(m) {
+  if (!m.played || !Array.isArray(m.scorers) || !m.scorers.length) return "";
+  const home = m.home || (m.name.includes("-") ? m.name.split("-")[0].trim() : "");
+  const fmt = s => `<div class="ms-line">⚽ <span class="ms-name">${escapeHtml(s.player)}</span>${s.minute ? `<span class="ms-min">${escapeHtml(s.minute)}</span>` : ""}</div>`;
+  const homeS = m.scorers.filter(s => s.team === home);
+  const awayS = m.scorers.filter(s => s.team !== home);
+  if (!homeS.length && !awayS.length) return "";
+  const col = (arr, align) => `<div class="ms-col" style="text-align:${align}">${arr.map(fmt).join("")}</div>`;
+  return `<div class="match-scorers">${col(homeS, "right")}<div class="ms-sep"></div>${col(awayS, "left")}</div>`;
 }
 
 function matchMetaHtml(m) {
@@ -3235,9 +3230,7 @@ function renderMatchCard(m, players, colors) {
         ${isNextMatch ? `<span class="text-xs font-bold next-match-tag">⏱ Próximo partido</span>` : ""}
         ${m.played ? `<span class="text-xs font-bold" style="color:var(--green)">✓ Jugado</span>` : `<span class="text-xs text-gray-600">⏳ Pendiente</span>`}
       </div>
-      <div class="match-players-grid">${porraUnlocked
-        ? playerCards
-        : `<div class="porra-lock-note">🔒 Pronósticos visibles solo para los participantes de la porra</div>`}</div>
+      <div class="match-players-grid">${playerCards}</div>
     </div>`;
 }
 
@@ -4096,57 +4089,13 @@ function renderStats() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   PORRA MODE (invitado / participante)
+   PORRA MODE — pronósticos siempre visibles (sin modo invitado)
 ═══════════════════════════════════════════════════════════════ */
 function applyPorraMode() {
-  document.body.classList.toggle("porra-unlocked", porraUnlocked);
-  const btn = document.getElementById("porra-toggle");
-  if (btn) {
-    btn.setAttribute("aria-pressed", porraUnlocked ? "true" : "false");
-    const icon = btn.querySelector(".porra-toggle-icon");
-    const text = btn.querySelector(".porra-toggle-text");
-    if (icon) icon.textContent = porraUnlocked ? "🔒" : "🔓";
-    if (text) text.textContent = porraUnlocked ? "Ocultar apuestas" : "Soy de la porra";
-  }
-  // Si se vuelve a modo invitado estando en una pestaña nominal, volver a Partidos
-  if (!porraUnlocked) {
-    const hidden = ["standings", "progression", "stats", "honor"];
-    const active = document.querySelector(".tab-btn.active");
-    if (active && hidden.includes(active.dataset.tab)) {
-      document.querySelector('.tab-btn[data-tab="matches"]')?.click();
-    }
-  }
+  document.body.classList.add("porra-unlocked");
 }
 
-function setPorraMode(unlocked) {
-  porraUnlocked = unlocked;
-  localStorage.setItem("porra_unlocked", unlocked ? "1" : "0");
-  applyPorraMode();
-  if (D) renderMatches(currentPhase, currentWeek);
-}
-
-function togglePorraMode() {
-  setPorraMode(!porraUnlocked);
-}
-
-/* Popup de bienvenida: solo la primera visita (sin elección previa) */
-function initWelcomeModal() {
-  const modal = document.getElementById("welcome-modal");
-  if (!modal) return;
-  const choice = localStorage.getItem("porra_unlocked");
-  const close = () => { modal.classList.add("hidden"); document.body.style.overflow = ""; };
-
-  if (choice === null) {
-    modal.classList.remove("hidden");
-    document.body.style.overflow = "hidden";
-  }
-  document.getElementById("welcome-yes")?.addEventListener("click", () => { setPorraMode(true); close(); });
-  document.getElementById("welcome-no")?.addEventListener("click", () => { setPorraMode(false); close(); });
-}
-
-document.getElementById("porra-toggle")?.addEventListener("click", togglePorraMode);
 applyPorraMode();
-initWelcomeModal();
 
 /* ═══════════════════════════════════════════════════════════════
    NEXT-MATCH COUNTDOWN
