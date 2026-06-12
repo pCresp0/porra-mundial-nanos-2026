@@ -1946,9 +1946,14 @@ function matchTeamsHtml(m) {
   const away = m.away || (m.name.includes("-") ? m.name.split("-").slice(1).join("-").trim() : "");
   const fh = m.flag_home || "🏳️";
   const fa = m.flag_away || "🏳️";
-  const score = m.played && m.result
-    ? m.result.score.replace("-", " - ")
-    : "vs";
+  let scoreHtml;
+  if (m.played && m.result) {
+    scoreHtml = `<div class="match-score-big">${m.result.score.replace("-", " - ")}</div>`;
+  } else if (m.time_es) {
+    scoreHtml = `<div style="margin-top:.4rem;font-size:1.1rem;font-weight:700;color:#64748B;letter-spacing:.03em">${m.time_es}<span style="font-size:.7rem;font-weight:400;margin-left:.3rem;opacity:.7">h</span></div>`;
+  } else {
+    scoreHtml = `<div style="margin-top:.4rem;font-size:.85rem;color:#334155;font-weight:600;letter-spacing:.06em;text-transform:uppercase">vs</div>`;
+  }
   return `
     <div class="match-header-center">
       <div class="match-teams-row">
@@ -1958,7 +1963,7 @@ function matchTeamsHtml(m) {
         <span class="match-team-name">${away}</span>
         <span class="match-flag">${fa}</span>
       </div>
-      <div class="match-score-big">${score}</div>
+      ${scoreHtml}
     </div>`;
 }
 
