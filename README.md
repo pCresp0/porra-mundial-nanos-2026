@@ -150,41 +150,117 @@ Abre [http://localhost:5050](http://localhost:5050). En macOS también puedes us
 ## GitHub Pages
 
 1. **Settings → Pages** → Branch `main` → Folder `/ (root)`
-2. La web carga `index.html` + `data.json` + `static/`
+2. La web sirve `index.html` + `data.json` + `static/` (no ejecuta Python en el servidor)
 
-### ¿Qué se actualiza solo y qué no?
+---
 
-| Qué | Quién lo hace | Frecuencia |
-|-----|---------------|------------|
-| **Resultados (goles)** del Mundial | Automático: GitHub Actions llama a la API y escribe en el Excel del repo | **Cada hora en punto** (hora España) |
-| **Pronósticos** del grupo | Tú, editando el Excel ADMIN | Manual |
-| **Web online** (`data.json`) | Se regenera tras cada ciclo automático o tras tu `build_static.py` + push | Tras cada commit con datos nuevos |
+## Actualización de datos
 
-**En la práctica:** para la web pública **no tienes que tocar nada** cuando acaban partidos — el pipeline descarga goles, actualiza `data/` y `data.json`, y hace push solo. La página recarga los datos cada 5 minutos en el navegador.
+La web **solo lee** datos; **nunca escribe** pronósticos. Hay dos flujos distintos que conviene no mezclar:
 
-**Solo intervienes tú** cuando cambiáis pronósticos (o posiciones, honor, etc.) en el Excel:
+| | **Goles del Mundial** | **Pronósticos del grupo** |
+|---|---|---|
+| **Qué es** | Resultado real de cada partido (columnas AC/AD en WORLDCUP) | Lo que apostáis cada uno en el Excel ADMIN |
+| **Quién lo actualiza** | Automático (GitHub Actions) | Tú, a mano en Excel |
+| **Frecuencia** | **Cada hora en punto** (hora España) | Cuando cambiéis un pronóstico |
+| **¿Hay que hacer push?** | No — el bot lo hace solo | Sí — `build_static.py` + `git push` |
+
+### Flujo automático (goles → web online)
+
+Cuando acaba un partido, **no tienes que subir nada a mano** para que la web pública se entere. Esto es lo que pasa en GitHub **cada hora en punto**:
+
+```
+  API pública                         Repositorio GitHub              Web (GitHub Pages)
+  ───────────                         ──────────────────              ────────────────────
+
+  worldcup26.ir/get/games
+           │
+           ▼
+  fetch_results.py  ──►  escribe goles en data/*.xlsx (hoja WORLDCUP)
+           │
+           ▼
+  build_static.py   ──►  genera data.json desde el Excel
+           │
+           ▼
+  git commit + push ──►  main actualizado
+           │
+           └──────────────────────────────────────────►  index.html lee data.json
+                                                           (el navegador recarga cada 5 min)
+```
+
+**Scripts implicados:**
+
+| Paso | Script | Qué hace |
+|------|--------|----------|
+| 1 | `fetch_results.py` | Descarga partidos de la API y escribe goles en el Excel del repo |
+| 2 | `build_static.py` | Lee el Excel y genera `data.json` con clasificación, puntos, etc. |
+| 3 | Workflow GitHub | Hace commit y push si hay cambios (`github-actions[bot]`) |
+
+**API de resultados:** [https://worldcup26.ir/get/games](https://worldcup26.ir/get/games) (pública, sin clave). Configuración en `update_config.json`. Horario del cron en `.github/workflows/update-porra.yml` (`0 * * * *` = cada hora en punto UTC, equivalente a hora en punto en España).
+
+**Dos ritmos distintos en la web:**
+
+- **Pipeline en GitHub:** cada **hora en punto** descarga goles y publica `data.json`.
+- **Navegador del usuario:** cada **5 minutos** vuelve a pedir `data.json` por si hubo un push nuevo (no hace falta F5).
+
+La barra superior de la web («Actualizada a las XX:XX · Próxima actualización…») refleja ese ciclo horario.
+
+### Flujo manual (pronósticos)
+
+Cuando alguien del grupo cambia un pronóstico, posición de grupo, cuadro de honor, etc. en el Excel:
 
 ```bash
-# Tras editar pronósticos en Excel (00. ADMIN/ o data/):
+# Tras editar el Excel (en 00. ADMIN/ o directamente en data/):
 python3 build_static.py
 git add data.json data/
 git commit -m "Actualizar pronósticos de la porra"
 git push
 ```
 
-> El Excel de tu Mac (`../00. ADMIN/`) y el del repositorio (`data/`) son copias distintas. GitHub Actions actualiza **solo la del repo**. Si trabajas en local, haz `git pull` para traerte los goles nuevos, o ejecuta `python3 fetch_results.py` en tu máquina.
+La web online **no** puede guardar pronósticos; siempre pasan por el Excel.
 
-### Actualización automática (resultados)
+### Excel del Mac vs Excel del repositorio
 
-GitHub Actions (**workflow «Actualizar porra»**) se ejecuta **cada hora en punto** (hora España):
+Existen **dos copias** del Excel ADMIN:
 
-1. Llama a [worldcup26.ir/get/games](https://worldcup26.ir/get/games) y escribe goles en WORLDCUP (`fetch_results.py`)
-2. Regenera `data.json` (`build_static.py`)
-3. Hace commit y push si hay cambios
+| Ubicación | Uso |
+|-----------|-----|
+| `../00. ADMIN/` (carpeta local en el Mac) | Donde sueles editar a mano en el día a día |
+| `data/` (dentro del repo en GitHub) | Fuente de verdad para la web online |
 
-La barra superior de la web indica la próxima hora en punto. Configuración en `update_config.json` y `.github/workflows/update-porra.yml`.
+- **GitHub Actions solo actualiza `data/` en el repo** (goles vía API).
+- Si trabajas en local con `launch.py`, `excel_sync.py` puede copiar de `00. ADMIN/` → `data/` si tu copia local es más nueva.
+- Para traerte los goles que el bot ha escrito: `git pull`, o ejecuta `python3 fetch_results.py` en tu Mac.
 
-Para forzar un ciclo sin esperar: **Actions → Actualizar porra → Run workflow**.
+### Configuración en GitHub (una sola vez)
+
+Para que el pipeline automático pueda subir cambios al repo:
+
+1. **Settings → Actions → General**
+   - *Actions permissions:* **Allow all actions and reusable workflows**
+   - *Workflow permissions:* **Read and write permissions** → **Save**
+
+2. **Settings → Pages**
+   - Branch `main`, carpeta `/ (root)`
+
+3. **Comprobar que funciona**
+   - Ve a **Actions → Actualizar porra → Run workflow**
+   - La ejecución debe terminar en verde
+   - En **Commits** deberías ver entradas de `github-actions[bot]` con mensaje `chore: actualización automática de datos (...)`  
+     (o el log dirá «Sin cambios que subir» si la API no trajo goles nuevos — también es correcto)
+
+4. **Forzar una actualización** sin esperar a la hora en punto: **Actions → Actualizar porra → Run workflow**
+
+### Uso local (Flask)
+
+En tu Mac, `python3 launch.py` lee el Excel en vivo y sirve `GET /api/data`. Ahí los datos se refrescan al recargar el navegador (caché de 30 s). Para traer goles de la API en local:
+
+```bash
+python3 fetch_results.py          # API → Excel
+python3 build_static.py --fetch   # API + Excel + data.json en un solo comando
+```
+
+`/api/refresh` solo vacía la caché del servidor local; **no llama a la API externa**.
 
 ---
 
