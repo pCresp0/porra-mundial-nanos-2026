@@ -756,7 +756,7 @@
       <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
     </a>
   </div>
-  <p class="text-xs text-gray-600 mt-3" id="footer-updated"></p>
+  <p class="text-xs text-gray-500 mt-3" id="footer-countdown"></p>
   <p class="text-xs text-gray-600 mt-1">© 2026 · Porra «Los Nanos»</p>
 </footer>
 
@@ -875,28 +875,70 @@ function render() {
   renderMeta();
 }
 
+/* ── Compute next update slot (next full hour in Spain time) from browser ── */
+function nextHourSpain() {
+  // Next :00 in Europe/Madrid — we compute from UTC since the cron fires at :00 UTC
+  const now = new Date();
+  const nxt = new Date(now);
+  nxt.setUTCMinutes(0, 0, 0);
+  nxt.setUTCHours(nxt.getUTCHours() + 1);
+  return nxt;
+}
+
+function formatSpainHHMM(date) {
+  return date.toLocaleTimeString("es-ES", {
+    hour: "2-digit", minute: "2-digit",
+    timeZone: "Europe/Madrid", hour12: false,
+  });
+}
+
+function minUntil(date) {
+  return Math.max(0, Math.floor((date - Date.now()) / 60000));
+}
+
+let _countdownTimer = null;
+
+function startCountdown() {
+  const el = document.getElementById("footer-countdown");
+  if (!el) return;
+  function tick() {
+    const nxt = nextHourSpain();
+    const mins = minUntil(nxt);
+    const hhmm = formatSpainHHMM(nxt);
+    if (mins === 0) {
+      el.textContent = `Actualizando ahora… (hora España)`;
+    } else if (mins === 1) {
+      el.textContent = `Próxima actualización en 1 min, a las ${hhmm} (hora España)`;
+    } else {
+      el.textContent = `Próxima actualización en ${mins} min, a las ${hhmm} (hora España)`;
+    }
+  }
+  tick();
+  if (_countdownTimer) clearInterval(_countdownTimer);
+  _countdownTimer = setInterval(tick, 30000); // refresh every 30 s
+}
+
 function renderMeta() {
   const upd = D?.meta?.update;
-  const gen = D?.meta?.generated;
   const banner = document.getElementById("update-banner");
   const lastEl = document.getElementById("upd-last");
   const nextEl = document.getElementById("upd-next");
 
-  if (upd && banner) {
+  if (banner) {
     banner.classList.remove("hidden");
-    if (lastEl) lastEl.textContent = upd.last_updated_time || "—";
-    if (nextEl) nextEl.textContent = upd.next_update_time || "—";
+    // Top banner shows last update time from data.json
+    if (lastEl) lastEl.textContent = upd?.last_updated_time || D?.meta?.generated?.slice(11,16) || "—";
+    // Next update: prefer computed from browser (always accurate)
+    if (nextEl) nextEl.textContent = formatSpainHHMM(nextHourSpain());
   }
 
-  const footerTxt = upd
-    ? `Actualizada a las ${upd.last_updated_time} · Próxima a las ${upd.next_update_time} (hora España)`
-    : (gen ? `Última actualización de datos: ${gen}` : "");
+  // Footer: live countdown (no "actualizada a las" — eso ya está arriba)
+  startCountdown();
 
-  const fu = document.getElementById("footer-updated");
   const iu = document.getElementById("info-updated");
-  if (fu && footerTxt) fu.textContent = footerTxt;
   if (iu) {
-    iu.innerHTML = `Los pronósticos viven en los Excel ADMIN del grupo. Los resultados se sincronizan automáticamente cada 2 horas (horas pares, hora España) desde fuentes públicas del Mundial.<br><strong class="text-gray-300">${footerTxt}</strong>`;
+    const lastTxt = upd?.last_updated_time || D?.meta?.generated || "—";
+    iu.innerHTML = `Los pronósticos viven en los Excel ADMIN del grupo. Los resultados se sincronizan automáticamente <strong class="text-gray-300">cada hora en punto</strong> desde fuentes públicas del Mundial.<br>Última actualización de datos: <strong class="text-gray-300">${lastTxt}</strong>`;
   }
 }
 

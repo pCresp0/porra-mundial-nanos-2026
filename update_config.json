@@ -1,8 +1,8 @@
 {
   "timezone": "Europe/Madrid",
-  "interval_hours": 2,
-  "even_hours_only": true,
+  "interval_hours": 1,
+  "even_hours_only": false,
   "fetch_live_results": true,
   "api_url": "https://worldcup26.ir/get/games",
-  "_comment": "Actualización automática cada 2 h en horas pares (0, 2, 4, …, 22) hora España. El cron UTC está en .github/workflows/update-porra.yml"
+  "_comment": "Actualización automática cada hora en punto. El cron UTC está en .github/workflows/update-porra.yml"
 }

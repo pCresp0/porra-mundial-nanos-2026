@@ -2,8 +2,8 @@ name: Actualizar porra
 
 on:
   schedule:
-    # Cada 2 h en horas pares España (CEST, UTC+2): 0,2,4…22 → UTC 22,0,2…20
-    - cron: "0 0,2,4,6,8,10,12,14,16,18,20,22 * * *"
+    # Cada hora en punto (UTC) → cada hora en punto hora España
+    - cron: "0 * * * *"
   workflow_dispatch:
   push:
     paths:

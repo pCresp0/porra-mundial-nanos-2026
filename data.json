@@ -1,12 +1,14 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "12/06/2026 03:09",
+    "generated": "12/06/2026 03:11",
     "update": {
       "timezone": "Europe/Madrid",
-      "schedule_label": "cada 2 h (horas pares)",
-      "last_updated_time": "03:09",
+      "schedule_label": "cada hora en punto",
+      "last_updated_iso": "2026-06-12T03:11",
+      "last_updated_time": "03:11",
       "last_updated_date": "12/06/2026",
+      "next_update_iso": "2026-06-12T04:00",
       "next_update_time": "04:00",
       "next_update_date": "12/06/2026"
     },
