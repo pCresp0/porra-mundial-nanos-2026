@@ -705,9 +705,9 @@
     <button class="tab-btn active" data-tab="matches">⚽ Partidos</button>
     <button class="tab-btn" data-tab="standings">🏅 Clasificación</button>
     <button class="tab-btn" data-tab="progression">📈 Progresión</button>
+    <button class="tab-btn" data-tab="stats">📊 Estadísticas</button>
     <button class="tab-btn" data-tab="honor">🏆 Cuadro de Honor</button>
     <button class="tab-btn" data-tab="scoring">📋 Sistema de puntuación</button>
-    <button class="tab-btn" data-tab="stats">📊 Estadísticas</button>
     <button class="tab-btn" data-tab="info">ℹ️ Más info</button>
   </div>
 </nav>
@@ -808,25 +808,14 @@
   </section>
 
   <!-- ════════════════════════════════════════════
-       TAB: CUADRO DE HONOR
-  ════════════════════════════════════════════ -->
-  <section id="tab-honor" class="hidden">
-    <div id="honor-summary" class="card p-5 mb-6"></div>
-    <div id="honor-sections"></div>
-  </section>
-
-  <!-- ════════════════════════════════════════════
-       TAB: PUNTUACIÓN
-  ════════════════════════════════════════════ -->
-  <section id="tab-scoring" class="hidden">
-    <div id="scoring-content"></div>
-  </section>
-
-  <!-- ════════════════════════════════════════════
        TAB: STATS
   ════════════════════════════════════════════ -->
   <section id="tab-stats" class="hidden">
+    <!-- hero numbers -->
+    <div id="stats-hero" class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6"></div>
+
     <div id="trend-forecast" class="card forecast-card p-5 mb-6"></div>
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
       <div class="card p-5">
         <div class="info-wrap mb-4">
@@ -844,13 +833,59 @@
         </div>
       </div>
       <div class="card p-5">
-        <h3 class="font-bold text-white mb-4">Distribución de Puntos por Fase</h3>
+        <div class="info-wrap mb-4">
+          <h3 class="font-bold text-white">Distribución de puntos por fase</h3>
+          <span class="info-btn">i</span>
+          <div class="info-tip">
+            <strong>¿Qué muestra este gráfico?</strong><br>
+            Cuántos puntos ha sumado cada jugador en cada fase del torneo:
+            fase de grupos, posiciones, clasificados a dieciseisavos, eliminatorias y cuadro de honor.
+            Permite ver en qué ronda destaca cada uno.
+          </div>
+        </div>
         <div style="height:260px;position:relative">
           <canvas id="phaseChart"></canvas>
         </div>
       </div>
     </div>
+
+    <!-- desglose de aciertos -->
+    <div class="card p-5 mb-6">
+      <div class="info-wrap mb-4">
+        <h3 class="font-bold text-white">Desglose de aciertos (fase de grupos)</h3>
+        <span class="info-btn">i</span>
+        <div class="info-tip">
+          <strong>Tipos de acierto por partido:</strong><br>
+          🟢 <strong>Exacto</strong> — signo + dif. + resultado exacto (máx. 6 pts)<br>
+          🔵 <strong>1X2 + Dif.</strong> — signo correcto y diferencia de goles<br>
+          🟡 <strong>Solo 1X2</strong> — solo acertó el signo (1/X/2)<br>
+          🔴 <strong>0 pts</strong> — sin ningún acierto en ese partido
+        </div>
+      </div>
+      <div style="height:280px;position:relative">
+        <canvas id="breakdownChart"></canvas>
+      </div>
+    </div>
+
+    <!-- racha + mejores momentos -->
+    <div id="stats-streaks" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6"></div>
+
     <div id="stats-detail" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       TAB: CUADRO DE HONOR
+  ════════════════════════════════════════════ -->
+  <section id="tab-honor" class="hidden">
+    <div id="honor-summary" class="card p-5 mb-6"></div>
+    <div id="honor-sections"></div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       TAB: PUNTUACIÓN
+  ════════════════════════════════════════════ -->
+  <section id="tab-scoring" class="hidden">
+    <div id="scoring-content"></div>
   </section>
 
   <!-- ════════════════════════════════════════════
@@ -971,6 +1006,7 @@ const VISITOR_PATH = "/porra-mundial-nanos-2026";
 let progressionChart = null;
 let hitRateChart = null;
 let phaseChart = null;
+let breakdownChart = null;
 let currentPhase = "all";
 let currentWeek  = "all";
 let scrollMatchesToToday = true;
@@ -1336,17 +1372,33 @@ function renderProgression() {
   const players = D.meta.players;
   const colors  = D.meta.colors;
   const prog    = D.progression;
-  const labels  = prog.labels || [];
-  const dates   = prog.dates  || [];
+  const allLabels = prog.labels || [];
+  const allDates  = prog.dates  || [];
 
-  const datasets = players.map(name => ({
+  // Cut to today — no future data
+  const todayStr = todaySpainISO();
+  let cutIdx = allDates.length - 1;
+  for (let i = 0; i < allDates.length; i++) {
+    if (allDates[i] > todayStr) { cutIdx = i - 1; break; }
+  }
+  cutIdx = Math.max(0, cutIdx);
+  const labels = allLabels.slice(0, cutIdx + 1);
+  const dates  = allDates.slice(0, cutIdx + 1);
+
+  // Different dash patterns so overlapping lines (tied players) are always distinguishable
+  const DASHES = [[], [8,4], [4,4], [12,4,4,4], [5,2,2,2], [2,2]];
+  const POINT_STYLES = ["circle","triangle","rect","rectRot","star","cross"];
+
+  const datasets = players.map((name, idx) => ({
     label: name,
-    data:  (prog.players && prog.players[name]) || [],
+    data:  ((prog.players && prog.players[name]) || []).slice(0, cutIdx + 1),
     borderColor: colors[name],
     backgroundColor: colors[name] + "22",
     borderWidth: 2.5,
     pointRadius: 4,
     pointHoverRadius: 7,
+    pointStyle: POINT_STYLES[idx % POINT_STYLES.length],
+    borderDash: DASHES[idx % DASHES.length],
     tension: 0.25,
     fill: false,
   }));
@@ -1901,31 +1953,76 @@ function renderStats() {
   const players = D.meta.players;
   const colors  = D.meta.colors;
 
-  // Hit rate = matches where score > 0 / total played
   const groupMatches = D.matches.filter(m => m.phase === "groups" && m.played);
-  const hitData = players.map(name => {
-    const hits = groupMatches.filter(m => m.predictions[name]?.score > 0).length;
-    return { name, hits, total: groupMatches.length, pct: groupMatches.length > 0 ? Math.round(hits / groupMatches.length * 100) : 0 };
+  const playedAll    = D.matches.filter(m => m.played);
+
+  // ── per-player breakdown (groups) ──────────────────────────────────────
+  const perPlayer = players.map(name => {
+    let exact = 0, diff = 0, sign = 0, miss = 0, best = 0, streak = 0, curStreak = 0, bestDay = 0;
+    groupMatches.forEach(m => {
+      const pd = m.predictions[name];
+      const sc = pd?.score ?? 0;
+      if (sc > best) best = sc;
+      const reasons = pd?.breakdown?.reasons || [];
+      const hasExact = reasons.some(r => r.toLowerCase().includes("exacto") && !r.toLowerCase().includes("no"));
+      const hasDiff  = reasons.some(r => r.includes("Diferencia") && !r.includes("no acertada"));
+      const hasSign  = reasons.some(r => r.includes("1X2 correcto"));
+      if (hasExact)        exact++;
+      else if (hasDiff)    diff++;
+      else if (hasSign)    sign++;
+      else                 miss++;
+      if (sc > 0) { curStreak++; if (curStreak > streak) streak = curStreak; }
+      else        { curStreak = 0; }
+    });
+    // current (active) streak from the end
+    let liveStreak = 0;
+    for (let i = groupMatches.length - 1; i >= 0; i--) {
+      const sc = groupMatches[i].predictions[name]?.score ?? 0;
+      if (sc > 0) liveStreak++; else break;
+    }
+    const hits = exact + diff + sign;
+    const total = groupMatches.length;
+    const pct   = total > 0 ? Math.round(hits / total * 100) : 0;
+    const avg   = total > 0 ? (((D.standings.find(s => s.name === name)?.groups) || 0) / total).toFixed(2) : "—";
+    return { name, exact, diff, sign, miss, hits, total, pct, avg, best, streak: liveStreak, maxStreak: streak };
   });
 
+  // ── HERO numbers ───────────────────────────────────────────────────────
+  const heroEl = document.getElementById("stats-hero");
+  const totalExacts = perPlayer.reduce((s, p) => s + p.exact, 0);
+  const bestPlayer  = [...perPlayer].sort((a,b) => b.pct - a.pct)[0];
+  const streakKing  = [...perPlayer].sort((a,b) => b.streak - a.streak)[0];
+  const topExact    = [...perPlayer].sort((a,b) => b.exact - a.exact)[0];
+  heroEl.innerHTML = [
+    { icon: "⚽", val: groupMatches.length, label: "Partidos jugados (grupos)", sub: `de ${D.matches.filter(m=>m.phase==="groups").length} totales` },
+    { icon: "🎯", val: totalExacts, label: "Exactos en el grupo", sub: `${perPlayer.reduce((s,p)=>s+p.miss,0)} partidos a 0 pts` },
+    { icon: "📈", val: bestPlayer ? `${bestPlayer.pct}%` : "—", label: "Mayor tasa de acierto", sub: bestPlayer?.name || "" },
+    { icon: "🔥", val: streakKing ? `${streakKing.streak}` : "—", label: "Racha activa más larga", sub: streakKing ? `${streakKing.name} · ${streakKing.streak} en racha` : "" },
+  ].map(h => `
+    <div class="card p-4 text-center">
+      <div class="text-2xl mb-1">${h.icon}</div>
+      <div class="bebas text-3xl text-yellow-400">${h.val}</div>
+      <div class="text-xs font-bold text-gray-300 mt-1">${h.label}</div>
+      <div class="text-xs text-gray-600 mt-0.5">${h.sub}</div>
+    </div>`).join("");
+
+  // ── Tasa de acierto ────────────────────────────────────────────────────
   if (hitRateChart) hitRateChart.destroy();
-  const ctx1 = document.getElementById("hitRateChart").getContext("2d");
-  hitRateChart = new Chart(ctx1, {
+  hitRateChart = new Chart(document.getElementById("hitRateChart").getContext("2d"), {
     type: "bar",
     data: {
-      labels: hitData.map(h => h.name),
+      labels: perPlayer.map(h => h.name),
       datasets: [{
         label: "% Acierto",
-        data: hitData.map(h => h.pct),
+        data: perPlayer.map(h => h.pct),
         backgroundColor: players.map(n => colors[n] + "99"),
         borderColor: players.map(n => colors[n]),
-        borderWidth: 2,
-        borderRadius: 6,
+        borderWidth: 2, borderRadius: 6,
       }]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false }, tooltip: { callbacks: { label: i => ` ${i.parsed.y}% (${hitData[i.dataIndex].hits}/${hitData[i.dataIndex].total})` } } },
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: i => ` ${i.parsed.y}% (${perPlayer[i.dataIndex].hits}/${perPlayer[i.dataIndex].total})` } } },
       scales: {
         y: { beginAtZero: true, max: 100, grid: { color: "rgba(255,255,255,.05)" }, ticks: { color: "#475569", callback: v => v + "%" } },
         x: { grid: { display: false }, ticks: { color: "#94A3B8", font: { weight: "bold" } } }
@@ -1933,12 +2030,11 @@ function renderStats() {
     }
   });
 
-  // Phase breakdown chart
+  // ── Distribución por fase ──────────────────────────────────────────────
   if (phaseChart) phaseChart.destroy();
-  const ctx2 = document.getElementById("phaseChart").getContext("2d");
-  const phases = ["groups", "positions", "q16", "r16", "r8", "r4", "r2", "r34_final", "honor"];
+  const phases   = ["groups","positions","q16","r16","r8","r4","r2","r34_final","honor"];
   const phLabels = phases.map(p => PHASE_LABELS[p] || p);
-  phaseChart = new Chart(ctx2, {
+  phaseChart = new Chart(document.getElementById("phaseChart").getContext("2d"), {
     type: "bar",
     data: {
       labels: phLabels,
@@ -1947,16 +2043,12 @@ function renderStats() {
         data: phases.map(ph => p[ph] || 0),
         backgroundColor: p.color + "88",
         borderColor: p.color,
-        borderWidth: 1.5,
-        borderRadius: 4,
+        borderWidth: 1.5, borderRadius: 4,
       }))
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { labels: { color: "#94A3B8", font: { size: 10 } } },
-        tooltip: { mode: "index" }
-      },
+      plugins: { legend: { labels: { color: "#94A3B8", font: { size: 10 } } }, tooltip: { mode: "index" } },
       scales: {
         x: { stacked: false, grid: { display: false }, ticks: { color: "#64748B", font: { size: 8 }, maxRotation: 35 } },
         y: { grid: { color: "rgba(255,255,255,.05)" }, ticks: { color: "#475569" } }
@@ -1964,17 +2056,76 @@ function renderStats() {
     }
   });
 
-  // stat cards
+  // ── Desglose de aciertos ───────────────────────────────────────────────
+  if (breakdownChart) breakdownChart.destroy();
+  breakdownChart = new Chart(document.getElementById("breakdownChart").getContext("2d"), {
+    type: "bar",
+    data: {
+      labels: perPlayer.map(p => p.name),
+      datasets: [
+        { label: "🟢 Exacto",     data: perPlayer.map(p => p.exact), backgroundColor: "rgba(34,197,94,.75)",  borderColor: "#22C55E", borderWidth: 1.5, borderRadius: 4 },
+        { label: "🔵 1X2 + Dif.", data: perPlayer.map(p => p.diff),  backgroundColor: "rgba(59,130,246,.65)", borderColor: "#3B82F6", borderWidth: 1.5, borderRadius: 4 },
+        { label: "🟡 Solo 1X2",   data: perPlayer.map(p => p.sign),  backgroundColor: "rgba(245,197,24,.65)", borderColor: "#F5C518", borderWidth: 1.5, borderRadius: 4 },
+        { label: "🔴 0 pts",      data: perPlayer.map(p => p.miss),  backgroundColor: "rgba(239,68,68,.45)",  borderColor: "#EF4444", borderWidth: 1.5, borderRadius: 4 },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: "bottom", labels: { color: "#94A3B8", font: { size: 10 }, boxWidth: 12 } },
+        tooltip: {
+          mode: "index",
+          callbacks: {
+            title: items => `${items[0].label} — ${groupMatches.length} partidos`,
+            label: i => ` ${i.dataset.label}: ${i.parsed.y} partidos`
+          }
+        }
+      },
+      scales: {
+        x: { stacked: true, grid: { display: false }, ticks: { color: "#94A3B8", font: { weight: "bold" } } },
+        y: { stacked: true, grid: { color: "rgba(255,255,255,.05)" }, ticks: { color: "#475569", stepSize: 1 } }
+      }
+    }
+  });
+
+  // ── Rachas y mejores momentos ──────────────────────────────────────────
+  const streaksEl = document.getElementById("stats-streaks");
+  streaksEl.innerHTML = D.standings.map(p => {
+    const pp = perPlayer.find(x => x.name === p.name);
+    if (!pp) return "";
+    const streakBar = `<div class="flex gap-1 mt-2 flex-wrap justify-center">
+      ${groupMatches.slice(-10).map(m => {
+        const sc = m.predictions[p.name]?.score ?? 0;
+        const col = sc >= 5 ? "#22C55E" : sc > 0 ? p.color : "#374151";
+        return `<div title="${m.name}: ${sc} pts" style="width:10px;height:18px;border-radius:3px;background:${col};flex-shrink:0"></div>`;
+      }).join("")}
+    </div>`;
+    return `
+      <div class="card p-4 text-center" style="border-color:${p.color}33">
+        <div class="font-extrabold uppercase text-sm mb-2" style="color:${p.color}">${p.name}</div>
+        <div class="grid grid-cols-3 gap-2 text-xs mb-2">
+          <div>
+            <div class="bebas text-xl" style="color:var(--green)">${pp.streak}</div>
+            <div class="text-gray-500">racha activa</div>
+          </div>
+          <div>
+            <div class="bebas text-xl" style="color:var(--gold)">${pp.exact}</div>
+            <div class="text-gray-500">exactos</div>
+          </div>
+          <div>
+            <div class="bebas text-xl" style="color:${p.color}">${pp.best}</div>
+            <div class="text-gray-500">mejor partido</div>
+          </div>
+        </div>
+        <div class="text-xs text-gray-600 mb-1">Últimos 10 partidos</div>
+        ${streakBar}
+      </div>`;
+  }).join("");
+
+  // ── Ficha detallada ────────────────────────────────────────────────────
   const detail = document.getElementById("stats-detail");
   detail.innerHTML = D.standings.map(p => {
-    const matches = groupMatches.length;
-    const hits    = groupMatches.filter(m => m.predictions[p.name]?.score > 0).length;
-    const exacts  = groupMatches.filter(m => {
-      const pd = m.predictions[p.name];
-      return pd?.score > 3;   // approximate: >3 means exact (sign+dist+exact = 6 max)
-    }).length;
-    const avg = matches > 0 ? (p.groups / matches).toFixed(2) : "—";
-    const pct = matches > 0 ? Math.round(hits / matches * 100) : 0;
+    const pp = perPlayer.find(x => x.name === p.name) || {};
     return `
       <div class="card p-5" style="border-color:${p.color}44">
         <div class="flex items-center gap-3 mb-4">
@@ -1985,20 +2136,20 @@ function renderStats() {
           </div>
         </div>
         <div class="grid grid-cols-2 gap-3 text-sm">
-          <div class="bg-opacity-10 rounded-lg p-3 text-center" style="background:${p.color}15">
+          <div class="rounded-lg p-3 text-center" style="background:${p.color}15">
             <div class="bebas text-2xl" style="color:${p.color}">${p.total}</div>
             <div class="text-gray-400 text-xs">Puntos totales</div>
           </div>
           <div class="rounded-lg p-3 text-center" style="background:rgba(255,255,255,.04)">
-            <div class="bebas text-2xl text-white">${pct}%</div>
+            <div class="bebas text-2xl text-white">${pp.pct ?? 0}%</div>
             <div class="text-gray-400 text-xs">Tasa de acierto</div>
           </div>
           <div class="rounded-lg p-3 text-center" style="background:rgba(255,255,255,.04)">
-            <div class="bebas text-2xl text-white">${avg}</div>
-            <div class="text-gray-400 text-xs">Pts por partido</div>
+            <div class="bebas text-2xl text-white">${pp.avg ?? "—"}</div>
+            <div class="text-gray-400 text-xs">Pts / partido</div>
           </div>
           <div class="rounded-lg p-3 text-center" style="background:rgba(34,197,94,.08)">
-            <div class="bebas text-2xl" style="color:var(--green)">${exacts}</div>
+            <div class="bebas text-2xl" style="color:var(--green)">${pp.exact ?? 0}</div>
             <div class="text-gray-400 text-xs">Resultados exactos</div>
           </div>
         </div>
@@ -2014,7 +2165,7 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
     document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
     const tab = btn.dataset.tab;
-    ["matches","standings","progression","honor","scoring","stats","info"].forEach(t => {
+    ["matches","standings","progression","stats","honor","scoring","info"].forEach(t => {
       document.getElementById("tab-"+t).classList.toggle("hidden", t !== tab);
     });
     // Scroll to top instantly when changing tabs
