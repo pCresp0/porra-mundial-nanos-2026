@@ -647,37 +647,57 @@ def _parse_honor_actual(val):
     return s
 
 
+def _abbr_team(name):
+    """3 letras en mayúscula para etiqueta compacta del eje X."""
+    letters = [c for c in str(name) if c.isalpha()]
+    return "".join(letters[:3]).upper() if letters else "?"
+
+
 def _build_daily_progression(matches, player_names):
-    """Puntos acumulados al cierre de cada día natural (hora España)."""
-    group = [m for m in matches if m["phase"] == "groups" and m.get("date")]
+    """Puntos acumulados tras cada partido jugado (orden cronológico)."""
+    group = [m for m in matches
+             if m["phase"] == "groups" and m.get("played") and m.get("date")]
     if not group:
-        return {"labels": [], "dates": [], "players": {n: [] for n in player_names},
+        return {"labels": [], "dates": [], "titles": [],
+                "players": {n: [] for n in player_names},
                 "day_points": {n: [] for n in player_names}}
 
-    all_dates = sorted(set(m["date"] for m in group if m["date"]))
-    cumulative = {n: 0.0 for n in player_names}
+    # Orden cronológico: fecha + hora España
+    group.sort(key=lambda m: (m.get("date", ""), m.get("time_es", "")))
+
+    cumulative  = {n: 0.0 for n in player_names}
     players_out = {n: [] for n in player_names}
     day_points  = {n: [] for n in player_names}
     labels = []
+    dates  = []
+    titles = []
 
-    for date in all_dates:
-        earned = {n: 0.0 for n in player_names}
-        for m in group:
-            if m["date"] == date and m["played"]:
-                for n in player_names:
-                    earned[n] += m["predictions"][n]["score"]
-
+    for m in group:
         for n in player_names:
-            cumulative[n] = round(cumulative[n] + earned[n], 1)
+            earned = m["predictions"][n]["score"]
+            cumulative[n] = round(cumulative[n] + earned, 1)
             players_out[n].append(cumulative[n])
-            day_points[n].append(round(earned[n], 1))
+            day_points[n].append(round(earned, 1))
 
-        dt = datetime.strptime(date, "%Y-%m-%d")
-        labels.append(f"{dt.day} {_MONTHS_ES[dt.month]}")
+        labels.append(f"{_abbr_team(m.get('home'))}-{_abbr_team(m.get('away'))}")
+        dates.append(m.get("date", ""))
+
+        gl, gv = m.get("goals_l"), m.get("goals_v")
+        score = f" {gl}-{gv} " if gl is not None and gv is not None else " vs "
+        title = f"{m.get('home','')}{score}{m.get('away','')}"
+        dt_part = ""
+        if m.get("date"):
+            try:
+                dt = datetime.strptime(m["date"], "%Y-%m-%d")
+                dt_part = f" · {dt.day} {_MONTHS_ES[dt.month]}"
+            except ValueError:
+                pass
+        titles.append(title + dt_part)
 
     return {
         "labels":     labels,
-        "dates":      all_dates,
+        "dates":      dates,
+        "titles":     titles,
         "players":    players_out,
         "day_points": day_points,
     }
