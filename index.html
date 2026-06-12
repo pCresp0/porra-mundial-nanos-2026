@@ -106,28 +106,44 @@
       display: flex; flex-direction: column; align-items: center;
       flex: 1; max-width: 220px; min-width: 0;
     }
-    @media (max-width: 480px) {
-      .podium-wrap { gap: .4rem; padding-top: .5rem; }
-      .podium-1st .podium-block { height: 60px; }
-      .podium-2nd .podium-block { height: 40px; }
-      .podium-3rd .podium-block { height: 28px; }
-    }
     .podium-player {
       width: 100%; text-align: center; padding: 1rem .75rem 0;
       border-radius: 12px 12px 0 0; border: 1px solid var(--border);
       border-bottom: none; position: relative;
     }
+    .podium-score {
+      font-size: 1.65rem;
+      line-height: 1.1;
+      margin-top: .35rem;
+      letter-spacing: .02em;
+    }
+    .podium-prize {
+      font-size: .85rem;
+      font-weight: 800;
+      margin-top: .35rem;
+    }
     .podium-block {
-      width: 100%; border-radius: 0 0 4px 4px;
+      width: 100%; border-radius: 0 0 6px 6px;
       display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: .75rem; color: rgba(0,0,0,.5);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      font-weight: 400;
+      letter-spacing: .06em;
+      line-height: 1;
     }
     .podium-1st .podium-player { background: linear-gradient(180deg,#2A2000,#1A1508); border-color: var(--gold); margin-bottom: 0; }
-    .podium-1st .podium-block  { height: 90px;  background: linear-gradient(180deg,#F5C518,#B8860B); color: #3d2e00; }
+    .podium-1st .podium-block  { height: 90px;  background: linear-gradient(180deg,#F5C518,#B8860B); color: #1a1000; text-shadow: 0 1px 0 rgba(255,255,255,.35); }
     .podium-2nd .podium-player { background: linear-gradient(180deg,#1E2228,#111418); border-color: var(--silver); }
-    .podium-2nd .podium-block  { height: 60px;  background: linear-gradient(180deg,#CBD5E1,#94A3B8); color: #1e293b; }
+    .podium-2nd .podium-block  { height: 60px;  background: linear-gradient(180deg,#CBD5E1,#94A3B8); color: #0f172a; text-shadow: 0 1px 0 rgba(255,255,255,.4); }
     .podium-3rd .podium-player { background: linear-gradient(180deg,#1E1510,#100C08); border-color: var(--bronze); }
-    .podium-3rd .podium-block  { height: 40px;  background: linear-gradient(180deg,#CD7F32,#8B5A2B); color: #3d2008; }
+    .podium-3rd .podium-block  { height: 40px;  background: linear-gradient(180deg,#CD7F32,#8B5A2B); color: #1a0d00; text-shadow: 0 1px 0 rgba(255,255,255,.2); }
+    @media (max-width: 480px) {
+      .podium-wrap { gap: .4rem; padding-top: .5rem; }
+      .podium-score { font-size: 1.35rem; }
+      .podium-1st .podium-block { height: 60px; font-size: 1.75rem; }
+      .podium-2nd .podium-block { height: 40px; font-size: 1.5rem; }
+      .podium-3rd .podium-block { height: 28px; font-size: 1.35rem; }
+    }
     .prizes-banner {
       text-align: center; padding: .75rem 1rem; margin-bottom: 1.25rem;
       background: linear-gradient(90deg, rgba(245,197,24,.08), rgba(245,197,24,.15), rgba(245,197,24,.08));
@@ -513,6 +529,29 @@
       background: rgba(245,197,24,.12); color: var(--gold); border: 1px solid rgba(245,197,24,.25);
     }
 
+    /* ── guía porra / puntuación ── */
+    .scoring-deadline {
+      background: rgba(245,197,24,.08);
+      border: 1px solid rgba(245,197,24,.35);
+      border-radius: .75rem;
+      padding: 1rem 1.15rem;
+    }
+    .scoring-deadline li { margin: .35rem 0; }
+    .scoring-phase {
+      border-left: 3px solid var(--gold);
+      padding-left: 1rem;
+      margin: .75rem 0;
+    }
+    .scoring-callout {
+      background: rgba(59,130,246,.08);
+      border: 1px solid rgba(59,130,246,.25);
+      border-radius: .65rem;
+      padding: .85rem 1rem;
+      font-size: .85rem;
+      color: #94A3B8;
+      line-height: 1.55;
+    }
+
     /* ── honor grid ── */
     .honor-card { background: linear-gradient(135deg, var(--card) 0%, var(--card2) 100%); }
     .honor-summary-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: .75rem; }
@@ -549,11 +588,30 @@
     }
     .update-banner .page-shell { text-align: center; }
     .update-banner strong { color: var(--gold); font-weight: 600; }
-    .update-banner .sep { color: #475569; margin: 0 .4rem; }
-    @media (max-width: 480px) {
-      .update-banner { font-size: .7rem; }
-      .update-banner .sep { display: none; }
-      .update-banner .upd-block { display: block; line-height: 1.4; }
+    .update-banner .upd-block {
+      display: inline;
+    }
+    .update-banner .upd-line {
+      display: inline;
+    }
+    .update-banner .upd-sep {
+      color: #475569;
+      margin: 0 .45rem;
+    }
+    @media (max-width: 640px) {
+      .update-banner { font-size: .7rem; line-height: 1.45; }
+      .update-banner .upd-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: .2rem;
+      }
+      .update-banner .upd-line {
+        display: block;
+      }
+      .update-banner .upd-sep {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -574,7 +632,11 @@
 <!-- ── última / próxima actualización ── -->
 <div id="update-banner" class="update-banner hidden">
   <div class="page-shell">
-    <span class="upd-block">Actualizada a las <strong id="upd-last">—</strong><span class="sep">·</span>Próxima actualización en <strong id="upd-mins">—</strong> min, a las <strong id="upd-next">—</strong></span>
+    <span class="upd-block">
+      <span class="upd-line">Actualizada a las <strong id="upd-last">—</strong></span>
+      <span class="upd-sep" aria-hidden="true">·</span>
+      <span class="upd-line">Próxima actualización en <strong id="upd-mins">—</strong> min, a las <strong id="upd-next">—</strong></span>
+    </span>
     <span class="hidden sm:inline text-gray-600"> · hora España</span>
   </div>
 </div>
@@ -1041,17 +1103,17 @@ function renderPodium() {
   container.innerHTML = order.map(({ idx, cls, medal, prize }) => {
     const p = top3[idx];
     if (!p) return "";
-    const prizeLbl = prize ? `<div class="text-xs font-bold mt-1" style="color:var(--gold)">${prize}</div>` : "";
+    const rankLbl = idx === 0 ? "1º" : idx === 1 ? "2º" : "3º";
+    const prizeLbl = prize ? `<div class="podium-prize" style="color:${p.color}">${prize}</div>` : "";
     return `
       <div class="podium-col ${cls}">
         <div class="podium-player">
           <div class="text-3xl mb-1">${medal}</div>
-          <div class="font-extrabold text-white uppercase text-sm tracking-wide">${p.name}</div>
-          <div class="bebas text-3xl mt-1" style="color:${p.color}">${p.total}</div>
-          <div class="text-xs text-gray-500">puntos</div>
+          <div class="font-extrabold uppercase text-sm tracking-wide" style="color:${p.color}">${p.name}</div>
+          <div class="podium-score bebas" style="color:${p.color}">${p.total} puntos</div>
           ${prizeLbl}
         </div>
-        <div class="podium-block">${idx === 0 ? "1º" : idx === 1 ? "2º" : "3º"}</div>
+        <div class="podium-block" aria-label="${rankLbl} puesto">${rankLbl}</div>
       </div>`;
   }).join("");
 
@@ -1448,6 +1510,12 @@ function renderScoring() {
   const adj = sr.diff_adjustment;
   const adjPct = adj > 0 ? Math.round(adj * 100) : 0;
 
+  const sectionNotes = {
+    q16_team: "En la práctica <strong class=\"text-gray-300\">no se puntúa</strong>: antes de la Fase 2 se insertan en el Excel los cruces reales de dieciseisavos.",
+    final_team: "Vuestro campeón del Cuadro de Honor se copia a la casilla de la final.",
+    r34_team: "Vuestro tercer puesto del Cuadro de Honor se traslada a las casillas correspondientes.",
+  };
+
   const sectionsHtml = sr.sections.map(sec => {
     const rows = sec.items.map(item => {
       const shortLabel = item.label
@@ -1464,12 +1532,15 @@ function renderScoring() {
       </div>`;
     }).join("");
     const maxInSection = sec.items.reduce((s, i) => s + i.pts, 0);
+    const note = sectionNotes[sec.key]
+      ? `<p class="scoring-callout mt-3 mb-0">${sectionNotes[sec.key]}</p>` : "";
     return `<div class="card p-5">
       <div class="flex items-center justify-between mb-3">
         <h3 class="font-bold text-white">${sec.title}</h3>
         ${sec.items.length > 1 ? `<span class="text-xs text-gray-500">máx. ${maxInSection} pts</span>` : ""}
       </div>
       ${rows}
+      ${note}
     </div>`;
   }).join("");
 
@@ -1488,6 +1559,75 @@ function renderScoring() {
           <div class="text-xs text-gray-500 mt-1">1X2 + Diferencia + Exacto</div>
         </div>
       </div>
+    </div>
+
+    <div class="card p-5 mb-5">
+      <h3 class="font-bold text-white mb-3">📝 Cómo rellenar la porra (Excel)</h3>
+      <p class="text-sm text-gray-400 mb-3 leading-relaxed">
+        Todo se rellena en la pestaña <strong class="text-gray-200">WORLDCUP</strong> del Excel que os enviamos:
+        ahí van los pronósticos (resultados de cada partido). Antes de empezar, mirad el vídeo explicativo:
+        <a href="https://www.youtube.com/watch?v=Vh--XEkQDFg" target="_blank" rel="noopener"
+           class="text-blue-400 hover:text-yellow-400">📺 Tutorial en YouTube</a>.
+      </p>
+      <p class="text-sm text-gray-400 mb-4 leading-relaxed">
+        Para que nadie se quede sin opciones si fallan sus equipos en un cruce, la porra se entrega en
+        <strong class="text-gray-200">dos fases</strong>. Enviad cada fase respondiendo al correo de la porra
+        a <a href="mailto:pcbcrespo@gmail.com" class="text-blue-400 hover:text-yellow-400">pcbcrespo@gmail.com</a>.
+      </p>
+
+      <div class="scoring-phase">
+        <p class="text-sm font-bold text-white mb-1">Fase 1 — Grupos y Cuadro de Honor</p>
+        <p class="text-sm text-gray-400 leading-relaxed">
+          Rellenad todos los resultados de la fase de grupos (partidos hasta el grupo L, inclusive).
+          La fase de grupos en el torneo termina en la madrugada del <strong class="text-gray-200">domingo 28 de junio</strong>
+          con el último partido: <strong class="text-gray-200">Jordania vs. Argentina</strong> a las <strong class="text-gray-200">04:00</strong> (hora peninsular).
+        </p>
+        <p class="text-sm text-gray-400 mt-2 leading-relaxed">
+          <strong class="text-gray-200">Importante:</strong> en esta primera entrega también debéis rellenar el
+          <strong class="text-gray-200">Cuadro de Honor</strong> del final del Excel (campeón, podio, botas, balones…).
+        </p>
+      </div>
+
+      <div class="scoring-phase">
+        <p class="text-sm font-bold text-white mb-1">Fase 2 — Fase final (eliminatorias)</p>
+        <p class="text-sm text-gray-400 leading-relaxed">
+          Cuando acabe el último partido de grupos (madrugada del 28), rellenad y enviad de nuevo el Excel con la
+          fase final completa: desde <strong class="text-gray-200">dieciseisavos</strong> hasta la <strong class="text-gray-200">final</strong>.
+          El primer partido de dieciseisavos es ese mismo domingo <strong class="text-gray-200">28 de junio a las 21:00</strong>.
+        </p>
+      </div>
+
+      <div class="scoring-deadline mt-4">
+        <p class="text-sm font-bold text-yellow-400 mb-2">🚨 Fechas límite de entrega</p>
+        <ul class="text-sm text-gray-300 list-none pl-0">
+          <li><strong class="text-white">Fase 1:</strong> domingo <strong class="text-yellow-400">7 de junio</strong> a las <strong class="text-yellow-400">23:55</strong> — grupos + Cuadro de Honor.</li>
+          <li><strong class="text-white">Fase 2:</strong> domingo <strong class="text-yellow-400">28 de junio</strong> antes de las <strong class="text-yellow-400">19:00</strong> — eliminatorias completas.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card p-5 mb-5">
+      <h3 class="font-bold text-white mb-3">🏟️ Fase final: reglas especiales de puntuación</h3>
+      <div class="scoring-callout mb-3">
+        <strong class="text-gray-200">Clasificados a dieciseisavos — no se puntúa lo que hayáis puesto en la Fase 1.</strong><br>
+        En el Excel Matejero aparece la fila «Equipo clasificado para dieciseisavos», pero en nuestra porra
+        <strong class="text-gray-200">no cuenta</strong>: no vais a competir por acertar quién llega a dieciseisavos.
+      </div>
+      <p class="text-sm text-gray-400 mb-3 leading-relaxed">
+        El <strong class="text-gray-200">domingo 28 de junio antes de las 19:00</strong>, cuando enviéis la Fase 2,
+        en el Excel maestro se insertarán automáticamente en el de cada uno los
+        <strong class="text-gray-200">cruces reales de dieciseisavos</strong> (los 16 equipos que hayan quedado).
+        A partir de ahí vosotros rellenáis:
+      </p>
+      <ul class="text-sm text-gray-400 mb-3 pl-5 leading-relaxed" style="list-style:disc">
+        <li>Los <strong class="text-gray-200">resultados</strong> de los partidos de dieciseisavos.</li>
+        <li>Los <strong class="text-gray-200">cruces y equipos</strong> de octavos, cuartos, semifinales y final.</li>
+        <li>Se copiará también vuestro <strong class="text-gray-200">campeón</strong> y <strong class="text-gray-200">tercer puesto</strong> del Cuadro de Honor a las casillas de la fase final.</li>
+      </ul>
+      <p class="text-xs text-gray-500">
+        A partir de dieciseisavos sí puntúan los partidos y clasificados de cada ronda según las reglas de abajo
+        (1X2, diferencia, exacto, equipos que pasan de fase…).
+      </p>
     </div>
 
     <div class="card p-5 mb-5">
