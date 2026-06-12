@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Porra Mundial 'Los Nanos' 2026</title>
+  <link rel="icon" href="/static/favicon-32.png?v=2" type="image/png" sizes="32x32" />
+  <link rel="shortcut icon" href="/favicon.ico?v=2" />
+  <link rel="apple-touch-icon" href="/static/apple-touch-icon.png?v=2" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --bg:       #080C1E;
+      --surface:  #0F1428;
+      --card:     #161B38;
+      --card2:    #1C2240;
+      --border:   #2A3060;
+      --gold:     #F5C518;
+      --silver:   #CBD5E1;
+      --bronze:   #CD7F32;
+      --green:    #22C55E;
+      --red:      #EF4444;
+      --blue:     #3B82F6;
+    }
+    * { box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      color: #E2E8F0;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+    }
+    .bebas { font-family: 'Bebas Neue', sans-serif; letter-spacing: .05em; }
+
+    /* ── scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* ── header gradient ── */
+    .header-bg {
+      background: linear-gradient(135deg,
+        #0A0E2A 0%, #1A1040 30%, #0D1830 60%, #081A28 100%);
+      border-bottom: 2px solid var(--gold);
+      position: relative;
+      overflow: hidden;
+    }
+    .header-bg::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url('/static/wc2026-bg.png') center/cover no-repeat;
+      opacity: .12;
+    }
+    .header-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 0%, rgba(245,197,24,.07) 0%, transparent 65%);
+    }
+    .header-inner { position: relative; z-index: 1; }
+    .wc-logo {
+      height: 72px; width: auto;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,.5));
+    }
+    @media (max-width:640px) { .wc-logo { height: 52px; } }
+    .wc-stripe {
+      height: 4px;
+      background: linear-gradient(90deg, #B91C1C, #EAB308, #16A34A, #2563EB, #7C3AED, #DB2777);
+    }
+
+    /* ── cards ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: border-color .2s;
+    }
+    .card:hover { border-color: rgba(245,197,24,.3); }
+
+    /* ── podium ── */
+    .podium-wrap {
+      display: flex; align-items: flex-end; justify-content: center;
+      gap: .75rem; margin-bottom: 1.5rem; padding-top: 1rem;
+    }
+    .podium-col {
+      display: flex; flex-direction: column; align-items: center;
+      flex: 1; max-width: 220px;
+    }
+    .podium-player {
+      width: 100%; text-align: center; padding: 1rem .75rem 0;
+      border-radius: 12px 12px 0 0; border: 1px solid var(--border);
+      border-bottom: none; position: relative;
+    }
+    .podium-block {
+      width: 100%; border-radius: 0 0 4px 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: .75rem; color: rgba(0,0,0,.5);
+    }
+    .podium-1st .podium-player { background: linear-gradient(180deg,#2A2000,#1A1508); border-color: var(--gold); margin-bottom: 0; }
+    .podium-1st .podium-block  { height: 90px;  background: linear-gradient(180deg,#F5C518,#B8860B); color: #3d2e00; }
+    .podium-2nd .podium-player { background: linear-gradient(180deg,#1E2228,#111418); border-color: var(--silver); }
+    .podium-2nd .podium-block  { height: 60px;  background: linear-gradient(180deg,#CBD5E1,#94A3B8); color: #1e293b; }
+    .podium-3rd .podium-player { background: linear-gradient(180deg,#1E1510,#100C08); border-color: var(--bronze); }
+    .podium-3rd .podium-block  { height: 40px;  background: linear-gradient(180deg,#CD7F32,#8B5A2B); color: #3d2008; }
+    .prizes-banner {
+      text-align: center; padding: .75rem 1rem; margin-bottom: 1.25rem;
+      background: linear-gradient(90deg, rgba(245,197,24,.08), rgba(245,197,24,.15), rgba(245,197,24,.08));
+      border: 1px solid rgba(245,197,24,.25); border-radius: 12px;
+    }
+    .rest-standings { display: grid; grid-template-columns: repeat(3,1fr); gap: .5rem; margin-bottom: 1.5rem; }
+    @media (max-width:640px) { .rest-standings { grid-template-columns: 1fr; } }
+
+    /* ── match meta ── */
+    .match-header-center { text-align: center; padding: .75rem 0 1rem; border-bottom: 1px solid var(--border); margin-bottom: .75rem; }
+    .match-teams-row { display: flex; align-items: center; justify-content: center; gap: .5rem; flex-wrap: wrap; }
+    .match-flag { font-size: 1.75rem; line-height: 1; }
+    .match-team-name { font-weight: 700; font-size: .95rem; color: #E2E8F0; }
+    .match-vs { color: #64748B; font-size: .75rem; font-weight: 600; }
+    .match-score-big { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--gold); letter-spacing: .08em; margin-top: .35rem; }
+    .match-meta-row { display: flex; align-items: center; justify-content: center; gap: .5rem; flex-wrap: wrap; margin-bottom: .75rem; }
+    .match-venue { font-size: .78rem; color: #94A3B8; }
+    .match-time { font-size: .85rem; font-weight: 700; color: #93C5FD; }
+    .tv-badge { font-size: .68rem; font-weight: 800; padding: .2rem .55rem; border-radius: 4px; letter-spacing: .04em; text-transform: uppercase; }
+    .tv-dazn { background: #111; color: #fff; border: 1px solid #333; }
+    .tv-tve  { background: #1E3A8A; color: #fff; border: 1px solid #3B82F6; }
+
+    /* ── score badges ── */
+    .badge-exact   { background: rgba(34,197,94,.2);  color: #4ADE80; border: 1px solid rgba(34,197,94,.3); }
+    .badge-sign    { background: rgba(59,130,246,.2); color: #93C5FD; border: 1px solid rgba(59,130,246,.3); }
+    .badge-miss    { background: rgba(239,68,68,.15); color: #FCA5A5; border: 1px solid rgba(239,68,68,.25); }
+    .badge-pending { background: rgba(100,116,139,.15); color: #94A3B8; border: 1px solid rgba(100,116,139,.25); }
+
+    /* ── tab nav ── */
+    .tab-btn {
+      padding: .7rem 1.5rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: .95rem;
+      cursor: pointer;
+      transition: all .2s;
+      color: #94A3B8;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+    .tab-btn.active {
+      background: var(--card2);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .tab-btn:hover:not(.active) { color: #CBD5E1; background: var(--card2); }
+
+    /* ── phase filter ── */
+    .phase-btn {
+      padding: .35rem .9rem;
+      border-radius: 20px;
+      font-size: .78rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      color: #94A3B8;
+      transition: all .2s;
+    }
+    .phase-btn.active { background: var(--gold); color: #000; border-color: var(--gold); }
+    .phase-btn:hover:not(.active) { border-color: var(--gold); color: var(--gold); }
+
+    /* ── match card ── */
+    .match-row {
+      border-left: 3px solid var(--border);
+      transition: border-color .2s, background .2s;
+    }
+    .match-row:hover { border-left-color: var(--gold); background: rgba(245,197,24,.03); }
+    .match-row.played { border-left-color: rgba(34,197,94,.5); }
+
+    /* ── sparkline-like bar ── */
+    .score-bar-wrap { background: rgba(255,255,255,.05); border-radius: 4px; overflow: hidden; height: 6px; }
+    .score-bar { height: 6px; border-radius: 4px; transition: width .5s; }
+
+    /* ── loading ── */
+    #loading {
+      position: fixed; inset: 0; background: var(--bg);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 999; transition: opacity .4s;
+    }
+    .spinner {
+      width: 48px; height: 48px;
+      border: 4px solid var(--border);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── responsive table ── */
+    .pred-table th, .pred-table td {
+      padding: .5rem .75rem;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .pred-table th { background: var(--card2); font-size: .75rem; color: #64748B; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+    .pred-table tr:nth-child(even) td { background: rgba(255,255,255,.02); }
+
+    /* ── tooltip ── */
+    .tooltip-wrap { position: relative; display: inline-block; }
+    .tooltip-wrap .tt { 
+      position: absolute; bottom: 125%; left: 50%; transform: translateX(-50%);
+      background: #1E2240; border: 1px solid var(--border);
+      padding: .4rem .7rem; border-radius: 6px; white-space: nowrap;
+      font-size: .75rem; opacity: 0; pointer-events: none;
+      transition: opacity .15s; z-index: 10;
+    }
+    .tooltip-wrap:hover .tt { opacity: 1; }
+
+    /* ── point breakdown chips ── */
+    .brk-chip {
+      display: inline-block;
+      font-size: .65rem;
+      padding: .1rem .45rem;
+      border-radius: 4px;
+      margin: .1rem;
+      background: rgba(255,255,255,.06);
+      color: #94A3B8;
+      white-space: nowrap;
+    }
+    .brk-chip.ok  { background: rgba(34,197,94,.15); color: #4ADE80; }
+    .brk-chip.miss { background: rgba(239,68,68,.1); color: #FCA5A5; }
+
+    /* ── day header ── */
+    .day-header {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .6rem 0;
+      margin-top: 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .day-header:first-child { margin-top: 0; }
+    .day-header .day-name {
+      font-weight: 700;
+      font-size: .95rem;
+      color: var(--gold);
+      text-transform: capitalize;
+    }
+    .day-header .day-count {
+      font-size: .75rem;
+      color: #64748B;
+    }
+
+    /* ── week filter ── */
+    .week-btn {
+      padding: .35rem .85rem;
+      border-radius: 20px;
+      font-size: .78rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      color: #94A3B8;
+      transition: all .2s;
+    }
+    .week-btn.active { background: #1E3A5F; color: #93C5FD; border-color: #3B82F6; }
+    .week-btn:hover:not(.active) { border-color: #3B82F6; color: #93C5FD; }
+
+    /* ── player strengths ── */
+    .strength-card { border-left: 3px solid var(--border); }
+    .strength-badge {
+      display: inline-flex; align-items: center; gap: .35rem;
+      font-size: .72rem; font-weight: 800; padding: .25rem .6rem;
+      border-radius: 20px; background: rgba(245,197,24,.12);
+      border: 1px solid rgba(245,197,24,.35); color: var(--gold);
+      text-transform: uppercase; letter-spacing: .04em;
+    }
+    .skill-rank-row {
+      display: flex; align-items: center; gap: .5rem;
+      padding: .4rem 0; border-bottom: 1px solid rgba(255,255,255,.04);
+      font-size: .82rem;
+    }
+    .skill-rank-row:last-child { border-bottom: none; }
+    .skill-rank-num {
+      width: 1.5rem; height: 1.5rem; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .7rem; font-weight: 800; flex-shrink: 0;
+    }
+    .skill-rank-1 { background: rgba(245,197,24,.25); color: var(--gold); }
+    .skill-rank-2 { background: rgba(203,213,225,.15); color: var(--silver); }
+    .skill-rank-3 { background: rgba(205,127,50,.2); color: var(--bronze); }
+    .skill-rank-n { background: rgba(100,116,139,.15); color: #64748B; }
+    .skill-bar-wrap { background: rgba(255,255,255,.05); border-radius: 3px; height: 5px; flex: 1; min-width: 40px; }
+    .skill-bar { height: 5px; border-radius: 3px; }
+    .ranking-mini-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: .75rem; margin-bottom: 1.25rem;
+    }
+    .ranking-mini-card { padding: .75rem; }
+    .ranking-mini-card h4 { font-size: .75rem; font-weight: 800; color: #94A3B8;
+      text-transform: uppercase; letter-spacing: .05em; margin-bottom: .5rem; }
+    .ranking-mini-row { display: flex; justify-content: space-between; align-items: center;
+      font-size: .78rem; padding: .2rem 0; }
+
+    /* ── trend forecast ── */
+    .forecast-card {
+      background: linear-gradient(135deg, rgba(245,197,24,.06), rgba(245,197,24,.02));
+      border: 1px solid rgba(245,197,24,.25);
+    }
+    .forecast-pick {
+      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+      padding: 1rem; border-radius: 10px; background: var(--card2);
+    }
+
+    /* ── match player grid (no horizontal scroll) ── */
+    .match-players-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .5rem;
+    }
+    @media (min-width: 640px)  { .match-players-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 1024px) { .match-players-grid { grid-template-columns: repeat(6, 1fr); } }
+
+    .player-pred-card {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .6rem .5rem;
+      text-align: center;
+    }
+    .player-pred-card .pname {
+      font-size: .65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: .35rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ── info tooltip ── */
+    .info-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: rgba(59,130,246,.2); color: #93C5FD;
+      font-size: .7rem; font-weight: 700; cursor: help;
+      border: 1px solid rgba(59,130,246,.3); flex-shrink: 0;
+    }
+    .info-wrap { position: relative; display: inline-flex; align-items: center; gap: .4rem; }
+    .info-wrap .info-tip {
+      display: none; position: absolute; bottom: calc(100% + 8px); left: 0;
+      background: #1E2240; border: 1px solid var(--border);
+      padding: .75rem 1rem; border-radius: 8px; width: 280px;
+      font-size: .75rem; color: #CBD5E1; line-height: 1.5;
+      z-index: 50; font-weight: 400; text-align: left;
+      box-shadow: 0 8px 24px rgba(0,0,0,.4);
+    }
+    .info-wrap:hover .info-tip { display: block; }
+
+    /* ── scoring tab ── */
+    .score-rule-row {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: .5rem 0; border-bottom: 1px solid rgba(255,255,255,.04);
+      gap: 1rem;
+    }
+    .score-rule-row:last-child { border-bottom: none; }
+    .score-pts-badge {
+      background: rgba(245,197,24,.15); color: var(--gold);
+      font-weight: 800; font-size: .85rem;
+      padding: .15rem .55rem; border-radius: 6px; white-space: nowrap;
+      border: 1px solid rgba(245,197,24,.25);
+    }
+
+    /* ── footer ── */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      padding: 1.5rem 1rem;
+      text-align: center;
+    }
+    .site-footer a { color: #93C5FD; text-decoration: none; }
+    .site-footer a:hover { color: var(--gold); }
+    .footer-links { display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; margin-top: .5rem; }
+
+    /* ── honor grid ── */
+    .honor-card { background: linear-gradient(135deg, var(--card) 0%, var(--card2) 100%); }
+
+    /* ── pulse animation for live ── */
+    .pulse-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--green); display: inline-block;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .4; transform: scale(.7); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── loading overlay ── -->
+<div id="loading">
+  <div class="spinner mb-4" id="loading-spinner"></div>
+  <p class="text-gray-400 text-sm" id="loading-text">Cargando datos del mundial…</p>
+  <button id="loading-retry" onclick="forceRefresh()"
+    class="hidden mt-4 px-5 py-2 rounded-lg font-semibold text-black text-sm"
+    style="background:var(--gold)">↻ Reintentar</button>
+</div>
+
+<!-- ── WC stripe ── -->
+<div class="wc-stripe"></div>
+
+<!-- ── header ── -->
+<header class="header-bg px-4 py-6 md:px-10">
+  <div class="header-inner max-w-7xl mx-auto flex items-center gap-4">
+    <img src="/static/wc2026-logo.png" alt="Copa Mundial FIFA 2026" class="wc-logo" />
+    <div>
+      <h1 class="bebas text-2xl md:text-4xl text-white tracking-wide leading-tight">
+        PORRA <span style="color:var(--gold)">'LOS NANOS'</span> MUNDIAL 2026
+      </h1>
+      <p class="text-sm md:text-base text-gray-400 mt-1 font-semibold tracking-widest uppercase">
+        USA · CANADA · MEXICO
+      </p>
+    </div>
+  </div>
+</header>
+
+<!-- ── nav tabs ── -->
+<nav class="sticky top-0 z-40 px-4 py-4 md:px-10 border-b" style="background:var(--surface); border-color:var(--border)">
+  <div class="max-w-7xl mx-auto flex gap-2 overflow-x-auto">
+    <button class="tab-btn active" data-tab="standings">🏅 Clasificación</button>
+    <button class="tab-btn" data-tab="progression">📈 Progresión</button>
+    <button class="tab-btn" data-tab="matches">⚽ Partidos</button>
+    <button class="tab-btn" data-tab="honor">🏆 Cuadro de Honor</button>
+    <button class="tab-btn" data-tab="scoring">📋 Sistema de puntuación</button>
+    <button class="tab-btn" data-tab="stats">📊 Estadísticas</button>
+  </div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-4 py-6 md:px-10">
+
+  <!-- ════════════════════════════════════════════
+       TAB: CLASIFICACIÓN
+  ════════════════════════════════════════════ -->
+  <section id="tab-standings">
+
+    <div class="prizes-banner">
+      <span class="text-sm font-bold text-white">🏆 Premios</span>
+      <span class="text-sm text-gray-300 ml-3">🥇 1º → <strong class="text-yellow-400">40€</strong></span>
+      <span class="text-sm text-gray-300 ml-3">🥈 2º → <strong class="text-gray-300">20€</strong></span>
+    </div>
+
+    <!-- podium top 3 -->
+    <div id="podium" class="podium-wrap"></div>
+    <div id="podium-rest" class="rest-standings"></div>
+
+    <!-- full table -->
+    <div class="card overflow-hidden mb-6">
+      <div class="px-6 py-4 border-b" style="border-color:var(--border)">
+        <h2 class="text-lg font-bold text-white">Tabla completa</h2>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="pred-table w-full">
+          <thead>
+            <tr>
+              <th>Pos</th><th>Jugador</th><th>Total</th>
+              <th>F.Grupos</th><th>Pos.Grupos</th><th>Cl.16avos</th>
+              <th>16avos</th><th>Octavos</th><th>Cuartos</th>
+              <th>Semis</th><th>3-4/Final</th><th>C.Honor</th>
+            </tr>
+          </thead>
+          <tbody id="standings-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- fortalezas por jugador -->
+    <div class="card overflow-hidden mb-6">
+      <div class="px-6 py-4 border-b" style="border-color:var(--border)">
+        <h2 class="text-lg font-bold text-white">Fortalezas de cada jugador</h2>
+        <p class="text-xs text-gray-400 mt-1">Ranking por habilidad: exactos, 1X2, diferencia, goles por equipo, fases del torneo…</p>
+      </div>
+      <div class="p-5">
+        <div id="strength-rankings" class="ranking-mini-grid"></div>
+        <div id="strength-profiles" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       TAB: PROGRESIÓN
+  ════════════════════════════════════════════ -->
+  <section id="tab-progression" class="hidden">
+    <div class="card p-6 mb-4">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+        <div>
+          <h2 class="text-lg font-bold text-white">Progresión día a día</h2>
+          <p class="text-sm text-gray-400 mt-1">Puntos acumulados al cierre de cada día natural (hora España)</p>
+        </div>
+        <div class="flex gap-2 flex-wrap" id="prog-legend"></div>
+      </div>
+      <div style="height:380px; position:relative">
+        <canvas id="progressionChart"></canvas>
+      </div>
+    </div>
+
+    <!-- mini scorecards per player -->
+    <div id="prog-cards" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3"></div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       TAB: PARTIDOS
+  ════════════════════════════════════════════ -->
+  <section id="tab-matches" class="hidden">
+    <!-- week filter -->
+    <div class="mb-3">
+      <p class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-2">Semana</p>
+      <div class="flex gap-2 flex-wrap" id="week-filter">
+        <button class="week-btn active" data-week="all">Todas</button>
+      </div>
+    </div>
+    <!-- phase filter -->
+    <div class="mb-5">
+      <p class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-2">Fase</p>
+      <div class="flex gap-2 flex-wrap" id="phase-filter">
+        <button class="phase-btn active" data-phase="all">Todos</button>
+        <button class="phase-btn" data-phase="groups">Fase de Grupos</button>
+        <button class="phase-btn" data-phase="positions">Posiciones</button>
+        <button class="phase-btn" data-phase="q16">Cl. 16avos</button>
+        <button class="phase-btn" data-phase="r16">16avos</button>
+        <button class="phase-btn" data-phase="r8">Octavos</button>
+        <button class="phase-btn" data-phase="r4">Cuartos</button>
+        <button class="phase-btn" data-phase="r2">Semis</button>
+        <button class="phase-btn" data-phase="final">Final</button>
+      </div>
+    </div>
+    <div id="matches-list" class="flex flex-col gap-3"></div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       TAB: CUADRO DE HONOR
+  ════════════════════════════════════════════ -->
+  <section id="tab-honor" class="hidden">
+    <div id="honor-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       TAB: PUNTUACIÓN
+  ════════════════════════════════════════════ -->
+  <section id="tab-scoring" class="hidden">
+    <div id="scoring-content"></div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       TAB: STATS
+  ════════════════════════════════════════════ -->
+  <section id="tab-stats" class="hidden">
+    <div id="trend-forecast" class="card forecast-card p-5 mb-6"></div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div class="card p-5">
+        <div class="info-wrap mb-4">
+          <h3 class="font-bold text-white">Tasa de acierto</h3>
+          <span class="info-btn">i</span>
+          <div class="info-tip">
+            <strong>¿Qué es la tasa de acierto?</strong><br>
+            Porcentaje de partidos de fase de grupos en los que has sumado al menos 1 punto.
+            Si acertaste el signo (1/X/2), la diferencia o el resultado exacto, cuenta como acierto.
+            Ejemplo: 1 partido jugado y sumaste puntos → 100%.
+          </div>
+        </div>
+        <div style="height:260px;position:relative">
+          <canvas id="hitRateChart"></canvas>
+        </div>
+      </div>
+      <div class="card p-5">
+        <h3 class="font-bold text-white mb-4">Distribución de Puntos por Fase</h3>
+        <div style="height:260px;position:relative">
+          <canvas id="phaseChart"></canvas>
+        </div>
+      </div>
+    </div>
+    <div id="stats-detail" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p class="text-sm text-gray-400">
+    Web desarrollada por <a href="https://www.linkedin.com/in/pablocrespobellido/" target="_blank" rel="noopener"><strong class="text-gray-200">Pablo Crespo</strong></a>
+  </p>
+  <div class="footer-links text-xs mt-2">
+    <a href="https://www.linkedin.com/in/pablocrespobellido/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://x.com/CrespoToTheWild" target="_blank" rel="noopener">Twitter / X</a>
+  </div>
+  <p class="text-xs text-gray-600 mt-2">© 2026</p>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   GLOBAL STATE
+═══════════════════════════════════════════════════════════════ */
+let D = null;  // full data
+let progressionChart = null;
+let hitRateChart = null;
+let phaseChart = null;
+let currentPhase = "all";
+let currentWeek  = "all";
+let scrollMatchesToToday = false;
+
+function todaySpainISO() {
+  return new Date().toLocaleDateString("en-CA", { timeZone: "Europe/Madrid" });
+}
+
+function scrollToTodayInMatches() {
+  const today = todaySpainISO();
+  const sections = [...document.querySelectorAll("[data-day-date]")];
+  if (!sections.length) return;
+
+  let target = document.getElementById(`day-${today}`);
+  if (!target) {
+    const dated = sections
+      .map(el => ({ el, d: el.dataset.dayDate }))
+      .filter(x => x.d && x.d !== "sin-fecha")
+      .sort((a, b) => a.d.localeCompare(b.d));
+    target = dated.find(x => x.d >= today)?.el
+          || [...dated].reverse().find(x => x.d < today)?.el
+          || sections[0];
+  }
+  if (target) {
+    const navH = document.querySelector("nav")?.offsetHeight || 0;
+    const top  = target.getBoundingClientRect().top + window.scrollY - navH - 16;
+    window.scrollTo({ top, behavior: "smooth" });
+  }
+}
+
+const PHASE_LABELS = {
+  groups:    "Fase de Grupos",
+  positions: "Posiciones",
+  q16:       "Cl. 16avos",
+  r16:       "16avos",
+  r8:        "Octavos",
+  r4:        "Cuartos",
+  r2:        "Semis",
+  r34:       "3-4 Puesto",
+  final:     "Final",
+  honor:     "C. Honor",
+};
+
+const MEDAL = ["🥇","🥈","🥉","4️⃣","5️⃣","6️⃣"];
+
+/* ═══════════════════════════════════════════════════════════════
+   FETCH DATA
+═══════════════════════════════════════════════════════════════ */
+async function loadData() {
+  const loadingEl  = document.getElementById("loading");
+  const loadingTxt = document.getElementById("loading-text");
+  const retryBtn   = document.getElementById("loading-retry");
+  const spinner    = document.getElementById("loading-spinner");
+
+  try {
+    loadingEl.style.display = "flex";
+    loadingEl.style.opacity = "1";
+    loadingTxt.textContent = "Cargando datos del mundial…";
+    loadingTxt.style.color = "";
+    retryBtn.classList.add("hidden");
+    spinner.classList.remove("hidden");
+
+    const res = await fetch("/api/data");
+    const json = await res.json();
+
+    if (!res.ok || json.error) {
+      throw new Error(json.detail || json.error || `Error del servidor (${res.status})`);
+    }
+
+    D = json;
+    render();
+    loadingEl.style.opacity = "0";
+    setTimeout(() => loadingEl.style.display = "none", 400);
+  } catch (err) {
+    console.error("loadData error:", err);
+    spinner.classList.add("hidden");
+    loadingTxt.innerHTML = `<span style="color:#FCA5A5">⚠ Error al cargar datos</span><br><span class="text-xs text-gray-500 mt-2 block">${err.message || err}</span>`;
+    retryBtn.classList.remove("hidden");
+  }
+}
+
+async function forceRefresh() {
+  document.getElementById("loading").style.display = "flex";
+  document.getElementById("loading").style.opacity = "1";
+  await fetch("/api/refresh");
+  await loadData();
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RENDER EVERYTHING
+═══════════════════════════════════════════════════════════════ */
+function render() {
+  renderPodium();
+  renderStandingsTable();
+  renderPlayerStrengths();
+  renderWeekFilter();
+  renderMatches(currentPhase, currentWeek);
+  renderProgression();
+  renderHonor();
+  renderScoring();
+  renderStats();
+}
+
+/* ─── PODIUM ─── */
+function renderPodium() {
+  const container = document.getElementById("podium");
+  const restEl    = document.getElementById("podium-rest");
+  const top3 = D.standings.slice(0, 3);
+  const order  = [{ idx: 1, cls: "podium-2nd", medal: "🥈", prize: "20€" },
+                  { idx: 0, cls: "podium-1st", medal: "🥇", prize: "40€" },
+                  { idx: 2, cls: "podium-3rd", medal: "🥉", prize: "" }];
+
+  container.innerHTML = order.map(({ idx, cls, medal, prize }) => {
+    const p = top3[idx];
+    if (!p) return "";
+    const prizeLbl = prize ? `<div class="text-xs font-bold mt-1" style="color:var(--gold)">${prize}</div>` : "";
+    return `
+      <div class="podium-col ${cls}">
+        <div class="podium-player">
+          <div class="text-3xl mb-1">${medal}</div>
+          <div class="font-extrabold text-white uppercase text-sm tracking-wide">${p.name}</div>
+          <div class="bebas text-3xl mt-1" style="color:${p.color}">${p.total}</div>
+          <div class="text-xs text-gray-500">puntos</div>
+          ${prizeLbl}
+        </div>
+        <div class="podium-block">${idx === 0 ? "1º" : idx === 1 ? "2º" : "3º"}</div>
+      </div>`;
+  }).join("");
+
+  const rest = D.standings.slice(3);
+  restEl.innerHTML = rest.map(p => `
+    <div class="card p-3 flex items-center justify-between" style="border-left:3px solid ${p.color}">
+      <div>
+        <span class="text-xs text-gray-500 font-bold">#${p.pos}</span>
+        <span class="font-bold text-white ml-2">${p.name}</span>
+      </div>
+      <span class="bebas text-xl" style="color:${p.color}">${p.total}</span>
+    </div>`).join("");
+}
+
+function matchTeamsHtml(m) {
+  const home = m.home || (m.name.includes("-") ? m.name.split("-")[0].trim() : m.name);
+  const away = m.away || (m.name.includes("-") ? m.name.split("-").slice(1).join("-").trim() : "");
+  const fh = m.flag_home || "🏳️";
+  const fa = m.flag_away || "🏳️";
+  const score = m.played && m.result
+    ? m.result.score.replace("-", " - ")
+    : "vs";
+  return `
+    <div class="match-header-center">
+      <div class="match-teams-row">
+        <span class="match-flag">${fh}</span>
+        <span class="match-team-name">${home}</span>
+        <span class="match-vs">vs</span>
+        <span class="match-team-name">${away}</span>
+        <span class="match-flag">${fa}</span>
+      </div>
+      <div class="match-score-big">${score}</div>
+    </div>`;
+}
+
+function matchMetaHtml(m) {
+  const parts = [];
+  if (m.time_es) parts.push(`<span class="match-time">${m.time_es} horas</span>`);
+  if (m.city && m.country) {
+    parts.push(`<span class="match-venue">📍 ${m.city} (${m.country})</span>`);
+  }
+  if (m.tv === "both") {
+    parts.push(`<span class="tv-badge tv-dazn">DAZN</span><span class="tv-badge tv-tve">TVE La 1</span>`);
+  } else if (m.tv === "tve") {
+    parts.push(`<span class="tv-badge tv-tve">TVE La 1</span>`);
+  } else if (m.tv === "dazn") {
+    parts.push(`<span class="tv-badge tv-dazn">DAZN</span>`);
+  }
+  if (!parts.length) return "";
+  return `<div class="match-meta-row">${parts.join("")}</div>`;
+}
+
+/* ─── STANDINGS TABLE ─── */
+function renderStandingsTable() {
+  const tbody = document.getElementById("standings-table");
+  tbody.innerHTML = D.standings.map(p => {
+    const medal = p.pos <= 3 ? MEDAL[p.pos-1] + " " : "";
+    return `<tr>
+      <td class="font-bold" style="color:${p.color}">${p.pos}</td>
+      <td class="text-left font-semibold text-white">${medal}${p.name}</td>
+      <td class="font-extrabold text-lg" style="color:${p.color}">${p.total}</td>
+      <td>${p.groups}</td><td>${p.positions}</td><td>${p.q16}</td>
+      <td>${p.r16}</td><td>${p.r8}</td><td>${p.r4}</td>
+      <td>${p.r2}</td><td>${p.r34_final}</td><td>${p.honor}</td>
+    </tr>`;
+  }).join("");
+}
+
+/* ─── PLAYER STRENGTHS ─── */
+function renderPlayerStrengths() {
+  const ps = D.player_strengths;
+  if (!ps) return;
+
+  const rankEl = document.getElementById("strength-rankings");
+  const profEl = document.getElementById("strength-profiles");
+
+  // Mini leaderboards — only skills with activity, top 3 each
+  const activeSkills = (ps.skills || []).filter(sk => {
+    const rows = ps.rankings[sk.key] || [];
+    return rows.some(r => r.value > 0);
+  });
+  rankEl.innerHTML = activeSkills.map(sk => {
+    const rows = (ps.rankings[sk.key] || []).filter(r => r.value > 0).slice(0, 3);
+    if (!rows.length) return "";
+    return `<div class="card ranking-mini-card">
+      <h4>${sk.icon} ${sk.label}</h4>
+      ${rows.map(r => `
+        <div class="ranking-mini-row">
+          <span><span style="color:${r.color};font-weight:800">#${r.rank}</span> ${r.name}</span>
+          <span class="text-gray-400 text-xs">${r.display}</span>
+        </div>`).join("")}
+    </div>`;
+  }).join("");
+
+  // Per-player profile cards
+  profEl.innerHTML = (ps.players || []).map(p => {
+    const badges = (p.badges || []).map(b =>
+      `<span class="strength-badge">${b.icon} ${b.label}</span>`
+    ).join(" ");
+    const bestPhase = p.best_phase
+      ? `<p class="text-xs text-gray-500 mt-2">Más puntos en: <strong class="text-gray-300">${p.best_phase.label}</strong> (${p.best_phase.pts} pts)</p>`
+      : "";
+
+    const skillsHtml = (p.top_skills || []).map(sk => {
+      const rc = sk.rank === 1 ? "skill-rank-1" : sk.rank === 2 ? "skill-rank-2" : sk.rank === 3 ? "skill-rank-3" : "skill-rank-n";
+      const maxRank = D.meta.players.length;
+      const pct = Math.round((1 - (sk.rank - 1) / Math.max(maxRank - 1, 1)) * 100);
+      return `<div class="skill-rank-row">
+        <span class="skill-rank-num ${rc}">${sk.rank}</span>
+        <div class="flex-1 min-w-0">
+          <div class="flex justify-between gap-2">
+            <span class="text-gray-200 font-semibold truncate">${sk.icon} ${sk.label}</span>
+            <span class="text-xs text-gray-500 shrink-0">${sk.display}</span>
+          </div>
+          <div class="skill-bar-wrap mt-1"><div class="skill-bar" style="width:${pct}%;background:${p.color}"></div></div>
+        </div>
+      </div>`;
+    }).join("");
+
+    const s = p.stats || {};
+    const detailGrid = p.matches_played > 0 ? `
+      <div class="grid grid-cols-3 gap-2 mt-3 pt-3 border-t text-center" style="border-color:var(--border)">
+        <div><div class="text-xs text-gray-500">1X2</div><div class="font-bold text-sm" style="color:${p.color}">${s.hits_1x2}/${p.matches_played}</div></div>
+        <div><div class="text-xs text-gray-500">Dif.</div><div class="font-bold text-sm" style="color:${p.color}">${s.hits_diff}/${p.matches_played}</div></div>
+        <div><div class="text-xs text-gray-500">Exactos</div><div class="font-bold text-sm" style="color:${p.color}">${s.hits_exact}/${p.matches_played}</div></div>
+      </div>` : `<p class="text-xs text-gray-600 mt-3">Sin partidos jugados aún</p>`;
+
+    return `<div class="card strength-card p-4" style="border-left-color:${p.color}">
+      <div class="flex items-start justify-between gap-2 mb-3">
+        <div>
+          <span class="font-extrabold text-white uppercase text-lg">${p.name}</span>
+          <span class="text-xs text-gray-500 ml-2">#${p.pos}</span>
+          ${badges ? `<div class="flex flex-wrap gap-1.5 mt-2">${badges}</div>` : ""}
+        </div>
+      </div>
+      <p class="text-xs font-bold text-gray-500 uppercase mb-2">Top habilidades</p>
+      ${skillsHtml || `<p class="text-xs text-gray-600">Aún sin datos suficientes</p>`}
+      ${detailGrid}
+      ${bestPhase}
+    </div>`;
+  }).join("");
+}
+
+/* ─── WEEK FILTER ─── */
+function renderWeekFilter() {
+  const el = document.getElementById("week-filter");
+  const weeks = D.meta.weeks || [];
+  el.innerHTML = `<button class="week-btn ${currentWeek==='all'?'active':''}" data-week="all">Todas</button>` +
+    weeks.map(w => `<button class="week-btn ${currentWeek===w.id?'active':''}" data-week="${w.id}">${w.label}</button>`).join("");
+  el.querySelectorAll(".week-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      el.querySelectorAll(".week-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentWeek = btn.dataset.week;
+      renderMatches(currentPhase, currentWeek);
+    });
+  });
+}
+
+/* ─── PROGRESSION CHART (daily) ─── */
+function renderProgression() {
+  const players = D.meta.players;
+  const colors  = D.meta.colors;
+  const prog    = D.progression;
+  const labels  = prog.labels || [];
+  const dates   = prog.dates  || [];
+
+  const datasets = players.map(name => ({
+    label: name,
+    data:  (prog.players && prog.players[name]) || [],
+    borderColor: colors[name],
+    backgroundColor: colors[name] + "22",
+    borderWidth: 2.5,
+    pointRadius: 4,
+    pointHoverRadius: 7,
+    tension: 0.25,
+    fill: false,
+  }));
+
+  if (progressionChart) progressionChart.destroy();
+  const ctx = document.getElementById("progressionChart").getContext("2d");
+  progressionChart = new Chart(ctx, {
+    type: "line",
+    data: { labels, datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: "index", intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: "#1C2240",
+          borderColor: "#2A3060",
+          borderWidth: 1,
+          titleColor: "#F5C518",
+          bodyColor: "#E2E8F0",
+          callbacks: {
+            title: items => {
+              const i = items[0].dataIndex;
+              const dayPts = prog.day_points?.[items[0].dataset.label]?.[i];
+              const dateStr = dates[i] || labels[i];
+              return `${dateStr}${dayPts > 0 ? ` (+${dayPts} hoy)` : ""}`;
+            },
+            label: item => ` ${item.dataset.label}: ${item.parsed.y} pts acumulados`,
+          }
+        }
+      },
+      scales: {
+        x: {
+          title: { display: true, text: "Día (hora España)", color: "#64748B", font: { size: 11 } },
+          grid: { color: "rgba(255,255,255,.05)" },
+          ticks: { color: "#475569", font: { size: 10 }, maxRotation: 45 }
+        },
+        y: {
+          title: { display: true, text: "Puntos acumulados", color: "#64748B", font: { size: 11 } },
+          beginAtZero: true,
+          grid: { color: "rgba(255,255,255,.05)" },
+          ticks: { color: "#475569", font: { size: 11 } }
+        }
+      }
+    }
+  });
+
+  // legend
+  const legend = document.getElementById("prog-legend");
+  legend.innerHTML = players.map(name => `
+    <div class="flex items-center gap-1.5 text-xs font-semibold">
+      <div style="width:12px;height:12px;border-radius:3px;background:${colors[name]}"></div>
+      <span>${name}</span>
+    </div>`).join("");
+
+  // mini cards — show current total + last day delta
+  const cardsEl = document.getElementById("prog-cards");
+  const maxTotal = Math.max(...D.standings.map(s => s.total), 1);
+  cardsEl.innerHTML = D.standings.map(p => {
+    const series = prog.players?.[p.name] || [];
+    const last   = series.at(-1) || 0;
+    const prev   = series.length > 1 ? series.at(-2) : 0;
+    const todayDelta = prog.day_points?.[p.name]?.at(-1) || 0;
+    const pct  = Math.round((last / maxTotal) * 100);
+    const matchesPl = p.played || 0;
+    const avg = matchesPl > 0 ? (p.groups / matchesPl).toFixed(1) : "—";
+    return `
+      <div class="card p-4 text-center">
+        <div class="text-xs text-gray-400 uppercase font-bold tracking-wider mb-2">${p.name}</div>
+        <div class="bebas text-3xl" style="color:${p.color}">${last}</div>
+        <div class="text-xs text-gray-500 mb-1">acumulado</div>
+        ${todayDelta > 0 ? `<div class="text-xs font-bold mb-2" style="color:var(--green)">+${todayDelta} último día</div>` : `<div class="mb-2"></div>`}
+        <div class="score-bar-wrap mb-2">
+          <div class="score-bar" style="background:${p.color};width:${pct}%"></div>
+        </div>
+        <div class="text-xs text-gray-400">~${avg} pts/partido</div>
+      </div>`;
+  }).join("");
+}
+
+/* ─── MATCHES ─── */
+function renderMatches(phase, week) {
+  const list = document.getElementById("matches-list");
+  let filtered = phase === "all" ? D.matches : D.matches.filter(m => m.phase === phase);
+
+  // week filter (only applies when date_es is set)
+  if (week && week !== "all") {
+    const wk = (D.meta.weeks || []).find(w => w.id === week);
+    if (wk) {
+      filtered = filtered.filter(m => m.date && m.date >= wk.from && m.date <= wk.to);
+    }
+  }
+
+  if (filtered.length === 0) {
+    list.innerHTML = `<div class="card p-8 text-center text-gray-500">Sin partidos en este filtro</div>`;
+    return;
+  }
+
+  const players = D.meta.players;
+  const colors  = D.meta.colors;
+
+  // group by day (Spain date) — sin fecha al final
+  const NO_DATE = "Sin fecha";
+  const byDay = {};
+  filtered.forEach(m => {
+    const hasDate = m.date && m.date.length >= 10;
+    const key = hasDate ? (m.day_label || m.date) : NO_DATE;
+    if (!byDay[key]) byDay[key] = [];
+    byDay[key].push(m);
+  });
+
+  // ordenar días: más antiguos arriba, sin fecha abajo del todo
+  const dayKeys = Object.keys(byDay).sort((a, b) => {
+    const da = byDay[a][0]?.date || "";
+    const db = byDay[b][0]?.date || "";
+    const aNoDate = a === NO_DATE || !da;
+    const bNoDate = b === NO_DATE || !db;
+    if (aNoDate && bNoDate) return 0;
+    if (aNoDate) return 1;
+    if (bNoDate) return -1;
+    return da.localeCompare(db);
+  });
+
+  list.innerHTML = dayKeys.map(dayKey => {
+    const dayMatches = [...byDay[dayKey]].sort((a, b) => {
+      if (a.time_es && b.time_es) return a.time_es.localeCompare(b.time_es);
+      return (a.row || 0) - (b.row || 0);
+    });
+    const count = dayMatches.length;
+    const playedInDay = dayMatches.filter(m => m.played).length;
+    const isoDate = dayMatches[0]?.date || "sin-fecha";
+    const dayId = isoDate === "sin-fecha" ? "day-sin-fecha" : `day-${isoDate}`;
+
+    const cards = dayMatches.map(m => renderMatchCard(m, players, colors)).join("");
+
+    return `
+      <div class="day-header" id="${dayId}" data-day-date="${isoDate}">
+        <span class="day-name">${dayKey === NO_DATE ? "Sin fecha" : dayKey}</span>
+        <span class="day-count">${count} partido${count!==1?"s":""}${playedInDay ? ` · ${playedInDay} jugado${playedInDay!==1?"s":""}` : ""}</span>
+      </div>
+      ${cards}`;
+  }).join("");
+
+  if (scrollMatchesToToday && !document.getElementById("tab-matches").classList.contains("hidden")) {
+    scrollMatchesToToday = false;
+    requestAnimationFrame(() => setTimeout(scrollToTodayInMatches, 120));
+  }
+}
+
+function renderMatchCard(m, players, colors) {
+  const playedClass = m.played ? "played" : "";
+
+  const playerCards = players.map(name => {
+    const pd = m.predictions[name];
+    if (!pd || !pd.pred) {
+      return `<div class="player-pred-card opacity-40">
+        <div class="pname" style="color:${colors[name]}">${name}</div>
+        <span class="text-xs text-gray-600">—</span>
+      </div>`;
+    }
+    let badgeClass = "badge-pending";
+    if (m.played) {
+      if (pd.score > 0) {
+        const isExact = m.result && pd.pred.score === m.result.score;
+        badgeClass = isExact ? "badge-exact" : "badge-sign";
+      } else {
+        badgeClass = "badge-miss";
+      }
+    }
+    const predTxt = pd.pred.score || pd.pred.sign;
+
+    let brkHtml = "";
+    if (m.played && pd.breakdown && pd.breakdown.reasons.length) {
+      brkHtml = `<div class="mt-1 flex flex-wrap justify-center gap-0.5">
+        ${pd.breakdown.reasons.map(r =>
+          `<span class="brk-chip ${r.includes('incorrecto')||r.includes('no acertada')?'miss':'ok'}">${r}</span>`
+        ).join("")}
+      </div>`;
+    } else if (m.played && pd.score === 0) {
+      brkHtml = `<div class="mt-1"><span class="brk-chip miss">0 pts</span></div>`;
+    }
+
+    return `<div class="player-pred-card">
+      <div class="pname" style="color:${colors[name]}">${name}</div>
+      <span class="${badgeClass} px-2 py-0.5 rounded text-xs font-mono">${predTxt}</span>
+      ${m.played ? `<div class="text-base font-extrabold mt-1" style="color:${pd.score > 0 ? colors[name] : '#EF4444'}">${pd.score > 0 ? "+"+pd.score : "✗"}</div>` : ""}
+      ${brkHtml}
+    </div>`;
+  }).join("");
+
+  return `
+    <div class="card match-row ${playedClass} p-4 mb-2">
+      ${matchTeamsHtml(m)}
+      ${matchMetaHtml(m)}
+      <div class="flex items-center gap-2 flex-wrap mb-3 justify-center">
+        <span class="text-xs px-2 py-0.5 rounded font-bold uppercase tracking-wide"
+              style="background:var(--card2);color:#94A3B8">${PHASE_LABELS[m.phase] || m.phase}</span>
+        ${m.played ? `<span class="text-xs font-bold" style="color:var(--green)">✓ Jugado</span>` : `<span class="text-xs text-gray-600">⏳ Pendiente</span>`}
+      </div>
+      <div class="match-players-grid">${playerCards}</div>
+    </div>`;
+}
+
+/* ─── PUNTUACIÓN ─── */
+function renderScoring() {
+  const el = document.getElementById("scoring-content");
+  const sr = D.scoring_rules;
+  if (!sr) { el.innerHTML = ""; return; }
+
+  const adj = sr.diff_adjustment;
+  const adjPct = adj > 0 ? Math.round(adj * 100) : 0;
+
+  const sectionsHtml = sr.sections.map(sec => {
+    const rows = sec.items.map(item => {
+      const shortLabel = item.label
+        .replace(/^FASE DE GRUPOS – /, "")
+        .replace(/^DIECISEISAVOS – /, "")
+        .replace(/^OCTAVOS – ?/, "")
+        .replace(/^CUARTOS – ?/, "")
+        .replace(/^SEMIFINALES – ?/, "")
+        .replace(/^3ºy4º PUESTO – /, "")
+        .replace(/^FINAL – /, "");
+      return `<div class="score-rule-row">
+        <span class="text-sm text-gray-300 flex-1">${shortLabel}</span>
+        <span class="score-pts-badge">${item.pts} pts</span>
+      </div>`;
+    }).join("");
+    const maxInSection = sec.items.reduce((s, i) => s + i.pts, 0);
+    return `<div class="card p-5">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="font-bold text-white">${sec.title}</h3>
+        ${sec.items.length > 1 ? `<span class="text-xs text-gray-500">máx. ${maxInSection} pts</span>` : ""}
+      </div>
+      ${rows}
+    </div>`;
+  }).join("");
+
+  el.innerHTML = `
+    <div class="card p-5 mb-5">
+      <h2 class="text-lg font-bold text-white mb-2">Sistema de puntuación — Los Nanos</h2>
+      <p class="text-sm text-gray-400 mb-3">
+        Valores configurados en nuestro Excel. Basado en el sistema
+        <a href="https://matejero.es/puntuaciones-excel-mundial-2026/" target="_blank" rel="noopener"
+           class="text-blue-400 hover:text-yellow-400">Matejero Excel Mundial 2026</a>.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-1 gap-3 text-sm max-w-xs">
+        <div class="rounded-lg p-3" style="background:var(--card2)">
+          <div class="text-xs text-gray-500 uppercase font-bold mb-1">Máx. por partido (grupos)</div>
+          <div class="bebas text-2xl text-yellow-400">${sr.max_per_group_match} pts</div>
+          <div class="text-xs text-gray-500 mt-1">1X2 + Diferencia + Exacto</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-5 mb-5">
+      <h3 class="font-bold text-white mb-3">¿Cómo se puntúa un partido?</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+        <div class="rounded-lg p-4 border" style="border-color:var(--border)">
+          <div class="font-bold text-blue-400 mb-1">1️⃣ Signo 1X2</div>
+          <p class="text-gray-400 text-xs">Acertar si gana el local (1), empatan (X) o gana el visitante (2).</p>
+        </div>
+        <div class="rounded-lg p-4 border" style="border-color:var(--border)">
+          <div class="font-bold text-green-400 mb-1">2️⃣ Diferencia de goles</div>
+          <p class="text-gray-400 text-xs">Solo si acertaste el 1X2. Premia acertar cuántos goles separan a los equipos.</p>
+        </div>
+        <div class="rounded-lg p-4 border" style="border-color:var(--border)">
+          <div class="font-bold text-yellow-400 mb-1">3️⃣ Resultado exacto</div>
+          <p class="text-gray-400 text-xs">Acertar el marcador exacto (ej. 2-0). Se suma además del 1X2 y la diferencia.</p>
+        </div>
+      </div>
+      <p class="text-xs text-gray-500 mt-3">
+        En eliminatorias con empate al 90′ cuenta el resultado del minuto 120′.
+        Los criterios de «Equipo clasificado para…» suman si acertaste qué equipo pasa, independientemente del partido concreto.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${sectionsHtml}</div>
+  `;
+}
+
+/* ─── CUADRO DE HONOR ─── */
+function renderHonor() {
+  const grid = document.getElementById("honor-grid");
+  const players = D.meta.players;
+  const colors  = D.meta.colors;
+
+  grid.innerHTML = D.honor.map(h => {
+    const predsHtml = players.map(name => {
+      const p = h.predictions[name];
+      if (!p || !p.pred) return `<div class="text-gray-500 text-xs">—</div>`;
+      const isCorrect = h.actual && p.pred === h.actual;
+      return `
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold w-20 truncate" style="color:${colors[name]}">${name}</span>
+          <span class="px-2 py-0.5 rounded text-xs font-semibold ${isCorrect ? "badge-exact" : "text-gray-300"}"
+                style="${!isCorrect ? "background:var(--card2)" : ""}">${p.pred}</span>
+          ${p.score > 0 ? `<span class="text-xs font-bold" style="color:var(--green)">+${p.score}</span>` : ""}
+        </div>`;
+    }).join("");
+
+    return `
+      <div class="card honor-card p-5">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-extrabold text-white text-base">${h.title}</h3>
+          ${h.actual ? `<span class="badge-exact px-2 py-0.5 rounded text-xs font-bold">${h.actual}</span>` : `<span class="badge-pending px-2 py-0.5 rounded text-xs">TBD</span>`}
+        </div>
+        <div class="flex flex-col gap-2">${predsHtml}</div>
+      </div>`;
+  }).join("");
+}
+
+/* ─── TREND FORECAST ─── */
+function renderTrendForecast() {
+  const el = document.getElementById("trend-forecast");
+  if (!el || !D) return;
+
+  const colors = D.meta.colors;
+  const players = D.meta.players;
+  const standings = D.standings;
+  const prog = D.progression || {};
+  const dayPts = prog.day_points || {};
+  const series = prog.players || {};
+
+  const groupMatches = D.matches.filter(m => m.phase === "groups");
+  const played = groupMatches.filter(m => m.played).length;
+  const totalGroup = groupMatches.length;
+  const remaining = Math.max(totalGroup - played, 0);
+
+  const currentLeader = standings[0];
+
+  // Mejor ritmo reciente (último día con puntos)
+  let hotStreak = { name: null, pts: -1, color: "#888" };
+  players.forEach(name => {
+    const daily = dayPts[name] || [];
+    const last = daily.length ? daily[daily.length - 1] : 0;
+    if (last > hotStreak.pts) hotStreak = { name, pts: last, color: colors[name] };
+  });
+
+  // Proyección: ritmo en fase de grupos × partidos restantes + puntos fuera de grupos
+  const projections = players.map(name => {
+    const st = standings.find(s => s.name === name) || {};
+    const groupsPts = st.groups || 0;
+    const nonGroups = (st.total || 0) - groupsPts;
+    const avgPerMatch = played > 0 ? groupsPts / played : 0;
+
+    // Tendencia: pendiente de la curva acumulada (pts/día)
+    const s = series[name] || [];
+    let slope = 0;
+    if (s.length >= 2) slope = (s[s.length - 1] - s[s.length - 2]);
+    else if (s.length === 1) slope = s[0];
+
+    const projGroups = groupsPts + avgPerMatch * remaining;
+    const projTotal = nonGroups + projGroups;
+    return { name, color: colors[name], pos: st.pos, total: st.total || 0,
+             avgPerMatch, projTotal: Math.round(projTotal * 10) / 10, slope };
+  });
+
+  projections.sort((a, b) => b.projTotal - a.projTotal);
+  const trendPick = projections[0];
+  const differentPick = trendPick && currentLeader && trendPick.name !== currentLeader.name;
+
+  const note = played < 3
+    ? "Con pocos partidos jugados, la proyección es orientativa y cambiará mucho."
+    : "Proyección basada en la media de puntos por partido en fase de grupos.";
+
+  el.innerHTML = `
+    <h3 class="font-bold text-white text-lg mb-1">🔮 Pronóstico por tendencia</h3>
+    <p class="text-xs text-gray-400 mb-4">${note}</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+      <div class="forecast-pick">
+        <div>
+          <div class="text-xs text-gray-500 uppercase font-bold mb-1">Líder actual</div>
+          <div class="font-extrabold text-white text-lg uppercase" style="color:${currentLeader?.color}">${currentLeader?.name || "—"}</div>
+          <div class="text-sm text-gray-400">${currentLeader?.total || 0} pts · #${currentLeader?.pos || "—"}</div>
+        </div>
+      </div>
+      <div class="forecast-pick">
+        <div>
+          <div class="text-xs text-gray-500 uppercase font-bold mb-1">Mejor ritmo (último día)</div>
+          <div class="font-extrabold text-lg uppercase" style="color:${hotStreak.color}">${hotStreak.name || "—"}</div>
+          <div class="text-sm text-gray-400">${hotStreak.pts > 0 ? "+" + hotStreak.pts + " pts ayer" : "Sin puntos ayer"}</div>
+        </div>
+      </div>
+      <div class="forecast-pick" style="border:1px solid rgba(245,197,24,.3)">
+        <div>
+          <div class="text-xs uppercase font-bold mb-1" style="color:var(--gold)">Proyección al cierre de grupos</div>
+          <div class="font-extrabold text-lg uppercase" style="color:${trendPick?.color}">${trendPick?.name || "—"}</div>
+          <div class="text-sm text-gray-400">~${trendPick?.projTotal || 0} pts totales estimados</div>
+        </div>
+      </div>
+    </div>
+    ${differentPick ? `<p class="text-sm text-gray-300">
+      <strong style="color:var(--gold)">Ojo:</strong> ${currentLeader.name} lidera ahora, pero si ${trendPick.name} mantiene su ritmo
+      (~${trendPick.avgPerMatch.toFixed(1)} pts/partido), podría acabar por delante en la fase de grupos.
+    </p>` : played > 0 ? `<p class="text-sm text-gray-400">
+      ${currentLeader?.name} lidera y, con el ritmo actual, sigue favorito en la proyección de grupos.
+    </p>` : `<p class="text-sm text-gray-400">Aún no hay partidos jugados para proyectar tendencias.</p>`}
+    <div class="mt-4 pt-3 border-t" style="border-color:var(--border)">
+      <p class="text-xs text-gray-500 uppercase font-bold mb-2">Ranking proyectado (fase de grupos)</p>
+      <div class="flex flex-wrap gap-2">
+        ${projections.map((p, i) => `
+          <span class="text-xs px-2 py-1 rounded font-bold" style="background:${p.color}22;color:${p.color};border:1px solid ${p.color}44">
+            ${i + 1}. ${p.name} ~${p.projTotal}pts
+          </span>`).join("")}
+      </div>
+    </div>`;
+}
+
+/* ─── STATS ─── */
+function renderStats() {
+  renderTrendForecast();
+  const players = D.meta.players;
+  const colors  = D.meta.colors;
+
+  // Hit rate = matches where score > 0 / total played
+  const groupMatches = D.matches.filter(m => m.phase === "groups" && m.played);
+  const hitData = players.map(name => {
+    const hits = groupMatches.filter(m => m.predictions[name]?.score > 0).length;
+    return { name, hits, total: groupMatches.length, pct: groupMatches.length > 0 ? Math.round(hits / groupMatches.length * 100) : 0 };
+  });
+
+  if (hitRateChart) hitRateChart.destroy();
+  const ctx1 = document.getElementById("hitRateChart").getContext("2d");
+  hitRateChart = new Chart(ctx1, {
+    type: "bar",
+    data: {
+      labels: hitData.map(h => h.name),
+      datasets: [{
+        label: "% Acierto",
+        data: hitData.map(h => h.pct),
+        backgroundColor: players.map(n => colors[n] + "99"),
+        borderColor: players.map(n => colors[n]),
+        borderWidth: 2,
+        borderRadius: 6,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: i => ` ${i.parsed.y}% (${hitData[i.dataIndex].hits}/${hitData[i.dataIndex].total})` } } },
+      scales: {
+        y: { beginAtZero: true, max: 100, grid: { color: "rgba(255,255,255,.05)" }, ticks: { color: "#475569", callback: v => v + "%" } },
+        x: { grid: { display: false }, ticks: { color: "#94A3B8", font: { weight: "bold" } } }
+      }
+    }
+  });
+
+  // Phase breakdown chart
+  if (phaseChart) phaseChart.destroy();
+  const ctx2 = document.getElementById("phaseChart").getContext("2d");
+  const phases = ["groups", "positions", "q16", "r16", "r8", "r4", "r2", "r34_final", "honor"];
+  const phLabels = phases.map(p => PHASE_LABELS[p] || p);
+  phaseChart = new Chart(ctx2, {
+    type: "bar",
+    data: {
+      labels: phLabels,
+      datasets: D.standings.map(p => ({
+        label: p.name,
+        data: phases.map(ph => p[ph] || 0),
+        backgroundColor: p.color + "88",
+        borderColor: p.color,
+        borderWidth: 1.5,
+        borderRadius: 4,
+      }))
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: "#94A3B8", font: { size: 10 } } },
+        tooltip: { mode: "index" }
+      },
+      scales: {
+        x: { stacked: false, grid: { display: false }, ticks: { color: "#64748B", font: { size: 8 }, maxRotation: 35 } },
+        y: { grid: { color: "rgba(255,255,255,.05)" }, ticks: { color: "#475569" } }
+      }
+    }
+  });
+
+  // stat cards
+  const detail = document.getElementById("stats-detail");
+  detail.innerHTML = D.standings.map(p => {
+    const matches = groupMatches.length;
+    const hits    = groupMatches.filter(m => m.predictions[p.name]?.score > 0).length;
+    const exacts  = groupMatches.filter(m => {
+      const pd = m.predictions[p.name];
+      return pd?.score > 3;   // approximate: >3 means exact (sign+dist+exact = 6 max)
+    }).length;
+    const avg = matches > 0 ? (p.groups / matches).toFixed(2) : "—";
+    const pct = matches > 0 ? Math.round(hits / matches * 100) : 0;
+    return `
+      <div class="card p-5" style="border-color:${p.color}44">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-3 h-10 rounded-full" style="background:${p.color}"></div>
+          <div>
+            <div class="font-extrabold text-white text-lg uppercase">${p.name}</div>
+            <div class="text-xs text-gray-400">#${p.pos} en clasificación</div>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3 text-sm">
+          <div class="bg-opacity-10 rounded-lg p-3 text-center" style="background:${p.color}15">
+            <div class="bebas text-2xl" style="color:${p.color}">${p.total}</div>
+            <div class="text-gray-400 text-xs">Puntos totales</div>
+          </div>
+          <div class="rounded-lg p-3 text-center" style="background:rgba(255,255,255,.04)">
+            <div class="bebas text-2xl text-white">${pct}%</div>
+            <div class="text-gray-400 text-xs">Tasa de acierto</div>
+          </div>
+          <div class="rounded-lg p-3 text-center" style="background:rgba(255,255,255,.04)">
+            <div class="bebas text-2xl text-white">${avg}</div>
+            <div class="text-gray-400 text-xs">Pts por partido</div>
+          </div>
+          <div class="rounded-lg p-3 text-center" style="background:rgba(34,197,94,.08)">
+            <div class="bebas text-2xl" style="color:var(--green)">${exacts}</div>
+            <div class="text-gray-400 text-xs">Resultados exactos</div>
+          </div>
+        </div>
+      </div>`;
+  }).join("");
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TAB NAVIGATION
+═══════════════════════════════════════════════════════════════ */
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    const tab = btn.dataset.tab;
+    ["standings","progression","matches","honor","scoring","stats"].forEach(t => {
+      document.getElementById("tab-"+t).classList.toggle("hidden", t !== tab);
+    });
+    if (tab === "matches") scrollMatchesToToday = true;
+    if (tab === "progression" && D) renderProgression();
+    if (tab === "stats" && D) renderStats();
+    if (tab === "matches" && D) renderMatches(currentPhase, currentWeek);
+    if (tab === "scoring" && D) renderScoring();
+  });
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   PHASE FILTER
+═══════════════════════════════════════════════════════════════ */
+document.querySelectorAll(".phase-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".phase-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentPhase = btn.dataset.phase;
+    if (D) renderMatches(currentPhase, currentWeek);
+  });
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════════════════ */
+loadData();
+</script>
+</body>
+</html>
