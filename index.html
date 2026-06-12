@@ -1516,20 +1516,18 @@
 
       <div class="cl-version">
         <div class="cl-ver-head">
-          <span class="cl-ver-badge new">Hoy</span>
+          <span class="cl-ver-badge new">v1.4</span>
           <span class="cl-ver-date">12 Jun 2026</span>
-          <span class="cl-ver-title">Estadísticas, música y pulido general</span>
+          <span class="cl-ver-title">Partidos, sedes y pulido UX</span>
         </div>
         <ul class="cl-items">
-          <li><span class="cl-tag feat">feat</span> Reproductor de música flotante — canción de Línea de Cal, por defecto parado, con control de volumen y barra de progreso</li>
-          <li><span class="cl-tag feat">feat</span> Historial de versiones (este modal)</li>
-          <li><span class="cl-tag feat">feat</span> Contador de visitas real en tiempo real (abajo a la derecha)</li>
-          <li><span class="cl-tag feat">feat</span> Estadísticas mejoradas: desglose de aciertos apilado, rachas activas, barra visual de últimos 10 partidos, héroe de números globales</li>
-          <li><span class="cl-tag ux">ux</span> Pestaña Estadísticas movida justo después de Progresión</li>
-          <li><span class="cl-tag ux">ux</span> Progresión día a día cortada a hoy — sin fechas futuras. Líneas con patrones distintos para empates</li>
-          <li><span class="cl-tag fix">fix</span> Desbordamiento de texto en tarjetas de jugador en móvil (chips de desglose abreviadas)</li>
-          <li><span class="cl-tag ux">ux</span> Banner de actualización en 2 líneas en móvil</li>
-          <li><span class="cl-tag ux">ux</span> Podio: nombre, puntos y premio en color del jugador; 1.º / 2.º / 3.º más grandes</li>
+          <li><span class="cl-tag feat">feat</span> Partidos por días en acordeón: abiertos ayer, hoy y +2 días; el resto colapsado. Semana actual por defecto</li>
+          <li><span class="cl-tag feat">feat</span> Panel «Ver sede»: foto del estadio, mapa Leaflet, aforo, área metro y dato curioso (16 sedes)</li>
+          <li><span class="cl-tag feat">feat</span> Reproductor Línea de Cal (🎵): volumen, slider para avanzar/retroceder, parado por defecto</li>
+          <li><span class="cl-tag feat">feat</span> Estadísticas ampliadas: desglose de aciertos, rachas, últimos 10 partidos y números globales</li>
+          <li><span class="cl-tag feat">feat</span> Contador de visitas y este historial de versiones</li>
+          <li><span class="cl-tag ux">ux</span> Partidos pendientes muestran la hora (no un VS grande). Podio: nombre destacado, sin €</li>
+          <li><span class="cl-tag fix">fix</span> Ajustes móvil: tarjetas de partido, reproductor, modal de versiones y banner de actualización</li>
         </ul>
       </div>
 
@@ -1537,13 +1535,12 @@
         <div class="cl-ver-head">
           <span class="cl-ver-badge">v1.3</span>
           <span class="cl-ver-date">12 Jun 2026</span>
-          <span class="cl-ver-title">Sistema de puntuación y guía de la porra</span>
+          <span class="cl-ver-title">Guía de la porra y datos</span>
         </div>
         <ul class="cl-items">
-          <li><span class="cl-tag feat">feat</span> Guía completa de entrega del Excel: fases 1 y 2, fechas límite y cómo rellenar</li>
-          <li><span class="cl-tag feat">feat</span> Reglas especiales de dieciseisavos: no se puntúan los clasificados; se insertan los cruces reales antes de la Fase 2</li>
-          <li><span class="cl-tag ux">ux</span> Sección «Más info» actualizada: historia del grupo (parque Aluche, La Cantera, Los Últimos FS)</li>
-          <li><span class="cl-tag data">data</span> Actualización automática explicada: script GitHub Actions cada hora en punto + URL de la API</li>
+          <li><span class="cl-tag feat">feat</span> Sistema de puntuación: guía Excel (fases 1 y 2, fechas límite) y reglas de dieciseisavos</li>
+          <li><span class="cl-tag ux">ux</span> Progresión solo hasta hoy; líneas distinguibles si hay empate en puntos</li>
+          <li><span class="cl-tag ux">ux</span> «Más info»: historia del grupo y explicación de actualización automática (API + GitHub Actions)</li>
         </ul>
       </div>
 
@@ -1551,13 +1548,12 @@
         <div class="cl-ver-head">
           <span class="cl-ver-badge">v1.2</span>
           <span class="cl-ver-date">12 Jun 2026</span>
-          <span class="cl-ver-title">Actualización automática y Cuadro de Honor</span>
+          <span class="cl-ver-title">Datos en vivo y Cuadro de Honor</span>
         </div>
         <ul class="cl-items">
-          <li><span class="cl-tag feat">feat</span> GitHub Actions: actualización automática de goles cada hora en punto desde API pública</li>
-          <li><span class="cl-tag feat">feat</span> Cuadro de Honor rediseñado: podio, botas de oro, balones, pronóstico vs realidad por jugador</li>
-          <li><span class="cl-tag data">data</span> Banner superior dinámico: última hora en punto y cuenta atrás hasta la próxima</li>
-          <li><span class="cl-tag fix">fix</span> Script <code>fetch_results.py</code>: descarga goles de la API y los escribe en el Excel del repositorio</li>
+          <li><span class="cl-tag data">data</span> Goles automáticos cada hora en punto vía API (<code>fetch_results.py</code> + GitHub Actions)</li>
+          <li><span class="cl-tag feat">feat</span> Cuadro de Honor rediseñado: podio, botas, balones y aciertos por jugador</li>
+          <li><span class="cl-tag ux">ux</span> Banner superior con próxima actualización y cuenta atrás</li>
         </ul>
       </div>
 
@@ -1565,14 +1561,11 @@
         <div class="cl-ver-head">
           <span class="cl-ver-badge">v1.1</span>
           <span class="cl-ver-date">12 Jun 2026</span>
-          <span class="cl-ver-title">GitHub Pages y mejoras de interfaz</span>
+          <span class="cl-ver-title">GitHub Pages y móvil</span>
         </div>
         <ul class="cl-items">
-          <li><span class="cl-tag feat">feat</span> Publicación en GitHub Pages: la web carga <code>data.json</code> estático (sin servidor)</li>
-          <li><span class="cl-tag ux">ux</span> Diseño responsive completo para móvil: nav, tablas, tarjetas de partido, podio</li>
-          <li><span class="cl-tag feat">feat</span> Scroll automático al inicio al cambiar de pestaña</li>
-          <li><span class="cl-tag ux">ux</span> Márgenes y anchos unificados en toda la web (<code>.page-shell</code>)</li>
-          <li><span class="cl-tag feat">feat</span> Web recarga automáticamente <code>data.json</code> cada 5 minutos (sin F5)</li>
+          <li><span class="cl-tag feat">feat</span> Web pública en GitHub Pages con <code>data.json</code> y recarga automática cada 5 min</li>
+          <li><span class="cl-tag ux">ux</span> Diseño responsive: nav, tablas, partidos y podio adaptados a móvil</li>
         </ul>
       </div>
 
@@ -1580,16 +1573,12 @@
         <div class="cl-ver-head">
           <span class="cl-ver-badge">v1.0</span>
           <span class="cl-ver-date">12 Jun 2026</span>
-          <span class="cl-ver-title">Lanzamiento inicial</span>
+          <span class="cl-ver-title">Lanzamiento</span>
         </div>
         <ul class="cl-items">
-          <li><span class="cl-tag feat">feat</span> Dashboard completo con 7 pestañas: Partidos, Clasificación, Progresión, Estadísticas, Cuadro de Honor, Puntuación, Más info</li>
-          <li><span class="cl-tag feat">feat</span> Pronósticos y puntos de cada jugador por partido con desglose (1X2, dif., exacto)</li>
-          <li><span class="cl-tag feat">feat</span> Clasificación con podio, tabla completa y fortalezas por jugador</li>
-          <li><span class="cl-tag feat">feat</span> Gráfica de progresión día a día</li>
-          <li><span class="cl-tag feat">feat</span> Filtros por semana y fase en la pestaña Partidos</li>
-          <li><span class="cl-tag data">data</span> Backend Python (Flask + openpyxl): lee directamente los Excel ADMIN del grupo</li>
-          <li><span class="cl-tag data">data</span> Sedes, horarios y canal de TV (DAZN / TVE LA 1) para los 104 partidos</li>
+          <li><span class="cl-tag feat">feat</span> Dashboard con 7 pestañas: partidos, clasificación, progresión, estadísticas, honor, puntuación e info</li>
+          <li><span class="cl-tag feat">feat</span> Pronósticos y puntos por partido (1X2, dif., exacto), podio, fortalezas y filtros por semana/fase</li>
+          <li><span class="cl-tag data">data</span> Lectura de Excel ADMIN + sedes, horarios y TV (DAZN / TVE La 1) de los 104 partidos</li>
         </ul>
       </div>
 
