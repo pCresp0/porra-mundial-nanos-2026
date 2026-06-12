@@ -24,7 +24,14 @@ def main():
                         help="Descargar resultados en vivo antes de generar")
     args = parser.parse_args()
 
-    from app import ADMIN, FILE1, FILE2, build_data
+    from excel_sync import sync_excel_sources
+    import app as app_mod
+    from app import build_data
+
+    print("🔄 Comprobando Excel (00. ADMIN/ → data/)…")
+    sync_excel_sources()
+    app_mod.ADMIN, app_mod.FILE1, app_mod.FILE2 = app_mod._excel_paths()
+    ADMIN, FILE1, FILE2 = app_mod.ADMIN, app_mod.FILE1, app_mod.FILE2
 
     if args.fetch:
         print("🌐 Actualizando resultados desde la API…")

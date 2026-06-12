@@ -32,5 +32,10 @@ if __name__ == "__main__":
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+    from excel_sync import sync_excel_sources, pick_admin_dir
+    print("🔄 Sincronizando Excel…")
+    sync_excel_sources()
+    print(f"📂 Leyendo desde: {pick_admin_dir()}\n")
+
     from app import app
     app.run(host="0.0.0.0", port=PORT, debug=False, use_reloader=False)

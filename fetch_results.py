@@ -17,7 +17,7 @@ import openpyxl
 BASE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, BASE)
 
-from app import FILE1
+from excel_sync import excel_paths as _excel_paths
 from team_names import to_spanish, _norm
 
 
@@ -52,12 +52,12 @@ def _norm_key(key: str) -> str:
     return "".join(c for c in s if unicodedata.category(c) != "Mn")
 
 
-def update_excel(games: list) -> int:
+def update_excel(games: list, file1: str) -> int:
     """Write finished match scores into WORLDCUP columns AC (29) and AD (30)."""
-    wb = openpyxl.load_workbook(FILE1, data_only=False)
+    wb = openpyxl.load_workbook(file1, data_only=False)
     wc = wb["WORLDCUP"]
     # Read team names with cached values (cols AA/AF are often formulas)
-    wb_ro = openpyxl.load_workbook(FILE1, data_only=True)
+    wb_ro = openpyxl.load_workbook(file1, data_only=True)
     wc_ro = wb_ro["WORLDCUP"]
 
     row_index = {}
@@ -103,8 +103,9 @@ def update_excel(games: list) -> int:
         updated += 1
 
     if updated:
-        wb.save(FILE1)
+        wb.save(file1)
         print(f"💾 Excel guardado ({updated} partido(s) actualizado(s))")
+        print(f"   → {file1}")
     else:
         print("ℹ️  Sin cambios en el Excel")
     return updated
@@ -116,8 +117,9 @@ def main():
         print("ℹ️  fetch_live_results=false en update_config.json — omitido")
         return 0
 
-    if not os.path.isfile(FILE1):
-        print(f"❌ No encuentro: {FILE1}")
+    _, file1, _ = _excel_paths()
+    if not os.path.isfile(file1):
+        print(f"❌ No encuentro: {file1}")
         return 1
 
     url = cfg.get("api_url", "https://worldcup26.ir/get/games")
@@ -130,7 +132,7 @@ def main():
 
     finished = [g for g in games if str(g.get("finished", "")).upper() == "TRUE"]
     print(f"📥 {len(finished)} partido(s) finalizado(s) en la API")
-    update_excel(games)
+    update_excel(games, file1)
     return 0
 
 

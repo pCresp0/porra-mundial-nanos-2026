@@ -103,7 +103,8 @@ def test_fetch_pipeline(dry_run: bool = False) -> int:
         if dry_run:
             print("  ℹ Modo dry-run: no se escribe en el Excel")
             return 0
-        n = fetch_results.update_excel(games)
+        _, file1, _ = fetch_results._excel_paths()
+        n = fetch_results.update_excel(games, file1)
         print(f"  ✓ Excel actualizado: {n} fila(s) modificada(s)")
         return 0
     except Exception as e:

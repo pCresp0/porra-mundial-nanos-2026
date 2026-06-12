@@ -12,13 +12,12 @@ import openpyxl
 warnings.filterwarnings("ignore")
 
 BASE  = os.path.dirname(os.path.abspath(__file__))
-_DATA = os.path.join(BASE, "data")
-_LOCAL = os.path.join(BASE, "..", "00. ADMIN")
-ADMIN = _DATA if os.path.isdir(_DATA) and os.path.isfile(
-    os.path.join(_DATA, "ADMIN-Excel-Mundial_NANOS_2026 [1].xlsx")
-) else _LOCAL
-FILE1 = os.path.join(ADMIN, "ADMIN-Excel-Mundial_NANOS_2026 [1].xlsx")
-FILE2 = os.path.join(ADMIN, "ADMIN-Excel-Mundial_NANOS_2026 [2].xlsx")
+
+def _excel_paths():
+    from excel_sync import excel_paths
+    return excel_paths()
+
+ADMIN, FILE1, FILE2 = _excel_paths()
 
 from fixture_data import lookup_fixture, TV_LABELS
 
@@ -719,6 +718,9 @@ def _load_file2():
 
 def build_data():
     """Read both Excel files and return complete dashboard data."""
+    global ADMIN, FILE1, FILE2
+    ADMIN, FILE1, FILE2 = _excel_paths()
+
     wb1_raw = openpyxl.load_workbook(FILE1, data_only=True)
     ws1, players1, clas1 = _load_file1()
     ws2, player2, clas2  = _load_file2()
