@@ -1265,6 +1265,141 @@
       -webkit-tap-highlight-color: transparent;
     }
     .match-detail-btn:hover, .match-detail-btn:active { color: var(--gold); }
+
+    /* ── load-more: texto largo en desktop, corto en móvil ── */
+    .mlm-short { display: none; }
+
+    /* ══════════════════════════════════════════════════════════
+       MÓVIL — prioridad en todo lo nuevo y fijo en pantalla
+    ══════════════════════════════════════════════════════════ */
+    @media (max-width: 640px) {
+      main.page-shell {
+        padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
+      }
+      .site-footer {
+        padding-bottom: calc(3.5rem + env(safe-area-inset-bottom, 0px));
+      }
+    }
+
+    @media (max-width: 480px) {
+      /* Fijos abajo: safe area (iPhone con barra home) */
+      .music-wrap {
+        left: max(.55rem, env(safe-area-inset-left, 0px));
+        bottom: max(.55rem, env(safe-area-inset-bottom, 0px));
+      }
+      .visitor-counter {
+        right: max(.55rem, env(safe-area-inset-right, 0px));
+        bottom: max(.55rem, env(safe-area-inset-bottom, 0px));
+        max-width: calc(50vw - 1rem);
+      }
+      .visitor-counter span:last-child {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      /* Partidos: buscador a ancho completo */
+      .matches-topbar {
+        justify-content: stretch;
+        margin-bottom: .85rem;
+      }
+      .team-search-wrap { max-width: none; }
+      .team-search-input-wrap {
+        min-height: 44px;
+        padding: .5rem .7rem;
+      }
+      #team-search-input { font-size: 16px; }
+      .team-search-clear {
+        width: 1.75rem;
+        height: 1.75rem;
+        font-size: .75rem;
+      }
+      .team-suggest-item {
+        min-height: 44px;
+        padding: .65rem .75rem;
+      }
+      .team-suggest-item .ts-name { font-size: .85rem; }
+      .team-filter-banner {
+        font-size: .75rem;
+        padding: .5rem .7rem;
+        line-height: 1.4;
+      }
+
+      /* Días y ver más */
+      .day-header {
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .25rem .5rem;
+        padding: .7rem 0;
+        min-height: 44px;
+      }
+      .day-header .day-name {
+        font-size: .88rem;
+        flex: 1 1 auto;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .day-header .day-count {
+        flex: 1 1 100%;
+        font-size: .68rem;
+        line-height: 1.3;
+      }
+      .matches-load-more {
+        padding: .75rem .65rem;
+        font-size: .78rem;
+        line-height: 1.35;
+        min-height: 44px;
+      }
+      .mlm-long { display: none; }
+      .mlm-short { display: inline; }
+
+      /* Tarjetas de partido */
+      .card.match-row { padding: .85rem .75rem !important; }
+      .match-teams-row { gap: .3rem .35rem; }
+      .match-team-name {
+        max-width: 34vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: .78rem;
+      }
+      .match-meta-row { gap: .35rem; }
+      .match-detail-btn {
+        max-width: 100%;
+        white-space: normal;
+        text-align: center;
+        line-height: 1.35;
+        padding: .25rem 0;
+        min-height: 32px;
+      }
+      .player-pred-card { padding: .5rem .3rem; }
+      .player-pred-card .pname { font-size: .6rem; }
+      .brk-chip { font-size: .58rem; padding: .08rem .3rem; }
+
+      /* Filtros fase/semana */
+      .phase-btn {
+        padding: .4rem .7rem;
+        font-size: .72rem;
+        min-height: 36px;
+      }
+      .week-btn {
+        padding: .4rem .75rem;
+        font-size: .72rem;
+        min-height: 36px;
+      }
+
+      /* Changelog cabecera de versión */
+      .cl-ver-head { flex-wrap: wrap; gap: .4rem .5rem; }
+      .cl-ver-title { flex: 1 1 100%; }
+    }
+
+    @media (max-width: 380px) {
+      .match-team-name { max-width: 30vw; font-size: .72rem; }
+      .team-suggest-item .ts-count { display: none; }
+      .tab-btn { padding: .4rem .55rem; font-size: .7rem; }
+    }
   </style>
 </head>
 <body>
@@ -1653,7 +1788,8 @@
           <span class="cl-ver-title">Partidos, sedes, búsqueda y pulido UX</span>
         </div>
         <ul class="cl-items">
-          <li><span class="cl-tag feat">feat</span> Buscador de equipos en Partidos: autocompletado con bandera mientras escribes; muestra todos sus partidos</li>
+          <li><span class="cl-tag feat">feat</span> Buscador de equipos en Partidos: solo selecciones reales con bandera; autocompletado al escribir</li>
+          <li><span class="cl-tag ux">ux</span> Pulido móvil: buscador a ancho completo, botones táctiles (44px), textos cortos en «Ver más», safe area y margen inferior</li>
           <li><span class="cl-tag feat">feat</span> Partidos por días: ayer, hoy y mañana visibles; «Ver más» carga el siguiente día. Semana actual por defecto</li>
           <li><span class="cl-tag feat">feat</span> Panel «Ver sede»: foto del estadio, mapa Leaflet, aforo, área metro y dato curioso (16 sedes)</li>
           <li><span class="cl-tag feat">feat</span> Reproductor Línea de Cal (🎵): volumen, slider para avanzar/retroceder, parado por defecto</li>
@@ -1786,6 +1922,14 @@ function addDaysISO(iso, n) {
   return d.toISOString().slice(0, 10);
 }
 
+function shortDayLabel(label) {
+  if (!label) return "";
+  const m = label.match(/(\d{1,2})\s+de\s+(\w+)/i);
+  if (m) return `${m[1]} ${m[2].slice(0, 3).toLowerCase()}`;
+  if (label.length > 20) return label.slice(0, 18) + "…";
+  return label;
+}
+
 function resetMatchesDayWindow() {
   matchesDaysBefore = 0;
   matchesDaysAfter  = 0;
@@ -1807,14 +1951,29 @@ function normalizeSearch(s) {
   return (s || "").normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
 }
 
+/** Solo selecciones reales: excluye slots (1, 1A, 3ABCDF, «Dieciseisavofinalista»…) */
+function isSearchableTeam(name, flag) {
+  if (!name || typeof name !== "string") return false;
+  const n = name.trim();
+  if (n.length < 2) return false;
+  if (/^\d+$/.test(n)) return false;
+  if (/^[12]\d?[A-L]$/i.test(n)) return false;
+  if (/^3[A-Z]{3,6}$/i.test(n)) return false;
+  if (/^W\d+/i.test(n)) return false;
+  if (/º|finalista|dieciseisavo|octavo|cuart|semi/i.test(n)) return false;
+  if (!flag || flag === "🏳️" || !/\p{Regional_Indicator}/u.test(flag)) return false;
+  return true;
+}
+
 function buildTeamIndex() {
   if (!D?.matches) { teamIndex = []; return; }
   const map = new Map();
   D.matches.forEach(m => {
     [["home", m.flag_home], ["away", m.flag_away]].forEach(([side, flag]) => {
       const name = m[side];
-      if (!name) return;
-      if (!map.has(name)) map.set(name, { name, flag: flag || "🏳️", count: 0 });
+      if (!isSearchableTeam(name, flag)) return;
+      if (!map.has(name)) map.set(name, { name, flag, count: 0 });
+      else if (flag) map.get(name).flag = flag;
       map.get(name).count++;
     });
   });
@@ -1824,8 +1983,9 @@ function buildTeamIndex() {
 }
 
 function getTeamSuggestions(q) {
-  const nq = normalizeSearch(q.trim());
-  if (!nq) return teamIndex.slice(0, 12);
+  const raw = q.trim();
+  const nq = normalizeSearch(raw);
+  if (nq.length < 2) return [];
   const starts = [], contains = [];
   teamIndex.forEach(t => {
     if (t.norm.startsWith(nq)) starts.push(t);
@@ -1851,6 +2011,10 @@ function renderTeamSuggestions(query) {
 
   const items = getTeamSuggestions(query);
   if (!items.length) {
+    if (normalizeSearch(query).length < 2) {
+      hideTeamSuggestions();
+      return;
+    }
     suggest.innerHTML = `<li class="team-suggest-item" style="cursor:default;opacity:.6"><span class="ts-name">Sin coincidencias</span></li>`;
     suggest.classList.remove("hidden");
     input.setAttribute("aria-expanded", "true");
@@ -2668,10 +2832,16 @@ function renderMatches(phase, week) {
   const nextLabel = nextKey ? (byDay[nextKey][0]?.day_label || nextKey) : "";
 
   const earlierBtn = hiddenBefore.length
-    ? `<button type="button" class="matches-load-more matches-load-earlier" onclick="showEarlierMatchDays()">← Ver día anterior · ${prevLabel}</button>`
+    ? `<button type="button" class="matches-load-more matches-load-earlier" onclick="showEarlierMatchDays()">
+        <span class="mlm-long">← Ver día anterior · ${prevLabel}</span>
+        <span class="mlm-short">← ${shortDayLabel(prevLabel)}</span>
+      </button>`
     : "";
   const moreBtn = hiddenAfter.length
-    ? `<button type="button" class="matches-load-more" onclick="showMoreMatchDays()">Ver más · ${nextLabel} →</button>`
+    ? `<button type="button" class="matches-load-more" onclick="showMoreMatchDays()">
+        <span class="mlm-long">Ver más · ${nextLabel} →</span>
+        <span class="mlm-short">Ver más · ${shortDayLabel(nextLabel)} →</span>
+      </button>`
     : "";
 
   const daySections = visibleDayKeys.map(renderDaySection).join("");
