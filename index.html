@@ -297,6 +297,9 @@
       padding: .6rem 0;
       margin-top: 1.25rem;
       border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      user-select: none;
+      position: relative;
     }
     .day-header:first-child { margin-top: 0; }
     .day-header .day-name {
@@ -308,7 +311,31 @@
     .day-header .day-count {
       font-size: .75rem;
       color: #64748B;
+      flex: 1;
     }
+    .day-header .day-chevron {
+      font-size: .7rem;
+      color: #475569;
+      transition: transform .2s;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .day-header.collapsed .day-chevron { transform: rotate(-90deg); }
+    .day-header.today-header .day-name { color: var(--green); }
+    .day-header.today-header::before {
+      content: "HOY";
+      font-size: .58rem; font-weight: 900; letter-spacing: .08em;
+      background: rgba(34,197,94,.18); color: var(--green);
+      border: 1px solid rgba(34,197,94,.35);
+      border-radius: 4px; padding: .1rem .35rem;
+      flex-shrink: 0;
+    }
+    .day-matches {
+      display: flex; flex-direction: column; gap: .75rem;
+      padding-top: .75rem;
+      overflow: hidden;
+    }
+    .day-matches.collapsed { display: none; }
 
     /* ── week filter ── */
     .week-btn {
@@ -1221,7 +1248,7 @@
         <button class="phase-btn" data-phase="final">Final</button>
       </div>
     </div>
-    <div id="matches-list" class="flex flex-col gap-3"></div>
+    <div id="matches-list" class="flex flex-col gap-0"></div>
   </section>
 
   <!-- ════════════════════════════════════════════
@@ -2062,6 +2089,14 @@ function renderPlayerStrengths() {
 function renderWeekFilter() {
   const el = document.getElementById("week-filter");
   const weeks = D.meta.weeks || [];
+  const today = todaySpainISO();
+
+  // Auto-select the current week on first render
+  if (currentWeek === "all" && weeks.length) {
+    const cur = weeks.find(w => today >= w.from && today <= w.to);
+    if (cur) currentWeek = cur.id;
+  }
+
   el.innerHTML = `<button class="week-btn ${currentWeek==='all'?'active':''}" data-week="all">Todas</button>` +
     weeks.map(w => `<button class="week-btn ${currentWeek===w.id?'active':''}" data-week="${w.id}">${w.label}</button>`).join("");
   el.querySelectorAll(".week-btn").forEach(btn => {
@@ -2069,6 +2104,7 @@ function renderWeekFilter() {
       el.querySelectorAll(".week-btn").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       currentWeek = btn.dataset.week;
+      scrollMatchesToToday = true;
       renderMatches(currentPhase, currentWeek);
     });
   });
@@ -2229,6 +2265,15 @@ function renderMatches(phase, week) {
     return da.localeCompare(db);
   });
 
+  const today = todaySpainISO();
+  // window: yesterday, today, +2 days
+  const winStart = new Date(today); winStart.setDate(winStart.getDate() - 1);
+  const winEnd   = new Date(today); winEnd.setDate(winEnd.getDate() + 2);
+  const inWindow = iso => {
+    if (!iso || iso === "sin-fecha") return false;
+    return iso >= winStart.toISOString().slice(0,10) && iso <= winEnd.toISOString().slice(0,10);
+  };
+
   list.innerHTML = dayKeys.map(dayKey => {
     const dayMatches = [...byDay[dayKey]].sort((a, b) => {
       if (a.time_es && b.time_es) return a.time_es.localeCompare(b.time_es);
@@ -2238,21 +2283,37 @@ function renderMatches(phase, week) {
     const playedInDay = dayMatches.filter(m => m.played).length;
     const isoDate = dayMatches[0]?.date || "sin-fecha";
     const dayId = isoDate === "sin-fecha" ? "day-sin-fecha" : `day-${isoDate}`;
+    const isToday = isoDate === today;
+    const open = inWindow(isoDate);
+    const collapsed = !open;
+    const todayCls = isToday ? " today-header" : "";
+    const collCls  = collapsed ? " collapsed" : "";
 
     const cards = dayMatches.map(m => renderMatchCard(m, players, colors)).join("");
 
     return `
-      <div class="day-header" id="${dayId}" data-day-date="${isoDate}">
-        <span class="day-name">${dayKey === NO_DATE ? "Sin fecha" : dayKey}</span>
-        <span class="day-count">${count} partido${count!==1?"s":""}${playedInDay ? ` · ${playedInDay} jugado${playedInDay!==1?"s":""}` : ""}</span>
-      </div>
-      ${cards}`;
+      <div class="day-section">
+        <div class="day-header${todayCls}${collCls}" id="${dayId}" data-day-date="${isoDate}" onclick="toggleDay(this)">
+          <span class="day-name">${dayKey === NO_DATE ? "Sin fecha" : dayKey}</span>
+          <span class="day-count">${count} partido${count!==1?"s":""}${playedInDay ? ` · ${playedInDay} jugado${playedInDay!==1?"s":""}` : ""}</span>
+          <span class="day-chevron">▼</span>
+        </div>
+        <div class="day-matches${collapsed ? " collapsed" : ""}">
+          ${cards}
+        </div>
+      </div>`;
   }).join("");
 
   if (scrollMatchesToToday && !document.getElementById("tab-matches").classList.contains("hidden")) {
     scrollMatchesToToday = false;
     requestAnimationFrame(() => setTimeout(scrollToTodayInMatches, 120));
   }
+}
+
+function toggleDay(header) {
+  const isCollapsed = header.classList.toggle("collapsed");
+  const matches = header.nextElementSibling;
+  if (matches) matches.classList.toggle("collapsed", isCollapsed);
 }
 
 function renderMatchCard(m, players, colors) {

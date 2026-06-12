@@ -1112,8 +1112,8 @@ def api_wc_games():
             if _wc_games_cache["data"] is not None:
                 pass  # serve stale cache on network error
             else:
-                return jsonify({"error": str(exc)}), 503
-    return jsonify(_wc_games_cache["data"])
+                return _no_cache(jsonify({"error": str(exc)})), 503
+    return _no_cache(jsonify(_wc_games_cache["data"]))
 
 
 if __name__ == "__main__":
