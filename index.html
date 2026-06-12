@@ -452,6 +452,15 @@
 
     /* ── honor grid ── */
     .honor-card { background: linear-gradient(135deg, var(--card) 0%, var(--card2) 100%); }
+    .honor-summary-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: .75rem; }
+    .honor-player-chip { text-align: center; padding: .75rem .5rem; border-radius: 10px; background: var(--card2); border: 1px solid var(--border); }
+    .honor-section-title { font-size: .8rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--gold); margin: 1.5rem 0 .75rem; }
+    .honor-item-card { border-left: 3px solid var(--border); }
+    .honor-item-card.resolved { border-left-color: var(--green); }
+    .honor-pred-row { display: grid; grid-template-columns: 1fr auto auto; gap: .5rem; align-items: center;
+      padding: .4rem 0; border-bottom: 1px solid rgba(255,255,255,.04); font-size: .82rem; }
+    .honor-pred-row:last-child { border-bottom: none; }
+    .honor-consensus { font-size: .78rem; color: #94A3B8; padding: .5rem .75rem; border-radius: 8px; background: rgba(255,255,255,.03); }
 
     /* ── pulse animation for live ── */
     .pulse-dot {
@@ -636,7 +645,8 @@
        TAB: CUADRO DE HONOR
   ════════════════════════════════════════════ -->
   <section id="tab-honor" class="hidden">
-    <div id="honor-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    <div id="honor-summary" class="card p-5 mb-6"></div>
+    <div id="honor-sections"></div>
   </section>
 
   <!-- ════════════════════════════════════════════
@@ -1423,32 +1433,86 @@ function renderScoring() {
 }
 
 /* ─── CUADRO DE HONOR ─── */
-function renderHonor() {
-  const grid = document.getElementById("honor-grid");
-  const players = D.meta.players;
-  const colors  = D.meta.colors;
+const HONOR_CATEGORIES = {
+  podium:  { title: "🏆 Podio del torneo",     desc: "Campeón, subcampeón y tercer puesto" },
+  scorers: { title: "⚽ Máximos goleadores",   desc: "Bota de Oro, Plata y Bronce" },
+  players: { title: "🌟 Mejores jugadores",    desc: "Balón de Oro, Plata y Bronce" },
+};
 
-  grid.innerHTML = D.honor.map(h => {
-    const predsHtml = players.map(name => {
-      const p = h.predictions[name];
-      if (!p || !p.pred) return `<div class="text-gray-500 text-xs">—</div>`;
-      const isCorrect = h.actual && p.pred === h.actual;
-      return `
-        <div class="flex items-center gap-2">
-          <span class="text-xs font-bold w-20 truncate" style="color:${colors[name]}">${name}</span>
-          <span class="px-2 py-0.5 rounded text-xs font-semibold ${isCorrect ? "badge-exact" : "text-gray-300"}"
-                style="${!isCorrect ? "background:var(--card2)" : ""}">${p.pred}</span>
-          ${p.score > 0 ? `<span class="text-xs font-bold" style="color:var(--green)">+${p.score}</span>` : ""}
+function renderHonor() {
+  const summaryEl = document.getElementById("honor-summary");
+  const sectionsEl = document.getElementById("honor-sections");
+  const hs = D.honor_summary || {};
+  const items = D.honor || [];
+
+  // Resumen superior
+  summaryEl.innerHTML = `
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+      <div>
+        <h2 class="text-lg font-bold text-white">Cuadro de Honor</h2>
+        <p class="text-xs text-gray-400 mt-1">
+          ${hs.resolved || 0}/${hs.total_items || 9} categorías resueltas ·
+          máximo ${hs.max_total_pts || 135} pts en total por jugador
+        </p>
+      </div>
+      <div class="flex gap-2 text-xs">
+        <span class="px-2 py-1 rounded badge-exact">${hs.resolved || 0} resueltas</span>
+        <span class="px-2 py-1 rounded badge-pending">${hs.pending || 9} pendientes</span>
+      </div>
+    </div>
+    <p class="text-xs text-gray-500 uppercase font-bold mb-2">Puntos en honor (clasificación)</p>
+    <div class="honor-summary-grid">
+      ${(hs.by_player || []).map(p => `
+        <div class="honor-player-chip" style="border-color:${p.color}44">
+          <div class="font-extrabold text-sm uppercase" style="color:${p.color}">${p.name}</div>
+          <div class="bebas text-2xl text-white mt-1">${p.honor_pts || 0}</div>
+          <div class="text-xs text-gray-500">pts honor</div>
+          <div class="text-xs text-gray-600 mt-1">${p.correct || 0} aciertos · ${p.filled || 0}/9 pronósticos</div>
+        </div>`).join("")}
+    </div>`;
+
+  // Secciones por categoría
+  sectionsEl.innerHTML = Object.entries(HONOR_CATEGORIES).map(([cat, meta]) => {
+    const catItems = items.filter(h => h.category === cat);
+    if (!catItems.length) return "";
+
+    const cards = catItems.map(h => {
+      const statusBadge = h.resolved
+        ? `<span class="badge-exact px-2 py-0.5 rounded text-xs font-bold">${h.actual}</span>`
+        : `<span class="badge-pending px-2 py-0.5 rounded text-xs">Pendiente</span>`;
+
+      const consensusHtml = !h.resolved && h.consensus
+        ? `<div class="honor-consensus mt-2">💬 Apuesta del grupo: <strong class="text-gray-200">${h.consensus}</strong> (${h.consensus_count}/${h.filled_count})</div>`
+        : "";
+
+      const rows = (h.predictions_list || []).map(p => {
+        const icon = h.resolved ? (p.correct ? "✓" : "✗") : "·";
+        const iconColor = h.resolved ? (p.correct ? "var(--green)" : "var(--red)") : "#64748B";
+        return `<div class="honor-pred-row">
+          <span class="font-bold truncate" style="color:${p.color}">${p.name}</span>
+          <span class="text-gray-200 truncate text-right">${p.pred}</span>
+          <span class="font-bold shrink-0" style="color:${iconColor}">${icon}${p.score > 0 ? " +" + p.score : ""}</span>
         </div>`;
+      }).join("");
+
+      return `<div class="card honor-item-card ${h.resolved ? "resolved" : ""} p-4">
+        <div class="flex items-start justify-between gap-2 mb-3">
+          <div>
+            <h4 class="font-extrabold text-white">${h.title}</h4>
+            <p class="text-xs text-gray-500 mt-0.5">Vale hasta ${h.max_pts ? h.max_pts + " pts" : "—"}</p>
+          </div>
+          ${statusBadge}
+        </div>
+        ${rows || `<p class="text-xs text-gray-600 italic">Sin pronósticos rellenados</p>`}
+        ${consensusHtml}
+      </div>`;
     }).join("");
 
     return `
-      <div class="card honor-card p-5">
-        <div class="flex items-center justify-between mb-3">
-          <h3 class="font-extrabold text-white text-base">${h.title}</h3>
-          ${h.actual ? `<span class="badge-exact px-2 py-0.5 rounded text-xs font-bold">${h.actual}</span>` : `<span class="badge-pending px-2 py-0.5 rounded text-xs">TBD</span>`}
-        </div>
-        <div class="flex flex-col gap-2">${predsHtml}</div>
+      <div class="mb-6">
+        <h3 class="honor-section-title">${meta.title}</h3>
+        <p class="text-xs text-gray-500 mb-3">${meta.desc}</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">${cards}</div>
       </div>`;
   }).join("");
 }

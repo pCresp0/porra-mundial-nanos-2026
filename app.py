@@ -590,6 +590,19 @@ def _load_scoring_rules(ws):
     }
 
 
+def _parse_honor_actual(val):
+    """Return real honor result or None if placeholder / TBD."""
+    if val is None:
+        return None
+    s = str(val).strip()
+    if not s or s in ("WF", "LF", "W34", "None", "-"):
+        return None
+    low = s.lower()
+    if low.startswith("escribe") or low.startswith("pegar"):
+        return None
+    return s
+
+
 def _build_daily_progression(matches, player_names):
     """Puntos acumulados al cierre de cada día natural (hora España)."""
     group = [m for m in matches if m["phase"] == "groups" and m.get("date")]
@@ -872,30 +885,102 @@ def build_data():
         s["pos"] = i + 1
         standings.append(s)
 
+    scoring_rules = _load_scoring_rules(ws1)
+
     # ── cuadro de honor (rows 249-258) ───────────────────────────────────────
-    HONOR_ROWS = {
-        250: "🥇 Campeón",
-        251: "🥈 Subcampeón",
-        252: "🥉 3er Puesto",
-        253: "⚽ Bota de Oro",
-        254: "🥈⚽ Bota de Plata",
-        255: "🥉⚽ Bota de Bronce",
-        256: "🏆 Balón de Oro",
-        257: "🥈🏆 Balón de Plata",
-        258: "🥉🏆 Balón de Bronce",
-    }
+    HONOR_ROWS = [
+        {"row": 250, "title": "🥇 Campeón",           "category": "podium",   "short": "Campeón"},
+        {"row": 251, "title": "🥈 Subcampeón",        "category": "podium",   "short": "Subcampeón"},
+        {"row": 252, "title": "🥉 3er Puesto",        "category": "podium",   "short": "3er puesto"},
+        {"row": 253, "title": "⚽ Bota de Oro",        "category": "scorers",  "short": "Bota de Oro"},
+        {"row": 254, "title": "🥈 Bota de Plata",     "category": "scorers",  "short": "Bota de Plata"},
+        {"row": 255, "title": "🥉 Bota de Bronce",    "category": "scorers",  "short": "Bota de Bronce"},
+        {"row": 256, "title": "🏆 Balón de Oro",      "category": "players",  "short": "Balón de Oro"},
+        {"row": 257, "title": "🥈 Balón de Plata",    "category": "players",  "short": "Balón de Plata"},
+        {"row": 258, "title": "🥉 Balón de Bronce",   "category": "players",  "short": "Balón de Bronce"},
+    ]
+    honor_pts_rules = []
+    for sec in scoring_rules.get("sections", []):
+        if sec.get("key") == "honor":
+            honor_pts_rules = [float(i["pts"]) for i in sec.get("items", [])]
+            break
+
     honor = []
-    for row, title in HONOR_ROWS.items():
+    honor_correct = {p["name"]: 0 for p in all_players}
+    honor_filled  = {p["name"]: 0 for p in all_players}
+    resolved_count = 0
+
+    for idx, meta in enumerate(HONOR_ROWS):
+        row = meta["row"]
+        title = meta["title"]
+        max_pts = honor_pts_rules[idx] if idx < len(honor_pts_rules) else None
         result_raw = _val(ws1, row, 13)
-        actual = str(result_raw).strip() if result_raw and str(result_raw).strip() not in ("WF","LF","W34","None","") else None
+        actual = _parse_honor_actual(result_raw)
+        if actual:
+            resolved_count += 1
+
         preds = {}
+        preds_list = []
         for p, ws in zip(all_players, all_ws):
             pv = _val(ws, row, p["pred_col"])
             sv = _val(ws, row, p["score_col"])
             pred = str(pv).strip() if pv and not str(pv).startswith("Pegar") else None
             score = float(sv) if sv else 0
-            preds[p["name"]] = {"pred": pred, "score": score}
-        honor.append({"title": title, "actual": actual, "predictions": preds})
+            correct = bool(actual and pred and pred == actual)
+            if pred:
+                honor_filled[p["name"]] += 1
+            if correct:
+                honor_correct[p["name"]] += 1
+            entry = {
+                "name": p["name"],
+                "pred": pred,
+                "score": score,
+                "correct": correct,
+                "color": PLAYER_COLORS[all_players.index(p) % len(PLAYER_COLORS)],
+            }
+            preds[p["name"]] = {"pred": pred, "score": score, "correct": correct}
+            if pred:
+                preds_list.append(entry)
+
+        preds_list.sort(key=lambda x: (-x["score"], -int(x["correct"]), x["name"]))
+
+        # Predicción más popular (consenso del grupo)
+        pick_counts = {}
+        for e in preds_list:
+            pick_counts[e["pred"]] = pick_counts.get(e["pred"], 0) + 1
+        consensus = max(pick_counts.items(), key=lambda x: x[1])[0] if pick_counts else None
+        consensus_n = pick_counts.get(consensus, 0) if consensus else 0
+
+        honor.append({
+            "title": title,
+            "short": meta["short"],
+            "category": meta["category"],
+            "max_pts": max_pts,
+            "actual": actual,
+            "resolved": actual is not None,
+            "predictions": preds,
+            "predictions_list": preds_list,
+            "consensus": consensus,
+            "consensus_count": consensus_n,
+            "filled_count": len(preds_list),
+        })
+
+    honor_summary = {
+        "total_items": len(HONOR_ROWS),
+        "resolved": resolved_count,
+        "pending": len(HONOR_ROWS) - resolved_count,
+        "max_total_pts": float(_val(ws1, 62, 4) or 0),
+        "by_player": sorted([
+            {
+                "name": p["name"],
+                "honor_pts": float(all_clas.get(p["name"], {}).get("honor", 0) or 0),
+                "correct": honor_correct[p["name"]],
+                "filled": honor_filled[p["name"]],
+                "color": PLAYER_COLORS[i % len(PLAYER_COLORS)],
+            }
+            for i, p in enumerate(all_players)
+        ], key=lambda x: (-x["honor_pts"], -x["correct"], x["name"])),
+    }
 
     # ── max points reference ─────────────────────────────────────────────────
     max_points = {
@@ -912,7 +997,6 @@ def build_data():
 
     weeks = _week_ranges_from_dates(spain_dates)
     progression = _build_daily_progression(matches, player_names)
-    scoring_rules = _load_scoring_rules(ws1)
     player_strengths = _build_player_strengths(matches, standings, player_names)
 
     from update_schedule import build_update_meta
@@ -936,6 +1020,7 @@ def build_data():
         "matches":     matches,
         "progression": progression,
         "honor":       honor,
+        "honor_summary": honor_summary,
         "max_points":  max_points,
         "scoring_rules": scoring_rules,
         "player_strengths": player_strengths,
