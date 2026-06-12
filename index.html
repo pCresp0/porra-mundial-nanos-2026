@@ -359,6 +359,102 @@
     }
     .matches-load-earlier { margin: 0 0 .75rem; }
 
+    /* ── team search (matches tab) ── */
+    .matches-topbar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 1rem;
+    }
+    .team-search-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 300px;
+    }
+    .team-search-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .45rem .65rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--card2);
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .team-search-input-wrap:focus-within {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 2px rgba(212,175,55,.12);
+    }
+    .team-search-icon { font-size: .85rem; opacity: .55; flex-shrink: 0; }
+    #team-search-input {
+      flex: 1;
+      min-width: 0;
+      border: none;
+      background: transparent;
+      color: #E2E8F0;
+      font-size: .82rem;
+      font-family: inherit;
+      outline: none;
+    }
+    #team-search-input::placeholder { color: #64748B; }
+    #team-search-input::-webkit-search-cancel-button { display: none; }
+    .team-search-clear {
+      flex-shrink: 0;
+      width: 1.35rem;
+      height: 1.35rem;
+      border: none;
+      border-radius: 6px;
+      background: rgba(255,255,255,.06);
+      color: #94A3B8;
+      font-size: .7rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0;
+    }
+    .team-search-clear:hover { background: rgba(252,165,165,.15); color: #FCA5A5; }
+    .team-search-suggest {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      z-index: 50;
+      margin: 0;
+      padding: .35rem 0;
+      list-style: none;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      box-shadow: 0 12px 32px rgba(0,0,0,.45);
+      max-height: 260px;
+      overflow-y: auto;
+    }
+    .team-suggest-item {
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .55rem .75rem;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .team-suggest-item:hover,
+    .team-suggest-item.active { background: rgba(212,175,55,.1); }
+    .team-suggest-item .ts-flag { font-size: 1.15rem; line-height: 1; flex-shrink: 0; }
+    .team-suggest-item .ts-name { flex: 1; font-size: .82rem; font-weight: 600; color: #E2E8F0; min-width: 0; }
+    .team-suggest-item .ts-count { font-size: .68rem; color: #64748B; flex-shrink: 0; }
+    .team-filter-banner {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      flex-wrap: wrap;
+      padding: .55rem .85rem;
+      margin-bottom: .75rem;
+      border-radius: 10px;
+      border: 1px solid rgba(212,175,55,.25);
+      background: rgba(212,175,55,.07);
+      font-size: .8rem;
+      color: #CBD5E1;
+    }
+    .team-filter-banner strong { color: var(--gold); font-weight: 700; }
+
     /* ── week filter ── */
     .week-btn {
       padding: .35rem .85rem;
@@ -1248,6 +1344,20 @@
   ════════════════════════════════════════════ -->
   <section id="tab-matches">
 
+    <!-- team search -->
+    <div class="matches-topbar">
+      <div class="team-search-wrap" id="team-search-wrap">
+        <div class="team-search-input-wrap">
+          <span class="team-search-icon" aria-hidden="true">🔍</span>
+          <input type="search" id="team-search-input" placeholder="Buscar equipo…"
+            autocomplete="off" spellcheck="false"
+            aria-label="Buscar equipo" aria-expanded="false" aria-controls="team-search-suggest" />
+          <button type="button" class="team-search-clear hidden" id="team-search-clear" aria-label="Quitar filtro">✕</button>
+        </div>
+        <ul id="team-search-suggest" class="team-search-suggest hidden" role="listbox" aria-label="Equipos sugeridos"></ul>
+      </div>
+    </div>
+
     <!-- week filter -->
     <div class="mb-3">
       <p class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-2">Semana</p>
@@ -1540,9 +1650,10 @@
         <div class="cl-ver-head">
           <span class="cl-ver-badge new">v1.4</span>
           <span class="cl-ver-date">12 Jun 2026</span>
-          <span class="cl-ver-title">Partidos, sedes y pulido UX</span>
+          <span class="cl-ver-title">Partidos, sedes, búsqueda y pulido UX</span>
         </div>
         <ul class="cl-items">
+          <li><span class="cl-tag feat">feat</span> Buscador de equipos en Partidos: autocompletado con bandera mientras escribes; muestra todos sus partidos</li>
           <li><span class="cl-tag feat">feat</span> Partidos por días: ayer, hoy y mañana visibles; «Ver más» carga el siguiente día. Semana actual por defecto</li>
           <li><span class="cl-tag feat">feat</span> Panel «Ver sede»: foto del estadio, mapa Leaflet, aforo, área metro y dato curioso (16 sedes)</li>
           <li><span class="cl-tag feat">feat</span> Reproductor Línea de Cal (🎵): volumen, slider para avanzar/retroceder, parado por defecto</li>
@@ -1660,6 +1771,10 @@ let currentWeek  = "all";
 let scrollMatchesToToday = true;
 let matchesDaysBefore = 0;
 let matchesDaysAfter  = 0;
+let teamIndex = [];
+let selectedTeamFilter = null;
+let teamSearchInited = false;
+let teamSuggestIdx = -1;
 
 function todaySpainISO() {
   return new Date().toLocaleDateString("en-CA", { timeZone: "Europe/Madrid" });
@@ -1686,6 +1801,175 @@ function showEarlierMatchDays() {
   matchesDaysBefore++;
   scrollMatchesToToday = false;
   renderMatches(currentPhase, currentWeek);
+}
+
+function normalizeSearch(s) {
+  return (s || "").normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+}
+
+function buildTeamIndex() {
+  if (!D?.matches) { teamIndex = []; return; }
+  const map = new Map();
+  D.matches.forEach(m => {
+    [["home", m.flag_home], ["away", m.flag_away]].forEach(([side, flag]) => {
+      const name = m[side];
+      if (!name) return;
+      if (!map.has(name)) map.set(name, { name, flag: flag || "🏳️", count: 0 });
+      map.get(name).count++;
+    });
+  });
+  teamIndex = [...map.values()]
+    .map(t => ({ ...t, norm: normalizeSearch(t.name) }))
+    .sort((a, b) => a.name.localeCompare(b.name, "es"));
+}
+
+function getTeamSuggestions(q) {
+  const nq = normalizeSearch(q.trim());
+  if (!nq) return teamIndex.slice(0, 12);
+  const starts = [], contains = [];
+  teamIndex.forEach(t => {
+    if (t.norm.startsWith(nq)) starts.push(t);
+    else if (t.norm.includes(nq)) contains.push(t);
+  });
+  return [...starts, ...contains].slice(0, 10);
+}
+
+function hideTeamSuggestions() {
+  const suggest = document.getElementById("team-search-suggest");
+  const input = document.getElementById("team-search-input");
+  if (!suggest) return;
+  suggest.classList.add("hidden");
+  suggest.innerHTML = "";
+  teamSuggestIdx = -1;
+  if (input) input.setAttribute("aria-expanded", "false");
+}
+
+function renderTeamSuggestions(query) {
+  const suggest = document.getElementById("team-search-suggest");
+  const input = document.getElementById("team-search-input");
+  if (!suggest) return;
+
+  const items = getTeamSuggestions(query);
+  if (!items.length) {
+    suggest.innerHTML = `<li class="team-suggest-item" style="cursor:default;opacity:.6"><span class="ts-name">Sin coincidencias</span></li>`;
+    suggest.classList.remove("hidden");
+    input.setAttribute("aria-expanded", "true");
+    return;
+  }
+
+  suggest.innerHTML = items.map((t, i) => `
+    <li class="team-suggest-item${i === teamSuggestIdx ? " active" : ""}" role="option" data-team-idx="${i}">
+      <span class="ts-flag">${t.flag}</span>
+      <span class="ts-name">${t.name}</span>
+      <span class="ts-count">${t.count} partido${t.count !== 1 ? "s" : ""}</span>
+    </li>`).join("");
+  suggest._items = items;
+  suggest.classList.remove("hidden");
+  input.setAttribute("aria-expanded", "true");
+}
+
+function selectTeamFilter(team) {
+  selectedTeamFilter = team;
+  const input = document.getElementById("team-search-input");
+  const clearBtn = document.getElementById("team-search-clear");
+  if (input) input.value = `${team.flag} ${team.name}`;
+  if (clearBtn) clearBtn.classList.remove("hidden");
+  hideTeamSuggestions();
+  resetMatchesDayWindow();
+  scrollMatchesToToday = false;
+  renderMatches(currentPhase, currentWeek);
+}
+
+function clearTeamFilter() {
+  selectedTeamFilter = null;
+  const input = document.getElementById("team-search-input");
+  const clearBtn = document.getElementById("team-search-clear");
+  if (input) input.value = "";
+  if (clearBtn) clearBtn.classList.add("hidden");
+  hideTeamSuggestions();
+  resetMatchesDayWindow();
+  scrollMatchesToToday = true;
+  renderMatches(currentPhase, currentWeek);
+}
+
+function syncTeamSearchUI() {
+  const input = document.getElementById("team-search-input");
+  const clearBtn = document.getElementById("team-search-clear");
+  if (selectedTeamFilter) {
+    const still = teamIndex.find(t => t.name === selectedTeamFilter.name);
+    if (!still) selectedTeamFilter = null;
+    else if (input) input.value = `${still.flag} ${still.name}`;
+  }
+  if (clearBtn) clearBtn.classList.toggle("hidden", !selectedTeamFilter);
+}
+
+function initTeamSearch() {
+  if (teamSearchInited) return;
+  teamSearchInited = true;
+
+  const wrap = document.getElementById("team-search-wrap");
+  const input = document.getElementById("team-search-input");
+  const suggest = document.getElementById("team-search-suggest");
+  const clearBtn = document.getElementById("team-search-clear");
+  if (!input || !suggest) return;
+
+  let blurTimer = null;
+
+  input.addEventListener("input", () => {
+    const expected = selectedTeamFilter ? `${selectedTeamFilter.flag} ${selectedTeamFilter.name}` : "";
+    if (selectedTeamFilter && input.value !== expected) {
+      selectedTeamFilter = null;
+      clearBtn.classList.add("hidden");
+    }
+    teamSuggestIdx = -1;
+    renderTeamSuggestions(input.value);
+  });
+
+  input.addEventListener("focus", () => {
+    clearTimeout(blurTimer);
+    teamSuggestIdx = -1;
+    renderTeamSuggestions(input.value);
+  });
+
+  input.addEventListener("blur", () => {
+    blurTimer = setTimeout(hideTeamSuggestions, 160);
+  });
+
+  input.addEventListener("keydown", e => {
+    const items = suggest._items || [];
+    if (e.key === "Escape") {
+      if (selectedTeamFilter) clearTeamFilter();
+      else { input.value = ""; hideTeamSuggestions(); }
+      return;
+    }
+    if (!items.length || suggest.classList.contains("hidden")) return;
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      teamSuggestIdx = Math.min(teamSuggestIdx + 1, items.length - 1);
+      renderTeamSuggestions(input.value);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      teamSuggestIdx = Math.max(teamSuggestIdx - 1, 0);
+      renderTeamSuggestions(input.value);
+    } else if (e.key === "Enter" && teamSuggestIdx >= 0) {
+      e.preventDefault();
+      selectTeamFilter(items[teamSuggestIdx]);
+    }
+  });
+
+  suggest.addEventListener("mousedown", e => {
+    e.preventDefault();
+    const li = e.target.closest(".team-suggest-item[data-team-idx]");
+    if (!li || !suggest._items) return;
+    const team = suggest._items[parseInt(li.dataset.teamIdx, 10)];
+    if (team) selectTeamFilter(team);
+  });
+
+  clearBtn.addEventListener("click", clearTeamFilter);
+
+  document.addEventListener("click", e => {
+    if (!wrap.contains(e.target)) hideTeamSuggestions();
+  });
 }
 
 function scrollToTodayInMatches() {
@@ -1865,6 +2149,9 @@ async function forceRefresh() {
    RENDER EVERYTHING
 ═══════════════════════════════════════════════════════════════ */
 function render() {
+  buildTeamIndex();
+  initTeamSearch();
+  syncTeamSearchUI();
   renderPodium();
   renderStandingsTable();
   renderPlayerStrengths();
@@ -2275,8 +2562,18 @@ function renderMatches(phase, week) {
     }
   }
 
+  const teamMode = !!selectedTeamFilter;
+  if (teamMode) {
+    filtered = filtered.filter(m =>
+      m.home === selectedTeamFilter.name || m.away === selectedTeamFilter.name
+    );
+  }
+
   if (filtered.length === 0) {
-    list.innerHTML = `<div class="card p-8 text-center text-gray-500">Sin partidos en este filtro</div>`;
+    const msg = teamMode
+      ? `Sin partidos de ${selectedTeamFilter.flag} ${selectedTeamFilter.name} en este filtro`
+      : "Sin partidos en este filtro";
+    list.innerHTML = `<div class="card p-8 text-center text-gray-500">${msg}</div>`;
     return;
   }
 
@@ -2321,7 +2618,11 @@ function renderMatches(phase, week) {
     : false;
 
   let visibleDayKeys, hiddenBefore, hiddenAfter;
-  if (todayInFilter) {
+  if (teamMode) {
+    visibleDayKeys = datedKeys;
+    hiddenBefore = [];
+    hiddenAfter  = [];
+  } else if (todayInFilter) {
     visibleDayKeys = datedKeys.filter(k => {
       const iso = dayISO(k);
       return iso && iso >= visibleStart && iso <= visibleEnd;
@@ -2376,7 +2677,11 @@ function renderMatches(phase, week) {
   const daySections = visibleDayKeys.map(renderDaySection).join("");
   const noDateSection = showNoDate ? renderDaySection(NO_DATE) : "";
 
-  list.innerHTML = earlierBtn + daySections + noDateSection + moreBtn;
+  const teamBanner = teamMode
+    ? `<div class="team-filter-banner">Mostrando <strong>${selectedTeamFilter.flag} ${selectedTeamFilter.name}</strong> · ${filtered.length} partido${filtered.length !== 1 ? "s" : ""}</div>`
+    : "";
+
+  list.innerHTML = teamBanner + earlierBtn + daySections + noDateSection + moreBtn;
 
   if (scrollMatchesToToday && !document.getElementById("tab-matches").classList.contains("hidden")) {
     scrollMatchesToToday = false;
