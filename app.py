@@ -26,6 +26,16 @@ from team_players import get_team_players
 
 app = Flask(__name__)
 
+
+@app.after_request
+def _security_headers(response):
+    """Cabeceras de seguridad básicas (no alteran el funcionamiento)."""
+    response.headers.setdefault("X-Content-Type-Options", "nosniff")
+    response.headers.setdefault("X-Frame-Options", "DENY")
+    response.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+    return response
+
+
 # ── cache so we don't re-read Excel on every browser refresh ────────────────
 _cache = {"data": None, "ts": 0, "error": None}
 CACHE_TTL = 30  # seconds
@@ -1086,6 +1096,14 @@ def api_data():
         import traceback
         traceback.print_exc()
         return _no_cache(jsonify({"error": str(e), "detail": "No se pudieron leer los Excel. Cierra Excel si los tienes abiertos e inténtalo de nuevo."})), 500
+
+
+@app.route("/api/refresh")
+def api_refresh():
+    """Invalida la caché local para forzar una relectura del Excel.
+    Solo afecta al servidor Flask local; no llama a la API externa."""
+    _cache["ts"] = 0
+    return _no_cache(jsonify({"ok": True, "ts": datetime.now().isoformat()}))
 
 
 # ── Live match data proxy (scorers, results) ─────────────────────────────────

@@ -104,9 +104,14 @@ porra-mundial-nanos-2026/
 ├── fetch_results.py        # Descarga resultados en vivo → Excel
 ├── fixture_data.py         # Sedes y TV (104 partidos)
 ├── team_names.py           # Mapeo nombres API → Excel
+├── team_players.py         # Jugadores destacados por selección
+├── excel_sync.py           # Sincroniza 00. ADMIN/ → data/
+├── update_schedule.py      # Calcula próxima actualización (banner)
 ├── update_config.json      # Horarios de actualización automática
 ├── launch.py               # Arranque local + Chrome
-├── static/                 # Logo WC 2026, favicons, fondos
+├── test_api.py             # Pruebas manuales de las APIs
+├── requirements.txt        # Dependencias (flask, openpyxl)
+├── static/                 # Logo WC 2026, favicons, fondos, audio
 ├── docs/                   # Capturas para el README
 └── .github/workflows/      # CI: actualización programada
 ```
@@ -260,8 +265,6 @@ python3 fetch_results.py          # API → Excel
 python3 build_static.py --fetch   # API + Excel + data.json en un solo comando
 ```
 
-`/api/refresh` solo vacía la caché del servidor local; **no llama a la API externa**.
-
 ---
 
 ## Sistema de puntuación (fase de grupos)
@@ -281,9 +284,10 @@ Puntos adicionales por posiciones de grupos, eliminatorias, final y cuadro de ho
 
 | Endpoint | Descripción |
 |----------|-------------|
-| `GET /` | Interfaz web |
-| `GET /api/data` | JSON completo del dashboard |
-| `GET /api/refresh` | Invalida caché (30 s) |
+| `GET /` | Interfaz web (`index.html`) |
+| `GET /api/data` | JSON completo del dashboard (lee Excel, caché 30 s) |
+| `GET /api/wc_games` | Proxy de resultados en vivo (worldcup26.ir, caché 5 min) |
+| `GET /static/<archivo>` | Assets (logo, audio, favicons) |
 
 ---
 

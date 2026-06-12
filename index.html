@@ -2998,6 +2998,15 @@ async function fetchWcGames() {
   return _wcGamesCache || [];
 }
 
+function escapeHtml(s) {
+  return String(s ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 function parseScorers(str) {
   if (!str || str === "null" || str === "{}" || str === "{}") return [];
   // Format: {"J. Quiñones 9'","R. Jiménez 67'"}
@@ -3060,9 +3069,9 @@ async function _fillMatchDetail(m, body) {
     // Stadium photo from Wikipedia (if available)
     if (wikiImg) {
       html += `<div class="stadium-photo-wrap">
-        <img src="${wikiImg}" alt="${m.stadium}" class="stadium-photo" loading="lazy"
+        <img src="${escapeHtml(wikiImg)}" alt="${escapeHtml(m.stadium)}" class="stadium-photo" loading="lazy"
              onerror="this.parentElement.style.display='none'">
-        <div class="stadium-photo-caption">${m.stadium}</div>
+        <div class="stadium-photo-caption">${escapeHtml(m.stadium)}</div>
       </div>`;
     }
 
@@ -3114,7 +3123,7 @@ async function _fillMatchDetail(m, body) {
               const match = s.match(/^(.*?)\s+(\d+['+]?)$/);
               const name = match ? match[1] : s;
               const time = match ? match[2] : "";
-              return `<span class="scorer-name">${name}</span>${time ? `<span class="scorer-time">${time}</span>` : ""}`;
+              return `<span class="scorer-name">${escapeHtml(name)}</span>${time ? `<span class="scorer-time">${escapeHtml(time)}</span>` : ""}`;
             }).join(" · ")
           : `<span class="no-scorers">Sin goles</span>`;
         return `<div class="scorer-team-row">
