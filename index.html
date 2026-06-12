@@ -289,6 +289,33 @@
     .match-row:hover { border-left-color: var(--gold); background: rgba(245,197,24,.03); }
     .match-row.played { border-left-color: rgba(34,197,94,.5); }
 
+    /* ── next upcoming match highlight ── */
+    .match-row.next-match {
+      border: 2px solid var(--gold);
+      border-left: 4px solid var(--gold);
+      background: rgba(245,197,24,.07);
+      box-shadow: 0 0 0 1px rgba(245,197,24,.25), 0 0 18px rgba(245,197,24,.18);
+    }
+    .match-row.next-match:hover { background: rgba(245,197,24,.1); }
+    .next-match-tag {
+      color: #1a1a1a;
+      background: var(--gold);
+      padding: .1rem .5rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+    }
+
+    /* ── pulse when arriving at a match selected from the calendar ── */
+    .match-row.match-pulse {
+      animation: matchPulse 1s ease-out 1;
+    }
+    @keyframes matchPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(245,197,24,.65); border-color: var(--gold); }
+      40%  { box-shadow: 0 0 0 8px rgba(245,197,24,.28); border-color: var(--gold); }
+      100% { box-shadow: 0 0 0 0 rgba(245,197,24,0); }
+    }
+
     /* ── sparkline-like bar ── */
     .score-bar-wrap { background: rgba(255,255,255,.05); border-radius: 4px; overflow: hidden; height: 6px; }
     .score-bar { height: 6px; border-radius: 4px; transition: width .5s; }
@@ -848,6 +875,91 @@
         font-size: .65rem;
       }
       .cl-items li { font-size: .76rem; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       NEXT-MATCH COUNTDOWN BANNER
+    ═══════════════════════════════════════════════════════════════ */
+    .next-match-banner {
+      display: flex; align-items: center; gap: .55rem; flex-wrap: wrap;
+      background: var(--card2); border: 1px solid var(--border);
+      border-radius: 10px; padding: .55rem .9rem;
+      margin-bottom: .85rem; font-size: .8rem;
+    }
+    .nmc-label {
+      font-size: .65rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .06em; color: #64748B;
+    }
+    .nmc-match { color: #CBD5E1; font-size: .82rem; }
+    .nmc-sep   { color: #334155; }
+    .nmc-countdown {
+      font-family: 'Courier New', monospace;
+      font-size: .9rem; font-weight: 800;
+      color: var(--gold); letter-spacing: .04em;
+    }
+    .nmc-countdown.soon { color: #4ADE80; }
+    @media (max-width: 480px) {
+      .next-match-banner { font-size: .75rem; gap: .4rem; padding: .45rem .7rem; }
+      .nmc-countdown { font-size: .82rem; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       CALENDAR TAB
+    ═══════════════════════════════════════════════════════════════ */
+    .cal-container {
+      display: flex; flex-wrap: wrap; gap: 1.25rem;
+      justify-content: center;
+    }
+    .cal-month {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 1rem 1.1rem 1.2rem; min-width: 280px; flex: 1 1 300px; max-width: 380px;
+    }
+    .cal-month-title {
+      text-align: center; font-size: 1rem; font-weight: 700;
+      color: var(--gold); margin-bottom: .75rem; letter-spacing: .04em;
+    }
+    .cal-weekdays {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      margin-bottom: .35rem;
+    }
+    .cal-weekday {
+      text-align: center; font-size: .65rem; font-weight: 600;
+      color: #475569; padding: .15rem 0;
+    }
+    .cal-weekday.weekend { color: #94A3B8; }
+    .cal-days {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;
+    }
+    .cal-day {
+      border-radius: 7px; padding: .25rem .15rem .3rem;
+      min-height: 42px; display: flex; flex-direction: column;
+      align-items: center; gap: 2px; position: relative;
+    }
+    .cal-day.empty { background: transparent; }
+    .cal-day.no-match .cal-day-num { color: #334155; }
+    .cal-day.has-match {
+      background: var(--card2); border: 1px solid var(--border);
+      cursor: pointer; transition: background .15s, border-color .15s;
+    }
+    .cal-day.has-match:hover {
+      background: rgba(234,179,8,.08); border-color: rgba(234,179,8,.35);
+    }
+    .cal-day.is-today { border: 1.5px solid var(--gold) !important; }
+    .cal-day.is-today .cal-day-num { color: var(--gold); font-weight: 800; }
+    .cal-day-num {
+      font-size: .72rem; font-weight: 600; color: #64748B;
+      line-height: 1; margin-bottom: 1px;
+    }
+    .cal-chip {
+      font-size: .55rem; line-height: 1.3;
+      color: #CBD5E1; text-align: center; white-space: nowrap;
+      max-width: 100%; overflow: hidden; text-overflow: ellipsis;
+    }
+    .cal-chip-flags { font-size: .72rem; }
+    @media (max-width: 480px) {
+      .cal-month { padding: .75rem .6rem 1rem; }
+      .cal-chip { font-size: .5rem; }
+      .cal-chip-flags { font-size: .65rem; }
     }
 
     /* ── music player ── */
@@ -1575,6 +1687,7 @@
        style="-webkit-overflow-scrolling:touch; scrollbar-width:none;"
        id="tab-nav-scroll">
     <button class="tab-btn active" data-tab="matches">⚽ Partidos</button>
+    <button class="tab-btn" data-tab="calendar">📅&nbsp;&thinsp;Calendario</button>
     <button class="tab-btn" data-tab="standings">🏅 Clasificación</button>
     <button class="tab-btn" data-tab="progression">📈 Progresión</button>
     <button class="tab-btn" data-tab="stats">📊 Estadísticas</button>
@@ -1587,9 +1700,19 @@
 <main class="page-shell py-4 sm:py-6">
 
   <!-- ════════════════════════════════════════════
+       TAB: CALENDARIO
+  ════════════════════════════════════════════ -->
+  <section id="tab-calendar" class="hidden">
+    <div id="cal-container" class="cal-container"></div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
        TAB: PARTIDOS
   ════════════════════════════════════════════ -->
   <section id="tab-matches">
+
+    <!-- next match countdown -->
+    <div id="next-match-banner" class="next-match-banner hidden" aria-hidden="true"></div>
 
     <!-- team search -->
     <div class="matches-topbar">
@@ -2373,8 +2496,8 @@ function tvBadgeLink(kind, label) {
 
 /* ── Spanish team name → FIFA code ── */
 const TEAM_TO_FIFA = {
-  "México":"MEX","Sudáfrica":"RSA","Corea del Sur":"KOR","Rep. Checa":"CZE","Chequia":"CZE",
-  "Canadá":"CAN","Bosnia":"BIH","Bosnia y Herz.":"BIH","Qatar":"QAT","Suiza":"SUI",
+  "México":"MEX","Sudáfrica":"RSA","Corea del Sur":"KOR","Rep. Checa":"CZE","Chequia":"CZE","República Checa":"CZE",
+  "Canadá":"CAN","Bosnia":"BIH","Bosnia y Herz.":"BIH","Bosnia y Herzegovina":"BIH","Qatar":"QAT","Catar":"QAT","Suiza":"SUI",
   "Brasil":"BRA","Marruecos":"MAR","Haití":"HAI","Escocia":"SCO",
   "EE.UU.":"USA","Estados Unidos":"USA","Paraguay":"PRY","Australia":"AUS","Turquía":"TUR",
   "Alemania":"GER","Curazao":"CUW","Costa de Marfil":"CIV","Ecuador":"ECU",
@@ -2497,7 +2620,9 @@ function render() {
   renderStandingsTable();
   renderPlayerStrengths();
   renderWeekFilter();
+  initCountdown();
   renderMatches(currentPhase, currentWeek);
+  renderCalendar();
   renderProgression();
   renderHonor();
   renderScoring();
@@ -2612,7 +2737,14 @@ function matchTeamsHtml(m) {
   if (m.played && m.result) {
     scoreHtml = `<div class="match-score-big">${m.result.score.replace("-", " - ")}</div>`;
   } else if (m.time_es) {
-    scoreHtml = `<div style="margin-top:.4rem;font-size:1.1rem;font-weight:700;color:#64748B;letter-spacing:.03em">${m.time_es}<span style="font-size:.7rem;font-weight:400;margin-left:.3rem;opacity:.7">h</span></div>`;
+    // Show live countdown if this is the next upcoming match
+    const isNext = _nextMatchId && (m.id === _nextMatchId || m.name === _nextMatchId);
+    if (isNext) {
+      scoreHtml = `<div style="margin-top:.4rem;font-size:1.1rem;font-weight:700;color:#64748B;letter-spacing:.03em">${m.time_es}<span style="font-size:.7rem;font-weight:400;margin-left:.3rem;opacity:.7">h</span></div>
+        <div id="match-countdown" style="font-family:'Courier New',monospace;font-size:.82rem;font-weight:800;color:var(--gold);letter-spacing:.04em;margin-top:.2rem">--:--:--</div>`;
+    } else {
+      scoreHtml = `<div style="margin-top:.4rem;font-size:1.1rem;font-weight:700;color:#64748B;letter-spacing:.03em">${m.time_es}<span style="font-size:.7rem;font-weight:400;margin-left:.3rem;opacity:.7">h</span></div>`;
+    }
   } else {
     scoreHtml = `<div style="margin-top:.4rem;font-size:.85rem;color:#334155;font-weight:600;letter-spacing:.06em;text-transform:uppercase">vs</div>`;
   }
@@ -3044,6 +3176,7 @@ function toggleDay(header) {
 
 function renderMatchCard(m, players, colors) {
   const playedClass = m.played ? "played" : "";
+  const isNextMatch = !m.played && _nextMatchId && (m.id === _nextMatchId || m.name === _nextMatchId);
 
   const playerCards = players.map(name => {
     const pd = m.predictions[name];
@@ -3093,12 +3226,13 @@ function renderMatchCard(m, players, colors) {
   }).join("");
 
   return `
-    <div class="card match-row ${playedClass} p-4 mb-2">
+    <div class="card match-row ${playedClass}${isNextMatch ? " next-match" : ""} p-4 mb-2" data-match-name="${(m.name||"").replace(/"/g,"&quot;")}">
       ${matchTeamsHtml(m)}
       ${matchMetaHtml(m)}
       <div class="flex items-center gap-2 flex-wrap mb-3 justify-center">
         <span class="text-xs px-2 py-0.5 rounded font-bold uppercase tracking-wide"
               style="background:var(--card2);color:#94A3B8">${PHASE_LABELS[m.phase] || m.phase}</span>
+        ${isNextMatch ? `<span class="text-xs font-bold next-match-tag">⏱ Próximo partido</span>` : ""}
         ${m.played ? `<span class="text-xs font-bold" style="color:var(--green)">✓ Jugado</span>` : `<span class="text-xs text-gray-600">⏳ Pendiente</span>`}
       </div>
       <div class="match-players-grid">${porraUnlocked
@@ -4015,13 +4149,205 @@ applyPorraMode();
 initWelcomeModal();
 
 /* ═══════════════════════════════════════════════════════════════
+   NEXT-MATCH COUNTDOWN
+═══════════════════════════════════════════════════════════════ */
+let _nextMatchId       = null;   // match.name of the next upcoming match
+let _matchCountdownTimer = null;
+
+function initCountdown() {
+  if (_matchCountdownTimer) clearInterval(_matchCountdownTimer);
+
+  const toSpainUTC = (dateISO, timeEs) => {
+    const [y, mo, dd] = dateISO.slice(0, 10).split("-").map(Number);
+    const [hh, mm]    = timeEs.split(":").map(Number);
+    const guess    = Date.UTC(y, mo - 1, dd, hh, mm, 0);
+    const guessDate = new Date(guess);
+    const spainStr  = guessDate.toLocaleString("sv-SE", { timeZone: "Europe/Madrid" });
+    const spainMs   = new Date(spainStr + "Z").getTime();
+    const offsetMs  = guess - spainMs;
+    return guess + offsetMs; // Spain UTC+2 in summer: 21:00 ES = 19:00 UTC
+  };
+
+  const next = (D?.matches || [])
+    .filter(m => !m.played && m.date && m.time_es && /^\d{2}:\d{2}$/.test(m.time_es))
+    .map(m => ({ m, ts: toSpainUTC(m.date, m.time_es) }))
+    .filter(x => x.ts > Date.now())
+    .sort((a, b) => a.ts - b.ts)[0];
+
+  _nextMatchId = next ? next.m.name : null;
+
+  if (!next) return;
+
+  const tick = () => {
+    const el   = document.getElementById("match-countdown");
+    if (!el) return;
+    const diff = next.ts - Date.now();
+    if (diff <= 0) {
+      el.textContent = "¡Ya!";
+      el.style.color = "var(--green)";
+      clearInterval(_matchCountdownTimer);
+      return;
+    }
+    const h   = Math.floor(diff / 3600000);
+    const min = Math.floor((diff % 3600000) / 60000);
+    const sec = Math.floor((diff % 60000) / 1000);
+    const pad = n => String(n).padStart(2, "0");
+    el.textContent = `${pad(h)}:${pad(min)}:${pad(sec)}`;
+    el.style.color = diff < 3600000 ? "var(--green)" : "var(--gold)";
+  };
+  tick();
+  _matchCountdownTimer = setInterval(tick, 1000);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CALENDAR TAB
+═══════════════════════════════════════════════════════════════ */
+function renderCalendar() {
+  const container = document.getElementById("cal-container");
+  if (!container || !D) return;
+
+  const today = todaySpainISO(); // "YYYY-MM-DD"
+
+  // Index matches by ISO date
+  const byDate = {};
+  (D.matches || []).forEach(m => {
+    if (!m.date || m.date.length < 10) return;
+    const d = m.date.slice(0, 10);
+    if (!byDate[d]) byDate[d] = [];
+    byDate[d].push(m);
+  });
+
+  const months = [
+    { year: 2026, month: 6, label: "Junio 2026" },
+    { year: 2026, month: 7, label: "Julio 2026" },
+  ];
+
+  const DAYS_ES = ["L","M","X","J","V","S","D"];
+  const WEEKENDS = [5, 6]; // índices sábado/domingo (0=Lunes)
+
+  container.innerHTML = months.map(({ year, month, label }) => {
+    const daysInMonth = new Date(year, month, 0).getDate();
+    // weekday of day 1: 0=Sun..6=Sat → convert to Mon-based index
+    const firstWd = new Date(year, month - 1, 1).getDay(); // 0=Sun
+    const startOffset = (firstWd + 6) % 7; // Mon=0
+
+    const weekdayHeader = DAYS_ES.map((d, i) =>
+      `<div class="cal-weekday${WEEKENDS.includes(i) ? " weekend" : ""}">${d}</div>`
+    ).join("");
+
+    let cells = Array(startOffset).fill(`<div class="cal-day empty"></div>`);
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const iso = `${year}-${String(month).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+      const matches = byDate[iso] || [];
+      const isToday = iso === today;
+      const hasMath = matches.length > 0;
+
+      let cls = "cal-day";
+      if (!hasMath) cls += " no-match";
+      else cls += " has-match";
+      if (isToday) cls += " is-today";
+
+      const matchChip = m => {
+        const fh = m.flag_home || "";
+        const fa = m.flag_away || "";
+        const ch = TEAM_TO_FIFA[m.home] || (m.home || "").slice(0,3).toUpperCase();
+        const ca = TEAM_TO_FIFA[m.away] || (m.away || "").slice(0,3).toUpperCase();
+        // Skip knockout placeholder teams (not yet determined)
+        const looksLikePlaceholder = v => !v || /^\d|^Win|^Los|^[A-Z]\d|^[A-Z]{1,2}\d/.test(v);
+        const homeOk = fh && !looksLikePlaceholder(m.home);
+        const awayOk = fa && !looksLikePlaceholder(m.away);
+        const nm = (m.name || "").replace(/'/g, "\\'").replace(/"/g, "&quot;");
+        const chipClick = `onclick="event.stopPropagation();goToMatchesDay('${iso}','${nm}')"`;
+        if (!homeOk && !awayOk) return `<div class="cal-chip" ${chipClick}>⚽</div>`;
+        const flagLine = (homeOk ? fh : "🏳") + (awayOk ? fa : "🏳");
+        return `<div class="cal-chip" ${chipClick}><span class="cal-chip-flags">${flagLine}</span><br>${ch}‑${ca}</div>`;
+      };
+      const chips = matches.map(matchChip).join("");
+
+      const clickAttr = hasMath ? `onclick="goToMatchesDay('${iso}')" title="${matches.map(m=>(m.home||"")+" - "+(m.away||"")).join(" · ")}"` : "";
+
+      cells.push(`<div class="${cls}" ${clickAttr}><div class="cal-day-num">${day}</div>${chips}</div>`);
+    }
+
+    return `
+      <div class="cal-month">
+        <div class="cal-month-title">${label}</div>
+        <div class="cal-weekdays">${weekdayHeader}</div>
+        <div class="cal-days">${cells.join("")}</div>
+      </div>`;
+  }).join("");
+}
+
+function goToMatchesDay(isoDate, matchName) {
+  // 1. Switch to matches tab MANUALLY (avoid the click handler's scroll-to-today)
+  document.querySelectorAll(".tab-btn").forEach(b =>
+    b.classList.toggle("active", b.dataset.tab === "matches"));
+  ["matches","calendar","standings","progression","stats","honor","scoring","info"].forEach(t => {
+    const sec = document.getElementById("tab-" + t);
+    if (sec) sec.classList.toggle("hidden", t !== "matches");
+  });
+  scrollMatchesToToday = false; // do NOT auto-scroll to today; we scroll to the target
+
+  // 2. Calculate how far the target date is from today and expand the day window
+  const today = todaySpainISO();
+  const diffDays = (a, b) => {
+    const da = new Date(a + "T00:00:00Z");
+    const db = new Date(b + "T00:00:00Z");
+    return Math.round((da - db) / 86400000);
+  };
+  const delta = diffDays(isoDate, today);
+  if (delta > 0) matchesDaysAfter  = Math.max(matchesDaysAfter,  delta + 1);
+  if (delta < 0) matchesDaysBefore = Math.max(matchesDaysBefore, -delta + 1);
+
+  // 3. Show all weeks and re-render
+  currentWeek = null;
+  renderMatches(currentPhase, currentWeek);
+
+  // 4. Scroll to day header and ensure accordion is open
+  const scrollTo = () => {
+    const el = document.getElementById("day-" + isoDate);
+    if (!el) return;
+
+    // Collapse every other day so the page isn't a huge scroll — keep only the target open
+    document.querySelectorAll("#matches-list .day-header").forEach(h => {
+      const isTarget = h.id === "day-" + isoDate;
+      h.classList.toggle("collapsed", !isTarget);
+      const dm = h.nextElementSibling;
+      if (dm && dm.classList.contains("day-matches")) dm.classList.toggle("collapsed", !isTarget);
+    });
+
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    // Pulse to clearly show the user which match they picked.
+    // If a specific match was clicked, pulse only that one; otherwise pulse the whole day.
+    const dayMatches = el.nextElementSibling;
+    let targets = dayMatches ? [...dayMatches.querySelectorAll(".match-row")] : [];
+    if (matchName) {
+      const one = targets.find(c => c.getAttribute("data-match-name") === matchName);
+      if (one) {
+        targets = [one];
+        one.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }
+    targets.forEach(c => {
+      c.classList.remove("match-pulse");
+      void c.offsetWidth; // restart animation
+      c.classList.add("match-pulse");
+      setTimeout(() => c.classList.remove("match-pulse"), 1100);
+    });
+  };
+  setTimeout(scrollTo, 120);
+}
+
+/* ═══════════════════════════════════════════════════════════════
    TAB NAVIGATION
 ═══════════════════════════════════════════════════════════════ */
 document.querySelectorAll(".tab-btn").forEach(btn => {
   btn.addEventListener("click", () => {    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
     const tab = btn.dataset.tab;
-    ["matches","standings","progression","stats","honor","scoring","info"].forEach(t => {
+    ["matches","calendar","standings","progression","stats","honor","scoring","info"].forEach(t => {
       document.getElementById("tab-"+t).classList.toggle("hidden", t !== tab);
     });
     // Scroll to top instantly when changing tabs
