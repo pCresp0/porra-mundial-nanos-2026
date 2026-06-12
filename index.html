@@ -3073,7 +3073,8 @@ function renderMatchCard(m, players, colors) {
         .replace("Diferencia de goles acertada", "Dif. goles ✓")
         .replace(/Diferencia.*?\(/, "Dif. (")
         .replace("Resultado exacto", "Exacto ✓")
-        .replace("Resultado no exacto", "Exacto ✗");
+        .replace("Resultado no exacto", "Exacto ✗")
+        .replace(/(\d+)\.\d+/g, "$1");
       brkHtml = `<div class="mt-1 flex flex-wrap justify-center gap-0.5">
         ${pd.breakdown.reasons.map(r =>
           `<span class="brk-chip ${r.includes('incorrecto')||r.includes('no acertada')?'miss':'ok'}">${shortReason(r)}</span>`
