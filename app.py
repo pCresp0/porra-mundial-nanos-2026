@@ -808,6 +808,10 @@ def build_data():
     # ── collect all matches / prediction rows ────────────────────────────────
     matches = []
     played_count = {p["name"]: 0 for p in all_players}
+    # Puntos de fase de grupos recalculados en Python (no dependen de la caché
+    # de fórmulas del Excel, que NO se recalcula al escribir marcadores por la
+    # API). Así la actualización automática refleja siempre los puntos correctos.
+    group_points = {p["name"]: 0.0 for p in all_players}
     spain_dates  = []
 
     for row in range(6, 268):
@@ -874,6 +878,10 @@ def build_data():
                     pts_sign, pts_diff, pts_exact,
                     diff_factor, multiplier,
                 )
+                # El punto calculado en Python manda sobre la fórmula del Excel
+                # (que puede estar desactualizada tras una actualización automática).
+                score = breakdown["total"]
+                group_points[p["name"]] += breakdown["total"]
 
             predictions[p["name"]] = {
                 "pred":      pred,
@@ -881,10 +889,9 @@ def build_data():
                 "breakdown": breakdown,
             }
 
-        if phase == "groups" and "|" in str(result_raw or ""):
-            if played:
-                for name in player_names:
-                    played_count[name] += 1
+        if phase == "groups" and played:
+            for name in player_names:
+                played_count[name] += 1
 
         wc = _lookup_wc_meta(wc_meta, match_name) or {}
         fix = lookup_fixture(row)
@@ -931,17 +938,22 @@ def build_data():
             try: return float(v) if v else 0.0
             except: return 0.0
 
-        total = fv("total")
+        # 'groups' y 'total' recalculados en Python a partir de los puntos de
+        # fase de grupos (group_points), de modo que la actualización automática
+        # no dependa de la caché de fórmulas del Excel (que no se recalcula).
+        groups_calc = round(group_points.get(name, 0.0), 2)
+        groups_excel = fv("groups")
+        total = round(fv("total") - groups_excel + groups_calc, 2)
         phase_detail = []
         for key, label, desc in STANDINGS_PHASES:
-            pts = fv(key)
+            pts = groups_calc if key == "groups" else fv(key)
             if pts > 0:
                 phase_detail.append({"key": key, "label": label, "desc": desc, "pts": pts})
 
         standings_raw.append({
             "name":     name,
             "total":    total,
-            "groups":   fv("groups"),
+            "groups":   groups_calc,
             "positions":fv("positions"),
             "q16":      fv("q16"),
             "r16":      fv("r16"),

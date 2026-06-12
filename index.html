@@ -2206,10 +2206,16 @@
         <h3>🔄 Datos y actualización</h3>
         <p id="info-updated">
           <strong class="text-gray-200">Pronósticos</strong> — los editáis en el Excel ADMIN; la web solo los lee.
-          <strong class="text-gray-200">Resultados (goles)</strong> — se actualizan solos en la web online:
-          cada 30 minutos un script en GitHub Actions llama a la API,
-          escribe los goles en el Excel del repositorio y regenera la página. No hace falta
-          que nadie pulse nada ni suba ficheros a mano por cada partido.
+        </p>
+        <p class="mt-2">
+          <strong class="text-gray-200">Resultados (goles)</strong> — se actualizan solos, sin que nadie toque nada.
+          Una tarea programada en GitHub Actions vigila el calendario y, <strong class="text-gray-200">cuando un partido
+          acaba de terminar</strong>, llama a la API, escribe los goles en los dos Excel del repositorio, recalcula los
+          puntos y regenera la página. No hace falta subir ficheros a mano ni abrir el Excel por cada partido.
+        </p>
+        <p class="mt-2">
+          <strong class="text-gray-200">Puntos</strong> — el cálculo (1X2, diferencia y resultado exacto) se hace al
+          generar la web, así que la clasificación se actualiza sola en cuanto llega el resultado.
         </p>
       </div>
       <div class="info-card">
@@ -2227,7 +2233,12 @@
         <p class="mt-2">
           <strong class="text-gray-200">«Base de datos»</strong> — no hay base de datos clásica: los datos viven en un
           Excel (pronósticos y configuración) y se publican como un fichero <code>data.json</code>. Un script en
-          GitHub Actions lo regenera cada 30 minutos con los resultados de la API.
+          GitHub Actions lo regenera automáticamente con los resultados de la API después de cada partido.
+        </p>
+        <p class="mt-2">
+          <strong class="text-gray-200">Código abierto</strong> — todo el proyecto (web, scripts y automatización) está en
+          GitHub: <a href="https://github.com/pCresp0/porra-mundial-nanos-2026" target="_blank" rel="noopener" class="text-blue-300 underline">pCresp0/porra-mundial-nanos-2026</a>.
+          Si quieres ver con detalle cómo funciona algo, ahí está todo.
         </p>
         <div class="mt-3">
           <span class="info-tag">HTML</span>
@@ -2302,7 +2313,24 @@
 
       <div class="cl-version">
         <div class="cl-ver-head">
-          <span class="cl-ver-badge new">v1.5</span>
+          <span class="cl-ver-badge new">v1.6</span>
+          <span class="cl-ver-date">13 Jun 2026</span>
+          <span class="cl-ver-title">Actualización 100% automática y pulido de la clasificación</span>
+        </div>
+        <ul class="cl-items">
+          <li><span class="cl-tag data">data</span> Actualización totalmente automática tras cada partido: un guardián en GitHub Actions solo gasta llamada a la API cuando un partido acaba de terminar (no cada 30 min a lo loco)</li>
+          <li><span class="cl-tag fix">fix</span> Los puntos de la fase de grupos se recalculan en Python al generar la web, así ya no dependen de abrir el Excel para que se actualicen las fórmulas</li>
+          <li><span class="cl-tag feat">feat</span> Tabla completa de clasificación ordenable: pulsa el título de cualquier columna para ordenar</li>
+          <li><span class="cl-tag feat">feat</span> Desglose de puntos de grupos por motivo: 1X2, diferencia y resultado exacto en columnas separadas</li>
+          <li><span class="cl-tag ux">ux</span> Estadísticas: barras de «últimos partidos» con 4 tramos de color (5+, 3-4, 1-2, 0 pts) iguales para todos</li>
+          <li><span class="cl-tag ux">ux</span> Quitada la recarga automática que saltaba de pestaña; la web ya no se mueve sola</li>
+          <li><span class="cl-tag fix">fix</span> Móvil: las etiquetas «Finalizado» y «Próximo partido» ya no se solapan con banderas ni nombres</li>
+        </ul>
+      </div>
+
+      <div class="cl-version">
+        <div class="cl-ver-head">
+          <span class="cl-ver-badge">v1.5</span>
           <span class="cl-ver-date">12 Jun 2026</span>
           <span class="cl-ver-title">Modo invitado / participante y mejoras de privacidad</span>
         </div>
@@ -2952,13 +2980,15 @@ function renderMeta() {
   const iu = document.getElementById("info-updated");
   if (iu) {
     const apiUrl = "https://worldcup26.ir/get/games";
-    const { last, next } = naturalHourSlots();
     iu.innerHTML = `
       <strong class="text-gray-200">Pronósticos</strong> — manual: se cambian en el Excel ADMIN y hay que publicar con
       <code class="text-xs text-blue-300">build_static.py</code> + push.<br>
-      <strong class="text-gray-200">Goles del Mundial</strong> — automático: cada 30 minutos
-      <code class="text-xs text-blue-300">fetch_results.py</code> (GitHub Actions) consulta la API, actualiza el Excel del repo
-      y regenera <code class="text-xs text-blue-300">data.json</code>. La web recarga sola cada 5 min.<br>
+      <strong class="text-gray-200">Goles del Mundial</strong> — automático: cuando un partido acaba de terminar,
+      <code class="text-xs text-blue-300">fetch_results.py</code> (GitHub Actions) consulta la API, escribe los goles en
+      los dos Excel del repo, recalcula los puntos y regenera <code class="text-xs text-blue-300">data.json</code>.
+      Sin tocar nada a mano.<br>
+      Código y detalle:
+      <a href="https://github.com/pCresp0/porra-mundial-nanos-2026" target="_blank" rel="noopener" class="text-blue-300 hover:text-yellow-400">GitHub del proyecto</a> ·
       API:
       <a href="${apiUrl}" target="_blank" rel="noopener" class="text-blue-300 hover:text-yellow-400 break-all">${apiUrl}</a>`;
   }

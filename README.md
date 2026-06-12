@@ -167,12 +167,15 @@ La web **solo lee** datos; **nunca escribe** pronósticos. Hay dos flujos distin
 |---|---|---|
 | **Qué es** | Resultado real de cada partido (columnas AC/AD en WORLDCUP) | Lo que apostáis cada uno en el Excel ADMIN |
 | **Quién lo actualiza** | Automático (GitHub Actions) | Tú, a mano en Excel |
-| **Frecuencia** | **Cada hora en punto** (hora España) | Cuando cambiéis un pronóstico |
+| **Frecuencia** | **Justo después de cada partido** (el bot vigila cada 30 min) | Cuando cambiéis un pronóstico |
 | **¿Hay que hacer push?** | No — el bot lo hace solo | Sí — `build_static.py` + `git push` |
 
 ### Flujo automático (goles → web online)
 
-Cuando acaba un partido, **no tienes que subir nada a mano** para que la web pública se entere. Esto es lo que pasa en GitHub **cada hora en punto**:
+Cuando acaba un partido, **no tienes que subir nada a mano** para que la web pública se entere.
+La Action se despierta **cada 30 minutos**, pero un **guardián** (`should_update.py`) decide si hay
+trabajo real: solo llama a la API cuando un partido acaba de terminar y su resultado todavía no está
+publicado. El resto de veces sale sin gastar nada. Esto es lo que pasa:
 
 ```
   API pública                         Repositorio GitHub              Web (GitHub Pages)
@@ -181,34 +184,42 @@ Cuando acaba un partido, **no tienes que subir nada a mano** para que la web pú
   worldcup26.ir/get/games
            │
            ▼
-  fetch_results.py  ──►  escribe goles en data/*.xlsx (hoja WORLDCUP)
+  should_update.py  ──►  ¿hay un partido recién terminado sin resultado? (si no, fin)
            │
            ▼
-  build_static.py   ──►  genera data.json desde el Excel
+  fetch_results.py  ──►  escribe goles en los dos data/*.xlsx (hoja WORLDCUP, por cirugía XML)
+           │
+           ▼
+  build_static.py   ──►  genera data.json y RECALCULA los puntos de grupos en Python
            │
            ▼
   git commit + push ──►  main actualizado
            │
            └──────────────────────────────────────────►  index.html lee data.json
-                                                           (el navegador recarga cada 5 min)
 ```
 
 **Scripts implicados:**
 
 | Paso | Script | Qué hace |
 |------|--------|----------|
-| 1 | `fetch_results.py` | Descarga partidos de la API y escribe goles en el Excel del repo |
-| 2 | `build_static.py` | Lee el Excel y genera `data.json` con clasificación, puntos, etc. |
+| 0 | `should_update.py` | Guardián: solo deja seguir si hay un partido recién terminado pendiente de resultado |
+| 1 | `fetch_results.py` | Descarga partidos de la API y escribe goles en los dos Excel del repo (preservando las cachés de fórmulas) |
+| 2 | `build_static.py` | Lee el Excel y genera `data.json`; los puntos de la fase de grupos se **recalculan en Python** |
 | 3 | Workflow GitHub | Hace commit y push si hay cambios (`github-actions[bot]`) |
 
-**API de resultados:** [https://worldcup26.ir/get/games](https://worldcup26.ir/get/games) (pública, sin clave). Configuración en `update_config.json`. Horario del cron en `.github/workflows/update-porra.yml` (`0 * * * *` = cada hora en punto UTC, equivalente a hora en punto en España).
+> **Por qué se recalculan los puntos en Python:** al escribir los goles directamente en el `.xlsx` no
+> se ejecuta el motor de fórmulas de Excel, así que las celdas de puntos quedarían congeladas hasta
+> abrir el archivo a mano. Para que la actualización sea 100% automática, `app.py` recalcula los
+> puntos de la fase de grupos (1X2, diferencia y resultado exacto) al generar `data.json`.
 
-**Dos ritmos distintos en la web:**
+**API de resultados:** [https://worldcup26.ir/get/games](https://worldcup26.ir/get/games) (pública, sin clave). Configuración en `update_config.json`. Horario del cron en `.github/workflows/update-porra.yml` (`*/30 * * * *` = cada 30 min, filtrado por `should_update.py`).
 
-- **Pipeline en GitHub:** cada **hora en punto** descarga goles y publica `data.json`.
-- **Navegador del usuario:** cada **5 minutos** vuelve a pedir `data.json` por si hubo un push nuevo (no hace falta F5).
+**Dos ritmos distintos:**
 
-La barra superior de la web («Actualizada a las XX:XX · Próxima actualización…») refleja ese ciclo horario.
+- **Pipeline en GitHub:** se despierta cada 30 min, pero solo publica `data.json` cuando un partido acaba de terminar.
+- **Navegador del usuario:** carga `data.json` al abrir la web. Para ver datos nuevos basta con recargar la página.
+
+La barra superior de la web («Actualizada a las XX:XX · Próxima actualización…») refleja ese ciclo.
 
 ### Flujo manual (pronósticos)
 
@@ -254,7 +265,7 @@ Para que el pipeline automático pueda subir cambios al repo:
    - En **Commits** deberías ver entradas de `github-actions[bot]` con mensaje `chore: actualización automática de datos (...)`  
      (o el log dirá «Sin cambios que subir» si la API no trajo goles nuevos — también es correcto)
 
-4. **Forzar una actualización** sin esperar a la hora en punto: **Actions → Actualizar porra → Run workflow**
+4. **Forzar una actualización** sin esperar al siguiente ciclo: **Actions → Actualizar porra → Run workflow** (el lanzamiento manual se salta el guardián y ejecuta siempre)
 
 ### Uso local (Flask)
 
