@@ -1909,22 +1909,20 @@ function renderPodium() {
   const container = document.getElementById("podium");
   const restEl    = document.getElementById("podium-rest");
   const top3 = D.standings.slice(0, 3);
-  const order  = [{ idx: 1, cls: "podium-2nd", medal: "🥈", prize: "20€" },
-                  { idx: 0, cls: "podium-1st", medal: "🥇", prize: "40€" },
-                  { idx: 2, cls: "podium-3rd", medal: "🥉", prize: "" }];
+  const order  = [{ idx: 1, cls: "podium-2nd", medal: "🥈" },
+                  { idx: 0, cls: "podium-1st", medal: "🥇" },
+                  { idx: 2, cls: "podium-3rd", medal: "🥉" }];
 
-  container.innerHTML = order.map(({ idx, cls, medal, prize }) => {
+  container.innerHTML = order.map(({ idx, cls, medal }) => {
     const p = top3[idx];
     if (!p) return "";
     const rankLbl = idx === 0 ? "1º" : idx === 1 ? "2º" : "3º";
-    const prizeLbl = prize ? `<div class="podium-prize" style="color:${p.color}">${prize}</div>` : "";
     return `
       <div class="podium-col ${cls}">
         <div class="podium-player">
           <div class="text-3xl mb-1">${medal}</div>
-          <div class="font-extrabold uppercase text-sm tracking-wide" style="color:${p.color}">${p.name}</div>
-          <div class="podium-score bebas" style="color:${p.color}">${p.total} puntos</div>
-          ${prizeLbl}
+          <div class="bebas text-2xl tracking-wide" style="color:${p.color}">${p.name}</div>
+          <div class="podium-score bebas" style="color:${p.color};font-size:1.1rem;opacity:.85">${p.total} pts</div>
         </div>
         <div class="podium-block" aria-label="${rankLbl} puesto">${rankLbl}</div>
       </div>`;
