@@ -214,6 +214,11 @@
       color: var(--gold);
     }
     .tab-btn:hover:not(.active) { color: #CBD5E1; background: var(--card2); }
+    /* En pantallas anchas: ajustar pestañas en varias filas en vez de
+       desbordarse y ocultar la última ("Más info"). */
+    @media (min-width: 768px) {
+      #tab-nav-scroll { flex-wrap: wrap; justify-content: center; overflow-x: visible; }
+    }
     @media (max-width: 640px) {
       .tab-btn { padding: .5rem .9rem; font-size: .8rem; border-radius: 8px; }
     }

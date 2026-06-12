@@ -1023,7 +1023,10 @@
           }
         ],
         "badges": [],
-        "best_phase": null
+        "best_phase": {
+          "label": "Fase de grupos",
+          "pts": 2.0
+        }
       },
       {
         "name": "LUIS/VIR",
@@ -1090,12 +1093,12 @@
           "hits_1x2": 4,
           "goals_home": 4,
           "goals_away": 4,
-          "avg_match": 4,
-          "hit_rate": 4,
-          "phase_positions": 4,
-          "phase_q16": 4,
-          "phase_ko": 4,
-          "phase_honor": 4
+          "avg_match": 6,
+          "hit_rate": 5,
+          "phase_positions": 5,
+          "phase_q16": 5,
+          "phase_ko": 5,
+          "phase_honor": 5
         },
         "top_skills": [
           {
@@ -1141,11 +1144,11 @@
         },
         "top_skills": [
           {
-            "key": "hits_exact",
-            "label": "Resultados exactos",
-            "icon": "🎯",
-            "rank": 5,
-            "display": "0 aciertos · 0 pts"
+            "key": "goals_away",
+            "label": "Goles visitante exactos",
+            "icon": "✈️",
+            "rank": 4,
+            "display": "1 aciertos"
           }
         ],
         "badges": [],
