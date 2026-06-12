@@ -543,6 +543,13 @@
       .pred-table th, .pred-table td { padding: .4rem .5rem; font-size: .75rem; }
     }
 
+    /* ── sortable headers (clasificación) ── */
+    .pred-table th.st-sortable { cursor: pointer; user-select: none; transition: color .15s, background .15s; }
+    .pred-table th.st-sortable:hover { color: #CBD5E1; background: rgba(255,255,255,.05); }
+    .pred-table th.st-sortable.st-active { color: #fff; }
+    .pred-table th .st-arrow { font-size: .6rem; margin-left: .25rem; opacity: .45; }
+    .pred-table th.st-active .st-arrow { opacity: 1; color: var(--gold); }
+
     /* ── tooltip ── */
     .tooltip-wrap { position: relative; display: inline-block; }
     .tooltip-wrap .tt { 
@@ -2020,15 +2027,20 @@
     <div class="card overflow-hidden mb-6">
       <div class="px-6 py-4 border-b" style="border-color:var(--border)">
         <h2 class="text-lg font-bold text-white">Tabla completa</h2>
+        <p class="text-xs text-gray-400 mt-1">Pulsa sobre el título de una columna para ordenar. Los puntos de grupos se desglosan por el motivo por el que se ganaron.</p>
       </div>
       <div class="overflow-x-auto">
         <table class="pred-table w-full">
           <thead>
-            <tr>
-              <th>Pos</th><th>Jugador</th><th>Total</th>
-              <th>F.Grupos</th><th>Pos.Grupos</th><th>Cl.16avos</th>
-              <th>16avos</th><th>Octavos</th><th>Cuartos</th>
-              <th>Semis</th><th>3-4/Final</th><th>C.Honor</th>
+            <tr id="standings-head">
+              <th class="st-sortable" data-key="pos">Pos</th>
+              <th class="st-sortable text-left" data-key="name">Jugador</th>
+              <th class="st-sortable" data-key="total">Total</th>
+              <th class="st-sortable" data-key="groups" title="Puntos totales de la fase de grupos">F.Grupos</th>
+              <th class="st-sortable" data-key="s1x2" title="Puntos por acertar el 1X2 (signo del partido)">1X2</th>
+              <th class="st-sortable" data-key="sdiff" title="Puntos por acertar la diferencia de goles">Diferencia</th>
+              <th class="st-sortable" data-key="sexact" title="Puntos por acertar el resultado exacto">Exacto</th>
+              <th class="st-sortable" data-key="positions" title="Puntos por las posiciones finales de cada grupo (1º, 2º, 3º, 4º)">Pos.Grupos</th>
             </tr>
           </thead>
           <tbody id="standings-table"></tbody>
@@ -3060,18 +3072,89 @@ function matchMetaHtml(m) {
 /* ─── STANDINGS TABLE ─── */
 function renderStandingsTable() {
   const tbody = document.getElementById("standings-table");
-  tbody.innerHTML = D.standings.map(p => {
-    const medal = p.pos <= 3 ? MEDAL[p.pos-1] + " " : "";
+  const rows = _standingsRows();
+  const { key, dir } = _stSort;
+  rows.sort((a, b) => {
+    let va = a[key], vb = b[key];
+    if (typeof va === "string") {
+      const cmp = va.toLowerCase().localeCompare(vb.toLowerCase());
+      return dir === "asc" ? cmp : -cmp;
+    }
+    return dir === "asc" ? va - vb : vb - va;
+  });
+  const fmt = v => Number.isInteger(v) ? v : (+v).toFixed(2).replace(/\.?0+$/, "");
+  tbody.innerHTML = rows.map(r => {
+    const medal = r.pos <= 3 ? MEDAL[r.pos - 1] + " " : "";
     return `<tr>
-      <td class="font-bold" style="color:${p.color}">${p.pos}</td>
-      <td class="text-left font-semibold text-white">${medal}${p.name}</td>
-      <td class="font-extrabold text-lg" style="color:${p.color}">${p.total}</td>
-      <td>${p.groups}</td><td>${p.positions}</td><td>${p.q16}</td>
-      <td>${p.r16}</td><td>${p.r8}</td><td>${p.r4}</td>
-      <td>${p.r2}</td><td>${p.r34_final}</td><td>${p.honor}</td>
+      <td class="font-bold" style="color:${r.color}">${r.pos}</td>
+      <td class="text-left font-semibold text-white">${medal}${r.name}</td>
+      <td class="font-extrabold text-lg" style="color:${r.color}">${fmt(r.total)}</td>
+      <td>${fmt(r.groups)}</td>
+      <td>${fmt(r.s1x2)}</td>
+      <td>${fmt(r.sdiff)}</td>
+      <td>${fmt(r.sexact)}</td>
+      <td>${fmt(r.positions)}</td>
     </tr>`;
   }).join("");
+  _syncStandingsSortIndicators();
 }
+
+/* Desglose de puntos por motivo (1X2 / diferencia / exacto) a partir de
+   los partidos de grupos jugados, más los datos de la clasificación. */
+function _standingsRows() {
+  const gm = (D.matches || []).filter(m => m.phase === "groups" && m.played);
+  return D.standings.map(p => {
+    let s1x2 = 0, sdiff = 0, sexact = 0;
+    gm.forEach(m => {
+      const b = m.predictions?.[p.name]?.breakdown;
+      if (b) {
+        s1x2   += +b.sign  || 0;
+        sdiff  += +b.diff  || 0;
+        sexact += +b.exact || 0;
+      }
+    });
+    return {
+      pos: p.pos, name: p.name, color: p.color,
+      total: +p.total || 0, groups: +p.groups || 0,
+      positions: +p.positions || 0,
+      s1x2, sdiff, sexact,
+    };
+  });
+}
+
+const _stSort = { key: "pos", dir: "asc" };
+const _ST_DEFAULT_DIR = { name: "asc" }; // el resto, numéricas → desc
+
+function _syncStandingsSortIndicators() {
+  const head = document.getElementById("standings-head");
+  if (!head) return;
+  head.querySelectorAll("th.st-sortable").forEach(th => {
+    const active = th.dataset.key === _stSort.key;
+    th.classList.toggle("st-active", active);
+    let arrow = th.querySelector(".st-arrow");
+    if (!arrow) {
+      arrow = document.createElement("span");
+      arrow.className = "st-arrow";
+      th.appendChild(arrow);
+    }
+    arrow.textContent = active ? (_stSort.dir === "asc" ? "▲" : "▼") : "↕";
+  });
+}
+
+(function initStandingsSort() {
+  document.addEventListener("click", e => {
+    const th = e.target.closest("#standings-head th.st-sortable");
+    if (!th) return;
+    const key = th.dataset.key;
+    if (_stSort.key === key) {
+      _stSort.dir = _stSort.dir === "asc" ? "desc" : "asc";
+    } else {
+      _stSort.key = key;
+      _stSort.dir = _ST_DEFAULT_DIR[key] || "desc";
+    }
+    renderStandingsTable();
+  });
+})();
 
 /* ─── PLAYER STRENGTHS ─── */
 function renderPlayerStrengths() {
@@ -4330,10 +4413,11 @@ function renderStats() {
   playersEl.innerHTML = D.standings.map(p => {
     const pp = perPlayer.find(x => x.name === p.name) || {};
     const last10 = groupMatches.slice(-10);
+    const scoreColor = (sc) => sc >= 5 ? "#22C55E" : sc >= 3 ? "#EAB308" : sc >= 1 ? "#F97316" : "#374151";
     const lastBar = last10.length ? `<div class="flex gap-1 mt-1 flex-wrap">
       ${last10.map(m => {
         const sc = m.predictions[p.name]?.score ?? 0;
-        const col = sc >= 5 ? "#22C55E" : sc > 0 ? p.color : "#374151";
+        const col = scoreColor(sc);
         const lbl = `${m.name}: ${sc} pts`;
         return `<div title="${lbl.replace(/"/g,"&quot;")}" style="width:13px;height:20px;border-radius:3px;background:${col};flex-shrink:0"></div>`;
       }).join("")}
@@ -4381,8 +4465,9 @@ function renderStats() {
         </div>
         ${lastBar}
         <div class="pstat-legend">
-          <span><i style="background:#22C55E"></i> Buen partido (≥5 pts)</span>
-          <span><i style="background:${p.color}"></i> Sumó puntos</span>
+          <span><i style="background:#22C55E"></i> 5+ pts</span>
+          <span><i style="background:#EAB308"></i> 3-4 pts</span>
+          <span><i style="background:#F97316"></i> 1-2 pts</span>
           <span><i style="background:#374151"></i> 0 pts</span>
         </div>
       </div>`;
