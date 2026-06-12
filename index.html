@@ -10,6 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -483,6 +485,113 @@
     }
     .info-wrap:hover .info-tip { display: block; }
 
+    /* ── music player ── */
+    .music-wrap {
+      position: fixed;
+      left: .85rem;
+      bottom: .85rem;
+      z-index: 45;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .music-btn {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      background: rgba(13, 17, 36, .94);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 20px rgba(0,0,0,.4);
+      transition: transform .2s, border-color .2s;
+      color: #94A3B8;
+      align-self: flex-start;
+    }
+    .music-btn:hover { transform: scale(1.1); border-color: var(--gold); }
+    .music-btn.playing {
+      border-color: var(--gold);
+      color: var(--gold);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .music-panel {
+      margin-bottom: .55rem;
+      width: 210px;
+      background: rgba(13, 17, 36, .96);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: .75rem .85rem;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 8px 30px rgba(0,0,0,.45);
+      transform-origin: bottom left;
+      animation: music-in .18s ease;
+    }
+    @keyframes music-in {
+      from { opacity: 0; transform: scale(.92) translateY(6px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .music-panel.hidden { display: none; }
+    .music-panel-head {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: .55rem;
+    }
+    .music-panel-title {
+      font-size: .72rem; font-weight: 800; color: var(--gold);
+      text-transform: uppercase; letter-spacing: .05em;
+    }
+    .music-panel-sub {
+      font-size: .65rem; color: #64748B; margin-top: .1rem;
+    }
+    .music-x {
+      background: none; border: none; cursor: pointer;
+      color: #475569; font-size: .85rem; line-height: 1;
+      padding: .15rem .35rem; border-radius: 4px;
+      transition: color .15s;
+    }
+    .music-x:hover { color: var(--gold); }
+    .music-controls {
+      display: flex; align-items: center; gap: .65rem; margin-bottom: .55rem;
+    }
+    .music-play {
+      width: 2rem; height: 2rem; border-radius: 50%;
+      background: var(--gold); color: #0a0e1f; border: none;
+      cursor: pointer; font-size: .75rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: transform .15s, background .15s;
+      font-weight: 900;
+    }
+    .music-play:hover { transform: scale(1.1); background: #ffd740; }
+    .music-vol {
+      display: flex; align-items: center; gap: .3rem; flex: 1;
+    }
+    .music-vol-icon { font-size: .7rem; color: #64748B; }
+    .music-vol-range {
+      flex: 1; -webkit-appearance: none; appearance: none;
+      height: 3px; border-radius: 2px; background: var(--border); cursor: pointer;
+    }
+    .music-vol-range::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 11px; height: 11px;
+      border-radius: 50%; background: var(--gold); cursor: pointer;
+    }
+    .music-vol-range::-moz-range-thumb {
+      width: 11px; height: 11px; border-radius: 50%;
+      background: var(--gold); cursor: pointer; border: none;
+    }
+    .music-progress {
+      height: 3px; background: rgba(255,255,255,.08); border-radius: 2px; overflow: hidden;
+    }
+    .music-progress-fill {
+      height: 100%; width: 0%; background: var(--gold); border-radius: 2px; transition: width .4s linear;
+    }
+    @media (max-width: 480px) {
+      .music-wrap { left: .55rem; bottom: .55rem; }
+      .music-panel { width: 185px; }
+      .music-btn { width: 2.25rem; height: 2.25rem; font-size: 1rem; }
+    }
+
     /* ── scoring tab ── */
     .score-rule-row {
       display: flex; justify-content: space-between; align-items: flex-start;
@@ -654,9 +763,189 @@
         display: none;
       }
     }
+
+    /* ─── MATCH DETAIL PANEL ─── */
+    .match-detail-drawer {
+      position: fixed;
+      top: 0; right: -480px;
+      width: min(460px, 100vw);
+      height: 100%; height: 100dvh;
+      z-index: 300;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      transition: right 0.28s cubic-bezier(.4,0,.2,1);
+      display: flex;
+      flex-direction: column;
+    }
+    .match-detail-drawer.open { right: 0; }
+
+    /* On small screens: slide up from bottom instead */
+    @media (max-width: 500px) {
+      .match-detail-drawer {
+        top: auto; bottom: -100%; right: 0;
+        width: 100vw;
+        height: 92%; height: 92dvh;
+        border-left: none;
+        border-top: 1px solid var(--border);
+        border-radius: 16px 16px 0 0;
+        transition: bottom 0.28s cubic-bezier(.4,0,.2,1);
+      }
+      .match-detail-drawer.open { bottom: 0; right: 0; }
+    }
+
+    .panel-overlay {
+      position: fixed; inset: 0;
+      z-index: 299;
+      background: rgba(0,0,0,0.6);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.28s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .panel-overlay.open { opacity: 1; pointer-events: auto; }
+
+    .panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .85rem 1rem .75rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0;
+      background: var(--surface);
+      z-index: 2;
+      flex-shrink: 0;
+    }
+    .panel-close-btn {
+      width: 34px; height: 34px; border-radius: 50%;
+      border: none;
+      background: var(--card2); color: #94A3B8;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1rem;
+      transition: background .15s;
+      flex-shrink: 0;
+      touch-action: manipulation;
+    }
+    .panel-close-btn:hover, .panel-close-btn:active { background: var(--border); color: white; }
+
+    /* Panel inner sections */
+    .panel-body { padding: 1rem; display: flex; flex-direction: column; gap: 1rem; flex: 1; }
+    .panel-section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: .85rem 1rem;
+    }
+    .panel-section-title {
+      font-size: .65rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: #64748B; margin-bottom: .6rem;
+    }
+
+    /* Map — explicit dimensions are critical for Leaflet */
+    #panel-map {
+      width: 100%;
+      height: 200px;
+      min-height: 200px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #0f172a;
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
+    .leaflet-container { background: #0f172a !important; font-family: inherit; }
+    .map-stadium-marker {
+      font-size: 1.6rem; line-height: 1;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,.9));
+      display: block;
+    }
+    .leaflet-popup-content-wrapper {
+      background: #1C2240 !important; color: #E2E8F0 !important;
+      border: 1px solid var(--border) !important; border-radius: 8px !important;
+      box-shadow: 0 4px 20px rgba(0,0,0,.6) !important;
+    }
+    .leaflet-popup-content { margin: .5rem .75rem !important; }
+    .leaflet-popup-tip { background: #1C2240 !important; }
+    .leaflet-popup-close-button { color: #64748B !important; top: 4px !important; right: 6px !important; }
+    .leaflet-control-zoom a {
+      background: #1C2240 !important; color: #94A3B8 !important;
+      border-color: var(--border) !important;
+    }
+    .leaflet-control-zoom a:hover { color: white !important; }
+
+    /* Venue info grid */
+    .venue-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin-top: .6rem;
+    }
+    .venue-stat {
+      background: var(--card2); border-radius: 8px; padding: .5rem .7rem;
+    }
+    .venue-stat-label { font-size: .62rem; text-transform: uppercase; letter-spacing: .06em; color: #64748B; }
+    .venue-stat-value { font-size: .85rem; font-weight: 600; color: #E2E8F0; margin-top: .15rem; }
+    .venue-fact-text {
+      font-size: .75rem; color: #94A3B8; line-height: 1.5;
+      font-style: italic; margin-top: .6rem;
+      padding: .5rem .75rem; background: var(--card2); border-radius: 8px;
+      border-left: 3px solid var(--gold);
+    }
+
+    /* Scorers */
+    .scorer-team-row { display: flex; align-items: flex-start; gap: .6rem; margin-bottom: .4rem; }
+    .scorer-flag { font-size: 1.1rem; line-height: 1.4; flex-shrink: 0; }
+    .scorer-list { font-size: .8rem; color: #CBD5E1; line-height: 1.5; flex: 1; min-width: 0; }
+    .scorer-name { font-weight: 600; color: #E2E8F0; }
+    .scorer-time { color: #64748B; font-size: .72rem; margin-left: .2rem; }
+    .no-scorers { font-size: .78rem; color: #475569; }
+
+    /* Key players — single column on narrow panel */
+    .kp-teams { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+    @media (max-width: 380px) {
+      .kp-teams { grid-template-columns: 1fr; }
+    }
+    .kp-team-name {
+      font-size: .7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .05em; color: #94A3B8; margin-bottom: .5rem;
+    }
+    .kp-player {
+      display: flex; flex-direction: column;
+      background: var(--card2); border-radius: 8px;
+      padding: .45rem .6rem; margin-bottom: .4rem;
+    }
+    .kp-player-name { font-size: .8rem; font-weight: 700; color: white; }
+    .kp-player-meta { font-size: .67rem; color: #64748B; display: flex; gap: .4rem; flex-wrap: wrap; margin-top: .15rem; }
+    .kp-player-note { font-size: .7rem; color: #94A3B8; margin-top: .2rem; line-height: 1.4; }
+    .kp-pos-badge {
+      font-size: .6rem; font-weight: 700; padding: .15rem .35rem;
+      border-radius: 4px; background: #1E3A5F; color: #60A5FA;
+    }
+    .kp-no-data { font-size: .75rem; color: #475569; }
+
+    /* Open-detail button on match card */
+    .match-detail-btn {
+      display: inline-flex; align-items: center; gap: .3rem;
+      font-size: .7rem; font-weight: 600;
+      color: #60A5FA; background: none; border: none; padding: 2px 0;
+      cursor: pointer; transition: color .15s;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .match-detail-btn:hover, .match-detail-btn:active { color: var(--gold); }
   </style>
 </head>
 <body>
+
+<!-- ── panel overlay backdrop ── -->
+<div id="panel-overlay" class="panel-overlay" onclick="closeMatchDetail()"></div>
+
+<!-- ── match detail drawer ── -->
+<aside id="match-detail-drawer" class="match-detail-drawer" aria-hidden="true">
+  <div class="panel-header">
+    <div id="panel-match-title" class="text-sm font-bold text-white"></div>
+    <button class="panel-close-btn" onclick="closeMatchDetail()" title="Cerrar">✕</button>
+  </div>
+  <div class="panel-body" id="panel-body">
+    <!-- filled by JS -->
+  </div>
+</aside>
 
 <!-- ── loading overlay ── -->
 <div id="loading">
@@ -993,6 +1282,29 @@
   <span><strong id="visitor-count">—</strong> visitas</span>
 </div>
 
+<!-- ── music player ── -->
+<audio id="music-audio" src="docs/cancion_LineaDeCal.mp3" preload="none" loop></audio>
+<div class="music-wrap" aria-label="Reproductor música">
+  <div id="music-panel" class="music-panel hidden">
+    <div class="music-panel-head">
+      <div>
+        <div class="music-panel-title">🎵 Línea de Cal</div>
+        <div class="music-panel-sub">¿Dónde está Curazao?</div>
+      </div>
+      <button class="music-x" id="music-close" title="Cerrar">✕</button>
+    </div>
+    <div class="music-controls">
+      <button class="music-play" id="music-play" title="Play / Pausa">▶</button>
+      <div class="music-vol">
+        <span class="music-vol-icon">🔊</span>
+        <input type="range" id="music-vol" class="music-vol-range" min="0" max="1" step="0.05" value="0.4">
+      </div>
+    </div>
+    <div class="music-progress"><div class="music-progress-fill" id="music-prog"></div></div>
+  </div>
+  <button class="music-btn" id="music-btn" title="🎵 Línea de Cal — pulsa para abrir">🎵</button>
+</div>
+
 <script>
 /* ═══════════════════════════════════════════════════════════════
    GLOBAL STATE
@@ -1051,6 +1363,98 @@ const PHASE_LABELS = {
 };
 
 const MEDAL = ["🥇","🥈","🥉","4️⃣","5️⃣","6️⃣"];
+
+/* ── worldcup26.ir English name → Spanish name (for game lookup) ── */
+const EN_TO_ESP_TEAM = {
+  "Mexico":"México","South Africa":"Sudáfrica","South Korea":"Corea del Sur",
+  "Czech Republic":"Rep. Checa","Czechia":"Rep. Checa",
+  "Canada":"Canadá","Bosnia and Herzegovina":"Bosnia","Bosnia":"Bosnia",
+  "Qatar":"Qatar","Switzerland":"Suiza","Brazil":"Brasil","Morocco":"Marruecos",
+  "Haiti":"Haití","Scotland":"Escocia","United States":"EE.UU.",
+  "Paraguay":"Paraguay","Australia":"Australia","Turkey":"Turquía","Germany":"Alemania",
+  "Curacao":"Curazao","Curaçao":"Curazao","Ivory Coast":"Costa de Marfil",
+  "Ecuador":"Ecuador","Netherlands":"Países Bajos","Japan":"Japón","Sweden":"Suecia",
+  "Tunisia":"Túnez","Belgium":"Bélgica","Egypt":"Egipto","Iran":"Irán",
+  "New Zealand":"Nueva Zelanda","Spain":"España","Cape Verde":"Cabo Verde",
+  "Saudi Arabia":"Arabia Saudí","Uruguay":"Uruguay","France":"Francia",
+  "Senegal":"Senegal","Iraq":"Iraq","Norway":"Noruega","Argentina":"Argentina",
+  "Algeria":"Argelia","Austria":"Austria","Jordan":"Jordania","Portugal":"Portugal",
+  "DR Congo":"R.D. Congo","Uzbekistan":"Uzbekistán","Colombia":"Colombia",
+  "England":"Inglaterra","Croatia":"Croacia","Ghana":"Ghana","Panama":"Panamá",
+  "Denmark":"Dinamarca","Greece":"Grecia","Serbia":"Serbia","Nigeria":"Nigeria",
+  "Costa Rica":"Costa Rica","Honduras":"Honduras",
+};
+
+/* ── Spanish team name → FIFA code ── */
+const TEAM_TO_FIFA = {
+  "México":"MEX","Sudáfrica":"RSA","Corea del Sur":"KOR","Rep. Checa":"CZE","Chequia":"CZE",
+  "Canadá":"CAN","Bosnia":"BIH","Bosnia y Herz.":"BIH","Qatar":"QAT","Suiza":"SUI",
+  "Brasil":"BRA","Marruecos":"MAR","Haití":"HAI","Escocia":"SCO",
+  "EE.UU.":"USA","Estados Unidos":"USA","Paraguay":"PRY","Australia":"AUS","Turquía":"TUR",
+  "Alemania":"GER","Curazao":"CUW","Costa de Marfil":"CIV","Ecuador":"ECU",
+  "Países Bajos":"NED","Holanda":"NED","Japón":"JPN","Suecia":"SWE","Túnez":"TUN",
+  "Bélgica":"BEL","Egipto":"EGY","Irán":"IRN","Nueva Zelanda":"NZL",
+  "España":"ESP","Cabo Verde":"CPV","Arabia Saudí":"KSA","Arabia Saudita":"KSA","Uruguay":"URU",
+  "Francia":"FRA","Senegal":"SEN","Iraq":"IRQ","Noruega":"NOR",
+  "Argentina":"ARG","Argelia":"DZA","Austria":"AUT","Jordania":"JOR",
+  "Portugal":"POR","R.D. Congo":"COD","Congo DR":"COD","Uzbekistán":"UZB","Colombia":"COL",
+  "Inglaterra":"ENG","Croacia":"HRV","Ghana":"GHA","Panamá":"PAN",
+  "Dinamarca":"DEN","Grecia":"GRE","Serbia":"SRB","Nigeria":"NGA",
+  "Costa Rica":"CRC","Honduras":"HON","Jamaica":"JAM","Venezuela":"VEN",
+  "Chile":"CHI","Bolivia":"BOL","Perú":"PER",
+};
+
+/* ── Key players per FIFA code ── */
+const KEY_PLAYERS = {
+  "MEX":[{"name":"Santiago Giménez","pos":"DC","club":"Feyenoord","note":"Máximo goleador de México en activo"},{"name":"Hirving Lozano","pos":"EXT","club":"PSV","note":"Velocidad y desborde por la banda"},{"name":"Guillermo Ochoa","pos":"POR","club":"Club América","note":"Leyenda viva del fútbol mexicano"},{"name":"Edson Álvarez","pos":"MCD","club":"West Ham","note":"Pilar del centro del campo"}],
+  "RSA":[{"name":"Percy Tau","pos":"EXT","club":"Mamelodi Sundowns","note":"Mejor jugador africano 2022"},{"name":"Themba Zwane","pos":"MC","club":"Mamelodi Sundowns","note":"Elegancia y visión de juego"},{"name":"Ronwen Williams","pos":"POR","club":"Mamelodi Sundowns","note":"Portero número 1 de Sudáfrica"}],
+  "KOR":[{"name":"Son Heung-min","pos":"EXT","club":"Tottenham","note":"Capitán y referencia absoluta"},{"name":"Lee Jae-sung","pos":"MC","club":"Mainz","note":"Motor del centro del campo"},{"name":"Kim Min-jae","pos":"DFC","club":"Bayern München","note":"Uno de los mejores centrales del mundo"}],
+  "CZE":[{"name":"Patrik Schick","pos":"DC","club":"Bayer Leverkusen","note":"Potencia y gol. 2º goleador de la Eurocopa 2020"},{"name":"Tomáš Souček","pos":"MCD","club":"West Ham","note":"Presencia aérea y garra"},{"name":"Vladimír Coufal","pos":"LAD","club":"West Ham","note":"Lateral derecho fiable y con llegada"}],
+  "CAN":[{"name":"Alphonso Davies","pos":"LAI","club":"Bayern München","note":"Velocidad extrema. Mejor jugador canadiense de la historia"},{"name":"Jonathan David","pos":"DC","club":"Lille","note":"Uno de los goleadores más letales de Europa"},{"name":"Tajon Buchanan","pos":"EXT","club":"Inter de Milán","note":"Desequilibrio por la banda"}],
+  "BIH":[{"name":"Edin Džeko","pos":"DC","club":"Fenerbahçe","note":"Máximo goleador histórico de Bosnia"},{"name":"Ermedin Demirović","pos":"DC","club":"Stuttgart","note":"Nuevo referente del gol bosnio"},{"name":"Miralem Pjanić","pos":"MC","club":"—","note":"Leyenda bosnia"}],
+  "QAT":[{"name":"Akram Afif","pos":"EXT","club":"Al-Sadd","note":"Mejor jugador de la Copa de Asia 2023"},{"name":"Almoez Ali","pos":"DC","club":"Al-Duhail","note":"Máximo goleador histórico de Qatar"},{"name":"Abdelkarim Hassan","pos":"LAI","club":"Al-Arabi","note":"Lateral rápido y con llegada"}],
+  "SUI":[{"name":"Granit Xhaka","pos":"MC","club":"Bayer Leverkusen","note":"Liderazgo y técnica. Corazón de Suiza"},{"name":"Xherdan Shaqiri","pos":"EXT","club":"Chicago Fire","note":"Imprevisible. Campeón de la Eurocopa 2008"},{"name":"Yann Sommer","pos":"POR","club":"Inter de Milán","note":"Portero de clase mundial"},{"name":"Manuel Akanji","pos":"DFC","club":"Man City","note":"Central sólido y con salida de balón"}],
+  "BRA":[{"name":"Vinícius Jr.","pos":"EXT","club":"Real Madrid","note":"Balón de Oro 2024. El más desequilibrante del mundo"},{"name":"Rodrygo","pos":"EXT","club":"Real Madrid","note":"Clutch player. Decisivo en los grandes momentos"},{"name":"Endrick","pos":"DC","club":"Real Madrid","note":"Joya de 18 años. El futuro del fútbol brasileño"},{"name":"Alisson Becker","pos":"POR","club":"Liverpool","note":"Mejor portero del mundo en los últimos años"}],
+  "MAR":[{"name":"Achraf Hakimi","pos":"LAD","club":"PSG","note":"Mejor lateral derecho del mundo. 4º puesto en Qatar 2022"},{"name":"Hakim Ziyech","pos":"EXT","club":"Galatasaray","note":"Magia y creatividad en el ataque"},{"name":"Youssef En-Nesyri","pos":"DC","club":"Fenerbahçe","note":"Héroe de la semifinal de Qatar 2022"},{"name":"Sofyan Amrabat","pos":"MCD","club":"Fiorentina","note":"Sensación del Mundial 2022"}],
+  "HAI":[{"name":"Frantzdy Pierrot","pos":"DC","club":"Atlanta United","note":"Artillero de la MLS"},{"name":"Duckens Nazon","pos":"EXT","club":"Panathinaikos","note":"Velocidad y desborde"},{"name":"Naïco Ducasse","pos":"MC","club":"FC Nantes","note":"Mediocampista elegante"}],
+  "SCO":[{"name":"Andrew Robertson","pos":"LAI","club":"Liverpool","note":"Capitán. Uno de los mejores laterales del mundo"},{"name":"Scott McTominay","pos":"MC","club":"Napoli","note":"Gol y llegada desde segunda línea"},{"name":"Che Adams","pos":"DC","club":"Torino","note":"Delantero físico y trabajador"}],
+  "USA":[{"name":"Christian Pulisic","pos":"EXT","club":"AC Milan","note":"Capitán y estrella. «Captain America»"},{"name":"Tyler Adams","pos":"MCD","club":"Bournemouth","note":"Dinamismo e intensidad en el centro"},{"name":"Gio Reyna","pos":"MC","club":"Borussia Dortmund","note":"Talento generacional"},{"name":"Matt Turner","pos":"POR","club":"Crystal Palace","note":"Portero seguro bajo los tres palos"}],
+  "PRY":[{"name":"Miguel Almirón","pos":"MC","club":"Newcastle","note":"Motor incansable. Dobletes con Newcastle"},{"name":"Julio Enciso","pos":"EXT","club":"Brighton","note":"Joven talento. El nuevo referente paraguayo"},{"name":"Gustavo Gómez","pos":"DFC","club":"Palmeiras","note":"Capitán. Líder de la defensa"}],
+  "AUS":[{"name":"Mathew Ryan","pos":"POR","club":"Real Sociedad","note":"Portero experimentado y seguro"},{"name":"Marco Tilio","pos":"EXT","club":"Celtic","note":"Joven promesa del fútbol australiano"},{"name":"Mitchell Duke","pos":"DC","club":"FC Macarthur","note":"Héroe del gol ante Dinamarca en Qatar 2022"}],
+  "TUR":[{"name":"Arda Güler","pos":"MC","club":"Real Madrid","note":"Joya de 19 años. El nuevo Özil"},{"name":"Hakan Çalhanoğlu","pos":"MCD","club":"Inter de Milán","note":"Cerebro del equipo. Lanzador de falta letal"},{"name":"Merih Demiral","pos":"DFC","club":"Al-Ahli","note":"Central potente y buen salto"},{"name":"Kerem Aktürkoğlu","pos":"EXT","club":"Galatasaray","note":"Goleador en Champions"}],
+  "GER":[{"name":"Jamal Musiala","pos":"MC","club":"Bayern München","note":"El más prometedor de Europa. Gambeta y gol"},{"name":"Florian Wirtz","pos":"MC","club":"Bayer Leverkusen","note":"Elegancia y visión. Corazón del Leverkusen campeón"},{"name":"Harry Kane","pos":"DC","club":"Bayern München","note":"Máximo goleador de la historia del Bayern"},{"name":"Toni Kroos","pos":"MC","club":"Real Madrid","note":"Leyenda absoluta"}],
+  "CUW":[{"name":"Leandro Bacuna","pos":"MC","club":"Burton Albion","note":"Experiencia y técnica"},{"name":"Jarchinio Antonia","pos":"EXT","club":"Beerschot","note":"Habilidad y regates"}],
+  "CIV":[{"name":"Sébastien Haller","pos":"DC","club":"Borussia Dortmund","note":"Luchó contra el cáncer y volvió más fuerte"},{"name":"Franck Kessié","pos":"MC","club":"Al-Ahli","note":"Físico y gol. Pulmón del centro"},{"name":"Nicolas Pépé","pos":"EXT","club":"OGC Niza","note":"Desequilibrio y velocidad"}],
+  "ECU":[{"name":"Enner Valencia","pos":"DC","club":"LDU Quito","note":"El goleador histórico de Ecuador. Héroe de Qatar 2022"},{"name":"Moisés Caicedo","pos":"MCD","club":"Chelsea","note":"Centrocampista élite. Fichaje récord del Chelsea"},{"name":"Gonzalo Plata","pos":"EXT","club":"Galatasaray","note":"Velocidad y peligro por la derecha"}],
+  "NED":[{"name":"Virgil van Dijk","pos":"DFC","club":"Liverpool","note":"Mejor central del mundo en los últimos años"},{"name":"Cody Gakpo","pos":"EXT","club":"Liverpool","note":"Llegó al Mundial 2022 de suplente y fue figura"},{"name":"Frenkie de Jong","pos":"MC","club":"Barcelona","note":"El más elegante de Países Bajos"},{"name":"Memphis Depay","pos":"DC","club":"Corinthians","note":"Gol e instinto en cualquier equipo"}],
+  "JPN":[{"name":"Takehiro Tomiyasu","pos":"DFC","club":"Arsenal","note":"Polivalente. Titular en el Arsenal"},{"name":"Wataru Endō","pos":"MCD","club":"Liverpool","note":"Solidez en el centro"},{"name":"Takumi Minamino","pos":"MC","club":"Monaco","note":"Gol y trabajo"},{"name":"Ritsu Doan","pos":"EXT","club":"SC Freiburg","note":"Goleador del histórico 2-1 a Alemania en Qatar"}],
+  "SWE":[{"name":"Victor Nilsson Lindelöf","pos":"DFC","club":"Man United","note":"Central sólido y con salida de balón"},{"name":"Dejan Kulusevski","pos":"EXT","club":"Tottenham","note":"Creatividad y llegada desde la banda"},{"name":"Alexander Isak","pos":"DC","club":"Newcastle","note":"Rápido y letal. Figura de la Premier League"}],
+  "TUN":[{"name":"Youssef Msakni","pos":"EXT","club":"Espérance","note":"Líder histórico. El referente ofensivo"},{"name":"Wahbi Khazri","pos":"MC","club":"Montpellier","note":"Experiencia y calidad en el balón parado"}],
+  "BEL":[{"name":"Kevin De Bruyne","pos":"MC","club":"Man City","note":"Quizás el mejor centrocampista del mundo"},{"name":"Romelu Lukaku","pos":"DC","club":"Roma","note":"El goleador histórico de Bélgica. Fuerza bruta"},{"name":"Thibaut Courtois","pos":"POR","club":"Real Madrid","note":"Uno de los mejores porteros del mundo"},{"name":"Lois Openda","pos":"DC","club":"RB Leipzig","note":"La nueva generación belga"}],
+  "EGY":[{"name":"Mohamed Salah","pos":"EXT","club":"Liverpool","note":"El Faraón. Uno de los 3 mejores jugadores del mundo"},{"name":"Omar Marmoush","pos":"EXT","club":"Man City","note":"En estado de gracia. Máximo goleador de la Bundesliga 2023/24"},{"name":"Mohamed El-Shenawy","pos":"POR","club":"Al-Ahly","note":"Portero experto en la Champions africana"}],
+  "IRN":[{"name":"Mehdi Taremi","pos":"DC","club":"Inter de Milán","note":"Técnica y gol. El más completo de Irán"},{"name":"Sardar Azmoun","pos":"EXT","club":"Roma","note":"El «Messi iraní». Muy querido en su país"},{"name":"Alireza Jahanbakhsh","pos":"EXT","club":"Feyenoord","note":"Velocidad y desborde"}],
+  "NZL":[{"name":"Chris Wood","pos":"DC","club":"Nottm Forest","note":"El goleador histórico de Nueva Zelanda"},{"name":"Ryan Thomas","pos":"MC","club":"PSV","note":"Técnica en el centro"},{"name":"Bill Tuilagi","pos":"DFC","club":"Wigan Athletic","note":"Defensa contundente"}],
+  "ESP":[{"name":"Lamine Yamal","pos":"EXT","club":"Barcelona","note":"Campeón de Europa con 17 años. La nueva joya mundial"},{"name":"Pedri","pos":"MC","club":"Barcelona","note":"Sucesor de Iniesta. Elegancia y técnica infinita"},{"name":"Rodri","pos":"MCD","club":"Man City","note":"Balón de Oro 2023. El mejor pivote del mundo"},{"name":"Unai Simón","pos":"POR","club":"Athletic Club","note":"Portero titular de La Roja desde 2021"}],
+  "CPV":[{"name":"Garry Rodrigues","pos":"EXT","club":"Galatasaray","note":"El mejor jugador histórico de Cabo Verde"},{"name":"Jamiro Monteiro","pos":"MC","club":"New England Rev.","note":"Creatividad en el centro del campo"}],
+  "KSA":[{"name":"Salem Al-Dawsari","pos":"EXT","club":"Al-Hilal","note":"El gol que eliminó a Argentina en 2022"},{"name":"Mohamed Kanno","pos":"MCD","club":"Al-Hilal","note":"El cerebro del mediocampo saudí"},{"name":"Yasser Al-Shahrani","pos":"LAI","club":"Al-Hilal","note":"Lateral con llegada y buen despliegue"}],
+  "URU":[{"name":"Darwin Núñez","pos":"DC","club":"Liverpool","note":"Explosión física y gol. El gran delantero uruguayo"},{"name":"Federico Valverde","pos":"MC","club":"Real Madrid","note":"Capacidad física tremenda. Gol y asistencia"},{"name":"Ronald Araújo","pos":"DFC","club":"Barcelona","note":"Uno de los mejores centrales del mundo"},{"name":"Luis Suárez","pos":"DC","club":"—","note":"Leyenda uruguaya"}],
+  "FRA":[{"name":"Kylian Mbappé","pos":"DC","club":"Real Madrid","note":"El mejor del mundo. Capitán y faro ofensivo"},{"name":"Antoine Griezmann","pos":"MC","club":"Atlético de Madrid","note":"El corazón de Francia. Campeón del Mundo 2018"},{"name":"Aurélien Tchouaméni","pos":"MCD","club":"Real Madrid","note":"La nueva generación. Sólido y con balón"},{"name":"Mike Maignan","pos":"POR","club":"AC Milan","note":"Portazo cuando le necesitas"}],
+  "SEN":[{"name":"Sadio Mané","pos":"EXT","club":"Al-Nassr","note":"Campeón Africa Cup 2022. La estrella de Senegal"},{"name":"Kalidou Koulibaly","pos":"DFC","club":"Al-Hilal","note":"Uno de los centrales más completos del mundo"},{"name":"Ismaïla Sarr","pos":"EXT","club":"Crystal Palace","note":"Velocidad extrema por la banda derecha"}],
+  "IRQ":[{"name":"Amjed Attwan","pos":"MCD","club":"Al-Shorta","note":"Capitán histórico de Iraq"},{"name":"Mohanad Ali","pos":"DC","club":"Al-Zawraa","note":"Máximo goleador histórico de Iraq"},{"name":"Bashar Resan","pos":"EXT","club":"PAOK","note":"El más brillante de la generación actual"}],
+  "NOR":[{"name":"Erling Haaland","pos":"DC","club":"Man City","note":"La máquina de hacer goles. Récords en la Premier"},{"name":"Martin Ødegaard","pos":"MC","club":"Arsenal","note":"Capitán del Arsenal. Técnica y liderazgo"},{"name":"Alexander Sørloth","pos":"DC","club":"Atlético de Madrid","note":"Físico intimidante y muy buen rematador"},{"name":"Sander Berge","pos":"MCD","club":"Fulham","note":"Contención y distribución en el centro"}],
+  "ARG":[{"name":"Lionel Messi","pos":"DC","club":"Inter Miami","note":"El mejor de la historia. Campeón del Mundo 2022"},{"name":"Julián Álvarez","pos":"DC","club":"Atlético de Madrid","note":"La araña. Héroe del Mundial 2022"},{"name":"Enzo Fernández","pos":"MC","club":"Chelsea","note":"Mejor jugador joven del Mundial 2022"},{"name":"Emiliano Martínez","pos":"POR","club":"Aston Villa","note":"Dibu. El portero de los penaltis históricos"}],
+  "DZA":[{"name":"Riyad Mahrez","pos":"EXT","club":"Al-Ahli","note":"El más técnico del fútbol argelino. Campeón de África 2019"},{"name":"Islam Slimani","pos":"DC","club":"Montpellier","note":"Goleador histórico de Argelia"},{"name":"Youcef Atal","pos":"LAD","club":"OGC Niza","note":"Lateral atacante con mucho peligro"}],
+  "AUT":[{"name":"Marcel Sabitzer","pos":"MC","club":"Borussia Dortmund","note":"Gol y carácter. Motor del mediocampo"},{"name":"David Alaba","pos":"DFC","club":"Real Madrid","note":"Capitán y leyenda. Polivalencia máxima"},{"name":"Christoph Baumgartner","pos":"MC","club":"RB Leipzig","note":"Talento en alza. Trabajo y gol"}],
+  "JOR":[{"name":"Yazan Al-Naimat","pos":"DC","club":"Al-Jazeera","note":"El artillero de la selección jordana"},{"name":"Ahmad Hayel","pos":"MCD","club":"Al-Faisaly","note":"La sangre del mediocampo jordano"}],
+  "POR":[{"name":"Cristiano Ronaldo","pos":"DC","club":"Al-Nassr","note":"El máximo goleador de la historia del fútbol internacional"},{"name":"Bruno Fernandes","pos":"MC","club":"Man United","note":"Capitán. Creatividad y gol desde el centro"},{"name":"Rafael Leão","pos":"EXT","club":"AC Milan","note":"Velocidad y desborde. El más explosivo de Portugal"},{"name":"Rúben Dias","pos":"DFC","club":"Man City","note":"El mejor central portugués"}],
+  "COD":[{"name":"Cédric Bakambu","pos":"DC","club":"OM Marseille","note":"El goleador más prolífico de R.D. Congo"},{"name":"Chancel Mbemba","pos":"DFC","club":"OM Marseille","note":"Central poderoso. Referente defensivo"},{"name":"Yannick Bolasie","pos":"EXT","club":"Aris Limassol","note":"Velocidad y habilidad por banda"}],
+  "UZB":[{"name":"Eldor Shomurodov","pos":"DC","club":"Roma","note":"El delantero uzbeko en la Serie A"},{"name":"Jaloliddin Masharipov","pos":"MC","club":"Pakhtakor","note":"El jugador más técnico de Uzbekistán"}],
+  "COL":[{"name":"Luis Díaz","pos":"EXT","club":"Liverpool","note":"Velocidad, magia y gol. Figura de Colombia"},{"name":"James Rodríguez","pos":"MC","club":"Rayo Vallecano","note":"El Bota de Oro del Mundial 2014"},{"name":"Richard Ríos","pos":"MCD","club":"Palmeiras","note":"La revelación de la Copa América 2024"},{"name":"Davinson Sánchez","pos":"DFC","club":"Galatasaray","note":"Central con experiencia en las grandes ligas"}],
+  "ENG":[{"name":"Jude Bellingham","pos":"MC","club":"Real Madrid","note":"El mejor centrocampista de su generación"},{"name":"Phil Foden","pos":"MC","club":"Man City","note":"El Mago de Stockport. Habilidad en estado puro"},{"name":"Harry Kane","pos":"DC","club":"Bayern München","note":"Máximo goleador histórico de Inglaterra"},{"name":"Bukayo Saka","pos":"EXT","club":"Arsenal","note":"El chico de oro del Arsenal. Constante y letal"}],
+  "HRV":[{"name":"Luka Modrić","pos":"MC","club":"Real Madrid","note":"Balón de Oro 2018. Una leyenda viva a sus 38 años"},{"name":"Ivan Perišić","pos":"EXT","club":"Hajduk Split","note":"Héroe del 2º puesto en Rusia 2018"},{"name":"Mateo Kovačić","pos":"MC","club":"Man City","note":"Control y velocidad. Imprescindible para Croacia"}],
+  "GHA":[{"name":"Mohammed Kudus","pos":"EXT","club":"West Ham","note":"Joya ghanesa. Técnica y gol en la Premier League"},{"name":"André Ayew","pos":"MC","club":"Le Havre","note":"Capitán histórico. Liderazgo y experiencia"},{"name":"Jordan Ayew","pos":"EXT","club":"Leicester City","note":"Trabajo y desequilibrio"}],
+  "PAN":[{"name":"Rolando Blackburn","pos":"DC","club":"Necaxa","note":"Fuerza y gol del delantero panameño"},{"name":"Cecilio Waterman","pos":"DC","club":"Club Tijuana","note":"Velocidad y peligro en el área"},{"name":"Alberto Quintero","pos":"EXT","club":"New England Rev.","note":"Desborde y asistencias por banda"}],
+};
 
 /* ═══════════════════════════════════════════════════════════════
    FETCH DATA
@@ -1237,7 +1641,13 @@ function matchMetaHtml(m) {
   const parts = [];
   if (m.time_es) parts.push(`<span class="match-time">${m.time_es} horas</span>`);
   if (m.city && m.country) {
-    parts.push(`<span class="match-venue">📍 ${m.city} (${m.country})</span>`);
+    // Venue is a clickable button if we have coords or players info
+    const hasDetail = m.lat || m.stadium || (m.home && TEAM_TO_FIFA[m.home]);
+    if (hasDetail) {
+      parts.push(`<button class="match-detail-btn" onclick="openMatchDetail('${m.name.replace(/'/g,"\\'")}');event.stopPropagation()">📍 ${m.city} (${m.country}) <span style="font-size:.65rem;opacity:.7">▶ Ver sede</span></button>`);
+    } else {
+      parts.push(`<span class="match-venue">📍 ${m.city} (${m.country})</span>`);
+    }
   }
   if (m.tv === "both") {
     parts.push(`<span class="tv-badge tv-dazn">DAZN</span><span class="tv-badge tv-tve">TVE La 1</span>`);
@@ -1608,6 +2018,264 @@ function renderMatchCard(m, players, colors) {
       <div class="match-players-grid">${playerCards}</div>
     </div>`;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   MATCH DETAIL PANEL
+═══════════════════════════════════════════════════════════════ */
+
+let _detailMap = null;
+let _detailMarker = null;
+let _wcGamesCache = null;
+let _wcGamesLoading = false;
+
+async function fetchWcGames() {
+  if (_wcGamesCache) return _wcGamesCache;
+  if (_wcGamesLoading) {
+    // wait for pending request
+    await new Promise(r => setTimeout(r, 600));
+    return _wcGamesCache;
+  }
+  _wcGamesLoading = true;
+  try {
+    const res = await fetch("/api/wc_games");
+    if (res.ok) _wcGamesCache = await res.json();
+  } catch (e) {
+    console.warn("wc_games fetch failed:", e);
+  }
+  _wcGamesLoading = false;
+  return _wcGamesCache || [];
+}
+
+function parseScorers(str) {
+  if (!str || str === "null" || str === "{}" || str === "{}") return [];
+  // Format: {"J. Quiñones 9'","R. Jiménez 67'"}
+  const inner = str.replace(/^\{/, "").replace(/\}$/, "");
+  if (!inner.trim()) return [];
+  return inner.split('","')
+    .map(s => s.replace(/^"/, "").replace(/"$/, "").trim())
+    .filter(s => s && s !== "null");
+}
+
+function openMatchDetail(matchName) {
+  if (!D) return;
+  const m = D.matches.find(x => x.name === matchName);
+  if (!m) return;
+
+  const drawer = document.getElementById("match-detail-drawer");
+  const overlay = document.getElementById("panel-overlay");
+  const titleEl = document.getElementById("panel-match-title");
+  const body = document.getElementById("panel-body");
+
+  // Title
+  const home = m.home || matchName.split("-")[0]?.trim() || matchName;
+  const away = m.away || matchName.split("-").slice(1).join("-")?.trim() || "";
+  titleEl.innerHTML = `<span>${m.flag_home||"🏳️"}</span> <span style="margin:0 .3rem">${home}</span> <span style="color:#64748B">vs</span> <span style="margin:0 .3rem">${away}</span> <span>${m.flag_away||"🏳️"}</span>`;
+
+  // Show skeleton while loading
+  body.innerHTML = `<div class="panel-section"><div class="panel-section-title">Cargando datos…</div><div style="height:40px;display:flex;align-items:center;justify-content:center"><div class="spinner" style="width:24px;height:24px;border-width:3px"></div></div></div>`;
+
+  drawer.classList.add("open");
+  drawer.setAttribute("aria-hidden", "false");
+  overlay.classList.add("open");
+  document.body.style.overflow = "hidden";
+
+  // Async fill with real content
+  _fillMatchDetail(m, body);
+}
+
+async function _fillMatchDetail(m, body) {
+  const games = await fetchWcGames();
+
+  // Find matching game by team names (API uses English, Excel uses Spanish)
+  const game = (games || []).find(g => {
+    const hEsp = EN_TO_ESP_TEAM[g.home_team_name_en] || g.home_team_name_en;
+    const aEsp = EN_TO_ESP_TEAM[g.away_team_name_en] || g.away_team_name_en;
+    return (hEsp === m.home || g.home_team_name_en === m.home) &&
+           (aEsp === m.away || g.away_team_name_en === m.away);
+  });
+
+  let html = "";
+
+  // ── Venue ────────────────────────────────────────────────────────────────
+  if (m.stadium || m.city) {
+    html += `<div class="panel-section">
+      <div class="panel-section-title">🏟️ Sede del partido</div>`;
+
+    // Map placeholder (Leaflet will initialize after HTML insert)
+    if (m.lat && m.lon) {
+      html += `<div id="panel-map"></div>`;
+    }
+
+    html += `<div class="venue-grid">`;
+    if (m.stadium) html += `<div class="venue-stat"><div class="venue-stat-label">Estadio</div><div class="venue-stat-value">${m.stadium}</div></div>`;
+    if (m.city) html += `<div class="venue-stat"><div class="venue-stat-label">Ciudad</div><div class="venue-stat-value">${m.city}, ${m.country}</div></div>`;
+    if (m.capacity) html += `<div class="venue-stat"><div class="venue-stat-label">Aforo</div><div class="venue-stat-value">${m.capacity.toLocaleString("es-ES")} espectadores</div></div>`;
+    if (m.city_pop) html += `<div class="venue-stat"><div class="venue-stat-label">Población (área metro)</div><div class="venue-stat-value">${m.city_pop}</div></div>`;
+    html += `</div>`;
+
+    if (m.venue_fact) {
+      html += `<div class="venue-fact-text">💡 ${m.venue_fact}</div>`;
+    }
+    html += `</div>`;
+  }
+
+  // ── Scorers (from live API) ───────────────────────────────────────────────
+  if (m.played || game?.finished === "TRUE") {
+    const homeScorers = parseScorers(game?.home_scorers);
+    const awayScorers = parseScorers(game?.away_scorers);
+    const homeFlag = m.flag_home || "🏳️";
+    const awayFlag = m.flag_away || "🏳️";
+    const home = m.home || "Local";
+    const away = m.away || "Visitante";
+
+    html += `<div class="panel-section">
+      <div class="panel-section-title">⚽ Goleadores</div>`;
+
+    if (!homeScorers.length && !awayScorers.length) {
+      html += `<p class="no-scorers">Sin datos de goleadores disponibles</p>`;
+    } else {
+      const renderScorerRow = (flag, teamName, scorers) => {
+        const names = scorers.length
+          ? scorers.map(s => {
+              const match = s.match(/^(.*?)\s+(\d+['+]?)$/);
+              const name = match ? match[1] : s;
+              const time = match ? match[2] : "";
+              return `<span class="scorer-name">${name}</span>${time ? `<span class="scorer-time">${time}</span>` : ""}`;
+            }).join(" · ")
+          : `<span class="no-scorers">Sin goles</span>`;
+        return `<div class="scorer-team-row">
+          <span class="scorer-flag">${flag}</span>
+          <div class="scorer-list"><span style="color:#64748B;font-size:.7rem">${teamName}:</span> ${names}</div>
+        </div>`;
+      };
+      html += renderScorerRow(homeFlag, home, homeScorers);
+      html += renderScorerRow(awayFlag, away, awayScorers);
+    }
+    html += `</div>`;
+  }
+
+  // ── Key players ──────────────────────────────────────────────────────────
+  const home = m.home || "";
+  const away = m.away || "";
+  const homeCode = TEAM_TO_FIFA[home] || TEAM_TO_FIFA[home.trim()];
+  const awayCode = TEAM_TO_FIFA[away] || TEAM_TO_FIFA[away.trim()];
+  const homePlayers = homeCode ? (KEY_PLAYERS[homeCode] || []) : [];
+  const awayPlayers = awayCode ? (KEY_PLAYERS[awayCode] || []) : [];
+
+  if (homePlayers.length || awayPlayers.length) {
+    const renderTeamCol = (flag, teamName, players) => {
+      if (!players.length) return `<div class="kp-team-col"><div class="kp-team-name">${flag} ${teamName}</div><p class="kp-no-data">Sin datos</p></div>`;
+      const playerItems = players.slice(0, 4).map(p => `
+        <div class="kp-player">
+          <div class="kp-player-name">${p.name}</div>
+          <div class="kp-player-meta">
+            <span class="kp-pos-badge">${p.pos}</span>
+            <span>${p.club}</span>
+          </div>
+          ${p.note ? `<div class="kp-player-note">${p.note}</div>` : ""}
+        </div>`).join("");
+      return `<div class="kp-team-col">
+        <div class="kp-team-name">${flag} ${teamName}</div>
+        ${playerItems}
+      </div>`;
+    };
+
+    html += `<div class="panel-section">
+      <div class="panel-section-title">⭐ Jugadores a seguir</div>
+      <div class="kp-teams">
+        ${renderTeamCol(m.flag_home||"🏳️", home, homePlayers)}
+        ${renderTeamCol(m.flag_away||"🏳️", away, awayPlayers)}
+      </div>
+    </div>`;
+  }
+
+  if (!html) {
+    html = `<div class="panel-section"><p class="text-sm text-gray-500">Sin información adicional disponible para este partido.</p></div>`;
+  }
+
+  body.innerHTML = html;
+
+  // ── Init Leaflet map ──────────────────────────────────────────────────────
+  // Delay until AFTER the drawer slide-in animation (280ms) + a small buffer
+  if (m.lat && m.lon) {
+    setTimeout(() => _initMapInPanel(m), 340);
+  }
+}
+
+function _initMapInPanel(m) {
+  if (typeof L === "undefined") {
+    console.warn("Leaflet not loaded");
+    const el = document.getElementById("panel-map");
+    if (el) el.innerHTML = `<div style="height:200px;display:flex;align-items:center;justify-content:center;color:#475569;font-size:.8rem">Mapa no disponible (sin conexión)</div>`;
+    return;
+  }
+  const mapEl = document.getElementById("panel-map");
+  if (!mapEl) return;
+
+  try {
+    // Destroy previous instance if any
+    if (_detailMap) {
+      _detailMap.remove();
+      _detailMap = null;
+      _detailMarker = null;
+    }
+
+    _detailMap = L.map("panel-map", {
+      zoomControl: true,
+      attributionControl: false,
+      dragging: true,
+      tap: false,       // avoids double-tap issues on iOS
+    }).setView([m.lat, m.lon], 13);
+
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+      subdomains: "abcd",
+      maxZoom: 19,
+    }).addTo(_detailMap);
+
+    const stadiumIcon = L.divIcon({
+      className: "",
+      html: `<div class="map-stadium-marker">🏟️</div>`,
+      iconSize: [32, 32],
+      iconAnchor: [16, 16],
+      popupAnchor: [0, -18],
+    });
+
+    _detailMarker = L.marker([m.lat, m.lon], { icon: stadiumIcon }).addTo(_detailMap);
+    if (m.stadium) {
+      _detailMarker.bindPopup(
+        `<b style="color:#E2E8F0;font-size:.9rem">${m.stadium}</b>` +
+        `<br><span style="color:#94A3B8;font-size:.75rem">📍 ${m.city}, ${m.country}</span>` +
+        (m.capacity ? `<br><span style="color:#64748B;font-size:.7rem">Aforo: ${m.capacity.toLocaleString("es-ES")}</span>` : "")
+      ).openPopup();
+    }
+
+    // Force two reflows to handle the slide animation correctly
+    setTimeout(() => { _detailMap && _detailMap.invalidateSize(true); }, 80);
+    setTimeout(() => { _detailMap && _detailMap.invalidateSize(true); }, 250);
+  } catch (e) {
+    console.warn("Leaflet init error:", e);
+  }
+}
+
+function closeMatchDetail() {
+  const drawer = document.getElementById("match-detail-drawer");
+  const overlay = document.getElementById("panel-overlay");
+  drawer.classList.remove("open");
+  drawer.setAttribute("aria-hidden", "true");
+  overlay.classList.remove("open");
+  document.body.style.overflow = "";
+  // clean up map to avoid stale instance issues
+  if (_detailMap) {
+    _detailMap.remove();
+    _detailMap = null;
+    _detailMarker = null;
+  }
+}
+
+// Close panel on Escape key
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeMatchDetail();
+});
 
 /* ─── PUNTUACIÓN ─── */
 function renderScoring() {
@@ -2241,6 +2909,46 @@ async function initVisitorCounter() {
 }
 
 initVisitorCounter();
+
+/* ── Music player ── */
+(function () {
+  const audio   = document.getElementById("music-audio");
+  const btn     = document.getElementById("music-btn");
+  const panel   = document.getElementById("music-panel");
+  const playBtn = document.getElementById("music-play");
+  const volEl   = document.getElementById("music-vol");
+  const progEl  = document.getElementById("music-prog");
+  const closeEl = document.getElementById("music-close");
+  if (!audio || !btn) return;
+
+  audio.volume = 0.4;
+
+  btn.addEventListener("click", () => panel.classList.toggle("hidden"));
+  closeEl.addEventListener("click", () => panel.classList.add("hidden"));
+
+  playBtn.addEventListener("click", () => {
+    if (audio.paused) { audio.play().catch(() => {}); }
+    else              { audio.pause(); }
+  });
+
+  audio.addEventListener("play", () => {
+    playBtn.textContent = "⏸";
+    btn.classList.add("playing");
+    btn.title = "🎵 Reproduciendo — pulsa para abrir";
+  });
+  audio.addEventListener("pause", () => {
+    playBtn.textContent = "▶";
+    btn.classList.remove("playing");
+    btn.title = "🎵 Línea de Cal — pulsa para abrir";
+  });
+
+  volEl.addEventListener("input", () => { audio.volume = parseFloat(volEl.value); });
+
+  audio.addEventListener("timeupdate", () => {
+    if (audio.duration) progEl.style.width = (audio.currentTime / audio.duration * 100) + "%";
+  });
+})();
+
 loadData();
 
 // GitHub Pages: recargar data.json cada 5 min (no hace falta F5 manual)

@@ -19,7 +19,10 @@ def _excel_paths():
 
 ADMIN, FILE1, FILE2 = _excel_paths()
 
+import urllib.request as _urllib_req
+
 from fixture_data import lookup_fixture, TV_LABELS
+from team_players import get_team_players
 
 app = Flask(__name__)
 
@@ -830,10 +833,16 @@ def build_data():
             "away":      wc.get("away", ""),
             "flag_home": wc.get("flag_home", ""),
             "flag_away": wc.get("flag_away", ""),
-            "city":      fix.get("city", ""),
-            "country":   fix.get("country", ""),
-            "tv":        fix.get("tv", ""),
-            "tv_label":  TV_LABELS.get(fix.get("tv", ""), ""),
+            "city":       fix.get("city", ""),
+            "country":    fix.get("country", ""),
+            "tv":         fix.get("tv", ""),
+            "tv_label":   TV_LABELS.get(fix.get("tv", ""), ""),
+            "stadium":    fix.get("stadium", ""),
+            "lat":        fix.get("lat"),
+            "lon":        fix.get("lon"),
+            "capacity":   fix.get("capacity"),
+            "city_pop":   fix.get("city_pop", ""),
+            "venue_fact": fix.get("fact", ""),
             "date":      date_es,
             "time_es":   time_es,
             "day_label": day_label,
@@ -1076,6 +1085,33 @@ def api_refresh():
     global _cache
     _cache["ts"] = 0   # force reload
     return jsonify({"ok": True, "ts": datetime.now().isoformat()})
+
+
+# ── Live match data proxy (scorers, results) ─────────────────────────────────
+_wc_games_cache: dict = {"data": None, "ts": 0.0}
+WC_GAMES_TTL = 300  # 5 minutes
+
+@app.route("/api/wc_games")
+def api_wc_games():
+    global _wc_games_cache
+    now = time.time()
+    if _wc_games_cache["data"] is None or (now - _wc_games_cache["ts"]) > WC_GAMES_TTL:
+        try:
+            req = _urllib_req.Request(
+                "https://worldcup26.ir/get/games",
+                headers={"User-Agent": "PorraNanos/1.0"},
+            )
+            with _urllib_req.urlopen(req, timeout=12) as r:
+                raw = json.load(r)
+            games = raw.get("games", raw) if isinstance(raw, dict) else raw
+            _wc_games_cache["data"] = games
+            _wc_games_cache["ts"] = now
+        except Exception as exc:
+            if _wc_games_cache["data"] is not None:
+                pass  # serve stale cache on network error
+            else:
+                return jsonify({"error": str(exc)}), 503
+    return jsonify(_wc_games_cache["data"])
 
 
 if __name__ == "__main__":
