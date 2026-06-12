@@ -1803,9 +1803,10 @@
           <li><span class="cl-tag ux">ux</span> Pulido móvil: buscador a ancho completo, botones táctiles (44px), textos cortos en «Ver más», safe area y margen inferior</li>
           <li><span class="cl-tag feat">feat</span> Partidos por días: ayer, hoy y mañana visibles; «Ver más» carga el siguiente día. Semana actual por defecto</li>
           <li><span class="cl-tag feat">feat</span> Panel de sede al pulsar la ciudad: foto del estadio, mapa Leaflet, aforo, área metro y dato curioso (16 sedes)</li>
-          <li><span class="cl-tag feat">feat</span> Chips DAZN y TVE La 1 abren el directo en RTVE Play y la página del Mundial en DAZN</li>
+          <li><span class="cl-tag feat">feat</span> Chips DAZN y TVE abren el directo en RTVE Play y la página del Mundial en DAZN</li>
           <li><span class="cl-tag ux">ux</span> Sede del partido: solo 📍 ciudad (país), sin texto «Ver sede» — menos ruido en móvil</li>
           <li><span class="cl-tag feat">feat</span> Reproductor Línea de Cal (🎵): volumen, slider para avanzar/retroceder, parado por defecto</li>
+          <li><span class="cl-tag data">data</span> Audio del reproductor en <code>static/audio/</code> (assets web), no en <code>docs/</code></li>
           <li><span class="cl-tag feat">feat</span> Estadísticas ampliadas: desglose de aciertos, rachas, últimos 10 partidos y números globales</li>
           <li><span class="cl-tag feat">feat</span> Contador de visitas y este historial de versiones</li>
           <li><span class="cl-tag ux">ux</span> Partidos pendientes muestran la hora (no un VS grande). Podio: nombre destacado, sin €</li>
@@ -1875,7 +1876,7 @@
 </div>
 
 <!-- ── music player ── -->
-<audio id="music-audio" src="docs/cancion_LineaDeCal.mp3" preload="none" loop></audio>
+<audio id="music-audio" src="static/audio/cancion_LineaDeCal.mp3" preload="none" loop></audio>
 <div class="music-wrap" aria-label="Reproductor música">
   <div id="music-panel" class="music-panel hidden">
     <div class="music-panel-head">
@@ -2489,9 +2490,9 @@ function matchMetaHtml(m) {
     }
   }
   if (m.tv === "both") {
-    parts.push(tvBadgeLink("dazn", "DAZN") + tvBadgeLink("tve", "TVE La 1"));
+    parts.push(tvBadgeLink("dazn", "DAZN") + tvBadgeLink("tve", "TVE"));
   } else if (m.tv === "tve") {
-    parts.push(tvBadgeLink("tve", "TVE La 1"));
+    parts.push(tvBadgeLink("tve", "TVE"));
   } else if (m.tv === "dazn") {
     parts.push(tvBadgeLink("dazn", "DAZN"));
   }
