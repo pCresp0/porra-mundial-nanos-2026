@@ -157,10 +157,10 @@
 
     /* ── match meta ── */
     .match-header-center { text-align: center; padding: .75rem 0 1rem; border-bottom: 1px solid var(--border); margin-bottom: .75rem; }
-    .match-teams-row { display: flex; align-items: center; justify-content: center; gap: .5rem; flex-wrap: wrap; }
-    .match-flag { font-size: 1.75rem; line-height: 1; }
-    .match-team-name { font-weight: 700; font-size: .95rem; color: #E2E8F0; }
-    .match-vs { color: #64748B; font-size: .75rem; font-weight: 600; }
+    .match-teams-row { display: flex; align-items: center; justify-content: center; gap: .6rem; flex-wrap: wrap; }
+    .match-flag { font-size: 2.3rem; line-height: 1; }
+    .match-team-name { font-weight: 800; font-size: 1.3rem; color: #E2E8F0; }
+    .match-vs { color: #64748B; font-size: .85rem; font-weight: 600; }
     .match-score-big { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--gold); letter-spacing: .08em; margin-top: .35rem; line-height: 1; }
     .match-scorers { display: flex; align-items: flex-start; justify-content: center; gap: .6rem; margin-top: .5rem; }
     .match-scorers .ms-col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: .15rem; }
@@ -170,8 +170,8 @@
     .match-scorers .ms-min { color: var(--gold); font-weight: 700; margin-left: .25rem; }
     @media (max-width: 480px) {
       .match-score-big { font-size: 2rem; }
-      .match-flag { font-size: 1.4rem; }
-      .match-team-name { font-size: .82rem; }
+      .match-flag { font-size: 1.85rem; }
+      .match-team-name { font-size: 1.05rem; }
       .match-scorers .ms-line { font-size: .66rem; }
     }
     .match-meta-row { display: flex; align-items: center; justify-content: center; gap: .5rem; flex-wrap: wrap; margin-bottom: .75rem; }
@@ -417,6 +417,7 @@
 
     /* ── match card ── */
     .match-row {
+      position: relative;
       border-left: 3px solid var(--border);
       transition: border-color .2s, background .2s;
       overflow: hidden;
@@ -480,6 +481,14 @@
       border-radius: 999px;
       text-transform: uppercase;
       letter-spacing: .03em;
+    }
+    /* Etiqueta flotante en la esquina superior izquierda de la tarjeta:
+       no ocupa línea propia ni deja hueco encima del partido. */
+    .card-corner-tag {
+      position: absolute;
+      top: .7rem;
+      left: .7rem;
+      z-index: 2;
     }
 
     /* ── pulse when arriving at a match selected from the calendar ── */
@@ -1088,7 +1097,7 @@
     }
     .cal-month {
       background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-      padding: 1rem 1.1rem 1.2rem; min-width: 280px; flex: 1 1 300px; max-width: 380px;
+      padding: 1rem 1.1rem 1.2rem; min-width: 320px; flex: 1 1 440px; max-width: 520px;
     }
     .cal-month-title {
       text-align: center; font-size: 1rem; font-weight: 700;
@@ -1757,7 +1766,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        font-size: .78rem;
+        font-size: 1.02rem;
       }
       .match-meta-row { gap: .35rem; }
       .match-detail-btn {
@@ -1791,7 +1800,7 @@
     }
 
     @media (max-width: 380px) {
-      .match-team-name { max-width: 30vw; font-size: .72rem; }
+      .match-team-name { max-width: 32vw; font-size: .92rem; }
       .team-suggest-item .ts-count { display: none; }
       .tab-btn { padding: .4rem .55rem; font-size: .7rem; }
     }
@@ -2751,19 +2760,21 @@ const KEY_PLAYERS = {
 /* ═══════════════════════════════════════════════════════════════
    FETCH DATA
 ═══════════════════════════════════════════════════════════════ */
-async function loadData() {
+async function loadData(silent = false) {
   const loadingEl  = document.getElementById("loading");
   const loadingTxt = document.getElementById("loading-text");
   const retryBtn   = document.getElementById("loading-retry");
   const spinner    = document.getElementById("loading-spinner");
 
   try {
-    loadingEl.style.display = "flex";
-    loadingEl.style.opacity = "1";
-    loadingTxt.textContent = "Cargando datos del mundial…";
-    loadingTxt.style.color = "";
-    retryBtn.classList.add("hidden");
-    spinner.classList.remove("hidden");
+    if (!silent) {
+      loadingEl.style.display = "flex";
+      loadingEl.style.opacity = "1";
+      loadingTxt.textContent = "Cargando datos del mundial…";
+      loadingTxt.style.color = "";
+      retryBtn.classList.add("hidden");
+      spinner.classList.remove("hidden");
+    }
 
     const url = IS_GH_PAGES ? `${DATA_URL}?t=${Date.now()}` : `${DATA_URL}?v=${Date.now()}`;
     const res = await fetch(url, { cache: "no-store" });
@@ -2773,17 +2784,33 @@ async function loadData() {
       throw new Error(json.detail || json.error || `Error al cargar datos (${res.status})`);
     }
 
+    if (silent) {
+      // Recarga en segundo plano: no toques la pantalla de carga ni el scroll.
+      // Si los datos no han cambiado, no re-renderizamos para evitar parpadeos.
+      const newSig = JSON.stringify(json.standings) + JSON.stringify(json.progression);
+      if (newSig === _lastDataSig) return;
+      _lastDataSig = newSig;
+      const scrollY = window.scrollY;
+      D = json;
+      render();
+      window.scrollTo({ top: scrollY, behavior: "instant" });
+      return;
+    }
+
     D = json;
+    _lastDataSig = JSON.stringify(json.standings) + JSON.stringify(json.progression);
     render();
     loadingEl.style.opacity = "0";
     setTimeout(() => loadingEl.style.display = "none", 400);
   } catch (err) {
     console.error("loadData error:", err);
+    if (silent) return;  // en segundo plano: fallar en silencio, reintentará luego
     spinner.classList.add("hidden");
     loadingTxt.innerHTML = `<span style="color:#FCA5A5">⚠ Error al cargar datos</span><br><span class="text-xs text-gray-500 mt-2 block">${err.message || err}</span>`;
     retryBtn.classList.remove("hidden");
   }
 }
+let _lastDataSig = null;
 
 async function forceRefresh() {
   document.getElementById("loading").style.display = "flex";
@@ -3431,7 +3458,7 @@ function renderMatchCard(m, players, colors) {
 
   return `
     <div class="card match-row ${playedClass}${liveClass}${isNextMatch ? " next-match" : ""} p-4 mb-2" data-match-name="${(m.name||"").replace(/"/g,"&quot;")}">
-      ${isNextMatch ? `<div style="margin-bottom:.4rem"><span class="text-xs font-bold next-match-tag">⏱ Próximo partido</span></div>` : (m.played ? `<div style="margin-bottom:.4rem"><span class="text-xs font-bold finished-tag">✓ Finalizado</span></div>` : "")}
+      ${isNextMatch ? `<div class="card-corner-tag"><span class="text-xs font-bold next-match-tag">⏱ Próximo partido</span></div>` : (m.played ? `<div class="card-corner-tag"><span class="text-xs font-bold finished-tag">✓ Finalizado</span></div>` : "")}
       ${matchTeamsHtml(m)}
       ${matchMetaHtml(m)}
       <div class="flex items-center gap-2 flex-wrap mb-3 justify-center">
@@ -4753,9 +4780,9 @@ initVisitorCounter();
 
 loadData();
 
-// GitHub Pages: recargar data.json cada 5 min (no hace falta F5 manual)
+// GitHub Pages: recargar data.json en segundo plano cada 5 min (sin parpadeo)
 if (IS_GH_PAGES) {
-  setInterval(() => loadData(), 5 * 60 * 1000);
+  setInterval(() => loadData(true), 5 * 60 * 1000);
 }
 </script>
 </body>
