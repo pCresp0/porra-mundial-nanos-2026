@@ -1257,12 +1257,14 @@
 
     /* Open-detail button on match card */
     .match-detail-btn {
-      display: inline-flex; align-items: center; gap: .3rem;
-      font-size: .7rem; font-weight: 600;
-      color: #60A5FA; background: none; border: none; padding: 2px 0;
+      display: inline; font: inherit;
+      font-size: .78rem; font-weight: 600;
+      color: #94A3B8; background: none; border: none; padding: 0;
       cursor: pointer; transition: color .15s;
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
+      text-decoration: underline; text-decoration-color: rgba(148,163,184,.35);
+      text-underline-offset: 2px;
     }
     .match-detail-btn:hover, .match-detail-btn:active { color: var(--gold); }
 
@@ -1367,12 +1369,8 @@
       }
       .match-meta-row { gap: .35rem; }
       .match-detail-btn {
-        max-width: 100%;
-        white-space: normal;
-        text-align: center;
+        font-size: .72rem;
         line-height: 1.35;
-        padding: .25rem 0;
-        min-height: 32px;
       }
       .player-pred-card { padding: .5rem .3rem; }
       .player-pred-card .pname { font-size: .6rem; }
@@ -1791,7 +1789,8 @@
           <li><span class="cl-tag feat">feat</span> Buscador de equipos en Partidos: solo selecciones reales con bandera; autocompletado al escribir</li>
           <li><span class="cl-tag ux">ux</span> Pulido móvil: buscador a ancho completo, botones táctiles (44px), textos cortos en «Ver más», safe area y margen inferior</li>
           <li><span class="cl-tag feat">feat</span> Partidos por días: ayer, hoy y mañana visibles; «Ver más» carga el siguiente día. Semana actual por defecto</li>
-          <li><span class="cl-tag feat">feat</span> Panel «Ver sede»: foto del estadio, mapa Leaflet, aforo, área metro y dato curioso (16 sedes)</li>
+          <li><span class="cl-tag feat">feat</span> Panel de sede al pulsar la ciudad: foto del estadio, mapa Leaflet, aforo, área metro y dato curioso (16 sedes)</li>
+          <li><span class="cl-tag ux">ux</span> Sede del partido: solo 📍 ciudad (país), sin texto «Ver sede» — menos ruido en móvil</li>
           <li><span class="cl-tag feat">feat</span> Reproductor Línea de Cal (🎵): volumen, slider para avanzar/retroceder, parado por defecto</li>
           <li><span class="cl-tag feat">feat</span> Estadísticas ampliadas: desglose de aciertos, rachas, últimos 10 partidos y números globales</li>
           <li><span class="cl-tag feat">feat</span> Contador de visitas y este historial de versiones</li>
@@ -2459,7 +2458,7 @@ function matchMetaHtml(m) {
     // Venue is a clickable button if we have coords or players info
     const hasDetail = m.lat || m.stadium || (m.home && TEAM_TO_FIFA[m.home]);
     if (hasDetail) {
-      parts.push(`<button class="match-detail-btn" onclick="openMatchDetail('${m.name.replace(/'/g,"\\'")}');event.stopPropagation()">📍 ${m.city} (${m.country}) <span style="font-size:.65rem;opacity:.7">▶ Ver sede</span></button>`);
+      parts.push(`<button class="match-detail-btn" onclick="openMatchDetail('${m.name.replace(/'/g,"\\'")}');event.stopPropagation()" title="Ver sede del partido">📍 ${m.city} (${m.country})</button>`);
     } else {
       parts.push(`<span class="match-venue">📍 ${m.city} (${m.country})</span>`);
     }
