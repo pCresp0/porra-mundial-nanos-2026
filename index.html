@@ -214,6 +214,59 @@
       .tab-btn { padding: .45rem .7rem; font-size: .75rem; }
     }
 
+    /* ── porra mode (invitado / participante) ── */
+    .porra-toggle {
+      margin-left: auto;
+      flex-shrink: 0;
+      align-self: center;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .5rem .85rem;
+      border-radius: 999px;
+      font-size: .8rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: #CBD5E1;
+      background: rgba(15, 20, 40, .6);
+      border: 1px solid rgba(148, 163, 184, .4);
+      transition: all .2s;
+      white-space: nowrap;
+    }
+    .porra-toggle:hover { border-color: var(--gold); color: var(--gold); }
+    body.porra-unlocked .porra-toggle {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(245, 197, 24, .08);
+    }
+    @media (max-width: 640px) {
+      .porra-toggle { padding: .4rem .7rem; font-size: .72rem; }
+      .porra-toggle .porra-toggle-text { display: none; }
+    }
+    /* En modo invitado, ocultar las pestañas con datos nominales */
+    body:not(.porra-unlocked) .tab-btn[data-tab="standings"],
+    body:not(.porra-unlocked) .tab-btn[data-tab="progression"],
+    body:not(.porra-unlocked) .tab-btn[data-tab="stats"],
+    body:not(.porra-unlocked) .tab-btn[data-tab="honor"] {
+      display: none;
+    }
+    .porra-lock-note {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      text-align: center;
+      padding: .9rem 1rem;
+      border-radius: 10px;
+      background: var(--card2);
+      border: 1px dashed rgba(148, 163, 184, .35);
+      color: #94A3B8;
+      font-size: .78rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
     /* ── phase filter ── */
     .phase-btn {
       padding: .35rem .9rem;
@@ -1480,6 +1533,11 @@
     <button class="tab-btn" data-tab="honor">🏆 Cuadro de Honor</button>
     <button class="tab-btn" data-tab="scoring">📋 Sistema de puntuación</button>
     <button class="tab-btn" data-tab="info">ℹ️ Más info</button>
+    <button id="porra-toggle" class="porra-toggle" type="button"
+            aria-pressed="false" title="Mostrar u ocultar las apuestas de la porra">
+      <span class="porra-toggle-icon">🔓</span>
+      <span class="porra-toggle-text">Soy de la porra</span>
+    </button>
   </div>
 </nav>
 
@@ -1920,6 +1978,7 @@ let currentPhase = "all";
 let currentWeek  = "all";
 let scrollMatchesToToday = true;
 let matchesDaysBefore = 0;
+let porraUnlocked = localStorage.getItem("porra_unlocked") === "1";
 let matchesDaysAfter  = 0;
 let teamIndex = [];
 let selectedTeamFilter = null;
@@ -2948,7 +3007,9 @@ function renderMatchCard(m, players, colors) {
               style="background:var(--card2);color:#94A3B8">${PHASE_LABELS[m.phase] || m.phase}</span>
         ${m.played ? `<span class="text-xs font-bold" style="color:var(--green)">✓ Jugado</span>` : `<span class="text-xs text-gray-600">⏳ Pendiente</span>`}
       </div>
-      <div class="match-players-grid">${playerCards}</div>
+      <div class="match-players-grid">${porraUnlocked
+        ? playerCards
+        : `<div class="porra-lock-note">🔒 Pronósticos visibles solo para los participantes de la porra</div>`}</div>
     </div>`;
 }
 
@@ -3807,11 +3868,43 @@ function renderStats() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   PORRA MODE (invitado / participante)
+═══════════════════════════════════════════════════════════════ */
+function applyPorraMode() {
+  document.body.classList.toggle("porra-unlocked", porraUnlocked);
+  const btn = document.getElementById("porra-toggle");
+  if (btn) {
+    btn.setAttribute("aria-pressed", porraUnlocked ? "true" : "false");
+    const icon = btn.querySelector(".porra-toggle-icon");
+    const text = btn.querySelector(".porra-toggle-text");
+    if (icon) icon.textContent = porraUnlocked ? "🔒" : "🔓";
+    if (text) text.textContent = porraUnlocked ? "Ocultar apuestas" : "Soy de la porra";
+  }
+  // Si se vuelve a modo invitado estando en una pestaña nominal, volver a Partidos
+  if (!porraUnlocked) {
+    const hidden = ["standings", "progression", "stats", "honor"];
+    const active = document.querySelector(".tab-btn.active");
+    if (active && hidden.includes(active.dataset.tab)) {
+      document.querySelector('.tab-btn[data-tab="matches"]')?.click();
+    }
+  }
+}
+
+function togglePorraMode() {
+  porraUnlocked = !porraUnlocked;
+  localStorage.setItem("porra_unlocked", porraUnlocked ? "1" : "0");
+  applyPorraMode();
+  if (D) renderMatches(currentPhase, currentWeek);
+}
+
+document.getElementById("porra-toggle")?.addEventListener("click", togglePorraMode);
+applyPorraMode();
+
+/* ═══════════════════════════════════════════════════════════════
    TAB NAVIGATION
 ═══════════════════════════════════════════════════════════════ */
 document.querySelectorAll(".tab-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  btn.addEventListener("click", () => {    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
     const tab = btn.dataset.tab;
     ["matches","standings","progression","stats","honor","scoring","info"].forEach(t => {
