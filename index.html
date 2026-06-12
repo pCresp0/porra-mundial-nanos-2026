@@ -490,6 +490,16 @@
       left: .7rem;
       z-index: 2;
     }
+    /* En móvil la tarjeta es estrecha y el tag se solaparía con la bandera/
+       nombre: lo sacamos del flotado para que ocupe su propia línea arriba. */
+    @media (max-width: 767px) {
+      .card-corner-tag {
+        position: static;
+        margin: 0 0 .55rem;
+        display: block;
+        text-align: left;
+      }
+    }
 
     /* ── pulse when arriving at a match selected from the calendar ── */
     .match-row.match-pulse {
@@ -900,7 +910,40 @@
       z-index: 50; font-weight: 400; text-align: left;
       box-shadow: 0 8px 24px rgba(0,0,0,.4);
     }
-    .info-wrap:hover .info-tip { display: block; }
+    .info-wrap:hover .info-tip,
+    .info-wrap.open .info-tip { display: block; }
+    /* Variante anclada a la derecha (para iconos en esquina derecha) */
+    .info-wrap.tip-right .info-tip { left: auto; right: 0; }
+    .info-wrap.tip-center .info-tip { left: 50%; transform: translateX(-50%); }
+    @media (max-width: 560px) {
+      .info-wrap .info-tip { width: 72vw; max-width: 280px; }
+    }
+    /* Icono de info anclado en la esquina superior derecha de una tarjeta */
+    .stat-info-corner { position: absolute; top: .55rem; right: .55rem; z-index: 3; }
+
+    /* ── ficha de jugador en Estadísticas ── */
+    .pstat-card { position: relative; }
+    .pstat-head {
+      display: flex; align-items: center; gap: .6rem; margin-bottom: .85rem;
+    }
+    .pstat-bar { width: .55rem; height: 2.4rem; border-radius: 999px; flex-shrink: 0; }
+    .pstat-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem;
+      margin-bottom: .85rem;
+    }
+    .pstat-box {
+      border-radius: 10px; padding: .55rem .35rem; text-align: center;
+      background: rgba(255,255,255,.04);
+    }
+    .pstat-box .pstat-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; line-height: 1; }
+    .pstat-box .pstat-lbl { font-size: .62rem; color: #94A3B8; margin-top: .25rem; line-height: 1.2; }
+    .pstat-last-head {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: .68rem; color: #64748B; margin-bottom: .35rem;
+    }
+    .pstat-legend { display: flex; gap: .7rem; flex-wrap: wrap; margin-top: .6rem; }
+    .pstat-legend span { display: inline-flex; align-items: center; gap: .3rem; font-size: .62rem; color: #94A3B8; }
+    .pstat-legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
 
     /* ── changelog modal ── */
     .cl-backdrop {
@@ -2087,10 +2130,13 @@
       </div>
     </div>
 
-    <!-- racha + mejores momentos -->
-    <div id="stats-streaks" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6"></div>
-
-    <div id="stats-detail" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
+    <!-- ficha por jugador -->
+    <div class="flex items-center gap-2 mb-1 mt-2">
+      <h3 class="font-bold text-white text-lg">Ficha de cada jugador</h3>
+      <span id="stats-players-info"></span>
+    </div>
+    <p class="text-sm text-gray-400 mb-4">Resumen individual de cada participante en la fase de grupos.</p>
+    <div id="stats-players" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
   </section>
 
   <!-- ════════════════════════════════════════════
@@ -4073,7 +4119,10 @@ function renderTrendForecast() {
     : "Proyección basada en la media de puntos por partido en fase de grupos.";
 
   el.innerHTML = `
-    <h3 class="font-bold text-white text-lg mb-1">🔮 Pronóstico por tendencia</h3>
+    <div class="flex items-center gap-2 mb-1">
+      <h3 class="font-bold text-white text-lg">🔮 Pronóstico por tendencia</h3>
+      ${infoTip("Estimación <strong>orientativa</strong>, no oficial. Calcula la media de puntos por partido de cada jugador en la fase de grupos y la proyecta sobre los partidos que faltan, sumando los puntos ya logrados fuera de grupos. Cuantos más partidos se jueguen, más fiable será.", "left")}
+    </div>
     <p class="text-xs text-gray-400 mb-4">${note}</p>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
       <div class="forecast-pick">
@@ -4085,9 +4134,9 @@ function renderTrendForecast() {
       </div>
       <div class="forecast-pick">
         <div>
-          <div class="text-xs text-gray-500 uppercase font-bold mb-1">Mejor ritmo (último día)</div>
+          <div class="text-xs text-gray-500 uppercase font-bold mb-1">Mejor ritmo (último partido)</div>
           <div class="font-extrabold text-lg uppercase" style="color:${hotStreak.color}">${hotStreak.name || "—"}</div>
-          <div class="text-sm text-gray-400">${hotStreak.pts > 0 ? "+" + hotStreak.pts + " pts ayer" : "Sin puntos ayer"}</div>
+          <div class="text-sm text-gray-400">${hotStreak.pts > 0 ? "+" + hotStreak.pts + " pts en su último partido" : "Sin puntos en el último"}</div>
         </div>
       </div>
       <div class="forecast-pick" style="border:1px solid rgba(245,197,24,.3)">
@@ -4162,12 +4211,17 @@ function renderStats() {
   const streakKing  = [...perPlayer].sort((a,b) => b.streak - a.streak)[0];
   const topExact    = [...perPlayer].sort((a,b) => b.exact - a.exact)[0];
   heroEl.innerHTML = [
-    { icon: "⚽", val: groupMatches.length, label: "Partidos jugados (grupos)", sub: `de ${D.matches.filter(m=>m.phase==="groups").length} totales` },
-    { icon: "🎯", val: totalExacts, label: "Exactos en el grupo", sub: `${perPlayer.reduce((s,p)=>s+p.miss,0)} partidos a 0 pts` },
-    { icon: "📈", val: bestPlayer ? `${bestPlayer.pct}%` : "—", label: "Mayor tasa de acierto", sub: bestPlayer?.name || "" },
-    { icon: "🔥", val: streakKing ? `${streakKing.streak}` : "—", label: "Racha activa más larga", sub: streakKing ? `${streakKing.name} · ${streakKing.streak} en racha` : "" },
+    { icon: "⚽", val: groupMatches.length, label: "Partidos jugados (grupos)", sub: `de ${D.matches.filter(m=>m.phase==="groups").length} totales`,
+      info: "Número de partidos de la <strong>fase de grupos</strong> que ya se han jugado y puntuado, sobre el total de partidos de grupos del Mundial." },
+    { icon: "🎯", val: totalExacts, label: "Exactos en el grupo", sub: `${perPlayer.reduce((s,p)=>s+p.miss,0)} partidos a 0 pts`,
+      info: "Suma de <strong>resultados exactos</strong> (signo + diferencia + marcador clavado, 6 pts) acertados entre todos los jugadores en fase de grupos. Debajo, cuántas veces alguien se quedó a 0 puntos." },
+    { icon: "📈", val: bestPlayer ? `${bestPlayer.pct}%` : "—", label: "Mayor tasa de acierto", sub: bestPlayer?.name || "",
+      info: "Jugador con mayor <strong>tasa de acierto</strong>: porcentaje de partidos de grupos en los que ha sumado al menos 1 punto (acertó el 1X2, la diferencia o el resultado exacto)." },
+    { icon: "🔥", val: streakKing ? `${streakKing.streak}` : "—", label: "Racha activa más larga", sub: streakKing ? `${streakKing.name} · ${streakKing.streak} en racha` : "",
+      info: "<strong>Racha activa</strong>: partidos seguidos puntuando (≥1 pt) contando desde el último partido hacia atrás. Se muestra quién tiene la racha viva más larga ahora mismo." },
   ].map(h => `
-    <div class="card p-4 text-center">
+    <div class="card p-4 text-center" style="position:relative">
+      <div class="stat-info-corner">${infoTip(h.info, "right")}</div>
       <div class="text-2xl mb-1">${h.icon}</div>
       <div class="bebas text-3xl text-yellow-400">${h.val}</div>
       <div class="text-xs font-bold text-gray-300 mt-1">${h.label}</div>
@@ -4256,70 +4310,80 @@ function renderStats() {
     }
   });
 
-  // ── Rachas y mejores momentos ──────────────────────────────────────────
-  const streaksEl = document.getElementById("stats-streaks");
-  streaksEl.innerHTML = D.standings.map(p => {
-    const pp = perPlayer.find(x => x.name === p.name);
-    if (!pp) return "";
-    const streakBar = `<div class="flex gap-1 mt-2 flex-wrap justify-center">
-      ${groupMatches.slice(-10).map(m => {
+  // ── Ficha por jugador (clara, todo en una tarjeta) ─────────────────────
+  const playersInfoEl = document.getElementById("stats-players-info");
+  if (playersInfoEl) {
+    playersInfoEl.innerHTML = infoTip(
+      "<strong>Cómo leer cada ficha:</strong><br>" +
+      "• <strong>Puntos totales</strong>: todos los puntos del jugador en el Mundial.<br>" +
+      "• <strong>Tasa de acierto</strong>: % de partidos de grupos en los que sumó ≥1 pt.<br>" +
+      "• <strong>Pts/partido</strong>: media de puntos por partido de grupos.<br>" +
+      "• <strong>Racha activa</strong>: partidos seguidos puntuando ahora mismo.<br>" +
+      "• <strong>Exactos</strong>: resultados clavados (6 pts).<br>" +
+      "• <strong>Mejor partido</strong>: máximo de puntos logrado en un solo partido.<br>" +
+      "• <strong>Últimos partidos</strong>: cada cuadro es un partido reciente (ver leyenda).",
+      "left"
+    );
+  }
+
+  const playersEl = document.getElementById("stats-players");
+  playersEl.innerHTML = D.standings.map(p => {
+    const pp = perPlayer.find(x => x.name === p.name) || {};
+    const last10 = groupMatches.slice(-10);
+    const lastBar = last10.length ? `<div class="flex gap-1 mt-1 flex-wrap">
+      ${last10.map(m => {
         const sc = m.predictions[p.name]?.score ?? 0;
         const col = sc >= 5 ? "#22C55E" : sc > 0 ? p.color : "#374151";
-        return `<div title="${m.name}: ${sc} pts" style="width:10px;height:18px;border-radius:3px;background:${col};flex-shrink:0"></div>`;
+        const lbl = `${m.name}: ${sc} pts`;
+        return `<div title="${lbl.replace(/"/g,"&quot;")}" style="width:13px;height:20px;border-radius:3px;background:${col};flex-shrink:0"></div>`;
       }).join("")}
-    </div>`;
-    return `
-      <div class="card p-4 text-center" style="border-color:${p.color}33">
-        <div class="font-extrabold uppercase text-sm mb-2" style="color:${p.color}">${p.name}</div>
-        <div class="grid grid-cols-3 gap-2 text-xs mb-2">
-          <div>
-            <div class="bebas text-xl" style="color:var(--green)">${pp.streak}</div>
-            <div class="text-gray-500">racha activa</div>
-          </div>
-          <div>
-            <div class="bebas text-xl" style="color:var(--gold)">${pp.exact}</div>
-            <div class="text-gray-500">exactos</div>
-          </div>
-          <div>
-            <div class="bebas text-xl" style="color:${p.color}">${pp.best}</div>
-            <div class="text-gray-500">mejor partido</div>
-          </div>
-        </div>
-        <div class="text-xs text-gray-600 mb-1">Últimos 10 partidos</div>
-        ${streakBar}
-      </div>`;
-  }).join("");
+    </div>` : `<div class="text-xs text-gray-600 mt-1">Aún sin partidos</div>`;
 
-  // ── Ficha detallada ────────────────────────────────────────────────────
-  const detail = document.getElementById("stats-detail");
-  detail.innerHTML = D.standings.map(p => {
-    const pp = perPlayer.find(x => x.name === p.name) || {};
     return `
-      <div class="card p-5" style="border-color:${p.color}44">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-3 h-10 rounded-full" style="background:${p.color}"></div>
+      <div class="card p-5 pstat-card" style="border-color:${p.color}44">
+        <div class="pstat-head">
+          <div class="pstat-bar" style="background:${p.color}"></div>
           <div>
             <div class="font-extrabold text-white text-lg uppercase">${p.name}</div>
-            <div class="text-xs text-gray-400">#${p.pos} en clasificación</div>
+            <div class="text-xs text-gray-400">#${p.pos} en la clasificación general</div>
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-3 text-sm">
-          <div class="rounded-lg p-3 text-center" style="background:${p.color}15">
-            <div class="bebas text-2xl" style="color:${p.color}">${p.total}</div>
-            <div class="text-gray-400 text-xs">Puntos totales</div>
+
+        <div class="pstat-grid">
+          <div class="pstat-box" style="background:${p.color}18">
+            <div class="pstat-num" style="color:${p.color}">${p.total}</div>
+            <div class="pstat-lbl">Puntos totales</div>
           </div>
-          <div class="rounded-lg p-3 text-center" style="background:rgba(255,255,255,.04)">
-            <div class="bebas text-2xl text-white">${pp.pct ?? 0}%</div>
-            <div class="text-gray-400 text-xs">Tasa de acierto</div>
+          <div class="pstat-box">
+            <div class="pstat-num text-white">${pp.pct ?? 0}%</div>
+            <div class="pstat-lbl">Tasa de acierto</div>
           </div>
-          <div class="rounded-lg p-3 text-center" style="background:rgba(255,255,255,.04)">
-            <div class="bebas text-2xl text-white">${pp.avg ?? "—"}</div>
-            <div class="text-gray-400 text-xs">Pts / partido</div>
+          <div class="pstat-box">
+            <div class="pstat-num text-white">${pp.avg ?? "—"}</div>
+            <div class="pstat-lbl">Pts / partido</div>
           </div>
-          <div class="rounded-lg p-3 text-center" style="background:rgba(34,197,94,.08)">
-            <div class="bebas text-2xl" style="color:var(--green)">${pp.exact ?? 0}</div>
-            <div class="text-gray-400 text-xs">Resultados exactos</div>
+          <div class="pstat-box" style="background:rgba(34,197,94,.10)">
+            <div class="pstat-num" style="color:var(--green)">${pp.streak ?? 0}</div>
+            <div class="pstat-lbl">Racha activa</div>
           </div>
+          <div class="pstat-box" style="background:rgba(245,197,24,.10)">
+            <div class="pstat-num" style="color:var(--gold)">${pp.exact ?? 0}</div>
+            <div class="pstat-lbl">Exactos (6 pts)</div>
+          </div>
+          <div class="pstat-box">
+            <div class="pstat-num" style="color:${p.color}">${pp.best ?? 0}</div>
+            <div class="pstat-lbl">Mejor partido</div>
+          </div>
+        </div>
+
+        <div class="pstat-last-head">
+          <span>Últimos ${last10.length || 10} partidos (grupos)</span>
+        </div>
+        ${lastBar}
+        <div class="pstat-legend">
+          <span><i style="background:#22C55E"></i> Buen partido (≥5 pts)</span>
+          <span><i style="background:${p.color}"></i> Sumó puntos</span>
+          <span><i style="background:#374151"></i> 0 pts</span>
         </div>
       </div>`;
   }).join("");
@@ -4333,6 +4397,27 @@ function applyPorraMode() {
 }
 
 applyPorraMode();
+
+/* ── Info tooltips: abrir/cerrar al tocar (móvil) además del hover ── */
+(function() {
+  document.addEventListener("click", e => {
+    const btn = e.target.closest(".info-btn");
+    // Cierra los demás tips abiertos
+    document.querySelectorAll(".info-wrap.open").forEach(w => {
+      if (!btn || w !== btn.closest(".info-wrap")) w.classList.remove("open");
+    });
+    if (btn) {
+      e.stopPropagation();
+      btn.closest(".info-wrap")?.classList.toggle("open");
+    }
+  });
+})();
+
+/* Devuelve el HTML de un icono (i) con su tooltip. pos: "left" | "right" | "center" */
+function infoTip(text, pos = "left") {
+  const cls = pos === "right" ? " tip-right" : pos === "center" ? " tip-center" : "";
+  return `<span class="info-wrap${cls}"><span class="info-btn" tabindex="0" role="button" aria-label="Más información">i</span><span class="info-tip">${text}</span></span>`;
+}
 
 /* ═══════════════════════════════════════════════════════════════
    NEXT-MATCH COUNTDOWN + LIVE DETECTION
@@ -4779,11 +4864,6 @@ initVisitorCounter();
 })();
 
 loadData();
-
-// GitHub Pages: recargar data.json en segundo plano cada 5 min (sin parpadeo)
-if (IS_GH_PAGES) {
-  setInterval(() => loadData(true), 5 * 60 * 1000);
-}
 </script>
 </body>
 </html>
