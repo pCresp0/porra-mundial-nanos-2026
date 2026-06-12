@@ -843,6 +843,7 @@ def build_data():
             "capacity":   fix.get("capacity"),
             "city_pop":   fix.get("city_pop", ""),
             "venue_fact": fix.get("fact", ""),
+            "wiki":       fix.get("wiki", ""),
             "date":      date_es,
             "time_es":   time_es,
             "day_label": day_label,
@@ -1070,26 +1071,27 @@ def static_files(filename):
     return send_from_directory(os.path.join(BASE, "static"), filename)
 
 
+def _no_cache(response):
+    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    return response
+
+
 @app.route("/api/data")
 def api_data():
     try:
-        return jsonify(get_data())
+        return _no_cache(jsonify(get_data()))
     except Exception as e:
         import traceback
         traceback.print_exc()
-        return jsonify({"error": str(e), "detail": "No se pudieron leer los Excel. Cierra Excel si los tienes abiertos e inténtalo de nuevo."}), 500
-
-
-@app.route("/api/refresh")
-def api_refresh():
-    global _cache
-    _cache["ts"] = 0   # force reload
-    return jsonify({"ok": True, "ts": datetime.now().isoformat()})
+        return _no_cache(jsonify({"error": str(e), "detail": "No se pudieron leer los Excel. Cierra Excel si los tienes abiertos e inténtalo de nuevo."})), 500
 
 
 # ── Live match data proxy (scorers, results) ─────────────────────────────────
 _wc_games_cache: dict = {"data": None, "ts": 0.0}
 WC_GAMES_TTL = 300  # 5 minutes
+
 
 @app.route("/api/wc_games")
 def api_wc_games():

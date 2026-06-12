@@ -11,6 +11,7 @@ VENUES = {
         "capacity": 83_000,
         "city_pop": "21.5 M (área metro)",
         "country": "México",
+        "wiki": "Estadio_Azteca",
         "fact": "El único estadio en albergar dos finales de Copa del Mundo (1970 y 1986).",
     },
     "Guadalajara": {
@@ -19,6 +20,7 @@ VENUES = {
         "capacity": 46_232,
         "city_pop": "5.3 M (área metro)",
         "country": "México",
+        "wiki": "Estadio_Akron",
         "fact": "Casa del Chivas de Guadalajara. Inaugurado en 2010.",
     },
     "Monterrey": {
@@ -27,6 +29,7 @@ VENUES = {
         "capacity": 53_500,
         "city_pop": "5.1 M (área metro)",
         "country": "México",
+        "wiki": "Estadio_BBVA",
         "fact": "Considerado uno de los mejores estadios de fútbol de América.",
     },
     "Toronto": {
@@ -35,6 +38,7 @@ VENUES = {
         "capacity": 30_000,
         "city_pop": "6.7 M (área metro)",
         "country": "Canadá",
+        "wiki": "BMO_Field",
         "fact": "Sede principal del Toronto FC. A orillas del lago Ontario.",
     },
     "Vancouver": {
@@ -43,6 +47,7 @@ VENUES = {
         "capacity": 54_500,
         "city_pop": "2.6 M (área metro)",
         "country": "Canadá",
+        "wiki": "BC_Place",
         "fact": "Estadio cubierto con el techo retráctil más grande del mundo.",
     },
     "Los Ángeles": {
@@ -51,6 +56,7 @@ VENUES = {
         "capacity": 70_240,
         "city_pop": "13.2 M (área metro)",
         "country": "EE.UU.",
+        "wiki": "SoFi_Stadium",
         "fact": "El estadio más caro jamás construido (~5.500 M$). Casa de los Rams y Chargers.",
     },
     "San Francisco": {
@@ -59,6 +65,7 @@ VENUES = {
         "capacity": 68_500,
         "city_pop": "7.7 M (área metro)",
         "country": "EE.UU.",
+        "wiki": "Levi%27s_Stadium",
         "fact": "Casa de los San Francisco 49ers. Tecnología solar propia.",
     },
     "Houston": {
@@ -67,6 +74,7 @@ VENUES = {
         "capacity": 72_220,
         "city_pop": "7.3 M (área metro)",
         "country": "EE.UU.",
+        "wiki": "NRG_Stadium",
         "fact": "Primer estadio del Super Bowl con techo retráctil.",
     },
     "Dallas": {
@@ -75,6 +83,7 @@ VENUES = {
         "capacity": 80_000,
         "city_pop": "7.8 M (área metro)",
         "country": "EE.UU.",
+        "wiki": "AT%26T_Stadium",
         "fact": "Conocido como «Jerry World». Tiene la pantalla de TV más grande del mundo.",
     },
     "Kansas City": {
@@ -83,6 +92,7 @@ VENUES = {
         "capacity": 76_416,
         "city_pop": "2.2 M (área metro)",
         "country": "EE.UU.",
+        "wiki": "Arrowhead_Stadium",
         "fact": "Registrado como el estadio más ruidoso del mundo en 2014 (142.2 dB).",
     },
     "Miami": {
@@ -91,6 +101,7 @@ VENUES = {
         "capacity": 65_326,
         "city_pop": "6.2 M (área metro)",
         "country": "EE.UU.",
+        "wiki": "Hard_Rock_Stadium",
         "fact": "Sede del Super Bowl VI veces. A 30 km del centro de Miami.",
     },
     "Filadelfia": {
@@ -99,6 +110,7 @@ VENUES = {
         "capacity": 69_176,
         "city_pop": "6.2 M (área metro)",
         "country": "EE.UU.",
+        "wiki": "Lincoln_Financial_Field",
         "fact": "Casa de los Philadelphia Eagles. En el corazón del «Linc».",
     },
     "Nueva York": {
@@ -107,6 +119,7 @@ VENUES = {
         "capacity": 82_500,
         "city_pop": "20.1 M (área metro)",
         "country": "EE.UU.",
+        "wiki": "MetLife_Stadium",
         "fact": "Albergará la Final del Mundial 2026 el 19 de julio. Sede del Super Bowl XLVIII.",
     },
     "Boston": {
@@ -115,6 +128,7 @@ VENUES = {
         "capacity": 65_878,
         "city_pop": "4.9 M (área metro)",
         "country": "EE.UU.",
+        "wiki": "Gillette_Stadium",
         "fact": "Casa de los New England Patriots, 6 veces campeones del Super Bowl.",
     },
     "Seattle": {
@@ -123,6 +137,7 @@ VENUES = {
         "capacity": 68_740,
         "city_pop": "4.0 M (área metro)",
         "country": "EE.UU.",
+        "wiki": "Lumen_Field",
         "fact": "Rodeado de agua por tres lados. Sede de los Seahawks y del Seattle Sounders.",
     },
     "Atlanta": {
@@ -131,6 +146,7 @@ VENUES = {
         "capacity": 71_000,
         "city_pop": "6.2 M (área metro)",
         "country": "EE.UU.",
+        "wiki": "Mercedes-Benz_Stadium",
         "fact": "Estadio con el techo de pétalos más grande del mundo. Super Bowl LIII en 2019.",
     },
 }
@@ -270,13 +286,14 @@ def lookup_fixture(row: int) -> dict:
     city = f["city"]
     venue = get_venue(city)
     return {
-        "city":     city,
-        "country":  venue.get("country", ""),
-        "tv":       f.get("tv", ""),
-        "stadium":  venue.get("stadium", ""),
-        "lat":      venue.get("lat"),
-        "lon":      venue.get("lon"),
-        "capacity": venue.get("capacity"),
-        "city_pop": venue.get("city_pop", ""),
-        "fact":     venue.get("fact", ""),
+        "city":      city,
+        "country":   venue.get("country", ""),
+        "tv":        f.get("tv", ""),
+        "stadium":   venue.get("stadium", ""),
+        "lat":       venue.get("lat"),
+        "lon":       venue.get("lon"),
+        "capacity":  venue.get("capacity"),
+        "city_pop":  venue.get("city_pop", ""),
+        "fact":      venue.get("fact", ""),
+        "wiki":      venue.get("wiki", ""),
     }
