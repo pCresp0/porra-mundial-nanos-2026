@@ -2768,7 +2768,7 @@ function matchTeamsHtml(m) {
     const isNext = _nextMatchId && (m.id === _nextMatchId || m.name === _nextMatchId);
     if (isNext) {
       scoreHtml = `<div style="margin-top:.4rem;font-size:1.1rem;font-weight:700;color:#64748B;letter-spacing:.03em">${m.time_es}<span style="font-size:.7rem;font-weight:400;margin-left:.3rem;opacity:.7">h</span></div>
-        <div id="match-countdown" style="font-family:'Courier New',monospace;font-size:1.45rem;font-weight:900;color:var(--gold);letter-spacing:.06em;margin-top:.3rem">--:--</div>`;
+        <div id="match-countdown" style="font-family:'Courier New',monospace;font-size:1.2rem;font-weight:900;color:var(--gold);letter-spacing:.06em;margin-top:.3rem">--:--</div>`;
     } else {
       scoreHtml = `<div style="margin-top:.4rem;font-size:1.1rem;font-weight:700;color:#64748B;letter-spacing:.03em">${m.time_es}<span style="font-size:.7rem;font-weight:400;margin-left:.3rem;opacity:.7">h</span></div>`;
     }
@@ -3267,13 +3267,13 @@ function renderMatchCard(m, players, colors) {
 
   return `
     <div class="card match-row ${playedClass}${liveClass}${isNextMatch ? " next-match" : ""} p-4 mb-2" data-match-name="${(m.name||"").replace(/"/g,"&quot;")}">
+      ${isNextMatch ? `<div style="margin-bottom:.4rem"><span class="text-xs font-bold next-match-tag">⏱ Próximo partido</span></div>` : ""}
       ${matchTeamsHtml(m)}
       ${matchMetaHtml(m)}
       <div class="flex items-center gap-2 flex-wrap mb-3 justify-center">
         <span class="text-xs px-2 py-0.5 rounded font-bold uppercase tracking-wide"
               style="background:var(--card2);color:#94A3B8">${PHASE_LABELS[m.phase] || m.phase}</span>
         ${isLiveMatch ? `<span class="text-xs font-bold live-tag"><span class="live-ball">⚽</span> En Curso</span>` : ""}
-        ${isNextMatch ? `<span class="text-xs font-bold next-match-tag">⏱ Próximo partido</span>` : ""}
         ${m.played ? `<span class="text-xs font-bold" style="color:var(--green)">✓ Jugado</span>` : (!isLiveMatch ? `<span class="text-xs text-gray-600">⏳ Pendiente</span>` : "")}
       </div>
       <div class="match-players-grid">${playerCards}</div>
