@@ -2,7 +2,8 @@ name: Actualizar porra
 
 on:
   schedule:
-    # Cada 30 minutos (UTC) → cada 30 minutos hora España
+    # Comprueba cada 30 minutos, pero solo actualiza (API + Excel + data.json)
+    # si acaba de terminar un partido (ver should_update.py).
     - cron: "*/30 * * * *"
   workflow_dispatch:
   push:
@@ -32,14 +33,27 @@ jobs:
       - name: Instalar dependencias
         run: pip install -r requirements.txt
 
+      - name: ¿Hay partido recién terminado?
+        id: guard
+        run: |
+          if [ "${{ github.event_name }}" != "schedule" ]; then
+            echo "Evento ${{ github.event_name }} → ejecutar siempre"
+            echo "run=yes" >> "$GITHUB_OUTPUT"
+          else
+            python should_update.py >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Sincronizar resultados → Excel (API)
+        if: steps.guard.outputs.run == 'yes'
         run: python fetch_results.py
         continue-on-error: true
 
       - name: Regenerar data.json
+        if: steps.guard.outputs.run == 'yes'
         run: python build_static.py
 
       - name: Subir cambios
+        if: steps.guard.outputs.run == 'yes'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
