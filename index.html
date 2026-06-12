@@ -1732,8 +1732,14 @@
     <button class="tab-btn" data-tab="progression">📈 Progresión</button>
     <button class="tab-btn" data-tab="stats">📊 Estadísticas</button>
     <button class="tab-btn" data-tab="honor">🏆 Cuadro de Honor</button>
-    <button class="tab-btn" data-tab="scoring">📋 Sistema de puntuación</button>
-    <button class="tab-btn" data-tab="info">ℹ️ Más info</button>
+    <!-- overflow: Sistema de puntuación + Más info → dropdown -->
+    <div class="tab-more-wrap" id="tab-more-wrap">
+      <button class="tab-btn tab-more-btn" id="tab-more-btn" type="button" aria-expanded="false" aria-haspopup="true">⋯ Más ▾</button>
+      <div class="tab-more-dropdown hidden" id="tab-more-dropdown">
+        <button class="tab-btn" data-tab="scoring">📋 Sistema de puntuación</button>
+        <button class="tab-btn" data-tab="info">ℹ️ Más info</button>
+      </div>
+    </div>
   </div>
 </nav>
 
@@ -4352,14 +4358,48 @@ function goToMatchesDay(isoDate, matchName) {
 /* ═══════════════════════════════════════════════════════════════
    TAB NAVIGATION
 ═══════════════════════════════════════════════════════════════ */
+const _overflowTabs = new Set(["scoring", "info"]);
+
+/* More dropdown toggle */
+(function() {
+  const wrap = document.getElementById("tab-more-wrap");
+  const btn  = document.getElementById("tab-more-btn");
+  const drop = document.getElementById("tab-more-dropdown");
+  if (!btn || !drop) return;
+
+  btn.addEventListener("click", e => {
+    e.stopPropagation();
+    const open = !drop.classList.contains("hidden");
+    drop.classList.toggle("hidden", open);
+    btn.setAttribute("aria-expanded", String(!open));
+  });
+  document.addEventListener("click", () => {
+    drop.classList.add("hidden");
+    btn.setAttribute("aria-expanded", "false");
+  });
+  drop.addEventListener("click", e => e.stopPropagation());
+
+  function syncMoreBtn() {
+    const anyActive = !!drop.querySelector(".tab-btn.active");
+    btn.classList.toggle("has-active", anyActive);
+  }
+  document.addEventListener("tabChanged", syncMoreBtn);
+  syncMoreBtn();
+})();
+
 document.querySelectorAll(".tab-btn").forEach(btn => {
-  btn.addEventListener("click", () => {    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
+  btn.addEventListener("click", () => {
     const tab = btn.dataset.tab;
+    if (!tab) return; // More button itself
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    // Close dropdown after picking a tab from it
+    document.getElementById("tab-more-dropdown")?.classList.add("hidden");
+    document.getElementById("tab-more-btn")?.setAttribute("aria-expanded", "false");
     ["matches","calendar","standings","progression","stats","honor","scoring","info"].forEach(t => {
       document.getElementById("tab-"+t).classList.toggle("hidden", t !== tab);
     });
-    // Scroll to top instantly when changing tabs
+    document.dispatchEvent(new CustomEvent("tabChanged"));
     window.scrollTo({ top: 0, behavior: "instant" });
     if (tab === "matches") scrollMatchesToToday = true;
     if (tab === "progression" && D) renderProgression();
