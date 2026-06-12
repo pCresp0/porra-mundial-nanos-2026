@@ -337,6 +337,28 @@
     }
     .day-matches.collapsed { display: none; }
 
+    .matches-load-more {
+      display: block;
+      width: 100%;
+      margin: .5rem 0 1rem;
+      padding: .65rem 1rem;
+      border-radius: 10px;
+      border: 1px dashed var(--border);
+      background: var(--card2);
+      color: #94A3B8;
+      font-size: .82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color .2s, color .2s, background .2s;
+      text-align: center;
+    }
+    .matches-load-more:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(212,175,55,.06);
+    }
+    .matches-load-earlier { margin: 0 0 .75rem; }
+
     /* ── week filter ── */
     .week-btn {
       padding: .35rem .85rem;
@@ -1521,7 +1543,7 @@
           <span class="cl-ver-title">Partidos, sedes y pulido UX</span>
         </div>
         <ul class="cl-items">
-          <li><span class="cl-tag feat">feat</span> Partidos por días en acordeón: abiertos ayer, hoy y +2 días; el resto colapsado. Semana actual por defecto</li>
+          <li><span class="cl-tag feat">feat</span> Partidos por días: ayer, hoy y mañana visibles; «Ver más» carga el siguiente día. Semana actual por defecto</li>
           <li><span class="cl-tag feat">feat</span> Panel «Ver sede»: foto del estadio, mapa Leaflet, aforo, área metro y dato curioso (16 sedes)</li>
           <li><span class="cl-tag feat">feat</span> Reproductor Línea de Cal (🎵): volumen, slider para avanzar/retroceder, parado por defecto</li>
           <li><span class="cl-tag feat">feat</span> Estadísticas ampliadas: desglose de aciertos, rachas, últimos 10 partidos y números globales</li>
@@ -1636,9 +1658,34 @@ let breakdownChart = null;
 let currentPhase = "all";
 let currentWeek  = "all";
 let scrollMatchesToToday = true;
+let matchesDaysBefore = 0;
+let matchesDaysAfter  = 0;
 
 function todaySpainISO() {
   return new Date().toLocaleDateString("en-CA", { timeZone: "Europe/Madrid" });
+}
+
+function addDaysISO(iso, n) {
+  const d = new Date(iso + "T12:00:00");
+  d.setDate(d.getDate() + n);
+  return d.toISOString().slice(0, 10);
+}
+
+function resetMatchesDayWindow() {
+  matchesDaysBefore = 0;
+  matchesDaysAfter  = 0;
+}
+
+function showMoreMatchDays() {
+  matchesDaysAfter++;
+  scrollMatchesToToday = false;
+  renderMatches(currentPhase, currentWeek);
+}
+
+function showEarlierMatchDays() {
+  matchesDaysBefore++;
+  scrollMatchesToToday = false;
+  renderMatches(currentPhase, currentWeek);
 }
 
 function scrollToTodayInMatches() {
@@ -2096,6 +2143,7 @@ function renderWeekFilter() {
       el.querySelectorAll(".week-btn").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       currentWeek = btn.dataset.week;
+      resetMatchesDayWindow();
       scrollMatchesToToday = true;
       renderMatches(currentPhase, currentWeek);
     });
@@ -2258,15 +2306,36 @@ function renderMatches(phase, week) {
   });
 
   const today = todaySpainISO();
-  // window: yesterday, today, +2 days
-  const winStart = new Date(today); winStart.setDate(winStart.getDate() - 1);
-  const winEnd   = new Date(today); winEnd.setDate(winEnd.getDate() + 2);
-  const inWindow = iso => {
-    if (!iso || iso === "sin-fecha") return false;
-    return iso >= winStart.toISOString().slice(0,10) && iso <= winEnd.toISOString().slice(0,10);
+  const visibleStart = addDaysISO(today, -1 - matchesDaysBefore);
+  const visibleEnd   = addDaysISO(today,  1 + matchesDaysAfter);
+
+  const dayISO = key => {
+    const iso = byDay[key][0]?.date;
+    return iso && iso.length >= 10 ? iso : null;
   };
 
-  list.innerHTML = dayKeys.map(dayKey => {
+  const datedKeys = dayKeys.filter(k => k !== NO_DATE);
+  const filterDates = datedKeys.map(dayISO).filter(Boolean);
+  const todayInFilter = filterDates.length
+    ? today >= filterDates[0] && today <= filterDates[filterDates.length - 1]
+    : false;
+
+  let visibleDayKeys, hiddenBefore, hiddenAfter;
+  if (todayInFilter) {
+    visibleDayKeys = datedKeys.filter(k => {
+      const iso = dayISO(k);
+      return iso && iso >= visibleStart && iso <= visibleEnd;
+    });
+    hiddenBefore = datedKeys.filter(k => dayISO(k) < visibleStart);
+    hiddenAfter  = datedKeys.filter(k => dayISO(k) > visibleEnd);
+  } else {
+    visibleDayKeys = datedKeys;
+    hiddenBefore = [];
+    hiddenAfter  = [];
+  }
+  const showNoDate = dayKeys.includes(NO_DATE) && !hiddenBefore.length && !hiddenAfter.length;
+
+  const renderDaySection = dayKey => {
     const dayMatches = [...byDay[dayKey]].sort((a, b) => {
       if (a.time_es && b.time_es) return a.time_es.localeCompare(b.time_es);
       return (a.row || 0) - (b.row || 0);
@@ -2276,25 +2345,38 @@ function renderMatches(phase, week) {
     const isoDate = dayMatches[0]?.date || "sin-fecha";
     const dayId = isoDate === "sin-fecha" ? "day-sin-fecha" : `day-${isoDate}`;
     const isToday = isoDate === today;
-    const open = inWindow(isoDate);
-    const collapsed = !open;
     const todayCls = isToday ? " today-header" : "";
-    const collCls  = collapsed ? " collapsed" : "";
-
     const cards = dayMatches.map(m => renderMatchCard(m, players, colors)).join("");
 
     return `
       <div class="day-section">
-        <div class="day-header${todayCls}${collCls}" id="${dayId}" data-day-date="${isoDate}" onclick="toggleDay(this)">
+        <div class="day-header${todayCls}" id="${dayId}" data-day-date="${isoDate}" onclick="toggleDay(this)">
           <span class="day-name">${dayKey === NO_DATE ? "Sin fecha" : dayKey}</span>
           <span class="day-count">${count} partido${count!==1?"s":""}${playedInDay ? ` · ${playedInDay} jugado${playedInDay!==1?"s":""}` : ""}</span>
           <span class="day-chevron">▼</span>
         </div>
-        <div class="day-matches${collapsed ? " collapsed" : ""}">
+        <div class="day-matches">
           ${cards}
         </div>
       </div>`;
-  }).join("");
+  };
+
+  const prevKey   = hiddenBefore.length ? hiddenBefore[hiddenBefore.length - 1] : null;
+  const nextKey   = hiddenAfter.length ? hiddenAfter[0] : null;
+  const prevLabel = prevKey ? (byDay[prevKey][0]?.day_label || prevKey) : "";
+  const nextLabel = nextKey ? (byDay[nextKey][0]?.day_label || nextKey) : "";
+
+  const earlierBtn = hiddenBefore.length
+    ? `<button type="button" class="matches-load-more matches-load-earlier" onclick="showEarlierMatchDays()">← Ver día anterior · ${prevLabel}</button>`
+    : "";
+  const moreBtn = hiddenAfter.length
+    ? `<button type="button" class="matches-load-more" onclick="showMoreMatchDays()">Ver más · ${nextLabel} →</button>`
+    : "";
+
+  const daySections = visibleDayKeys.map(renderDaySection).join("");
+  const noDateSection = showNoDate ? renderDaySection(NO_DATE) : "";
+
+  list.innerHTML = earlierBtn + daySections + noDateSection + moreBtn;
 
   if (scrollMatchesToToday && !document.getElementById("tab-matches").classList.contains("hidden")) {
     scrollMatchesToToday = false;
@@ -3244,6 +3326,8 @@ document.querySelectorAll(".phase-btn").forEach(btn => {
     document.querySelectorAll(".phase-btn").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
     currentPhase = btn.dataset.phase;
+    resetMatchesDayWindow();
+    scrollMatchesToToday = true;
     if (D) renderMatches(currentPhase, currentWeek);
   });
 });
