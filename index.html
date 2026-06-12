@@ -39,6 +39,9 @@
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    /* Hide tab nav scrollbar on all browsers */
+    #tab-nav-scroll::-webkit-scrollbar { display: none; }
+    #tab-nav-scroll { scrollbar-width: none; }
 
     /* ── header gradient ── */
     .header-bg {
@@ -86,7 +89,13 @@
     }
     .podium-col {
       display: flex; flex-direction: column; align-items: center;
-      flex: 1; max-width: 220px;
+      flex: 1; max-width: 220px; min-width: 0;
+    }
+    @media (max-width: 480px) {
+      .podium-wrap { gap: .4rem; padding-top: .5rem; }
+      .podium-1st .podium-block { height: 60px; }
+      .podium-2nd .podium-block { height: 40px; }
+      .podium-3rd .podium-block { height: 28px; }
     }
     .podium-player {
       width: 100%; text-align: center; padding: 1rem .75rem 0;
@@ -110,7 +119,8 @@
       border: 1px solid rgba(245,197,24,.25); border-radius: 12px;
     }
     .rest-standings { display: grid; grid-template-columns: repeat(3,1fr); gap: .5rem; margin-bottom: 1.5rem; }
-    @media (max-width:640px) { .rest-standings { grid-template-columns: 1fr; } }
+    @media (max-width:640px) { .rest-standings { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width:380px) { .rest-standings { grid-template-columns: 1fr; } }
 
     /* ── match meta ── */
     .match-header-center { text-align: center; padding: .75rem 0 1rem; border-bottom: 1px solid var(--border); margin-bottom: .75rem; }
@@ -118,7 +128,12 @@
     .match-flag { font-size: 1.75rem; line-height: 1; }
     .match-team-name { font-weight: 700; font-size: .95rem; color: #E2E8F0; }
     .match-vs { color: #64748B; font-size: .75rem; font-weight: 600; }
-    .match-score-big { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--gold); letter-spacing: .08em; margin-top: .35rem; }
+    .match-score-big { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--gold); letter-spacing: .08em; margin-top: .35rem; line-height: 1; }
+    @media (max-width: 480px) {
+      .match-score-big { font-size: 2rem; }
+      .match-flag { font-size: 1.4rem; }
+      .match-team-name { font-size: .82rem; }
+    }
     .match-meta-row { display: flex; align-items: center; justify-content: center; gap: .5rem; flex-wrap: wrap; margin-bottom: .75rem; }
     .match-venue { font-size: .78rem; color: #94A3B8; }
     .match-time { font-size: .85rem; font-weight: 700; color: #93C5FD; }
@@ -143,6 +158,7 @@
       color: #94A3B8;
       border: 1px solid transparent;
       white-space: nowrap;
+      flex-shrink: 0;
     }
     .tab-btn.active {
       background: var(--card2);
@@ -150,6 +166,12 @@
       color: var(--gold);
     }
     .tab-btn:hover:not(.active) { color: #CBD5E1; background: var(--card2); }
+    @media (max-width: 640px) {
+      .tab-btn { padding: .5rem .9rem; font-size: .8rem; border-radius: 8px; }
+    }
+    @media (max-width: 400px) {
+      .tab-btn { padding: .45rem .7rem; font-size: .75rem; }
+    }
 
     /* ── phase filter ── */
     .phase-btn {
@@ -201,6 +223,9 @@
     }
     .pred-table th { background: var(--card2); font-size: .75rem; color: #64748B; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
     .pred-table tr:nth-child(even) td { background: rgba(255,255,255,.02); }
+    @media (max-width: 640px) {
+      .pred-table th, .pred-table td { padding: .4rem .5rem; font-size: .75rem; }
+    }
 
     /* ── tooltip ── */
     .tooltip-wrap { position: relative; display: inline-block; }
@@ -289,8 +314,11 @@
     .skill-bar-wrap { background: rgba(255,255,255,.05); border-radius: 3px; height: 5px; flex: 1; min-width: 40px; }
     .skill-bar { height: 5px; border-radius: 3px; }
     .ranking-mini-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
       gap: .75rem; margin-bottom: 1.25rem;
+    }
+    @media (max-width: 400px) {
+      .ranking-mini-grid { grid-template-columns: 1fr; }
     }
     .ranking-mini-card { padding: .75rem; }
     .ranking-mini-card h4 { font-size: .75rem; font-weight: 800; color: #94A3B8;
@@ -391,9 +419,10 @@
     .info-hero {
       background: linear-gradient(135deg, var(--card) 0%, var(--card2) 100%);
       border: 1px solid var(--border); border-radius: 1rem;
-      padding: 2rem; margin-bottom: 1.5rem;
+      padding: 1.5rem; margin-bottom: 1.5rem;
     }
-    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+    @media (max-width: 480px) { .info-hero { padding: 1rem; border-radius: .75rem; } }
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
     .info-card {
       background: var(--card); border: 1px solid var(--border);
       border-radius: .75rem; padding: 1.25rem;
@@ -424,14 +453,20 @@
     .update-banner {
       background: linear-gradient(90deg, #0F1428 0%, #161B38 50%, #0F1428 100%);
       border-bottom: 1px solid var(--border);
-      padding: .45rem 1rem;
+      padding: .4rem 1rem;
       text-align: center;
-      font-size: .78rem;
+      font-size: .75rem;
       color: #94A3B8;
       letter-spacing: .02em;
+      line-height: 1.5;
     }
     .update-banner strong { color: var(--gold); font-weight: 600; }
-    .update-banner .sep { color: #475569; margin: 0 .5rem; }
+    .update-banner .sep { color: #475569; margin: 0 .4rem; }
+    @media (max-width: 480px) {
+      .update-banner { font-size: .7rem; padding: .4rem .75rem; }
+      .update-banner .sep { display: none; }
+      .update-banner .upd-block { display: block; line-height: 1.4; }
+    }
   </style>
 </head>
 <body>
@@ -450,21 +485,19 @@
 
 <!-- ── última / próxima actualización ── -->
 <div id="update-banner" class="update-banner hidden">
-  Actualizada a las <strong id="upd-last">—</strong>
-  <span class="sep">·</span>
-  Próxima actualización a las <strong id="upd-next">—</strong>
-  <span class="hidden md:inline text-gray-600"> (hora España)</span>
+  <span class="upd-block">Actualizada a las <strong id="upd-last">—</strong><span class="sep">·</span>Próxima a las <strong id="upd-next">—</strong></span>
+  <span class="hidden sm:inline text-gray-600"> · hora España</span>
 </div>
 
 <!-- ── header ── -->
-<header class="header-bg px-4 py-6 md:px-10">
-  <div class="header-inner max-w-7xl mx-auto flex items-center gap-4">
+<header class="header-bg px-4 py-4 md:py-6 md:px-10">
+  <div class="header-inner max-w-7xl mx-auto flex items-center gap-3 md:gap-4">
     <img src="static/wc2026-logo.png" alt="Copa Mundial FIFA 2026" class="wc-logo" />
     <div>
-      <h1 class="bebas text-2xl md:text-4xl text-white tracking-wide leading-tight">
+      <h1 class="bebas text-xl sm:text-2xl md:text-4xl text-white tracking-wide leading-tight">
         PORRA <span style="color:var(--gold)">'LOS NANOS'</span> MUNDIAL 2026
       </h1>
-      <p class="text-sm md:text-base text-gray-400 mt-1 font-semibold tracking-widest uppercase">
+      <p class="text-xs sm:text-sm md:text-base text-gray-400 mt-0.5 font-semibold tracking-widest uppercase">
         USA · CANADA · MEXICO
       </p>
     </div>
@@ -472,8 +505,10 @@
 </header>
 
 <!-- ── nav tabs ── -->
-<nav class="sticky top-0 z-40 px-4 py-4 md:px-10 border-b" style="background:var(--surface); border-color:var(--border)">
-  <div class="max-w-7xl mx-auto flex gap-2 overflow-x-auto">
+<nav class="sticky top-0 z-40 px-3 py-2 md:px-10 md:py-4 border-b" style="background:var(--surface); border-color:var(--border)">
+  <div class="max-w-7xl mx-auto flex gap-1.5 md:gap-2 overflow-x-auto pb-0.5"
+       style="-webkit-overflow-scrolling:touch; scrollbar-width:none;"
+       id="tab-nav-scroll">
     <button class="tab-btn active" data-tab="matches">⚽ Partidos</button>
     <button class="tab-btn" data-tab="standings">🏅 Clasificación</button>
     <button class="tab-btn" data-tab="progression">📈 Progresión</button>
@@ -484,7 +519,7 @@
   </div>
 </nav>
 
-<main class="max-w-7xl mx-auto px-4 py-6 md:px-10">
+<main class="max-w-7xl mx-auto px-3 py-4 sm:px-4 sm:py-6 md:px-10">
 
   <!-- ════════════════════════════════════════════
        TAB: PARTIDOS
@@ -1593,6 +1628,8 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
     ["matches","standings","progression","honor","scoring","stats","info"].forEach(t => {
       document.getElementById("tab-"+t).classList.toggle("hidden", t !== tab);
     });
+    // Scroll to top instantly when changing tabs
+    window.scrollTo({ top: 0, behavior: "instant" });
     if (tab === "matches") scrollMatchesToToday = true;
     if (tab === "progression" && D) renderProgression();
     if (tab === "stats" && D) renderStats();
@@ -1616,6 +1653,27 @@ document.querySelectorAll(".phase-btn").forEach(btn => {
 /* ═══════════════════════════════════════════════════════════════
    INIT
 ═══════════════════════════════════════════════════════════════ */
+
+// On tab change, scroll the nav so the active button is visible (mobile)
+function scrollNavToActive() {
+  const nav   = document.getElementById("tab-nav-scroll");
+  const active = nav?.querySelector(".tab-btn.active");
+  if (!nav || !active) return;
+  const navLeft  = nav.getBoundingClientRect().left;
+  const btnLeft  = active.getBoundingClientRect().left;
+  const btnRight = active.getBoundingClientRect().right;
+  const navRight = nav.getBoundingClientRect().right;
+  if (btnLeft < navLeft + 8) {
+    nav.scrollBy({ left: btnLeft - navLeft - 8, behavior: "smooth" });
+  } else if (btnRight > navRight - 8) {
+    nav.scrollBy({ left: btnRight - navRight + 8, behavior: "smooth" });
+  }
+}
+
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => setTimeout(scrollNavToActive, 50));
+});
+
 loadData();
 </script>
 </body>
