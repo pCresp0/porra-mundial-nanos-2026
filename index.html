@@ -63,6 +63,21 @@
       background: radial-gradient(ellipse at 60% 0%, rgba(245,197,24,.07) 0%, transparent 65%);
     }
     .header-inner { position: relative; z-index: 1; }
+    /* Contenedor único: mismo ancho y márgenes en cabecera, nav y contenido */
+    .page-shell {
+      width: 100%;
+      max-width: 80rem;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: .75rem;
+      padding-right: .75rem;
+    }
+    @media (min-width: 640px) {
+      .page-shell { padding-left: 1rem; padding-right: 1rem; }
+    }
+    @media (min-width: 768px) {
+      .page-shell { padding-left: 2.5rem; padding-right: 2.5rem; }
+    }
     .wc-logo {
       height: 72px; width: auto;
       filter: drop-shadow(0 4px 12px rgba(0,0,0,.5));
@@ -453,17 +468,18 @@
     .update-banner {
       background: linear-gradient(90deg, #0F1428 0%, #161B38 50%, #0F1428 100%);
       border-bottom: 1px solid var(--border);
-      padding: .4rem 1rem;
-      text-align: center;
+      padding-top: .4rem;
+      padding-bottom: .4rem;
       font-size: .75rem;
       color: #94A3B8;
       letter-spacing: .02em;
       line-height: 1.5;
     }
+    .update-banner .page-shell { text-align: center; }
     .update-banner strong { color: var(--gold); font-weight: 600; }
     .update-banner .sep { color: #475569; margin: 0 .4rem; }
     @media (max-width: 480px) {
-      .update-banner { font-size: .7rem; padding: .4rem .75rem; }
+      .update-banner { font-size: .7rem; }
       .update-banner .sep { display: none; }
       .update-banner .upd-block { display: block; line-height: 1.4; }
     }
@@ -485,13 +501,15 @@
 
 <!-- ── última / próxima actualización ── -->
 <div id="update-banner" class="update-banner hidden">
-  <span class="upd-block">Actualizada a las <strong id="upd-last">—</strong><span class="sep">·</span>Próxima actualización en <strong id="upd-mins">—</strong> min, a las <strong id="upd-next">—</strong></span>
-  <span class="hidden sm:inline text-gray-600"> · hora España</span>
+  <div class="page-shell">
+    <span class="upd-block">Actualizada a las <strong id="upd-last">—</strong><span class="sep">·</span>Próxima actualización en <strong id="upd-mins">—</strong> min, a las <strong id="upd-next">—</strong></span>
+    <span class="hidden sm:inline text-gray-600"> · hora España</span>
+  </div>
 </div>
 
 <!-- ── header ── -->
-<header class="header-bg px-4 py-4 md:py-6 md:px-10">
-  <div class="header-inner max-w-7xl mx-auto flex items-center gap-3 md:gap-4">
+<header class="header-bg py-4 md:py-6">
+  <div class="header-inner page-shell flex items-center gap-3 md:gap-4">
     <img src="static/wc2026-logo.png" alt="Copa Mundial FIFA 2026" class="wc-logo" />
     <div>
       <h1 class="bebas text-xl sm:text-2xl md:text-4xl text-white tracking-wide leading-tight">
@@ -505,8 +523,8 @@
 </header>
 
 <!-- ── nav tabs ── -->
-<nav class="sticky top-0 z-40 px-3 py-2 md:px-10 md:py-4 border-b" style="background:var(--surface); border-color:var(--border)">
-  <div class="max-w-7xl mx-auto flex gap-1.5 md:gap-2 overflow-x-auto pb-0.5"
+<nav class="sticky top-0 z-40 py-2 md:py-4 border-b" style="background:var(--surface); border-color:var(--border)">
+  <div class="page-shell flex gap-1.5 md:gap-2 overflow-x-auto pb-0.5"
        style="-webkit-overflow-scrolling:touch; scrollbar-width:none;"
        id="tab-nav-scroll">
     <button class="tab-btn active" data-tab="matches">⚽ Partidos</button>
@@ -519,7 +537,7 @@
   </div>
 </nav>
 
-<main class="max-w-7xl mx-auto px-3 py-4 sm:px-4 sm:py-6 md:px-10">
+<main class="page-shell py-4 sm:py-6">
 
   <!-- ════════════════════════════════════════════
        TAB: PARTIDOS
