@@ -40,12 +40,13 @@ Mundial 2026/
 │   ├── ADMIN-Excel-Mundial_NANOS_2026 [1].xlsx   ← 5 jugadores + hoja maestra
 │   └── ADMIN-Excel-Mundial_NANOS_2026 [2].xlsx   ← Crespo
 └── Web_Interactiva_PORRA_NANOS_MUNDIAL_2026/
-    ├── app.py                          → Backend Flask (lee Excel, API JSON)
+    ├── index.html                      → Interfaz web (HTML + CSS + JS)
+    ├── data.json                       → Datos exportados para GitHub Pages
+    ├── app.py                          → Backend Flask local (lee Excel, API JSON)
+    ├── build_static.py                 → Genera data.json desde los Excel
     ├── fixture_data.py                 → Sedes y TV de los 104 partidos
     ├── launch.py                       → Arranca servidor + abre Chrome
     ├── RUN - Porra Los Nanos.command   → Doble clic para lanzar todo (macOS)
-    ├── templates/
-    │   └── index.html                  → Interfaz completa (HTML + CSS + JS)
     ├── static/                         → Logo WC 2026, favicon, fondos
     └── docs/
         └── screenshot-partidos.png     → Captura de ejemplo
@@ -188,12 +189,36 @@ Para detener el servidor: **Ctrl+C** en la terminal, o cierra la ventana del `.c
 
 ---
 
+## GitHub Pages (versión online)
+
+GitHub Pages **no puede ejecutar Python/Flask**; solo sirve archivos estáticos. Por eso la versión online usa `index.html` + `data.json` en la raíz del repositorio.
+
+**URL:** [https://pcresp0.github.io/porra-mundial-nanos-2026/](https://pcresp0.github.io/porra-mundial-nanos-2026/)
+
+### Configuración en GitHub
+
+En el repositorio → **Settings** → **Pages** → Source: **Deploy from a branch** → Branch: **main** → Folder: **/ (root)**.
+
+### Actualizar la web online tras cambiar el Excel
+
+```bash
+python3 build_static.py    # regenera data.json desde los Excel
+git add data.json
+git commit -m "Actualizar datos de la porra"
+git push origin main
+```
+
+GitHub Pages tarda 1–2 minutos en publicar los cambios. La versión online **no lee el Excel en vivo**: muestra el snapshot de `data.json` que subas al repo.
+
+---
+
 ## Flujo de trabajo habitual
 
 1. Metéis resultados en el Excel ADMIN (**WORLDCUP**, columnas AC/AD)
 2. El Excel recalcula **CLAS** y las puntuaciones
-3. Recargáis la web (**F5**) → se actualiza sola (caché máx. 30 s)
-4. Consultáis clasificación, partidos, stats, etc.
+3. **Local:** recargáis la web (**F5**) → se actualiza sola (caché máx. 30 s)
+4. **GitHub Pages:** ejecutáis `python3 build_static.py` y subís el `data.json` nuevo
+5. Consultáis clasificación, partidos, stats, etc.
 
 ---
 
@@ -208,8 +233,9 @@ Para detener el servidor: **Ctrl+C** en la terminal, o cierra la ventana del `.c
 
 ## Limitaciones
 
-- Solo funciona en **local** (`localhost:5050`); no está desplegada en internet
-- Depende de que los Excel estén en `00. ADMIN/` con **esos nombres exactos**
+- **Local** (`localhost:5050`): lee el Excel en vivo; necesita Python y los ficheros en `00. ADMIN/`
+- **GitHub Pages**: solo muestra el último `data.json` subido al repo (no lee Excel directamente)
+- Depende de que los Excel estén en `00. ADMIN/` con **esos nombres exactos** (solo para uso local y para generar `data.json`)
 - Sedes y TV vienen de `fixture_data.py`, no del Excel
 - Con pocos partidos jugados, el pronóstico por tendencia y las fortalezas son **orientativos**
 - Si el Excel da error (fórmulas rotas, archivo abierto), la web muestra error y botón de reintentar

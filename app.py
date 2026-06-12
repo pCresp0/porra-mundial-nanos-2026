@@ -6,7 +6,7 @@ Reads ADMIN-Excel-Mundial_NANOS_2026 [1].xlsx (5 players) and
 
 import os, json, time, warnings, re
 from datetime import datetime, timedelta
-from flask import Flask, jsonify, render_template, send_from_directory
+from flask import Flask, jsonify, send_from_directory
 import openpyxl
 
 warnings.filterwarnings("ignore")
@@ -914,7 +914,7 @@ def get_data():
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return send_from_directory(BASE, "index.html")
 
 
 @app.route("/favicon.ico")

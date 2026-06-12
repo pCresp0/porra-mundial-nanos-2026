@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Porra Mundial 'Los Nanos' 2026</title>
-  <link rel="icon" href="/static/favicon-32.png?v=2" type="image/png" sizes="32x32" />
-  <link rel="shortcut icon" href="/favicon.ico?v=2" />
-  <link rel="apple-touch-icon" href="/static/apple-touch-icon.png?v=2" />
+  <link rel="icon" href="static/favicon-32.png?v=2" type="image/png" sizes="32x32" />
+  <link rel="shortcut icon" href="static/favicon.ico?v=2" />
+  <link rel="apple-touch-icon" href="static/apple-touch-icon.png?v=2" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet" />
@@ -51,7 +51,7 @@
     .header-bg::before {
       content: '';
       position: absolute; inset: 0;
-      background: url('/static/wc2026-bg.png') center/cover no-repeat;
+      background: url('static/wc2026-bg.png') center/cover no-repeat;
       opacity: .12;
     }
     .header-bg::after {
@@ -411,7 +411,7 @@
 <!-- ── header ── -->
 <header class="header-bg px-4 py-6 md:px-10">
   <div class="header-inner max-w-7xl mx-auto flex items-center gap-4">
-    <img src="/static/wc2026-logo.png" alt="Copa Mundial FIFA 2026" class="wc-logo" />
+    <img src="static/wc2026-logo.png" alt="Copa Mundial FIFA 2026" class="wc-logo" />
     <div>
       <h1 class="bebas text-2xl md:text-4xl text-white tracking-wide leading-tight">
         PORRA <span style="color:var(--gold)">'LOS NANOS'</span> MUNDIAL 2026
@@ -598,6 +598,8 @@
    GLOBAL STATE
 ═══════════════════════════════════════════════════════════════ */
 let D = null;  // full data
+const IS_GH_PAGES = location.hostname.endsWith("github.io");
+const DATA_URL = IS_GH_PAGES ? "data.json" : "/api/data";
 let progressionChart = null;
 let hitRateChart = null;
 let phaseChart = null;
@@ -663,11 +665,12 @@ async function loadData() {
     retryBtn.classList.add("hidden");
     spinner.classList.remove("hidden");
 
-    const res = await fetch("/api/data");
+    const url = IS_GH_PAGES ? `${DATA_URL}?t=${Date.now()}` : DATA_URL;
+    const res = await fetch(url);
     const json = await res.json();
 
     if (!res.ok || json.error) {
-      throw new Error(json.detail || json.error || `Error del servidor (${res.status})`);
+      throw new Error(json.detail || json.error || `Error al cargar datos (${res.status})`);
     }
 
     D = json;
@@ -685,7 +688,7 @@ async function loadData() {
 async function forceRefresh() {
   document.getElementById("loading").style.display = "flex";
   document.getElementById("loading").style.opacity = "1";
-  await fetch("/api/refresh");
+  if (!IS_GH_PAGES) await fetch("/api/refresh");
   await loadData();
 }
 
