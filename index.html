@@ -309,6 +309,39 @@
       box-shadow: 0 0 0 1px rgba(245,197,24,.25), 0 0 18px rgba(245,197,24,.18);
     }
     .match-row.next-match:hover { background: rgba(245,197,24,.1); }
+    /* ── partido en curso ── */
+    .match-row.live-match {
+      border: 2px solid #3B82F6;
+      border-left: 4px solid #3B82F6;
+      background: rgba(59,130,246,.06);
+      animation: livePulse 2s ease-in-out infinite;
+    }
+    .match-row.live-match:hover { background: rgba(59,130,246,.1); }
+    @keyframes livePulse {
+      0%,100% { box-shadow: 0 0 0 1px rgba(59,130,246,.3), 0 0 14px rgba(59,130,246,.15); }
+      50%      { box-shadow: 0 0 0 3px rgba(59,130,246,.55), 0 0 28px rgba(59,130,246,.35); }
+    }
+    .live-tag {
+      color: #fff;
+      background: #2563EB;
+      padding: .1rem .55rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      animation: liveDot .9s ease-in-out infinite;
+    }
+    @keyframes liveDot {
+      0%,100% { opacity: 1; }
+      50%      { opacity: .45; }
+    }
+    .live-ball {
+      display: inline-block;
+      animation: liveBounce .55s cubic-bezier(.36,.07,.19,.97) infinite alternate;
+    }
+    @keyframes liveBounce {
+      from { transform: translateY(0); }
+      to   { transform: translateY(-6px); }
+    }
     .next-match-tag {
       color: #1a1a1a;
       background: var(--gold);
@@ -1945,7 +1978,7 @@
         <p id="info-updated">
           <strong class="text-gray-200">Pronósticos</strong> — los editáis en el Excel ADMIN; la web solo los lee.
           <strong class="text-gray-200">Resultados (goles)</strong> — se actualizan solos en la web online:
-          cada hora en punto (hora España) un script en GitHub Actions llama a la API,
+          cada 30 minutos un script en GitHub Actions llama a la API,
           escribe los goles en el Excel del repositorio y regenera la página. No hace falta
           que nadie pulse nada ni suba ficheros a mano por cada partido.
         </p>
@@ -1965,7 +1998,7 @@
         <p class="mt-2">
           <strong class="text-gray-200">«Base de datos»</strong> — no hay base de datos clásica: los datos viven en un
           Excel (pronósticos y configuración) y se publican como un fichero <code>data.json</code>. Un script en
-          GitHub Actions lo regenera cada hora con los resultados de la API.
+          GitHub Actions lo regenera cada 30 minutos con los resultados de la API.
         </p>
         <div class="mt-3">
           <span class="info-tag">HTML</span>
@@ -2096,7 +2129,7 @@
           <span class="cl-ver-title">Datos en vivo y Cuadro de Honor</span>
         </div>
         <ul class="cl-items">
-          <li><span class="cl-tag data">data</span> Goles automáticos cada hora en punto vía API (<code>fetch_results.py</code> + GitHub Actions)</li>
+          <li><span class="cl-tag data">data</span> Goles automáticos cada 30 min vía API (<code>fetch_results.py</code> + GitHub Actions)</li>
           <li><span class="cl-tag feat">feat</span> Cuadro de Honor rediseñado: podio, botas, balones y aciertos por jugador</li>
           <li><span class="cl-tag ux">ux</span> Banner superior con próxima actualización y cuenta atrás</li>
         </ul>
@@ -2630,13 +2663,16 @@ function spainHourMinute() {
   return { h, m };
 }
 
-/** Última y próxima hora natural (:00) según la hora del usuario en España. */
+/** Última y próxima ejecución cada 30 min (:00 o :30) según hora España. */
 function naturalHourSlots() {
   const { h, m } = spainHourMinute();
-  const last = `${String(h).padStart(2, "0")}:00`;
-  const nextH = (h + 1) % 24;
-  const next = `${String(nextH).padStart(2, "0")}:00`;
-  const mins = m === 0 ? 60 : 60 - m;
+  const lastMin = m < 30 ? 0 : 30;
+  const last = `${String(h).padStart(2, "0")}:${String(lastMin).padStart(2, "0")}`;
+  let nextH = h, nextMin;
+  if (m < 30) { nextMin = 30; }
+  else { nextMin = 0; nextH = (h + 1) % 24; }
+  const next = `${String(nextH).padStart(2, "0")}:${String(nextMin).padStart(2, "0")}`;
+  const mins = m < 30 ? 30 - m : 60 - m;
   return { last, next, mins };
 }
 
@@ -2673,7 +2709,7 @@ function renderMeta() {
     iu.innerHTML = `
       <strong class="text-gray-200">Pronósticos</strong> — manual: se cambian en el Excel ADMIN y hay que publicar con
       <code class="text-xs text-blue-300">build_static.py</code> + push.<br>
-      <strong class="text-gray-200">Goles del Mundial</strong> — automático: cada hora en punto (hora España)
+      <strong class="text-gray-200">Goles del Mundial</strong> — automático: cada 30 minutos
       <code class="text-xs text-blue-300">fetch_results.py</code> (GitHub Actions) consulta la API, actualiza el Excel del repo
       y regenera <code class="text-xs text-blue-300">data.json</code>. La web recarga sola cada 5 min.<br>
       API:
@@ -2721,15 +2757,18 @@ function matchTeamsHtml(m) {
   const away = m.away || (m.name.includes("-") ? m.name.split("-").slice(1).join("-").trim() : "");
   const fh = m.flag_home || "🏳️";
   const fa = m.flag_away || "🏳️";
+  const isLive = _liveMatchIds && _liveMatchIds.has(m.name);
   let scoreHtml;
   if (m.played && m.result) {
     scoreHtml = `<div class="match-score-big">${m.result.score.replace("-", " - ")}</div>`;
+  } else if (isLive) {
+    scoreHtml = `<div style="margin-top:.5rem;font-size:2.2rem;font-weight:900;color:#3B82F6;font-family:'Bebas Neue',sans-serif;letter-spacing:.08em">EN CURSO</div>
+      <div style="font-size:.78rem;color:#93C5FD;margin-top:.15rem;letter-spacing:.04em">${m.time_es} h</div>`;
   } else if (m.time_es) {
-    // Show live countdown if this is the next upcoming match
     const isNext = _nextMatchId && (m.id === _nextMatchId || m.name === _nextMatchId);
     if (isNext) {
       scoreHtml = `<div style="margin-top:.4rem;font-size:1.1rem;font-weight:700;color:#64748B;letter-spacing:.03em">${m.time_es}<span style="font-size:.7rem;font-weight:400;margin-left:.3rem;opacity:.7">h</span></div>
-        <div id="match-countdown" style="font-family:'Courier New',monospace;font-size:.82rem;font-weight:800;color:var(--gold);letter-spacing:.04em;margin-top:.2rem">--:--:--</div>`;
+        <div id="match-countdown" style="font-family:'Courier New',monospace;font-size:1.45rem;font-weight:900;color:var(--gold);letter-spacing:.06em;margin-top:.3rem">--:--</div>`;
     } else {
       scoreHtml = `<div style="margin-top:.4rem;font-size:1.1rem;font-weight:700;color:#64748B;letter-spacing:.03em">${m.time_es}<span style="font-size:.7rem;font-weight:400;margin-left:.3rem;opacity:.7">h</span></div>`;
     }
@@ -2752,10 +2791,9 @@ function matchTeamsHtml(m) {
 
 function matchScorersHtml(m) {
   if (!m.played || !Array.isArray(m.scorers) || !m.scorers.length) return "";
-  const home = m.home || (m.name.includes("-") ? m.name.split("-")[0].trim() : "");
   const fmt = s => `<div class="ms-line">⚽ <span class="ms-name">${escapeHtml(s.player)}</span>${s.minute ? `<span class="ms-min">${escapeHtml(s.minute)}</span>` : ""}</div>`;
-  const homeS = m.scorers.filter(s => s.team === home);
-  const awayS = m.scorers.filter(s => s.team !== home);
+  const homeS = m.scorers.filter(s => s.team === "home");
+  const awayS = m.scorers.filter(s => s.team === "away");
   if (!homeS.length && !awayS.length) return "";
   const col = (arr, align) => `<div class="ms-col" style="text-align:${align}">${arr.map(fmt).join("")}</div>`;
   return `<div class="match-scorers">${col(homeS, "right")}<div class="ms-sep"></div>${col(awayS, "left")}</div>`;
@@ -2763,7 +2801,7 @@ function matchScorersHtml(m) {
 
 function matchMetaHtml(m) {
   const parts = [];
-  if (m.time_es) parts.push(`<span class="match-time">${m.time_es} horas</span>`);
+  // La hora ya sale en matchTeamsHtml; aquí solo mostramos sede y TV
   if (m.city && m.country) {
     // Venue is a clickable button if we have coords or players info
     const hasDetail = m.lat || m.stadium || (m.home && TEAM_TO_FIFA[m.home]);
@@ -3175,8 +3213,10 @@ function toggleDay(header) {
 }
 
 function renderMatchCard(m, players, colors) {
+  const isLiveMatch = !m.played && _liveMatchIds && _liveMatchIds.has(m.name);
   const playedClass = m.played ? "played" : "";
-  const isNextMatch = !m.played && _nextMatchId && (m.id === _nextMatchId || m.name === _nextMatchId);
+  const liveClass = isLiveMatch ? " live-match" : "";
+  const isNextMatch = !m.played && !isLiveMatch && _nextMatchId && (m.id === _nextMatchId || m.name === _nextMatchId);
 
   const playerCards = players.map(name => {
     const pd = m.predictions[name];
@@ -3226,14 +3266,15 @@ function renderMatchCard(m, players, colors) {
   }).join("");
 
   return `
-    <div class="card match-row ${playedClass}${isNextMatch ? " next-match" : ""} p-4 mb-2" data-match-name="${(m.name||"").replace(/"/g,"&quot;")}">
+    <div class="card match-row ${playedClass}${liveClass}${isNextMatch ? " next-match" : ""} p-4 mb-2" data-match-name="${(m.name||"").replace(/"/g,"&quot;")}">
       ${matchTeamsHtml(m)}
       ${matchMetaHtml(m)}
       <div class="flex items-center gap-2 flex-wrap mb-3 justify-center">
         <span class="text-xs px-2 py-0.5 rounded font-bold uppercase tracking-wide"
               style="background:var(--card2);color:#94A3B8">${PHASE_LABELS[m.phase] || m.phase}</span>
+        ${isLiveMatch ? `<span class="text-xs font-bold live-tag"><span class="live-ball">⚽</span> En Curso</span>` : ""}
         ${isNextMatch ? `<span class="text-xs font-bold next-match-tag">⏱ Próximo partido</span>` : ""}
-        ${m.played ? `<span class="text-xs font-bold" style="color:var(--green)">✓ Jugado</span>` : `<span class="text-xs text-gray-600">⏳ Pendiente</span>`}
+        ${m.played ? `<span class="text-xs font-bold" style="color:var(--green)">✓ Jugado</span>` : (!isLiveMatch ? `<span class="text-xs text-gray-600">⏳ Pendiente</span>` : "")}
       </div>
       <div class="match-players-grid">${playerCards}</div>
     </div>`;
@@ -4103,10 +4144,13 @@ function applyPorraMode() {
 applyPorraMode();
 
 /* ═══════════════════════════════════════════════════════════════
-   NEXT-MATCH COUNTDOWN
+   NEXT-MATCH COUNTDOWN + LIVE DETECTION
 ═══════════════════════════════════════════════════════════════ */
 let _nextMatchId       = null;   // match.name of the next upcoming match
+let _liveMatchIds      = new Set(); // matches currently in progress
 let _matchCountdownTimer = null;
+
+const MATCH_DURATION_MS = 115 * 60 * 1000; // ~115 min including extra time
 
 function initCountdown() {
   if (_matchCountdownTimer) clearInterval(_matchCountdownTimer);
@@ -4119,16 +4163,27 @@ function initCountdown() {
     const spainStr  = guessDate.toLocaleString("sv-SE", { timeZone: "Europe/Madrid" });
     const spainMs   = new Date(spainStr + "Z").getTime();
     const offsetMs  = guess - spainMs;
-    return guess + offsetMs; // Spain UTC+2 in summer: 21:00 ES = 19:00 UTC
+    return guess + offsetMs;
   };
 
-  const next = (D?.matches || [])
-    .filter(m => !m.played && m.date && m.time_es && /^\d{2}:\d{2}$/.test(m.time_es))
-    .map(m => ({ m, ts: toSpainUTC(m.date, m.time_es) }))
-    .filter(x => x.ts > Date.now())
-    .sort((a, b) => a.ts - b.ts)[0];
+  const now = Date.now();
+  const withTs = (D?.matches || [])
+    .filter(m => m.date && m.time_es && /^\d{2}:\d{2}$/.test(m.time_es))
+    .map(m => ({ m, ts: toSpainUTC(m.date, m.time_es) }));
 
-  _nextMatchId = next ? next.m.name : null;
+  // Detect live: started within last MATCH_DURATION_MS and not yet marked played
+  _liveMatchIds = new Set(
+    withTs
+      .filter(x => !x.m.played && x.ts <= now && (now - x.ts) < MATCH_DURATION_MS)
+      .map(x => x.m.name)
+  );
+
+  const upcoming = withTs
+    .filter(x => !x.m.played && x.ts > now)
+    .sort((a, b) => a.ts - b.ts);
+
+  _nextMatchId = upcoming.length ? upcoming[0].m.name : null;
+  const next = upcoming[0];
 
   if (!next) return;
 
@@ -4146,7 +4201,7 @@ function initCountdown() {
     const min = Math.floor((diff % 3600000) / 60000);
     const sec = Math.floor((diff % 60000) / 1000);
     const pad = n => String(n).padStart(2, "0");
-    el.textContent = `${pad(h)}:${pad(min)}:${pad(sec)}`;
+    el.textContent = h > 0 ? `${pad(h)}:${pad(min)}:${pad(sec)}` : `${pad(min)}:${pad(sec)}`;
     el.style.color = diff < 3600000 ? "var(--green)" : "var(--gold)";
   };
   tick();
