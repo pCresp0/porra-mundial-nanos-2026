@@ -152,27 +152,39 @@ Abre [http://localhost:5050](http://localhost:5050). En macOS también puedes us
 1. **Settings → Pages** → Branch `main` → Folder `/ (root)`
 2. La web carga `index.html` + `data.json` + `static/`
 
-### Actualizar manualmente
+### ¿Qué se actualiza solo y qué no?
+
+| Qué | Quién lo hace | Frecuencia |
+|-----|---------------|------------|
+| **Resultados (goles)** del Mundial | Automático: GitHub Actions llama a la API y escribe en el Excel del repo | **Cada hora en punto** (hora España) |
+| **Pronósticos** del grupo | Tú, editando el Excel ADMIN | Manual |
+| **Web online** (`data.json`) | Se regenera tras cada ciclo automático o tras tu `build_static.py` + push | Tras cada commit con datos nuevos |
+
+**En la práctica:** para la web pública **no tienes que tocar nada** cuando acaban partidos — el pipeline descarga goles, actualiza `data/` y `data.json`, y hace push solo. La página recarga los datos cada 5 minutos en el navegador.
+
+**Solo intervienes tú** cuando cambiáis pronósticos (o posiciones, honor, etc.) en el Excel:
 
 ```bash
-# Tras editar pronósticos en Excel:
+# Tras editar pronósticos en Excel (00. ADMIN/ o data/):
 python3 build_static.py
 git add data.json data/
-git commit -m "Actualizar datos de la porra"
+git commit -m "Actualizar pronósticos de la porra"
 git push
 ```
 
-### Actualización automática
+> El Excel de tu Mac (`../00. ADMIN/`) y el del repositorio (`data/`) son copias distintas. GitHub Actions actualiza **solo la del repo**. Si trabajas en local, haz `git pull` para traerte los goles nuevos, o ejecuta `python3 fetch_results.py` en tu máquina.
 
-GitHub Actions se ejecuta **cada 2 horas en horas pares** (0:00, 2:00, 4:00 … 22:00, hora España):
+### Actualización automática (resultados)
 
-1. Descarga resultados en vivo y los escribe en el Excel (`fetch_results.py`)
+GitHub Actions (**workflow «Actualizar porra»**) se ejecuta **cada hora en punto** (hora España):
+
+1. Llama a [worldcup26.ir/get/games](https://worldcup26.ir/get/games) y escribe goles en WORLDCUP (`fetch_results.py`)
 2. Regenera `data.json` (`build_static.py`)
-3. Hace commit y push automático
+3. Hace commit y push si hay cambios
 
-La barra superior de la web muestra *Actualizada a las XX:XX · Próxima actualización a las XX:XX*. Configuración en `update_config.json` y `.github/workflows/update-porra.yml`.
+La barra superior de la web indica la próxima hora en punto. Configuración en `update_config.json` y `.github/workflows/update-porra.yml`.
 
-También puedes lanzarlo manualmente: **Actions → Actualizar porra → Run workflow**.
+Para forzar un ciclo sin esperar: **Actions → Actualizar porra → Run workflow**.
 
 ---
 

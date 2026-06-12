@@ -329,17 +329,80 @@
     .skill-bar-wrap { background: rgba(255,255,255,.05); border-radius: 3px; height: 5px; flex: 1; min-width: 40px; }
     .skill-bar { height: 5px; border-radius: 3px; }
     .ranking-mini-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: .75rem; margin-bottom: 1.25rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
     }
-    @media (max-width: 400px) {
+    @media (max-width: 520px) {
       .ranking-mini-grid { grid-template-columns: 1fr; }
     }
-    .ranking-mini-card { padding: .75rem; }
-    .ranking-mini-card h4 { font-size: .75rem; font-weight: 800; color: #94A3B8;
-      text-transform: uppercase; letter-spacing: .05em; margin-bottom: .5rem; }
-    .ranking-mini-row { display: flex; justify-content: space-between; align-items: center;
-      font-size: .78rem; padding: .2rem 0; }
+    .ranking-mini-card {
+      padding: 0;
+      overflow: hidden;
+      transition: border-color .2s, transform .15s;
+    }
+    .ranking-mini-card:hover {
+      border-color: rgba(245,197,24,.35);
+      transform: translateY(-2px);
+    }
+    .ranking-mini-head {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .9rem 1.1rem;
+      background: linear-gradient(135deg, rgba(245,197,24,.08) 0%, var(--card2) 60%);
+      border-bottom: 1px solid var(--border);
+    }
+    .ranking-mini-head .rm-icon { font-size: 1.35rem; line-height: 1; }
+    .ranking-mini-head h4 {
+      margin: 0;
+      font-size: .82rem;
+      font-weight: 800;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      line-height: 1.2;
+    }
+    .ranking-mini-body { padding: .85rem 1.1rem 1rem; }
+    .ranking-mini-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: .75rem;
+      font-size: .88rem;
+      padding: .5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+    .ranking-mini-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .ranking-mini-row .rm-player {
+      display: flex;
+      align-items: center;
+      min-width: 0;
+      font-weight: 600;
+      color: #E2E8F0;
+    }
+    .rank-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 1.65rem;
+      height: 1.65rem;
+      border-radius: 6px;
+      font-size: .72rem;
+      font-weight: 800;
+      margin-right: .45rem;
+      flex-shrink: 0;
+    }
+    .rank-pill-1 { background: rgba(245,197,24,.22); color: var(--gold); }
+    .rank-pill-2 { background: rgba(203,213,225,.18); color: var(--silver); }
+    .rank-pill-3 { background: rgba(205,127,50,.22); color: var(--bronze); }
+    .ranking-mini-row .rm-val {
+      font-size: .8rem;
+      color: #94A3B8;
+      white-space: nowrap;
+      font-weight: 500;
+    }
 
     /* ── trend forecast ── */
     .forecast-card {
@@ -706,8 +769,12 @@
         <h3>👥 El grupo</h3>
         <p>
           <strong class="text-gray-200">«Los Nanos»</strong> es un grupo de amigos del barrio de
-          <strong class="text-gray-200">Aluche</strong> (Madrid). Se conocen de toda la vida, se juntan
-          en el barrio y cada cuatro años montan su porra del Mundial. Seis participantes:
+          <strong class="text-gray-200">Aluche</strong> (Madrid). Se conocieron principalmente jugando
+          al fútbol: primero en el <strong class="text-gray-200">parque de Aluche</strong>, después en el
+          equipo de fútbol 11 de <strong class="text-gray-200">La Cantera</strong>, y más tarde en el
+          famosísimo grupo de fútbol sala <strong class="text-gray-200">Los Últimos FS</strong>.
+          Su amor por el fútbol les viene de siempre, desde bien pequeños, y lo mejor de todo sigue
+          siendo jugarlo juntos. Cada cuatro años montan su porra del Mundial — seis participantes:
           Juancho, Larry, Luis/Vir, Medina, Víctor y Crespo.
         </p>
       </div>
@@ -722,9 +789,11 @@
       <div class="info-card">
         <h3>🔄 Datos y actualización</h3>
         <p id="info-updated">
-          Los pronósticos y la lógica de puntuación viven en los Excel ADMIN del grupo.
-          La web los lee y los muestra. En la versión online, los resultados se actualizan
-          automáticamente cada 2 horas (horas pares, hora España) desde fuentes públicas del Mundial.
+          <strong class="text-gray-200">Pronósticos</strong> — los editáis en el Excel ADMIN; la web solo los lee.
+          <strong class="text-gray-200">Resultados (goles)</strong> — se actualizan solos en la web online:
+          cada hora en punto (hora España) un script en GitHub Actions llama a la API,
+          escribe los goles en el Excel del repositorio y regenera la página. No hace falta
+          que nadie pulse nada ni suba ficheros a mano por cada partido.
         </p>
       </div>
       <div class="info-card">
@@ -897,36 +966,37 @@ function render() {
 }
 
 /* ── Compute next update slot (next full hour in Spain time) from browser ── */
-function nextHourSpain() {
-  // Next :00 in Europe/Madrid — we compute from UTC since the cron fires at :00 UTC
-  const now = new Date();
-  const nxt = new Date(now);
-  nxt.setUTCMinutes(0, 0, 0);
-  nxt.setUTCHours(nxt.getUTCHours() + 1);
-  return nxt;
-}
-
-function formatSpainHHMM(date) {
-  return date.toLocaleTimeString("es-ES", {
+/** Hora y minuto actuales en España (formato 24 h). */
+function spainHourMinute() {
+  const s = new Date().toLocaleTimeString("es-ES", {
+    timeZone: "Europe/Madrid",
     hour: "2-digit", minute: "2-digit",
-    timeZone: "Europe/Madrid", hour12: false,
+    hour12: false,
   });
+  const [h, m] = s.split(":").map(n => parseInt(n, 10));
+  return { h, m };
 }
 
-function minUntil(date) {
-  return Math.max(0, Math.floor((date - Date.now()) / 60000));
+/** Última y próxima hora natural (:00) según la hora del usuario en España. */
+function naturalHourSlots() {
+  const { h, m } = spainHourMinute();
+  const last = `${String(h).padStart(2, "0")}:00`;
+  const nextH = (h + 1) % 24;
+  const next = `${String(nextH).padStart(2, "0")}:00`;
+  const mins = m === 0 ? 60 : 60 - m;
+  return { last, next, mins };
 }
 
 let _countdownTimer = null;
 
 function tickBanner() {
-  const nxt   = nextHourSpain();
-  const mins  = minUntil(nxt);
-  const hhmm  = formatSpainHHMM(nxt);
+  const { last, next, mins } = naturalHourSlots();
+  const lastEl = document.getElementById("upd-last");
   const minsEl = document.getElementById("upd-mins");
   const nextEl = document.getElementById("upd-next");
-  if (minsEl) minsEl.textContent = mins <= 0 ? "<1" : String(mins);
-  if (nextEl) nextEl.textContent = hhmm;
+  if (lastEl) lastEl.textContent = last;
+  if (nextEl) nextEl.textContent = next;
+  if (minsEl) minsEl.textContent = String(mins);
 }
 
 function startCountdown() {
@@ -938,19 +1008,24 @@ function startCountdown() {
 function renderMeta() {
   const upd = D?.meta?.update;
   const banner = document.getElementById("update-banner");
-  const lastEl = document.getElementById("upd-last");
 
-  if (banner) {
-    banner.classList.remove("hidden");
-    if (lastEl) lastEl.textContent = upd?.last_updated_time || D?.meta?.generated?.slice(11,16) || "—";
-  }
+  if (banner) banner.classList.remove("hidden");
 
   startCountdown();
 
   const iu = document.getElementById("info-updated");
   if (iu) {
-    const lastTxt = upd?.last_updated_time || D?.meta?.generated || "—";
-    iu.innerHTML = `Los pronósticos viven en los Excel ADMIN del grupo. Los resultados se sincronizan automáticamente <strong class="text-gray-300">cada hora en punto</strong> desde fuentes públicas del Mundial.<br>Última actualización de datos: <strong class="text-gray-300">${lastTxt}</strong>`;
+    const apiUrl = "https://worldcup26.ir/get/games";
+    const { last, next } = naturalHourSlots();
+    iu.innerHTML = `
+      <strong class="text-gray-200">Pronósticos</strong> — manual: se cambian en el Excel ADMIN y hay que publicar con
+      <code class="text-xs text-blue-300">build_static.py</code> + push.<br>
+      <strong class="text-gray-200">Goles del Mundial</strong> — automático: cada hora en punto (hora España)
+      <code class="text-xs text-blue-300">fetch_results.py</code> (GitHub Actions) consulta la API, actualiza el Excel del repo
+      y regenera <code class="text-xs text-blue-300">data.json</code>. La web recarga sola cada 5 min.<br>
+      API:
+      <a href="${apiUrl}" target="_blank" rel="noopener" class="text-blue-300 hover:text-yellow-400 break-all">${apiUrl}</a><br>
+      <span class="text-gray-500 text-xs">Próximo ciclo automático: ${next} (hora España) · Barra superior: ${last}</span>`;
   }
 }
 
@@ -1061,13 +1136,22 @@ function renderPlayerStrengths() {
   rankEl.innerHTML = activeSkills.map(sk => {
     const rows = (ps.rankings[sk.key] || []).filter(r => r.value > 0).slice(0, 3);
     if (!rows.length) return "";
+    const pillClass = r => r.rank === 1 ? "rank-pill-1" : r.rank === 2 ? "rank-pill-2" : "rank-pill-3";
     return `<div class="card ranking-mini-card">
-      <h4>${sk.icon} ${sk.label}</h4>
+      <div class="ranking-mini-head">
+        <span class="rm-icon">${sk.icon}</span>
+        <h4>${sk.label}</h4>
+      </div>
+      <div class="ranking-mini-body">
       ${rows.map(r => `
         <div class="ranking-mini-row">
-          <span><span style="color:${r.color};font-weight:800">#${r.rank}</span> ${r.name}</span>
-          <span class="text-gray-400 text-xs">${r.display}</span>
+          <span class="rm-player">
+            <span class="rank-pill ${pillClass(r)}">#${r.rank}</span>
+            <span style="color:${r.color}">${r.name}</span>
+          </span>
+          <span class="rm-val">${r.display}</span>
         </div>`).join("")}
+      </div>
     </div>`;
   }).join("");
 
@@ -1782,7 +1866,16 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
   btn.addEventListener("click", () => setTimeout(scrollNavToActive, 50));
 });
 
+// Banner de hora: visible y dinámico desde el primer momento
+document.getElementById("update-banner")?.classList.remove("hidden");
+startCountdown();
+
 loadData();
+
+// GitHub Pages: recargar data.json cada 5 min (no hace falta F5 manual)
+if (IS_GH_PAGES) {
+  setInterval(() => loadData(), 5 * 60 * 1000);
+}
 </script>
 </body>
 </html>

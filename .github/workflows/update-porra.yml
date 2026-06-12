@@ -12,7 +12,9 @@ on:
       - "fetch_results.py"
       - "team_names.py"
       - "app.py"
+      - "excel_sync.py"
       - "fixture_data.py"
+      - "build_static.py"
 
 permissions:
   contents: write

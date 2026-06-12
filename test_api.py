@@ -134,7 +134,7 @@ def main():
         code |= test_fetch_pipeline(dry_run=args.dry_run)
 
     print("\n── Flujo previsto ──")
-    print("  1. GitHub Actions (cada 2h) o tú manualmente:")
+    print("  1. GitHub Actions (cada hora en punto) o tú manualmente:")
     print("       python3 fetch_results.py     → API externa → Excel WORLDCUP")
     print("       python3 build_static.py      → Excel → data.json (GitHub Pages)")
     print("  2. En local:")
