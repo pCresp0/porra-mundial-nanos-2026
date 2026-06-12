@@ -1,254 +1,234 @@
-# Porra Mundial «Los Nanos» 2026 — Web interactiva
+<p align="center">
+  <img src="docs/header-banner.png" alt="Porra Los Nanos Mundial 2026" width="100%" />
+</p>
 
-Dashboard web privado para seguir la porra del **Mundial FIFA 2026** entre 6 amigos. Lee los Excel de administración que ya usáis y los convierte en una interfaz visual, cómoda y actualizada en el navegador.
+<h1 align="center">Porra Mundial «Los Nanos» 2026</h1>
 
-> **En una frase:** el panel de control de vuestra porra, alimentado automáticamente por los Excel ADMIN, para ver quién va ganando, por qué y cómo evoluciona el torneo — sin tener que abrir el Excel cada vez.
+<p align="center">
+  <strong>Dashboard web interactivo para la porra privada del Mundial FIFA 2026</strong><br>
+  <a href="https://pcresp0.github.io/porra-mundial-nanos-2026/">🌐 Ver demo en vivo</a>
+  &nbsp;·&nbsp;
+  <a href="docs/screenshot-partidos.png">📸 Capturas</a>
+</p>
 
-![Vista de la pestaña Partidos](docs/screenshot-partidos.png)
-
----
-
-## ¿Para qué sirve?
-
-- Ver la **clasificación en tiempo casi real** (sin abrir el Excel)
-- Consultar **partidos, pronósticos y puntos** de cada jugador
-- Entender **de dónde vienen los puntos** (1X2, diferencia, exacto, fases del torneo…)
-- Seguir la **progresión**, **estadísticas**, **fortalezas** y un **pronóstico por tendencia**
-- Consultar el **cuadro de honor** (campeón, botas, balones…)
-- Tener a mano el **sistema de puntuación** y los **premios** (40 € al 1.º, 20 € al 2.º)
-
-**No sustituye al Excel:** solo lo lee y lo muestra de forma visual. Los resultados y pronósticos siguen gestionándose en los ficheros ADMIN.
-
----
-
-## Jugadores
-
-| Jugador | Excel |
-|---------|-------|
-| JUANCHO, LARRY, LUIS/VIR, MEDINA, VÍCTOR | `ADMIN-Excel-Mundial_NANOS_2026 [1].xlsx` |
-| Crespo | `ADMIN-Excel-Mundial_NANOS_2026 [2].xlsx` |
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.9+-3776AB?logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/Flask-3.x-000?logo=flask&logoColor=white" alt="Flask" />
+  <img src="https://img.shields.io/badge/GitHub_Pages-live-brightgreen?logo=github" alt="GitHub Pages" />
+  <img src="https://img.shields.io/badge/Mundial-2026-F5C518" alt="World Cup 2026" />
+</p>
 
 ---
 
-## Estructura del proyecto
+## Descripción
 
-El repositorio vive dentro de la carpeta del Mundial y espera los Excel en el directorio hermano `00. ADMIN/`:
+Proyecto personal desarrollado para el grupo de amigos **«Los Nanos»** del barrio de **Aluche** (Madrid). Convierte los Excel de administración de la porra en un panel visual con clasificación, partidos, pronósticos, estadísticas y cuadro de honor.
+
+La web **no sustituye al Excel**: lo lee y lo presenta de forma clara para que los seis participantes puedan seguir el torneo sin abrir hojas de cálculo.
+
+| | |
+|---|---|
+| **Participantes** | Juancho, Larry, Luis/Vir, Medina, Víctor, Crespo |
+| **Premios** | 🥇 40 € · 🥈 20 € |
+| **Sede del grupo** | Aluche, Madrid |
+| **Torneo** | Copa Mundial FIFA 2026 · USA · CANADA · MEXICO |
+
+---
+
+## Demo
+
+🔗 **[https://pcresp0.github.io/porra-mundial-nanos-2026/](https://pcresp0.github.io/porra-mundial-nanos-2026/)**
+
+![Vista de partidos](docs/screenshot-partidos.png)
+
+---
+
+## Características
+
+| Pestaña | Contenido |
+|---------|-----------|
+| ⚽ **Partidos** | Filtros por semana/fase, sede, TV (DAZN / TVE), desglose de puntos |
+| 🏅 **Clasificación** | Podio, tabla por fases, fortalezas y badges por jugador |
+| 📈 **Progresión** | Gráfica de puntos acumulados día a día |
+| 🏆 **Cuadro de Honor** | Campeón, botas, balones y pronósticos vs. realidad |
+| 📋 **Puntuación** | Reglas Matejero extraídas del Excel |
+| 📊 **Estadísticas** | Tendencias, tasas de acierto, proyecciones |
+| ℹ️ **Más info** | Historia del grupo, arquitectura y créditos |
+
+---
+
+## Arquitectura
+
+Dos modos de despliegue que comparten la misma interfaz (`index.html`):
 
 ```
-Mundial 2026/
-├── 00. ADMIN/
-│   ├── ADMIN-Excel-Mundial_NANOS_2026 [1].xlsx   ← 5 jugadores + hoja maestra
-│   └── ADMIN-Excel-Mundial_NANOS_2026 [2].xlsx   ← Crespo
-└── Web_Interactiva_PORRA_NANOS_MUNDIAL_2026/
-    ├── index.html                      → Interfaz web (HTML + CSS + JS)
-    ├── data.json                       → Datos exportados para GitHub Pages
-    ├── app.py                          → Backend Flask local (lee Excel, API JSON)
-    ├── build_static.py                 → Genera data.json desde los Excel
-    ├── fixture_data.py                 → Sedes y TV de los 104 partidos
-    ├── launch.py                       → Arranca servidor + abre Chrome
-    ├── RUN - Porra Los Nanos.command   → Doble clic para lanzar todo (macOS)
-    ├── static/                         → Logo WC 2026, favicon, fondos
-    └── docs/
-        └── screenshot-partidos.png     → Captura de ejemplo
+┌─────────────────────────────────────────────────────────────────┐
+│                         index.html + static/                    │
+│              (Tailwind CSS · Chart.js · 7 pestañas)             │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+           ┌─────────────────┴─────────────────┐
+           ▼                                   ▼
+   ┌───────────────┐                   ┌───────────────┐
+   │  LOCAL Flask  │                   │ GitHub Pages  │
+   │ localhost:5050│                   │  (estático)   │
+   └───────┬───────┘                   └───────┬───────┘
+           │                                   │
+           ▼                                   ▼
+   GET /api/data                      GET data.json
+           │                                   │
+           └─────────────┬─────────────────────┘
+                         ▼
+              ┌─────────────────────┐
+              │  app.py · build_data │
+              │  openpyxl → JSON     │
+              └──────────┬──────────┘
+                         ▼
+              ┌─────────────────────┐
+              │  data/*.xlsx        │
+              │  Excel ADMIN (×2)   │
+              └─────────────────────┘
+```
+
+### Estructura del repositorio
+
+```
+porra-mundial-nanos-2026/
+├── index.html              # Interfaz web (raíz → GitHub Pages)
+├── data.json               # Snapshot para la versión online
+├── data/                   # Excel ADMIN (fuente de verdad en el repo)
+│   ├── ADMIN-Excel-… [1].xlsx
+│   └── ADMIN-Excel-… [2].xlsx
+├── app.py                  # Backend Flask + motor de lectura Excel
+├── build_static.py         # Genera data.json
+├── fetch_results.py        # Descarga resultados en vivo → Excel
+├── fixture_data.py         # Sedes y TV (104 partidos)
+├── team_names.py           # Mapeo nombres API → Excel
+├── update_config.json      # Horarios de actualización automática
+├── launch.py               # Arranque local + Chrome
+├── static/                 # Logo WC 2026, favicons, fondos
+├── docs/                   # Capturas para el README
+└── .github/workflows/      # CI: actualización programada
 ```
 
 ---
 
 ## Fuentes de datos
 
-### Excel ADMIN (fuente principal)
+### Excel ADMIN (`data/`)
 
-| Hoja | Qué extrae el backend |
-|------|------------------------|
-| **ADMIN** | Pronósticos y puntuación por partido (columna de cada jugador) |
-| **CLAS** | Clasificación total y desglose por fase (grupos, posiciones, KO, honor…) |
-| **WORLDCUP** | Horarios en hora España, banderas, equipos, resultados reales |
+| Hoja | Contenido |
+|------|-----------|
+| **ADMIN** | Pronósticos y puntos por partido |
+| **CLAS** | Clasificación y desglose por fase |
+| **WORLDCUP** | Equipos, horarios, resultados (AC/AD) |
 
-### Dónde meter los resultados en el Excel
+### Complementarios
 
-| Dato | Hoja | Ubicación |
-|------|------|-----------|
-| Goles local / visitante | WORLDCUP | Columnas **AC** y **AD** |
-| Clasificación | CLAS | Calculada por las fórmulas del Excel |
-| Pronósticos | ADMIN | Columna de cada jugador |
-
-### `fixture_data.py` (complementario)
-
-Sedes (ciudad + país) y emisión TV en España (**DAZN** / **TVE La 1**) de los 104 partidos.  
-Fuentes: calendario FIFA + calendario TV España. **No viene del Excel.**
+| Fuente | Uso |
+|--------|-----|
+| `fixture_data.py` | Ciudad, país y emisión TV en España |
+| [worldcup26.ir API](https://worldcup26.ir/get/games) | Resultados en vivo (actualización automática) |
 
 ---
 
-## Pestañas
+## Instalación y uso local
 
-### Clasificación
+```bash
+git clone https://github.com/pCresp0/porra-mundial-nanos-2026.git
+cd porra-mundial-nanos-2026
+pip install -r requirements.txt
+python3 launch.py
+```
 
-- Banner de premios (40 € / 20 €)
-- Podio olímpico con top 3
-- Tabla completa desglosada por fases
-- **Fortalezas** de cada jugador: rankings por habilidad con badges como *Francotirador*, *Rey del 1X2*, *Estratega de grupos*, *Maestro KO*…
+Abre [http://localhost:5050](http://localhost:5050). En macOS también puedes usar doble clic en `RUN - Porra Los Nanos.command`.
 
-### Progresión
+> Si no hay Excel en `data/`, el backend busca en `../00. ADMIN/` (modo desarrollo local).
 
-- Gráfica de puntos acumulados día a día (hora España)
-- Mini tarjetas por jugador con el delta del último día
+---
 
-### Partidos
+## GitHub Pages
 
-- Partidos agrupados por día, con filtros por **semana** y **fase**
-- Cabecera con banderas, resultado, hora (ej. 21:00 horas), sede y TV
-- Desglose de puntos por jugador (chips verdes / rojos)
-- Auto-scroll al día de hoy al abrir la pestaña
+1. **Settings → Pages** → Branch `main` → Folder `/ (root)`
+2. La web carga `index.html` + `data.json` + `static/`
 
-### Cuadro de Honor
+### Actualizar manualmente
 
-- Campeón, subcampeón, 3.º, botas de oro/plata/bronce, balones de oro/plata/bronce
-- Pronósticos de cada jugador vs. resultado real (cuando exista)
+```bash
+# Tras editar pronósticos en Excel:
+python3 build_static.py
+git add data.json data/
+git commit -m "Actualizar datos de la porra"
+git push
+```
 
-### Sistema de puntuación
+### Actualización automática
 
-- Reglas extraídas del Excel (basado en Matejero)
-- Fase de grupos: 1X2 + diferencia + exacto (máx. 6 pts/partido)
-- Puntos por fase: posiciones, clasificados, eliminatorias, honor…
+GitHub Actions se ejecuta **cada 2 horas en horas pares** (0:00, 2:00, 4:00 … 22:00, hora España):
 
-### Estadísticas
+1. Descarga resultados en vivo y los escribe en el Excel (`fetch_results.py`)
+2. Regenera `data.json` (`build_static.py`)
+3. Hace commit y push automático
 
-- Pronóstico por tendencia: líder actual, mejor ritmo del último día, proyección al cierre de grupos
-- Gráficas de tasa de acierto y distribución por fase
-- Tarjetas detalladas por jugador
+La barra superior de la web muestra *Actualizada a las XX:XX · Próxima actualización a las XX:XX*. Configuración en `update_config.json` y `.github/workflows/update-porra.yml`.
+
+También puedes lanzarlo manualmente: **Actions → Actualizar porra → Run workflow**.
 
 ---
 
 ## Sistema de puntuación (fase de grupos)
 
-Por cada partido jugado, un jugador puede sumar:
+| Criterio | Puntos |
+|----------|--------|
+| Signo 1X2 | 2 |
+| Diferencia de goles *(si acertó 1X2)* | 1 |
+| Resultado exacto | 3 |
+| **Máximo por partido** | **6** |
 
-| Criterio | Puntos típicos |
-|----------|----------------|
-| Signo 1X2 (local / empate / visitante) | 2 pts |
-| Diferencia de goles *(si acertó 1X2)* | 1 pt |
-| Resultado exacto | 3 pts |
-| **Máximo teórico** | **6 pts** |
-
-Además hay puntos por posiciones de grupos, clasificados a 16avos, partidos KO, final, cuadro de honor, etc., tal como define el Excel ADMIN.
+Puntos adicionales por posiciones de grupos, eliminatorias, final y cuadro de honor según el Excel ADMIN.
 
 ---
 
-## Arquitectura técnica
-
-| Capa | Tecnología |
-|------|------------|
-| Backend | Python 3 + **Flask** + **openpyxl** |
-| Frontend | HTML + **Tailwind CSS** + **Chart.js** (SPA de una sola página con pestañas) |
-| Puerto | `5050` |
-| URL | [http://localhost:5050](http://localhost:5050) |
-| Caché | 30 segundos (no relee el Excel en cada F5) |
-
-### API
+## API local
 
 | Endpoint | Descripción |
 |----------|-------------|
 | `GET /` | Interfaz web |
-| `GET /api/data` | JSON con clasificación, partidos, progresión, honor, estadísticas… |
-| `GET /api/refresh` | Fuerza recarga de caché (invalida los 30 s) |
-
-La web **no escribe** en el Excel: solo lectura. Si Excel está abierto y bloquea el fichero, la carga puede fallar.
+| `GET /api/data` | JSON completo del dashboard |
+| `GET /api/refresh` | Invalida caché (30 s) |
 
 ---
 
-## Requisitos
+## Scripts
 
-- **macOS** (el script `.command` y la apertura automática de Chrome están pensados para Mac)
-- **Python 3**
-- Dependencias Python:
-
-```bash
-pip install flask openpyxl
-```
-
----
-
-## Cómo arrancarla
-
-### Opción 1 — Doble clic (recomendado)
-
-Haz doble clic en **`RUN - Porra Los Nanos.command`**. El script:
-
-1. Comprueba que existen los dos Excel en `00. ADMIN/`
-2. Mata cualquier servidor viejo en el puerto 5050
-3. Arranca Flask y abre Chrome en [http://localhost:5050](http://localhost:5050)
-
-### Opción 2 — Manual
-
-```bash
-cd Web_Interactiva_PORRA_NANOS_MUNDIAL_2026
-python3 launch.py
-```
-
-Para detener el servidor: **Ctrl+C** en la terminal, o cierra la ventana del `.command`.
-
----
-
-## GitHub Pages (versión online)
-
-GitHub Pages **no puede ejecutar Python/Flask**; solo sirve archivos estáticos. Por eso la versión online usa `index.html` + `data.json` en la raíz del repositorio.
-
-**URL:** [https://pcresp0.github.io/porra-mundial-nanos-2026/](https://pcresp0.github.io/porra-mundial-nanos-2026/)
-
-### Configuración en GitHub
-
-En el repositorio → **Settings** → **Pages** → Source: **Deploy from a branch** → Branch: **main** → Folder: **/ (root)**.
-
-### Actualizar la web online tras cambiar el Excel
-
-```bash
-python3 build_static.py    # regenera data.json desde los Excel
-git add data.json
-git commit -m "Actualizar datos de la porra"
-git push origin main
-```
-
-GitHub Pages tarda 1–2 minutos en publicar los cambios. La versión online **no lee el Excel en vivo**: muestra el snapshot de `data.json` que subas al repo.
-
----
-
-## Flujo de trabajo habitual
-
-1. Metéis resultados en el Excel ADMIN (**WORLDCUP**, columnas AC/AD)
-2. El Excel recalcula **CLAS** y las puntuaciones
-3. **Local:** recargáis la web (**F5**) → se actualiza sola (caché máx. 30 s)
-4. **GitHub Pages:** ejecutáis `python3 build_static.py` y subís el `data.json` nuevo
-5. Consultáis clasificación, partidos, stats, etc.
-
----
-
-## Diseño
-
-- Tema oscuro estilo Mundial 2026 (dorado, azul noche)
-- Logo oficial WC 2026 en cabecera y favicon
-- Cabecera: **PORRA 'LOS NANOS' MUNDIAL 2026** · USA · CANADA · MEXICO
-- Responsive (móvil y escritorio)
+| Comando | Descripción |
+|---------|-------------|
+| `python3 launch.py` | Servidor local en puerto 5050 |
+| `python3 build_static.py` | Genera `data.json` desde Excel |
+| `python3 build_static.py --fetch` | API + Excel + `data.json` |
+| `python3 fetch_results.py` | Solo descarga resultados a Excel |
 
 ---
 
 ## Limitaciones
 
-- **Local** (`localhost:5050`): lee el Excel en vivo; necesita Python y los ficheros en `00. ADMIN/`
-- **GitHub Pages**: solo muestra el último `data.json` subido al repo (no lee Excel directamente)
-- Depende de que los Excel estén en `00. ADMIN/` con **esos nombres exactos** (solo para uso local y para generar `data.json`)
-- Sedes y TV vienen de `fixture_data.py`, no del Excel
-- Con pocos partidos jugados, el pronóstico por tendencia y las fortalezas son **orientativos**
-- Si el Excel da error (fórmulas rotas, archivo abierto), la web muestra error y botón de reintentar
+- GitHub Pages no ejecuta Python: la versión online depende de `data.json`
+- Los pronósticos solo se editan en Excel (la web es de lectura)
+- La API de resultados es orientativa; el Excel del grupo sigue siendo la referencia para disputas
+- Con pocos partidos jugados, tendencias y fortalezas son indicativas
 
 ---
 
-## Créditos
+## Autor
 
-Web desarrollada por **Pablo Crespo**
+**Pablo Crespo** — desarrollo, diseño e integración de datos
 
-- [LinkedIn](https://www.linkedin.com/in/pablocrespobellido/)
-- [Twitter / X](https://x.com/CrespoToTheWild)
+<p>
+  <a href="https://www.linkedin.com/in/pablocrespobellido/"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
+  <a href="https://x.com/CrespoToTheWild"><img src="https://img.shields.io/badge/X-000?logo=x&logoColor=white" alt="X" /></a>
+  <a href="https://github.com/pCresp0"><img src="https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white" alt="GitHub" /></a>
+</p>
 
 ---
 
-*Mundial FIFA 2026 · USA · CANADA · MEXICO*
+<p align="center"><em>Copa Mundial FIFA 2026 · USA · CANADA · MEXICO · Hecho con ☕ en Aluche</em></p>

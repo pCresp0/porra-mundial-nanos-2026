@@ -377,7 +377,34 @@
     }
     .site-footer a { color: #93C5FD; text-decoration: none; }
     .site-footer a:hover { color: var(--gold); }
-    .footer-links { display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; margin-top: .5rem; }
+    .footer-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: .75rem; }
+    .social-link {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 2.25rem; height: 2.25rem; border-radius: 50%;
+      background: var(--card2); border: 1px solid var(--border);
+      color: #CBD5E1; transition: all .2s;
+    }
+    .social-link:hover { color: var(--gold); border-color: var(--gold); transform: translateY(-2px); }
+    .social-link svg { width: 1.1rem; height: 1.1rem; fill: currentColor; }
+
+    /* ── más info ── */
+    .info-hero {
+      background: linear-gradient(135deg, var(--card) 0%, var(--card2) 100%);
+      border: 1px solid var(--border); border-radius: 1rem;
+      padding: 2rem; margin-bottom: 1.5rem;
+    }
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+    .info-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: .75rem; padding: 1.25rem;
+    }
+    .info-card h3 { color: var(--gold); font-size: .85rem; text-transform: uppercase; letter-spacing: .06em; margin: 0 0 .5rem; }
+    .info-card p { color: #94A3B8; font-size: .9rem; line-height: 1.6; margin: 0; }
+    .info-tag {
+      display: inline-block; font-size: .7rem; font-weight: 700;
+      padding: .2rem .55rem; border-radius: 4px; margin: .15rem;
+      background: rgba(245,197,24,.12); color: var(--gold); border: 1px solid rgba(245,197,24,.25);
+    }
 
     /* ── honor grid ── */
     .honor-card { background: linear-gradient(135deg, var(--card) 0%, var(--card2) 100%); }
@@ -392,6 +419,19 @@
       0%,100% { opacity: 1; transform: scale(1); }
       50% { opacity: .4; transform: scale(.7); }
     }
+
+    /* ── update banner ── */
+    .update-banner {
+      background: linear-gradient(90deg, #0F1428 0%, #161B38 50%, #0F1428 100%);
+      border-bottom: 1px solid var(--border);
+      padding: .45rem 1rem;
+      text-align: center;
+      font-size: .78rem;
+      color: #94A3B8;
+      letter-spacing: .02em;
+    }
+    .update-banner strong { color: var(--gold); font-weight: 600; }
+    .update-banner .sep { color: #475569; margin: 0 .5rem; }
   </style>
 </head>
 <body>
@@ -407,6 +447,14 @@
 
 <!-- ── WC stripe ── -->
 <div class="wc-stripe"></div>
+
+<!-- ── última / próxima actualización ── -->
+<div id="update-banner" class="update-banner hidden">
+  Actualizada a las <strong id="upd-last">—</strong>
+  <span class="sep">·</span>
+  Próxima actualización a las <strong id="upd-next">—</strong>
+  <span class="hidden md:inline text-gray-600"> (hora España)</span>
+</div>
 
 <!-- ── header ── -->
 <header class="header-bg px-4 py-6 md:px-10">
@@ -426,21 +474,52 @@
 <!-- ── nav tabs ── -->
 <nav class="sticky top-0 z-40 px-4 py-4 md:px-10 border-b" style="background:var(--surface); border-color:var(--border)">
   <div class="max-w-7xl mx-auto flex gap-2 overflow-x-auto">
-    <button class="tab-btn active" data-tab="standings">🏅 Clasificación</button>
+    <button class="tab-btn active" data-tab="matches">⚽ Partidos</button>
+    <button class="tab-btn" data-tab="standings">🏅 Clasificación</button>
     <button class="tab-btn" data-tab="progression">📈 Progresión</button>
-    <button class="tab-btn" data-tab="matches">⚽ Partidos</button>
     <button class="tab-btn" data-tab="honor">🏆 Cuadro de Honor</button>
     <button class="tab-btn" data-tab="scoring">📋 Sistema de puntuación</button>
     <button class="tab-btn" data-tab="stats">📊 Estadísticas</button>
+    <button class="tab-btn" data-tab="info">ℹ️ Más info</button>
   </div>
 </nav>
 
 <main class="max-w-7xl mx-auto px-4 py-6 md:px-10">
 
   <!-- ════════════════════════════════════════════
+       TAB: PARTIDOS
+  ════════════════════════════════════════════ -->
+  <section id="tab-matches">
+
+    <!-- week filter -->
+    <div class="mb-3">
+      <p class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-2">Semana</p>
+      <div class="flex gap-2 flex-wrap" id="week-filter">
+        <button class="week-btn active" data-week="all">Todas</button>
+      </div>
+    </div>
+    <!-- phase filter -->
+    <div class="mb-5">
+      <p class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-2">Fase</p>
+      <div class="flex gap-2 flex-wrap" id="phase-filter">
+        <button class="phase-btn active" data-phase="all">Todos</button>
+        <button class="phase-btn" data-phase="groups">Fase de Grupos</button>
+        <button class="phase-btn" data-phase="positions">Posiciones</button>
+        <button class="phase-btn" data-phase="q16">Cl. 16avos</button>
+        <button class="phase-btn" data-phase="r16">16avos</button>
+        <button class="phase-btn" data-phase="r8">Octavos</button>
+        <button class="phase-btn" data-phase="r4">Cuartos</button>
+        <button class="phase-btn" data-phase="r2">Semis</button>
+        <button class="phase-btn" data-phase="final">Final</button>
+      </div>
+    </div>
+    <div id="matches-list" class="flex flex-col gap-3"></div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
        TAB: CLASIFICACIÓN
   ════════════════════════════════════════════ -->
-  <section id="tab-standings">
+  <section id="tab-standings" class="hidden">
 
     <div class="prizes-banner">
       <span class="text-sm font-bold text-white">🏆 Premios</span>
@@ -507,35 +586,6 @@
   </section>
 
   <!-- ════════════════════════════════════════════
-       TAB: PARTIDOS
-  ════════════════════════════════════════════ -->
-  <section id="tab-matches" class="hidden">
-    <!-- week filter -->
-    <div class="mb-3">
-      <p class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-2">Semana</p>
-      <div class="flex gap-2 flex-wrap" id="week-filter">
-        <button class="week-btn active" data-week="all">Todas</button>
-      </div>
-    </div>
-    <!-- phase filter -->
-    <div class="mb-5">
-      <p class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-2">Fase</p>
-      <div class="flex gap-2 flex-wrap" id="phase-filter">
-        <button class="phase-btn active" data-phase="all">Todos</button>
-        <button class="phase-btn" data-phase="groups">Fase de Grupos</button>
-        <button class="phase-btn" data-phase="positions">Posiciones</button>
-        <button class="phase-btn" data-phase="q16">Cl. 16avos</button>
-        <button class="phase-btn" data-phase="r16">16avos</button>
-        <button class="phase-btn" data-phase="r8">Octavos</button>
-        <button class="phase-btn" data-phase="r4">Cuartos</button>
-        <button class="phase-btn" data-phase="r2">Semis</button>
-        <button class="phase-btn" data-phase="final">Final</button>
-      </div>
-    </div>
-    <div id="matches-list" class="flex flex-col gap-3"></div>
-  </section>
-
-  <!-- ════════════════════════════════════════════
        TAB: CUADRO DE HONOR
   ════════════════════════════════════════════ -->
   <section id="tab-honor" class="hidden">
@@ -580,17 +630,99 @@
     <div id="stats-detail" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
   </section>
 
+  <!-- ════════════════════════════════════════════
+       TAB: MÁS INFO
+  ════════════════════════════════════════════ -->
+  <section id="tab-info" class="hidden">
+    <div class="info-hero">
+      <h2 class="bebas text-3xl text-white mb-2">Porra «Los Nanos» — Mundial 2026</h2>
+      <p class="text-gray-300 leading-relaxed max-w-3xl">
+        Esta web nació para seguir el Mundial FIFA 2026 de un modo visual y cómodo:
+        clasificación, partidos, pronósticos, estadísticas y cuadro de honor en un solo panel.
+        No sustituye al Excel de la porra — lo complementa para que el grupo pueda consultar
+        quién va ganando y por qué, desde el móvil o el ordenador.
+      </p>
+    </div>
+
+    <div class="info-grid mb-6">
+      <div class="info-card">
+        <h3>👥 El grupo</h3>
+        <p>
+          <strong class="text-gray-200">«Los Nanos»</strong> es un grupo de amigos del barrio de
+          <strong class="text-gray-200">Aluche</strong> (Madrid). Se conocen de toda la vida, se juntan
+          en el barrio y cada cuatro años montan su porra del Mundial. Seis participantes:
+          Juancho, Larry, Luis/Vir, Medina, Víctor y Crespo.
+        </p>
+      </div>
+      <div class="info-card">
+        <h3>⚽ La porra</h3>
+        <p>
+          Basada en el sistema Matejero: puntos por signo 1X2, diferencia de goles y resultado exacto
+          en fase de grupos, más puntos por posiciones, eliminatorias y cuadro de honor.
+          Premios: <strong class="text-yellow-400">40 €</strong> al 1.º y <strong class="text-gray-300">20 €</strong> al 2.º.
+        </p>
+      </div>
+      <div class="info-card">
+        <h3>🔄 Datos y actualización</h3>
+        <p id="info-updated">
+          Los pronósticos y la lógica de puntuación viven en los Excel ADMIN del grupo.
+          La web los lee y los muestra. En la versión online, los resultados se actualizan
+          automáticamente cada 2 horas (horas pares, hora España) desde fuentes públicas del Mundial.
+        </p>
+      </div>
+      <div class="info-card">
+        <h3>🛠️ Tecnología</h3>
+        <p>
+          Backend en Python (Flask + openpyxl) para uso local.
+          Versión pública en GitHub Pages con datos estáticos.
+          Interfaz en HTML, Tailwind CSS y Chart.js.
+        </p>
+        <div class="mt-3">
+          <span class="info-tag">Python</span>
+          <span class="info-tag">Flask</span>
+          <span class="info-tag">GitHub Pages</span>
+          <span class="info-tag">Chart.js</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-6 text-center">
+      <p class="text-sm text-gray-400 mb-1">Proyecto desarrollado por</p>
+      <p class="text-lg font-bold text-white mb-3">Pablo Crespo</p>
+      <p class="text-xs text-gray-500 mb-4">Dashboard privado para amigos · Copa Mundial FIFA 2026 · USA · CANADA · MEXICO</p>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/pablocrespobellido/" target="_blank" rel="noopener" class="social-link" title="LinkedIn" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 114.127 0 2.062 2.062 0 01-2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://x.com/CrespoToTheWild" target="_blank" rel="noopener" class="social-link" title="X / Twitter" aria-label="X">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://github.com/pCresp0/porra-mundial-nanos-2026" target="_blank" rel="noopener" class="social-link" title="GitHub" aria-label="GitHub">
+          <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer class="site-footer">
   <p class="text-sm text-gray-400">
     Web desarrollada por <a href="https://www.linkedin.com/in/pablocrespobellido/" target="_blank" rel="noopener"><strong class="text-gray-200">Pablo Crespo</strong></a>
   </p>
-  <div class="footer-links text-xs mt-2">
-    <a href="https://www.linkedin.com/in/pablocrespobellido/" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="https://x.com/CrespoToTheWild" target="_blank" rel="noopener">Twitter / X</a>
+  <div class="footer-links">
+    <a href="https://www.linkedin.com/in/pablocrespobellido/" target="_blank" rel="noopener" class="social-link" title="LinkedIn" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 114.127 0 2.062 2.062 0 01-2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    </a>
+    <a href="https://x.com/CrespoToTheWild" target="_blank" rel="noopener" class="social-link" title="X / Twitter" aria-label="X">
+      <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </a>
+    <a href="https://github.com/pCresp0/porra-mundial-nanos-2026" target="_blank" rel="noopener" class="social-link" title="GitHub" aria-label="GitHub">
+      <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+    </a>
   </div>
-  <p class="text-xs text-gray-600 mt-2">© 2026</p>
+  <p class="text-xs text-gray-600 mt-3" id="footer-updated"></p>
+  <p class="text-xs text-gray-600 mt-1">© 2026 · Porra «Los Nanos»</p>
 </footer>
 
 <script>
@@ -605,7 +737,7 @@ let hitRateChart = null;
 let phaseChart = null;
 let currentPhase = "all";
 let currentWeek  = "all";
-let scrollMatchesToToday = false;
+let scrollMatchesToToday = true;
 
 function todaySpainISO() {
   return new Date().toLocaleDateString("en-CA", { timeZone: "Europe/Madrid" });
@@ -705,6 +837,32 @@ function render() {
   renderHonor();
   renderScoring();
   renderStats();
+  renderMeta();
+}
+
+function renderMeta() {
+  const upd = D?.meta?.update;
+  const gen = D?.meta?.generated;
+  const banner = document.getElementById("update-banner");
+  const lastEl = document.getElementById("upd-last");
+  const nextEl = document.getElementById("upd-next");
+
+  if (upd && banner) {
+    banner.classList.remove("hidden");
+    if (lastEl) lastEl.textContent = upd.last_updated_time || "—";
+    if (nextEl) nextEl.textContent = upd.next_update_time || "—";
+  }
+
+  const footerTxt = upd
+    ? `Actualizada a las ${upd.last_updated_time} · Próxima a las ${upd.next_update_time} (hora España)`
+    : (gen ? `Última actualización de datos: ${gen}` : "");
+
+  const fu = document.getElementById("footer-updated");
+  const iu = document.getElementById("info-updated");
+  if (fu && footerTxt) fu.textContent = footerTxt;
+  if (iu) {
+    iu.innerHTML = `Los pronósticos viven en los Excel ADMIN del grupo. Los resultados se sincronizan automáticamente cada 2 horas (horas pares, hora España) desde fuentes públicas del Mundial.<br><strong class="text-gray-300">${footerTxt}</strong>`;
+  }
 }
 
 /* ─── PODIUM ─── */
@@ -1432,7 +1590,7 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
     document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
     const tab = btn.dataset.tab;
-    ["standings","progression","matches","honor","scoring","stats"].forEach(t => {
+    ["matches","standings","progression","honor","scoring","stats","info"].forEach(t => {
       document.getElementById("tab-"+t).classList.toggle("hidden", t !== tab);
     });
     if (tab === "matches") scrollMatchesToToday = true;

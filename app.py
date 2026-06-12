@@ -12,8 +12,11 @@ import openpyxl
 warnings.filterwarnings("ignore")
 
 BASE  = os.path.dirname(os.path.abspath(__file__))
-ROOT  = os.path.join(BASE, "..")
-ADMIN = os.path.join(ROOT, "00. ADMIN")
+_DATA = os.path.join(BASE, "data")
+_LOCAL = os.path.join(BASE, "..", "00. ADMIN")
+ADMIN = _DATA if os.path.isdir(_DATA) and os.path.isfile(
+    os.path.join(_DATA, "ADMIN-Excel-Mundial_NANOS_2026 [1].xlsx")
+) else _LOCAL
 FILE1 = os.path.join(ADMIN, "ADMIN-Excel-Mundial_NANOS_2026 [1].xlsx")
 FILE2 = os.path.join(ADMIN, "ADMIN-Excel-Mundial_NANOS_2026 [2].xlsx")
 
@@ -101,6 +104,41 @@ def _parse_score_parts(score_str):
         return int(parts[0]), int(parts[1])
     except ValueError:
         return None, None
+
+
+def _result_from_goals(gl, gv):
+    """Build sign|score dict from goal counts."""
+    if gl is None or gv is None:
+        return None
+    try:
+        gl, gv = int(gl), int(gv)
+    except (TypeError, ValueError):
+        return None
+    sign = "1" if gl > gv else ("2" if gv > gl else "X")
+    return {"sign": sign, "score": f"{gl}-{gv}"}
+
+
+def _build_wc_scores(wb):
+    """Goals from WORLDCUP AC/AD keyed by 'Local-Visitante' (Spanish team names)."""
+    wc = wb["WORLDCUP"]
+    scores = {}
+    for r in range(4, 148):
+        home = _val(wc, r, 27)
+        away = _val(wc, r, 32)
+        gl   = _val(wc, r, 29)
+        gv   = _val(wc, r, 30)
+        if not home or not away:
+            continue
+        if gl is None or gv is None or str(gl).strip() == "" or str(gv).strip() == "":
+            continue
+        try:
+            gl, gv = int(gl), int(gv)
+        except (TypeError, ValueError):
+            continue
+        key = f"{str(home).strip()}-{str(away).strip()}"
+        scores[key] = (gl, gv)
+        scores[key.replace(" ", "")] = (gl, gv)
+    return scores
 
 
 def _build_spain_times(wb):
@@ -674,6 +712,7 @@ def build_data():
 
     spain_times = _build_spain_times(wb1_raw)
     wc_meta     = _build_wc_match_meta(wb1_raw)
+    wc_scores   = _build_wc_scores(wb1_raw)
     pts_sign  = float(_val(ws1, 8,  4) or 2)
     pts_diff  = float(_val(ws1, 9,  4) or 1)
     pts_exact = float(_val(ws1, 10, 4) or 3)
@@ -699,11 +738,16 @@ def build_data():
         match_id = _val(ws1, row, 10)    # J
         result_raw = _val(ws1, row, 13)  # M
 
-        result = _parse_result(result_raw)
-        played = result is not None
-
         goals_l = _val(ws1, row, 15)   # O
         goals_v = _val(ws1, row, 16)   # P
+        mkey = str(match_name).strip()
+        if mkey in wc_scores:
+            goals_l, goals_v = wc_scores[mkey]
+            result = _result_from_goals(goals_l, goals_v)
+            played = result is not None
+        else:
+            result = _parse_result(result_raw)
+            played = result is not None
         mult_raw = _val(ws1, row, 9)
         try:
             multiplier = float(mult_raw) if mult_raw is not None else 1.0
@@ -871,10 +915,13 @@ def build_data():
     scoring_rules = _load_scoring_rules(ws1)
     player_strengths = _build_player_strengths(matches, standings, player_names)
 
+    from update_schedule import build_update_meta
+
     return {
         "meta": {
             "title":     "Porra Mundial 'Los Nanos' 2026",
             "generated": datetime.now().strftime("%d/%m/%Y %H:%M"),
+            "update":    build_update_meta(),
             "players":   player_names,
             "colors":    {p["name"]: PLAYER_COLORS[i] for i, p in enumerate(all_players)},
             "weeks":     weeks,

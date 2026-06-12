@@ -16,10 +16,12 @@ echo "════════════════════════�
 echo ""
 
 # Comprobar que existen los Excel
-EXCEL1="../00. ADMIN/ADMIN-Excel-Mundial_NANOS_2026 [1].xlsx"
-EXCEL2="../00. ADMIN/ADMIN-Excel-Mundial_NANOS_2026 [2].xlsx"
+EXCEL1="data/ADMIN-Excel-Mundial_NANOS_2026 [1].xlsx"
+EXCEL2="data/ADMIN-Excel-Mundial_NANOS_2026 [2].xlsx"
+if [ ! -f "$EXCEL1" ]; then EXCEL1="../00. ADMIN/ADMIN-Excel-Mundial_NANOS_2026 [1].xlsx"; fi
+if [ ! -f "$EXCEL2" ]; then EXCEL2="../00. ADMIN/ADMIN-Excel-Mundial_NANOS_2026 [2].xlsx"; fi
 if [ ! -f "$EXCEL1" ] || [ ! -f "$EXCEL2" ]; then
-  echo "❌ ERROR: No encuentro los Excel en '00. ADMIN/'"
+  echo "❌ ERROR: No encuentro los Excel en 'data/' ni en '../00. ADMIN/'"
   echo "   Asegúrate de que están los dos ficheros ADMIN-Excel-Mundial_NANOS_2026"
   echo ""
   read -r -p "Pulsa Enter para cerrar..."
