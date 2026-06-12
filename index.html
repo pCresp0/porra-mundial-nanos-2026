@@ -1147,7 +1147,7 @@
     }
     .cal-month {
       background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-      padding: 1rem 1.1rem 1.2rem; min-width: 320px; flex: 1 1 440px; max-width: 520px;
+      padding: 1rem 1.1rem 1.2rem; min-width: 320px; flex: 1 1 440px; max-width: 720px;
     }
     .cal-month-title {
       text-align: center; font-size: 1rem; font-weight: 700;
@@ -4620,7 +4620,14 @@ function renderCalendar() {
   const months = [
     { year: 2026, month: 6, label: "Junio 2026" },
     { year: 2026, month: 7, label: "Julio 2026" },
-  ];
+  ].filter(({ year, month }) => {
+    // Mostrar solo el mes en curso (según la fecha de España): durante junio se
+    // ve el de junio y, al pasar a julio, cambia solo al de julio. Si la fecha
+    // queda fuera de junio/julio 2026, se muestran todos como respaldo.
+    const [ty, tm] = today.split("-").map(Number);
+    const inRange = (ty === 2026 && (tm === 6 || tm === 7));
+    return inRange ? (year === ty && month === tm) : true;
+  });
 
   const DAYS_ES = ["L","M","X","J","V","S","D"];
   const WEEKENDS = [5, 6]; // índices sábado/domingo (0=Lunes)
