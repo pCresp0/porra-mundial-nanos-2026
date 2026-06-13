@@ -1233,7 +1233,7 @@
     }
     .adm-modal {
       background: var(--surface); border: 1px solid #3B4270;
-      border-radius: 16px; width: 100%; max-width: 760px;
+      border-radius: 16px; width: 100%; max-width: 900px;
       box-shadow: 0 24px 64px rgba(0,0,0,.7);
       overflow-x: hidden;
     }
@@ -1468,8 +1468,8 @@
       to   { opacity: 1; transform: translateY(0); }
     }
     @media (max-width: 600px) {
-      .adm-backdrop { padding: .6rem .5rem; }
-      .adm-modal { border-radius: 12px; }
+      .adm-backdrop { padding: .5rem; align-items: flex-start; overflow-y: auto; overflow-x: hidden; }
+      .adm-modal { border-radius: 12px; width: 100%; max-width: 100%; box-sizing: border-box; }
       .adm-head { padding: .8rem .9rem .65rem; }
       .adm-head-title { font-size: .95rem; }
       .adm-head-sub { font-size: .62rem; }
