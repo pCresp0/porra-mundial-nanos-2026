@@ -631,16 +631,29 @@
     }
     .matches-load-earlier { margin: 0 0 .75rem; }
 
-    /* ── team search (matches tab) ── */
+    /* ── team search + filters (matches tab) ── */
     .matches-topbar {
       display: flex;
-      justify-content: flex-end;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1.25rem;
       margin-bottom: 1rem;
     }
+    .matches-filters {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      flex: 1;
+      min-width: 0;
+    }
+    .matches-filter-group { }
     .team-search-wrap {
       position: relative;
+      flex-shrink: 0;
       width: 100%;
-      max-width: 300px;
+      max-width: 240px;
+      align-self: flex-start;
+      margin-top: 1.4rem; /* align with the filter rows below the labels */
     }
     .team-search-input-wrap {
       display: flex;
@@ -1751,12 +1764,13 @@
         white-space: nowrap;
       }
 
-      /* Partidos: buscador a ancho completo */
+      /* Partidos: buscador y filtros apilados en columna */
       .matches-topbar {
-        justify-content: stretch;
+        flex-direction: column;
+        gap: .75rem;
         margin-bottom: .85rem;
       }
-      .team-search-wrap { max-width: none; }
+      .team-search-wrap { max-width: none; margin-top: 0; align-self: stretch; }
       .team-search-input-wrap {
         min-height: 44px;
         padding: .5rem .7rem;

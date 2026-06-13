@@ -137,6 +137,29 @@
 
     <!-- team search -->
     <div class="matches-topbar">
+      <div class="matches-filters">
+        <!-- week filter -->
+        <div class="matches-filter-group">
+          <p class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-2">Semana</p>
+          <div class="flex gap-2 flex-wrap" id="week-filter">
+            <button class="week-btn active" data-week="all">Todas</button>
+          </div>
+        </div>
+        <!-- phase filter -->
+        <div class="matches-filter-group">
+          <p class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-2">Fase</p>
+          <div class="flex gap-2 flex-wrap" id="phase-filter">
+            <button class="phase-btn active" data-phase="all">Todos</button>
+            <button class="phase-btn" data-phase="groups">Fase de Grupos</button>
+            <button class="phase-btn" data-phase="r16">16avos</button>
+            <button class="phase-btn" data-phase="r8">Octavos</button>
+            <button class="phase-btn" data-phase="r4">Cuartos</button>
+            <button class="phase-btn" data-phase="r2">Semis</button>
+            <button class="phase-btn" data-phase="final">Final</button>
+          </div>
+        </div>
+      </div>
+      <!-- buscador alineado a la derecha -->
       <div class="team-search-wrap" id="team-search-wrap">
         <div class="team-search-input-wrap">
           <span class="team-search-icon" aria-hidden="true">🔍</span>
@@ -146,27 +169,6 @@
           <button type="button" class="team-search-clear hidden" id="team-search-clear" aria-label="Quitar filtro">✕</button>
         </div>
         <ul id="team-search-suggest" class="team-search-suggest hidden" role="listbox" aria-label="Equipos sugeridos"></ul>
-      </div>
-    </div>
-
-    <!-- week filter -->
-    <div class="mb-3">
-      <p class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-2">Semana</p>
-      <div class="flex gap-2 flex-wrap" id="week-filter">
-        <button class="week-btn active" data-week="all">Todas</button>
-      </div>
-    </div>
-    <!-- phase filter -->
-    <div class="mb-5">
-      <p class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-2">Fase</p>
-      <div class="flex gap-2 flex-wrap" id="phase-filter">
-        <button class="phase-btn active" data-phase="all">Todos</button>
-        <button class="phase-btn" data-phase="groups">Fase de Grupos</button>
-        <button class="phase-btn" data-phase="r16">16avos</button>
-        <button class="phase-btn" data-phase="r8">Octavos</button>
-        <button class="phase-btn" data-phase="r4">Cuartos</button>
-        <button class="phase-btn" data-phase="r2">Semis</button>
-        <button class="phase-btn" data-phase="final">Final</button>
       </div>
     </div>
     <div id="matches-list" class="flex flex-col gap-0"></div>
