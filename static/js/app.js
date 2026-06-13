@@ -2442,6 +2442,15 @@ async function _sha256Hex(str) {
   const NEEDED = 4;
   let clicks = 0, timer = null;
 
+  // En móvil (pantalla táctil) se abre con pulsación larga para evitar el
+  // zoom que provoca pulsar varias veces seguidas. En escritorio se mantienen
+  // las 4 pulsaciones de siempre.
+  // Detectamos "móvil de verdad": puntero principal grueso (dedo) y sin ratón
+  // disponible (un portátil táctil con ratón seguirá usando las 4 pulsaciones).
+  const mq = q => { try { return window.matchMedia(q).matches; } catch { return false; } };
+  const isTouch = (mq("(pointer: coarse)") && !mq("(any-pointer: fine)"))
+    || (!window.matchMedia && ("ontouchstart" in window || navigator.maxTouchPoints > 0));
+
   function reset() { clicks = 0; }
 
   function showHint(msg) {
@@ -2457,17 +2466,67 @@ async function _sha256Hex(str) {
     setTimeout(() => h.remove(), 1400);
   }
 
-  document.addEventListener("click", e => {
-    if (!e.target.closest("#visitor-counter")) return;
-    clearTimeout(timer);
-    clicks++;
-    timer = setTimeout(reset, 4000);
+  if (isTouch) {
+    // ── Pulsación larga (long-press) en móvil ──
+    const LONG_MS = 650;
+    let pressTimer = null, fired = false, startY = 0, startX = 0;
 
-    const remaining = NEEDED - clicks;
-    if (remaining === 2)      showHint("⚡ quedan 2 más");
-    else if (remaining === 1) showHint("⚡ queda 1 más");
-    else if (remaining <= 0)  { reset(); clearTimeout(timer); openAdminGate(); }
-  });
+    function clearPress() {
+      clearTimeout(pressTimer);
+      pressTimer = null;
+    }
+    function onStart(e) {
+      const wrap = e.target.closest?.("#visitor-counter");
+      if (!wrap) return;
+      const t = e.touches ? e.touches[0] : e;
+      startX = t.clientX; startY = t.clientY;
+      fired = false;
+      clearPress();
+      pressTimer = setTimeout(() => {
+        fired = true;
+        if (navigator.vibrate) navigator.vibrate(30);
+        openAdminGate();
+      }, LONG_MS);
+    }
+    function onMove(e) {
+      if (pressTimer == null) return;
+      const t = e.touches ? e.touches[0] : e;
+      if (Math.abs(t.clientX - startX) > 12 || Math.abs(t.clientY - startY) > 12) clearPress();
+    }
+    function onEnd(e) {
+      // Si la pulsación larga se disparó, evita que el "click" haga otra cosa.
+      if (fired && e.cancelable) e.preventDefault();
+      clearPress();
+    }
+
+    document.addEventListener("touchstart", onStart, { passive: true });
+    document.addEventListener("touchmove", onMove, { passive: true });
+    document.addEventListener("touchend", onEnd, { passive: false });
+    document.addEventListener("touchcancel", clearPress, { passive: true });
+    // Evita el menú contextual del navegador al mantener pulsado.
+    document.addEventListener("contextmenu", e => {
+      if (e.target.closest?.("#visitor-counter")) e.preventDefault();
+    });
+    // Bloquea el click sintético posterior a un long-press.
+    document.addEventListener("click", e => {
+      if (fired && e.target.closest?.("#visitor-counter")) {
+        e.preventDefault(); e.stopPropagation(); fired = false;
+      }
+    }, true);
+  } else {
+    // ── Escritorio: 4 pulsaciones ──
+    document.addEventListener("click", e => {
+      if (!e.target.closest("#visitor-counter")) return;
+      clearTimeout(timer);
+      clicks++;
+      timer = setTimeout(reset, 4000);
+
+      const remaining = NEEDED - clicks;
+      if (remaining === 2)      showHint("⚡ quedan 2 más");
+      else if (remaining === 1) showHint("⚡ queda 1 más");
+      else if (remaining <= 0)  { reset(); clearTimeout(timer); openAdminGate(); }
+    });
+  }
 })();
 
 // Recuerda que ya se introdujo la contraseña en esta sesión del navegador,
@@ -2586,6 +2645,47 @@ function goToMatchFromAdmin(isoDate, matchName) {
     setTimeout(() => goToMatchesDay(isoDate, matchName), 60);
   }
 }
+function _copyAdminSummary(btn) {
+  const data = D || {};
+  const st = (data.standings || []).slice().sort((a, b) => (b.total || 0) - (a.total || 0));
+  const leader = st[0];
+  const last = st.length > 1 ? st[st.length - 1] : null;
+  const playedMs = (data.matches || []).filter(m => m.played);
+  const lastResults = playedMs.slice(-5).map(m => {
+    const sc = (m.goals_l != null && m.goals_v != null)
+      ? `${m.goals_l}-${m.goals_v}`
+      : (m.result?.score || "—");
+    return `${m.home || ""} ${sc} ${m.away || ""}`.trim();
+  });
+  const lines = ["🏆 Porra Mundial 2026 — resumen"];
+  if (leader) lines.push(`👑 Líder: ${leader.name} (${leader.total} pts)`);
+  if (last) lines.push(`🐢 Último: ${last.name} (${last.total} pts)`);
+  lines.push(`⚽ Partidos jugados: ${playedMs.length}/${(data.matches || []).length}`);
+  if (lastResults.length) {
+    lines.push("📋 Últimos resultados:");
+    lastResults.forEach(r => lines.push("  • " + r));
+  }
+  const visit = document.getElementById("visitor-count")?.textContent;
+  if (visit && visit !== "—") lines.push(`👁 Visitas: ${visit}`);
+  const txt = lines.join("\n");
+
+  const done = ok => {
+    if (!btn) return;
+    const prev = btn.textContent;
+    btn.textContent = ok ? "✓ Copiado" : "✗ Error";
+    btn.classList.toggle("adm-copy-ok", ok);
+    setTimeout(() => { btn.textContent = prev; btn.classList.remove("adm-copy-ok"); }, 1800);
+  };
+  if (navigator.clipboard?.writeText) {
+    navigator.clipboard.writeText(txt).then(() => done(true)).catch(() => done(false));
+  } else {
+    try {
+      const ta = document.createElement("textarea");
+      ta.value = txt; document.body.appendChild(ta); ta.select();
+      document.execCommand("copy"); document.body.removeChild(ta); done(true);
+    } catch { done(false); }
+  }
+}
 // close on backdrop click
 document.addEventListener("click", e => {
   const modal = document.getElementById("admin-modal");
@@ -2627,7 +2727,76 @@ function _buildAdminPanel() {
 
   const visitorCount = document.getElementById("visitor-count")?.textContent || "—";
 
-  // ── Registro de llamadas a la API (últimas 15 h) ──
+  function _humanMin(min) {
+    if (min < 60) return `${min} min`;
+    const h = Math.floor(min / 60), m = min % 60;
+    return `${h}h${m ? " " + m + "min" : ""}`;
+  }
+
+  // ── Estado del sistema (semáforo) ──
+  const sysStatus = (() => {
+    const nextIso = upd.next_update_iso;
+    if (!nextIso) return { level: "gray", text: "Sin datos de programación", icon: "○" };
+    const nd = new Date(nextIso);
+    if (isNaN(nd)) return { level: "gray", text: "Programación no válida", icon: "○" };
+    const overdue = Math.round((now - nd) / 60000); // >0 = retrasada
+    if (overdue <= 0) return { level: "green", text: `Al día · próxima ${futureTime(nextIso)}`, icon: "●" };
+    if (overdue <= 30) return { level: "amber", text: `Prevista hace ${_humanMin(overdue)} · debería llegar pronto`, icon: "●" };
+    return { level: "red", text: `Retrasada hace ${_humanMin(overdue)} · revisa la Action`, icon: "●" };
+  })();
+
+  // ── Alertas de datos raros ──
+  const alerts = [];
+  allMatches.forEach(m => {
+    const hasResult = !!(m.result && m.result.score);
+    const tag = `${m.home || "?"}-${m.away || "?"}`;
+    if (m.played && !hasResult)
+      alerts.push({ sev: "warn", text: `${tag}: jugado pero sin marcador`, name: m.name, date: m.date });
+    if (hasResult && !m.played)
+      alerts.push({ sev: "warn", text: `${tag}: tiene marcador pero no está marcado como jugado`, name: m.name, date: m.date });
+    if (m.played && (Number(m.goals_l) < 0 || Number(m.goals_v) < 0))
+      alerts.push({ sev: "err", text: `${tag}: marcador negativo (${m.goals_l}-${m.goals_v})`, name: m.name, date: m.date });
+    if (m.played && (!m.flag_home || !m.flag_away))
+      alerts.push({ sev: "warn", text: `${tag}: falta bandera`, name: m.name, date: m.date });
+  });
+
+  function alertRow(a) {
+    const cls = a.sev === "err" ? "err" : a.sev === "info" ? "info" : "warn";
+    const ic = a.sev === "err" ? "⛔" : a.sev === "info" ? "ℹ️" : "⚠️";
+    const clickable = a.name && a.date;
+    const safeName = (a.name || "").replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    const safeDate = (a.date || "").replace(/'/g, "\\'");
+    const attrs = clickable
+      ? `class="adm-alert ${cls} adm-alert-link" role="button" tabindex="0" onclick="goToMatchFromAdmin('${safeDate}','${safeName}')"`
+      : `class="adm-alert ${cls}"`;
+    return `<div ${attrs}><span class="adm-alert-ic">${ic}</span><span>${a.text}</span>${clickable ? ' <span class="adm-api-go">↗</span>' : ""}</div>`;
+  }
+
+  // ── Historial de cambios de resultados (a partir del log de la API) ──
+  const resultHistory = [];
+  (meta.api_log || []).forEach(e => {
+    if (!e.updated || !Array.isArray(e.changes)) return;
+    e.changes.forEach(ch => {
+      if (ch && typeof ch === "object") {
+        resultHistory.push({ when: `${e.date || ""} ${e.time || ""}`.trim(), label: ch.label || ch.name || "", name: ch.name, date: ch.date });
+      } else if (typeof ch === "string") {
+        resultHistory.push({ when: `${e.date || ""} ${e.time || ""}`.trim(), label: ch, name: null, date: null });
+      }
+    });
+  });
+  const resultHistoryTop = resultHistory.slice(0, 25);
+
+  function histRow(h) {
+    const clickable = h.name && h.date;
+    const safeName = (h.name || "").replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    const safeDate = (h.date || "").replace(/'/g, "\\'");
+    const label = clickable
+      ? `<a class="adm-hist-label adm-api-link-match" role="button" tabindex="0" onclick="goToMatchFromAdmin('${safeDate}','${safeName}')">${h.label} <span class="adm-api-go">↗</span></a>`
+      : `<span class="adm-hist-label">${h.label}</span>`;
+    return `<div class="adm-hist-row"><span class="adm-hist-when">${h.when}</span>${label}</div>`;
+  }
+
+
   const API_WINDOW_H = 15;
   const apiLogAll = meta.api_log || [];
   const apiCutoff = new Date(now.getTime() - API_WINDOW_H * 3600 * 1000);
@@ -2699,6 +2868,24 @@ function _buildAdminPanel() {
   // guardamos los datos para que el filtro de día los use sin recalcular
   window._admVisitBuckets = visitsBuckets;
 
+  // ── Visitas: hoy vs ayer + hora pico ──
+  const _dayKeyOf = dt => `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, "0")}-${String(dt.getDate()).padStart(2, "0")}`;
+  const _sumDay = dk => visitsBuckets.filter(b => b.date === dk).reduce((s, b) => s + b.visits, 0);
+  const _todayK = _dayKeyOf(new Date());
+  const _yestDt = new Date(); _yestDt.setDate(_yestDt.getDate() - 1);
+  const _yestK = _dayKeyOf(_yestDt);
+  const visitsToday = _sumDay(_todayK);
+  const visitsYest = _sumDay(_yestK);
+  let visitsPeak = null;
+  visitsBuckets.filter(b => b.date === _todayK).forEach(b => { if (!visitsPeak || b.visits > visitsPeak.visits) visitsPeak = b; });
+  const visitsTrend = (() => {
+    if (visitsYest <= 0) return visitsToday > 0 ? { cls: "up", txt: "▲ nuevo" } : { cls: "flat", txt: "—" };
+    const diff = Math.round(((visitsToday - visitsYest) / visitsYest) * 100);
+    if (diff > 0) return { cls: "up", txt: `▲ ${diff}%` };
+    if (diff < 0) return { cls: "down", txt: `▼ ${Math.abs(diff)}%` };
+    return { cls: "flat", txt: "= igual" };
+  })();
+
   function visitsDayLabel(dayKey) {
     const [y, m, d] = dayKey.split("-").map(Number);
     const dt = new Date(y, m - 1, d);
@@ -2753,6 +2940,24 @@ function _buildAdminPanel() {
     </div>
 
     <div class="adm-section">
+      <div class="adm-section-title">🚦 Estado del sistema</div>
+      <div class="adm-status adm-status-${sysStatus.level}">
+        <span class="adm-status-dot">${sysStatus.icon}</span>
+        <span class="adm-status-text">${sysStatus.text}</span>
+      </div>
+    </div>
+
+    <div class="adm-section">
+      <div class="adm-section-title">
+        ⚠️ Alertas de datos
+        <span class="adm-badge ${alerts.length ? "adm-badge-warn" : ""}">${alerts.length}</span>
+      </div>
+      <div class="adm-alerts">
+        ${alerts.length ? alerts.map(alertRow).join("") : '<div class="adm-empty">✓ Sin anomalías detectadas en los datos</div>'}
+      </div>
+    </div>
+
+    <div class="adm-section">
       <div class="adm-section-title">
         📡 Llamadas a la API <span class="adm-badge">últimas 15 h</span>
       </div>
@@ -2768,6 +2973,16 @@ function _buildAdminPanel() {
       </div>
       <div class="adm-api-list" id="adm-api-list">
         ${apiLogBody}
+      </div>
+    </div>
+
+    <div class="adm-section">
+      <div class="adm-section-title">
+        🕓 Historial de cambios de resultados
+        <span class="adm-badge">${resultHistory.length}</span>
+      </div>
+      <div class="adm-hist-list">
+        ${resultHistoryTop.length ? resultHistoryTop.map(histRow).join("") : '<div class="adm-empty">Sin cambios de resultados registrados todavía</div>'}
       </div>
     </div>
 
@@ -2804,6 +3019,15 @@ function _buildAdminPanel() {
           <div class="adm-label">Plataforma</div>
           <div class="adm-value">page-views-api.ratneshc.com<br><span class="adm-rel">contador anónimo</span></div>
         </div>
+        <div class="adm-cell">
+          <div class="adm-label">Hoy <span class="adm-trend adm-trend-${visitsTrend.cls}">${visitsTrend.txt}</span></div>
+          <div class="adm-value adm-big">${visitsToday}</div>
+          ${visitsPeak ? `<div class="adm-rel">pico ${String(visitsPeak.hour).padStart(2, "0")}:00 (${visitsPeak.visits})</div>` : ""}
+        </div>
+        <div class="adm-cell">
+          <div class="adm-label">Ayer</div>
+          <div class="adm-value adm-big">${visitsYest}</div>
+        </div>
       </div>
       <div class="adm-vis-head">
         <span class="adm-label">Visitas por hora</span>
@@ -2814,6 +3038,7 @@ function _buildAdminPanel() {
     <div class="adm-section">
       <div class="adm-section-title">🔗 Links rápidos</div>
       <div class="adm-links">
+        <button type="button" class="adm-link adm-copy-btn" onclick="_copyAdminSummary(this)">📋 Copiar resumen</button>
         <a href="https://github.com/pCresp0/porra-mundial-nanos-2026" target="_blank" rel="noopener" class="adm-link">📁 Repo GitHub</a>
         <a href="https://github.com/pCresp0/porra-mundial-nanos-2026/actions" target="_blank" rel="noopener" class="adm-link">⚙️ GitHub Actions</a>
         <a href="https://worldcup26.ir/get/games" target="_blank" rel="noopener" class="adm-link">🌐 API del Mundial</a>

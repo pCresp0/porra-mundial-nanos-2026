@@ -1362,6 +1362,64 @@
       border-radius: 4px; min-width: 2px; transition: width .3s ease;
     }
     .adm-vis-num { min-width: 24px; text-align: right; color: #E2E8F0; font-weight: 700; font-variant-numeric: tabular-nums; }
+    /* Estado del sistema (semáforo) */
+    .adm-status {
+      display: flex; align-items: center; gap: .6rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: .65rem .85rem; font-size: .82rem; font-weight: 600;
+    }
+    .adm-status-dot { font-size: .85rem; line-height: 1; }
+    .adm-status-green { border-color: rgba(74,222,128,.4); }
+    .adm-status-green .adm-status-dot { color: #4ADE80; }
+    .adm-status-green .adm-status-text { color: #86EFAC; }
+    .adm-status-amber { border-color: rgba(234,179,8,.4); }
+    .adm-status-amber .adm-status-dot { color: var(--gold); }
+    .adm-status-amber .adm-status-text { color: #FCD34D; }
+    .adm-status-red { border-color: rgba(248,113,113,.45); }
+    .adm-status-red .adm-status-dot { color: #F87171; }
+    .adm-status-red .adm-status-text { color: #FCA5A5; }
+    .adm-status-gray .adm-status-dot { color: #64748B; }
+    .adm-status-gray .adm-status-text { color: #94A3B8; }
+    /* Alertas de datos */
+    .adm-badge.adm-badge-warn { background: rgba(248,113,113,.18); color: #FCA5A5; border-color: rgba(248,113,113,.35); }
+    .adm-alerts { display: flex; flex-direction: column; gap: 4px; }
+    .adm-alert {
+      display: flex; align-items: center; gap: .5rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-left-width: 3px; border-radius: 8px; padding: .45rem .7rem; font-size: .76rem; color: #CBD5E1;
+    }
+    .adm-alert-ic { flex-shrink: 0; font-size: .8rem; }
+    .adm-alert.warn { border-left-color: var(--gold); }
+    .adm-alert.err  { border-left-color: #F87171; }
+    .adm-alert.info { border-left-color: #4A90D9; }
+    .adm-alert-link { cursor: pointer; transition: border-color .15s; }
+    .adm-alert-link:hover { border-color: #4A90D9; }
+    /* Historial de cambios de resultados */
+    .adm-hist-list {
+      display: flex; flex-direction: column; gap: 2px;
+      max-height: 240px; overflow-y: auto;
+      background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: .5rem .75rem;
+    }
+    .adm-hist-row {
+      display: flex; align-items: baseline; gap: .6rem;
+      padding: .32rem 0; border-bottom: 1px solid rgba(42,48,96,.5); font-size: .76rem;
+    }
+    .adm-hist-row:last-child { border-bottom: none; }
+    .adm-hist-when { color: #475569; font-size: .64rem; min-width: 86px; flex-shrink: 0; font-variant-numeric: tabular-nums; }
+    .adm-hist-label { color: var(--gold); font-weight: 600; }
+    .adm-hist-label.adm-api-link-match { display: inline; }
+    /* tendencia visitas */
+    .adm-trend { font-size: .58rem; font-weight: 800; border-radius: 4px; padding: .05rem .3rem; margin-left: .3rem; }
+    .adm-trend-up   { background: rgba(74,222,128,.15); color: #4ADE80; }
+    .adm-trend-down { background: rgba(248,113,113,.15); color: #F87171; }
+    .adm-trend-flat { background: rgba(71,85,105,.2); color: #94A3B8; }
+    /* botón copiar resumen */
+    .adm-copy-btn {
+      cursor: pointer; font-family: inherit;
+      background: var(--card); border: 1px solid #F472B6; color: #F9A8D4;
+    }
+    .adm-copy-btn:hover { border-color: #F472B6; color: #FBCFE8; }
+    .adm-copy-btn.adm-copy-ok { border-color: #4ADE80; color: #4ADE80; }
     /* hint bubble */
     .admin-hint {
       position: absolute; bottom: calc(100% + .4rem); right: 0;
@@ -1418,6 +1476,13 @@
       .adm-vis-row { font-size: .66rem; gap: .4rem; }
       .adm-vis-hour { min-width: 36px; }
       .adm-vis-bar-wrap { height: 11px; }
+      /* estado, alertas e historial compactos */
+      .adm-status { padding: .5rem .6rem; font-size: .72rem; gap: .45rem; }
+      .adm-alert { padding: .38rem .55rem; font-size: .66rem; gap: .4rem; }
+      .adm-hist-list { padding: .4rem .55rem; max-height: 200px; }
+      .adm-hist-row { padding: .26rem 0; font-size: .67rem; gap: .45rem; }
+      .adm-hist-when { min-width: 74px; font-size: .58rem; }
+      .adm-trend { font-size: .52rem; }
     }
     /* password gate */
     .adm-gate {
@@ -1655,6 +1720,8 @@
       color: #CBD5E1;
       box-shadow: 0 4px 20px rgba(0, 0, 0, .35);
       user-select: none;
+      -webkit-touch-callout: none;
+      touch-action: manipulation;
     }
     .visitor-counter strong {
       color: var(--gold);
