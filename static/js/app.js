@@ -185,6 +185,10 @@ function selectTeamFilter(team) {
   resetMatchesDayWindow();
   scrollMatchesToToday = false;
   renderMatches(currentPhase, currentWeek);
+  // Al filtrar por equipo, lleva al usuario al principio de los resultados
+  // (el banner con el equipo) en vez de dejarlo donde estuviera (a menudo
+  // abajo del todo). Especialmente importante en móvil.
+  scrollMatchesTopIntoView();
 }
 
 function clearTeamFilter() {
@@ -379,6 +383,26 @@ function initTeamSearchSheet() {
     }
   });
   updateNavSearchBtn();
+}
+
+// Lleva la vista al principio de la lista de partidos (la barra de filtros /
+// el buscador), útil al activar el filtro por equipo para que el usuario vea
+// los resultados desde arriba en lugar de quedarse donde estuviera.
+function scrollMatchesTopIntoView() {
+  const top = document.querySelector(".matches-topbar") || document.getElementById("matches-list");
+  if (!top) return;
+  let navH = 0;
+  document.querySelectorAll("nav, .mobile-nav").forEach(n => {
+    const s = getComputedStyle(n);
+    if (s.display === "none" || s.visibility === "hidden") return;
+    if ((s.position === "sticky" || s.position === "fixed") && n.offsetHeight > 0) {
+      navH = Math.max(navH, n.offsetHeight);
+    }
+  });
+  requestAnimationFrame(() => setTimeout(() => {
+    const y = top.getBoundingClientRect().top + window.scrollY - navH - 12;
+    window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+  }, 80));
 }
 
 function scrollToTodayInMatches() {
@@ -1368,7 +1392,10 @@ function renderMatches(phase, week) {
   const noDateSection = showNoDate ? renderDaySection(NO_DATE) : "";
 
   const teamBanner = teamMode
-    ? `<div class="team-filter-banner">Mostrando <strong>${selectedTeamFilter.flag} ${selectedTeamFilter.name}</strong> · ${filtered.length} partido${filtered.length !== 1 ? "s" : ""}</div>`
+    ? `<div class="team-filter-banner">
+        <span class="tfb-text">Mostrando <strong>${selectedTeamFilter.flag} ${selectedTeamFilter.name}</strong> · ${filtered.length} partido${filtered.length !== 1 ? "s" : ""}</span>
+        <button type="button" class="tfb-clear" onclick="clearTeamFilter()" aria-label="Quitar filtro de equipo">✕ Quitar</button>
+      </div>`
     : "";
 
   list.innerHTML = teamBanner + earlierBtn + daySections + noDateSection + moreBtn;

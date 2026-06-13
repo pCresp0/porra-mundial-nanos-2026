@@ -816,8 +816,34 @@
       background: rgba(212,175,55,.07);
       font-size: .8rem;
       color: #CBD5E1;
+      position: sticky;
+      top: 8px;
+      z-index: 30;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 14px rgba(0,0,0,.28);
     }
+    .team-filter-banner .tfb-text { flex: 1 1 auto; min-width: 0; }
     .team-filter-banner strong { color: var(--gold); font-weight: 700; }
+    .team-filter-banner .tfb-clear {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;
+      padding: .3rem .7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(239,68,68,.45);
+      background: rgba(239,68,68,.12);
+      color: #FCA5A5;
+      font-size: .72rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .15s, color .15s, border-color .15s;
+    }
+    .team-filter-banner .tfb-clear:hover {
+      background: rgba(239,68,68,.9);
+      border-color: rgba(239,68,68,.9);
+      color: #fff;
+    }
 
     /* ── week filter ── */
     .week-btn {
@@ -2453,6 +2479,12 @@
         font-size: .75rem;
         padding: .5rem .7rem;
         line-height: 1.4;
+        top: 60px;
+      }
+      .team-filter-banner .tfb-clear {
+        min-height: 34px;
+        padding: .35rem .8rem;
+        font-size: .74rem;
       }
 
       /* Días y ver más */
