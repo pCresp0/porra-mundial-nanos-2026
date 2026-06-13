@@ -2377,7 +2377,6 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
       document.getElementById("tab-"+t).classList.toggle("hidden", t !== tab);
     });
     document.dispatchEvent(new CustomEvent("tabChanged"));
-    window.scrollTo({ top: 0, behavior: "instant" });
     if (tab === "matches") scrollMatchesToToday = true;
     if (tab === "progression" && D) renderProgression();
     if (tab === "stats" && D) renderStats();
