@@ -5,8 +5,8 @@
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "cada hora en punto",
-      "last_updated_iso": "2026-06-13T14:19",
-      "last_updated_time": "14:19",
+      "last_updated_iso": "2026-06-13T14:48",
+      "last_updated_time": "14:48",
       "last_updated_date": "13/06/2026",
       "next_update_iso": "2026-06-13T15:00",
       "next_update_time": "15:00",
@@ -79,6 +79,16 @@
       "second": 20,
       "currency": "€"
     },
+    "visits_log": [
+      {
+        "ts_iso": "2026-06-13T12:41:46+02:00",
+        "total": 144
+      },
+      {
+        "ts_iso": "2026-06-13T14:01:25+02:00",
+        "total": 150
+      }
+    ],
     "api_log": [
       {
         "ts_iso": "2026-06-13T14:41:07+02:00",

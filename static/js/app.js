@@ -7,6 +7,10 @@ const DATA_URL = IS_GH_PAGES ? "data.json" : "/api/data";
 const VISITOR_API = "https://page-views-api.ratneshc.com/api/v1";
 const VISITOR_SITE = "porra-mundial-nanos-2026";
 const VISITOR_PATH = "/porra-mundial-nanos-2026";
+// URL de la Web App de Google Apps Script que recoge las sugerencias.
+// Pégala tras desplegar docs/feedback_apps_script.gs (termina en /exec).
+// Si queda vacía, el formulario avisa de que el envío no está disponible.
+const FEEDBACK_API = "";
 let progressionChart = null;
 let hitRateChart = null;
 let phaseChart = null;
@@ -3053,6 +3057,7 @@ async function _sha256Hex(str) {
 // Recuerda que ya se introdujo la contraseña en esta sesión del navegador,
 // para no pedirla cada vez que se abre el panel.
 const ADMIN_UNLOCK_KEY = "porra_admin_unlocked";
+const ADMIN_PIN_KEY = "porra_admin_pin";
 function isAdminUnlocked() {
   try { return sessionStorage.getItem(ADMIN_UNLOCK_KEY) === "1"; }
   catch { return false; }
@@ -3099,6 +3104,9 @@ function _renderAdminGate(error) {
     const hash = await _sha256Hex(val);
     if (hash === ADMIN_PASS_HASH) {
       markAdminUnlocked();
+      // Guarda el PIN en la sesión (solo en este navegador del admin) para
+      // poder leer las sugerencias del Apps Script, que exige el mismo PIN.
+      try { sessionStorage.setItem(ADMIN_PIN_KEY, val); } catch { /* ignore */ }
       _buildAdminPanel();
     } else {
       _renderAdminGate("PIN incorrecto");
@@ -3612,6 +3620,16 @@ function _buildAdminPanel() {
     </div>
 
     <div class="adm-section">
+      <div class="adm-section-title">
+        💬 Sugerencias y fallos
+        <span class="adm-badge" id="adm-fb-badge"></span>
+      </div>
+      <div class="adm-fb-list" id="adm-fb-list">
+        <div class="adm-empty">Cargando sugerencias…</div>
+      </div>
+    </div>
+
+    <div class="adm-section">
       <div class="adm-section-title">🔗 Links rápidos</div>
       <div class="adm-links">
         <button type="button" class="adm-link adm-copy-btn" onclick="_copyAdminSummary(this)">📋 Copiar resumen</button>
@@ -3625,6 +3643,68 @@ function _buildAdminPanel() {
 
   // pinta el día más reciente de visitas por hora
   if (visitDays.length) _renderVisitsDay(visitDays[0]);
+
+  // carga las sugerencias desde el Apps Script (asíncrono)
+  _loadAdminFeedback();
+}
+
+// ── Sugerencias en el panel de admin (lee del Apps Script con el PIN) ──
+function _fbTypeBadge(type) {
+  return type === "Bug"
+    ? '<span class="adm-fb-type bug">🐛 Fallo</span>'
+    : '<span class="adm-fb-type mejora">💡 Mejora</span>';
+}
+
+function _fbEscape(s) {
+  return String(s == null ? "" : s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+async function _loadAdminFeedback() {
+  const list = document.getElementById("adm-fb-list");
+  const badge = document.getElementById("adm-fb-badge");
+  if (!list) return;
+
+  if (!FEEDBACK_API) {
+    list.innerHTML = `<div class="adm-empty">El sistema de sugerencias no está configurado todavía.<br><span class="adm-rel">Despliega <code>docs/feedback_apps_script.gs</code> y pega la URL en <code>FEEDBACK_API</code>.</span></div>`;
+    return;
+  }
+
+  let pin = "";
+  try { pin = sessionStorage.getItem(ADMIN_PIN_KEY) || ""; } catch { /* ignore */ }
+  if (!pin) {
+    list.innerHTML = `<div class="adm-empty">Vuelve a entrar con tu PIN para ver las sugerencias.</div>`;
+    return;
+  }
+
+  try {
+    const res = await fetch(`${FEEDBACK_API}?token=${encodeURIComponent(pin)}`);
+    const data = await res.json().catch(() => ({}));
+    if (!data || data.ok !== true) {
+      list.innerHTML = `<div class="adm-empty">No se pudieron cargar las sugerencias${data?.error === "unauthorized" ? " (PIN no válido en el Apps Script)" : ""}.</div>`;
+      return;
+    }
+    const items = data.items || [];
+    if (badge) badge.textContent = String(items.length);
+    if (!items.length) {
+      list.innerHTML = `<div class="adm-empty">Aún no hay sugerencias. Cuando alguien envíe una, aparecerá aquí.</div>`;
+      return;
+    }
+    list.innerHTML = items.map(it => {
+      const d = new Date(it.ts);
+      const when = isNaN(d) ? "" : d.toLocaleString("es-ES", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+      return `<div class="adm-fb-row ${it.type === "Bug" ? "bug" : "mejora"}">
+        <div class="adm-fb-top">
+          ${_fbTypeBadge(it.type)}
+          <span class="adm-fb-name">${_fbEscape(it.name)}</span>
+          <span class="adm-fb-when">${when}</span>
+        </div>
+        <div class="adm-fb-text">${_fbEscape(it.text)}</div>
+      </div>`;
+    }).join("");
+  } catch {
+    list.innerHTML = `<div class="adm-empty">No se pudieron cargar las sugerencias (sin conexión con el servidor de recogida).</div>`;
+  }
 }
 
 async function initVisitorCounter() {
@@ -3671,6 +3751,108 @@ initVisitorCounter();
   document.getElementById("changelog-close")?.addEventListener("click", closeModal);
   modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
   document.addEventListener("keydown", e => { if (e.key === "Escape" && !modal.classList.contains("hidden")) closeModal(); });
+})();
+
+/* ── Feedback (sugerencias / bugs) → se guarda en el Apps Script, sin abrir correo ── */
+(function () {
+  const modal = document.getElementById("feedback-modal");
+  if (!modal) return;
+
+  const form   = document.getElementById("feedback-form");
+  const nameEl = document.getElementById("fb-name");
+  const textEl = document.getElementById("fb-text");
+  const sendBtn = document.getElementById("feedback-send");
+  const body    = modal.querySelector(".cl-body");
+
+  function closeModal() {
+    modal.classList.add("hidden");
+    document.body.style.overflow = "";
+  }
+  function openModal() {
+    // restaura el formulario por si quedó la pantalla de éxito de un envío previo
+    const prevOk = modal.querySelector(".fb-success");
+    if (prevOk) { prevOk.remove(); if (form) form.style.display = ""; }
+    modal.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+    setTimeout(() => nameEl?.focus(), 180);
+  }
+
+  document.getElementById("feedback-open")?.addEventListener("click", openModal);
+  document.getElementById("feedback-close")?.addEventListener("click", closeModal);
+  document.getElementById("feedback-cancel")?.addEventListener("click", closeModal);
+  modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !modal.classList.contains("hidden")) closeModal(); });
+
+  function showSuccess(type) {
+    const isBug = type === "Bug";
+    const tag = isBug ? "🐛 Fallo" : "💡 Mejora";
+    const html = `
+      <div class="fb-success">
+        <div class="fb-success-check">✓</div>
+        <div class="fb-success-title">${tag} enviado correctamente</div>
+        <div class="fb-success-sub">¡Gracias! Le ha llegado a Pablo. Lo revisará en cuanto pueda.</div>
+        <button type="button" class="fb-btn-send" id="fb-success-ok">Cerrar</button>
+      </div>`;
+    if (form) form.style.display = "none";
+    body.insertAdjacentHTML("beforeend", html);
+    const ok = document.getElementById("fb-success-ok");
+    ok?.addEventListener("click", closeModal);
+    setTimeout(() => ok?.focus(), 60);
+  }
+
+  function setSending(on) {
+    if (!sendBtn) return;
+    sendBtn.disabled = on;
+    sendBtn.textContent = on ? "Enviando…" : "✉️ Enviar";
+  }
+
+  function showError(msg) {
+    let el = modal.querySelector(".fb-error");
+    if (!el) {
+      el = document.createElement("p");
+      el.className = "fb-error";
+      form?.querySelector(".fb-actions")?.before(el);
+    }
+    el.textContent = msg;
+  }
+
+  form?.addEventListener("submit", async e => {
+    e.preventDefault();
+    const name = (nameEl?.value || "").trim();
+    const text = (textEl?.value || "").trim();
+    const type = form.querySelector('input[name="fb-type"]:checked')?.value || "Mejora";
+
+    let ok = true;
+    nameEl?.classList.remove("fb-err");
+    textEl?.classList.remove("fb-err");
+    if (!name) { nameEl?.classList.add("fb-err"); ok = false; }
+    if (!text) { textEl?.classList.add("fb-err"); ok = false; }
+    if (!ok) { (!name ? nameEl : textEl)?.focus(); return; }
+
+    modal.querySelector(".fb-error")?.remove();
+
+    if (!FEEDBACK_API) {
+      showError("⚠️ El envío aún no está configurado. Inténtalo más tarde.");
+      return;
+    }
+
+    setSending(true);
+    try {
+      // Content-Type text/plain evita el preflight CORS con Apps Script.
+      const res = await fetch(FEEDBACK_API, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ name, type, text }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!data || data.ok !== true) throw new Error(data?.error || "fail");
+      showSuccess(type);
+    } catch {
+      showError("⚠️ No se pudo enviar ahora mismo. Revisa tu conexión e inténtalo de nuevo.");
+    } finally {
+      setSending(false);
+    }
+  });
 })();
 
 /* ── Music player ── */

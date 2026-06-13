@@ -50,6 +50,22 @@ def main():
     from update_schedule import build_update_meta
     data["meta"]["update"] = build_update_meta()
 
+    # Conserva los históricos embebidos por otros procesos (foto de visitas y
+    # registro de llamadas API). build_data() los regenera desde el Excel y NO
+    # los incluye, así que si no los rescatamos del data.json anterior se
+    # perderían en cada actualización tras un partido (hasta la siguiente foto
+    # horaria). Los archivos de histórico (data/visits_log.json, data/api_log.json)
+    # no se tocan; esto solo evita vaciar lo que la web ya mostraba.
+    if os.path.isfile(OUT):
+        try:
+            with open(OUT, encoding="utf-8") as f:
+                prev_meta = json.load(f).get("meta", {})
+            for key in ("visits_log", "api_log"):
+                if prev_meta.get(key) is not None:
+                    data["meta"][key] = prev_meta[key]
+        except (OSError, ValueError):
+            pass
+
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
