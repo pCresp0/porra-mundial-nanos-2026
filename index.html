@@ -48,9 +48,7 @@
 <div id="update-banner" class="update-banner hidden">
   <div class="page-shell">
     <span class="upd-block">
-      <span class="upd-line">Datos actualizados a las <strong id="upd-last">—</strong></span>
-      <span class="upd-sep" aria-hidden="true">·</span>
-      <span class="upd-line">Próxima revisión a las <strong id="upd-next">—</strong></span>
+      <span class="upd-line">Datos actualizados a las <strong id="upd-last">—</strong><span id="upd-match"></span></span>
     </span>
     <span class="hidden sm:inline text-gray-600"> · hora España</span>
   </div>
@@ -98,8 +96,24 @@
       <span></span><span></span><span></span>
     </button>
     <span class="nav-current" id="nav-current">⚽ Partidos</span>
+    <button class="nav-search-btn" id="nav-search-btn" type="button" aria-label="Buscar equipo" aria-haspopup="dialog" hidden>
+      <span aria-hidden="true">🔍</span>
+      <span class="nav-search-dot" id="nav-search-dot" hidden></span>
+    </button>
   </div>
 </nav>
+
+<!-- ── Panel de búsqueda de equipo (móvil) ── -->
+<div class="ts-sheet" id="ts-sheet" aria-hidden="true">
+  <div class="ts-sheet-backdrop" id="ts-sheet-backdrop"></div>
+  <div class="ts-sheet-panel" role="dialog" aria-modal="true" aria-label="Buscar equipo">
+    <div class="ts-sheet-head">
+      <span class="ts-sheet-title">🔍 Buscar equipo</span>
+      <button class="ts-sheet-close" id="ts-sheet-close" type="button" aria-label="Cerrar búsqueda">✕</button>
+    </div>
+    <div class="ts-sheet-body" id="ts-sheet-body"></div>
+  </div>
+</div>
 
 <!-- menú lateral deslizante (móvil) -->
 <div class="nav-overlay" id="nav-overlay"></div>
@@ -127,6 +141,7 @@
     <div class="cal-filter-bar">
       <div class="flex gap-2 flex-wrap" id="cal-view-filter">
         <button class="cal-view-btn" data-view="day" type="button">Hoy</button>
+        <button class="cal-view-btn" data-view="tomorrow" type="button">Mañana</button>
         <button class="cal-view-btn active" data-view="week" type="button">Esta semana</button>
         <button class="cal-view-btn" data-view="month" type="button">Este mes</button>
       </div>
@@ -192,7 +207,7 @@
     <!-- full table -->
     <div class="card overflow-hidden mb-6">
       <div class="px-6 py-4 border-b" style="border-color:var(--border)">
-        <h2 class="text-lg font-bold text-white">Tabla completa</h2>
+        <h2 class="text-lg font-bold text-white">Tabla completa <span id="standings-updated" class="standings-updated"></span></h2>
         <p class="text-xs text-gray-400 mt-1">Pulsa sobre el título de una columna para ordenar. Los puntos de grupos se desglosan por el motivo por el que se ganaron.</p>
       </div>
       <div class="overflow-x-auto">
@@ -299,8 +314,8 @@
           <strong>Tipos de acierto por partido:</strong><br>
           🟢 <strong>Exacto</strong> — signo + dif. + resultado exacto (máx. 6 pts)<br>
           🔵 <strong>1X2 + Dif.</strong> — signo correcto y diferencia de goles<br>
-          🟡 <strong>Solo 1X2</strong> — solo acertó el signo (1/X/2)<br>
-          🔴 <strong>0 pts</strong> — sin ningún acierto en ese partido
+          🟠 <strong>Solo 1X2</strong> — solo acertó el signo (1/X/2)<br>
+          ⚪ <strong>0 pts</strong> — sin ningún acierto en ese partido
         </div>
       </div>
       <div style="height:280px;position:relative">
@@ -479,7 +494,24 @@
 
       <div class="cl-version">
         <div class="cl-ver-head">
-          <span class="cl-ver-badge new">v1.6</span>
+          <span class="cl-ver-badge new">v1.7</span>
+          <span class="cl-ver-date">13 Jun 2026</span>
+          <span class="cl-ver-title">Calendario, búsqueda en móvil y más detalle</span>
+        </div>
+        <ul class="cl-items">
+          <li><span class="cl-tag feat">feat</span> Calendario: nueva vista «Mañana» para ver de un vistazo los partidos del día siguiente</li>
+          <li><span class="cl-tag feat">feat</span> Calendario: «Esta semana» se muestra como rejilla tipo calendario en ordenador, y como listado con horas en móvil</li>
+          <li><span class="cl-tag ux">ux</span> Buscar equipo en móvil rediseñado: una lupa arriba a la derecha abre un panel de búsqueda; un punto dorado avisa cuando tienes un filtro activo</li>
+          <li><span class="cl-tag ux">ux</span> El banner superior y la tabla de clasificación muestran el último partido jugado que disparó la actualización, con banderas y códigos de 3 letras (p. ej. USA 4-1 PAR)</li>
+          <li><span class="cl-tag ux">ux</span> Fortalezas de cada jugador: ahora se muestra el top 4 (antes top 3) para dar algo más de contexto</li>
+          <li><span class="cl-tag ux">ux</span> Leyenda del desglose de puntos más clara, sin colores repetidos</li>
+          <li><span class="cl-tag ux">ux</span> Tarjetas de partido más limpias: quitada la etiqueta «Pendiente» que sobraba</li>
+        </ul>
+      </div>
+
+      <div class="cl-version">
+        <div class="cl-ver-head">
+          <span class="cl-ver-badge">v1.6</span>
           <span class="cl-ver-date">13 Jun 2026</span>
           <span class="cl-ver-title">Actualización 100% automática y pulido de la clasificación</span>
         </div>

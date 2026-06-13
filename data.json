@@ -1,19 +1,16 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "13/06/2026 10:43",
+    "generated": "13/06/2026 14:19",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "cada hora en punto",
-      "last_updated_iso": "2026-06-13T05:34",
-      "last_updated_time": "05:34",
+      "last_updated_iso": "2026-06-13T14:19",
+      "last_updated_time": "14:19",
       "last_updated_date": "13/06/2026",
-      "next_update_iso": "2026-06-13T13:00",
-      "next_update_time": "13:00",
-      "next_update_date": "13/06/2026",
-      "last_checked_iso": "2026-06-13T12:43",
-      "last_checked_time": "12:43",
-      "last_checked_date": "13/06/2026"
+      "next_update_iso": "2026-06-13T15:00",
+      "next_update_time": "15:00",
+      "next_update_date": "13/06/2026"
     },
     "players": [
       "JUANCHO",
@@ -18826,6 +18823,13 @@
             "icon": "✈️",
             "rank": 1,
             "display": "3 aciertos"
+          },
+          {
+            "key": "avg_match",
+            "label": "Media pts/partido",
+            "icon": "⚡",
+            "rank": 1,
+            "display": "2.50 pts/partido"
           }
         ],
         "badges": [
@@ -18894,6 +18898,13 @@
             "icon": "✈️",
             "rank": 2,
             "display": "3 aciertos"
+          },
+          {
+            "key": "avg_match",
+            "label": "Media pts/partido",
+            "icon": "⚡",
+            "rank": 2,
+            "display": "2.50 pts/partido"
           }
         ],
         "badges": [],
@@ -18953,6 +18964,13 @@
             "icon": "🎯",
             "rank": 3,
             "display": "1 aciertos · 3 pts"
+          },
+          {
+            "key": "hit_rate",
+            "label": "Tasa de acierto",
+            "icon": "✅",
+            "rank": 4,
+            "display": "50% (2/4)"
           }
         ],
         "badges": [],
@@ -19012,6 +19030,13 @@
             "icon": "1️⃣",
             "rank": 3,
             "display": "3 aciertos · 6 pts"
+          },
+          {
+            "key": "avg_match",
+            "label": "Media pts/partido",
+            "icon": "⚡",
+            "rank": 4,
+            "display": "2.00 pts/partido"
           }
         ],
         "badges": [
@@ -19062,6 +19087,13 @@
             "icon": "📊",
             "rank": 2,
             "display": "0 pts"
+          },
+          {
+            "key": "goals_away",
+            "label": "Goles visitante exactos",
+            "icon": "✈️",
+            "rank": 4,
+            "display": "2 aciertos"
           }
         ],
         "badges": [],

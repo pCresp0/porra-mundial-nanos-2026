@@ -237,6 +237,8 @@
     @media (max-width: 767px) {
       .desktop-nav { display: none; }
       .mobile-nav  { display: block; }
+      /* el buscador inline se sustituye por el panel del icono 🔍 de la barra */
+      .matches-row > .team-search-wrap { display: none; }
     }
 
     @media (max-width: 640px) {
@@ -282,6 +284,76 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    /* botón de búsqueda en la barra superior (móvil, sólo pestaña Partidos) */
+    .nav-search-btn {
+      position: relative;
+      margin-left: auto;
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--card2);
+      font-size: 1.05rem;
+      line-height: 1;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+    .nav-search-btn[hidden] { display: none; }
+    .nav-search-btn:hover,
+    .nav-search-btn:focus-visible { border-color: var(--gold); }
+    .nav-search-btn:active { background: var(--surface); }
+    .nav-search-dot {
+      position: absolute;
+      top: -3px; right: -3px;
+      width: 11px; height: 11px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 2px solid var(--surface);
+    }
+    .nav-search-dot[hidden] { display: none; }
+
+    /* panel deslizante de búsqueda (móvil) */
+    .ts-sheet { position: fixed; inset: 0; z-index: 120; display: none; }
+    .ts-sheet.open { display: block; }
+    .ts-sheet-backdrop {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(2px);
+      opacity: 0;
+      transition: opacity .2s;
+    }
+    .ts-sheet.open .ts-sheet-backdrop { opacity: 1; }
+    .ts-sheet-panel {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 12px 32px rgba(0,0,0,.5);
+      padding: .9rem 1rem calc(1rem + env(safe-area-inset-bottom, 0px));
+      transform: translateY(-100%);
+      transition: transform .22s ease;
+    }
+    .ts-sheet.open .ts-sheet-panel { transform: translateY(0); }
+    .ts-sheet-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: .75rem;
+    }
+    .ts-sheet-title { font-weight: 800; font-size: 1rem; color: #E2E8F0; }
+    .ts-sheet-close {
+      width: 2rem; height: 2rem;
+      display: flex; align-items: center; justify-content: center;
+      border: none; border-radius: 8px;
+      background: rgba(255,255,255,.06);
+      color: #94A3B8; font-size: .85rem; cursor: pointer;
+    }
+    .ts-sheet-close:hover { background: rgba(252,165,165,.15); color: #FCA5A5; }
+    .ts-sheet-body .team-search-wrap { width: 100%; }
     .nav-overlay {
       position: fixed; inset: 0;
       background: rgba(0,0,0,.55);
@@ -499,6 +571,8 @@
 
     /* ── sparkline-like bar ── */
     .score-bar-wrap { background: rgba(255,255,255,.05); border-radius: 4px; overflow: hidden; height: 6px; }
+    .prog-deltas { display: flex; flex-direction: column; gap: .1rem; line-height: 1.35; }
+    .standings-updated { font-size: .72rem; font-weight: 500; color: #64748B; }
     .score-bar { height: 6px; border-radius: 4px; transition: width .5s; }
 
     /* ── loading ── */
@@ -847,6 +921,7 @@
     .rank-pill-1 { background: rgba(245,197,24,.22); color: var(--gold); }
     .rank-pill-2 { background: rgba(203,213,225,.18); color: var(--silver); }
     .rank-pill-3 { background: rgba(205,127,50,.22); color: var(--bronze); }
+    .rank-pill-4 { background: rgba(100,116,139,.18); color: #94A3B8; }
     .ranking-mini-row .rm-val {
       font-size: .8rem;
       color: #94A3B8;
@@ -908,6 +983,46 @@
       gap: .15rem;
     }
     .player-pred-card .ppc-chips { margin-top: .25rem; text-align: center; }
+
+    /* ─── Player info popover (Partidos) ─── */
+    .pp-trigger { cursor: pointer; }
+    .pp-trigger:hover { border-color: rgba(148, 163, 184, .45); }
+    .player-pop {
+      position: fixed;
+      z-index: 8000;
+      width: 300px;
+      max-width: calc(100vw - 16px);
+      background: #161B33;
+      border: 1px solid #2A3060;
+      border-radius: 12px;
+      padding: .85rem 1rem;
+      box-shadow: 0 14px 38px rgba(0, 0, 0, .55);
+      display: none;
+      left: 0;
+      top: 0;
+      max-height: 82vh;
+      overflow-y: auto;
+      text-align: left;
+    }
+    .player-pop.open { display: block; }
+    .ppop-head { display: flex; align-items: baseline; gap: .5rem; }
+    .ppop-name { font-weight: 800; text-transform: uppercase; font-size: 1.05rem; letter-spacing: .03em; }
+    .ppop-pos { font-size: .72rem; color: #64748B; }
+    .ppop-badges { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .5rem; }
+    .ppop-section { font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #64748B; margin: .75rem 0 .45rem; }
+    .ppop-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .5rem;
+      text-align: center;
+      margin-top: .75rem;
+      padding-top: .7rem;
+      border-top: 1px solid var(--border);
+    }
+    .ppop-g-lbl { font-size: .62rem; color: #64748B; }
+    .ppop-g-val { font-weight: 700; font-size: .92rem; }
+    .ppop-best { font-size: .72rem; color: #94A3B8; margin-top: .6rem; }
+    .ppop-best strong { color: #E2E8F0; }
 
     /* ── info tooltip ── */
     .info-btn {
@@ -1204,6 +1319,10 @@
     .cal-row-team { white-space: nowrap; }
     .cal-row-score { font-weight: 800; color: var(--gold); }
     .cal-row-vs { font-size: .72rem; color: #64748B; }
+    .cal-row-tv {
+      flex-shrink: 0; display: flex; gap: .25rem; align-items: center;
+      margin-left: auto;
+    }
 
     .cal-container {
       display: flex; flex-wrap: wrap; gap: 1.25rem;
@@ -2159,7 +2278,8 @@
         white-space: nowrap;
       }
 
-      /* Partidos: buscador a ancho completo en móvil */
+      /* Partidos: el buscador inline se oculta en móvil; se usa el panel
+         que abre el icono 🔍 de la barra superior. */
       .matches-row { flex-direction: column; align-items: stretch; gap: .6rem; }
       .team-search-wrap { width: 100%; }
       .team-search-input-wrap {

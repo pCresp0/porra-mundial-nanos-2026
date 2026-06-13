@@ -558,14 +558,14 @@ def _build_player_strengths(matches, standings, player_names):
         name = st_row["name"]
         s = raw[name]
         n = s["matches"]
-        # Top 3 skills by rank (lowest rank number = best)
+        # Top 4 skills by rank (lowest rank number = best)
         ranked_skills = sorted(
             [(k, r) for k, r in ranks_for_player[name].items()],
             key=lambda x: (x[1], -_sort_key(x[0], name)[0] if isinstance(_sort_key(x[0], name)[0], (int, float)) else 0),
         )
         top_skills = []
         badges = []
-        for key, rank in ranked_skills[:4]:
+        for key, rank in ranked_skills[:5]:
             sk = next(x for x in STRENGTH_SKILLS if x["key"] == key)
             v = skill_values[key][name]
             # Skip zero-value skills unless nothing else
@@ -581,7 +581,7 @@ def _build_player_strengths(matches, standings, player_names):
             })
             if rank == 1 and has_value:
                 badges.append({"icon": sk["icon"], "label": STRENGTH_BADGES.get(key, sk["label"])})
-            if len(top_skills) >= 3:
+            if len(top_skills) >= 4:
                 break
 
         # Best scoring phase (from standings columns)
