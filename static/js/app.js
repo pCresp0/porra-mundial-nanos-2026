@@ -2185,9 +2185,24 @@ function renderCalendar() {
       `<div class="cal-weekday${WEEKENDS.includes(i) ? " weekend" : ""}">${d}</div>`
     ).join("");
 
-    let cells = Array(startOffset).fill(`<div class="cal-day empty"></div>`);
+    // Find the first day of the month that has a match, to skip leading empty rows
+    const firstMatchDay = (() => {
+      for (let d = 1; d <= daysInMonth; d++) {
+        const iso = `${year}-${String(month).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+        if (byDate[iso]?.length) return d;
+      }
+      return 1;
+    })();
+    // Recalculate offset from the week that contains firstMatchDay
+    const firstMatchWd = new Date(year, month - 1, firstMatchDay).getDay();
+    const firstMatchOffset = (firstMatchWd + 6) % 7; // Mon=0
+    // startDay is the Monday of the week containing firstMatchDay
+    const startDay = firstMatchDay - firstMatchOffset;
 
-    for (let day = 1; day <= daysInMonth; day++) {
+    let cells = Array(Math.max(0, firstMatchOffset)).fill(`<div class="cal-day empty"></div>`);
+
+    for (let day = startDay; day <= daysInMonth; day++) {
+      if (day < 1) { cells.push(`<div class="cal-day empty"></div>`); continue; }
       const iso = `${year}-${String(month).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
       const matches = byDate[iso] || [];
       const isToday = iso === today;

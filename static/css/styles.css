@@ -39,7 +39,7 @@
     .header-bg::before {
       content: '';
       position: absolute; inset: 0;
-      background: url('static/wc2026-bg.png') center/cover no-repeat;
+      background: url('/static/wc2026-bg.png') center/cover no-repeat;
       opacity: .12;
     }
     .header-bg::after {
@@ -1146,7 +1146,7 @@
     }
     .cal-weekday.weekend { color: #94A3B8; }
     .cal-days {
-      display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px;
     }
     .cal-day {
       border-radius: 8px; padding: .5rem .3rem .55rem;
