@@ -10,7 +10,7 @@ const VISITOR_PATH = "/porra-mundial-nanos-2026";
 // URL de la Web App de Google Apps Script que recoge las sugerencias.
 // Pégala tras desplegar docs/feedback_apps_script.gs (termina en /exec).
 // Si queda vacía, el formulario avisa de que el envío no está disponible.
-const FEEDBACK_API = "";
+const FEEDBACK_API = "https://script.google.com/macros/s/AKfycbwoXHBr6i2H7Klp4KBPS2KCBUtIiuX2DAimFk1e-mkRKzNeWLtZRlfKZikyvltcRPLd/exec";
 let progressionChart = null;
 let hitRateChart = null;
 let phaseChart = null;

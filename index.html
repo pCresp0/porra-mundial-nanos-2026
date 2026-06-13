@@ -550,18 +550,26 @@
 
       <div class="cl-version">
         <div class="cl-ver-head">
-          <span class="cl-ver-badge new">v1.7</span>
+          <span class="cl-ver-badge new">v1.8</span>
           <span class="cl-ver-date">13 Jun 2026</span>
-          <span class="cl-ver-title">Calendario, búsqueda en móvil y más detalle</span>
+          <span class="cl-ver-title">Sugerencias y reporte de fallos</span>
         </div>
         <ul class="cl-items">
-          <li><span class="cl-tag feat">feat</span> Calendario: nueva vista «Mañana» para ver de un vistazo los partidos del día siguiente</li>
-          <li><span class="cl-tag feat">feat</span> Calendario: «Esta semana» se muestra como rejilla tipo calendario en ordenador, y como listado con horas en móvil</li>
-          <li><span class="cl-tag ux">ux</span> Buscar equipo en móvil rediseñado: una lupa arriba a la derecha abre un panel de búsqueda; un punto dorado avisa cuando tienes un filtro activo</li>
-          <li><span class="cl-tag ux">ux</span> El banner superior y la tabla de clasificación muestran el último partido jugado que disparó la actualización, con banderas y códigos de 3 letras (p. ej. USA 4-1 PAR)</li>
-          <li><span class="cl-tag ux">ux</span> Fortalezas de cada jugador: ahora se muestra el top 4 (antes top 3) para dar algo más de contexto</li>
-          <li><span class="cl-tag ux">ux</span> Leyenda del desglose de puntos más clara, sin colores repetidos</li>
-          <li><span class="cl-tag ux">ux</span> Tarjetas de partido más limpias: quitada la etiqueta «Pendiente» que sobraba</li>
+          <li><span class="cl-tag feat">feat</span> Nuevo botón «💬 Sugerencias / reportar un fallo» en el pie de página: abre un formulario sencillo (tu nombre, si es una mejora o un fallo, y tu mensaje) que llega directamente a Pablo. Al enviar se confirma con un aviso de «enviado correctamente» — sin crear cuentas ni salir de la web</li>
+        </ul>
+      </div>
+
+      <div class="cl-version">
+        <div class="cl-ver-head">
+          <span class="cl-ver-badge">v1.7</span>
+          <span class="cl-ver-date">13 Jun 2026</span>
+          <span class="cl-ver-title">Calendario y búsqueda en móvil</span>
+        </div>
+        <ul class="cl-items">
+          <li><span class="cl-tag feat">feat</span> Calendario: vistas rápidas «Hoy», «Mañana», «Esta semana» y «Este mes». La semana se ve como rejilla tipo calendario en ordenador y como listado con horas y canal (DAZN/TVE) en móvil</li>
+          <li><span class="cl-tag ux">ux</span> Partidos en móvil: una lupa «Buscar equipo» arriba a la derecha abre el buscador, con un punto dorado que avisa si tienes un filtro activo</li>
+          <li><span class="cl-tag ux">ux</span> El banner superior y la Clasificación muestran el último partido jugado, con banderas y código de 3 letras (p. ej. USA 4-1 PAR)</li>
+          <li><span class="cl-tag ux">ux</span> Clasificación: las fortalezas de cada jugador muestran el top 4, y la leyenda del desglose de puntos es más clara</li>
         </ul>
       </div>
 
@@ -569,16 +577,12 @@
         <div class="cl-ver-head">
           <span class="cl-ver-badge">v1.6</span>
           <span class="cl-ver-date">13 Jun 2026</span>
-          <span class="cl-ver-title">Actualización 100% automática y pulido de la clasificación</span>
+          <span class="cl-ver-title">Actualización automática y Clasificación detallada</span>
         </div>
         <ul class="cl-items">
-          <li><span class="cl-tag data">data</span> Actualización totalmente automática tras cada partido: un guardián en GitHub Actions solo gasta llamada a la API cuando un partido acaba de terminar (no cada 30 min a lo loco)</li>
-          <li><span class="cl-tag fix">fix</span> Los puntos de la fase de grupos se recalculan en Python al generar la web, así ya no dependen de abrir el Excel para que se actualicen las fórmulas</li>
-          <li><span class="cl-tag feat">feat</span> Tabla completa de clasificación ordenable: pulsa el título de cualquier columna para ordenar</li>
-          <li><span class="cl-tag feat">feat</span> Desglose de puntos de grupos por motivo: 1X2, diferencia y resultado exacto en columnas separadas</li>
-          <li><span class="cl-tag ux">ux</span> Estadísticas: barras de «últimos partidos» con 4 tramos de color (5+, 3-4, 1-2, 0 pts) iguales para todos</li>
-          <li><span class="cl-tag ux">ux</span> Quitada la recarga automática que saltaba de pestaña; la web ya no se mueve sola</li>
-          <li><span class="cl-tag fix">fix</span> Móvil: las etiquetas «Finalizado» y «Próximo partido» ya no se solapan con banderas ni nombres</li>
+          <li><span class="cl-tag data">data</span> Los resultados se actualizan solos en cuanto termina cada partido, sin esperas ni recargas que cambien de pestaña</li>
+          <li><span class="cl-tag feat">feat</span> Clasificación: tabla completa ordenable (pulsa el título de cualquier columna) y desglose de los puntos de grupos por motivo: acierto 1X2, diferencia de goles y resultado exacto</li>
+          <li><span class="cl-tag ux">ux</span> Estadísticas: las barras de «últimos partidos» usan 4 colores según los puntos (5+, 3-4, 1-2, 0), iguales para todos</li>
         </ul>
       </div>
 
@@ -586,75 +590,11 @@
         <div class="cl-ver-head">
           <span class="cl-ver-badge">v1.5</span>
           <span class="cl-ver-date">12 Jun 2026</span>
-          <span class="cl-ver-title">Modo invitado / participante y mejoras de privacidad</span>
+          <span class="cl-ver-title">Modo invitado y participante</span>
         </div>
         <ul class="cl-items">
-          <li><span class="cl-tag feat">feat</span> Popup de bienvenida que pregunta «¿Eres de la porra?» en la primera visita</li>
-          <li><span class="cl-tag feat">feat</span> Modo participante: muestra pronósticos, puntos y las pestañas de Clasificación, Progresión, Estadísticas y Cuadro de Honor</li>
-          <li><span class="cl-tag feat">feat</span> Modo invitado: solo partidos y resultados; los pronósticos quedan ocultos con un candado</li>
-          <li><span class="cl-tag feat">feat</span> Botón en la cabecera para cambiar de modo cuando quieras; la elección se recuerda en el navegador</li>
-          <li><span class="cl-tag ux">ux</span> Colores más suaves en el contador de visitas y el reproductor de música</li>
-          <li><span class="cl-tag fix">fix</span> Refuerzos de seguridad: saneado de datos externos y cabeceras de protección en local</li>
-        </ul>
-      </div>
-
-      <div class="cl-version">
-        <div class="cl-ver-head">
-          <span class="cl-ver-badge">v1.4</span>
-          <span class="cl-ver-date">12 Jun 2026</span>
-          <span class="cl-ver-title">Partidos, sedes, búsqueda y pulido UX</span>
-        </div>
-        <ul class="cl-items">
-          <li><span class="cl-tag feat">feat</span> Buscador de equipos en Partidos: solo selecciones reales con bandera; autocompletado al escribir</li>
-          <li><span class="cl-tag ux">ux</span> Pulido móvil: buscador a ancho completo, botones táctiles (44px), textos cortos en «Ver más», safe area y margen inferior</li>
-          <li><span class="cl-tag feat">feat</span> Partidos por días: ayer, hoy y mañana visibles; «Ver más» carga el siguiente día. Semana actual por defecto</li>
-          <li><span class="cl-tag feat">feat</span> Panel de sede al pulsar la ciudad: foto del estadio, mapa Leaflet, aforo, área metro y dato curioso (16 sedes)</li>
-          <li><span class="cl-tag feat">feat</span> Chips DAZN y TVE abren el directo en RTVE Play y la página del Mundial en DAZN</li>
-          <li><span class="cl-tag ux">ux</span> Sede del partido: solo 📍 ciudad (país), sin texto «Ver sede» — menos ruido en móvil</li>
-          <li><span class="cl-tag feat">feat</span> Reproductor Línea de Cal (🎵): volumen, slider para avanzar/retroceder, parado por defecto</li>
-          <li><span class="cl-tag data">data</span> Audio del reproductor en <code>static/audio/</code> (assets web), no en <code>docs/</code></li>
-          <li><span class="cl-tag feat">feat</span> Estadísticas ampliadas: desglose de aciertos, rachas, últimos 10 partidos y números globales</li>
-          <li><span class="cl-tag feat">feat</span> Contador de visitas y este historial de versiones</li>
-          <li><span class="cl-tag ux">ux</span> Partidos pendientes muestran la hora (no un VS grande). Podio: nombre destacado, sin €</li>
-          <li><span class="cl-tag fix">fix</span> Ajustes móvil: tarjetas de partido, reproductor, modal de versiones y banner de actualización</li>
-        </ul>
-      </div>
-
-      <div class="cl-version">
-        <div class="cl-ver-head">
-          <span class="cl-ver-badge">v1.3</span>
-          <span class="cl-ver-date">12 Jun 2026</span>
-          <span class="cl-ver-title">Guía de la porra y datos</span>
-        </div>
-        <ul class="cl-items">
-          <li><span class="cl-tag feat">feat</span> Sistema de puntuación: guía Excel (fases 1 y 2, fechas límite) y reglas de dieciseisavos</li>
-          <li><span class="cl-tag ux">ux</span> Progresión solo hasta hoy; líneas distinguibles si hay empate en puntos</li>
-          <li><span class="cl-tag ux">ux</span> «Más info»: historia del grupo y explicación de actualización automática (API + GitHub Actions)</li>
-        </ul>
-      </div>
-
-      <div class="cl-version">
-        <div class="cl-ver-head">
-          <span class="cl-ver-badge">v1.2</span>
-          <span class="cl-ver-date">12 Jun 2026</span>
-          <span class="cl-ver-title">Datos en vivo y Cuadro de Honor</span>
-        </div>
-        <ul class="cl-items">
-          <li><span class="cl-tag data">data</span> Goles automáticos cada 30 min vía API (<code>fetch_results.py</code> + GitHub Actions)</li>
-          <li><span class="cl-tag feat">feat</span> Cuadro de Honor rediseñado: podio, botas, balones y aciertos por jugador</li>
-          <li><span class="cl-tag ux">ux</span> Banner superior con próxima actualización y cuenta atrás</li>
-        </ul>
-      </div>
-
-      <div class="cl-version">
-        <div class="cl-ver-head">
-          <span class="cl-ver-badge">v1.1</span>
-          <span class="cl-ver-date">12 Jun 2026</span>
-          <span class="cl-ver-title">GitHub Pages y móvil</span>
-        </div>
-        <ul class="cl-items">
-          <li><span class="cl-tag feat">feat</span> Web pública en GitHub Pages con <code>data.json</code> y recarga automática cada 5 min</li>
-          <li><span class="cl-tag ux">ux</span> Diseño responsive: nav, tablas, partidos y podio adaptados a móvil</li>
+          <li><span class="cl-tag feat">feat</span> Al entrar por primera vez la web pregunta «¿Eres de la porra?»: como participante ves los pronósticos, los puntos y todas las pestañas; como invitado ves solo los partidos y resultados</li>
+          <li><span class="cl-tag feat">feat</span> Botón en la cabecera para cambiar de modo cuando quieras; tu elección se recuerda en el navegador</li>
         </ul>
       </div>
 
@@ -662,12 +602,16 @@
         <div class="cl-ver-head">
           <span class="cl-ver-badge">v1.0</span>
           <span class="cl-ver-date">12 Jun 2026</span>
-          <span class="cl-ver-title">Lanzamiento</span>
+          <span class="cl-ver-title">Lanzamiento de la porra online</span>
         </div>
         <ul class="cl-items">
-          <li><span class="cl-tag feat">feat</span> Dashboard con 7 pestañas: partidos, clasificación, progresión, estadísticas, honor, puntuación e info</li>
-          <li><span class="cl-tag feat">feat</span> Pronósticos y puntos por partido (1X2, dif., exacto), podio, fortalezas y filtros por semana/fase</li>
-          <li><span class="cl-tag data">data</span> Lectura de Excel ADMIN + sedes, horarios y TV (DAZN / TVE La 1) de los 104 partidos</li>
+          <li><span class="cl-tag feat">feat</span> <strong>Partidos:</strong> resultados en vivo de los 104 partidos, con los pronósticos y puntos de cada jugador (1X2, diferencia y resultado exacto), buscador de equipos y filtros por semana y fase</li>
+          <li><span class="cl-tag feat">feat</span> <strong>Sedes:</strong> al pulsar la ciudad de un partido se abre su estadio con foto, mapa, aforo y un dato curioso; chips DAZN y TVE que abren el directo</li>
+          <li><span class="cl-tag feat">feat</span> <strong>Clasificación y Progresión:</strong> tabla de puntos y gráfico de evolución de cada jugador a lo largo del campeonato</li>
+          <li><span class="cl-tag feat">feat</span> <strong>Estadísticas y Cuadro de Honor:</strong> aciertos, rachas, podio, máximos goleadores acertados y balones</li>
+          <li><span class="cl-tag feat">feat</span> <strong>Sistema de puntuación e info:</strong> guía con las reglas, fechas límite e historia del grupo</li>
+          <li><span class="cl-tag ux">ux</span> Reproductor de música (🎵), contador de visitas y este historial de versiones</li>
+          <li><span class="cl-tag data">data</span> Web pública en GitHub Pages, diseño adaptado a móvil y datos del Mundial conectados por API</li>
         </ul>
       </div>
 
