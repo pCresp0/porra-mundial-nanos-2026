@@ -39,6 +39,21 @@ function addDaysISO(iso, n) {
   return d.toISOString().slice(0, 10);
 }
 
+// Fecha "ancla" de la pestaña Partidos: el partido en juego (prioridad) o el
+// próximo por jugar. Si no hay ninguno (Mundial terminado o sin datos), usa
+// el día de hoy. Sirve para centrar la ventana de días y el auto-scroll.
+function matchesAnchorISO() {
+  const today = todaySpainISO();
+  let anchorName = null;
+  if (_liveMatchIds && _liveMatchIds.size) anchorName = [..._liveMatchIds][0];
+  else if (_nextMatchId) anchorName = _nextMatchId;
+  if (anchorName && D?.matches) {
+    const m = D.matches.find(x => x.name === anchorName || x.id === anchorName);
+    if (m?.date && m.date.length >= 10) return m.date.slice(0, 10);
+  }
+  return today;
+}
+
 function shortDayLabel(label) {
   if (!label) return "";
   const m = label.match(/(\d{1,2})\s+de\s+(\w+)/i);
@@ -200,6 +215,22 @@ function syncMatchFiltersUI() {
     b.classList.toggle("active", b.dataset.phase === currentPhase));
 }
 
+// Restaura los filtros de semana/fase guardados si la búsqueda ya no está
+// activa (no hay equipo seleccionado) pero quedaron filtros pendientes de
+// restaurar. Cubre el caso de abandonar la búsqueda sin pulsar ✕ (p. ej.
+// borrando el texto y cerrando el panel). Devuelve true si restauró algo.
+function restoreSearchFiltersIfNeeded() {
+  if (selectedTeamFilter || !savedFiltersBeforeSearch) return false;
+  currentWeek = savedFiltersBeforeSearch.week;
+  currentPhase = savedFiltersBeforeSearch.phase;
+  savedFiltersBeforeSearch = null;
+  syncMatchFiltersUI();
+  resetMatchesDayWindow();
+  scrollMatchesToToday = true;
+  renderMatches(currentPhase, currentWeek);
+  return true;
+}
+
 function syncTeamSearchUI() {
   const input = document.getElementById("team-search-input");
   const clearBtn = document.getElementById("team-search-clear");
@@ -240,7 +271,12 @@ function initTeamSearch() {
   });
 
   input.addEventListener("blur", () => {
-    blurTimer = setTimeout(hideTeamSuggestions, 160);
+    blurTimer = setTimeout(() => {
+      hideTeamSuggestions();
+      // Si se abandonó la búsqueda con el campo vacío y sin equipo elegido,
+      // recupera los filtros que había antes de buscar.
+      if (!selectedTeamFilter && !input.value.trim()) restoreSearchFiltersIfNeeded();
+    }, 160);
   });
 
   input.addEventListener("keydown", e => {
@@ -309,6 +345,9 @@ function closeTeamSearchSheet() {
   sheet.classList.remove("open");
   sheet.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
+  // Si se cierra el panel sin un equipo seleccionado, restaura los filtros
+  // que había antes de abrir la búsqueda.
+  restoreSearchFiltersIfNeeded();
 }
 
 /* Muestra el icono 🔍 sólo en la pestaña Partidos y marca un punto cuando
@@ -343,25 +382,44 @@ function initTeamSearchSheet() {
 }
 
 function scrollToTodayInMatches() {
-  const today = todaySpainISO();
+  // Altura de la cabecera fija/sticky visible (en móvil es .mobile-nav, en
+  // escritorio el <nav>), para no dejar la tarjeta oculta debajo.
+  let navH = 0;
+  document.querySelectorAll("nav, .mobile-nav").forEach(n => {
+    const s = getComputedStyle(n);
+    if (s.display === "none" || s.visibility === "hidden") return;
+    if ((s.position === "sticky" || s.position === "fixed") && n.offsetHeight > 0) {
+      navH = Math.max(navH, n.offsetHeight);
+    }
+  });
+  const scrollToEl = el => {
+    const top = el.getBoundingClientRect().top + window.scrollY - navH - 16;
+    window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+  };
+
+  // Prioridad: llevar al usuario al partido en juego o, en su defecto, al
+  // próximo partido por jugar (no al día de hoy).
+  const card = document.querySelector(".match-row.live-match")
+            || document.querySelector(".match-row.next-match");
+  if (card) { scrollToEl(card); return; }
+
+  // Si no hay tarjeta de próximo/en-juego en el DOM, caemos a la fecha ancla
+  // (próximo partido) y, si tampoco, al día más cercano.
+  const anchor = matchesAnchorISO();
   const sections = [...document.querySelectorAll("[data-day-date]")];
   if (!sections.length) return;
 
-  let target = document.getElementById(`day-${today}`);
+  let target = document.getElementById(`day-${anchor}`);
   if (!target) {
     const dated = sections
       .map(el => ({ el, d: el.dataset.dayDate }))
       .filter(x => x.d && x.d !== "sin-fecha")
       .sort((a, b) => a.d.localeCompare(b.d));
-    target = dated.find(x => x.d >= today)?.el
-          || [...dated].reverse().find(x => x.d < today)?.el
+    target = dated.find(x => x.d >= anchor)?.el
+          || [...dated].reverse().find(x => x.d < anchor)?.el
           || sections[0];
   }
-  if (target) {
-    const navH = document.querySelector("nav")?.offsetHeight || 0;
-    const top  = target.getBoundingClientRect().top + window.scrollY - navH - 16;
-    window.scrollTo({ top, behavior: "smooth" });
-  }
+  if (target) scrollToEl(target);
 }
 
 const PHASE_LABELS = {
@@ -1228,8 +1286,9 @@ function renderMatches(phase, week) {
   });
 
   const today = todaySpainISO();
-  const visibleStart = addDaysISO(today, -1 - matchesDaysBefore);
-  const visibleEnd   = addDaysISO(today,  1 + matchesDaysAfter);
+  const anchor = matchesAnchorISO();
+  const visibleStart = addDaysISO(anchor, -1 - matchesDaysBefore);
+  const visibleEnd   = addDaysISO(anchor,  1 + matchesDaysAfter);
 
   const dayISO = key => {
     const iso = byDay[key][0]?.date;
@@ -1238,8 +1297,8 @@ function renderMatches(phase, week) {
 
   const datedKeys = dayKeys.filter(k => k !== NO_DATE);
   const filterDates = datedKeys.map(dayISO).filter(Boolean);
-  const todayInFilter = filterDates.length
-    ? today >= filterDates[0] && today <= filterDates[filterDates.length - 1]
+  const anchorInFilter = filterDates.length
+    ? anchor >= filterDates[0] && anchor <= filterDates[filterDates.length - 1]
     : false;
 
   let visibleDayKeys, hiddenBefore, hiddenAfter;
@@ -1247,7 +1306,7 @@ function renderMatches(phase, week) {
     visibleDayKeys = datedKeys;
     hiddenBefore = [];
     hiddenAfter  = [];
-  } else if (todayInFilter) {
+  } else if (anchorInFilter) {
     visibleDayKeys = datedKeys.filter(k => {
       const iso = dayISO(k);
       return iso && iso >= visibleStart && iso <= visibleEnd;
@@ -2686,7 +2745,10 @@ function _calRenderMonthGrid(year, month, label, today, byDate, showTitle = true
   const firstMatchOffset = (firstMatchWd + 6) % 7; // Mon=0
   const startDay = firstMatchDay - firstMatchOffset;
 
-  let cells = Array(Math.max(0, firstMatchOffset)).fill(`<div class="cal-day empty"></div>`);
+  // El bucle empieza en el lunes de la primera semana con partido (startDay) y
+  // la guarda `day < 1` rellena los huecos previos al día 1, así que no hay que
+  // anteponer celdas vacías (hacerlo desplazaría todos los días).
+  let cells = [];
   for (let day = startDay; day <= daysInMonth; day++) {
     if (day < 1) { cells.push(`<div class="cal-day empty"></div>`); continue; }
     const iso = `${year}-${String(month).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
