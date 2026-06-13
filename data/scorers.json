@@ -3,11 +3,13 @@
     {
       "player": "J. Quiñones",
       "minute": "9'",
+      "own_goal": false,
       "team": "home"
     },
     {
       "player": "R. Jiménez",
       "minute": "67'",
+      "own_goal": false,
       "team": "home"
     }
   ],
@@ -15,16 +17,19 @@
     {
       "player": "I.B. Hwang",
       "minute": "67'",
+      "own_goal": false,
       "team": "home"
     },
     {
       "player": "H.G. Oh",
       "minute": "80'",
+      "own_goal": false,
       "team": "home"
     },
     {
       "player": "L. Krejčí",
       "minute": "59'",
+      "own_goal": false,
       "team": "away"
     }
   ],
@@ -32,38 +37,45 @@
     {
       "player": "C. Larin",
       "minute": "11'",
+      "own_goal": false,
       "team": "home"
     },
     {
       "player": "Jovo Lukić",
       "minute": "21'",
+      "own_goal": false,
       "team": "away"
     }
   ],
   "Estados Unidos-Paraguay": [
     {
-      "player": "D. Bobadilla 7'(OG)",
-      "minute": "",
+      "player": "D. Bobadilla",
+      "minute": "7'",
+      "own_goal": true,
       "team": "home"
     },
     {
       "player": "F. Balogun",
       "minute": "31'",
+      "own_goal": false,
       "team": "home"
     },
     {
-      "player": "F. Balogun 45'+",
-      "minute": "5'",
+      "player": "F. Balogun",
+      "minute": "45'+5'",
+      "own_goal": false,
       "team": "home"
     },
     {
-      "player": "G. Reyna 90'+",
-      "minute": "8'",
+      "player": "G. Reyna",
+      "minute": "90'+8'",
+      "own_goal": false,
       "team": "home"
     },
     {
       "player": "Maurício",
       "minute": "73'",
+      "own_goal": false,
       "team": "away"
     }
   ]

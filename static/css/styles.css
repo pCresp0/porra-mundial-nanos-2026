@@ -150,7 +150,10 @@
     .match-scorers .ms-sep { width: 1px; align-self: stretch; background: rgba(148,163,184,.25); }
     .match-scorers .ms-line { font-size: .72rem; color: #94A3B8; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .match-scorers .ms-name { color: #CBD5E1; font-weight: 600; }
+    .match-scorers .ms-name.ms-og { color: #F87171; }
+    .match-scorers .ms-og-tag { display: inline-block; font-size: .62rem; font-weight: 800; color: #fff; background: #DC2626; border-radius: 3px; padding: 0 .3rem; margin-left: .2rem; vertical-align: middle; line-height: 1.35; }
     .match-scorers .ms-min { color: var(--gold); font-weight: 700; margin-left: .25rem; }
+    .match-scorers .ms-min .ms-extra { color: #FDE047; font-weight: 800; }
     @media (max-width: 480px) {
       .match-score-big { font-size: 2rem; }
       .match-flag { font-size: 1.85rem; }

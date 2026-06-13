@@ -56,11 +56,15 @@ def _norm_key(key: str) -> str:
 
 
 def _parse_scorers(raw, team: str) -> list:
-    """Parse the API scorer string into [{player, minute, team}].
+    """Parse the API scorer string into [{player, minute, own_goal, team}].
 
-    The API is messy: values can be the string "null", a Postgres-array-like
-    string {"Name 67'","Other 80'"} with straight quotes, or with smart/curly
-    quotes {“Name 9'”,”Other 67'”}. Some entries may also be unquoted.
+    The API uses Postgres-array-like strings, e.g.:
+      '{"D. Bobadilla 7\'(OG)","F. Balogun 45\'+5\'"}'
+
+    Patterns handled:
+      "Name 7'(OG)"  → minute="7'",     own_goal=True
+      "Name 31'"     → minute="31'",    own_goal=False
+      "Name 45'+5'"  → minute="45'+5'", own_goal=False
     """
     if raw is None:
         return []
@@ -78,13 +82,22 @@ def _parse_scorers(raw, team: str) -> list:
         seg = seg.strip().strip(",").strip()
         if not seg or seg.lower() == "null":
             continue
-        m = re.match(r"^(.*?)\s*(\d+(?:\+\d+)?)\s*'?$", seg)
+        # Extra-time: "Name 45'+5'" or "Name 45'+ 5'"
+        m = re.match(r"^(.*?)\s*(\d+)\s*'?\s*\+\s*(\d+)\s*'?\s*(\(OG\))?\s*$", seg, re.IGNORECASE)
         if m and m.group(1).strip():
-            player = m.group(1).strip()
-            minute = m.group(2) + "'"
+            player   = m.group(1).strip()
+            minute   = f"{m.group(2)}'+{m.group(3)}'"
+            own_goal = bool(m.group(4))
         else:
-            player, minute = seg, ""
-        out.append({"player": player, "minute": minute, "team": team})
+            # Regular: "Name 7'" or "Name 7'(OG)"
+            m = re.match(r"^(.*?)\s*(\d+)\s*'?\s*(\(OG\))?\s*$", seg, re.IGNORECASE)
+            if m and m.group(1).strip():
+                player   = m.group(1).strip()
+                minute   = m.group(2) + "'"
+                own_goal = bool(m.group(3))
+            else:
+                player, minute, own_goal = seg, "", False
+        out.append({"player": player, "minute": minute, "own_goal": own_goal, "team": team})
     return out
 
 

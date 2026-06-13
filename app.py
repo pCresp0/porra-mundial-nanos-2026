@@ -130,10 +130,44 @@ def _result_from_goals(gl, gv):
     return {"sign": sign, "score": f"{gl}-{gv}"}
 
 
+def _normalize_scorer(s: dict) -> dict:
+    """Normalise scorer dicts that were saved with the old broken parser.
+
+    Old issues (caused by an incorrect regex in _parse_scorers):
+    - OG baked into player: {player:"D. Bobadilla 7'(OG)", minute:""}
+      → {player:"D. Bobadilla", minute:"7'", own_goal:True}
+    - Extra-time split: {player:"F. Balogun 45'+", minute:"5'"}
+      → {player:"F. Balogun", minute:"45'+5'", own_goal:False}
+    """
+    import re as _re
+    player  = s.get("player", "")
+    minute  = s.get("minute", "")
+    own_goal = bool(s.get("own_goal", False))
+
+    # Case 1: extra-time split — player ends with "NN'+" and minute is "M'"
+    m = _re.match(r"^(.*?)\s*(\d+)\s*'\s*\+\s*$", player)
+    if m:
+        extra = _re.match(r"^(\d+)'?$", minute.strip())
+        if extra:
+            return {**s, "player": m.group(1).strip(),
+                    "minute": f"{m.group(2)}'+{extra.group(1)}'",
+                    "own_goal": own_goal}
+
+    # Case 2: OG embedded in player with minute: "Name 7'(OG)"
+    m = _re.match(r"^(.*?)\s*(\d+)\s*'?\s*\(OG\)\s*$", player, _re.IGNORECASE)
+    if m:
+        return {**s, "player": m.group(1).strip(),
+                "minute": m.group(2) + "'",
+                "own_goal": True}
+
+    # Already OK
+    return {**s, "own_goal": own_goal}
+
+
 def _load_scorers():
     """Goalscorers from data/scorers.json (written by fetch_results.py).
 
-    Returns {normalized 'home-away' key -> [{player, minute, team}, …]}.
+    Returns {normalized 'home-away' key -> [{player, minute, own_goal, team}, …]}.
     """
     path = os.path.join(BASE, "data", "scorers.json")
     out = {}
@@ -145,8 +179,9 @@ def _load_scorers():
     for key, lst in raw.items():
         if not isinstance(lst, list):
             continue
-        out[key] = lst
-        out[key.replace(" ", "")] = lst
+        normalised = [_normalize_scorer(s) for s in lst]
+        out[key] = normalised
+        out[key.replace(" ", "")] = normalised
     return out
 
 

@@ -619,11 +619,29 @@ function matchTeamsHtml(m) {
 
 function matchScorersHtml(m) {
   if (!m.played || !Array.isArray(m.scorers) || !m.scorers.length) return "";
-  const fmt = s => `<div class="ms-line">⚽ <span class="ms-name">${escapeHtml(s.player)}</span>${s.minute ? `<span class="ms-min">${escapeHtml(s.minute)}</span>` : ""}</div>`;
+
+  function fmtMinute(raw) {
+    // "45'+5'" → <span>45'</span><span class="ms-extra">+5'</span>
+    // "90'+8'" → same pattern
+    // "31'"    → just the minute
+    if (!raw) return "";
+    const et = raw.match(/^(\d+)'\+(\d+)'$/);
+    if (et) return `${et[1]}'<span class="ms-extra">+${et[2]}'</span>`;
+    return escapeHtml(raw);
+  }
+
+  function fmtLine(s) {
+    const isOG = s.own_goal;
+    const icon = isOG ? '<span class="ms-og-icon">⚽</span>' : "⚽";
+    const name = `<span class="ms-name${isOG ? " ms-og" : ""}">${escapeHtml(s.player)}${isOG ? ' <span class="ms-og-tag">PP</span>' : ""}</span>`;
+    const min  = s.minute ? `<span class="ms-min">${fmtMinute(s.minute)}</span>` : "";
+    return `<div class="ms-line">${icon} ${name}${min}</div>`;
+  }
+
   const homeS = m.scorers.filter(s => s.team === "home");
   const awayS = m.scorers.filter(s => s.team === "away");
   if (!homeS.length && !awayS.length) return "";
-  const col = (arr, align) => `<div class="ms-col" style="text-align:${align}">${arr.map(fmt).join("")}</div>`;
+  const col = (arr, align) => `<div class="ms-col" style="text-align:${align}">${arr.map(fmtLine).join("")}</div>`;
   return `<div class="match-scorers">${col(homeS, "right")}<div class="ms-sep"></div>${col(awayS, "left")}</div>`;
 }
 
