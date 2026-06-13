@@ -1189,16 +1189,15 @@
       display: block;
     }
     .cal-chip-match {
-      display: flex; align-items: center; justify-content: center; gap: .15rem;
+      display: flex; align-items: center; justify-content: center; gap: .2rem;
       font-size: .78rem; padding: .1rem 0;
     }
     .cal-chip-code {
       font-size: .72rem; font-weight: 600; color: #E2E8F0; letter-spacing: .01em;
     }
     .cal-chip-sep {
-      font-size: .65rem; color: #475569; margin: 0 .05rem;
+      font-size: .7rem; color: #64748B; margin: 0 .05rem;
     }
-    .cal-chip-match > .cal-chip-code:first-of-type { order: 2; }
     .cal-month-title { font-size: 1.15rem; }
     .cal-weekday { font-size: .72rem; }
     @media (max-width: 480px) {
