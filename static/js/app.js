@@ -25,6 +25,9 @@ let teamIndex = [];
 let selectedTeamFilter = null;
 let teamSearchInited = false;
 let teamSuggestIdx = -1;
+// Filtros (semana/fase) guardados al activar la búsqueda de equipo, para
+// restaurarlos cuando se quite la búsqueda. null = no hay búsqueda activa.
+let savedFiltersBeforeSearch = null;
 
 function todaySpainISO() {
   return new Date().toLocaleDateString("en-CA", { timeZone: "Europe/Madrid" });
@@ -147,7 +150,16 @@ function renderTeamSuggestions(query) {
 }
 
 function selectTeamFilter(team) {
+  // Guardar los filtros activos la primera vez que se entra en búsqueda, para
+  // poder restaurarlos al quitarla. Al buscar un equipo se quitan los filtros
+  // de semana y fase para que aparezcan TODOS sus partidos.
+  if (savedFiltersBeforeSearch === null) {
+    savedFiltersBeforeSearch = { week: currentWeek, phase: currentPhase };
+  }
   selectedTeamFilter = team;
+  currentWeek = "all";
+  currentPhase = "all";
+  syncMatchFiltersUI();
   const input = document.getElementById("team-search-input");
   const clearBtn = document.getElementById("team-search-clear");
   if (input) input.value = `${team.flag} ${team.name}`;
@@ -162,6 +174,13 @@ function selectTeamFilter(team) {
 
 function clearTeamFilter() {
   selectedTeamFilter = null;
+  // Restaurar los filtros de semana/fase que había antes de buscar.
+  if (savedFiltersBeforeSearch) {
+    currentWeek = savedFiltersBeforeSearch.week;
+    currentPhase = savedFiltersBeforeSearch.phase;
+    savedFiltersBeforeSearch = null;
+  }
+  syncMatchFiltersUI();
   const input = document.getElementById("team-search-input");
   const clearBtn = document.getElementById("team-search-clear");
   if (input) input.value = "";
@@ -171,6 +190,14 @@ function clearTeamFilter() {
   resetMatchesDayWindow();
   scrollMatchesToToday = true;
   renderMatches(currentPhase, currentWeek);
+}
+
+// Refleja el estado de currentWeek/currentPhase en los botones de filtro
+function syncMatchFiltersUI() {
+  document.querySelectorAll("#week-filter .week-btn").forEach(b =>
+    b.classList.toggle("active", b.dataset.week === currentWeek));
+  document.querySelectorAll(".phase-btn").forEach(b =>
+    b.classList.toggle("active", b.dataset.phase === currentPhase));
 }
 
 function syncTeamSearchUI() {
@@ -999,8 +1026,9 @@ function renderWeekFilter() {
   const weeks = D.meta.weeks || [];
   const today = todaySpainISO();
 
-  // Auto-select the current week on first render
-  if (currentWeek === "all" && weeks.length) {
+  // Auto-select the current week on first render (no mientras hay búsqueda de
+  // equipo activa: en ese caso queremos ver todas las semanas)
+  if (currentWeek === "all" && weeks.length && !selectedTeamFilter) {
     const cur = weeks.find(w => today >= w.from && today <= w.to);
     if (cur) currentWeek = cur.id;
   }
@@ -2476,6 +2504,42 @@ function initCountdown() {
    CALENDAR TAB
 ═══════════════════════════════════════════════════════════════ */
 let calView = "week"; // "day" | "week" | "month" — por defecto la semana en curso
+let calOffset = 0;     // desplazamiento (en días/semanas/meses) respecto al periodo base
+
+const MESES_CAL = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+
+// Primer y último día del Mundial (días con partidos, dentro de junio/julio 2026)
+function _calWcBounds(byDate) {
+  const dates = Object.keys(byDate).filter(d => d >= "2026-06-01" && d <= "2026-07-31").sort();
+  return { first: dates[0] || null, last: dates[dates.length - 1] || null };
+}
+
+// Lunes (ISO) de la semana que contiene `iso`
+function _calWeekMonday(iso) { return _calWeekDays(iso)[0]; }
+
+// Título de una semana a partir de sus 7 días (p. ej. "8 – 14 junio")
+function _calWeekTitle(days) {
+  const [, m1, d1] = days[0].split("-").map(Number);
+  const [, m2, d2] = days[6].split("-").map(Number);
+  return m1 === m2
+    ? `${d1} – ${d2} ${MESES_CAL[m2 - 1]}`
+    : `${d1} ${MESES_CAL[m1 - 1]} – ${d2} ${MESES_CAL[m2 - 1]}`;
+}
+
+// Barra de navegación con flechas ‹ › (se ocultan en los extremos del Mundial,
+// pero mantienen su hueco para que el título quede siempre centrado)
+function _calNavBar(title, canPrev, canNext) {
+  const prev = canPrev
+    ? `<button type="button" class="cal-nav-btn" onclick="calStep(-1)" aria-label="Periodo anterior">‹</button>`
+    : `<span class="cal-nav-btn is-hidden" aria-hidden="true">‹</span>`;
+  const next = canNext
+    ? `<button type="button" class="cal-nav-btn" onclick="calStep(1)" aria-label="Periodo siguiente">›</button>`
+    : `<span class="cal-nav-btn is-hidden" aria-hidden="true">›</span>`;
+  return `<div class="cal-nav">${prev}<div class="cal-nav-title">${title}</div>${next}</div>`;
+}
+
+// Avanza/retrocede el periodo visible (día, semana o mes según la vista)
+function calStep(n) { calOffset += n; renderCalendar(); }
 
 // Días (ISO) de la semana lunes-domingo que contiene `todayISO`
 function _calWeekDays(todayISO) {
@@ -2567,10 +2631,9 @@ function _calRenderList(days, today, byDate, emptyMsg) {
 }
 
 // Rejilla de la semana en curso (mismo estilo que la vista Mes)
-function _calRenderWeekGrid(days, today, byDate) {
+function _calRenderWeekGrid(days, today, byDate, showTitle = true) {
   const DAYS_ES = ["L","M","X","J","V","S","D"];
   const WEEKENDS = [5, 6];
-  const MESES = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
 
   const weekdayHeader = DAYS_ES.map((d, i) =>
     `<div class="cal-weekday${WEEKENDS.includes(i) ? " weekend" : ""}">${d}</div>`
@@ -2593,18 +2656,60 @@ function _calRenderWeekGrid(days, today, byDate) {
     return `<div class="${cls}" ${clickAttr}><div class="cal-day-num">${dd}</div>${chips}</div>`;
   }).join("");
 
-  // Título: rango de la semana (p. ej. "8 – 14 junio")
-  const [, m1, d1] = days[0].split("-").map(Number);
-  const [, m2, d2] = days[6].split("-").map(Number);
-  const title = m1 === m2
-    ? `${d1} – ${d2} ${MESES[m2 - 1]}`
-    : `${d1} ${MESES[m1 - 1]} – ${d2} ${MESES[m2 - 1]}`;
+  return `
+    <div class="cal-month">
+      ${showTitle ? `<div class="cal-month-title">${_calWeekTitle(days)}</div>` : ""}
+      <div class="cal-weekdays">${weekdayHeader}</div>
+      <div class="cal-days">${cells}</div>
+    </div>`;
+}
+
+// Rejilla de un mes concreto (junio o julio 2026)
+function _calRenderMonthGrid(year, month, label, today, byDate, showTitle = true) {
+  const DAYS_ES = ["L","M","X","J","V","S","D"];
+  const WEEKENDS = [5, 6]; // índices sábado/domingo (0=Lunes)
+  const daysInMonth = new Date(year, month, 0).getDate();
+
+  const weekdayHeader = DAYS_ES.map((d, i) =>
+    `<div class="cal-weekday${WEEKENDS.includes(i) ? " weekend" : ""}">${d}</div>`
+  ).join("");
+
+  // Primer día del mes con partido, para saltar semanas vacías al principio
+  const firstMatchDay = (() => {
+    for (let d = 1; d <= daysInMonth; d++) {
+      const iso = `${year}-${String(month).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+      if (byDate[iso]?.length) return d;
+    }
+    return 1;
+  })();
+  const firstMatchWd = new Date(year, month - 1, firstMatchDay).getDay();
+  const firstMatchOffset = (firstMatchWd + 6) % 7; // Mon=0
+  const startDay = firstMatchDay - firstMatchOffset;
+
+  let cells = Array(Math.max(0, firstMatchOffset)).fill(`<div class="cal-day empty"></div>`);
+  for (let day = startDay; day <= daysInMonth; day++) {
+    if (day < 1) { cells.push(`<div class="cal-day empty"></div>`); continue; }
+    const iso = `${year}-${String(month).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+    const matches = byDate[iso] || [];
+    const isToday = iso === today;
+    const hasMath = matches.length > 0;
+
+    let cls = "cal-day";
+    cls += hasMath ? " has-match" : " no-match";
+    if (isToday) cls += " is-today";
+
+    const chips = matches.map(m => _calMatchChip(m, iso)).join("");
+    const clickAttr = hasMath
+      ? `onclick="goToMatchesDay('${iso}')" title="${matches.map(m=>(m.home||"")+" - "+(m.away||"")).join(" · ")}"`
+      : "";
+    cells.push(`<div class="${cls}" ${clickAttr}><div class="cal-day-num">${day}</div>${chips}</div>`);
+  }
 
   return `
     <div class="cal-month">
-      <div class="cal-month-title">${title}</div>
+      ${showTitle ? `<div class="cal-month-title">${label}</div>` : ""}
       <div class="cal-weekdays">${weekdayHeader}</div>
-      <div class="cal-days">${cells}</div>
+      <div class="cal-days">${cells.join("")}</div>
     </div>`;
 }
 
@@ -2621,6 +2726,7 @@ function renderCalendar() {
     filter.querySelectorAll(".cal-view-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         calView = btn.dataset.view;
+        calOffset = 0; // al cambiar de vista volvemos al periodo actual
         renderCalendar();
       });
     });
@@ -2654,93 +2760,53 @@ function renderCalendar() {
   Object.values(byDate).forEach(arr =>
     arr.sort((a, b) => (a.time_es || "").localeCompare(b.time_es || "")));
 
-  // ── Vistas Hoy / Mañana / Esta semana ──
-  if (calView === "day") {
-    container.innerHTML = _calRenderList([today], today, byDate, "No hay partidos hoy.");
+  // Límites del Mundial (para no dejar navegar fuera de junio/julio)
+  const { first: wcFirst, last: wcLast } = _calWcBounds(byDate);
+
+  // ── Vistas Hoy / Mañana (un solo día, con flechas día a día) ──
+  if (calView === "day" || calView === "tomorrow") {
+    const base = calView === "tomorrow" ? _calAddDays(today, 1) : today;
+    let refDate = _calAddDays(base, calOffset);
+    if (wcFirst && refDate < wcFirst) refDate = wcFirst;
+    if (wcLast && refDate > wcLast) refDate = wcLast;
+    const canPrev = !!wcFirst && refDate > wcFirst;
+    const canNext = !!wcLast && refDate < wcLast;
+    const title = (refDate === today ? "Hoy · " : "") + _calFmtDay(refDate);
+    const empty = refDate === today ? "No hay partidos hoy." : "No hay partidos este día.";
+    container.innerHTML = _calNavBar(title, canPrev, canNext) +
+      _calRenderList([refDate], today, byDate, empty);
     return;
   }
-  if (calView === "tomorrow") {
-    const tomorrow = _calAddDays(today, 1);
-    container.innerHTML = _calRenderList([tomorrow], today, byDate, "No hay partidos mañana.");
-    return;
-  }
+
+  // ── Vista Esta semana (con flechas semana a semana) ──
   if (calView === "week") {
+    const baseMonday = _calWeekMonday(today);
+    const refMonday = _calAddDays(baseMonday, calOffset * 7);
+    const days = _calWeekDays(refMonday);
+    const firstMonday = wcFirst ? _calWeekMonday(wcFirst) : null;
+    const lastMonday = wcLast ? _calWeekMonday(wcLast) : null;
+    const canPrev = !!firstMonday && refMonday > firstMonday;
+    const canNext = !!lastMonday && refMonday < lastMonday;
     // En móvil: listado con horas; en web: rejilla tipo calendario
     const isMobile = window.matchMedia("(max-width: 767px)").matches;
-    container.innerHTML = isMobile
-      ? _calRenderList(_calWeekDays(today), today, byDate, "No hay partidos esta semana.")
-      : _calRenderWeekGrid(_calWeekDays(today), today, byDate);
+    const body = isMobile
+      ? _calRenderList(days, today, byDate, "No hay partidos esta semana.")
+      : _calRenderWeekGrid(days, today, byDate, false);
+    container.innerHTML = _calNavBar(_calWeekTitle(days), canPrev, canNext) + body;
     return;
   }
 
-  // ── Vista Este mes (rejilla) ──
-  const months = [
-    { year: 2026, month: 6, label: "Junio 2026" },
-    { year: 2026, month: 7, label: "Julio 2026" },
-  ].filter(({ year, month }) => {
-    // Mostrar solo el mes en curso (según la fecha de España): durante junio se
-    // ve el de junio y, al pasar a julio, cambia solo al de julio. Si la fecha
-    // queda fuera de junio/julio 2026, se muestran todos como respaldo.
-    const [ty, tm] = today.split("-").map(Number);
-    const inRange = (ty === 2026 && (tm === 6 || tm === 7));
-    return inRange ? (year === ty && month === tm) : true;
-  });
-
-  const DAYS_ES = ["L","M","X","J","V","S","D"];
-  const WEEKENDS = [5, 6]; // índices sábado/domingo (0=Lunes)
-
-  container.innerHTML = months.map(({ year, month, label }) => {
-    const daysInMonth = new Date(year, month, 0).getDate();
-    // weekday of day 1: 0=Sun..6=Sat → convert to Mon-based index
-    const firstWd = new Date(year, month - 1, 1).getDay(); // 0=Sun
-    const startOffset = (firstWd + 6) % 7; // Mon=0
-
-    const weekdayHeader = DAYS_ES.map((d, i) =>
-      `<div class="cal-weekday${WEEKENDS.includes(i) ? " weekend" : ""}">${d}</div>`
-    ).join("");
-
-    // Find the first day of the month that has a match, to skip leading empty rows
-    const firstMatchDay = (() => {
-      for (let d = 1; d <= daysInMonth; d++) {
-        const iso = `${year}-${String(month).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
-        if (byDate[iso]?.length) return d;
-      }
-      return 1;
-    })();
-    // Recalculate offset from the week that contains firstMatchDay
-    const firstMatchWd = new Date(year, month - 1, firstMatchDay).getDay();
-    const firstMatchOffset = (firstMatchWd + 6) % 7; // Mon=0
-    // startDay is the Monday of the week containing firstMatchDay
-    const startDay = firstMatchDay - firstMatchOffset;
-
-    let cells = Array(Math.max(0, firstMatchOffset)).fill(`<div class="cal-day empty"></div>`);
-
-    for (let day = startDay; day <= daysInMonth; day++) {
-      if (day < 1) { cells.push(`<div class="cal-day empty"></div>`); continue; }
-      const iso = `${year}-${String(month).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
-      const matches = byDate[iso] || [];
-      const isToday = iso === today;
-      const hasMath = matches.length > 0;
-
-      let cls = "cal-day";
-      if (!hasMath) cls += " no-match";
-      else cls += " has-match";
-      if (isToday) cls += " is-today";
-
-      const chips = matches.map(m => _calMatchChip(m, iso)).join("");
-
-      const clickAttr = hasMath ? `onclick="goToMatchesDay('${iso}')" title="${matches.map(m=>(m.home||"")+" - "+(m.away||"")).join(" · ")}"` : "";
-
-      cells.push(`<div class="${cls}" ${clickAttr}><div class="cal-day-num">${day}</div>${chips}</div>`);
-    }
-
-    return `
-      <div class="cal-month">
-        <div class="cal-month-title">${label}</div>
-        <div class="cal-weekdays">${weekdayHeader}</div>
-        <div class="cal-days">${cells.join("")}</div>
-      </div>`;
-  }).join("");
+  // ── Vista Este mes (rejilla, con flechas entre junio y julio) ──
+  const [ty, tm] = today.split("-").map(Number);
+  const baseMonth = (ty === 2026 && (tm === 6 || tm === 7)) ? tm : 6;
+  let month = baseMonth + calOffset;
+  if (month < 6) month = 6;
+  if (month > 7) month = 7;
+  const canPrev = month > 6;
+  const canNext = month < 7;
+  const label = (month === 6 ? "Junio" : "Julio") + " 2026";
+  container.innerHTML = _calNavBar(label, canPrev, canNext) +
+    _calRenderMonthGrid(2026, month, label, today, byDate, false);
 }
 
 function goToMatchesDay(isoDate, matchName) {
@@ -3107,6 +3173,10 @@ function _renderAdminGate(error) {
     const hash = await _sha256Hex(val);
     if (hash === ADMIN_PASS_HASH) {
       markAdminUnlocked();
+      // Guarda el PIN para reutilizarlo como clave de lectura de las
+      // sugerencias (mismo valor que READ_TOKEN en el Apps Script). Así no
+      // hay que volver a teclear nada y la lista se carga sola.
+      try { localStorage.setItem(FEEDBACK_TOKEN_KEY, val); } catch { /* ignore */ }
       _buildAdminPanel();
     } else {
       _renderAdminGate("PIN incorrecto");
@@ -3649,12 +3719,6 @@ function _buildAdminPanel() {
 }
 
 // ── Sugerencias en el panel de admin (lee del Apps Script con el PIN) ──
-function _fbTypeBadge(type) {
-  return type === "Bug"
-    ? '<span class="adm-fb-type bug">🐛 Fallo</span>'
-    : '<span class="adm-fb-type mejora">💡 Mejora</span>';
-}
-
 function _fbEscape(s) {
   return String(s == null ? "" : s)
     .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -3662,33 +3726,6 @@ function _fbEscape(s) {
 
 function _fbGetToken() {
   try { return localStorage.getItem(FEEDBACK_TOKEN_KEY) || ""; } catch { return ""; }
-}
-
-// Guarda el token de lectura (desde el formulario del panel) y recarga la lista.
-function saveFeedbackToken() {
-  const input = document.getElementById("adm-fb-token-input");
-  const val = (input?.value || "").trim();
-  if (!val) { input?.focus(); return; }
-  try { localStorage.setItem(FEEDBACK_TOKEN_KEY, val); } catch { /* ignore */ }
-  _loadAdminFeedback();
-}
-
-// Olvida el token (por si te equivocaste al pegarlo).
-function clearFeedbackToken() {
-  try { localStorage.removeItem(FEEDBACK_TOKEN_KEY); } catch { /* ignore */ }
-  _loadAdminFeedback();
-}
-
-function _fbTokenForm(msg) {
-  return `<div class="adm-fb-token">
-      ${msg ? `<div class="adm-fb-token-msg">${msg}</div>` : ""}
-      <div class="adm-fb-token-row">
-        <input type="password" id="adm-fb-token-input" class="adm-fb-token-input"
-          placeholder="Pega aquí tu clave de lectura" autocomplete="off" spellcheck="false" />
-        <button type="button" class="adm-fb-token-btn" onclick="saveFeedbackToken()">Ver sugerencias</button>
-      </div>
-      <div class="adm-rel">La clave se guarda solo en este dispositivo. Es la misma que pusiste en <code>READ_TOKEN</code> del Apps Script.</div>
-    </div>`;
 }
 
 async function _loadAdminFeedback() {
@@ -3701,10 +3738,10 @@ async function _loadAdminFeedback() {
     return;
   }
 
+  // Usa el PIN guardado al entrar al panel como clave de lectura.
   const token = _fbGetToken();
   if (!token) {
-    if (badge) badge.textContent = "";
-    list.innerHTML = _fbTokenForm("Introduce tu clave de lectura para ver las sugerencias:");
+    list.innerHTML = `<div class="adm-empty">Cierra y vuelve a abrir el panel con tu PIN para cargar las sugerencias.</div>`;
     return;
   }
 
@@ -3714,32 +3751,40 @@ async function _loadAdminFeedback() {
     const data = await res.json().catch(() => ({}));
     if (!data || data.ok !== true) {
       if (data?.error === "unauthorized") {
-        if (badge) badge.textContent = "";
-        list.innerHTML = _fbTokenForm("⚠️ Clave incorrecta. Vuelve a introducir tu clave de lectura:");
+        list.innerHTML = `<div class="adm-empty">⚠️ El PIN no coincide con <code>READ_TOKEN</code> del Apps Script. Ponlos iguales para ver las sugerencias.</div>`;
       } else {
         list.innerHTML = `<div class="adm-empty">No se pudieron cargar las sugerencias.</div>`;
       }
+      if (badge) badge.textContent = "";
       return;
     }
     const items = data.items || [];
     if (badge) badge.textContent = String(items.length);
-    const changeLink = `<div class="adm-fb-foot"><button type="button" class="adm-fb-token-clear" onclick="clearFeedbackToken()">🔑 Cambiar clave de lectura</button></div>`;
     if (!items.length) {
-      list.innerHTML = `<div class="adm-empty">Aún no hay sugerencias. Cuando alguien envíe una, aparecerá aquí.</div>${changeLink}`;
+      list.innerHTML = `<div class="adm-empty">Aún no hay sugerencias. Cuando alguien envíe una, aparecerá aquí.</div>`;
       return;
     }
-    list.innerHTML = items.map(it => {
+    // Más recientes arriba
+    const sorted = [...items].sort((a, b) => {
+      const ta = new Date(a.ts).getTime() || 0;
+      const tb = new Date(b.ts).getTime() || 0;
+      return tb - ta;
+    });
+    const rows = sorted.map(it => {
       const d = new Date(it.ts);
-      const when = isNaN(d) ? "" : d.toLocaleString("es-ES", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
-      return `<div class="adm-fb-row ${it.type === "Bug" ? "bug" : "mejora"}">
-        <div class="adm-fb-top">
-          ${_fbTypeBadge(it.type)}
-          <span class="adm-fb-name">${_fbEscape(it.name)}</span>
-          <span class="adm-fb-when">${when}</span>
-        </div>
-        <div class="adm-fb-text">${_fbEscape(it.text)}</div>
-      </div>`;
-    }).join("") + changeLink;
+      const when = isNaN(d) ? "" : d.toLocaleString("es-ES", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" });
+      const isBug = it.type === "Bug";
+      return `<tr class="${isBug ? "bug" : "mejora"}">
+        <td class="adm-fb-td-name">${_fbEscape(it.name)}</td>
+        <td class="adm-fb-td-type">${isBug ? "🐛 Fallo" : "💡 Mejora"}</td>
+        <td class="adm-fb-td-text">${_fbEscape(it.text)}</td>
+        <td class="adm-fb-td-when">${when}</td>
+      </tr>`;
+    }).join("");
+    list.innerHTML = `<div class="adm-fb-tablewrap"><table class="adm-fb-table">
+      <thead><tr><th>Quién</th><th>Tipo</th><th>Descripción</th><th>Fecha</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>`;
   } catch {
     list.innerHTML = `<div class="adm-empty">No se pudieron cargar las sugerencias (sin conexión con el servidor de recogida).</div>`;
   }

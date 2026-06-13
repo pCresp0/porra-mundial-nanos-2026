@@ -16,9 +16,9 @@
  *  1. Entra en https://script.google.com  y pulsa «Nuevo proyecto».
  *  2. Borra lo que haya y pega TODO este archivo.
  *  3. Arriba, en `CONFIG`, cambia:
- *       - READ_TOKEN  → una clave LARGA y aleatoria (la que te dio el
- *                       asistente, o invéntate una de 20+ caracteres).
- *                       Es la que protege la LECTURA de las sugerencias.
+ *       - READ_TOKEN  → pon el MISMO PIN que usas para entrar al panel
+ *                       de admin (p. ej. 13129). Es lo que protege la
+ *                       LECTURA de las sugerencias.
  *       - NOTIFY_EMAIL → tu correo (donde quieres recibir el aviso).
  *  4. Guarda (icono del disquete o Ctrl+S).
  *  5. Pulsa «Implementar» (Deploy) → «Nueva implementación».
@@ -39,10 +39,10 @@
  */
 
 const CONFIG = {
-  // Clave LARGA y aleatoria que protege la LECTURA de las sugerencias.
-  // La pegas UNA vez en el panel de admin (se guarda solo en tu navegador).
-  // No la subas al repo: vive solo aquí, en tu Apps Script privado.
-  READ_TOKEN: "PON_AQUI_UN_TOKEN_LARGO_ALEATORIO",
+  // Clave que protege la LECTURA de las sugerencias. Pon el MISMO PIN que
+  // usas para entrar al panel de admin (p. ej. 13129). Así el panel carga
+  // la lista solo, sin teclear nada más.
+  READ_TOKEN: "PON_AQUI_TU_PIN",
   NOTIFY_EMAIL: "TU_CORREO@gmail.com",  // a dónde llega el aviso por correo
   SHEET_NAME: "Sugerencias",            // pestaña de la hoja (se crea sola)
   NOTIFY: true                          // false = no enviar correo, solo guardar
