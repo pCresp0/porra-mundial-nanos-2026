@@ -2426,6 +2426,200 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
 document.getElementById("update-banner")?.classList.remove("hidden");
 startCountdown();
 
+/* ═══════════════════════════════════════════════════════════════
+   ADMIN PANEL — desbloqueo secreto: 6 clics en el contador de visitas
+═══════════════════════════════════════════════════════════════ */
+(function initAdminUnlock() {
+  const NEEDED = 6;
+  let clicks = 0, timer = null;
+
+  function reset() { clicks = 0; }
+
+  function showHint(msg) {
+    const wrap = document.getElementById("visitor-counter");
+    if (!wrap) return;
+    // remove any existing hint
+    wrap.querySelectorAll(".admin-hint").forEach(h => h.remove());
+    const h = document.createElement("div");
+    h.className = "admin-hint";
+    h.textContent = msg;
+    wrap.style.position = "relative";
+    wrap.appendChild(h);
+    setTimeout(() => h.remove(), 1400);
+  }
+
+  document.addEventListener("click", e => {
+    if (!e.target.closest("#visitor-counter")) return;
+    clearTimeout(timer);
+    clicks++;
+    timer = setTimeout(reset, 3000);
+
+    const remaining = NEEDED - clicks;
+    if (remaining === 2)      showHint("⚡ quedan 2 más");
+    else if (remaining === 1) showHint("⚡ queda 1 más");
+    else if (remaining <= 0)  { reset(); clearTimeout(timer); openAdminPanel(); }
+  });
+})();
+
+function openAdminPanel() {
+  const modal = document.getElementById("admin-modal");
+  if (!modal) return;
+  _buildAdminPanel();
+  modal.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+}
+function closeAdminPanel() {
+  const modal = document.getElementById("admin-modal");
+  if (modal) modal.classList.add("hidden");
+  document.body.style.overflow = "";
+}
+// close on backdrop click
+document.addEventListener("click", e => {
+  const modal = document.getElementById("admin-modal");
+  if (modal && !modal.classList.contains("hidden") && e.target === modal) closeAdminPanel();
+});
+
+function _buildAdminPanel() {
+  const body = document.getElementById("admin-modal-body");
+  if (!body) return;
+
+  const meta = D?.meta || {};
+  const upd  = meta.update || {};
+  const now  = new Date();
+
+  function relTime(isoStr) {
+    if (!isoStr) return "";
+    const d = new Date(isoStr);
+    if (isNaN(d)) return "";
+    const min = Math.round((now - d) / 60000);
+    if (min < 1)  return "hace menos de 1 min";
+    if (min < 60) return `hace ${min} min`;
+    const h = Math.floor(min / 60), m = min % 60;
+    return `hace ${h}h${m ? " " + m + "min" : ""}`;
+  }
+  function futureTime(isoStr) {
+    if (!isoStr) return "";
+    const d = new Date(isoStr);
+    if (isNaN(d)) return "";
+    const min = Math.round((d - now) / 60000);
+    if (min <= 0)  return "ahora mismo";
+    if (min < 60)  return `en ${min} min`;
+    const h = Math.floor(min / 60), m = min % 60;
+    return `en ${h}h${m ? " " + m + "min" : ""}`;
+  }
+
+  const allMatches = D?.matches || [];
+  const played     = allMatches.filter(m => m.played);
+  const phaseLabel = { groups:"Grupos", r16:"16avos", r8:"Octavos", r4:"Cuartos", r2:"Semis", final:"Final", positions:"Pos." };
+
+  const visitorCount = document.getElementById("visitor-count")?.textContent || "—";
+
+  body.innerHTML = `
+
+    <div class="adm-section">
+      <div class="adm-section-title">📦 Datos y actualización</div>
+      <div class="adm-grid">
+        <div class="adm-cell">
+          <div class="adm-label">JSON generado</div>
+          <div class="adm-value">${meta.generated || "—"}</div>
+        </div>
+        <div class="adm-cell">
+          <div class="adm-label">Última actualización</div>
+          <div class="adm-value">${upd.last_updated_date || "—"} ${upd.last_updated_time || ""}
+            ${relTime(upd.last_updated_iso) ? `<br><span class="adm-rel">${relTime(upd.last_updated_iso)}</span>` : ""}
+          </div>
+        </div>
+        <div class="adm-cell">
+          <div class="adm-label">Próxima actualización</div>
+          <div class="adm-value">${upd.next_update_time || "—"}
+            ${futureTime(upd.next_update_iso) ? `<br><span class="adm-rel">${futureTime(upd.next_update_iso)}</span>` : ""}
+          </div>
+        </div>
+        <div class="adm-cell">
+          <div class="adm-label">Cadencia</div>
+          <div class="adm-value">${upd.schedule_label || "—"}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="adm-section">
+      <div class="adm-section-title">
+        📡 Partidos con resultado
+        <span class="adm-badge">${played.length} / ${allMatches.length}</span>
+      </div>
+      <div class="adm-matches">
+        ${played.length ? played.map(m => {
+          const hasScore = m.goals_l != null && m.goals_v != null;
+          const scoreStr = hasScore ? `${m.goals_l}-${m.goals_v}` : (m.result || "—");
+          return `<div class="adm-match-row">
+            <span class="adm-match-name">
+              ${m.flag_home || ""}${m.home || ""} <strong>${scoreStr}</strong> ${m.away || ""}${m.flag_away || ""}
+            </span>
+            <span style="display:flex;gap:.4rem;align-items:center">
+              <span class="adm-match-phase">${phaseLabel[m.phase] || m.phase || ""}</span>
+              <span class="adm-match-updated ${hasScore ? "yes" : "no"}">${hasScore ? "✓ score" : "sin score"}</span>
+            </span>
+          </div>`;
+        }).join("") : '<div class="adm-empty">Sin partidos jugados aún</div>'}
+      </div>
+    </div>
+
+    <div class="adm-section">
+      <div class="adm-section-title">👁 Visitas</div>
+      <div class="adm-grid">
+        <div class="adm-cell">
+          <div class="adm-label">Total de visitas</div>
+          <div class="adm-value adm-big">${visitorCount}</div>
+        </div>
+        <div class="adm-cell">
+          <div class="adm-label">Plataforma</div>
+          <div class="adm-value">page-views-api.ratneshc.com<br><span class="adm-rel">contador anónimo</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="adm-section">
+      <div class="adm-section-title">⚙️ Configuración de puntuación</div>
+      <div class="adm-grid">
+        <div class="adm-cell">
+          <div class="adm-label">1X2 (signo)</div>
+          <div class="adm-value adm-big">${meta.scoring?.sign ?? "—"} pts</div>
+        </div>
+        <div class="adm-cell">
+          <div class="adm-label">Diferencia goles</div>
+          <div class="adm-value adm-big">${meta.scoring?.diff ?? "—"} pt</div>
+        </div>
+        <div class="adm-cell">
+          <div class="adm-label">Resultado exacto</div>
+          <div class="adm-value adm-big">${meta.scoring?.exact ?? "—"} pts</div>
+        </div>
+        <div class="adm-cell">
+          <div class="adm-label">Máx. por partido</div>
+          <div class="adm-value adm-big">${((meta.scoring?.sign||0)+(meta.scoring?.diff||0)+(meta.scoring?.exact||0))||"—"} pts</div>
+        </div>
+        <div class="adm-cell">
+          <div class="adm-label">Premio 1.º</div>
+          <div class="adm-value adm-big">${meta.prizes?.first ?? "—"}${meta.prizes?.currency || "€"}</div>
+        </div>
+        <div class="adm-cell">
+          <div class="adm-label">Premio 2.º</div>
+          <div class="adm-value adm-big">${meta.prizes?.second ?? "—"}${meta.prizes?.currency || "€"}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="adm-section">
+      <div class="adm-section-title">🔗 Links rápidos</div>
+      <div class="adm-links">
+        <a href="https://github.com/pCresp0/porra-mundial-nanos-2026" target="_blank" rel="noopener" class="adm-link">📁 Repo GitHub</a>
+        <a href="https://github.com/pCresp0/porra-mundial-nanos-2026/actions" target="_blank" rel="noopener" class="adm-link">⚙️ GitHub Actions</a>
+        <a href="https://worldcup26.ir/get/games" target="_blank" rel="noopener" class="adm-link">🌐 API del Mundial</a>
+        <a href="${IS_GH_PAGES ? "data.json" : "/api/data"}" target="_blank" rel="noopener" class="adm-link">📄 data.json</a>
+      </div>
+    </div>
+  `;
+}
+
 async function initVisitorCounter() {
   const wrap = document.getElementById("visitor-counter");
   const countEl = document.getElementById("visitor-count");

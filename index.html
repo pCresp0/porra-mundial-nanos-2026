@@ -613,6 +613,24 @@
   <button class="music-btn" id="music-btn" title="🎵 Línea de Cal — pulsa para abrir">🎵</button>
 </div>
 
+<!-- ════════════════════════════════════════════
+     ADMIN PANEL MODAL (secret: 6 clicks en el contador de visitas)
+════════════════════════════════════════════ -->
+<div id="admin-modal" class="adm-backdrop hidden" role="dialog" aria-modal="true" aria-label="Panel de administración">
+  <div class="adm-modal">
+    <div class="adm-head">
+      <div>
+        <div class="adm-head-title">🔐 Panel de Admin</div>
+        <div class="adm-head-sub">Porra «Los Nanos» · Mundial 2026</div>
+      </div>
+      <button class="adm-close" onclick="closeAdminPanel()" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="adm-body" id="admin-modal-body">
+      <p class="text-gray-400 text-sm">Cargando…</p>
+    </div>
+  </div>
+</div>
+
 <script src="static/js/app.js"></script>
 </body>
 </html>
