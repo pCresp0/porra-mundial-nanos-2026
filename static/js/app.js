@@ -2468,54 +2468,58 @@ async function _sha256Hex(str) {
 
   if (isTouch) {
     // ── Pulsación larga (long-press) en móvil ──
+    // Atamos los listeners SOLO al contador para no interferir con el resto
+    // de la página (p. ej. el input de contraseña del propio panel).
     const LONG_MS = 650;
-    let pressTimer = null, fired = false, onCounter = false, startY = 0, startX = 0;
+    let pressTimer = null, fired = false, startY = 0, startX = 0;
 
     function clearPress() {
       clearTimeout(pressTimer);
       pressTimer = null;
     }
-    function onStart(e) {
-      // Reinicia el estado en CADA toque para no arrastrar el long-press
-      // anterior (si no, bloquearíamos el foco del input de contraseña).
-      fired = false;
-      onCounter = !!e.target.closest?.("#visitor-counter");
-      if (!onCounter) return;
-      const t = e.touches ? e.touches[0] : e;
-      startX = t.clientX; startY = t.clientY;
-      clearPress();
-      pressTimer = setTimeout(() => {
-        fired = true;
-        if (navigator.vibrate) navigator.vibrate(30);
-        openAdminGate();
-      }, LONG_MS);
-    }
-    function onMove(e) {
-      if (pressTimer == null) return;
-      const t = e.touches ? e.touches[0] : e;
-      if (Math.abs(t.clientX - startX) > 12 || Math.abs(t.clientY - startY) > 12) clearPress();
-    }
-    function onEnd(e) {
-      // Solo prevenimos el comportamiento por defecto si el toque empezó
-      // sobre el contador y disparó el long-press (evita el click fantasma).
-      if (onCounter && fired && e.cancelable) e.preventDefault();
-      clearPress();
+
+    function bind(counter) {
+      if (!counter || counter.dataset.lpBound === "1") return;
+      counter.dataset.lpBound = "1";
+
+      counter.addEventListener("touchstart", e => {
+        const t = e.touches ? e.touches[0] : e;
+        startX = t.clientX; startY = t.clientY;
+        fired = false;
+        clearPress();
+        pressTimer = setTimeout(() => {
+          fired = true;
+          if (navigator.vibrate) navigator.vibrate(30);
+          openAdminGate();
+        }, LONG_MS);
+      }, { passive: true });
+
+      counter.addEventListener("touchmove", e => {
+        if (pressTimer == null) return;
+        const t = e.touches ? e.touches[0] : e;
+        if (Math.abs(t.clientX - startX) > 12 || Math.abs(t.clientY - startY) > 12) clearPress();
+      }, { passive: true });
+
+      counter.addEventListener("touchend", e => {
+        // Si disparó el long-press, evita el click fantasma posterior.
+        if (fired && e.cancelable) e.preventDefault();
+        clearPress();
+      }, { passive: false });
+
+      counter.addEventListener("touchcancel", clearPress, { passive: true });
+
+      // Sin menú contextual al mantener pulsado el contador.
+      counter.addEventListener("contextmenu", e => e.preventDefault());
+
+      // Bloquea el click sintético tras un long-press (solo en el contador).
+      counter.addEventListener("click", e => {
+        if (fired) { e.preventDefault(); e.stopPropagation(); fired = false; }
+      }, true);
     }
 
-    document.addEventListener("touchstart", onStart, { passive: true });
-    document.addEventListener("touchmove", onMove, { passive: true });
-    document.addEventListener("touchend", onEnd, { passive: false });
-    document.addEventListener("touchcancel", clearPress, { passive: true });
-    // Evita el menú contextual del navegador al mantener pulsado el contador.
-    document.addEventListener("contextmenu", e => {
-      if (e.target.closest?.("#visitor-counter")) e.preventDefault();
-    });
-    // Bloquea el click sintético posterior a un long-press sobre el contador.
-    document.addEventListener("click", e => {
-      if (fired && e.target.closest?.("#visitor-counter")) {
-        e.preventDefault(); e.stopPropagation(); fired = false;
-      }
-    }, true);
+    const counter = document.getElementById("visitor-counter");
+    if (counter) bind(counter);
+    else document.addEventListener("DOMContentLoaded", () => bind(document.getElementById("visitor-counter")));
   } else {
     // ── Escritorio: 4 pulsaciones ──
     document.addEventListener("click", e => {
