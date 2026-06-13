@@ -1,16 +1,19 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "13/06/2026 03:34",
+    "generated": "13/06/2026 10:17",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "cada hora en punto",
       "last_updated_iso": "2026-06-13T05:34",
       "last_updated_time": "05:34",
       "last_updated_date": "13/06/2026",
-      "next_update_iso": "2026-06-13T06:00",
-      "next_update_time": "06:00",
-      "next_update_date": "13/06/2026"
+      "next_update_iso": "2026-06-13T13:00",
+      "next_update_time": "13:00",
+      "next_update_date": "13/06/2026",
+      "last_checked_iso": "2026-06-13T12:17",
+      "last_checked_time": "12:17",
+      "last_checked_date": "13/06/2026"
     },
     "players": [
       "JUANCHO",
@@ -75,7 +78,17 @@
       "first": 40,
       "second": 20,
       "currency": "€"
-    }
+    },
+    "api_log": [
+      {
+        "ts_iso": "2026-06-13T12:17:14+02:00",
+        "date": "13/06/2026",
+        "time": "12:17:14",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      }
+    ]
   },
   "standings": [
     {
@@ -259,11 +272,13 @@
         {
           "player": "J. Quiñones",
           "minute": "9'",
+          "own_goal": false,
           "team": "home"
         },
         {
           "player": "R. Jiménez",
           "minute": "67'",
+          "own_goal": false,
           "team": "home"
         }
       ],
@@ -408,16 +423,19 @@
         {
           "player": "I.B. Hwang",
           "minute": "67'",
+          "own_goal": false,
           "team": "home"
         },
         {
           "player": "H.G. Oh",
           "minute": "80'",
+          "own_goal": false,
           "team": "home"
         },
         {
           "player": "L. Krejčí",
           "minute": "59'",
+          "own_goal": false,
           "team": "away"
         }
       ],
@@ -556,11 +574,13 @@
         {
           "player": "C. Larin",
           "minute": "11'",
+          "own_goal": false,
           "team": "home"
         },
         {
           "player": "Jovo Lukić",
           "minute": "21'",
+          "own_goal": false,
           "team": "away"
         }
       ],
@@ -940,28 +960,33 @@
       "goals_v": 1,
       "scorers": [
         {
-          "player": "D. Bobadilla 7'(OG)",
-          "minute": "",
+          "player": "D. Bobadilla",
+          "minute": "7'",
+          "own_goal": true,
           "team": "home"
         },
         {
           "player": "F. Balogun",
           "minute": "31'",
+          "own_goal": false,
           "team": "home"
         },
         {
-          "player": "F. Balogun 45'+",
-          "minute": "5'",
+          "player": "F. Balogun",
+          "minute": "45'+5'",
+          "own_goal": false,
           "team": "home"
         },
         {
-          "player": "G. Reyna 90'+",
-          "minute": "8'",
+          "player": "G. Reyna",
+          "minute": "90'+8'",
+          "own_goal": false,
           "team": "home"
         },
         {
           "player": "Maurício",
           "minute": "73'",
+          "own_goal": false,
           "team": "away"
         }
       ],
