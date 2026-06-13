@@ -1360,9 +1360,6 @@ async function _fillMatchDetail(m, body) {
     html += `</div>`;
   }
 
-  // Sección goleadores eliminada (los goles ya se muestran en la tarjeta del partido)
-  }
-
   // ── Key players ──────────────────────────────────────────────────────────
   const home = m.home || "";
   const away = m.away || "";
@@ -2574,14 +2571,15 @@ function _renderAdminGate(error) {
   body.innerHTML = `
     <div class="adm-gate">
       <div class="adm-gate-icon">🔒</div>
-      <p class="adm-gate-text">Introduce la contraseña de administrador</p>
+      <p class="adm-gate-text">Introduce el PIN de administrador</p>
       <form id="adm-pass-form" autocomplete="off">
         <input type="password" id="adm-pass-input" class="adm-pass-input"
-          inputmode="numeric" autocomplete="off" placeholder="••••••" aria-label="Contraseña" />
+          inputmode="numeric" autocomplete="off" placeholder="••••••" aria-label="PIN" />
         <button type="submit" class="adm-pass-btn">Entrar</button>
       </form>
       ${error ? `<p class="adm-gate-error">${error}</p>` : ""}
     </div>`;
+  setTimeout(() => document.getElementById("adm-pass-input")?.focus(), 80);
   const form = document.getElementById("adm-pass-form");
   form?.addEventListener("submit", async ev => {
     ev.preventDefault();
@@ -2591,7 +2589,7 @@ function _renderAdminGate(error) {
       markAdminUnlocked();
       _buildAdminPanel();
     } else {
-      _renderAdminGate("Contraseña incorrecta");
+      _renderAdminGate("PIN incorrecto");
       setTimeout(() => document.getElementById("adm-pass-input")?.focus(), 50);
     }
   });

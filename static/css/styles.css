@@ -1228,13 +1228,14 @@
     .adm-backdrop {
       position: fixed; inset: 0; z-index: 9000;
       background: rgba(4,6,20,.85); backdrop-filter: blur(4px);
-      display: flex; align-items: flex-start; justify-content: center;
-      padding: 1.5rem 1rem; overflow-y: auto;
+      display: flex; align-items: center; justify-content: center;
+      padding: 1rem; overflow-y: auto;
     }
     .adm-modal {
       background: var(--surface); border: 1px solid #3B4270;
       border-radius: 16px; width: 100%; max-width: 760px;
       box-shadow: 0 24px 64px rgba(0,0,0,.7);
+      overflow-x: hidden;
     }
     .adm-head {
       display: flex; align-items: flex-start; justify-content: space-between;
