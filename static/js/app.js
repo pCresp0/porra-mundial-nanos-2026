@@ -2469,18 +2469,20 @@ async function _sha256Hex(str) {
   if (isTouch) {
     // ── Pulsación larga (long-press) en móvil ──
     const LONG_MS = 650;
-    let pressTimer = null, fired = false, startY = 0, startX = 0;
+    let pressTimer = null, fired = false, onCounter = false, startY = 0, startX = 0;
 
     function clearPress() {
       clearTimeout(pressTimer);
       pressTimer = null;
     }
     function onStart(e) {
-      const wrap = e.target.closest?.("#visitor-counter");
-      if (!wrap) return;
+      // Reinicia el estado en CADA toque para no arrastrar el long-press
+      // anterior (si no, bloquearíamos el foco del input de contraseña).
+      fired = false;
+      onCounter = !!e.target.closest?.("#visitor-counter");
+      if (!onCounter) return;
       const t = e.touches ? e.touches[0] : e;
       startX = t.clientX; startY = t.clientY;
-      fired = false;
       clearPress();
       pressTimer = setTimeout(() => {
         fired = true;
@@ -2494,8 +2496,9 @@ async function _sha256Hex(str) {
       if (Math.abs(t.clientX - startX) > 12 || Math.abs(t.clientY - startY) > 12) clearPress();
     }
     function onEnd(e) {
-      // Si la pulsación larga se disparó, evita que el "click" haga otra cosa.
-      if (fired && e.cancelable) e.preventDefault();
+      // Solo prevenimos el comportamiento por defecto si el toque empezó
+      // sobre el contador y disparó el long-press (evita el click fantasma).
+      if (onCounter && fired && e.cancelable) e.preventDefault();
       clearPress();
     }
 
@@ -2503,11 +2506,11 @@ async function _sha256Hex(str) {
     document.addEventListener("touchmove", onMove, { passive: true });
     document.addEventListener("touchend", onEnd, { passive: false });
     document.addEventListener("touchcancel", clearPress, { passive: true });
-    // Evita el menú contextual del navegador al mantener pulsado.
+    // Evita el menú contextual del navegador al mantener pulsado el contador.
     document.addEventListener("contextmenu", e => {
       if (e.target.closest?.("#visitor-counter")) e.preventDefault();
     });
-    // Bloquea el click sintético posterior a un long-press.
+    // Bloquea el click sintético posterior a un long-press sobre el contador.
     document.addEventListener("click", e => {
       if (fired && e.target.closest?.("#visitor-counter")) {
         e.preventDefault(); e.stopPropagation(); fired = false;
