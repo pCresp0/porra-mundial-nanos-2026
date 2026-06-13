@@ -2363,6 +2363,19 @@ function closeMoreDropdown() {
   document.getElementById("tab-more-btn")?.setAttribute("aria-expanded", "false");
 }
 
+/** Lleva la vista al inicio del contenido (nav sticky pegado arriba, cabecera
+ *  oculta). Calcula la altura del nav visible y posiciona el <main> justo
+ *  debajo. */
+function scrollToContentTop() {
+  const main = document.querySelector("main");
+  if (!main) { window.scrollTo({ top: 0, behavior: "instant" }); return; }
+  const navEl = [...document.querySelectorAll(".desktop-nav, .mobile-nav")]
+    .find(n => n.offsetParent !== null);
+  const navH = navEl ? navEl.offsetHeight : 0;
+  const target = main.getBoundingClientRect().top + window.scrollY - navH;
+  window.scrollTo({ top: Math.max(0, target), behavior: "instant" });
+}
+
 document.querySelectorAll(".tab-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     const tab = btn.dataset.tab;
@@ -2377,6 +2390,10 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
       document.getElementById("tab-"+t).classList.toggle("hidden", t !== tab);
     });
     document.dispatchEvent(new CustomEvent("tabChanged"));
+    // Coloca la vista al inicio del contenido: nav pegado arriba y cabecera
+    // oculta (no aporta nada al cambiar de pestaña). Si el usuario hace scroll
+    // hacia arriba, la cabecera reaparece de forma natural.
+    scrollToContentTop();
     if (tab === "matches") scrollMatchesToToday = true;
     if (tab === "progression" && D) renderProgression();
     if (tab === "stats" && D) renderStats();
