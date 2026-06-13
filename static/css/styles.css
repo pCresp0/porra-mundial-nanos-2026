@@ -923,7 +923,7 @@
       background: #1E2240; border: 1px solid var(--border);
       padding: .75rem 1rem; border-radius: 8px; width: 280px;
       font-size: .75rem; color: #CBD5E1; line-height: 1.5;
-      z-index: 50; font-weight: 400; text-align: left;
+      z-index: 80; font-weight: 400; text-align: left;
       box-shadow: 0 8px 24px rgba(0,0,0,.4);
     }
     .info-wrap:hover .info-tip,
@@ -931,11 +931,14 @@
     /* Variante anclada a la derecha (para iconos en esquina derecha) */
     .info-wrap.tip-right .info-tip { left: auto; right: 0; }
     .info-wrap.tip-center .info-tip { left: 50%; transform: translateX(-50%); }
+    /* Apertura hacia abajo cuando no hay espacio arriba (cerca del nav fijo) */
+    .info-wrap.tip-below .info-tip { bottom: auto; top: calc(100% + 8px); }
     @media (max-width: 560px) {
       .info-wrap .info-tip { width: 72vw; max-width: 280px; }
     }
-    /* Icono de info anclado en la esquina superior derecha de una tarjeta */
-    .stat-info-corner { position: absolute; top: .55rem; right: .55rem; z-index: 3; }
+    /* Icono de info anclado en la esquina superior derecha de una tarjeta.
+       z-index alto para que el tooltip no quede atrapado bajo la barra de nav. */
+    .stat-info-corner { position: absolute; top: .55rem; right: .55rem; z-index: 70; }
 
     /* ── ficha de jugador en Estadísticas ── */
     .pstat-card { position: relative; }

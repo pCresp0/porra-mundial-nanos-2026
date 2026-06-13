@@ -2060,6 +2060,41 @@ applyPorraMode();
 
 /* ── Info tooltips: abrir/cerrar al tocar (móvil) además del hover ── */
 (function() {
+  // Decide si el tooltip se abre hacia arriba o hacia abajo según el espacio
+  // disponible sobre el icono (evita que quede tapado por la barra de nav fija).
+  function placeInfoTip(wrap) {
+    if (!wrap) return;
+    const tip = wrap.querySelector(".info-tip");
+    if (!tip) return;
+    // Borde inferior real de la barra de navegación visible (sticky).
+    const nav = [...document.querySelectorAll(".desktop-nav, .mobile-nav")]
+      .find(n => n.offsetParent !== null);
+    const navBottom = nav ? nav.getBoundingClientRect().bottom : 0;
+    const btn = wrap.querySelector(".info-btn") || wrap;
+    const bRect = btn.getBoundingClientRect();
+    // offsetHeight es 0 si está oculto; lo medimos forzando visibilidad temporal
+    let tipH = tip.offsetHeight;
+    if (!tipH) {
+      const prev = tip.style.cssText;
+      tip.style.cssText += ";display:block;visibility:hidden;";
+      tipH = tip.offsetHeight;
+      tip.style.cssText = prev;
+    }
+    // Si abriendo hacia arriba el tooltip se metería bajo el nav → abrir abajo.
+    const upwardTop = bRect.top - tipH - 12;
+    wrap.classList.toggle("tip-below", upwardTop < navBottom + 4);
+  }
+
+  // Hover (escritorio) y foco (teclado): recalcular antes de mostrarse
+  document.addEventListener("mouseover", e => {
+    const wrap = e.target.closest?.(".info-wrap");
+    if (wrap) placeInfoTip(wrap);
+  });
+  document.addEventListener("focusin", e => {
+    const wrap = e.target.closest?.(".info-wrap");
+    if (wrap) placeInfoTip(wrap);
+  });
+
   document.addEventListener("click", e => {
     const btn = e.target.closest(".info-btn");
     // Cierra los demás tips abiertos
@@ -2068,7 +2103,11 @@ applyPorraMode();
     });
     if (btn) {
       e.stopPropagation();
-      btn.closest(".info-wrap")?.classList.toggle("open");
+      const wrap = btn.closest(".info-wrap");
+      if (wrap) {
+        placeInfoTip(wrap);
+        wrap.classList.toggle("open");
+      }
     }
   });
 })();
