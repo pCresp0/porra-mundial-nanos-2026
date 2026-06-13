@@ -2428,9 +2428,18 @@ startCountdown();
 
 /* ═══════════════════════════════════════════════════════════════
    ADMIN PANEL — desbloqueo secreto: 6 clics en el contador de visitas
+   + contraseña (se guarda solo el hash SHA-256, nunca el texto)
 ═══════════════════════════════════════════════════════════════ */
+// SHA-256 de la contraseña de admin. El texto en claro NO está en el código.
+const ADMIN_PASS_HASH = "1b5c3adff66e91951d10c58faba0be3167fcb6ceecabf87f35d972e317f42283";
+
+async function _sha256Hex(str) {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
 (function initAdminUnlock() {
-  const NEEDED = 6;
+  const NEEDED = 4;
   let clicks = 0, timer = null;
 
   function reset() { clicks = 0; }
@@ -2438,12 +2447,12 @@ startCountdown();
   function showHint(msg) {
     const wrap = document.getElementById("visitor-counter");
     if (!wrap) return;
-    // remove any existing hint
     wrap.querySelectorAll(".admin-hint").forEach(h => h.remove());
     const h = document.createElement("div");
     h.className = "admin-hint";
     h.textContent = msg;
-    wrap.style.position = "relative";
+    // El contador es position:fixed, así que ya es contenedor de hijos absolutos.
+    // NO cambiamos su position (eso lo hacía saltar de sitio y rompía los clics).
     wrap.appendChild(h);
     setTimeout(() => h.remove(), 1400);
   }
@@ -2452,26 +2461,96 @@ startCountdown();
     if (!e.target.closest("#visitor-counter")) return;
     clearTimeout(timer);
     clicks++;
-    timer = setTimeout(reset, 3000);
+    timer = setTimeout(reset, 4000);
 
     const remaining = NEEDED - clicks;
     if (remaining === 2)      showHint("⚡ quedan 2 más");
     else if (remaining === 1) showHint("⚡ queda 1 más");
-    else if (remaining <= 0)  { reset(); clearTimeout(timer); openAdminPanel(); }
+    else if (remaining <= 0)  { reset(); clearTimeout(timer); openAdminGate(); }
   });
 })();
 
-function openAdminPanel() {
+// Recuerda que ya se introdujo la contraseña en esta sesión del navegador,
+// para no pedirla cada vez que se abre el panel.
+const ADMIN_UNLOCK_KEY = "porra_admin_unlocked";
+function isAdminUnlocked() {
+  try { return sessionStorage.getItem(ADMIN_UNLOCK_KEY) === "1"; }
+  catch { return false; }
+}
+function markAdminUnlocked() {
+  try { sessionStorage.setItem(ADMIN_UNLOCK_KEY, "1"); } catch { /* ignore */ }
+}
+
+function openAdminGate() {
   const modal = document.getElementById("admin-modal");
   if (!modal) return;
-  _buildAdminPanel();
+  // Si ya se desbloqueó en esta sesión, saltar directo al panel.
+  if (isAdminUnlocked()) {
+    _buildAdminPanel();
+    modal.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+    return;
+  }
+  _renderAdminGate();
   modal.classList.remove("hidden");
   document.body.style.overflow = "hidden";
+  setTimeout(() => document.getElementById("adm-pass-input")?.focus(), 50);
+}
+
+function _renderAdminGate(error) {
+  const body = document.getElementById("admin-modal-body");
+  if (!body) return;
+  body.innerHTML = `
+    <div class="adm-gate">
+      <div class="adm-gate-icon">🔒</div>
+      <p class="adm-gate-text">Introduce la contraseña de administrador</p>
+      <form id="adm-pass-form" autocomplete="off">
+        <input type="password" id="adm-pass-input" class="adm-pass-input"
+          inputmode="numeric" autocomplete="off" placeholder="••••••" aria-label="Contraseña" />
+        <button type="submit" class="adm-pass-btn">Entrar</button>
+      </form>
+      ${error ? `<p class="adm-gate-error">${error}</p>` : ""}
+    </div>`;
+  const form = document.getElementById("adm-pass-form");
+  form?.addEventListener("submit", async ev => {
+    ev.preventDefault();
+    const val = document.getElementById("adm-pass-input")?.value || "";
+    const hash = await _sha256Hex(val);
+    if (hash === ADMIN_PASS_HASH) {
+      markAdminUnlocked();
+      _buildAdminPanel();
+    } else {
+      _renderAdminGate("Contraseña incorrecta");
+      setTimeout(() => document.getElementById("adm-pass-input")?.focus(), 50);
+    }
+  });
+}
+
+function openAdminPanel() {
+  // mantiene compatibilidad: abre directamente la puerta con contraseña
+  openAdminGate();
 }
 function closeAdminPanel() {
   const modal = document.getElementById("admin-modal");
   if (modal) modal.classList.add("hidden");
   document.body.style.overflow = "";
+}
+function filterApiLog(mode, btn) {
+  document.querySelectorAll("#admin-modal .adm-api-filter")
+    .forEach(b => b.classList.remove("active"));
+  if (btn) btn.classList.add("active");
+  document.querySelectorAll("#adm-api-list .adm-api-row").forEach(row => {
+    const isUp = row.classList.contains("up");
+    const show = mode === "all" || (mode === "up" && isUp) || (mode === "noup" && !isUp);
+    row.style.display = show ? "" : "none";
+  });
+}
+function goToMatchFromAdmin(isoDate, matchName) {
+  closeAdminPanel();
+  if (typeof goToMatchesDay === "function") {
+    // pequeño retardo para que el modal termine de cerrarse antes de hacer scroll
+    setTimeout(() => goToMatchesDay(isoDate, matchName), 60);
+  }
 }
 // close on backdrop click
 document.addEventListener("click", e => {
@@ -2514,6 +2593,59 @@ function _buildAdminPanel() {
 
   const visitorCount = document.getElementById("visitor-count")?.textContent || "—";
 
+  // ── Registro de llamadas a la API (últimas 15 h) ──
+  const API_WINDOW_H = 15;
+  const apiLogAll = meta.api_log || [];
+  const apiCutoff = new Date(now.getTime() - API_WINDOW_H * 3600 * 1000);
+  const apiLog = apiLogAll.filter(e => {
+    const d = new Date(e.ts_iso);
+    return !isNaN(d) && d >= apiCutoff;
+  });
+  const apiUpdated = apiLog.filter(e => e.updated).length;
+  const apiNoUpd   = apiLog.length - apiUpdated;
+  const triggerLabel = { schedule: "⏱ auto", workflow_dispatch: "▶️ manual", push: "⬆️ push" };
+
+  function apiRow(e) {
+    let changesHtml;
+    if (e.updated) {
+      const list = (e.changes || []).map(ch => {
+        // Compatibilidad: las entradas antiguas eran strings; las nuevas son {label,name,date}
+        if (typeof ch === "string") return `<span class="adm-api-changes">${ch}</span>`;
+        const label = ch.label || `${ch.name || ""}`;
+        if (ch.name && ch.date) {
+          const safeName = (ch.name || "").replace(/'/g, "\\'").replace(/"/g, "&quot;");
+          const safeDate = (ch.date || "").replace(/'/g, "\\'");
+          return `<a class="adm-api-changes adm-api-link-match" role="button" tabindex="0"
+            onclick="goToMatchFromAdmin('${safeDate}','${safeName}')">${label} <span class="adm-api-go">↗</span></a>`;
+        }
+        return `<span class="adm-api-changes">${label}</span>`;
+      });
+      changesHtml = list.join(" ") || `<span class="adm-api-changes">actualizó datos</span>`;
+    } else {
+      changesHtml = `<span class="adm-api-nochange">sin cambios en marcadores</span>`;
+    }
+    return `<div class="adm-api-row ${e.updated ? "up" : "noup"}">
+      <span class="adm-api-when">
+        <strong>${e.time || ""}</strong>
+        <span class="adm-api-date">${e.date || ""}</span>
+      </span>
+      <span class="adm-api-mid">${changesHtml}</span>
+      <span class="adm-api-tags">
+        <span class="adm-api-trigger">${triggerLabel[e.trigger] || e.trigger || ""}</span>
+        <span class="adm-api-badge ${e.updated ? "yes" : "no"}">${e.updated ? "✓ actualizó" : "— sin update"}</span>
+      </span>
+    </div>`;
+  }
+
+  let apiLogBody;
+  if (!apiLogAll.length) {
+    apiLogBody = `<div class="adm-empty">Sin llamadas registradas todavía. El registro empieza tras el próximo partido.</div>`;
+  } else if (!apiLog.length) {
+    apiLogBody = `<div class="adm-empty">Sin llamadas a la API en las últimas 15 h<br><span class="adm-rel">(${apiLogAll.length} en el histórico)</span></div>`;
+  } else {
+    apiLogBody = apiLog.map(apiRow).join("");
+  }
+
   body.innerHTML = `
 
     <div class="adm-section">
@@ -2539,6 +2671,25 @@ function _buildAdminPanel() {
           <div class="adm-label">Cadencia</div>
           <div class="adm-value">${upd.schedule_label || "—"}</div>
         </div>
+      </div>
+    </div>
+
+    <div class="adm-section">
+      <div class="adm-section-title">
+        📡 Llamadas a la API <span class="adm-badge">últimas 15 h</span>
+      </div>
+      <div class="adm-api-summary">
+        <span class="adm-api-stat"><strong>${apiLog.length}</strong> llamadas</span>
+        <span class="adm-api-stat up"><strong>${apiUpdated}</strong> actualizaron</span>
+        <span class="adm-api-stat noup"><strong>${apiNoUpd}</strong> sin cambios</span>
+      </div>
+      <div class="adm-api-filters">
+        <button class="adm-api-filter active" onclick="filterApiLog('all', this)">Todas</button>
+        <button class="adm-api-filter" onclick="filterApiLog('up', this)">✓ Con actualización</button>
+        <button class="adm-api-filter" onclick="filterApiLog('noup', this)">— Sin cambios</button>
+      </div>
+      <div class="adm-api-list" id="adm-api-list">
+        ${apiLogBody}
       </div>
     </div>
 

@@ -52,6 +52,11 @@ jobs:
         if: steps.guard.outputs.run == 'yes'
         run: python build_static.py
 
+      - name: Registrar llamada API
+        id: apilog
+        if: steps.guard.outputs.run == 'yes'
+        run: python log_api_call.py --trigger "${{ github.event_name }}" >> "$GITHUB_OUTPUT"
+
       - name: Subir cambios
         if: steps.guard.outputs.run == 'yes'
         run: |
@@ -61,6 +66,11 @@ jobs:
           if git diff --staged --quiet; then
             echo "Sin cambios que subir"
           else
-            git commit -m "chore: actualización automática de datos ($(date -u +%Y-%m-%dT%H:%MZ))"
+            if [ "${{ steps.apilog.outputs.updated }}" = "yes" ]; then
+              MSG="chore: actualización automática de datos ($(date -u +%Y-%m-%dT%H:%MZ))"
+            else
+              MSG="chore: registro de llamada API sin cambios ($(date -u +%Y-%m-%dT%H:%MZ))"
+            fi
+            git commit -m "$MSG"
             git push
           fi
