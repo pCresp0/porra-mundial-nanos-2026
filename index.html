@@ -124,6 +124,13 @@
        TAB: CALENDARIO
   ════════════════════════════════════════════ -->
   <section id="tab-calendar" class="hidden">
+    <div class="cal-filter-bar">
+      <div class="flex gap-2 flex-wrap" id="cal-view-filter">
+        <button class="cal-view-btn" data-view="day" type="button">Hoy</button>
+        <button class="cal-view-btn active" data-view="week" type="button">Esta semana</button>
+        <button class="cal-view-btn" data-view="month" type="button">Este mes</button>
+      </div>
+    </div>
     <div id="cal-container" class="cal-container"></div>
   </section>
 

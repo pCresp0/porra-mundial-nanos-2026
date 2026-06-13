@@ -1150,6 +1150,58 @@
     /* ═══════════════════════════════════════════════════════════════
        CALENDAR TAB
     ═══════════════════════════════════════════════════════════════ */
+    .cal-filter-bar {
+      display: flex; justify-content: center; margin-bottom: 1.1rem;
+    }
+    .cal-view-btn {
+      padding: .35rem .85rem;
+      border-radius: 20px;
+      font-size: .78rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      color: #94A3B8;
+      transition: all .2s;
+    }
+    .cal-view-btn.active { background: #1E3A5F; color: #93C5FD; border-color: #3B82F6; }
+    .cal-view-btn:hover:not(.active) { border-color: #3B82F6; color: #93C5FD; }
+
+    /* ── list view (día / semana) ── */
+    .cal-list {
+      display: flex; flex-direction: column; gap: 1rem; width: 100%;
+    }
+    .cal-list-day {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: .85rem 1rem 1rem;
+    }
+    .cal-list-day.is-today { border-color: var(--gold); }
+    .cal-list-day-head {
+      font-size: .92rem; font-weight: 700; color: var(--gold);
+      margin-bottom: .55rem; letter-spacing: .02em; text-transform: capitalize;
+    }
+    .cal-list-empty {
+      text-align: center; color: #64748B; padding: 2.25rem 1rem;
+      font-size: .92rem; width: 100%;
+    }
+    .cal-row {
+      display: flex; align-items: center; gap: .7rem;
+      padding: .55rem .45rem; border-radius: 8px;
+      cursor: pointer; transition: background .15s;
+    }
+    .cal-row:hover { background: rgba(234,179,8,.08); }
+    .cal-row + .cal-row { border-top: 1px solid var(--border); }
+    .cal-row-time {
+      font-size: .82rem; font-weight: 700; color: #93C5FD;
+      min-width: 44px; flex-shrink: 0;
+    }
+    .cal-row-teams {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      gap: .5rem; font-size: .88rem; color: #E2E8F0; flex-wrap: wrap;
+    }
+    .cal-row-team { white-space: nowrap; }
+    .cal-row-score { font-weight: 800; color: var(--gold); }
+    .cal-row-vs { font-size: .72rem; color: #64748B; }
+
     .cal-container {
       display: flex; flex-wrap: wrap; gap: 1.25rem;
       justify-content: center;
@@ -1220,6 +1272,9 @@
       .cal-chip { font-size: .52rem; }
       .cal-chip-match { font-size: .52rem; gap: .05rem; max-width: 100%; overflow: hidden; }
       .cal-chip-code { font-size: .5rem; }
+      .cal-row { gap: .45rem; padding: .5rem .25rem; }
+      .cal-row-time { min-width: 38px; font-size: .76rem; }
+      .cal-row-teams { gap: .35rem; font-size: .76rem; }
     }
 
     /* ════════════════════════════════════════════════════════════════

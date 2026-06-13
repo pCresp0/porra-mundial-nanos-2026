@@ -2147,11 +2147,93 @@ function initCountdown() {
 /* ═══════════════════════════════════════════════════════════════
    CALENDAR TAB
 ═══════════════════════════════════════════════════════════════ */
+let calView = "week"; // "day" | "week" | "month" — por defecto la semana en curso
+
+// Días (ISO) de la semana lunes-domingo que contiene `todayISO`
+function _calWeekDays(todayISO) {
+  const [y, m, d] = todayISO.split("-").map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  const wd = (dt.getUTCDay() + 6) % 7; // Lunes = 0
+  const days = [];
+  for (let i = 0; i < 7; i++) {
+    const x = new Date(dt);
+    x.setUTCDate(dt.getUTCDate() - wd + i);
+    days.push(x.toISOString().slice(0, 10));
+  }
+  return days;
+}
+
+// Etiqueta de día como respaldo si el partido no trae day_label
+function _calFmtDay(iso) {
+  const [y, mo, d] = iso.split("-").map(Number);
+  const dt = new Date(Date.UTC(y, mo - 1, d));
+  const dn = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"][dt.getUTCDay()];
+  const mn = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"][mo - 1];
+  return `${dn} ${d} ${mn}`;
+}
+
+// Una fila de partido con hora para las vistas Hoy / Esta semana
+function _calRow(m, iso) {
+  const looksPlaceholder = v => !v || /^\d|^Win|^Los|^[A-Z]\d|^[A-Z]{1,2}\d/.test(v);
+  const fh = (m.flag_home && !looksPlaceholder(m.home)) ? m.flag_home : "🏳";
+  const fa = (m.flag_away && !looksPlaceholder(m.away)) ? m.flag_away : "🏳";
+  const home = m.home || "—";
+  const away = m.away || "—";
+  const time = m.time_es || "--:--";
+  const mid = m.played
+    ? `<span class="cal-row-score">${(m.result && m.result.score) || (`${m.goals_l ?? ""}-${m.goals_v ?? ""}`)}</span>`
+    : `<span class="cal-row-vs">vs</span>`;
+  const nm = (m.name || "").replace(/'/g, "\\'").replace(/"/g, "&quot;");
+  return `<div class="cal-row" onclick="goToMatchesDay('${iso}','${nm}')">
+      <span class="cal-row-time">${time}</span>
+      <span class="cal-row-teams">
+        <span class="cal-row-team">${fh} ${home}</span>
+        ${mid}
+        <span class="cal-row-team">${away} ${fa}</span>
+      </span>
+    </div>`;
+}
+
+// Lista de días con sus partidos (vistas Hoy / Esta semana)
+function _calRenderList(days, today, byDate, emptyMsg) {
+  const blocks = [];
+  for (const iso of days) {
+    const matches = byDate[iso];
+    if (!matches || !matches.length) continue;
+    const isToday = iso === today;
+    const head = matches[0].day_label || _calFmtDay(iso);
+    const rows = matches.map(m => _calRow(m, iso)).join("");
+    blocks.push(
+      `<div class="cal-list-day${isToday ? " is-today" : ""}">` +
+        `<div class="cal-list-day-head">${head}${isToday ? " · hoy" : ""}</div>` +
+        rows +
+      `</div>`);
+  }
+  if (!blocks.length) return `<div class="cal-list-empty">${emptyMsg}</div>`;
+  return `<div class="cal-list">${blocks.join("")}</div>`;
+}
+
 function renderCalendar() {
   const container = document.getElementById("cal-container");
   if (!container || !D) return;
 
   const today = todaySpainISO(); // "YYYY-MM-DD"
+
+  // ── Filtro de vista (Hoy / Esta semana / Este mes) ──
+  const filter = document.getElementById("cal-view-filter");
+  if (filter && !filter.dataset.bound) {
+    filter.dataset.bound = "1";
+    filter.querySelectorAll(".cal-view-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        calView = btn.dataset.view;
+        renderCalendar();
+      });
+    });
+  }
+  if (filter) {
+    filter.querySelectorAll(".cal-view-btn").forEach(b =>
+      b.classList.toggle("active", b.dataset.view === calView));
+  }
 
   // Index matches by ISO date
   const byDate = {};
@@ -2161,7 +2243,21 @@ function renderCalendar() {
     if (!byDate[d]) byDate[d] = [];
     byDate[d].push(m);
   });
+  // Ordenar los partidos de cada día por hora
+  Object.values(byDate).forEach(arr =>
+    arr.sort((a, b) => (a.time_es || "").localeCompare(b.time_es || "")));
 
+  // ── Vistas Hoy / Esta semana (lista con horas) ──
+  if (calView === "day") {
+    container.innerHTML = _calRenderList([today], today, byDate, "No hay partidos hoy.");
+    return;
+  }
+  if (calView === "week") {
+    container.innerHTML = _calRenderList(_calWeekDays(today), today, byDate, "No hay partidos esta semana.");
+    return;
+  }
+
+  // ── Vista Este mes (rejilla) ──
   const months = [
     { year: 2026, month: 6, label: "Junio 2026" },
     { year: 2026, month: 7, label: "Julio 2026" },
@@ -2760,15 +2856,49 @@ function _buildAdminPanel() {
   }
 
   // ── Estado del sistema (semáforo) ──
+  // Replica la lógica del guardián (should_update.py): la Action solo regenera
+  // data.json cuando hay un partido recién terminado cuyo resultado todavía no
+  // se ha capturado. Entre partidos no hace nada, así que NO está "retrasada".
   const sysStatus = (() => {
-    const nextIso = upd.next_update_iso;
-    if (!nextIso) return { level: "gray", text: "Sin datos de programación", icon: "○" };
-    const nd = new Date(nextIso);
-    if (isNaN(nd)) return { level: "gray", text: "Programación no válida", icon: "○" };
-    const overdue = Math.round((now - nd) / 60000); // >0 = retrasada
-    if (overdue <= 0) return { level: "green", text: `Al día · próxima ${futureTime(nextIso)}`, icon: "●" };
-    if (overdue <= 30) return { level: "amber", text: `Prevista hace ${_humanMin(overdue)} · debería llegar pronto`, icon: "●" };
-    return { level: "red", text: `Retrasada hace ${_humanMin(overdue)} · revisa la Action`, icon: "●" };
+    const MIN_AFTER = 110;   // min tras el inicio: el resultado ya debería existir
+    const MAX_AFTER = 360;   // 6 h: ventana en la que la Action sigue intentándolo
+
+    function kickoffDate(m) {
+      const d = (m.date || "").slice(0, 10);   // "2026-06-13"
+      const t = m.time_es || "";
+      if (d.length < 10 || !t.includes(":")) return null;
+      const dt = new Date(`${d}T${t}:00`);     // hora España (zona del navegador admin)
+      return isNaN(dt) ? null : dt;
+    }
+
+    // ¿Algún partido cuyo resultado ya debería estar capturado y no lo está?
+    let pendingMin = null;   // min desde que debería haber terminado
+    for (const m of allMatches) {
+      if (m.played) continue;
+      const ko = kickoffDate(m);
+      if (!ko) continue;
+      const elapsed = Math.round((now - ko) / 60000);
+      if (elapsed >= MIN_AFTER && elapsed <= MAX_AFTER) {
+        const over = elapsed - MIN_AFTER;
+        if (pendingMin === null || over > pendingMin) pendingMin = over;
+      }
+    }
+
+    if (pendingMin !== null) {
+      if (pendingMin <= 30) return { level: "amber", text: `Resultado pendiente de captura · la Action se ejecuta en breve`, icon: "●" };
+      return { level: "red", text: `Resultado sin capturar hace ${_humanMin(pendingMin)} · revisa la Action`, icon: "●" };
+    }
+
+    // Nada pendiente: buscar el próximo partido por jugar
+    let nextKo = null;
+    for (const m of allMatches) {
+      if (m.played) continue;
+      const ko = kickoffDate(m);
+      if (!ko || ko <= now) continue;
+      if (nextKo === null || ko < nextKo) nextKo = ko;
+    }
+    if (nextKo) return { level: "green", text: `Al día · sin partidos pendientes · próximo ${futureTime(nextKo.toISOString())}`, icon: "●" };
+    return { level: "green", text: `Al día · sin partidos pendientes`, icon: "●" };
   })();
 
   // ── Alertas de datos raros ──
