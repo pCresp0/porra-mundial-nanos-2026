@@ -2285,7 +2285,7 @@ function goToMatchesDay(isoDate, matchName) {
       c.classList.remove("match-pulse");
       void c.offsetWidth; // restart animation
       c.classList.add("match-pulse");
-      setTimeout(() => c.classList.remove("match-pulse"), 1100);
+      setTimeout(() => c.classList.remove("match-pulse"), 2100);
     });
   };
   setTimeout(scrollTo, 120);
