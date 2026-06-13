@@ -39,7 +39,7 @@
     .header-bg::before {
       content: '';
       position: absolute; inset: 0;
-      background: url('/static/wc2026-bg.png') center/cover no-repeat;
+      background: url('../wc2026-bg.png') center/cover no-repeat;
       opacity: .12;
     }
     .header-bg::after {
@@ -634,26 +634,21 @@
     /* ── team search + filters (matches tab) ── */
     .matches-topbar {
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 1.25rem;
+      flex-direction: column;
+      gap: .65rem;
       margin-bottom: 1rem;
     }
-    .matches-filters {
+    .matches-row {
       display: flex;
-      flex-direction: column;
-      gap: .75rem;
-      flex: 1;
-      min-width: 0;
+      align-items: flex-end;
+      gap: 1rem;
     }
+    .matches-row .matches-filter-group { flex: 1; min-width: 0; }
     .matches-filter-group { }
     .team-search-wrap {
       position: relative;
       flex-shrink: 0;
-      width: 100%;
-      max-width: 240px;
-      align-self: flex-start;
-      margin-top: 1.4rem; /* align with the filter rows below the labels */
+      width: 220px;
     }
     .team-search-input-wrap {
       display: flex;
@@ -1763,13 +1758,9 @@
         white-space: nowrap;
       }
 
-      /* Partidos: buscador y filtros apilados en columna */
-      .matches-topbar {
-        flex-direction: column;
-        gap: .75rem;
-        margin-bottom: .85rem;
-      }
-      .team-search-wrap { max-width: none; margin-top: 0; align-self: stretch; }
+      /* Partidos: buscador a ancho completo en móvil */
+      .matches-row { flex-direction: column; align-items: stretch; gap: .6rem; }
+      .team-search-wrap { width: 100%; }
       .team-search-input-wrap {
         min-height: 44px;
         padding: .5rem .7rem;
