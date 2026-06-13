@@ -2545,6 +2545,40 @@ function filterApiLog(mode, btn) {
     row.style.display = show ? "" : "none";
   });
 }
+function _renderVisitsDay(dayKey) {
+  const list = document.getElementById("adm-vis-list");
+  if (!list) return;
+  const buckets = (window._admVisitBuckets || []).filter(b => b.date === dayKey);
+  if (!buckets.length) {
+    list.innerHTML = `<div class="adm-empty">Sin visitas registradas este día</div>`;
+    return;
+  }
+  // mapa hora -> visitas (puede haber varios tramos en la misma hora)
+  const byHour = {};
+  buckets.forEach(b => { byHour[b.hour] = (byHour[b.hour] || 0) + b.visits; });
+  const hours = Object.keys(byHour).map(Number).sort((a, b) => a - b);
+  const maxV = Math.max(1, ...hours.map(h => byHour[h]));
+  const dayTotal = hours.reduce((s, h) => s + byHour[h], 0);
+
+  const rows = hours.map(h => {
+    const v = byHour[h];
+    const pct = Math.round((v / maxV) * 100);
+    const hh = String(h).padStart(2, "0");
+    return `<div class="adm-vis-row">
+      <span class="adm-vis-hour">${hh}:00</span>
+      <span class="adm-vis-bar-wrap"><span class="adm-vis-bar" style="width:${pct}%"></span></span>
+      <span class="adm-vis-num">${v}</span>
+    </div>`;
+  }).join("");
+
+  list.innerHTML = `<div class="adm-vis-daytotal">${dayTotal} visita${dayTotal !== 1 ? "s" : ""} este día</div>${rows}`;
+}
+function filterVisitsDay(dayKey, btn) {
+  document.querySelectorAll("#admin-modal .adm-vis-filter")
+    .forEach(b => b.classList.remove("active"));
+  if (btn) btn.classList.add("active");
+  _renderVisitsDay(dayKey);
+}
 function goToMatchFromAdmin(isoDate, matchName) {
   closeAdminPanel();
   if (typeof goToMatchesDay === "function") {
@@ -2646,6 +2680,50 @@ function _buildAdminPanel() {
     apiLogBody = apiLog.map(apiRow).join("");
   }
 
+  // ── Visitas por hora (a partir de fotos horarias del contador) ──
+  const visitsSnaps = (meta.visits_log || [])
+    .map(s => ({ d: new Date(s.ts_iso), total: Number(s.total) }))
+    .filter(s => !isNaN(s.d) && !isNaN(s.total))
+    .sort((a, b) => a.d - b.d);
+
+  // delta de cada foto respecto a la anterior = visitas en ese tramo
+  const visitsBuckets = [];
+  for (let i = 1; i < visitsSnaps.length; i++) {
+    const prev = visitsSnaps[i - 1], cur = visitsSnaps[i];
+    const delta = Math.max(0, cur.total - prev.total);
+    const dayKey = `${cur.d.getFullYear()}-${String(cur.d.getMonth() + 1).padStart(2, "0")}-${String(cur.d.getDate()).padStart(2, "0")}`;
+    visitsBuckets.push({ date: dayKey, hour: cur.d.getHours(), visits: delta, total: cur.total });
+  }
+  // días disponibles, del más reciente al más antiguo
+  const visitDays = [...new Set(visitsBuckets.map(b => b.date))].sort().reverse();
+  // guardamos los datos para que el filtro de día los use sin recalcular
+  window._admVisitBuckets = visitsBuckets;
+
+  function visitsDayLabel(dayKey) {
+    const [y, m, d] = dayKey.split("-").map(Number);
+    const dt = new Date(y, m - 1, d);
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const diff = Math.round((today - dt) / 86400000);
+    if (diff === 0) return "Hoy";
+    if (diff === 1) return "Ayer";
+    return dt.toLocaleDateString("es-ES", { weekday: "short", day: "numeric", month: "short" });
+  }
+  // expón el helper para el render del filtro
+  window._admVisitsDayLabel = visitsDayLabel;
+
+  const visitsFilterBtns = visitDays.map((dk, i) =>
+    `<button class="adm-vis-filter${i === 0 ? " active" : ""}" onclick="filterVisitsDay('${dk}', this)">${visitsDayLabel(dk)}</button>`
+  ).join("");
+
+  let visitsBody;
+  if (visitsBuckets.length < 1) {
+    visitsBody = `<div class="adm-empty">Aún no hay fotos horarias. Empezará a registrarse en la próxima hora en punto.</div>`;
+  } else {
+    visitsBody = `
+      <div class="adm-vis-filters">${visitsFilterBtns}</div>
+      <div class="adm-vis-list" id="adm-vis-list"></div>`;
+  }
+
   body.innerHTML = `
 
     <div class="adm-section">
@@ -2727,36 +2805,10 @@ function _buildAdminPanel() {
           <div class="adm-value">page-views-api.ratneshc.com<br><span class="adm-rel">contador anónimo</span></div>
         </div>
       </div>
-    </div>
-
-    <div class="adm-section">
-      <div class="adm-section-title">⚙️ Configuración de puntuación</div>
-      <div class="adm-grid">
-        <div class="adm-cell">
-          <div class="adm-label">1X2 (signo)</div>
-          <div class="adm-value adm-big">${meta.scoring?.sign ?? "—"} pts</div>
-        </div>
-        <div class="adm-cell">
-          <div class="adm-label">Diferencia goles</div>
-          <div class="adm-value adm-big">${meta.scoring?.diff ?? "—"} pt</div>
-        </div>
-        <div class="adm-cell">
-          <div class="adm-label">Resultado exacto</div>
-          <div class="adm-value adm-big">${meta.scoring?.exact ?? "—"} pts</div>
-        </div>
-        <div class="adm-cell">
-          <div class="adm-label">Máx. por partido</div>
-          <div class="adm-value adm-big">${((meta.scoring?.sign||0)+(meta.scoring?.diff||0)+(meta.scoring?.exact||0))||"—"} pts</div>
-        </div>
-        <div class="adm-cell">
-          <div class="adm-label">Premio 1.º</div>
-          <div class="adm-value adm-big">${meta.prizes?.first ?? "—"}${meta.prizes?.currency || "€"}</div>
-        </div>
-        <div class="adm-cell">
-          <div class="adm-label">Premio 2.º</div>
-          <div class="adm-value adm-big">${meta.prizes?.second ?? "—"}${meta.prizes?.currency || "€"}</div>
-        </div>
+      <div class="adm-vis-head">
+        <span class="adm-label">Visitas por hora</span>
       </div>
+      ${visitsBody}
     </div>
 
     <div class="adm-section">
@@ -2769,6 +2821,9 @@ function _buildAdminPanel() {
       </div>
     </div>
   `;
+
+  // pinta el día más reciente de visitas por hora
+  if (visitDays.length) _renderVisitsDay(visitDays[0]);
 }
 
 async function initVisitorCounter() {

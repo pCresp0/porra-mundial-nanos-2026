@@ -1329,6 +1329,39 @@
     .adm-api-badge { font-size: .64rem; font-weight: 700; border-radius: 4px; padding: .12rem .42rem; white-space: nowrap; }
     .adm-api-badge.yes { background: rgba(74,222,128,.15); color: #4ADE80; }
     .adm-api-badge.no  { background: rgba(71,85,105,.2);   color: #64748B; }
+    /* Visitas por hora */
+    .adm-vis-head { margin: .85rem 0 .5rem; }
+    .adm-vis-filters { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .6rem; }
+    .adm-vis-filter {
+      background: var(--card); border: 1px solid var(--border);
+      color: #94A3B8; border-radius: 999px; padding: .28rem .7rem;
+      font-size: .7rem; font-weight: 600; cursor: pointer; transition: all .15s;
+      text-transform: capitalize;
+    }
+    .adm-vis-filter:hover { color: #E2E8F0; border-color: #4A90D9; }
+    .adm-vis-filter.active { background: rgba(74,222,128,.15); border-color: #4ADE80; color: #4ADE80; }
+    .adm-vis-list {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: .55rem .75rem;
+      max-height: 280px; overflow-y: auto;
+    }
+    .adm-vis-daytotal { font-size: .72rem; color: #94A3B8; margin-bottom: .5rem; font-weight: 600; }
+    .adm-vis-daytotal::first-letter { text-transform: none; }
+    .adm-vis-row {
+      display: flex; align-items: center; gap: .55rem;
+      padding: .18rem 0; font-size: .74rem;
+    }
+    .adm-vis-hour { min-width: 42px; color: #CBD5E1; font-variant-numeric: tabular-nums; font-weight: 600; }
+    .adm-vis-bar-wrap {
+      flex: 1; height: 14px; background: rgba(71,85,105,.18);
+      border-radius: 4px; overflow: hidden;
+    }
+    .adm-vis-bar {
+      display: block; height: 100%;
+      background: linear-gradient(90deg, #4ADE80, #22C55E);
+      border-radius: 4px; min-width: 2px; transition: width .3s ease;
+    }
+    .adm-vis-num { min-width: 24px; text-align: right; color: #E2E8F0; font-weight: 700; font-variant-numeric: tabular-nums; }
     /* hint bubble */
     .admin-hint {
       position: absolute; bottom: calc(100% + .4rem); right: 0;
@@ -1378,6 +1411,13 @@
       .adm-api-trigger { font-size: .56rem; }
       .adm-api-badge { font-size: .56rem; padding: .1rem .35rem; }
       .adm-api-mid { flex-basis: 100%; order: 5; font-size: .66rem; }
+      /* visitas compactas */
+      .adm-vis-filters { gap: .3rem; margin-bottom: .45rem; }
+      .adm-vis-filter { padding: .22rem .55rem; font-size: .62rem; }
+      .adm-vis-list { padding: .45rem .55rem; max-height: 220px; }
+      .adm-vis-row { font-size: .66rem; gap: .4rem; }
+      .adm-vis-hour { min-width: 36px; }
+      .adm-vis-bar-wrap { height: 11px; }
     }
     /* password gate */
     .adm-gate {
