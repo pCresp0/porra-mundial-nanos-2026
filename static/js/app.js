@@ -497,12 +497,20 @@ function naturalHourSlots() {
 let _countdownTimer = null;
 
 function tickBanner() {
-  const { last, next, mins } = naturalHourSlots();
+  const upd = D?.meta?.update || {};
   const lastEl = document.getElementById("upd-last");
   const minsEl = document.getElementById("upd-mins");
   const nextEl = document.getElementById("upd-next");
-  if (lastEl) lastEl.textContent = last;
-  if (nextEl) nextEl.textContent = next;
+
+  // "Actualizada a las" → solo cuando hay datos reales (last_updated del JSON).
+  // Si no hay datos cargados todavía, cae al cálculo local como fallback.
+  if (lastEl) {
+    lastEl.textContent = upd.last_updated_time || naturalHourSlots().last;
+  }
+
+  // "Próxima actualización" y el countdown siempre se calculan en tiempo real.
+  const { next, mins } = naturalHourSlots();
+  if (nextEl) nextEl.textContent = upd.next_update_time || next;
   if (minsEl) minsEl.textContent = String(mins);
 }
 
@@ -2940,9 +2948,15 @@ function _buildAdminPanel() {
           <div class="adm-value">${meta.generated || "—"}</div>
         </div>
         <div class="adm-cell">
-          <div class="adm-label">Última actualización</div>
+          <div class="adm-label">Última actualización <span class="adm-real-badge">datos reales</span></div>
           <div class="adm-value">${upd.last_updated_date || "—"} ${upd.last_updated_time || ""}
             ${relTime(upd.last_updated_iso) ? `<br><span class="adm-rel">${relTime(upd.last_updated_iso)}</span>` : ""}
+          </div>
+        </div>
+        <div class="adm-cell">
+          <div class="adm-label">Última comprobación API</div>
+          <div class="adm-value">${upd.last_checked_date || upd.last_updated_date || "—"} ${upd.last_checked_time || upd.last_updated_time || ""}
+            ${relTime(upd.last_checked_iso || upd.last_updated_iso) ? `<br><span class="adm-rel">${relTime(upd.last_checked_iso || upd.last_updated_iso)}</span>` : ""}
           </div>
         </div>
         <div class="adm-cell">

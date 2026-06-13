@@ -1254,6 +1254,11 @@
       border-radius: 10px; padding: .65rem .85rem;
     }
     .adm-label { font-size: .65rem; color: #64748B; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; margin-bottom: .25rem; }
+    .adm-real-badge {
+      font-size: .5rem; font-weight: 700; text-transform: none; letter-spacing: .02em;
+      background: rgba(74,222,128,.15); color: #4ADE80; border: 1px solid rgba(74,222,128,.3);
+      border-radius: 999px; padding: .05rem .35rem; vertical-align: middle; margin-left: .3rem;
+    }
     .adm-value { font-size: .82rem; color: #E2E8F0; font-weight: 600; line-height: 1.35; }
     .adm-value.adm-big { font-size: 1.25rem; color: var(--gold); font-family: 'Bebas Neue', sans-serif; letter-spacing: .04em; }
     .adm-rel { font-size: .7rem; color: #4ADE80; font-weight: 500; }

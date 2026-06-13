@@ -210,6 +210,26 @@ def main() -> None:
     # 2) Embeber las últimas entradas (más recientes primero) en data.json
     recent = list(reversed(entries))[:EMBED_MAX]
     new_data.setdefault("meta", {})["api_log"] = recent
+
+    # 3) Separar "última actualización real" de "última comprobación":
+    #    - last_updated_* solo avanza cuando cambian datos de verdad.
+    #    - last_checked_* refleja siempre la hora de esta llamada API.
+    upd_meta = new_data["meta"].setdefault("update", {})
+    # Guardamos la hora actual como "última comprobación" siempre.
+    upd_meta["last_checked_iso"]  = now.strftime("%Y-%m-%dT%H:%M")
+    upd_meta["last_checked_time"] = now.strftime("%H:%M")
+    upd_meta["last_checked_date"] = now.strftime("%d/%m/%Y")
+
+    if not updated and old_data is not None:
+        # No hubo cambios reales: restauramos last_updated_* del commit anterior
+        # para que la barra superior no muestre una hora de "actualización" falsa.
+        old_upd = old_data.get("meta", {}).get("update", {})
+        for key in ("last_updated_iso", "last_updated_time", "last_updated_date"):
+            if key in old_upd:
+                upd_meta[key] = old_upd[key]
+        print(f"  last_updated restaurado a {old_upd.get('last_updated_time','?')} "
+              f"(sin datos nuevos)", file=sys.stderr)
+
     with open(DATA_JSON, "w", encoding="utf-8") as f:
         json.dump(new_data, f, ensure_ascii=False, indent=2)
 
