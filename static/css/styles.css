@@ -1513,8 +1513,12 @@
       font-size: .72rem;
       color: #CBD5E1;
       box-shadow: 0 4px 20px rgba(0, 0, 0, .35);
-      pointer-events: none;
+      cursor: pointer;
       user-select: none;
+      transition: border-color .15s;
+    }
+    .visitor-counter:hover {
+      border-color: rgba(244, 114, 182, .5);
     }
     .visitor-counter strong {
       color: var(--gold);
