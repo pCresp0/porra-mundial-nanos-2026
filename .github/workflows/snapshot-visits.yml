@@ -34,11 +34,12 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Pull primero para evitar conflictos, luego add+commit+push
+          git pull --rebase --autostash origin "$(git rev-parse --abbrev-ref HEAD)" || true
           git add data.json data/visits_log.json
           if git diff --staged --quiet; then
             echo "Sin cambios que subir"
           else
-            git pull --rebase --autostash origin "$(git rev-parse --abbrev-ref HEAD)" || true
             git commit -m "chore: foto horaria de visitas ($(date -u +%Y-%m-%dT%H:%MZ))"
             git push
           fi

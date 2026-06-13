@@ -88,6 +88,12 @@
         "trigger": "push",
         "changes": []
       }
+    ],
+    "visits_log": [
+      {
+        "ts_iso": "2026-06-13T12:41:46+02:00",
+        "total": 144
+      }
     ]
   },
   "standings": [

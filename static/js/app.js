@@ -2925,8 +2925,12 @@ function _buildAdminPanel() {
   ).join("");
 
   let visitsBody;
-  if (visitsBuckets.length < 1) {
-    visitsBody = `<div class="adm-empty">Aún no hay fotos horarias. Empezará a registrarse en la próxima hora en punto.</div>`;
+  if (!visitsSnaps.length) {
+    visitsBody = `<div class="adm-empty">Aún no hay fotos horarias. El workflow <code>snapshot-visits</code> se ejecuta cada hora en el minuto :05.</div>`;
+  } else if (visitsBuckets.length < 1) {
+    const lastSnap = visitsSnaps[visitsSnaps.length - 1];
+    const lastTime = lastSnap.d.toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Madrid" });
+    visitsBody = `<div class="adm-empty">Primera foto registrada a las ${lastTime} (total: ${lastSnap.total}). Se necesitan 2 fotos para calcular visitas por hora — disponible en la próxima ejecución (:05).</div>`;
   } else {
     visitsBody = `
       <div class="adm-vis-filters">${visitsFilterBtns}</div>
