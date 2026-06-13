@@ -1317,6 +1317,16 @@
     .adm-api-date { color: #475569; font-size: .62rem; }
     .adm-api-mid { flex: 1; min-width: 0; }
     .adm-api-changes { color: var(--gold); font-weight: 600; }
+    .adm-api-change-block { display: flex; flex-direction: column; gap: .15rem; margin-bottom: .2rem; }
+    .adm-api-change-block:last-child { margin-bottom: 0; }
+    .adm-api-detail {
+      font-size: .67rem; color: #94A3B8; display: flex; flex-wrap: wrap;
+      align-items: center; gap: .2rem; padding-left: .1rem;
+    }
+    .adm-api-field-name { color: #64748B; font-weight: 600; }
+    .adm-api-old-val { color: #94A3B8; text-decoration: line-through; }
+    .adm-api-arr { color: #475569; }
+    .adm-api-new-val { color: #4ADE80; font-weight: 700; }
     .adm-api-link-match {
       cursor: pointer; text-decoration: none; border-bottom: 1px dashed rgba(234,179,8,.5);
       transition: color .15s, border-color .15s;

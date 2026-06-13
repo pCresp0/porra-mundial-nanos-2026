@@ -2819,18 +2819,30 @@ function _buildAdminPanel() {
     let changesHtml;
     if (e.updated) {
       const list = (e.changes || []).map(ch => {
-        // Compatibilidad: las entradas antiguas eran strings; las nuevas son {label,name,date}
-        if (typeof ch === "string") return `<span class="adm-api-changes">${ch}</span>`;
+        // Compatibilidad: las entradas antiguas eran strings; las nuevas son {label,name,date[,fields,old,new]}
+        if (typeof ch === "string") return `<div class="adm-api-change-block"><span class="adm-api-changes">${ch}</span></div>`;
         const label = ch.label || `${ch.name || ""}`;
-        if (ch.name && ch.date) {
-          const safeName = (ch.name || "").replace(/'/g, "\\'").replace(/"/g, "&quot;");
-          const safeDate = (ch.date || "").replace(/'/g, "\\'");
-          return `<a class="adm-api-changes adm-api-link-match" role="button" tabindex="0"
-            onclick="goToMatchFromAdmin('${safeDate}','${safeName}')">${label} <span class="adm-api-go">↗</span></a>`;
+        const safeName = (ch.name || "").replace(/'/g, "\\'").replace(/"/g, "&quot;");
+        const safeDate = (ch.date || "").replace(/'/g, "\\'");
+        const matchLink = ch.name && ch.date
+          ? `<a class="adm-api-changes adm-api-link-match" role="button" tabindex="0"
+              onclick="goToMatchFromAdmin('${safeDate}','${safeName}')">${label} <span class="adm-api-go">↗</span></a>`
+          : `<span class="adm-api-changes">${label}</span>`;
+
+        // Detalles de qué cambió (fields/old/new, versiones nuevas del log)
+        let detailHtml = "";
+        if (ch.fields && ch.fields.length && ch.old && ch.new) {
+          const parts = ch.fields.map(f => {
+            const oval = ch.old[f] ?? "—";
+            const nval = ch.new[f] ?? "—";
+            return `<span class="adm-api-field-name">${f}:</span> <span class="adm-api-old-val">${oval}</span><span class="adm-api-arr"> → </span><span class="adm-api-new-val">${nval}</span>`;
+          });
+          detailHtml = `<span class="adm-api-detail">${parts.join(" · ")}</span>`;
         }
-        return `<span class="adm-api-changes">${label}</span>`;
+
+        return `<div class="adm-api-change-block">${matchLink}${detailHtml}</div>`;
       });
-      changesHtml = list.join(" ") || `<span class="adm-api-changes">actualizó datos</span>`;
+      changesHtml = list.join("") || `<div class="adm-api-change-block"><span class="adm-api-changes">actualizó datos</span></div>`;
     } else {
       changesHtml = `<span class="adm-api-nochange">sin cambios en marcadores</span>`;
     }

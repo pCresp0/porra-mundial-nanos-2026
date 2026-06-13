@@ -104,11 +104,45 @@ def _diff_results(old: dict | None, new: dict) -> list:
             continue
         score_changed = (ns["gl"], ns["gv"], ns["result"]) != (os_["gl"], os_["gv"], os_["result"])
         played_changed = ns["played"] != os_["played"]
-        if score_changed or played_changed:
-            gl = ns["gl"] if ns["gl"] is not None else "?"
-            gv = ns["gv"] if ns["gv"] is not None else "?"
-            label = f"{ns['flag_home']}{ns['home']} {gl}-{gv} {ns['away']}{ns['flag_away']}".strip()
-            changes.append({"label": label, "name": name, "date": ns["date"]})
+        if not (score_changed or played_changed):
+            continue
+
+        def _fmt_score(sig: dict) -> str:
+            gl = sig["gl"] if sig["gl"] is not None else "?"
+            gv = sig["gv"] if sig["gv"] is not None else "?"
+            r = sig.get("result")
+            if isinstance(r, dict) and r.get("score"):
+                return r["score"]
+            if gl != "?" or gv != "?":
+                return f"{gl}-{gv}"
+            return "sin resultado"
+
+        gl = ns["gl"] if ns["gl"] is not None else "?"
+        gv = ns["gv"] if ns["gv"] is not None else "?"
+        label = f"{ns['flag_home']}{ns['home']} {gl}-{gv} {ns['away']}{ns['flag_away']}".strip()
+
+        fields: list[str] = []
+        old_vals: dict = {}
+        new_vals: dict = {}
+
+        if score_changed:
+            fields.append("marcador")
+            old_vals["marcador"] = _fmt_score(os_)
+            new_vals["marcador"] = _fmt_score(ns)
+
+        if played_changed:
+            fields.append("jugado")
+            old_vals["jugado"] = "sí" if os_["played"] else "no"
+            new_vals["jugado"] = "sí" if ns["played"] else "no"
+
+        changes.append({
+            "label": label,
+            "name": name,
+            "date": ns["date"],
+            "fields": fields,
+            "old": old_vals,
+            "new": new_vals,
+        })
     return changes
 
 
