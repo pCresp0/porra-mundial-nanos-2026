@@ -879,7 +879,7 @@
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: .6rem .4rem;
-      text-align: left;
+      text-align: center;
       overflow: hidden;
       min-width: 0;
     }
@@ -893,20 +893,19 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    /* desktop: layout vertical centrado */
     .player-pred-card .ppc-top {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      gap: .3rem;
+      gap: .35rem;
     }
     .player-pred-card .ppc-top .pname { margin-bottom: 0; }
     .player-pred-card .ppc-score {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       align-items: center;
-      gap: .3rem;
-      flex-shrink: 0;
+      gap: .15rem;
     }
     .player-pred-card .ppc-chips { margin-top: .25rem; text-align: center; }
 

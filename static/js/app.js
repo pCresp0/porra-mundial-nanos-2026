@@ -1350,7 +1350,7 @@ async function _fillMatchDetail(m, body) {
       html += `<div class="venue-stat"><div class="venue-stat-label">Aforo</div><div class="venue-stat-value">${m.capacity.toLocaleString("es-ES")} espect.</div></div>`;
     }
     if (m.city_pop) {
-      html += `<div class="venue-stat"><div class="venue-stat-label">Área metro</div><div class="venue-stat-value">${m.city_pop}</div></div>`;
+      html += `<div class="venue-stat"><div class="venue-stat-label">Área metropolitana</div><div class="venue-stat-value">${m.city_pop}</div></div>`;
     }
     html += `</div>`;
 
@@ -1360,39 +1360,7 @@ async function _fillMatchDetail(m, body) {
     html += `</div>`;
   }
 
-  // ── Scorers (from live API) ───────────────────────────────────────────────
-  if (m.played || game?.finished === "TRUE") {
-    const homeScorers = parseScorers(game?.home_scorers);
-    const awayScorers = parseScorers(game?.away_scorers);
-    const homeFlag = m.flag_home || "🏳️";
-    const awayFlag = m.flag_away || "🏳️";
-    const home = m.home || "Local";
-    const away = m.away || "Visitante";
-
-    html += `<div class="panel-section">
-      <div class="panel-section-title">⚽ Goleadores</div>`;
-
-    if (!homeScorers.length && !awayScorers.length) {
-      html += `<p class="no-scorers">Sin datos de goleadores disponibles</p>`;
-    } else {
-      const renderScorerRow = (flag, teamName, scorers) => {
-        const names = scorers.length
-          ? scorers.map(s => {
-              const match = s.match(/^(.*?)\s+(\d+['+]?)$/);
-              const name = match ? match[1] : s;
-              const time = match ? match[2] : "";
-              return `<span class="scorer-name">${escapeHtml(name)}</span>${time ? `<span class="scorer-time">${escapeHtml(time)}</span>` : ""}`;
-            }).join(" · ")
-          : `<span class="no-scorers">Sin goles</span>`;
-        return `<div class="scorer-team-row">
-          <span class="scorer-flag">${flag}</span>
-          <div class="scorer-list"><span style="color:#64748B;font-size:.7rem">${teamName}:</span> ${names}</div>
-        </div>`;
-      };
-      html += renderScorerRow(homeFlag, home, homeScorers);
-      html += renderScorerRow(awayFlag, away, awayScorers);
-    }
-    html += `</div>`;
+  // Sección goleadores eliminada (los goles ya se muestran en la tarjeta del partido)
   }
 
   // ── Key players ──────────────────────────────────────────────────────────
