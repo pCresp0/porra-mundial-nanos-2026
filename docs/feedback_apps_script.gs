@@ -7,13 +7,19 @@
  * ════════════════════════════════════════════════════════════════
  *
  *  ──────────────────────  CÓMO INSTALARLO  ──────────────────────
- *  (5 minutos, una sola vez. Todo con tu cuenta pcbcrespo@gmail.com)
+ *  (5 minutos, una sola vez. Todo con tu cuenta de Google)
+ *
+ *  IMPORTANTE: este archivo está en un repositorio PÚBLICO. No pongas
+ *  aquí tu correo, tu PIN ni la URL /exec: configúralos SOLO dentro del
+ *  editor de Apps Script (en `CONFIG`), que es privado de tu cuenta.
  *
  *  1. Entra en https://script.google.com  y pulsa «Nuevo proyecto».
  *  2. Borra lo que haya y pega TODO este archivo.
  *  3. Arriba, en `CONFIG`, cambia:
- *       - ADMIN_PIN  → pon el MISMO PIN que usas en el panel de admin.
- *       - NOTIFY_EMAIL → tu correo (ya viene pcbcrespo@gmail.com).
+ *       - READ_TOKEN  → una clave LARGA y aleatoria (la que te dio el
+ *                       asistente, o invéntate una de 20+ caracteres).
+ *                       Es la que protege la LECTURA de las sugerencias.
+ *       - NOTIFY_EMAIL → tu correo (donde quieres recibir el aviso).
  *  4. Guarda (icono del disquete o Ctrl+S).
  *  5. Pulsa «Implementar» (Deploy) → «Nueva implementación».
  *       - Tipo: «Aplicación web» (Web app).
@@ -33,8 +39,11 @@
  */
 
 const CONFIG = {
-  ADMIN_PIN: "PON_AQUI_TU_PIN",         // mismo PIN que el panel de admin
-  NOTIFY_EMAIL: "pcbcrespo@gmail.com",  // a dónde llega el aviso por correo
+  // Clave LARGA y aleatoria que protege la LECTURA de las sugerencias.
+  // La pegas UNA vez en el panel de admin (se guarda solo en tu navegador).
+  // No la subas al repo: vive solo aquí, en tu Apps Script privado.
+  READ_TOKEN: "PON_AQUI_UN_TOKEN_LARGO_ALEATORIO",
+  NOTIFY_EMAIL: "TU_CORREO@gmail.com",  // a dónde llega el aviso por correo
   SHEET_NAME: "Sugerencias",            // pestaña de la hoja (se crea sola)
   NOTIFY: true                          // false = no enviar correo, solo guardar
 };
@@ -75,10 +84,10 @@ function doPost(e) {
   }
 }
 
-// ── Lectura de la lista (solo admin con PIN correcto) ──
+// ── Lectura de la lista (solo con el token de lectura correcto) ──
 function doGet(e) {
   const token = (e && e.parameter && e.parameter.token) || "";
-  if (token !== CONFIG.ADMIN_PIN) {
+  if (token !== CONFIG.READ_TOKEN) {
     return _json({ ok: false, error: "unauthorized" });
   }
   const sheet = _sheet();

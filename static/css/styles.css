@@ -1604,6 +1604,27 @@
     .adm-fb-name { font-size: .82rem; font-weight: 700; color: #E2E8F0; }
     .adm-fb-when { font-size: .7rem; color: #64748B; margin-left: auto; }
     .adm-fb-text { font-size: .82rem; color: #CBD5E1; line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
+    .adm-fb-token { display: flex; flex-direction: column; gap: .5rem; padding: .3rem 0; }
+    .adm-fb-token-msg { font-size: .82rem; color: #CBD5E1; line-height: 1.4; }
+    .adm-fb-token-row { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .adm-fb-token-input {
+      flex: 1 1 180px; min-width: 0; font-family: inherit; font-size: .85rem;
+      padding: .5rem .65rem; border-radius: 9px; color: #E2E8F0;
+      background: var(--card2); border: 1px solid var(--border);
+    }
+    .adm-fb-token-input:focus { outline: none; border-color: var(--gold); }
+    .adm-fb-token-btn {
+      font-family: inherit; font-size: .82rem; font-weight: 700; cursor: pointer;
+      padding: .5rem .9rem; border-radius: 9px; white-space: nowrap;
+      background: var(--gold); color: #1a1205; border: 1px solid var(--gold);
+    }
+    .adm-fb-token-btn:hover { filter: brightness(1.08); }
+    .adm-fb-foot { margin-top: .2rem; display: flex; justify-content: flex-end; }
+    .adm-fb-token-clear {
+      font-family: inherit; font-size: .72rem; cursor: pointer; color: #64748B;
+      background: none; border: none; padding: .2rem; text-decoration: underline;
+    }
+    .adm-fb-token-clear:hover { color: #94A3B8; }
 
     /* API call log */
     .adm-api-summary {

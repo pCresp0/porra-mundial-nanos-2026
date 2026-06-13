@@ -3057,7 +3057,10 @@ async function _sha256Hex(str) {
 // Recuerda que ya se introdujo la contraseña en esta sesión del navegador,
 // para no pedirla cada vez que se abre el panel.
 const ADMIN_UNLOCK_KEY = "porra_admin_unlocked";
-const ADMIN_PIN_KEY = "porra_admin_pin";
+// Token de lectura de sugerencias (clave larga del Apps Script). Se guarda
+// SOLO en este navegador (localStorage), nunca en el repo. Distinto del PIN
+// para que, aunque alguien adivine el PIN de 6 cifras, no pueda leer la lista.
+const FEEDBACK_TOKEN_KEY = "porra_fb_read_token";
 function isAdminUnlocked() {
   try { return sessionStorage.getItem(ADMIN_UNLOCK_KEY) === "1"; }
   catch { return false; }
@@ -3104,9 +3107,6 @@ function _renderAdminGate(error) {
     const hash = await _sha256Hex(val);
     if (hash === ADMIN_PASS_HASH) {
       markAdminUnlocked();
-      // Guarda el PIN en la sesión (solo en este navegador del admin) para
-      // poder leer las sugerencias del Apps Script, que exige el mismo PIN.
-      try { sessionStorage.setItem(ADMIN_PIN_KEY, val); } catch { /* ignore */ }
       _buildAdminPanel();
     } else {
       _renderAdminGate("PIN incorrecto");
@@ -3660,6 +3660,37 @@ function _fbEscape(s) {
     .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
+function _fbGetToken() {
+  try { return localStorage.getItem(FEEDBACK_TOKEN_KEY) || ""; } catch { return ""; }
+}
+
+// Guarda el token de lectura (desde el formulario del panel) y recarga la lista.
+function saveFeedbackToken() {
+  const input = document.getElementById("adm-fb-token-input");
+  const val = (input?.value || "").trim();
+  if (!val) { input?.focus(); return; }
+  try { localStorage.setItem(FEEDBACK_TOKEN_KEY, val); } catch { /* ignore */ }
+  _loadAdminFeedback();
+}
+
+// Olvida el token (por si te equivocaste al pegarlo).
+function clearFeedbackToken() {
+  try { localStorage.removeItem(FEEDBACK_TOKEN_KEY); } catch { /* ignore */ }
+  _loadAdminFeedback();
+}
+
+function _fbTokenForm(msg) {
+  return `<div class="adm-fb-token">
+      ${msg ? `<div class="adm-fb-token-msg">${msg}</div>` : ""}
+      <div class="adm-fb-token-row">
+        <input type="password" id="adm-fb-token-input" class="adm-fb-token-input"
+          placeholder="Pega aquí tu clave de lectura" autocomplete="off" spellcheck="false" />
+        <button type="button" class="adm-fb-token-btn" onclick="saveFeedbackToken()">Ver sugerencias</button>
+      </div>
+      <div class="adm-rel">La clave se guarda solo en este dispositivo. Es la misma que pusiste en <code>READ_TOKEN</code> del Apps Script.</div>
+    </div>`;
+}
+
 async function _loadAdminFeedback() {
   const list = document.getElementById("adm-fb-list");
   const badge = document.getElementById("adm-fb-badge");
@@ -3670,24 +3701,31 @@ async function _loadAdminFeedback() {
     return;
   }
 
-  let pin = "";
-  try { pin = sessionStorage.getItem(ADMIN_PIN_KEY) || ""; } catch { /* ignore */ }
-  if (!pin) {
-    list.innerHTML = `<div class="adm-empty">Vuelve a entrar con tu PIN para ver las sugerencias.</div>`;
+  const token = _fbGetToken();
+  if (!token) {
+    if (badge) badge.textContent = "";
+    list.innerHTML = _fbTokenForm("Introduce tu clave de lectura para ver las sugerencias:");
     return;
   }
 
+  list.innerHTML = `<div class="adm-empty">Cargando sugerencias…</div>`;
   try {
-    const res = await fetch(`${FEEDBACK_API}?token=${encodeURIComponent(pin)}`);
+    const res = await fetch(`${FEEDBACK_API}?token=${encodeURIComponent(token)}`);
     const data = await res.json().catch(() => ({}));
     if (!data || data.ok !== true) {
-      list.innerHTML = `<div class="adm-empty">No se pudieron cargar las sugerencias${data?.error === "unauthorized" ? " (PIN no válido en el Apps Script)" : ""}.</div>`;
+      if (data?.error === "unauthorized") {
+        if (badge) badge.textContent = "";
+        list.innerHTML = _fbTokenForm("⚠️ Clave incorrecta. Vuelve a introducir tu clave de lectura:");
+      } else {
+        list.innerHTML = `<div class="adm-empty">No se pudieron cargar las sugerencias.</div>`;
+      }
       return;
     }
     const items = data.items || [];
     if (badge) badge.textContent = String(items.length);
+    const changeLink = `<div class="adm-fb-foot"><button type="button" class="adm-fb-token-clear" onclick="clearFeedbackToken()">🔑 Cambiar clave de lectura</button></div>`;
     if (!items.length) {
-      list.innerHTML = `<div class="adm-empty">Aún no hay sugerencias. Cuando alguien envíe una, aparecerá aquí.</div>`;
+      list.innerHTML = `<div class="adm-empty">Aún no hay sugerencias. Cuando alguien envíe una, aparecerá aquí.</div>${changeLink}`;
       return;
     }
     list.innerHTML = items.map(it => {
@@ -3701,7 +3739,7 @@ async function _loadAdminFeedback() {
         </div>
         <div class="adm-fb-text">${_fbEscape(it.text)}</div>
       </div>`;
-    }).join("");
+    }).join("") + changeLink;
   } catch {
     list.innerHTML = `<div class="adm-empty">No se pudieron cargar las sugerencias (sin conexión con el servidor de recogida).</div>`;
   }
