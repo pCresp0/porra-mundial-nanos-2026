@@ -873,6 +873,13 @@
     }
     @media (min-width: 540px)  { .match-players-grid { grid-template-columns: repeat(3, 1fr); } }
     @media (min-width: 1024px) { .match-players-grid { grid-template-columns: repeat(6, 1fr); } }
+    /* En pantallas ≥540px, las tarjetas vuelven al layout vertical centrado */
+    @media (min-width: 540px) {
+      .player-pred-card { text-align: center; }
+      .player-pred-card .ppc-top { flex-direction: column; align-items: center; justify-content: center; gap: .35rem; }
+      .player-pred-card .ppc-top .pname { margin-bottom: 0; }
+      .player-pred-card .ppc-score { flex-direction: column; align-items: center; gap: .15rem; }
+    }
 
     .player-pred-card {
       background: var(--card2);
@@ -893,6 +900,20 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    .player-pred-card .ppc-top {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .35rem;
+    }
+    .player-pred-card .ppc-top .pname { margin-bottom: 0; }
+    .player-pred-card .ppc-score {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .15rem;
+    }
+    .player-pred-card .ppc-chips { margin-top: .25rem; }
 
     /* ── info tooltip ── */
     .info-btn {
@@ -2151,9 +2172,27 @@
         font-size: .72rem;
         line-height: 1.35;
       }
-      .player-pred-card { padding: .5rem .3rem; }
+      .player-pred-card { padding: .4rem .35rem; }
       .player-pred-card .pname { font-size: .6rem; }
       .brk-chip { font-size: .58rem; padding: .08rem .3rem; }
+
+      /* Layout horizontal en móvil: nombre+marcador en una fila, chips debajo */
+      .player-pred-card { text-align: left; }
+      .player-pred-card .ppc-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: .3rem;
+        margin-bottom: .25rem;
+      }
+      .player-pred-card .ppc-top .pname { margin-bottom: 0; }
+      .player-pred-card .ppc-score {
+        display: flex;
+        align-items: center;
+        gap: .3rem;
+        flex-shrink: 0;
+      }
+      .player-pred-card .ppc-chips { text-align: center; }
 
       /* Filtros fase/semana */
       .tv-badge {

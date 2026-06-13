@@ -1158,30 +1158,40 @@ function renderMatchCard(m, players, colors) {
     const predTxt = pd.pred.score || pd.pred.sign;
 
     let brkHtml = "";
-    if (m.played && pd.breakdown && pd.breakdown.reasons.length) {
-      const shortReason = r => r
-        .replace("1X2 correcto", "1X2 ✓")
-        .replace("1X2 incorrecto", "1X2 ✗")
-        .replace("Diferencia de goles no acertada", "Dif. goles ✗")
-        .replace("Diferencia de goles acertada", "Dif. goles ✓")
-        .replace(/Diferencia.*?\(/, "Dif. (")
-        .replace("Resultado exacto", "Exacto ✓")
-        .replace("Resultado no exacto", "Exacto ✗")
-        .replace(/(\d+)\.\d+/g, "$1");
+    if (m.played && pd.breakdown) {
+      const b = pd.breakdown;
+      const fmt = v => Math.round(v * 10) / 10;  // 2.0→2, 1.0→1, 3.0→3
+      const chips = [
+        { label: "1X2",       ok: b.sign  > 0, pts: fmt(b.sign)  },
+        { label: "Dif. goles", ok: b.diff  > 0, pts: fmt(b.diff)  },
+        { label: "Exacto",    ok: b.exact > 0, pts: fmt(b.exact) },
+      ];
       brkHtml = `<div class="mt-1 flex flex-wrap justify-center gap-0.5">
-        ${pd.breakdown.reasons.map(r =>
-          `<span class="brk-chip ${r.includes('incorrecto')||r.includes('no acertada')?'miss':'ok'}">${shortReason(r)}</span>`
+        ${chips.map(c =>
+          `<span class="brk-chip ${c.ok ? "ok" : "miss"}">${c.label} ${c.ok ? "✓" : "✗"}${c.ok ? ` (+${c.pts})` : ""}</span>`
         ).join("")}
       </div>`;
     } else if (m.played && pd.score === 0) {
-      brkHtml = `<div class="mt-1"><span class="brk-chip miss">0 pts</span></div>`;
+      brkHtml = `<div class="mt-1 flex flex-wrap justify-center gap-0.5">
+        <span class="brk-chip miss">1X2 ✗</span>
+        <span class="brk-chip miss">Dif. goles ✗</span>
+        <span class="brk-chip miss">Exacto ✗</span>
+      </div>`;
     }
 
+    const scoreHtml = m.played
+      ? `<span class="text-base font-extrabold" style="color:${pd.score > 0 ? colors[name] : '#EF4444'}">${pd.score > 0 ? "+"+Math.round(pd.score) : "✗"}</span>`
+      : "";
+
     return `<div class="player-pred-card">
-      <div class="pname" style="color:${colors[name]}">${name}</div>
-      <span class="${badgeClass} px-2 py-0.5 rounded text-xs font-mono">${predTxt}</span>
-      ${m.played ? `<div class="text-base font-extrabold mt-1" style="color:${pd.score > 0 ? colors[name] : '#EF4444'}">${pd.score > 0 ? "+"+pd.score : "✗"}</div>` : ""}
-      ${brkHtml}
+      <div class="ppc-top">
+        <div class="pname" style="color:${colors[name]}">${name}</div>
+        <div class="ppc-score">
+          <span class="${badgeClass} px-2 py-0.5 rounded text-xs font-mono">${predTxt}</span>
+          ${scoreHtml}
+        </div>
+      </div>
+      <div class="ppc-chips">${brkHtml}</div>
     </div>`;
   }).join("");
 
