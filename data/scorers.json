@@ -39,5 +39,32 @@
       "minute": "21'",
       "team": "away"
     }
+  ],
+  "Estados Unidos-Paraguay": [
+    {
+      "player": "D. Bobadilla 7'(OG)",
+      "minute": "",
+      "team": "home"
+    },
+    {
+      "player": "F. Balogun",
+      "minute": "31'",
+      "team": "home"
+    },
+    {
+      "player": "F. Balogun 45'+",
+      "minute": "5'",
+      "team": "home"
+    },
+    {
+      "player": "G. Reyna 90'+",
+      "minute": "8'",
+      "team": "home"
+    },
+    {
+      "player": "Maurício",
+      "minute": "73'",
+      "team": "away"
+    }
   ]
 }
