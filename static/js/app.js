@@ -2210,8 +2210,7 @@ function renderCalendar() {
         const nm = (m.name || "").replace(/'/g, "\\'").replace(/"/g, "&quot;");
         const chipClick = `onclick="event.stopPropagation();goToMatchesDay('${iso}','${nm}')"`;
         if (!homeOk && !awayOk) return `<div class="cal-chip" ${chipClick}>⚽</div>`;
-        const flagLine = (homeOk ? fh : "🏳") + (awayOk ? fa : "🏳");
-        return `<div class="cal-chip" ${chipClick}><span class="cal-chip-flags">${flagLine}</span><br>${ch}‑${ca}</div>`;
+        return `<div class="cal-chip cal-chip-match" ${chipClick}>${homeOk ? fh : "🏳"}<span class="cal-chip-code">${ch}</span><span class="cal-chip-sep">–</span><span class="cal-chip-code">${ca}</span>${awayOk ? fa : "🏳"}</div>`;
       };
       const chips = matches.map(matchChip).join("");
 
