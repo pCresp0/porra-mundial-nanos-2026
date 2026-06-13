@@ -78,5 +78,19 @@
       "own_goal": false,
       "team": "away"
     }
+  ],
+  "Catar-Suiza": [
+    {
+      "player": "B. Khoukhi",
+      "minute": "90'+5'",
+      "own_goal": false,
+      "team": "home"
+    },
+    {
+      "player": "Breel Embolo 17' (p)",
+      "minute": "",
+      "own_goal": false,
+      "team": "away"
+    }
   ]
 }

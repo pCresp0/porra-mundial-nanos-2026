@@ -30,5 +30,31 @@
     "updated": false,
     "trigger": "push",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-13T23:56:04+02:00",
+    "date": "13/06/2026",
+    "time": "23:56:04",
+    "updated": true,
+    "trigger": "schedule",
+    "changes": [
+      {
+        "label": "🇶🇦Catar 1-1 Suiza🇨🇭",
+        "name": "Catar-Suiza",
+        "date": "2026-06-13",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "0-0",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "1-1",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]
