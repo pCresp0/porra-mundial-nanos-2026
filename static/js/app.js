@@ -499,19 +499,20 @@ let _countdownTimer = null;
 function tickBanner() {
   const upd = D?.meta?.update || {};
   const lastEl = document.getElementById("upd-last");
-  const minsEl = document.getElementById("upd-mins");
   const nextEl = document.getElementById("upd-next");
 
-  // "Actualizada a las" → solo cuando hay datos reales (last_updated del JSON).
-  // Si no hay datos cargados todavía, cae al cálculo local como fallback.
+  // "Datos actualizados a las" → solo si hay fecha real en el JSON.
   if (lastEl) {
     lastEl.textContent = upd.last_updated_time || naturalHourSlots().last;
   }
 
-  // "Próxima actualización" y el countdown siempre se calculan en tiempo real.
+  // "Próxima revisión a las" = siguiente :00 o :30 desde ahora (hora España).
   const { next, mins } = naturalHourSlots();
-  if (nextEl) nextEl.textContent = upd.next_update_time || next;
-  if (minsEl) minsEl.textContent = String(mins);
+  if (nextEl) nextEl.textContent = next;
+
+  // Misma lógica en la celda del panel admin (si está abierto).
+  const admNext = document.getElementById("adm-next-update");
+  if (admNext) admNext.textContent = `${next} (en ~${mins} min)`;
 }
 
 function startCountdown() {
@@ -2978,10 +2979,8 @@ function _buildAdminPanel() {
           </div>
         </div>
         <div class="adm-cell">
-          <div class="adm-label">Próxima actualización</div>
-          <div class="adm-value">${upd.next_update_time || "—"}
-            ${futureTime(upd.next_update_iso) ? `<br><span class="adm-rel">${futureTime(upd.next_update_iso)}</span>` : ""}
-          </div>
+          <div class="adm-label">Próxima revisión</div>
+          <div class="adm-value" id="adm-next-update">—</div>
         </div>
         <div class="adm-cell">
           <div class="adm-label">Cadencia</div>
