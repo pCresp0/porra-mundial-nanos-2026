@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "14/06/2026 10:25",
+    "generated": "14/06/2026 10:48",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "cada hora en punto",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-06-14T13:00",
       "next_update_time": "13:00",
       "next_update_date": "14/06/2026",
-      "last_checked_iso": "2026-06-14T12:25",
-      "last_checked_time": "12:25",
+      "last_checked_iso": "2026-06-14T12:48",
+      "last_checked_time": "12:48",
       "last_checked_date": "14/06/2026"
     },
     "players": [
@@ -127,6 +127,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-14T12:48:40+02:00",
+        "date": "14/06/2026",
+        "time": "12:48:40",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-14T12:25:22+02:00",
         "date": "14/06/2026",
@@ -22801,32 +22809,32 @@
       "resolved": false,
       "predictions": {
         "JUANCHO": {
-          "pred": "Mbappe",
+          "pred": "Mbappé",
           "score": 0,
           "correct": false
         },
         "LARRY": {
-          "pred": "Mbappe",
+          "pred": "Mbappé",
           "score": 0,
           "correct": false
         },
         "LUIS/VIR": {
-          "pred": "Kane",
+          "pred": "Harry Kane",
           "score": 0,
           "correct": false
         },
         "MEDINA": {
-          "pred": "Mbappe",
+          "pred": "Mbappé",
           "score": 0,
           "correct": false
         },
         "VÍCTOR": {
-          "pred": "Mbappe",
+          "pred": "Mbappé",
           "score": 0,
           "correct": false
         },
         "CRESPO": {
-          "pred": "Mbappe",
+          "pred": "Mbappé",
           "score": 0,
           "correct": false
         }
@@ -22834,48 +22842,48 @@
       "predictions_list": [
         {
           "name": "CRESPO",
-          "pred": "Mbappe",
+          "pred": "Mbappé",
           "score": 0,
           "correct": false,
           "color": "#EF4444"
         },
         {
           "name": "JUANCHO",
-          "pred": "Mbappe",
+          "pred": "Mbappé",
           "score": 0,
           "correct": false,
           "color": "#F5C518"
         },
         {
           "name": "LARRY",
-          "pred": "Mbappe",
+          "pred": "Mbappé",
           "score": 0,
           "correct": false,
           "color": "#3B82F6"
         },
         {
           "name": "LUIS/VIR",
-          "pred": "Kane",
+          "pred": "Harry Kane",
           "score": 0,
           "correct": false,
           "color": "#10B981"
         },
         {
           "name": "MEDINA",
-          "pred": "Mbappe",
+          "pred": "Mbappé",
           "score": 0,
           "correct": false,
           "color": "#F97316"
         },
         {
           "name": "VÍCTOR",
-          "pred": "Mbappe",
+          "pred": "Mbappé",
           "score": 0,
           "correct": false,
           "color": "#A855F7"
         }
       ],
-      "consensus": "Mbappe",
+      "consensus": "Mbappé",
       "consensus_count": 5,
       "filled_count": 6
     },
@@ -22888,17 +22896,17 @@
       "resolved": false,
       "predictions": {
         "JUANCHO": {
-          "pred": "CR7",
+          "pred": "Cristiano Ronaldo",
           "score": 0,
           "correct": false
         },
         "LARRY": {
-          "pred": "M. Oyarzabal",
+          "pred": "Oyarzabal",
           "score": 0,
           "correct": false
         },
         "LUIS/VIR": {
-          "pred": "Mbappe",
+          "pred": "Mbappé",
           "score": 0,
           "correct": false
         },
@@ -22913,7 +22921,7 @@
           "correct": false
         },
         "CRESPO": {
-          "pred": "Erling Haaland",
+          "pred": "Haaland",
           "score": 0,
           "correct": false
         }
@@ -22921,28 +22929,28 @@
       "predictions_list": [
         {
           "name": "CRESPO",
-          "pred": "Erling Haaland",
+          "pred": "Haaland",
           "score": 0,
           "correct": false,
           "color": "#EF4444"
         },
         {
           "name": "JUANCHO",
-          "pred": "CR7",
+          "pred": "Cristiano Ronaldo",
           "score": 0,
           "correct": false,
           "color": "#F5C518"
         },
         {
           "name": "LARRY",
-          "pred": "M. Oyarzabal",
+          "pred": "Oyarzabal",
           "score": 0,
           "correct": false,
           "color": "#3B82F6"
         },
         {
           "name": "LUIS/VIR",
-          "pred": "Mbappe",
+          "pred": "Mbappé",
           "score": 0,
           "correct": false,
           "color": "#10B981"
@@ -22975,12 +22983,12 @@
       "resolved": false,
       "predictions": {
         "JUANCHO": {
-          "pred": "Vini",
+          "pred": "Vinicius Jr.",
           "score": 0,
           "correct": false
         },
         "LARRY": {
-          "pred": "H. Kane",
+          "pred": "Harry Kane",
           "score": 0,
           "correct": false
         },
@@ -23015,14 +23023,14 @@
         },
         {
           "name": "JUANCHO",
-          "pred": "Vini",
+          "pred": "Vinicius Jr.",
           "score": 0,
           "correct": false,
           "color": "#F5C518"
         },
         {
           "name": "LARRY",
-          "pred": "H. Kane",
+          "pred": "Harry Kane",
           "score": 0,
           "correct": false,
           "color": "#3B82F6"
@@ -23082,7 +23090,7 @@
           "correct": false
         },
         "VÍCTOR": {
-          "pred": "Mbappe",
+          "pred": "Mbappé",
           "score": 0,
           "correct": false
         },
@@ -23130,7 +23138,7 @@
         },
         {
           "name": "VÍCTOR",
-          "pred": "Mbappe",
+          "pred": "Mbappé",
           "score": 0,
           "correct": false,
           "color": "#A855F7"
@@ -23159,7 +23167,7 @@
           "correct": false
         },
         "LUIS/VIR": {
-          "pred": "Mbappe",
+          "pred": "Mbappé",
           "score": 0,
           "correct": false
         },
@@ -23203,7 +23211,7 @@
         },
         {
           "name": "LUIS/VIR",
-          "pred": "Mbappe",
+          "pred": "Mbappé",
           "score": 0,
           "correct": false,
           "color": "#10B981"
@@ -23251,7 +23259,7 @@
           "correct": false
         },
         "MEDINA": {
-          "pred": "Mbappe",
+          "pred": "Mbappé",
           "score": 0,
           "correct": false
         },
@@ -23297,7 +23305,7 @@
         },
         {
           "name": "MEDINA",
-          "pred": "Mbappe",
+          "pred": "Mbappé",
           "score": 0,
           "correct": false,
           "color": "#F97316"
