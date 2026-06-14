@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "14/06/2026 18:44",
+    "generated": "14/06/2026 18:46",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-14T10:32",
       "last_updated_time": "10:32",
       "last_updated_date": "14/06/2026",
-      "next_update_iso": "2026-06-14T20:45",
-      "next_update_time": "20:45",
+      "next_update_iso": "2026-06-14T20:50",
+      "next_update_time": "20:50",
       "next_update_date": "14/06/2026",
-      "last_checked_iso": "2026-06-14T20:44",
-      "last_checked_time": "20:44",
+      "last_checked_iso": "2026-06-14T20:46",
+      "last_checked_time": "20:46",
       "last_checked_date": "14/06/2026"
     },
     "players": [
@@ -141,6 +141,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-14T20:46:39+02:00",
+        "date": "14/06/2026",
+        "time": "20:46:39",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-14T20:44:21+02:00",
         "date": "14/06/2026",
@@ -694,8 +702,8 @@
     {
       "name": "CRESPO",
       "total": 13.0,
-      "live_points": 3.0,
-      "total_live": 16.0,
+      "live_points": 2.0,
+      "total_live": 15.0,
       "groups": 13.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -748,8 +756,8 @@
     {
       "name": "LUIS/VIR",
       "total": 11.0,
-      "live_points": 2.0,
-      "total_live": 13.0,
+      "live_points": 3.0,
+      "total_live": 14.0,
       "groups": 11.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -2208,7 +2216,7 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 5,
+      "live_goals_l": 6,
       "live_goals_v": 1,
       "live_scorers": [
         {
@@ -2242,6 +2250,13 @@
         {
           "player": "N. Brown",
           "minute": "68'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "D. Undav",
+          "minute": "78'",
           "own_goal": false,
           "penalty": false,
           "team": "home"
@@ -2305,15 +2320,15 @@
           "breakdown": null,
           "live_breakdown": {
             "sign": 2.0,
-            "diff": 0.0,
+            "diff": 1.0,
             "exact": 0,
-            "total": 2.0,
+            "total": 3.0,
             "reasons": [
               "1X2 correcto (+2.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles (+1)"
             ]
           },
-          "live_score": 2.0
+          "live_score": 3.0
         },
         "MEDINA": {
           "pred": {
@@ -2362,15 +2377,15 @@
           "breakdown": null,
           "live_breakdown": {
             "sign": 2.0,
-            "diff": 1.0,
+            "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 2.0,
             "reasons": [
               "1X2 correcto (+2.0)",
-              "Diferencia de goles (+1)"
+              "Diferencia de goles no acertada"
             ]
           },
-          "live_score": 3.0
+          "live_score": 2.0
         }
       }
     },
