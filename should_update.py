@@ -3,10 +3,12 @@
 Decide si la GitHub Action debe hacer trabajo real (llamar a la API, actualizar
 los Excel y regenerar data.json) o salir sin hacer nada.
 
-Solo tiene sentido actualizar cuando hay un partido que ya debería haber
-terminado pero cuyo resultado todavía NO está en data.json. Así la Action,
-aunque se despierte cada 30 min, únicamente actúa justo después de cada partido
-y deja de intentarlo en cuanto captura el resultado.
+Tiene sentido actualizar cuando:
+  • Hay un partido EN CURSO (ya ha empezado y aún no ha terminado): así se
+    capturan el marcador y los puntos provisionales cada ~15 min.
+  • Hay un partido que ya debería haber terminado pero cuyo resultado todavía
+    NO está en data.json: para capturar el resultado final.
+Fuera de esas ventanas no se hace nada (no se generan commits innecesarios).
 
 Imprime en stdout una sola línea apta para $GITHUB_OUTPUT:
     run=yes   → hay que actualizar
@@ -27,11 +29,13 @@ except Exception:  # pragma: no cover
 BASE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(BASE, "data.json")
 
-# Un partido puede darse por terminado ~110 min después del inicio
-# (90' + descanso + tiempo añadido). Seguimos intentando hasta 6 h después por
-# si hay prórroga, penaltis o la API tarda en publicar el resultado.
-MIN_AFTER = timedelta(minutes=110)
-MAX_AFTER = timedelta(hours=6)
+# Ventana de actividad alrededor de cada partido. Empezamos un par de minutos
+# antes del inicio (para captar el directo en cuanto arranca) y seguimos hasta
+# 6 h después por si hay prórroga, penaltis o la API tarda en publicar.
+# A partir de ~110 min el partido ya debería haber terminado.
+WINDOW_START = timedelta(minutes=-2)
+FINISHED_AFTER = timedelta(minutes=110)
+WINDOW_END = timedelta(hours=6)
 
 
 def main() -> None:
@@ -61,15 +65,16 @@ def main() -> None:
         kickoff = (datetime(y, mo, dd, hh, mm, tzinfo=TZ) if TZ
                    else datetime(y, mo, dd, hh, mm))
         elapsed = now - kickoff
-        if MIN_AFTER <= elapsed <= MAX_AFTER:
+        if WINDOW_START <= elapsed <= WINDOW_END:
             mins = int(elapsed.total_seconds() // 60)
+            estado = "en curso" if elapsed < FINISHED_AFTER else "pendiente de resultado"
             print("run=yes")
-            print(f"Partido pendiente de resultado: {m.get('name')} "
+            print(f"Partido {estado}: {m.get('name')} "
                   f"(inicio hace {mins} min) → actualizar", file=sys.stderr)
             return
 
     print("run=no")
-    print("Ningún partido recién terminado pendiente → no actualizar",
+    print("Ningún partido en curso ni recién terminado → no actualizar",
           file=sys.stderr)
 
 

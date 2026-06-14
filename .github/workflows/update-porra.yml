@@ -2,9 +2,11 @@ name: Actualizar porra
 
 on:
   schedule:
-    # Comprueba cada 30 minutos, pero solo actualiza (API + Excel + data.json)
-    # si acaba de terminar un partido (ver should_update.py).
-    - cron: "*/30 * * * *"
+    # Comprueba cada 15 minutos. Solo actualiza (API + Excel + data.json) si hay
+    # un partido EN CURSO (marcador/puntos provisionales) o uno recién terminado
+    # pendiente de resultado (ver should_update.py). Fuera de partido no hace
+    # nada, así que no genera commits innecesarios.
+    - cron: "*/15 * * * *"
   workflow_dispatch:
   push:
     paths:

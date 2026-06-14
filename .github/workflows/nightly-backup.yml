@@ -1,0 +1,32 @@
+name: Backup nocturno
+
+on:
+  schedule:
+    # 23:55 hora España (CEST = UTC+2). Ajustar a 22:55 UTC en invierno (CET).
+    - cron: "55 21 * * *"
+  workflow_dispatch:   # permite lanzarlo manualmente desde la UI de GitHub
+
+permissions:
+  contents: write
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          fetch-depth: 0   # historial completo para que el push funcione bien
+
+      - name: Crear rama backup/YYYY-MM-DD
+        run: |
+          DATE=$(TZ="Europe/Madrid" date +%Y-%m-%d)
+          BRANCH="backup/${DATE}"
+
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Crea o sobreescribe la rama apuntando al HEAD actual de main
+          git checkout -b "${BRANCH}"
+          git push origin "${BRANCH}" --force
+
+          echo "✅ Rama ${BRANCH} creada/actualizada desde main"

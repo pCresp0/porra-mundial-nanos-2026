@@ -147,12 +147,17 @@
     .match-score-big { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--gold); letter-spacing: .08em; margin-top: .35rem; line-height: 1; }
     .match-scorers { display: flex; align-items: flex-start; justify-content: center; gap: .6rem; margin-top: .5rem; }
     .match-scorers .ms-col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: .15rem; }
+    .match-scorers .ms-col-home { align-items: flex-end; }
+    .match-scorers .ms-col-away { align-items: flex-start; }
     .match-scorers .ms-sep { width: 1px; align-self: stretch; background: rgba(148,163,184,.25); }
     .match-scorers .ms-line { font-size: .72rem; color: #94A3B8; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .match-scorers .ms-name { color: #CBD5E1; font-weight: 600; }
     .match-scorers .ms-name.ms-og { color: #F87171; }
     .match-scorers .ms-og-tag { display: inline-block; font-size: .62rem; font-weight: 800; color: #fff; background: #DC2626; border-radius: 3px; padding: 0 .3rem; margin-left: .2rem; vertical-align: middle; line-height: 1.35; }
-    .match-scorers .ms-min { color: var(--gold); font-weight: 700; margin-left: .25rem; }
+    .match-scorers .ms-pen-tag { display: inline-block; font-size: .62rem; font-weight: 700; color: #fff; background: #7C3AED; border-radius: 3px; padding: 0 .3rem; margin-left: .2rem; vertical-align: middle; line-height: 1.35; letter-spacing: .02em; }
+    .match-scorers .ms-min { color: var(--gold); font-weight: 700; }
+    .match-scorers .ms-col-home .ms-min { margin-left: .25rem; }
+    .match-scorers .ms-col-away .ms-min { margin-right: .25rem; }
     .match-scorers .ms-min .ms-extra { color: #FDE047; font-weight: 800; }
     @media (max-width: 480px) {
       .match-score-big { font-size: 2rem; }
@@ -525,6 +530,7 @@
     }
     .live-ball {
       display: inline-block;
+      margin-right: .3em;
       animation: liveBounce .55s cubic-bezier(.36,.07,.19,.97) infinite alternate;
     }
     @keyframes liveBounce {
@@ -547,23 +553,144 @@
       text-transform: uppercase;
       letter-spacing: .03em;
     }
+
+    /* ── marcador EN DIRECTO ── */
+    .match-score-big.match-score-live { color: #60A5FA; }
+    .live-dot {
+      display: inline-block;
+      width: .55rem; height: .55rem;
+      border-radius: 50%;
+      background: #EF4444;
+      margin-right: .35rem;
+      box-shadow: 0 0 0 0 rgba(239,68,68,.6);
+      animation: liveDotPulse 1.1s ease-out infinite;
+      vertical-align: middle;
+    }
+    @keyframes liveDotPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(239,68,68,.55); }
+      70%  { box-shadow: 0 0 0 7px rgba(239,68,68,0); }
+      100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); }
+    }
+    .live-minute-pill {
+      display: inline-flex;
+      align-items: center;
+      margin-top: .35rem;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      color: #FCA5A5;
+      background: rgba(239,68,68,.12);
+      border: 1px solid rgba(239,68,68,.4);
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+    /* puntos provisionales por jugador */
+    .brk-prov { opacity: .92; }
+    .prov-tag {
+      font-size: .6rem;
+      font-weight: 700;
+      color: #FCA5A5;
+      margin-left: .2rem;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      vertical-align: super;
+    }
+    .live-prov-score .prov-tag { color: inherit; opacity: .7; }
+
+    /* ── clasificación provisional ── */
+    .live-standings-banner {
+      background: linear-gradient(135deg, rgba(239,68,68,.14), rgba(239,68,68,.05));
+      border: 1px solid rgba(239,68,68,.4);
+      border-radius: 14px;
+      padding: .85rem 1rem;
+      margin-bottom: 1rem;
+    }
+    .live-standings-banner.hidden { display: none; }
+    .lsb-head { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
+    .lsb-badge {
+      font-weight: 800;
+      font-size: .72rem;
+      letter-spacing: .06em;
+      color: #fff;
+      background: #DC2626;
+      padding: .2rem .6rem;
+      border-radius: 999px;
+      animation: liveDot .9s ease-in-out infinite;
+      white-space: nowrap;
+    }
+    .lsb-text { font-size: .82rem; color: #FCA5A5; flex: 1 1 240px; min-width: 0; }
+    .lsb-text strong { color: #FECACA; }
+    .lsb-matches { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .6rem; }
+    .lsb-match {
+      display: inline-flex;
+      align-items: center;
+      font-size: .78rem;
+      font-weight: 700;
+      color: #FECACA;
+      background: rgba(239,68,68,.12);
+      border: 1px solid rgba(239,68,68,.3);
+      padding: .2rem .55rem;
+      border-radius: 8px;
+    }
+    .podium-prov { font-size: .68rem; font-weight: 700; color: #FCA5A5; margin-top: .15rem; }
+    .rest-prov { font-size: .68rem; font-weight: 700; color: #FCA5A5; margin-left: .5rem; }
+    .st-prov-row td { background: rgba(239,68,68,.04); }
+    .standings-prov-badge {
+      font-size: .65rem;
+      font-weight: 800;
+      letter-spacing: .07em;
+      color: #fff;
+      background: #DC2626;
+      padding: .15rem .45rem;
+      border-radius: 999px;
+      margin-right: .35rem;
+      animation: liveDot .9s ease-in-out infinite;
+      vertical-align: middle;
+    }
     /* Etiqueta flotante en la esquina superior izquierda de la tarjeta:
        no ocupa línea propia ni deja hueco encima del partido. */
+    .card-corner-tags { display: contents; }
     .card-corner-tag {
       position: absolute;
       top: .7rem;
       left: .7rem;
       z-index: 2;
     }
-    /* En móvil la tarjeta es estrecha y el tag se solaparía con la bandera/
-       nombre: lo sacamos del flotado para que ocupe su propia línea arriba. */
+    .card-corner-tag-right {
+      position: absolute;
+      top: .7rem;
+      right: .7rem;
+      z-index: 2;
+    }
+    .phase-corner-tag {
+      color: #94A3B8;
+      background: var(--card2);
+      padding: .1rem .5rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+    }
+    .phase-corner-tag--group {
+      color: #38BDF8;
+      background: rgba(56,189,248,.12);
+    }
+    .match-live-row { text-align: center; margin-bottom: .75rem; }
+    /* En móvil la tarjeta es estrecha y los tags se solaparían: los ponemos
+       en una fila flex para que queden en la misma línea izq/dcha. */
     @media (max-width: 767px) {
-      .card-corner-tag {
-        position: static;
-        margin: 0 0 .55rem;
-        display: block;
-        text-align: left;
+      .card-corner-tags {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: .55rem;
       }
+      .card-corner-tags .card-corner-tag,
+      .card-corner-tags .card-corner-tag-right {
+        position: static;
+        margin: 0;
+      }
+      .card-corner-tags > div:only-child { margin-left: auto; }
     }
 
     /* ── pulse when arriving at a match selected from the calendar ── */
@@ -1112,6 +1239,41 @@
     .pstat-legend span { display: inline-flex; align-items: center; gap: .3rem; font-size: .62rem; color: #94A3B8; }
     .pstat-legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
 
+    /* ── Tabla ranking partidos más acertados ── */
+    .tmr-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .tmr-table { width: 100%; border-collapse: collapse; font-size: .83rem; }
+    .tmr-th { padding: .45rem .75rem; text-align: left; font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #64748B; border-bottom: 1px solid var(--border); white-space: nowrap; }
+    .tmr-th-rank { width: 2.4rem; text-align: center; }
+    .tmr-th-pts  { width: 8rem; }
+    .tmr-th-players { min-width: 14rem; }
+    .tmr-row { border-bottom: 1px solid rgba(255,255,255,.04); transition: background .15s; }
+    .tmr-row:hover { background: rgba(255,255,255,.03); }
+    .tmr-row.tmr-top td { background: rgba(245,197,24,.04); }
+    .tmr-row.tmr-top:first-child td { background: rgba(245,197,24,.09); }
+    .tmr-cell-rank { padding: .55rem .5rem; text-align: center; vertical-align: middle; }
+    .tmr-cell-match { padding: .55rem .75rem; vertical-align: middle; }
+    .tmr-cell-pts   { padding: .55rem .75rem; vertical-align: middle; }
+    .tmr-cell-players { padding: .55rem .75rem; vertical-align: middle; }
+    .tmr-medal { font-size: 1.2rem; }
+    .tmr-rank  { font-size: .8rem; font-weight: 700; color: #475569; }
+    .tmr-teams { font-size: .83rem; color: #E2E8F0; line-height: 1.3; }
+    .tmr-meta  { font-size: .7rem; color: #64748B; margin-top: .15rem; display: flex; align-items: center; gap: .4rem; }
+    .tmr-score { font-weight: 800; color: var(--gold); }
+    .tmr-date  { color: #64748B; }
+    .tmr-total-pts { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--gold); line-height: 1; }
+    .tmr-max { font-size: .75rem; color: #475569; font-family: inherit; }
+    .tmr-bar-wrap { height: 4px; background: rgba(255,255,255,.06); border-radius: 2px; margin-top: .3rem; }
+    .tmr-bar { height: 4px; border-radius: 2px; background: var(--gold); transition: width .4s; }
+    .tmr-cell-players .tmr-player { display: inline-flex; align-items: baseline; gap: .25rem; margin: .1rem .25rem .1rem 0; white-space: nowrap; }
+    .tmr-pname { font-size: .7rem; font-weight: 600; }
+    .tmr-ppts  { font-size: .78rem; font-weight: 800; min-width: 1rem; text-align: right; }
+    .tmr-note  { font-size: .68rem; color: #475569; margin-top: .6rem; text-align: right; }
+    @media (max-width: 600px) {
+      .tmr-table { font-size: .75rem; }
+      .tmr-cell-players { display: none; }
+      .tmr-th-players   { display: none; }
+    }
+
     /* ── changelog modal ── */
     .cl-backdrop {
       position: fixed; inset: 0; z-index: 200;
@@ -1559,16 +1721,19 @@
     .adm-backdrop {
       position: fixed; inset: 0; z-index: 9000;
       background: rgba(4,6,20,.85); backdrop-filter: blur(4px);
-      display: flex; align-items: center; justify-content: center;
+      display: flex; align-items: flex-start; justify-content: center;
       padding: 1.5rem;
+      overflow-y: auto;
     }
     .adm-modal {
       background: var(--surface); border: 1px solid #3B4270;
       border-radius: 16px; width: 100%; max-width: 960px;
-      max-height: calc(100vh - 3rem);
+      height: 80vh;
       box-shadow: 0 24px 64px rgba(0,0,0,.7);
       display: flex; flex-direction: column;
       overflow: hidden;
+      box-sizing: border-box;
+      flex-shrink: 0;
     }
     .adm-head {
       display: flex; align-items: flex-start; justify-content: space-between;
@@ -1586,7 +1751,36 @@
       transition: background .15s, color .15s;
     }
     .adm-close:hover { background: rgba(255,255,255,.12); color: #fff; }
-    .adm-body { padding: 1.25rem 1.5rem 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; overflow-y: auto; overflow-x: hidden; flex: 1 1 auto; -webkit-overflow-scrolling: touch; }
+    .adm-body { padding: 0; display: flex; flex-direction: column; overflow: hidden; flex: 1 1 auto; }
+
+    /* ── Sub-pestañas del panel de admin ── */
+    .adm-subnav {
+      display: flex; align-items: center; gap: 0;
+      overflow-x: auto; overflow-y: hidden;
+      border-bottom: 1px solid #2A3060;
+      background: #0D1028;
+      flex-shrink: 0;
+      padding: 0 .75rem;
+      scrollbar-width: none;
+    }
+    .adm-subnav::-webkit-scrollbar { display: none; }
+    .adm-subnav-btn {
+      flex-shrink: 0;
+      background: none; border: none; border-bottom: 2px solid transparent;
+      color: #64748B; font-size: .72rem; font-weight: 700;
+      padding: .6rem .7rem; cursor: pointer; white-space: nowrap;
+      letter-spacing: .02em; transition: color .15s, border-color .15s;
+    }
+    .adm-subnav-btn:hover { color: #94A3B8; }
+    .adm-subnav-btn.active { color: #F472B6; border-bottom-color: #F472B6; }
+
+    /* Contenido de la pestaña activa (es el scrollable) */
+    .adm-tab-content {
+      padding: 1.1rem 1.5rem 1.5rem;
+      display: flex; flex-direction: column; gap: 1.1rem;
+      overflow-y: auto; overflow-x: hidden;
+      flex: 1 1 auto; -webkit-overflow-scrolling: touch;
+    }
     .adm-section { }
     .adm-section-title {
       font-size: .78rem; font-weight: 700; letter-spacing: .08em;
@@ -1826,13 +2020,15 @@
       to   { opacity: 1; transform: translateY(0); }
     }
     @media (max-width: 600px) {
-      .adm-backdrop { padding: .5rem; align-items: stretch; }
-      .adm-modal { border-radius: 12px; width: 100%; max-width: 100%; box-sizing: border-box; max-height: 100%; }
+      .adm-backdrop { padding: 0; align-items: flex-start; }
+      .adm-modal { border-radius: 0 0 16px 16px; width: 100%; max-width: 100vw; box-sizing: border-box; height: 92dvh; height: 92vh; }
       .adm-head { padding: .8rem .9rem .65rem; }
       .adm-head-title { font-size: .95rem; }
       .adm-head-sub { font-size: .62rem; }
       .adm-close { width: 1.7rem; height: 1.7rem; font-size: .85rem; }
-      .adm-body { padding: .8rem .9rem 1rem; gap: .85rem; }
+      .adm-subnav { padding: 0 .4rem; }
+      .adm-subnav-btn { font-size: .66rem; padding: .55rem .55rem; }
+      .adm-tab-content { padding: .8rem .85rem 1.2rem; gap: .85rem; }
       .adm-section-title { font-size: .68rem; margin-bottom: .45rem; letter-spacing: .05em; }
       .adm-badge { font-size: .58rem; padding: .1rem .4rem; }
       .adm-grid { grid-template-columns: 1fr 1fr; gap: .4rem; }
@@ -1844,20 +2040,20 @@
       .adm-matches, .adm-api-list { padding: .4rem .55rem; max-height: 200px; }
       .adm-match-row { padding: .22rem 0; font-size: .68rem; }
       .adm-match-updated, .adm-match-phase { font-size: .56rem; }
-      .adm-links { gap: .35rem; }
+      .adm-links { gap: .35rem; flex-wrap: wrap; }
       .adm-link { padding: .35rem .6rem; font-size: .68rem; }
       .adm-empty { font-size: .7rem; }
       /* API log compact */
-      .adm-api-summary { gap: .35rem; margin-bottom: .45rem; }
+      .adm-api-summary { gap: .35rem; margin-bottom: .45rem; flex-wrap: wrap; }
       .adm-api-stat { padding: .22rem .5rem; font-size: .62rem; }
       .adm-api-stat strong { font-size: .76rem; }
-      .adm-api-filters { gap: .3rem; margin-bottom: .45rem; }
+      .adm-api-filters { gap: .3rem; margin-bottom: .45rem; flex-wrap: wrap; }
       .adm-api-filter { padding: .25rem .6rem; font-size: .62rem; }
       .adm-api-row { flex-wrap: wrap; row-gap: .15rem; padding: .28rem 0; font-size: .68rem; gap: .4rem; }
       .adm-api-when { flex-direction: row; align-items: baseline; gap: .35rem; min-width: 0; }
       .adm-api-when strong { font-size: .72rem; }
       .adm-api-date { font-size: .58rem; }
-      .adm-api-tags { margin-left: auto; gap: .3rem; }
+      .adm-api-tags { margin-left: auto; gap: .3rem; flex-wrap: wrap; }
       .adm-api-trigger { font-size: .56rem; }
       .adm-api-badge { font-size: .56rem; padding: .1rem .35rem; }
       .adm-api-mid { flex-basis: 100%; order: 5; font-size: .66rem; }
@@ -2144,6 +2340,10 @@
     }
     .info-card h3 { color: var(--gold); font-size: .85rem; text-transform: uppercase; letter-spacing: .06em; margin: 0 0 .5rem; }
     .info-card p { color: #94A3B8; font-size: .9rem; line-height: 1.6; margin: 0; }
+    .info-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .45rem; }
+    .info-list li { color: #94A3B8; font-size: .88rem; line-height: 1.5; padding-left: 1rem; position: relative; }
+    .info-list li::before { content: "›"; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+    .info-list code { font-size: .8rem; background: rgba(255,255,255,.07); padding: .05rem .35rem; border-radius: 4px; color: #E2E8F0; font-family: monospace; }
     .info-tag {
       display: inline-block; font-size: .7rem; font-weight: 700;
       padding: .2rem .55rem; border-radius: 4px; margin: .15rem;
@@ -2219,6 +2419,22 @@
       color: #475569;
       margin: 0 .45rem;
     }
+    /* ── banner en modo "partido en juego" ── */
+    .update-banner.has-live,
+    .update-banner .upd-line-live { color: #FCA5A5; }
+    .update-banner .upd-line-live strong,
+    .update-banner .upd-line-live .upd-live-lead { color: #FECACA; font-weight: 800; }
+    .upd-live-dot {
+      display: inline-block;
+      width: .5rem; height: .5rem;
+      border-radius: 50%;
+      background: #EF4444;
+      margin-right: .4rem;
+      box-shadow: 0 0 0 0 rgba(239,68,68,.6);
+      animation: liveDotPulse 1.1s ease-out infinite;
+      vertical-align: middle;
+    }
+    .upd-live-prov { color: #F87171; opacity: .85; font-style: italic; }
     @media (max-width: 640px) {
       .update-banner { font-size: .7rem; line-height: 1.45; }
       .update-banner .upd-block {

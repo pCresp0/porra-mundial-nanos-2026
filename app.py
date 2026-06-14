@@ -143,6 +143,7 @@ def _normalize_scorer(s: dict) -> dict:
     player  = s.get("player", "")
     minute  = s.get("minute", "")
     own_goal = bool(s.get("own_goal", False))
+    penalty  = bool(s.get("penalty", False))
 
     # Case 1: extra-time split — player ends with "NN'+" and minute is "M'"
     m = _re.match(r"^(.*?)\s*(\d+)\s*'\s*\+\s*$", player)
@@ -151,17 +152,24 @@ def _normalize_scorer(s: dict) -> dict:
         if extra:
             return {**s, "player": m.group(1).strip(),
                     "minute": f"{m.group(2)}'+{extra.group(1)}'",
-                    "own_goal": own_goal}
+                    "own_goal": own_goal, "penalty": penalty}
 
     # Case 2: OG embedded in player with minute: "Name 7'(OG)"
     m = _re.match(r"^(.*?)\s*(\d+)\s*'?\s*\(OG\)\s*$", player, _re.IGNORECASE)
     if m:
         return {**s, "player": m.group(1).strip(),
                 "minute": m.group(2) + "'",
-                "own_goal": True}
+                "own_goal": True, "penalty": False}
+
+    # Case 3: penalty embedded in player: "Name 7'(P)"
+    m = _re.match(r"^(.*?)\s*(\d+)\s*'?\s*\(P\)\s*$", player, _re.IGNORECASE)
+    if m:
+        return {**s, "player": m.group(1).strip(),
+                "minute": m.group(2) + "'",
+                "own_goal": False, "penalty": True}
 
     # Already OK
-    return {**s, "own_goal": own_goal}
+    return {**s, "own_goal": own_goal, "penalty": penalty}
 
 
 def _load_scorers():
@@ -195,6 +203,41 @@ def _lookup_scorers(scorers, match_name):
     if compact in scorers:
         return scorers[compact]
     return []
+
+
+def _load_live():
+    """In-progress live scores from data/live.json (written by fetch_results.py).
+
+    Returns {'home-away' key -> {home, away, minute, scorers}}. Only currently
+    live matches are present; the file is rebuilt on every fetch run.
+    """
+    path = os.path.join(BASE, "data", "live.json")
+    out = {}
+    try:
+        with open(path, encoding="utf-8") as fh:
+            raw = json.load(fh)
+    except (FileNotFoundError, ValueError):
+        return out
+    if not isinstance(raw, dict):
+        return out
+    for key, val in raw.items():
+        if not isinstance(val, dict):
+            continue
+        out[key] = val
+        out[key.replace(" ", "")] = val
+    return out
+
+
+def _lookup_live(live, match_name):
+    if not match_name or not live:
+        return None
+    name = str(match_name).strip()
+    if name in live:
+        return live[name]
+    compact = name.replace(" ", "")
+    if compact in live:
+        return live[compact]
+    return None
 
 
 def _build_wc_scores(wb):
@@ -703,7 +746,8 @@ def _build_daily_progression(matches, player_names):
     cumulative  = {n: 0.0 for n in player_names}
     players_out = {n: [] for n in player_names}
     day_points  = {n: [] for n in player_names}
-    labels = []
+    labels      = []
+    flag_labels = []
     dates  = []
     titles = []
 
@@ -714,7 +758,11 @@ def _build_daily_progression(matches, player_names):
             players_out[n].append(cumulative[n])
             day_points[n].append(round(earned, 1))
 
-        labels.append(f"{_abbr_team(m.get('home'))}-{_abbr_team(m.get('away'))}")
+        ab = f"{_abbr_team(m.get('home'))}-{_abbr_team(m.get('away'))}"
+        labels.append(ab)
+        fh = m.get("flag_home", "")
+        fa = m.get("flag_away", "")
+        flag_labels.append(f"{fh}{fa}" if (fh or fa) else ab)
         dates.append(m.get("date", ""))
 
         gl, gv = m.get("goals_l"), m.get("goals_v")
@@ -730,11 +778,12 @@ def _build_daily_progression(matches, player_names):
         titles.append(title + dt_part)
 
     return {
-        "labels":     labels,
-        "dates":      dates,
-        "titles":     titles,
-        "players":    players_out,
-        "day_points": day_points,
+        "labels":      labels,
+        "flag_labels": flag_labels,
+        "dates":       dates,
+        "titles":      titles,
+        "players":     players_out,
+        "day_points":  day_points,
     }
 
 
@@ -829,6 +878,7 @@ def build_data():
     wc_meta     = _build_wc_match_meta(wb1_raw)
     wc_scores   = _build_wc_scores(wb1_raw)
     wc_scorers  = _load_scorers()
+    wc_live     = _load_live()
     pts_sign  = float(_val(ws1, 8,  4) or 2)
     pts_diff  = float(_val(ws1, 9,  4) or 1)
     pts_exact = float(_val(ws1, 10, 4) or 3)
@@ -847,6 +897,10 @@ def build_data():
     # de fórmulas del Excel, que NO se recalcula al escribir marcadores por la
     # API). Así la actualización automática refleja siempre los puntos correctos.
     group_points = {p["name"]: 0.0 for p in all_players}
+    # Puntos provisionales de partidos EN CURSO (overlay no oficial). No se
+    # suman a group_points; alimentan la clasificación provisional de la web.
+    live_points  = {p["name"]: 0.0 for p in all_players}
+    live_match_names = []
     spain_dates  = []
 
     for row in range(6, 268):
@@ -898,6 +952,26 @@ def build_data():
             day_label = date_es
 
         predictions = {}
+        # ── overlay EN CURSO: solo si el partido no está finalizado en Excel ──
+        live_info = None
+        if not played:
+            li = _lookup_live(wc_live, match_name)
+            if li is not None:
+                try:
+                    lgl = int(li.get("home"))
+                    lgv = int(li.get("away"))
+                except (TypeError, ValueError):
+                    lgl = lgv = None
+                if lgl is not None and lgv is not None:
+                    live_info = {
+                        "goals_l": lgl,
+                        "goals_v": lgv,
+                        "minute":  str(li.get("minute", "")).strip(),
+                        "result":  _result_from_goals(lgl, lgv),
+                        "scorers": li.get("scorers", []),
+                    }
+                    live_match_names.append(str(match_name).strip())
+
         for p, ws in zip(all_players, all_ws):
             pred_raw  = _val(ws, row, p["pred_col"])
             score_raw = _val(ws, row, p["score_col"])
@@ -905,6 +979,7 @@ def build_data():
             score = float(score_raw) if score_raw is not None else 0
 
             breakdown = None
+            live_breakdown = None
             if played and phase == "groups" and pred and "|" in str(pred_raw or ""):
                 gl = int(goals_l) if goals_l is not None else None
                 gv = int(goals_v) if goals_v is not None else None
@@ -917,11 +992,22 @@ def build_data():
                 # (que puede estar desactualizada tras una actualización automática).
                 score = breakdown["total"]
                 group_points[p["name"]] += breakdown["total"]
+            elif live_info and phase == "groups" and pred and "|" in str(pred_raw or ""):
+                # Puntos provisionales del partido en curso (no oficiales).
+                live_breakdown = _score_breakdown(
+                    pred, live_info["result"],
+                    live_info["goals_l"], live_info["goals_v"],
+                    pts_sign, pts_diff, pts_exact,
+                    diff_factor, multiplier,
+                )
+                live_points[p["name"]] += live_breakdown["total"]
 
             predictions[p["name"]] = {
                 "pred":      pred,
                 "score":     score,
                 "breakdown": breakdown,
+                "live_breakdown": live_breakdown,
+                "live_score":     live_breakdown["total"] if live_breakdown else None,
             }
 
         if phase == "groups" and played:
@@ -956,6 +1042,11 @@ def build_data():
             "phase":     phase,
             "result":    result,
             "played":    played,
+            "live":      bool(live_info),
+            "live_minute":  live_info["minute"] if live_info else "",
+            "live_goals_l": live_info["goals_l"] if live_info else None,
+            "live_goals_v": live_info["goals_v"] if live_info else None,
+            "live_scorers": live_info["scorers"] if live_info else [],
             "goals_l":   int(goals_l) if goals_l is not None else None,
             "goals_v":   int(goals_v) if goals_v is not None else None,
             "scorers":   _lookup_scorers(wc_scorers, match_name) if played else [],
@@ -979,6 +1070,8 @@ def build_data():
         groups_calc = round(group_points.get(name, 0.0), 2)
         groups_excel = fv("groups")
         total = round(fv("total") - groups_excel + groups_calc, 2)
+        lp = round(live_points.get(name, 0.0), 2)
+        total_live = round(total + lp, 2)
         phase_detail = []
         for key, label, desc in STANDINGS_PHASES:
             pts = groups_calc if key == "groups" else fv(key)
@@ -988,6 +1081,8 @@ def build_data():
         standings_raw.append({
             "name":     name,
             "total":    total,
+            "live_points": lp,
+            "total_live":  total_live,
             "groups":   groups_calc,
             "positions":fv("positions"),
             "q16":      fv("q16"),
@@ -1007,6 +1102,11 @@ def build_data():
     for i, s in enumerate(standings_raw):
         s["pos"] = i + 1
         standings.append(s)
+
+    # Posición provisional (incluye puntos de partidos en curso)
+    live_order = sorted(standings, key=lambda x: x["total_live"], reverse=True)
+    for i, s in enumerate(live_order):
+        s["live_pos"] = i + 1
 
     scoring_rules = _load_scoring_rules(ws1)
 
@@ -1130,6 +1230,11 @@ def build_data():
             "generated": datetime.now().strftime("%d/%m/%Y %H:%M"),
             "update":    build_update_meta(),
             "players":   player_names,
+            "live": {
+                "active":  bool(live_match_names),
+                "count":   len(live_match_names),
+                "matches": live_match_names,
+            },
             "colors":    {p["name"]: PLAYER_COLORS[i] for i, p in enumerate(all_players)},
             "weeks":     weeks,
             "scoring": {

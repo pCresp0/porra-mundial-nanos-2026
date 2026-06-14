@@ -48,9 +48,9 @@
 <div id="update-banner" class="update-banner hidden">
   <div class="page-shell">
     <span class="upd-block">
-      <span class="upd-line">Datos actualizados a las <strong id="upd-last">—</strong><span id="upd-match"></span></span>
+      <span class="upd-line" id="upd-line">Datos actualizados a las <strong id="upd-last">—</strong><span id="upd-match"></span></span>
     </span>
-    <span class="hidden sm:inline text-gray-600"> · hora España</span>
+    <span class="hidden sm:inline text-gray-600" id="upd-tz"> · hora España</span>
   </div>
 </div>
 
@@ -83,7 +83,7 @@
       <button class="tab-btn tab-more-btn" id="tab-more-btn" type="button" aria-expanded="false" aria-haspopup="true">⋯ Más ▾</button>
       <div class="tab-more-dropdown hidden" id="tab-more-dropdown">
         <button class="tab-btn" data-tab="scoring">📋 Sistema de puntuación</button>
-        <button class="tab-btn" data-tab="info">ℹ️ Más info</button>
+        <button class="tab-btn" data-tab="info">🛠️ Sobre la web</button>
       </div>
     </div>
   </div>
@@ -130,7 +130,7 @@
   <button class="tab-btn" data-tab="stats">📊 Estadísticas</button>
   <button class="tab-btn" data-tab="honor">🏆 Cuadro de Honor</button>
   <button class="tab-btn" data-tab="scoring">📋 Sistema de puntuación</button>
-  <button class="tab-btn" data-tab="info">ℹ️ Más info</button>
+  <button class="tab-btn" data-tab="info">🛠️ Sobre la web</button>
 </aside>
 
 <main class="page-shell py-4 sm:py-6">
@@ -201,6 +201,9 @@
   ════════════════════════════════════════════ -->
   <section id="tab-standings" class="hidden">
 
+    <!-- aviso de clasificación provisional (partido en curso) -->
+    <div id="live-standings-banner" class="live-standings-banner hidden"></div>
+
     <!-- podium top 3 -->
     <div id="podium" class="podium-wrap"></div>
     <div id="podium-rest" class="rest-standings"></div>
@@ -208,7 +211,7 @@
     <!-- full table -->
     <div class="card overflow-hidden mb-6">
       <div class="px-6 py-4 border-b" style="border-color:var(--border)">
-        <h2 class="text-lg font-bold text-white">Tabla completa <span id="standings-updated" class="standings-updated"></span></h2>
+        <h2 class="text-lg font-bold text-white">Tabla completa <span id="standings-prov-label"></span><span id="standings-updated" class="standings-updated"></span></h2>
         <p class="text-xs text-gray-400 mt-1">Pulsa sobre el título de una columna para ordenar. Los puntos de grupos se desglosan por el motivo por el que se ganaron.</p>
       </div>
       <div class="overflow-x-auto">
@@ -276,13 +279,13 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
       <div class="card p-5">
         <div class="info-wrap mb-4">
-          <h3 class="font-bold text-white">Tasa de acierto</h3>
+          <h3 class="font-bold text-white">% de partidos con puntos <span id="hr-count" class="text-sm font-normal text-gray-400"></span></h3>
           <span class="info-btn">i</span>
           <div class="info-tip">
-            <strong>¿Qué es la tasa de acierto?</strong><br>
-            Porcentaje de partidos de fase de grupos en los que has sumado al menos 1 punto.
-            Si acertaste el signo (1/X/2), la diferencia o el resultado exacto, cuenta como acierto.
-            Ejemplo: 1 partido jugado y sumaste puntos → 100%.
+            <strong>¿Qué muestra esta gráfica?</strong><br>
+            Porcentaje de partidos jugados en fase de grupos en los que sumaste <strong>al menos 1 punto</strong>.
+            Cuenta cualquier acierto: signo (1X2), diferencia de goles o resultado exacto.
+            El número entre paréntesis en el título indica cuántos partidos se han jugado.
           </div>
         </div>
         <div style="height:260px;position:relative">
@@ -291,13 +294,13 @@
       </div>
       <div class="card p-5">
         <div class="info-wrap mb-4">
-          <h3 class="font-bold text-white">Distribución de puntos por fase</h3>
+          <h3 class="font-bold text-white">Forma reciente</h3>
           <span class="info-btn">i</span>
           <div class="info-tip">
             <strong>¿Qué muestra este gráfico?</strong><br>
-            Cuántos puntos ha sumado cada jugador en cada fase del torneo:
-            fase de grupos, posiciones, clasificados a dieciseisavos, eliminatorias y cuadro de honor.
-            Permite ver en qué ronda destaca cada uno.
+            Puntos obtenidos por cada jugador en los últimos 8 partidos jugados.
+            Cada grupo de barras es un partido — la altura indica los puntos (0–6).
+            Útil para ver quién está en racha y quién está bajando el nivel.
           </div>
         </div>
         <div style="height:260px;position:relative">
@@ -331,6 +334,8 @@
     </div>
     <p class="text-sm text-gray-400 mb-4">Resumen individual de cada participante en la fase de grupos.</p>
     <div id="stats-players" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+
+    <div id="stats-top-matches" class="mt-6"></div>
   </section>
 
   <!-- ════════════════════════════════════════════
@@ -349,91 +354,113 @@
   </section>
 
   <!-- ════════════════════════════════════════════
-       TAB: MÁS INFO
+       TAB: SOBRE LA WEB
   ════════════════════════════════════════════ -->
   <section id="tab-info" class="hidden">
     <div class="info-hero">
-      <h2 class="bebas text-3xl text-white mb-2">Porra «Los Nanos» — Mundial 2026</h2>
+      <h2 class="bebas text-3xl text-white mb-2">¿Cómo está hecha esta web?</h2>
       <p class="text-gray-300 leading-relaxed max-w-3xl">
-        Esta web nació para seguir el Mundial FIFA 2026 de un modo visual y cómodo:
-        clasificación, partidos, pronósticos, estadísticas y cuadro de honor en un solo panel.
-        No sustituye al Excel de la porra — lo complementa para que el grupo pueda consultar
-        quién va ganando y por qué, desde el móvil o el ordenador.
+        Un dashboard hecho a mano para seguir la porra del Mundial 2026. Sin frameworks de frontend, sin base de datos clásica
+        y con automatización completa de resultados vía GitHub Actions. Todo el código está abierto en GitHub.
       </p>
     </div>
 
     <div class="info-grid mb-6">
+
       <div class="info-card">
-        <h3>👥 El grupo</h3>
+        <h3>🗂️ Arquitectura general</h3>
+        <p>La web tiene dos modos de ejecución:</p>
+        <ul class="info-list mt-2">
+          <li><strong class="text-gray-200">Local (dev)</strong> — un servidor Flask (Python) lee el Excel de pronósticos con <code>openpyxl</code>, construye el <code>data.json</code> en memoria y lo sirve en <code>localhost:5050</code>.</li>
+          <li><strong class="text-gray-200">Producción</strong> — GitHub Pages sirve ficheros estáticos: <code>index.html</code> + <code>data.json</code> pregenerado. No hay servidor en producción.</li>
+        </ul>
+        <p class="mt-2">El frontend es una SPA de una sola página. Todas las pestañas se renderizan con JS puro; no hay React, Vue ni nada similar.</p>
+      </div>
+
+      <div class="info-card">
+        <h3>⚙️ Automatización de resultados</h3>
+        <p>Un workflow de <strong class="text-gray-200">GitHub Actions</strong> se ejecuta cada 15 minutos:</p>
+        <ul class="info-list mt-2">
+          <li><code>should_update.py</code> — decide si vale la pena actualizar (ventana de ±2 min antes del partido hasta 6 h después). Si no hay partidos cercanos, salta el resto.</li>
+          <li><code>fetch_results.py</code> — llama a la API de resultados, parsea goles (incluyendo OG y penaltis), escribe <code>data/scorers.json</code> y <code>data/live.json</code>.</li>
+          <li><code>excel_sync.py</code> — vuelca los resultados al Excel del repositorio.</li>
+          <li><code>build_static.py</code> — regenera <code>data.json</code> y hace <code>git push</code>. GitHub Pages publica automáticamente.</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>📡 API de resultados</h3>
         <p>
-          <strong class="text-gray-200">«Los Nanos»</strong> es un grupo de amigos del barrio de
-          <strong class="text-gray-200">Aluche</strong> (Madrid). Se conocieron principalmente jugando
-          al fútbol: primero en el <strong class="text-gray-200">parque de Aluche</strong>, después en el
-          equipo de fútbol 11 de <strong class="text-gray-200">La Cantera</strong>, y más tarde en el
-          famosísimo grupo de fútbol sala <strong class="text-gray-200">Los Últimos FS</strong>.
-          Su amor por el fútbol les viene de siempre, desde bien pequeños, y lo mejor de todo sigue
-          siendo jugarlo juntos. Cada cuatro años montan su porra del Mundial — seis participantes:
-          Juancho, Larry, Luis/Vir, Medina, Víctor y Crespo.
+          Se usa la API pública <code>worldcup26.ir/get/games</code> (104 partidos).
+          Los campos clave son <code>time_elapsed</code> (minuto en juego o "finished"/"notstarted"),
+          <code>home_score</code> / <code>away_score</code> y las cadenas de goleadores con formato
+          <code>"Nombre MM'(OG)"</code> / <code>"Nombre MM'(P)"</code>.
+        </p>
+        <p class="mt-2">
+          El parser en <code>_parse_scorers()</code> extrae jugador, minuto (incluyendo tiempo añadido
+          como <code>45'+3'</code>), y flags de gol en propia y penalti con regex.
         </p>
       </div>
+
       <div class="info-card">
-        <h3>⚽ La porra</h3>
-        <p>
-          Basada en el sistema Matejero: puntos por signo 1X2, diferencia de goles y resultado exacto
-          en fase de grupos, más puntos por posiciones, eliminatorias y cuadro de honor.
-          Premios: <strong class="text-yellow-400">40 €</strong> al 1.º y <strong class="text-gray-300">20 €</strong> al 2.º.
-        </p>
+        <h3>📊 Cálculo de puntos (en tiempo real)</h3>
+        <p>La función <code>_score_breakdown()</code> en <code>app.py</code> compara el pronóstico de cada jugador con el resultado real:</p>
+        <ul class="info-list mt-2">
+          <li><strong class="text-gray-200">Signo 1X2</strong> — 1 pt si aciertas victoria local, empate o victoria visitante.</li>
+          <li><strong class="text-gray-200">Diferencia</strong> — 2 pts adicionales si la diferencia de goles coincide.</li>
+          <li><strong class="text-gray-200">Resultado exacto</strong> — 3 pts adicionales si el marcador es exacto (total 6 pts).</li>
+        </ul>
+        <p class="mt-2">Durante un partido en juego, <code>data/live.json</code> alimenta los <em>puntos provisionales</em> que se muestran en la clasificación con el badge animado.</p>
       </div>
+
       <div class="info-card">
-        <h3>🔄 Datos y actualización</h3>
-        <p id="info-updated">
-          <strong class="text-gray-200">Pronósticos</strong> — los editáis en el Excel ADMIN; la web solo los lee.
-        </p>
-        <p class="mt-2">
-          <strong class="text-gray-200">Resultados (goles)</strong> — se actualizan solos, sin que nadie toque nada.
-          Una tarea programada en GitHub Actions vigila el calendario y, <strong class="text-gray-200">cuando un partido
-          acaba de terminar</strong>, llama a la API, escribe los goles en los dos Excel del repositorio, recalcula los
-          puntos y regenera la página. No hace falta subir ficheros a mano ni abrir el Excel por cada partido.
-        </p>
-        <p class="mt-2">
-          <strong class="text-gray-200">Puntos</strong> — el cálculo (1X2, diferencia y resultado exacto) se hace al
-          generar la web, así que la clasificación se actualiza sola en cuanto llega el resultado.
-        </p>
+        <h3>🗃️ Ficheros clave</h3>
+        <ul class="info-list">
+          <li><code>app.py</code> — servidor Flask + toda la lógica de negocio (<code>build_data()</code>).</li>
+          <li><code>fetch_results.py</code> — cliente de la API + parser de goles.</li>
+          <li><code>fixture_data.py</code> — fixture completo: 104 partidos, sedes, horarios ES, TV.</li>
+          <li><code>excel_sync.py</code> — lectura/escritura del Excel de pronósticos.</li>
+          <li><code>build_static.py</code> — genera <code>data.json</code> estático para producción.</li>
+          <li><code>should_update.py</code> — guardia del workflow: evita llamadas innecesarias a la API.</li>
+          <li><code>static/js/app.js</code> — todo el frontend (~4 000 líneas de JS vanilla).</li>
+          <li><code>data/live.json</code> — partidos en juego ahora mismo (vacío cuando no hay partido).</li>
+          <li><code>data/scorers.json</code> — goleadores de todos los partidos finalizados.</li>
+        </ul>
       </div>
+
       <div class="info-card">
-        <h3>🛠️ Tecnología</h3>
-        <p>
-          <strong class="text-gray-200">Frontend</strong> — una sola página en HTML con Tailwind CSS para los estilos,
-          Chart.js para las gráficas y Leaflet para los mapas de las sedes. Todo el interfaz es estático,
-          sin frameworks pesados.
-        </p>
-        <p class="mt-2">
-          <strong class="text-gray-200">Backend</strong> — un pequeño servidor en Python (Flask) que solo se usa en local:
-          lee el Excel con openpyxl y lo sirve como JSON. La versión pública de GitHub Pages no necesita servidor,
-          funciona con datos estáticos.
-        </p>
-        <p class="mt-2">
-          <strong class="text-gray-200">«Base de datos»</strong> — no hay base de datos clásica: los datos viven en un
-          Excel (pronósticos y configuración) y se publican como un fichero <code>data.json</code>. Un script en
-          GitHub Actions lo regenera automáticamente con los resultados de la API después de cada partido.
-        </p>
-        <p class="mt-2">
-          <strong class="text-gray-200">Código abierto</strong> — todo el proyecto (web, scripts y automatización) está en
-          GitHub: <a href="https://github.com/pCresp0/porra-mundial-nanos-2026" target="_blank" rel="noopener" class="text-blue-300 underline">pCresp0/porra-mundial-nanos-2026</a>.
-          Si quieres ver con detalle cómo funciona algo, ahí está todo.
-        </p>
-        <div class="mt-3">
-          <span class="info-tag">HTML</span>
-          <span class="info-tag">Tailwind CSS</span>
+        <h3>🛠️ Stack técnico</h3>
+        <p class="mb-2"><strong class="text-gray-200">Frontend</strong></p>
+        <div class="mb-3">
+          <span class="info-tag">HTML5</span>
+          <span class="info-tag">CSS (vars + keyframes)</span>
+          <span class="info-tag">JS vanilla ES2020</span>
+          <span class="info-tag">Tailwind CSS (CDN)</span>
           <span class="info-tag">Chart.js</span>
           <span class="info-tag">Leaflet</span>
-          <span class="info-tag">Python</span>
-          <span class="info-tag">Flask</span>
-          <span class="info-tag">Excel · JSON</span>
-          <span class="info-tag">GitHub Pages</span>
-          <span class="info-tag">GitHub Actions</span>
+          <span class="info-tag">Bebas Neue</span>
         </div>
+        <p class="mb-2"><strong class="text-gray-200">Backend / scripts</strong></p>
+        <div class="mb-3">
+          <span class="info-tag">Python 3.12</span>
+          <span class="info-tag">Flask 3.x</span>
+          <span class="info-tag">openpyxl</span>
+          <span class="info-tag">requests</span>
+          <span class="info-tag">hashlib (SHA-256)</span>
+        </div>
+        <p class="mb-2"><strong class="text-gray-200">Infraestructura</strong></p>
+        <div>
+          <span class="info-tag">GitHub Pages</span>
+          <span class="info-tag">GitHub Actions (cron 15 min)</span>
+          <span class="info-tag">worldcup26.ir API</span>
+        </div>
+        <p class="mt-3">
+          <a href="https://github.com/pCresp0/porra-mundial-nanos-2026" target="_blank" rel="noopener" class="text-blue-300 underline font-semibold">
+            🔗 Ver código completo en GitHub
+          </a>
+        </p>
       </div>
+
     </div>
 
     <div class="card p-6 text-center">

@@ -19,6 +19,7 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, BASE)
 
 SCORERS_JSON = os.path.join(BASE, "data", "scorers.json")
+LIVE_JSON = os.path.join(BASE, "data", "live.json")
 
 from excel_sync import excel_paths as _excel_paths
 from team_names import to_spanish, _norm
@@ -63,6 +64,7 @@ def _parse_scorers(raw, team: str) -> list:
 
     Patterns handled:
       "Name 7'(OG)"  → minute="7'",     own_goal=True
+      "Name 7'(P)"   → minute="7'",     penalty=True
       "Name 31'"     → minute="31'",    own_goal=False
       "Name 45'+5'"  → minute="45'+5'", own_goal=False
     """
@@ -82,22 +84,26 @@ def _parse_scorers(raw, team: str) -> list:
         seg = seg.strip().strip(",").strip()
         if not seg or seg.lower() == "null":
             continue
-        # Extra-time: "Name 45'+5'" or "Name 45'+ 5'"
-        m = re.match(r"^(.*?)\s*(\d+)\s*'?\s*\+\s*(\d+)\s*'?\s*(\(OG\))?\s*$", seg, re.IGNORECASE)
+        # Extra-time: "Name 45'+5'" or "Name 45'+ 5'" with optional (OG)/(P)
+        m = re.match(r"^(.*?)\s*(\d+)\s*'?\s*\+\s*(\d+)\s*'?\s*(\(OG\)|\(P\))?\s*$", seg, re.IGNORECASE)
         if m and m.group(1).strip():
             player   = m.group(1).strip()
             minute   = f"{m.group(2)}'+{m.group(3)}'"
-            own_goal = bool(m.group(4))
+            tag      = (m.group(4) or "").upper()
+            own_goal = tag == "(OG)"
+            penalty  = tag == "(P)"
         else:
-            # Regular: "Name 7'" or "Name 7'(OG)"
-            m = re.match(r"^(.*?)\s*(\d+)\s*'?\s*(\(OG\))?\s*$", seg, re.IGNORECASE)
+            # Regular: "Name 7'" or "Name 7'(OG)" or "Name 7'(P)"
+            m = re.match(r"^(.*?)\s*(\d+)\s*'?\s*(\(OG\)|\(P\))?\s*$", seg, re.IGNORECASE)
             if m and m.group(1).strip():
                 player   = m.group(1).strip()
                 minute   = m.group(2) + "'"
-                own_goal = bool(m.group(3))
+                tag      = (m.group(3) or "").upper()
+                own_goal = tag == "(OG)"
+                penalty  = tag == "(P)"
             else:
-                player, minute, own_goal = seg, "", False
-        out.append({"player": player, "minute": minute, "own_goal": own_goal, "team": team})
+                player, minute, own_goal, penalty = seg, "", False, False
+        out.append({"player": player, "minute": minute, "own_goal": own_goal, "penalty": penalty, "team": team})
     return out
 
 
@@ -124,6 +130,57 @@ def write_scorers_json(games: list) -> int:
         json.dump(scorers, f, ensure_ascii=False, indent=2)
     print(f"⚽ Goleadores guardados: {len(scorers)} partido(s) → {SCORERS_JSON}")
     return len(scorers)
+
+
+def _is_live(g) -> bool:
+    """A match is live when it has started but is not finished yet.
+
+    The API exposes ``time_elapsed`` as "notstarted", "finished" or a live
+    marker (a minute like "67'", "HT", "45'+2'", …). Live matches keep updating
+    ``home_score`` / ``away_score``.
+    """
+    if str(g.get("finished", "")).upper() == "TRUE":
+        return False
+    te = str(g.get("time_elapsed", "")).strip().lower()
+    if te in ("", "notstarted", "not started", "null", "none"):
+        return False
+    return True
+
+
+def write_live_json(games: list) -> int:
+    """Write currently-live scores keyed by 'Local-Visitante' to live.json.
+
+    Rebuilt from scratch on every run, so finished/not-started matches drop out
+    automatically. Official results stay in the Excel (source of truth); this
+    file only feeds the provisional, in-progress overlay on the website.
+    """
+    live = {}
+    for g in games:
+        if not _is_live(g):
+            continue
+        home_es = to_spanish(g.get("home_team_name_en", ""))
+        away_es = to_spanish(g.get("away_team_name_en", ""))
+        if not home_es or not away_es:
+            continue
+        try:
+            gl = int(g.get("home_score"))
+            gv = int(g.get("away_score"))
+        except (TypeError, ValueError):
+            gl, gv = 0, 0
+        live[_match_key(home_es, away_es)] = {
+            "home":    gl,
+            "away":    gv,
+            "minute":  str(g.get("time_elapsed", "")).strip(),
+            "scorers": _scorers_for_game(g),
+        }
+    os.makedirs(os.path.dirname(LIVE_JSON), exist_ok=True)
+    with open(LIVE_JSON, "w", encoding="utf-8") as f:
+        json.dump(live, f, ensure_ascii=False, indent=2)
+    if live:
+        print(f"🔴 Partidos en vivo: {len(live)} → {LIVE_JSON}")
+    else:
+        print(f"⚪ Sin partidos en vivo → {LIVE_JSON}")
+    return len(live)
 
 
 def _patch_worldcup_scores(path: str, updates: dict) -> list:
@@ -278,6 +335,8 @@ def main():
 
     # Save goalscorers (with minute) for the website
     write_scorers_json(games)
+    # Save in-progress live scores (provisional overlay)
+    write_live_json(games)
     return 0
 
 

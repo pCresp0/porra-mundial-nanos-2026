@@ -730,14 +730,44 @@ function tickBanner() {
   const lastEl = document.getElementById("upd-last");
   const nextEl = document.getElementById("upd-next");
 
+  // ── Si hay partidos en juego, el banner anuncia el directo ──
+  const liveMatches = (D?.matches || []).filter(m => !m.played && m.live);
+  const lineEl = document.getElementById("upd-line");
+  const tzEl = document.getElementById("upd-tz");
+  if (lineEl) {
+    if (liveMatches.length) {
+      const parts = liveMatches.map(m => {
+        const ch = teamCode(m.home), ca = teamCode(m.away);
+        const fh = m.flag_home || "", fa = m.flag_away || "";
+        const sc = (m.live_goals_l != null && m.live_goals_v != null)
+          ? `${m.live_goals_l}-${m.live_goals_v}` : "";
+        const min = m.live_minute ? ` · ${liveMinuteLabel(m.live_minute)}` : "";
+        return `${fh} ${ch} ${sc} ${ca} ${fa}${min}`.replace(/\s+/g, " ").trim();
+      });
+      const lead = liveMatches.length > 1 ? "Partidos en juego" : "Partido en juego";
+      lineEl.innerHTML = `<span class="upd-live-dot"></span><strong class="upd-live-lead">${lead}:</strong> ${parts.join(" · ")} <span class="upd-live-prov">· clasificación provisional</span>`;
+      lineEl.classList.add("upd-line-live");
+      if (tzEl) tzEl.classList.add("hidden");
+      // El resto del tick (próxima revisión) sigue actualizándose abajo.
+    } else {
+      lineEl.classList.remove("upd-line-live");
+      if (tzEl) tzEl.classList.remove("hidden");
+      // Restaura la estructura estática si venía del modo directo.
+      if (!document.getElementById("upd-last")) {
+        lineEl.innerHTML = `Datos actualizados a las <strong id="upd-last">—</strong><span id="upd-match"></span>`;
+      }
+    }
+  }
+
   // "Datos actualizados a las" → solo si hay fecha real en el JSON.
-  if (lastEl) {
-    lastEl.textContent = upd.last_updated_time || naturalHourSlots().last;
+  const lastEl2 = document.getElementById("upd-last");
+  if (lastEl2 && !liveMatches.length) {
+    lastEl2.textContent = upd.last_updated_time || naturalHourSlots().last;
   }
 
   // "tras [bandera] COD score COD [bandera]" del último partido jugado.
   const matchEl = document.getElementById("upd-match");
-  if (matchEl) {
+  if (matchEl && !liveMatches.length) {
     const m = lastPlayedMatch();
     const lbl = matchResultLabel(m);
     matchEl.textContent = lbl ? ` tras ${lbl}` : "";
@@ -787,7 +817,15 @@ function renderMeta() {
 function renderPodium() {
   const container = document.getElementById("podium");
   const restEl    = document.getElementById("podium-rest");
-  const top3 = D.standings.slice(0, 3);
+  _renderLiveStandingsBanner();
+  const liveActive = _liveStandingsActive();
+  const ranked = liveActive
+    ? [...D.standings].sort((a, b) => (b.total_live || 0) - (a.total_live || 0))
+    : D.standings;
+  const totOf = p => liveActive ? (p.total_live != null ? p.total_live : p.total) : p.total;
+  const provTag = p => (liveActive && p.live_points > 0)
+    ? `<div class="podium-prov">+${_fmtPts(p.live_points)} en juego</div>` : "";
+  const top3 = ranked.slice(0, 3);
   const order  = [{ idx: 1, cls: "podium-2nd", medal: "🥈" },
                   { idx: 0, cls: "podium-1st", medal: "🥇" },
                   { idx: 2, cls: "podium-3rd", medal: "🥉" }];
@@ -797,25 +835,71 @@ function renderPodium() {
     if (!p) return "";
     const rankLbl = idx === 0 ? "1º" : idx === 1 ? "2º" : "3º";
     return `
-      <div class="podium-col ${cls}">
+      <div class="podium-col ${cls}${liveActive ? " podium-prov-col" : ""}">
         <div class="podium-player">
           <div class="text-3xl mb-1">${medal}</div>
           <div class="bebas text-2xl tracking-wide" style="color:${p.color}">${p.name}</div>
-          <div class="podium-score bebas" style="color:${p.color};font-size:1.1rem;opacity:.85">${p.total} pts</div>
+          <div class="podium-score bebas" style="color:${p.color};font-size:1.1rem;opacity:.85">${_fmtPts(totOf(p))} pts${liveActive ? " <span class='prov-tag'>prov.</span>" : ""}</div>
+          ${provTag(p)}
         </div>
         <div class="podium-block" aria-label="${rankLbl} puesto">${rankLbl}</div>
       </div>`;
   }).join("");
 
-  const rest = D.standings.slice(3);
-  restEl.innerHTML = rest.map(p => `
+  const rest = ranked.slice(3);
+  restEl.innerHTML = rest.map((p, i) => `
     <div class="card p-3 flex items-center justify-between" style="border-left:3px solid ${p.color}">
       <div>
-        <span class="text-xs text-gray-500 font-bold">#${p.pos}</span>
+        <span class="text-xs text-gray-500 font-bold">#${liveActive ? (i + 4) : p.pos}</span>
         <span class="font-bold text-white ml-2">${p.name}</span>
+        ${(liveActive && p.live_points > 0) ? `<span class="rest-prov">+${_fmtPts(p.live_points)} en juego</span>` : ""}
       </div>
-      <span class="bebas text-xl" style="color:${p.color}">${p.total}</span>
+      <span class="bebas text-xl" style="color:${p.color}">${_fmtPts(totOf(p))}${liveActive ? " <span class='prov-tag'>prov.</span>" : ""}</span>
     </div>`).join("");
+}
+
+/* ¿Hay clasificación provisional activa (algún partido en curso con puntos)? */
+function _liveStandingsActive() {
+  if (!D || !D.meta || !D.meta.live || !D.meta.live.active) return false;
+  return (D.standings || []).some(p => (p.live_points || 0) > 0);
+}
+
+function _fmtPts(v) {
+  v = +v || 0;
+  return Number.isInteger(v) ? v : v.toFixed(2).replace(/\.?0+$/, "");
+}
+
+/* Banner "clasificación provisional" en la pestaña de clasificación. */
+function _renderLiveStandingsBanner() {
+  const el = document.getElementById("live-standings-banner");
+  if (!el) return;
+  if (!_liveStandingsActive()) { el.classList.add("hidden"); el.innerHTML = ""; return; }
+  const liveMatches = (D.matches || []).filter(m => !m.played && m.live);
+  const names = liveMatches.map(m => {
+    const home = m.home || (m.name.split("-")[0] || "").trim();
+    const away = m.away || (m.name.split("-").slice(1).join("-") || "").trim();
+    const sc = (m.live_goals_l != null && m.live_goals_v != null) ? ` ${m.live_goals_l}-${m.live_goals_v}` : "";
+    return `${home}${sc} ${away}`.trim();
+  });
+  const list = names.length
+    ? `<div class="lsb-matches">${names.map(n => `<span class="lsb-match"><span class="live-dot"></span>${n}</span>`).join("")}</div>`
+    : "";
+  el.innerHTML = `
+    <div class="lsb-head"><span class="lsb-badge">🔴 PROVISIONAL</span>
+      <span class="lsb-text">La clasificación incluye los puntos de los partidos <strong>en juego</strong>. Se confirmará al finalizar.</span>
+    </div>${list}`;
+  el.classList.remove("hidden");
+}
+
+function liveMinuteLabel(raw) {
+  const s = String(raw || "").trim();
+  if (!s) return "EN JUEGO";
+  const low = s.toLowerCase();
+  if (low === "ht" || low === "halftime" || low === "half-time") return "DESCANSO";
+  if (low === "ft" || low === "finished") return "FINAL";
+  // "67'", "45'+2'" → tal cual; si es solo número, añade comilla
+  if (/^\d+$/.test(s)) return s + "'";
+  return s;
 }
 
 function matchTeamsHtml(m) {
@@ -823,10 +907,16 @@ function matchTeamsHtml(m) {
   const away = m.away || (m.name.includes("-") ? m.name.split("-").slice(1).join("-").trim() : "");
   const fh = m.flag_home || "🏳️";
   const fa = m.flag_away || "🏳️";
-  const isLive = _liveMatchIds && _liveMatchIds.has(m.name);
+  const hasLiveScore = !m.played && m.live && m.live_goals_l != null && m.live_goals_v != null;
+  const isLive = hasLiveScore || (_liveMatchIds && _liveMatchIds.has(m.name));
   let scoreHtml;
   if (m.played && m.result) {
     scoreHtml = `<div class="match-score-big">${m.result.score.replace("-", " - ")}</div>`;
+  } else if (hasLiveScore) {
+    const minute = (m.live_minute || "").trim();
+    const minLabel = minute ? liveMinuteLabel(minute) : "EN JUEGO";
+    scoreHtml = `<div class="match-score-big match-score-live">${m.live_goals_l} - ${m.live_goals_v}</div>
+      <div class="live-minute-pill"><span class="live-ball">⚽</span> ${minLabel} · EN DIRECTO</div>`;
   } else if (isLive) {
     scoreHtml = `<div style="margin-top:.5rem;font-size:2.2rem;font-weight:900;color:#3B82F6;font-family:'Bebas Neue',sans-serif;letter-spacing:.08em">EN CURSO</div>
       <div style="font-size:.78rem;color:#93C5FD;margin-top:.15rem;letter-spacing:.04em">${m.time_es} h</div>`;
@@ -856,7 +946,8 @@ function matchTeamsHtml(m) {
 }
 
 function matchScorersHtml(m) {
-  if (!m.played || !Array.isArray(m.scorers) || !m.scorers.length) return "";
+  const list = m.played ? m.scorers : (m.live ? m.live_scorers : null);
+  if (!Array.isArray(list) || !list.length) return "";
 
   function fmtMinute(raw) {
     // "45'+5'" → <span>45'</span><span class="ms-extra">+5'</span>
@@ -868,19 +959,25 @@ function matchScorersHtml(m) {
     return escapeHtml(raw);
   }
 
-  function fmtLine(s) {
-    const isOG = s.own_goal;
-    const icon = isOG ? '<span class="ms-og-icon">⚽</span>' : "⚽";
-    const name = `<span class="ms-name${isOG ? " ms-og" : ""}">${escapeHtml(s.player)}${isOG ? ' <span class="ms-og-tag">PP</span>' : ""}</span>`;
-    const min  = s.minute ? `<span class="ms-min">${fmtMinute(s.minute)}</span>` : "";
-    return `<div class="ms-line">${icon} ${name}${min}</div>`;
+  function fmtLine(s, side) {
+    const isOG  = s.own_goal;
+    const isPen = s.penalty;
+    const icon  = isOG ? '<span class="ms-og-icon">⚽</span>' : "⚽";
+    const penTag = isPen ? ' <span class="ms-pen-tag">penalty</span>' : "";
+    const ogTag  = isOG  ? ' <span class="ms-og-tag">PP</span>' : "";
+    const name  = `<span class="ms-name${isOG ? " ms-og" : ""}">${escapeHtml(s.player)}${ogTag}${penTag}</span>`;
+    const min   = s.minute ? `<span class="ms-min">${fmtMinute(s.minute)}</span>` : "";
+    if (side === "away") {
+      return `<div class="ms-line ms-line-away">${min} ${name} ${icon}</div>`;
+    }
+    return `<div class="ms-line">${icon} ${name} ${min}</div>`;
   }
 
-  const homeS = m.scorers.filter(s => s.team === "home");
-  const awayS = m.scorers.filter(s => s.team === "away");
+  const homeS = list.filter(s => s.team === "home");
+  const awayS = list.filter(s => s.team === "away");
   if (!homeS.length && !awayS.length) return "";
-  const col = (arr, align) => `<div class="ms-col" style="text-align:${align}">${arr.map(fmtLine).join("")}</div>`;
-  return `<div class="match-scorers">${col(homeS, "right")}<div class="ms-sep"></div>${col(awayS, "left")}</div>`;
+  const col = (arr, side) => `<div class="ms-col ms-col-${side}">${arr.map(s => fmtLine(s, side)).join("")}</div>`;
+  return `<div class="match-scorers">${col(homeS, "home")}<div class="ms-sep"></div>${col(awayS, "away")}</div>`;
 }
 
 function matchMetaHtml(m) {
@@ -915,12 +1012,15 @@ function renderStandingsTable() {
     return dir === "asc" ? va - vb : vb - va;
   });
   const fmt = v => Number.isInteger(v) ? v : (+v).toFixed(2).replace(/\.?0+$/, "");
+  const liveActive = _liveStandingsActive();
   tbody.innerHTML = rows.map(r => {
     const medal = r.pos <= 3 ? MEDAL[r.pos - 1] + " " : "";
-    return `<tr>
+    const provBadge = (liveActive && r.live_points > 0)
+      ? ` <span class="prov-tag">prov.</span>` : "";
+    return `<tr${liveActive ? ' class="st-prov-row"' : ""}>
       <td class="font-bold" style="color:${r.color}">${r.pos}</td>
       <td class="text-left font-semibold text-white">${medal}${r.name}</td>
-      <td class="font-extrabold text-lg" style="color:${r.color}">${fmt(r.total)}</td>
+      <td class="font-extrabold text-lg" style="color:${r.color}">${fmt(r.total)}${provBadge}</td>
       <td>${fmt(r.groups)}</td>
       <td>${fmt(r.s1x2)}</td>
       <td>${fmt(r.sdiff)}</td>
@@ -930,6 +1030,15 @@ function renderStandingsTable() {
   }).join("");
   _syncStandingsSortIndicators();
   _renderStandingsUpdated();
+  // Indicador "PROVISIONAL" junto al título de la tabla
+  const provLbl = document.getElementById("standings-prov-label");
+  if (provLbl) {
+    if (_liveStandingsActive()) {
+      provLbl.innerHTML = `<span class="standings-prov-badge">🔴 PROVISIONAL</span> `;
+    } else {
+      provLbl.textContent = "";
+    }
+  }
 }
 
 /* Nota junto a "Tabla completa": cuándo y tras qué partido se actualizó. */
@@ -964,7 +1073,11 @@ function _renderStandingsUpdated() {
 /* Desglose de puntos por motivo (1X2 / diferencia / exacto) a partir de
    los partidos de grupos jugados, más los datos de la clasificación. */
 function _standingsRows() {
+  const liveActive = _liveStandingsActive();
   const gm = (D.matches || []).filter(m => m.phase === "groups" && m.played);
+  const lm = liveActive
+    ? (D.matches || []).filter(m => m.phase === "groups" && !m.played && m.live)
+    : [];
   return D.standings.map(p => {
     let s1x2 = 0, sdiff = 0, sexact = 0;
     gm.forEach(m => {
@@ -975,11 +1088,23 @@ function _standingsRows() {
         sexact += +b.exact || 0;
       }
     });
+    lm.forEach(m => {
+      const b = m.predictions?.[p.name]?.live_breakdown;
+      if (b) {
+        s1x2   += +b.sign  || 0;
+        sdiff  += +b.diff  || 0;
+        sexact += +b.exact || 0;
+      }
+    });
+    const lp = +p.live_points || 0;
     return {
-      pos: p.pos, name: p.name, color: p.color,
-      total: +p.total || 0, groups: +p.groups || 0,
+      pos: liveActive ? (p.live_pos || p.pos) : p.pos,
+      name: p.name, color: p.color,
+      total: liveActive ? (+p.total_live || +p.total || 0) : (+p.total || 0),
+      groups: (+p.groups || 0) + (liveActive ? lp : 0),
       positions: +p.positions || 0,
       s1x2, sdiff, sexact,
+      live_points: lp,
     };
   });
 }
@@ -1134,7 +1259,8 @@ function renderProgression() {
   const players = D.meta.players;
   const colors  = D.meta.colors;
   const prog    = D.progression;
-  const allLabels = prog.labels || [];
+  const allLabels     = prog.labels      || [];
+  const allFlagLabels = prog.flag_labels || allLabels;
   const allDates  = prog.dates  || [];
   const allTitles = prog.titles || [];
 
@@ -1145,7 +1271,7 @@ function renderProgression() {
     if (allDates[i] > todayStr) { cutIdx = i - 1; break; }
   }
   cutIdx = Math.max(0, cutIdx);
-  const labels = allLabels.slice(0, cutIdx + 1);
+  const labels = allFlagLabels.slice(0, cutIdx + 1);
   const dates  = allDates.slice(0, cutIdx + 1);
   const titles = allTitles.slice(0, cutIdx + 1);
 
@@ -1413,7 +1539,8 @@ function toggleDay(header) {
 }
 
 function renderMatchCard(m, players, colors) {
-  const isLiveMatch = !m.played && _liveMatchIds && _liveMatchIds.has(m.name);
+  const isLiveMatch = !m.played && ((m.live === true) || (_liveMatchIds && _liveMatchIds.has(m.name)));
+  const hasLiveScoreCard = !m.played && m.live && m.live_goals_l != null && m.live_goals_v != null;
   const playedClass = m.played ? "played" : "";
   const liveClass = isLiveMatch ? " live-match" : "";
   const isNextMatch = !m.played && !isLiveMatch && _nextMatchId && (m.id === _nextMatchId || m.name === _nextMatchId);
@@ -1426,6 +1553,7 @@ function renderMatchCard(m, players, colors) {
         <span class="text-xs text-gray-600">—</span>
       </div>`;
     }
+    const lb = (isLiveMatch && pd.live_breakdown) ? pd.live_breakdown : null;
     let badgeClass = "badge-pending";
     if (m.played) {
       if (pd.score > 0) {
@@ -1434,13 +1562,15 @@ function renderMatchCard(m, players, colors) {
       } else {
         badgeClass = "badge-miss";
       }
+    } else if (lb) {
+      badgeClass = lb.total > 0 ? (lb.exact > 0 ? "badge-exact" : "badge-sign") : "badge-miss";
     }
     const predTxt = pd.pred.score || pd.pred.sign;
+    const fmt = v => Math.round(v * 10) / 10;  // 2.0→2, 1.0→1, 3.0→3
 
     let brkHtml = "";
     if (m.played && pd.breakdown) {
       const b = pd.breakdown;
-      const fmt = v => Math.round(v * 10) / 10;  // 2.0→2, 1.0→1, 3.0→3
       const chips = [
         { label: "1X2",       ok: b.sign  > 0, pts: fmt(b.sign)  },
         { label: "Dif. goles", ok: b.diff  > 0, pts: fmt(b.diff)  },
@@ -1457,11 +1587,25 @@ function renderMatchCard(m, players, colors) {
         <span class="brk-chip miss">Dif. goles ✗</span>
         <span class="brk-chip miss">Exacto ✗</span>
       </div>`;
+    } else if (lb) {
+      const chips = [
+        { label: "1X2",       ok: lb.sign  > 0, pts: fmt(lb.sign)  },
+        { label: "Dif. goles", ok: lb.diff  > 0, pts: fmt(lb.diff)  },
+        { label: "Exacto",    ok: lb.exact > 0, pts: fmt(lb.exact) },
+      ];
+      brkHtml = `<div class="mt-1 flex flex-wrap justify-center gap-0.5 brk-prov">
+        ${chips.map(c =>
+          `<span class="brk-chip ${c.ok ? "ok" : "miss"}">${c.label} ${c.ok ? "✓" : "✗"}${c.ok ? ` (+${c.pts})` : ""}</span>`
+        ).join("")}
+      </div>`;
     }
 
-    const scoreHtml = m.played
-      ? `<span class="text-base font-extrabold" style="color:${pd.score > 0 ? colors[name] : '#EF4444'}">${pd.score > 0 ? "+"+Math.round(pd.score) : "✗"}</span>`
-      : "";
+    let scoreHtml = "";
+    if (m.played) {
+      scoreHtml = `<span class="text-base font-extrabold" style="color:${pd.score > 0 ? colors[name] : '#EF4444'}">${pd.score > 0 ? "+"+Math.round(pd.score) : "✗"}</span>`;
+    } else if (lb) {
+      scoreHtml = `<span class="text-base font-extrabold live-prov-score" style="color:${lb.total > 0 ? colors[name] : '#EF4444'}">${lb.total > 0 ? "+"+fmt(lb.total) : "✗"}<span class="prov-tag">prov.</span></span>`;
+    }
 
     return `<div class="player-pred-card pp-trigger" data-player="${(name||"").replace(/"/g,"&quot;")}">
       <div class="ppc-top">
@@ -1477,14 +1621,20 @@ function renderMatchCard(m, players, colors) {
 
   return `
     <div class="card match-row ${playedClass}${liveClass}${isNextMatch ? " next-match" : ""} p-4 mb-2" data-match-name="${(m.name||"").replace(/"/g,"&quot;")}">
-      ${isNextMatch ? `<div class="card-corner-tag"><span class="text-xs font-bold next-match-tag">⏱ Próximo partido</span></div>` : (m.played ? `<div class="card-corner-tag"><span class="text-xs font-bold finished-tag">✓ Finalizado</span></div>` : "")}
+      <div class="card-corner-tags">
+        ${isNextMatch ? `<div class="card-corner-tag"><span class="text-xs font-bold next-match-tag">⏱ Próximo partido</span></div>` : (m.played ? `<div class="card-corner-tag"><span class="text-xs font-bold finished-tag">✓ Finalizado</span></div>` : "<div></div>")}
+        <div class="card-corner-tag-right">${(() => {
+          if (m.phase === "groups" && m.id) {
+            const grp = m.id.charAt(0).toUpperCase();
+            return `<span class="text-xs font-bold phase-corner-tag phase-corner-tag--group">Grupo ${grp}</span>`;
+          }
+          const lbl = PHASE_LABELS[m.phase] || m.phase || "";
+          return lbl ? `<span class="text-xs font-bold phase-corner-tag">${lbl}</span>` : "";
+        })()}</div>
+      </div>
       ${matchTeamsHtml(m)}
       ${matchMetaHtml(m)}
-      <div class="flex items-center gap-2 flex-wrap mb-3 justify-center">
-        <span class="text-xs px-2 py-0.5 rounded font-bold uppercase tracking-wide"
-              style="background:var(--card2);color:#94A3B8">${PHASE_LABELS[m.phase] || m.phase}</span>
-        ${isLiveMatch ? `<span class="text-xs font-bold live-tag"><span class="live-ball">⚽</span> En Curso</span>` : ""}
-      </div>
+      ${(isLiveMatch && !hasLiveScoreCard) ? `<div class="match-live-row"><span class="text-xs font-bold live-tag"><span class="live-ball">⚽</span> En Curso</span></div>` : ""}
       <div class="match-players-grid">${playerCards}</div>
     </div>`;
 }
@@ -2289,53 +2439,95 @@ function renderStats() {
       <div class="text-xs text-gray-600 mt-0.5">${h.sub}</div>
     </div>`).join("");
 
-  // ── Tasa de acierto ────────────────────────────────────────────────────
+  // ── Tasa de acierto (ordenada de mayor a menor, con % encima) ──────────
   if (hitRateChart) hitRateChart.destroy();
+  const sortedHR = [...perPlayer].sort((a, b) => b.pct - a.pct);
+  // Actualizar el contador de partidos en el título
+  const hrCount = document.getElementById("hr-count");
+  if (hrCount) hrCount.textContent = `(${groupMatches.length} partido${groupMatches.length !== 1 ? "s" : ""})`;
   hitRateChart = new Chart(document.getElementById("hitRateChart").getContext("2d"), {
     type: "bar",
     data: {
-      labels: perPlayer.map(h => h.name),
+      labels: sortedHR.map(h => h.name),
       datasets: [{
-        label: "% Acierto",
-        data: perPlayer.map(h => h.pct),
-        backgroundColor: players.map(n => colors[n] + "99"),
-        borderColor: players.map(n => colors[n]),
+        label: "Partidos con ≥1 pt",
+        data: sortedHR.map(h => h.pct),
+        backgroundColor: sortedHR.map(h => colors[h.name] + "99"),
+        borderColor: sortedHR.map(h => colors[h.name]),
         borderWidth: 2, borderRadius: 6,
       }]
     },
+    plugins: [{
+      id: "pctLabels",
+      afterDatasetsDraw(chart) {
+        const { ctx, data } = chart;
+        chart.getDatasetMeta(0).data.forEach((bar, i) => {
+          const val = data.datasets[0].data[i];
+          if (val == null) return;
+          ctx.save();
+          ctx.fillStyle = "#CBD5E1";
+          ctx.font = "bold 11px sans-serif";
+          ctx.textAlign = "center";
+          ctx.textBaseline = "bottom";
+          ctx.fillText(val + "%", bar.x, bar.y - 4);
+          ctx.restore();
+        });
+      }
+    }],
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false }, tooltip: { callbacks: { label: i => ` ${i.parsed.y}% (${perPlayer[i.dataIndex].hits}/${perPlayer[i.dataIndex].total})` } } },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: i => ` ${i.parsed.y}% (${sortedHR[i.dataIndex].hits}/${sortedHR[i.dataIndex].total} partidos)` } },
+      },
       scales: {
-        y: { beginAtZero: true, max: 100, grid: { color: "rgba(255,255,255,.05)" }, ticks: { color: "#475569", callback: v => v + "%" } },
+        y: { beginAtZero: true, max: 115, display: false },
         x: { grid: { display: false }, ticks: { color: "#94A3B8", font: { weight: "bold" } } }
-      }
+      },
+      layout: { padding: { top: 24 } },
     }
   });
 
-  // ── Distribución por fase ──────────────────────────────────────────────
+  // ── Forma reciente (últimos 8 partidos, barras agrupadas por jugador) ──
   if (phaseChart) phaseChart.destroy();
-  const phases   = ["groups","positions","q16","r16","r8","r4","r2","r34_final","honor"];
-  const phLabels = phases.map(p => PHASE_LABELS[p] || p);
+  const recentN = Math.min(8, groupMatches.length);
+  const recentMatches = groupMatches.slice(-recentN);
+  const recentLabels = recentMatches.map(m =>
+    (m.flag_home && m.flag_away) ? `${m.flag_home}${m.flag_away}` : m.name || `P${groupMatches.indexOf(m)+1}`
+  );
   phaseChart = new Chart(document.getElementById("phaseChart").getContext("2d"), {
     type: "bar",
     data: {
-      labels: phLabels,
+      labels: recentLabels,
       datasets: D.standings.map(p => ({
         label: p.name,
-        data: phases.map(ph => p[ph] || 0),
-        backgroundColor: p.color + "88",
+        data: recentMatches.map(m => m.predictions?.[p.name]?.score ?? 0),
+        backgroundColor: p.color + "BB",
         borderColor: p.color,
-        borderWidth: 1.5, borderRadius: 4,
+        borderWidth: 1.5,
+        borderRadius: 5,
       }))
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { labels: { color: "#94A3B8", font: { size: 10 } } }, tooltip: { mode: "index" } },
+      plugins: {
+        legend: { position: "bottom", labels: { color: "#94A3B8", font: { size: 10 }, boxWidth: 12, padding: 10 } },
+        tooltip: {
+          mode: "index", intersect: false,
+          callbacks: {
+            title: items => {
+              const m = recentMatches[items[0].dataIndex];
+              return m ? `${m.home} vs ${m.away}` : items[0].label;
+            },
+            label: i => ` ${i.dataset.label}: ${i.parsed.y} pts`,
+          }
+        }
+      },
       scales: {
-        x: { stacked: false, grid: { display: false }, ticks: { color: "#64748B", font: { size: 8 }, maxRotation: 35 } },
-        y: { grid: { color: "rgba(255,255,255,.05)" }, ticks: { color: "#475569" } }
-      }
+        x: { grid: { display: false }, ticks: { color: "#94A3B8", font: { size: 13 }, maxRotation: 0 } },
+        y: { beginAtZero: true, max: 7, grid: { color: "rgba(255,255,255,.05)" }, ticks: { color: "#475569", stepSize: 1 } }
+      },
+      interaction: { mode: "index", intersect: false },
     }
   });
 
@@ -2450,6 +2642,75 @@ function renderStats() {
         </div>
       </div>`;
   }).join("");
+
+  // ── Ranking de partidos más acertados ──────────────────────────────────
+  const topMatchesEl = document.getElementById("stats-top-matches");
+  if (topMatchesEl && playedAll.length) {
+    const players = D.meta.players;
+    const colors  = D.meta.colors;
+    const MAX_PTS = players.length * 6;
+
+    const matchRows = playedAll.map(m => {
+      const byPlayer = players.map(name => ({
+        name,
+        pts: m.predictions?.[name]?.score ?? 0,
+      }));
+      const totalPts = byPlayer.reduce((s, p) => s + p.pts, 0);
+      return { m, byPlayer, totalPts };
+    }).sort((a, b) => b.totalPts - a.totalPts);
+
+    const MEDAL = ["🥇", "🥈", "🥉"];
+    const ptColor = (pts) => pts >= 5 ? "#22C55E" : pts >= 3 ? "#EAB308" : pts >= 1 ? "#F97316" : "#374151";
+
+    const playerCols = players.map(name =>
+      `<th class="text-center" style="color:${colors[name] || '#94A3B8'}">${name}</th>`
+    ).join("");
+
+    const rows = matchRows.map((row, i) => {
+      const { m, byPlayer, totalPts } = row;
+      const pct   = Math.round(totalPts / MAX_PTS * 100);
+      const medal = i < 3 ? MEDAL[i] : `${i + 1}`;
+      const score = m.goals_l != null ? `<span class="font-bold" style="color:var(--gold)">${m.goals_l}–${m.goals_v}</span>` : "";
+      const playerCells = byPlayer.map(p =>
+        `<td class="text-center font-bold" style="color:${ptColor(p.pts)}">${p.pts}</td>`
+      ).join("");
+      const evenBg = i % 2 === 1 ? "background:rgba(255,255,255,.02)" : "";
+      return `
+        <tr style="${evenBg}">
+          <td class="text-center font-bold" style="color:#64748B">${medal}</td>
+          <td>
+            <div style="font-size:.85rem;color:#E2E8F0;font-weight:600">${m.flag_home || ""} ${escapeHtml(m.home)} vs ${escapeHtml(m.away)} ${m.flag_away || ""}</div>
+            <div style="font-size:.7rem;color:#64748B;margin-top:.1rem">${score}${score ? " · " : ""}${m.day_label || ""}</div>
+          </td>
+          <td class="text-center">
+            <span class="font-bold" style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--gold);line-height:1">${totalPts}</span><span style="font-size:.7rem;color:#475569">/${MAX_PTS}</span>
+            <div style="height:3px;background:rgba(255,255,255,.07);border-radius:2px;margin-top:.25rem"><div style="height:3px;width:${pct}%;background:var(--gold);border-radius:2px"></div></div>
+          </td>
+          ${playerCells}
+        </tr>`;
+    }).join("");
+
+    topMatchesEl.innerHTML = `
+      <div class="card overflow-hidden mb-4">
+        <div class="px-6 py-4 border-b" style="border-color:var(--border)">
+          <h2 class="text-lg font-bold text-white">🏆 Partidos más acertados</h2>
+          <p class="text-xs text-gray-400 mt-1">Puntos totales sumados entre todos los participantes. Máximo ${MAX_PTS} pts (${players.length} jugadores × 6 pts). Solo partidos ya jugados.</p>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="pred-table w-full">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th class="text-left">Partido</th>
+                <th>Pts totales</th>
+                ${playerCols}
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </div>`;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -2549,12 +2810,16 @@ function initCountdown() {
     .filter(m => m.date && m.time_es && /^\d{2}:\d{2}$/.test(m.time_es))
     .map(m => ({ m, ts: toSpainUTC(m.date, m.time_es) }));
 
-  // Detect live: started within last MATCH_DURATION_MS and not yet marked played
+  // Detect live: real live data from the server (m.live), plus a time-based
+  // fallback (started within last MATCH_DURATION_MS and not yet marked played).
   _liveMatchIds = new Set(
     withTs
       .filter(x => !x.m.played && x.ts <= now && (now - x.ts) < MATCH_DURATION_MS)
       .map(x => x.m.name)
   );
+  (D?.matches || []).forEach(m => {
+    if (!m.played && m.live) _liveMatchIds.add(m.name);
+  });
 
   const upcoming = withTs
     .filter(x => !x.m.played && x.ts > now)
@@ -3650,8 +3915,9 @@ function _buildAdminPanel() {
       <div class="adm-vis-list" id="adm-vis-list"></div>`;
   }
 
-  body.innerHTML = `
+  // ── Construye el HTML de cada sub-pestaña ──────────────────────────────
 
+  const htmlSistema = `
     <div class="adm-section">
       <div class="adm-section-title">📦 Datos y actualización</div>
       <div class="adm-grid">
@@ -3681,7 +3947,18 @@ function _buildAdminPanel() {
         </div>
       </div>
     </div>
+    <div class="adm-section">
+      <div class="adm-section-title">🔗 Links rápidos</div>
+      <div class="adm-links">
+        <button type="button" class="adm-link adm-copy-btn" onclick="_copyAdminSummary(this)">📋 Copiar resumen</button>
+        <a href="https://github.com/pCresp0/porra-mundial-nanos-2026" target="_blank" rel="noopener" class="adm-link">📁 Repo GitHub</a>
+        <a href="https://github.com/pCresp0/porra-mundial-nanos-2026/actions" target="_blank" rel="noopener" class="adm-link">⚙️ Actions</a>
+        <a href="https://worldcup26.ir/get/games" target="_blank" rel="noopener" class="adm-link">🌐 API Mundial</a>
+        <a href="${IS_GH_PAGES ? "data.json" : "/api/data"}" target="_blank" rel="noopener" class="adm-link">📄 data.json</a>
+      </div>
+    </div>`;
 
+  const htmlApi = `
     <div class="adm-section">
       <div class="adm-section-title">🚦 Estado del sistema</div>
       <div class="adm-status adm-status-${sysStatus.level}">
@@ -3689,7 +3966,6 @@ function _buildAdminPanel() {
         <span class="adm-status-text">${sysStatus.text}</span>
       </div>
     </div>
-
     <div class="adm-section">
       <div class="adm-section-title">
         ⚠️ Alertas de datos
@@ -3699,7 +3975,6 @@ function _buildAdminPanel() {
         ${alerts.length ? alerts.map(alertRow).join("") : '<div class="adm-empty">✓ Sin anomalías detectadas en los datos</div>'}
       </div>
     </div>
-
     <div class="adm-section">
       <div class="adm-section-title">
         📡 Llamadas a la API <span class="adm-badge">últimas 15 h</span>
@@ -3718,17 +3993,17 @@ function _buildAdminPanel() {
         ${apiLogBody}
       </div>
     </div>
-
     <div class="adm-section">
       <div class="adm-section-title">
-        🕓 Historial de cambios de resultados
+        🕓 Historial de cambios
         <span class="adm-badge">${resultHistory.length}</span>
       </div>
       <div class="adm-hist-list">
         ${resultHistoryTop.length ? resultHistoryTop.map(histRow).join("") : '<div class="adm-empty">Sin cambios de resultados registrados todavía</div>'}
       </div>
-    </div>
+    </div>`;
 
+  const htmlPartidos = `
     <div class="adm-section">
       <div class="adm-section-title">
         📡 Partidos con resultado
@@ -3749,8 +4024,9 @@ function _buildAdminPanel() {
           </div>`;
         }).join("") : '<div class="adm-empty">Sin partidos jugados aún</div>'}
       </div>
-    </div>
+    </div>`;
 
+  const htmlAccesos = `
     <div class="adm-section">
       <div class="adm-section-title">👁 Visitas</div>
       <div class="adm-grid">
@@ -3776,8 +4052,9 @@ function _buildAdminPanel() {
         <span class="adm-label">Visitas por hora</span>
       </div>
       ${visitsBody}
-    </div>
+    </div>`;
 
+  const htmlMensajes = `
     <div class="adm-section">
       <div class="adm-section-title">
         💬 Sugerencias y fallos
@@ -3786,25 +4063,44 @@ function _buildAdminPanel() {
       <div class="adm-fb-list" id="adm-fb-list">
         <div class="adm-empty">Cargando sugerencias…</div>
       </div>
-    </div>
+    </div>`;
 
-    <div class="adm-section">
-      <div class="adm-section-title">🔗 Links rápidos</div>
-      <div class="adm-links">
-        <button type="button" class="adm-link adm-copy-btn" onclick="_copyAdminSummary(this)">📋 Copiar resumen</button>
-        <a href="https://github.com/pCresp0/porra-mundial-nanos-2026" target="_blank" rel="noopener" class="adm-link">📁 Repo GitHub</a>
-        <a href="https://github.com/pCresp0/porra-mundial-nanos-2026/actions" target="_blank" rel="noopener" class="adm-link">⚙️ GitHub Actions</a>
-        <a href="https://worldcup26.ir/get/games" target="_blank" rel="noopener" class="adm-link">🌐 API del Mundial</a>
-        <a href="${IS_GH_PAGES ? "data.json" : "/api/data"}" target="_blank" rel="noopener" class="adm-link">📄 data.json</a>
-      </div>
-    </div>
-  `;
+  // Guarda las pestañas en window para que _admSwitchTab pueda acceder
+  window._admTabs = { api: htmlApi, accesos: htmlAccesos, partidos: htmlPartidos, mensajes: htmlMensajes, sistema: htmlSistema };
+  window._admVisitDays = visitDays;
 
-  // pinta el día más reciente de visitas por hora
-  if (visitDays.length) _renderVisitsDay(visitDays[0]);
+  // ── Estructura del panel con barra de sub-pestañas ─────────────────────
+  body.innerHTML = `
+    <nav class="adm-subnav" id="adm-subnav">
+      <button class="adm-subnav-btn active" data-tab="api"      onclick="_admSwitchTab('api',this)">📡 API</button>
+      <button class="adm-subnav-btn"        data-tab="accesos"  onclick="_admSwitchTab('accesos',this)">👁 Accesos</button>
+      <button class="adm-subnav-btn"        data-tab="partidos" onclick="_admSwitchTab('partidos',this)">⚽ Partidos</button>
+      <button class="adm-subnav-btn"        data-tab="mensajes" onclick="_admSwitchTab('mensajes',this)">💬 Mensajes</button>
+      <button class="adm-subnav-btn"        data-tab="sistema"  onclick="_admSwitchTab('sistema',this)">⚙️ Sistema</button>
+    </nav>
+    <div class="adm-tab-content" id="adm-tab-content">
+      ${htmlApi}
+    </div>`;
 
-  // carga las sugerencias desde el Apps Script (asíncrono)
-  _loadAdminFeedback();
+  // Inicializa la pestaña API (filtros ya están en el HTML, nada extra)
+  // pinta el día más reciente de visitas por hora cuando se cambie a Accesos
+  // carga feedback solo cuando se abre esa pestaña
+}
+
+// ── Cambio de sub-pestaña del panel de admin ──────────────────────────────
+function _admSwitchTab(tabKey, btn) {
+  const nav     = document.getElementById("adm-subnav");
+  const content = document.getElementById("adm-tab-content");
+  if (!nav || !content || !window._admTabs) return;
+  nav.querySelectorAll(".adm-subnav-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tabKey));
+  content.innerHTML = window._admTabs[tabKey] || "";
+  // Inicialización específica por pestaña
+  if (tabKey === "accesos") {
+    const days = window._admVisitDays || [];
+    if (days.length) _renderVisitsDay(days[0]);
+  } else if (tabKey === "mensajes") {
+    _loadAdminFeedback();
+  }
 }
 
 // ── Sugerencias en el panel de admin (lee del Apps Script con el PIN) ──
