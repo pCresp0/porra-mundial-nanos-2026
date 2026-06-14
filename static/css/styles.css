@@ -2936,6 +2936,14 @@
     --bkt-gap: 44px;  /* space between columns (where connector lines live) */
     .bkt-col { display: flex; flex-direction: column; width: var(--bkt-col-w, 200px); flex-shrink: 0; }
     .bkt-col + .bkt-col { margin-left: var(--bkt-gap, 44px); }
+    /* En modo embebido (sub-tab Fase Final) columnas más anchas */
+    .bkt-root-embedded .bkt-col { width: 230px; }
+    .bkt-root-embedded .bkt-col + .bkt-col { margin-left: 52px; }
+    .bkt-root-embedded .bkt-pair:not(.bkt-pair-last)::before { right: calc(-52px + 4px); }
+    .bkt-root-embedded .bkt-pair:not(.bkt-pair-last)::after  { right: calc(-52px + 4px); width: calc(52px - 4px); }
+    .bkt-root-embedded .bkt-col:not(.bkt-col-r16) .bkt-slot::before { left: calc(-52px + 4px); width: calc(52px - 4px); }
+    .bkt-root-embedded .bkt-tn { font-size: .8rem; }
+    .bkt-root-embedded .bkt-score { font-size: 1.2rem; }
     .bkt-col-hd {
       font-size: .68rem; font-weight: 800; text-transform: uppercase;
       letter-spacing: .07em; color: #64748B;
@@ -3088,6 +3096,8 @@
    TEAMS TAB — Clasificación global + Máximos goleadores
 ════════════════════════════════════════════════════════════ */
 .tms-root { max-width: 960px; margin: 0 auto; padding: 1rem 0 2rem; }
+/* Fase Final ocupa el ancho completo */
+.tms-root.tms-mode-bracket { max-width: none; }
 .tms-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: #fff; letter-spacing: .04em; margin-bottom: .75rem; }
 
 /* ── Sub-tabs ── */

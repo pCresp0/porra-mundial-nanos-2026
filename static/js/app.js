@@ -3293,6 +3293,9 @@ function renderTeams() {
 function _renderTeamsSubBody() {
   const body = document.getElementById("tms-sub-body");
   if (!body || !D) return;
+  // Marca el root para que CSS pueda liberar el max-width en Fase Final
+  const root = document.querySelector(".tms-root");
+  if (root) root.classList.toggle("tms-mode-bracket", _teamsSubTab === "bracket");
   if (_teamsSubTab === "groups")  body.innerHTML = _teamsGroupsHtml();
   if (_teamsSubTab === "scorers") body.innerHTML = _teamsScorersHtml();
   if (_teamsSubTab === "general") body.innerHTML = _teamsGeneralHtml();
