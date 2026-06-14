@@ -3253,7 +3253,7 @@ function renderBetsMain(container) {
 /* ═══════════════════════════════════════════════════════════════
    CLASIFICACIÓN MUNDIAL — sub-tabs: Grupos / Goleadores / General
 ═══════════════════════════════════════════════════════════════ */
-let _teamsSubTab = "groups"; // "groups" | "scorers" | "general" | "bracket"
+let _teamsSubTab = "groups"; // "groups" | "scorers" | "general" | "thirds" | "bracket"
 
 function renderTeams() {
   const container = document.getElementById("teams-container");
@@ -3268,6 +3268,7 @@ function renderTeams() {
           <button class="tms-sub-tab active" data-stab="groups">📊 Grupos</button>
           <button class="tms-sub-tab" data-stab="scorers">⚽ Goleadores</button>
           <button class="tms-sub-tab" data-stab="general">🏆 Clasificación general</button>
+          <button class="tms-sub-tab" data-stab="thirds">🥉 Terceros</button>
           <button class="tms-sub-tab" data-stab="bracket">⚔️ Fase Final</button>
         </div>
         <div id="tms-sub-body"></div>
@@ -3295,6 +3296,7 @@ function _renderTeamsSubBody() {
   if (_teamsSubTab === "groups")  body.innerHTML = _teamsGroupsHtml();
   if (_teamsSubTab === "scorers") body.innerHTML = _teamsScorersHtml();
   if (_teamsSubTab === "general") body.innerHTML = _teamsGeneralHtml();
+  if (_teamsSubTab === "thirds")  body.innerHTML = _teamsThirdsHtml();
   if (_teamsSubTab === "bracket") {
     body.innerHTML = '<div id="tms-bracket-inner"></div>';
     renderBracket(document.getElementById("tms-bracket-inner"));
@@ -3342,9 +3344,10 @@ function _teamsGroupsHtml() {
     if (table[2]) {
       const rankTxt = thirdRank !== null ? `N.º <strong>${thirdRank}</strong> de ${totalThirds}` : "sin datos";
       const prov = playedInGroup < 3 ? " <em>(provisional)</em>" : "";
+      const thirdsLink = `<button class="grp-thirds-link" onclick="event.stopPropagation();_switchTeamsSubTab('thirds')" type="button">ver clasificación de terceros →</button>`;
       thirdLegHtml = thirdQual
-        ? `<div class="grp-legend-item grp-legend-third-yes">🟡 3.º — <strong>clasificaría</strong> (${rankTxt})${prov}</div>`
-        : `<div class="grp-legend-item grp-legend-third-no">⬜ 3.º — <strong>no clasificaría</strong> (${rankTxt})${prov}</div>`;
+        ? `<div class="grp-legend-item grp-legend-third-yes">🟡 3.º — <strong>clasificaría</strong> (${rankTxt})${prov} ${thirdsLink}</div>`
+        : `<div class="grp-legend-item grp-legend-third-no">⬜ 3.º — <strong>no clasificaría</strong> (${rankTxt})${prov} ${thirdsLink}</div>`;
     }
     const sorteoLeg = table.some(t => t.tieNote === "lots")
       ? `<div class="grp-legend-item" style="color:#94A3B8">🎲 <strong>sorteo</strong> — equipos totalmente igualados; posición provisional decidida por sorteo FIFA</div>`
@@ -3435,6 +3438,81 @@ function _teamsScorersHtml() {
 }
 
 /* ── Sub-tab 3: Clasificación general ── */
+function _switchTeamsSubTab(stab) {
+  _teamsSubTab = stab;
+  document.querySelectorAll(".tms-sub-tab").forEach(b =>
+    b.classList.toggle("active", b.dataset.stab === stab));
+  _renderTeamsSubBody();
+  // scroll al inicio de la sección
+  document.getElementById("tms-sub-body")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+/* ── Sub-tab 4: Clasificación de terceros ── */
+function _teamsThirdsHtml() {
+  const thirds = _computeAllThirds();
+  const totalGroups = [...new Set(
+    (D.matches || []).filter(m => m.phase === "groups" && m.id)
+                     .map(m => m.id.charAt(0).toUpperCase())
+  )].length;
+
+  if (!thirds.length) return `<div class="card p-5 text-gray-500 text-sm">Aún no hay datos de terceros clasificados.</div>`;
+
+  const rows = thirds.map((t, i) => {
+    const qual = i < 8;
+    const dif = t.gf - t.gc;
+    const difStr = dif > 0 ? `+${dif}` : `${dif}`;
+    const difCls = dif > 0 ? "tms-pos-num" : dif < 0 ? "tms-neg" : "";
+    const rowCls = qual ? "grp-third" : "grp-third grp-third-out";
+    return `<tr class="${rowCls}">
+      <td class="tlg-pos">${i + 1}</td>
+      <td class="tlg-team"><span class="tlg-flag">${t.flag || ""}</span><button class="team-name-btn" data-team="${escapeHtml(t.name)}">${escapeHtml(t.name)}</button>
+        <span style="font-size:.7rem;color:#64748B;margin-left:.4rem">Gr. ${t.group}</span></td>
+      <td>${t.pj}</td>
+      <td class="tlg-g">${t.pg}</td>
+      <td>${t.pe}</td>
+      <td class="tlg-l">${t.pp}</td>
+      <td>${t.gf}</td>
+      <td>${t.gc}</td>
+      <td class="${difCls}">${difStr}</td>
+      <td class="tlg-pts tlg-pts-val">${t.pts}</td>
+    </tr>`;
+  }).join("");
+
+  const provisional = thirds.length < totalGroups
+    ? `<p class="text-xs text-yellow-400 mb-3">⚠️ Provisional — aún no han jugado todos los grupos (${thirds.length}/${totalGroups}).</p>`
+    : "";
+
+  return `
+    <div class="card overflow-hidden mb-4">
+      <div class="px-5 py-4 border-b" style="border-color:var(--border)">
+        <h2 class="text-base font-bold text-white">🥉 Clasificación de terceros</h2>
+        <p class="text-xs text-gray-400 mt-0.5">Los 8 mejores terceros de grupo pasan a 16avos de final. Criterios: Pts → DIF → GF.</p>
+      </div>
+      <div class="px-5 pt-3">${provisional}</div>
+      <div class="overflow-x-auto">
+        <table class="tm-league-table">
+          <thead><tr>
+            <th class="tlg-pos">#</th>
+            <th class="tlg-team text-left">Equipo</th>
+            <th title="Partidos jugados">PJ</th>
+            <th title="Ganados">G</th>
+            <th title="Empatados">E</th>
+            <th title="Perdidos">P</th>
+            <th title="Goles a favor">GF</th>
+            <th title="Goles en contra">GC</th>
+            <th title="Diferencia de goles">DIF</th>
+            <th title="Puntos" class="tlg-pts">PTS</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+      <div class="px-5 py-3 flex flex-col gap-0.5">
+        <div class="grp-legend-item grp-legend-third-yes">🟡 Top 8 — clasifican a 16avos de final</div>
+        <div class="grp-legend-item grp-legend-third-no">⬜ Eliminados</div>
+      </div>
+    </div>`;
+}
+
 function _teamsGeneralHtml() {
   const played = (D.matches || []).filter(m => m.played);
   const teamsMap = {};

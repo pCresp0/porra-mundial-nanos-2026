@@ -3132,6 +3132,13 @@
 .tlg-pts-val { color: var(--gold); font-size: 1.1rem; font-weight: 800; background: rgba(245,197,24,.06); border-left: 1px solid rgba(245,197,24,.15); }
 .tlg-pos-num { color: #22C55E; font-weight: 700; }
 .tlg-neg { color: #EF4444; font-weight: 700; }
+.grp-thirds-link {
+  background: none; border: none; cursor: pointer;
+  color: #94A3B8; font-size: .7rem; text-decoration: underline;
+  padding: 0; margin-left: .3rem; font-family: inherit;
+  transition: color .15s;
+}
+.grp-thirds-link:hover { color: var(--gold); }
 
 /* ── Scorers table ── */
 .tm-scorers-table {
