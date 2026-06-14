@@ -239,6 +239,13 @@
     /* ── alternancia escritorio / móvil ── */
     .desktop-nav { display: block; }
     .mobile-nav  { display: none; }
+    .desktop-nav .page-shell { flex-wrap: nowrap; }
+    @media (min-width: 768px) and (max-width: 1180px) {
+      .desktop-nav .tab-btn { padding: .6rem .85rem; font-size: .82rem; }
+    }
+    @media (min-width: 768px) and (max-width: 920px) {
+      .desktop-nav .tab-btn { padding: .55rem .65rem; font-size: .78rem; }
+    }
     @media (max-width: 767px) {
       .desktop-nav { display: none; }
       .mobile-nav  { display: block; }
