@@ -3416,7 +3416,7 @@ function _teamsScorersHtml() {
 
   return `<div class="card overflow-hidden">
     <div class="px-5 py-4 border-b" style="border-color:var(--border)">
-      <p class="text-xs text-gray-400 mt-0.5">Solo goles propios no contabilizados. (P) = penalti.</p>
+      <p class="text-xs text-gray-400 mt-0.5">Los goles en propia portería no se contabilizan. (P) = penalti.</p>
     </div>
     <div class="overflow-x-auto">
       <table class="tm-scorers-table">
@@ -3613,7 +3613,7 @@ function _teamsGeneralHtml() {
     <div class="card overflow-hidden">
       <div class="px-5 py-4 border-b" style="border-color:var(--border)">
         <h2 class="text-base font-bold text-white">⚽ Máximos goleadores</h2>
-        <p class="text-xs text-gray-400 mt-0.5">Solo goles en propia portería no contabilizados. (P) = penalti.</p>
+        <p class="text-xs text-gray-400 mt-0.5">Los goles en propia portería no se contabilizan. (P) = penalti.</p>
       </div>
       <div class="overflow-x-auto">
         <table class="tm-scorers-table">
