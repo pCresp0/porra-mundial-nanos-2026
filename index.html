@@ -78,7 +78,7 @@
     <button class="tab-btn porra-only" data-tab="standings">🏅 Clasificación Porra</button>
     <button class="tab-btn porra-only" data-tab="progression">📈 Progresión</button>
     <button class="tab-btn porra-only" data-tab="stats">📊 Estadísticas</button>
-    <button class="tab-btn porra-only" data-tab="teams">🌍 Clasificaciones Mundial</button>
+    <button class="tab-btn porra-only" data-tab="h2h">🆚 Cara a cara</button>
     <!-- Accesos directos (solo modo público): sustituyen a 'Clasificaciones Mundial' -->
     <button class="tab-btn subnav-btn guest-only" data-stab="groups">📊 Grupos</button>
     <button class="tab-btn subnav-btn guest-only" data-stab="scorers">⚽ Goleadores</button>
@@ -91,6 +91,7 @@
       <button class="tab-btn tab-more-btn" id="tab-more-btn" type="button" aria-expanded="false" aria-haspopup="true">⋯ Más ▾</button>
       <div class="tab-more-dropdown hidden" id="tab-more-dropdown">
         <button class="tab-btn porra-only" data-tab="bracket">⚔️ Fase Final</button>
+        <button class="tab-btn porra-only" data-tab="teams">🌍 Clasificaciones Mundial</button>
         <button class="tab-btn porra-only" data-tab="honor">🏆 Cuadro de Honor</button>
         <button class="tab-btn porra-only" data-tab="scoring">📋 Sistema de puntuación</button>
         <button class="tab-btn porra-only" data-tab="bets">🎲 Apuestas internas</button>
@@ -139,6 +140,7 @@
   <button class="tab-btn porra-only" data-tab="standings">🏅 Clasificación Porra</button>
   <button class="tab-btn porra-only" data-tab="progression">📈 Progresión</button>
   <button class="tab-btn porra-only" data-tab="stats">📊 Estadísticas</button>
+  <button class="tab-btn porra-only" data-tab="h2h">🆚 Cara a cara</button>
   <button class="tab-btn porra-only" data-tab="teams">🌍 Clasificaciones Mundial</button>
   <!-- Accesos directos (solo modo público) -->
   <button class="tab-btn subnav-btn guest-only" data-stab="groups">📊 Grupos</button>
@@ -342,6 +344,8 @@
     <div id="stats-players" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
 
     <div id="stats-top-matches" class="mt-6"></div>
+
+    <div id="stats-twins" class="mt-6"></div>
   </section>
 
   <!-- ════════════════════════════════════════════
@@ -357,6 +361,17 @@
   ════════════════════════════════════════════ -->
   <section id="tab-bets" class="hidden">
     <div id="bets-container"></div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       TAB: CARA A CARA (H2H entre dos jugadores)
+  ════════════════════════════════════════════ -->
+  <section id="tab-h2h" class="hidden">
+    <div class="flex items-center gap-2 mb-1">
+      <h2 class="font-bold text-white text-xl">🆚 Cara a cara</h2>
+    </div>
+    <p class="text-sm text-gray-400 mb-4">Compara a dos jugadores lado a lado: puntos, aciertos, racha y los partidos donde uno clavó y el otro falló.</p>
+    <div id="h2h-container"></div>
   </section>
 
   <!-- ════════════════════════════════════════════

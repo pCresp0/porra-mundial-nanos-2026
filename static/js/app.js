@@ -1371,6 +1371,223 @@ function renderWeekFilter() {
   });
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   CARA A CARA (H2H entre dos jugadores)
+═══════════════════════════════════════════════════════════════ */
+let _h2hA = null, _h2hB = null;
+
+/* Categoría de acierto de una predicción a partir del desglose.
+   "exact" | "diff" | "sign" | "miss" | "none" (sin predicción). */
+function _h2hCat(pd) {
+  if (!pd || !pd.pred) return "none";
+  const b = pd.breakdown || {};
+  if ((+b.exact || 0) > 0) return "exact";
+  if ((+b.diff  || 0) > 0) return "diff";
+  if ((+b.sign  || 0) > 0) return "sign";
+  return "miss";
+}
+
+/* Racha activa (partidos seguidos puntuando desde el último jugado hacia atrás). */
+function _h2hStreak(name, played) {
+  let s = 0;
+  for (let i = played.length - 1; i >= 0; i--) {
+    if ((played[i].predictions?.[name]?.score || 0) > 0) s++; else break;
+  }
+  return s;
+}
+
+/* Calcula toda la comparativa entre dos jugadores sobre los partidos jugados. */
+function _h2hCompute(a, b) {
+  const played = (D.matches || []).filter(m => m.played);
+  const stats = {
+    a: { pts: 0, exact: 0, diff: 0, sign: 0, miss: 0, played: 0 },
+    b: { pts: 0, exact: 0, diff: 0, sign: 0, miss: 0, played: 0 },
+  };
+  let aWins = 0, bWins = 0, draws = 0;
+  const diffMatches = [];
+
+  played.forEach(m => {
+    const pa = m.predictions?.[a], pb = m.predictions?.[b];
+    const sa = pa?.score || 0, sb = pb?.score || 0;
+    const ca = _h2hCat(pa), cb = _h2hCat(pb);
+    if (ca !== "none") { stats.a.played++; stats.a.pts += sa; stats.a[ca]++; }
+    if (cb !== "none") { stats.b.played++; stats.b.pts += sb; stats.b[cb]++; }
+    // Duelo del partido: quién sacó más puntos
+    if (sa > sb) aWins++; else if (sb > sa) bWins++; else draws++;
+    // Partido donde uno puntuó y el otro no
+    if ((sa > 0) !== (sb > 0)) {
+      diffMatches.push({ m, sa, sb, ca, cb, winner: sa > 0 ? "a" : "b" });
+    }
+  });
+
+  stats.a.streak = _h2hStreak(a, played);
+  stats.b.streak = _h2hStreak(b, played);
+  stats.a.hits = stats.a.exact + stats.a.diff + stats.a.sign;
+  stats.b.hits = stats.b.exact + stats.b.diff + stats.b.sign;
+  stats.a.pct = stats.a.played > 0 ? Math.round(stats.a.hits / stats.a.played * 100) : 0;
+  stats.b.pct = stats.b.played > 0 ? Math.round(stats.b.hits / stats.b.played * 100) : 0;
+
+  return { stats, aWins, bWins, draws, diffMatches, playedCount: played.length };
+}
+
+/* Cambia uno de los jugadores seleccionados y vuelve a pintar. */
+function _h2hPick(which, val) {
+  if (which === "a") _h2hA = val; else _h2hB = val;
+  renderH2H();
+}
+
+/* Fila de la tabla comparativa con resaltado del mejor valor.
+   lowerBetter=true → gana quien tiene el valor más bajo (p.ej. fallos). */
+function _h2hStatRow(label, va, vb, fmtFn, lowerBetter) {
+  const f = fmtFn || (v => v);
+  const aw = lowerBetter ? va < vb : va > vb;
+  const bw = lowerBetter ? vb < va : vb > va;
+  return `<tr>
+    <td class="h2h-cell h2h-cell-a ${aw ? "h2h-win" : ""}">${f(va)}</td>
+    <td class="h2h-cell-lbl">${label}</td>
+    <td class="h2h-cell h2h-cell-b ${bw ? "h2h-win" : ""}">${f(vb)}</td>
+  </tr>`;
+}
+
+function renderH2H() {
+  const cont = document.getElementById("h2h-container");
+  if (!cont || !D) return;
+  const players = D.meta?.players || [];
+  const colors  = D.meta?.colors  || {};
+  if (players.length < 2) {
+    cont.innerHTML = `<div class="card p-5 text-center text-gray-400">Hacen falta al menos dos jugadores para comparar.</div>`;
+    return;
+  }
+
+  // Valores por defecto: los dos primeros de la clasificación
+  const order = (D.standings || []).map(s => s.name).filter(n => players.includes(n));
+  const fallback = order.length ? order : players;
+  if (!_h2hA || !players.includes(_h2hA)) _h2hA = fallback[0];
+  if (!_h2hB || !players.includes(_h2hB)) _h2hB = fallback[1] || fallback[0];
+
+  const opts = (sel) => players.map(n =>
+    `<option value="${escapeHtml(n)}" ${n === sel ? "selected" : ""}>${escapeHtml(n)}</option>`).join("");
+
+  const pickers = `
+    <div class="h2h-pickers card">
+      <select class="h2h-select" onchange="_h2hPick('a', this.value)" style="--h2h-c:${colors[_h2hA] || "#fff"}">${opts(_h2hA)}</select>
+      <span class="h2h-vs-pill">VS</span>
+      <select class="h2h-select" onchange="_h2hPick('b', this.value)" style="--h2h-c:${colors[_h2hB] || "#fff"}">${opts(_h2hB)}</select>
+    </div>`;
+
+  if (_h2hA === _h2hB) {
+    cont.innerHTML = pickers + `<div class="card p-5 text-center text-gray-400 mt-4">Elige dos jugadores distintos para compararlos.</div>`;
+    return;
+  }
+
+  const { stats, aWins, bWins, draws, diffMatches, playedCount } = _h2hCompute(_h2hA, _h2hB);
+
+  if (playedCount === 0) {
+    cont.innerHTML = pickers + `<div class="card p-5 text-center text-gray-400 mt-4">Aún no hay partidos jugados para comparar.</div>`;
+    return;
+  }
+
+  const cA = colors[_h2hA] || "#F5C518", cB = colors[_h2hB] || "#22C55E";
+  const sA = (D.standings || []).find(s => s.name === _h2hA) || {};
+  const sB = (D.standings || []).find(s => s.name === _h2hB) || {};
+  const fmtNum = v => Math.round(v * 10) / 10;
+
+  // Cabecera con nombre, posición y total
+  const head = `
+    <div class="h2h-head">
+      <div class="h2h-head-side" style="--h2h-c:${cA}">
+        <div class="h2h-head-name">${escapeHtml(_h2hA)}</div>
+        <div class="h2h-head-sub">#${sA.pos ?? "—"} · ${fmtNum(+sA.total || 0)} pts</div>
+      </div>
+      <div class="h2h-head-mid">🆚</div>
+      <div class="h2h-head-side h2h-head-side-b" style="--h2h-c:${cB}">
+        <div class="h2h-head-name">${escapeHtml(_h2hB)}</div>
+        <div class="h2h-head-sub">#${sB.pos ?? "—"} · ${fmtNum(+sB.total || 0)} pts</div>
+      </div>
+    </div>`;
+
+  // Duelo directo (partidos donde sacó más puntos que el otro)
+  const total = aWins + bWins + draws || 1;
+  const duel = `
+    <div class="card h2h-duel">
+      <div class="h2h-duel-title">⚔️ Duelo directo <span class="h2h-duel-note">partidos donde sacó más puntos que el rival</span></div>
+      <div class="h2h-duel-bar">
+        <div class="h2h-duel-seg h2h-seg-a" style="width:${aWins / total * 100}%;background:${cA}">${aWins || ""}</div>
+        <div class="h2h-duel-seg h2h-seg-d" style="width:${draws / total * 100}%">${draws || ""}</div>
+        <div class="h2h-duel-seg h2h-seg-b" style="width:${bWins / total * 100}%;background:${cB}">${bWins || ""}</div>
+      </div>
+      <div class="h2h-duel-legend">
+        <span style="color:${cA}">●</span> ${escapeHtml(_h2hA)} ganó <strong>${aWins}</strong>
+        · <span class="h2h-draw-dot">●</span> ${draws} empate${draws === 1 ? "" : "s"}
+        · <span style="color:${cB}">●</span> ${escapeHtml(_h2hB)} ganó <strong>${bWins}</strong>
+        <span class="h2h-duel-of">(${playedCount} partidos jugados)</span>
+      </div>
+    </div>`;
+
+  // Tabla comparativa
+  const table = `
+    <div class="card h2h-table-wrap">
+      <table class="h2h-table">
+        <thead><tr>
+          <th style="color:${cA}">${escapeHtml(_h2hA)}</th>
+          <th class="h2h-cell-lbl"></th>
+          <th style="color:${cB}">${escapeHtml(_h2hB)}</th>
+        </tr></thead>
+        <tbody>
+          ${_h2hStatRow("Puntos sumados", stats.a.pts, stats.b.pts, fmtNum)}
+          ${_h2hStatRow("🎯 Marcadores exactos", stats.a.exact, stats.b.exact)}
+          ${_h2hStatRow("🔵 1X2 + Dif.", stats.a.diff, stats.b.diff)}
+          ${_h2hStatRow("🟠 Solo 1X2", stats.a.sign, stats.b.sign)}
+          ${_h2hStatRow("⚪ Fallos (0 pts)", stats.a.miss, stats.b.miss, null, true)}
+          ${_h2hStatRow("% de acierto", stats.a.pct, stats.b.pct, v => v + "%")}
+          ${_h2hStatRow("🔥 Racha activa", stats.a.streak, stats.b.streak)}
+        </tbody>
+      </table>
+    </div>`;
+
+  // Partidos donde uno clavó y el otro falló
+  let diffHtml = "";
+  if (diffMatches.length === 0) {
+    diffHtml = `<div class="card p-4 text-center text-gray-500 h2h-diff-empty">No hay partidos donde uno puntuara y el otro no. ¡Van muy parejos!</div>`;
+  } else {
+    const rows = diffMatches.map(d => {
+      const m = d.m;
+      const fh = m.flag_home || "🏳️", fa = m.flag_away || "🏳️";
+      const phase = PHASE_LABELS[m.phase] || m.phase || "";
+      const res = m.result?.score || "";
+      const predA = m.predictions?.[_h2hA]?.pred?.score || "—";
+      const predB = m.predictions?.[_h2hB]?.pred?.score || "—";
+      const aHit = d.winner === "a";
+      return `<div class="h2h-diff-row">
+        <div class="h2h-diff-match">
+          <div class="h2h-diff-teams">${fh} ${escapeHtml(m.home)} <span class="h2h-diff-res">${escapeHtml(res)}</span> ${escapeHtml(m.away)} ${fa}</div>
+          <div class="h2h-diff-phase">${escapeHtml(phase)}</div>
+        </div>
+        <div class="h2h-diff-preds">
+          <span class="h2h-diff-pred ${aHit ? "h2h-pred-hit" : "h2h-pred-miss"}" style="--h2h-c:${cA}">
+            ${aHit ? "✓" : "✗"} ${escapeHtml(predA)} <small>+${fmtNum(d.sa)}</small>
+          </span>
+          <span class="h2h-diff-pred ${!aHit ? "h2h-pred-hit" : "h2h-pred-miss"}" style="--h2h-c:${cB}">
+            ${!aHit ? "✓" : "✗"} ${escapeHtml(predB)} <small>+${fmtNum(d.sb)}</small>
+          </span>
+        </div>
+      </div>`;
+    }).join("");
+    const aHits = diffMatches.filter(d => d.winner === "a").length;
+    const bHits = diffMatches.filter(d => d.winner === "b").length;
+    diffHtml = `
+      <div class="h2h-diff-block">
+        <div class="h2h-diff-head">
+          <h3 class="font-bold text-white">⚡ Partidos donde uno clavó y el otro falló</h3>
+          <span class="text-xs text-gray-500">${escapeHtml(_h2hA)} ${aHits} · ${bHits} ${escapeHtml(_h2hB)}</span>
+        </div>
+        <div class="h2h-diff-list">${rows}</div>
+      </div>`;
+  }
+
+  cont.innerHTML = pickers + head + duel + table + diffHtml;
+}
+
 /* ─── PROGRESSION CHART (por partido) ─── */
 function renderProgression() {
   const players = D.meta.players;
@@ -2324,6 +2541,14 @@ function renderHonor() {
   }).join("");
 }
 
+/* Signo 1X2 ("1"/"X"/"2") a partir de un marcador en texto ("2-0"). */
+function _signFromScore(score) {
+  const mt = String(score || "").match(/(\d+)\s*-\s*(\d+)/);
+  if (!mt) return null;
+  const h = +mt[1], a = +mt[2];
+  return h > a ? "1" : h < a ? "2" : "X";
+}
+
 /* ─── STATS ─── */
 function renderStats() {
   const players = D.meta.players;
@@ -2618,6 +2843,117 @@ function renderStats() {
           </table>
         </div>
       </div>`;
+  }
+
+  // ── El gemelo: parejas con predicciones más parecidas / opuestas ───────
+  const twinsEl = document.getElementById("stats-twins");
+  if (twinsEl) {
+    const players = D.meta.players;
+    const colors  = D.meta.colors;
+    const withPred = D.matches.filter(m => m.predictions);
+
+    const pairs = [];
+    for (let i = 0; i < players.length; i++) {
+      for (let j = i + 1; j < players.length; j++) {
+        const a = players[i], b = players[j];
+        let common = 0, sameExact = 0, sameSign = 0;
+        withPred.forEach(m => {
+          const pa = m.predictions?.[a]?.pred, pb = m.predictions?.[b]?.pred;
+          const scA = pa?.score, scB = pb?.score;
+          if (!scA || !scB) return;
+          common++;
+          if (scA === scB) { sameExact++; sameSign++; return; }
+          const sa = _signFromScore(scA), sb = _signFromScore(scB);
+          if (sa && sb && sa === sb) sameSign++;
+        });
+        if (common === 0) continue;
+        // Afinidad: marcador idéntico vale doble que solo el signo.
+        const score = (sameExact * 2 + (sameSign - sameExact)) / (common * 2);
+        pairs.push({ a, b, common, sameExact, sameSign, pct: Math.round(score * 100) });
+      }
+    }
+
+    if (pairs.length === 0) {
+      twinsEl.innerHTML = "";
+    } else {
+      const sorted = [...pairs].sort((x, y) => y.pct - x.pct);
+      const twin = sorted[0];
+      const opposite = sorted[sorted.length - 1];
+
+      const card = (data, kind) => {
+        const isTwin = kind === "twin";
+        const cA = colors[data.a] || "#94A3B8", cB = colors[data.b] || "#94A3B8";
+        const icon = isTwin ? "🃏" : "🧊";
+        const title = isTwin ? "El gemelo" : "Los polos opuestos";
+        const sub = isTwin
+          ? "Las predicciones más parecidas de la porra"
+          : "Los que casi nunca coinciden";
+        return `
+          <div class="twin-card ${isTwin ? "twin-card-best" : "twin-card-worst"}">
+            <div class="twin-card-head">
+              <span class="twin-icon">${icon}</span>
+              <div>
+                <div class="twin-title">${title}</div>
+                <div class="twin-sub">${sub}</div>
+              </div>
+            </div>
+            <div class="twin-names">
+              <span class="twin-name" style="color:${cA}">${escapeHtml(data.a)}</span>
+              <span class="twin-amp">${isTwin ? "&amp;" : "vs"}</span>
+              <span class="twin-name" style="color:${cB}">${escapeHtml(data.b)}</span>
+            </div>
+            <div class="twin-bar"><div class="twin-bar-fill ${isTwin ? "is-best" : "is-worst"}" style="width:${data.pct}%"></div></div>
+            <div class="twin-pct">${data.pct}% de afinidad</div>
+            <div class="twin-detail">
+              🎯 ${data.sameExact} marcador${data.sameExact === 1 ? "" : "es"} idéntico${data.sameExact === 1 ? "" : "s"}
+              · 🔵 ${data.sameSign} mismo signo
+              <span class="twin-detail-of">de ${data.common} en común</span>
+            </div>
+          </div>`;
+      };
+
+      const rankRows = sorted.map((p, i) => {
+        const cA = colors[p.a] || "#94A3B8", cB = colors[p.b] || "#94A3B8";
+        return `<tr>
+          <td class="text-center" style="color:#64748B;font-weight:700">${i + 1}</td>
+          <td><span style="color:${cA};font-weight:700">${escapeHtml(p.a)}</span> <span style="color:#475569">·</span> <span style="color:${cB};font-weight:700">${escapeHtml(p.b)}</span></td>
+          <td class="text-center" style="color:#CBD5E1">${p.sameExact}</td>
+          <td class="text-center" style="color:#CBD5E1">${p.sameSign}</td>
+          <td class="text-center"><span class="twin-rank-pct">${p.pct}%</span></td>
+        </tr>`;
+      }).join("");
+
+      twinsEl.innerHTML = `
+        <div class="flex items-center gap-2 mb-1">
+          <h2 class="text-lg font-bold text-white">🃏 El gemelo</h2>
+          ${infoTip("La <strong>afinidad</strong> mide cuánto se parecen las predicciones de dos jugadores. Por cada partido que ambos han pronosticado: <strong>marcador idéntico</strong> (ej. los dos ponen 2-0) cuenta el máximo, <strong>mismo signo</strong> (los dos dan ganador al local pero con distinto marcador) cuenta la mitad, y predicciones con distinto signo no suman. El porcentaje es la media sobre todos los partidos en común.", "left")}
+        </div>
+        <p class="text-sm text-gray-400 mb-4">Qué dos jugadores tienen las predicciones más parecidas (y los más opuestos), comparando todos los pronósticos rellenados.</p>
+        <div class="twin-cards">
+          ${card(twin, "twin")}
+          ${card(opposite, "opposite")}
+        </div>
+        <div class="card overflow-hidden mt-4">
+          <div class="px-6 py-4 border-b" style="border-color:var(--border)">
+            <h3 class="font-bold text-white">Afinidad de todas las parejas</h3>
+            <p class="text-xs text-gray-400 mt-1">Ordenadas de más parecidas a más opuestas. Un marcador idéntico cuenta doble que coincidir solo en el signo.</p>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="pred-table w-full">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th class="text-left">Pareja</th>
+                  <th>🎯 Iguales</th>
+                  <th>🔵 Mismo signo</th>
+                  <th>Afinidad</th>
+                </tr>
+              </thead>
+              <tbody>${rankRows}</tbody>
+            </table>
+          </div>
+        </div>`;
+    }
   }
 }
 
@@ -3538,22 +3874,24 @@ function _teamsThirdsHtml() {
     if (t.tieAtCutoff) rowCls = "grp-third grp-third-tie-cutoff";
     else if (i < 8) rowCls = "grp-third";
     else rowCls = "grp-third grp-third-out";
-    const tieCutoffBadge = t.tieAtCutoff ? ` <span class="trd-tie-badge">⚠️ empate corte</span>` : "";
-    const tieGrpBadge = t.tiedWithSecond ? ` <span class="trd-tie-badge trd-tie-grp">🎲 sorteo con 2.º</span>` : "";
+    const tieCutoffBadge = t.tieAtCutoff ? `<span class="trd-tie-badge">⚠️ empate corte</span>` : "";
+    const tieGrpBadge = t.tiedWithSecond ? `<span class="trd-tie-badge trd-tie-grp">🎲 sorteo con 2.º</span>` : "";
+    const tieBadges = (tieCutoffBadge || tieGrpBadge)
+      ? `<span class="trd-badges">${tieCutoffBadge}${tieGrpBadge}</span>` : "";
 
     // Nombre: si hay empate con el 2.º, mostrar "Brasil o Marruecos"
     const teamCell = t.tiedWithSecond
       ? `<td class="tlg-team">
-          <span class="tlg-flag">${t.flag || ""}</span><button class="team-name-btn" data-team="${escapeHtml(t.name)}">${escapeHtml(t.name)}</button>
+          <span class="trd-team-line"><span class="tlg-flag">${t.flag || ""}</span><button class="team-name-btn" data-team="${escapeHtml(t.name)}">${escapeHtml(t.name)}</button>
           <span class="trd-or-sep">o</span>
           <span class="tlg-flag">${t.tiedWithSecond.flag || ""}</span><button class="team-name-btn" data-team="${escapeHtml(t.tiedWithSecond.name)}">${escapeHtml(t.tiedWithSecond.name)}</button>
-          <span style="font-size:.7rem;color:#64748B;margin-left:.3rem">Gr. ${t.group}</span>
+          <span class="trd-grp-tag">Gr. ${t.group}</span></span>${tieBadges}
          </td>`
-      : `<td class="tlg-team"><span class="tlg-flag">${t.flag || ""}</span><button class="team-name-btn" data-team="${escapeHtml(t.name)}">${escapeHtml(t.name)}</button>
-          <span style="font-size:.7rem;color:#64748B;margin-left:.4rem">Gr. ${t.group}</span></td>`;
+      : `<td class="tlg-team"><span class="trd-team-line"><span class="tlg-flag">${t.flag || ""}</span><button class="team-name-btn" data-team="${escapeHtml(t.name)}">${escapeHtml(t.name)}</button>
+          <span class="trd-grp-tag">Gr. ${t.group}</span></span>${tieBadges}</td>`;
 
     return `<tr class="${rowCls}">
-      <td class="tlg-pos">${i + 1}${tieCutoffBadge}${tieGrpBadge}</td>
+      <td class="tlg-pos">${i + 1}</td>
       ${teamCell}
       <td>${t.pj}</td>
       <td class="tlg-g">${t.pg}</td>
@@ -4203,7 +4541,7 @@ function goToMatchesDay(isoDate, matchName) {
   // 1. Switch to matches tab MANUALLY (avoid the click handler's scroll-to-today)
   document.querySelectorAll(".tab-btn").forEach(b =>
     b.classList.toggle("active", b.dataset.tab === "matches"));
-  ["matches","calendar","standings","progression","stats","honor","bracket","teams","bets","scoring","info"].forEach(t => {
+  ["matches","calendar","standings","progression","stats","honor","bracket","teams","bets","scoring","info","h2h"].forEach(t => {
     const sec = document.getElementById("tab-" + t);
     if (sec) sec.classList.toggle("hidden", t !== "matches");
   });
@@ -4335,7 +4673,7 @@ function goToTeamsSubTab(stab, opts = {}) {
   } else {
     // fallback manual
     document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === "teams"));
-    ["matches","calendar","standings","progression","stats","honor","bracket","teams","bets","scoring","info"].forEach(t => {
+    ["matches","calendar","standings","progression","stats","honor","bracket","teams","bets","scoring","info","h2h"].forEach(t => {
       document.getElementById("tab-" + t)?.classList.toggle("hidden", t !== "teams");
     });
     if (typeof renderTeams === "function" && D) renderTeams();
@@ -4368,7 +4706,7 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
     closeNav();
     closeMoreDropdown();
     if (typeof closeTeamSearchSheet === "function") closeTeamSearchSheet();
-    ["matches","calendar","standings","progression","stats","honor","bracket","teams","bets","scoring","info"].forEach(t => {
+    ["matches","calendar","standings","progression","stats","honor","bracket","teams","bets","scoring","info","h2h"].forEach(t => {
       document.getElementById("tab-"+t).classList.toggle("hidden", t !== tab);
     });
     if (typeof updateNavSearchBtn === "function") updateNavSearchBtn();
@@ -4384,6 +4722,7 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
     if (tab === "bets") renderBets();
     if (tab === "matches" && D) renderMatches(currentPhase, currentWeek);
     if (tab === "scoring" && D) renderScoring();
+    if (tab === "h2h" && D) renderH2H();
   });
 });
 
