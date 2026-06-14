@@ -3251,13 +3251,246 @@ function renderBetsMain(container) {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   EQUIPOS — Clasificación global + Máximos goleadores
+   CLASIFICACIÓN MUNDIAL — sub-tabs: Grupos / Goleadores / General
 ═══════════════════════════════════════════════════════════════ */
+let _teamsSubTab = "groups"; // "groups" | "scorers" | "general"
+
 function renderTeams() {
   const container = document.getElementById("teams-container");
   if (!container || !D) return;
 
-  const allMatches = D.matches || [];
+  // ── Sub-tab shell (solo la primera vez o tras reset) ────────
+  if (!container.querySelector(".tms-sub-tabs")) {
+    container.innerHTML = `
+      <div class="tms-root">
+        <h2 class="tms-title">🌍 Clasificación Mundial 2026</h2>
+        <div class="tms-sub-tabs" id="tms-sub-tabs">
+          <button class="tms-sub-tab active" data-stab="groups">📊 Grupos</button>
+          <button class="tms-sub-tab" data-stab="scorers">⚽ Goleadores</button>
+          <button class="tms-sub-tab" data-stab="general">🏆 Clasificación general</button>
+        </div>
+        <div id="tms-sub-body"></div>
+      </div>`;
+
+    container.querySelectorAll(".tms-sub-tab").forEach(btn => {
+      btn.addEventListener("click", () => {
+        _teamsSubTab = btn.dataset.stab;
+        container.querySelectorAll(".tms-sub-tab").forEach(b => b.classList.toggle("active", b === btn));
+        _renderTeamsSubBody();
+      });
+    });
+  }
+
+  // Sync active tab (in case of re-render)
+  container.querySelectorAll(".tms-sub-tab").forEach(b =>
+    b.classList.toggle("active", b.dataset.stab === _teamsSubTab));
+
+  _renderTeamsSubBody();
+}
+
+function _renderTeamsSubBody() {
+  const body = document.getElementById("tms-sub-body");
+  if (!body || !D) return;
+  if (_teamsSubTab === "groups")  body.innerHTML = _teamsGroupsHtml();
+  if (_teamsSubTab === "scorers") body.innerHTML = _teamsScorersHtml();
+  if (_teamsSubTab === "general") body.innerHTML = _teamsGeneralHtml();
+}
+
+/* ── Sub-tab 1: Clasificación de grupos ── */
+function _teamsGroupsHtml() {
+  const grpLetters = [...new Set(
+    (D.matches || []).filter(m => m.phase === "groups" && m.id)
+                     .map(m => m.id.charAt(0).toUpperCase())
+  )].sort();
+
+  if (!grpLetters.length) return `<div class="card p-5 text-gray-500 text-sm">Aún no hay partidos de grupos.</div>`;
+
+  const allThirds = _computeAllThirds();
+
+  return grpLetters.map(g => {
+    const table = _computeGroupStanding(g);
+    const thirdRankInfo = allThirds.find(t => t.group === g) || null;
+    const thirdRank = thirdRankInfo ? thirdRankInfo.rank : null;
+    const thirdQual = thirdRank !== null && thirdRank <= 8;
+    const totalThirds = allThirds.length;
+    const playedInGroup = (D.matches || []).filter(m => m.phase === "groups" && m.id?.startsWith(g) && m.played).length;
+
+    const rows = table.map((t, i) => {
+      let rowCls = i < 2 ? "grp-qual" : (i === 2 ? (thirdQual ? "grp-third" : "grp-third grp-third-out") : "");
+      const tieBadge = t.tieNote === "lots"
+        ? `<span class="grp-tie-badge" title="Igualados en todos los criterios FIFA — posición decidida por sorteo">🎲 sorteo</span>`
+        : "";
+      const dif = t.gf - t.gc;
+      const difStr = dif > 0 ? `+${dif}` : `${dif}`;
+      const difCls = dif > 0 ? "tms-pos-num" : dif < 0 ? "tms-neg" : "";
+      return `<tr class="${rowCls}">
+        <td class="grp-td-team"><button class="team-name-btn" data-team="${escapeHtml(t.name)}">${t.flag} ${escapeHtml(t.name)}</button>${tieBadge}</td>
+        <td>${t.pj}</td><td>${t.pg}</td><td>${t.pe}</td><td>${t.pp}</td>
+        <td>${t.gf}</td><td>${t.gc}</td>
+        <td class="${difCls}">${difStr}</td>
+        <td class="tms-pts-cell">${t.pts}</td>
+      </tr>`;
+    }).join("");
+
+    // Leyenda 3º
+    let thirdLegHtml = "";
+    if (table[2]) {
+      const rankTxt = thirdRank !== null ? `N.º <strong>${thirdRank}</strong> de ${totalThirds}` : "sin datos";
+      const prov = playedInGroup < 3 ? " <em>(provisional)</em>" : "";
+      thirdLegHtml = thirdQual
+        ? `<div class="grp-legend-item grp-legend-third-yes">🟡 3.º — <strong>clasificaría</strong> (${rankTxt})${prov}</div>`
+        : `<div class="grp-legend-item grp-legend-third-no">⬜ 3.º — <strong>no clasificaría</strong> (${rankTxt})${prov}</div>`;
+    }
+    const sorteoLeg = table.some(t => t.tieNote === "lots")
+      ? `<div class="grp-legend-item" style="color:#94A3B8">🎲 <strong>sorteo</strong> — equipos totalmente igualados; posición provisional decidida por sorteo FIFA</div>`
+      : "";
+
+    return `
+      <div class="tms-grp-block">
+        <div class="tms-grp-hd">Grupo ${g}</div>
+        <div class="card overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="grp-table tms-grp-table">
+              <thead><tr>
+                <th style="text-align:left;width:40%">Equipo</th>
+                <th title="Partidos jugados">PJ</th><th title="Ganados">G</th>
+                <th title="Empatados">E</th><th title="Perdidos">P</th>
+                <th title="Goles a favor">GF</th><th title="Goles en contra">GC</th>
+                <th title="Diferencia">DIF</th><th title="Puntos">PTS</th>
+              </tr></thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+          <div class="flex flex-col gap-0.5 px-3 py-2">
+            <div class="grp-legend-item grp-legend-qual">🟢 Top 2 — clasificados directamente</div>
+            ${thirdLegHtml}${sorteoLeg}
+          </div>
+        </div>
+      </div>`;
+  }).join("");
+}
+
+/* ── Sub-tab 2: Máximos goleadores ── */
+function _teamsScorersHtml() {
+  const played = (D.matches || []).filter(m => m.played);
+  const scorersMap = {};
+  played.forEach(m => {
+    (m.scorers || []).forEach(s => {
+      const name = s.player;
+      if (!name) return;
+      const side = s.team === "home" ? "home" : "away";
+      const team = side === "home" ? m.home : m.away;
+      const flag = side === "home" ? (m.flag_home || "") : (m.flag_away || "");
+      if (!scorersMap[name]) scorersMap[name] = { name, team, flag, goals: 0, pens: 0, og: 0, matches: new Set() };
+      if (s.own_goal) { scorersMap[name].og++; }
+      else { scorersMap[name].goals++; if (s.penalty) scorersMap[name].pens++; }
+      scorersMap[name].matches.add(m.name);
+      scorersMap[name].team = team;
+      scorersMap[name].flag = flag;
+    });
+  });
+
+  const list = Object.values(scorersMap)
+    .filter(s => s.goals > 0)
+    .map(s => ({ ...s, matches: s.matches.size }))
+    .sort((a, b) => (b.goals - a.goals) || (a.matches - b.matches) || a.name.localeCompare(b.name));
+
+  if (!list.length) return `<div class="card p-5 text-gray-500 text-sm">Aún no hay goleadores registrados.</div>`;
+
+  const rows = list.map((s, i) => {
+    const penStr = s.pens > 0 ? `<span class="tsc-pen-tag">${s.pens}P</span>` : "—";
+    return `<tr>
+      <td class="tsc-pos">${i + 1}</td>
+      <td class="tsc-name"><span class="tsc-player">${escapeHtml(s.name)}</span></td>
+      <td class="tsc-team"><span class="tsc-flag">${s.flag}</span><button class="team-name-btn" data-team="${escapeHtml(s.team)}">${escapeHtml(s.team)}</button></td>
+      <td class="tsc-g tsc-g-val">${s.goals}</td>
+      <td class="tsc-pen">${penStr}</td>
+      <td class="tsc-pj">${s.matches}</td>
+    </tr>`;
+  }).join("");
+
+  return `<div class="card overflow-hidden">
+    <div class="px-5 py-4 border-b" style="border-color:var(--border)">
+      <p class="text-xs text-gray-400 mt-0.5">Solo goles propios no contabilizados. (P) = penalti.</p>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="tm-scorers-table">
+        <thead><tr>
+          <th class="tsc-pos">#</th>
+          <th class="tsc-name text-left">Jugador</th>
+          <th class="tsc-team text-left">Equipo</th>
+          <th title="Goles" class="tsc-g">⚽</th>
+          <th title="De penalti" class="tsc-pen">(P)</th>
+          <th title="Partidos" class="tsc-pj">PJ</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  </div>`;
+}
+
+/* ── Sub-tab 3: Clasificación general ── */
+function _teamsGeneralHtml() {
+  const played = (D.matches || []).filter(m => m.played);
+  const teamsMap = {};
+  function ensureTeam(name, flag) {
+    if (!teamsMap[name]) teamsMap[name] = { name, flag: flag || "", pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0 };
+  }
+  played.forEach(m => {
+    const isReal = n => n && !/^(W|L)\d|^\d+[A-Z]|^[A-Z]\d/.test(n);
+    if (!isReal(m.home) || !isReal(m.away)) return;
+    ensureTeam(m.home, m.flag_home); ensureTeam(m.away, m.flag_away);
+    const gh = m.goals_l ?? 0, ga = m.goals_v ?? 0;
+    const h = teamsMap[m.home], a = teamsMap[m.away];
+    h.pj++; a.pj++; h.gf += gh; h.gc += ga; a.gf += ga; a.gc += gh;
+    if (gh > ga)      { h.pg++; a.pp++; }
+    else if (gh < ga) { a.pg++; h.pp++; }
+    else              { h.pe++; a.pe++; }
+  });
+
+  const list = Object.values(teamsMap)
+    .filter(t => t.pj > 0)
+    .map(t => ({ ...t, pts: t.pg * 3 + t.pe, dif: t.gf - t.gc }))
+    .sort((a, b) => (b.pts - a.pts) || (b.dif - a.dif) || (b.gf - a.gf) || a.name.localeCompare(b.name));
+
+  if (!list.length) return `<div class="card p-5 text-gray-500 text-sm">Aún no hay partidos jugados.</div>`;
+
+  const rows = list.map((t, i) => {
+    const difStr = t.dif > 0 ? `+${t.dif}` : `${t.dif}`;
+    const difCls = t.dif > 0 ? "tms-pos-num" : t.dif < 0 ? "tms-neg" : "";
+    return `<tr>
+      <td class="tlg-pos">${i + 1}</td>
+      <td class="tlg-team"><span class="tlg-flag">${t.flag}</span><button class="team-name-btn" data-team="${escapeHtml(t.name)}">${escapeHtml(t.name)}</button></td>
+      <td>${t.pj}</td>
+      <td class="tlg-g">${t.pg}</td>
+      <td>${t.pe}</td>
+      <td class="tlg-l">${t.pp}</td>
+      <td>${t.gf}</td><td>${t.gc}</td>
+      <td class="${difCls}">${difStr}</td>
+      <td class="tlg-pts tlg-pts-val">${t.pts}</td>
+    </tr>`;
+  }).join("");
+
+  return `<div class="card overflow-hidden">
+    <div class="px-5 py-4 border-b" style="border-color:var(--border)">
+      <p class="text-xs text-gray-400 mt-0.5">Todos los partidos jugados (${played.length}). Pts → DIF → GF.</p>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="tm-league-table">
+        <thead><tr>
+          <th class="tlg-pos">#</th>
+          <th class="tlg-team text-left">Equipo</th>
+          <th title="PJ">PJ</th><th title="Ganados">G</th><th title="Empatados">E</th>
+          <th title="Perdidos">P</th><th title="GF">GF</th><th title="GC">GC</th>
+          <th title="DIF">DIF</th><th title="Puntos" class="tlg-pts">PTS</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  </div>`;
+}
+
+/* ═══════════════════════════════════════════════════════════════
   const played = allMatches.filter(m => m.played);
 
   // ── Clasificación global de equipos ─────────────────────────
@@ -3405,15 +3638,6 @@ function renderTeams() {
         </table>
       </div>
     </div>` : `<div class="card p-5 text-gray-500 text-sm">Aún no hay goleadores registrados.</div>`;
-
-  container.innerHTML = `
-    <div class="tms-root">
-      <h2 class="tms-title">🌍 Equipos · Mundial 2026</h2>
-      <p class="tms-sub">Clasificación global y estadísticas de todos los equipos participantes.</p>
-      ${teamTableHtml}
-      ${scorersHtml}
-    </div>`;
-}
 
 /* ═══════════════════════════════════════════════════════════════
    BRACKET — Eliminatoria

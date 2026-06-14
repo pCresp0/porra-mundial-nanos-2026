@@ -3059,9 +3059,42 @@
 /* ════════════════════════════════════════════════════════════
    TEAMS TAB — Clasificación global + Máximos goleadores
 ════════════════════════════════════════════════════════════ */
-.tms-root { max-width: 860px; margin: 0 auto; padding: 1rem 0 2rem; }
-.tms-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: #fff; letter-spacing: .04em; margin-bottom: .15rem; }
-.tms-sub { font-size: .78rem; color: #94A3B8; margin-bottom: 1.2rem; }
+.tms-root { max-width: 960px; margin: 0 auto; padding: 1rem 0 2rem; }
+.tms-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: #fff; letter-spacing: .04em; margin-bottom: .75rem; }
+
+/* ── Sub-tabs ── */
+.tms-sub-tabs {
+  display: flex; gap: .4rem; overflow-x: auto; padding-bottom: .5rem; margin-bottom: 1rem;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.tms-sub-tabs::-webkit-scrollbar { display: none; }
+.tms-sub-tab {
+  background: var(--card); border: 1px solid var(--border); border-radius: 20px;
+  color: #94A3B8; padding: .45rem 1rem; font-size: .82rem; font-weight: 600;
+  font-family: inherit; cursor: pointer; white-space: nowrap; transition: all .15s; flex-shrink: 0;
+}
+.tms-sub-tab:hover { border-color: #475569; color: #CBD5E1; }
+.tms-sub-tab.active { background: rgba(245,197,24,.12); border-color: var(--gold); color: var(--gold); }
+
+/* ── Grid de grupos ── */
+.tms-grp-block { margin-bottom: 1.2rem; }
+.tms-grp-hd {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: .06em;
+  color: #CBD5E1; margin-bottom: .4rem; padding-left: .1rem;
+}
+.tms-grp-table { width: 100%; }
+.grp-td-team button { background: none; border: none; color: #CBD5E1; cursor: pointer;
+  font-size: .82rem; font-family: inherit; padding: 0; transition: color .15s; text-align: left; }
+.grp-td-team button:hover { color: var(--gold); }
+.tms-pts-cell { color: var(--gold); font-weight: 800; font-size: 1rem;
+  background: rgba(245,197,24,.06); border-left: 1px solid rgba(245,197,24,.15); }
+.tms-pos-num { color: #22C55E; font-weight: 700; }
+.tms-neg { color: #EF4444; font-weight: 700; }
+
+/* Grupos en grid 2 columnas en desktop */
+#tms-sub-body:has(.tms-grp-block) {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 1rem;
+}
 
 /* ── Liga table ── */
 .tm-league-table {
