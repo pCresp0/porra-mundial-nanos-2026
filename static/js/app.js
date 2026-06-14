@@ -722,16 +722,18 @@ function spainHourMinute() {
   return { h, m };
 }
 
-/** Última y próxima ejecución cada 30 min (:00 o :30) según hora España. */
+/** Última y próxima comprobación del cron (cada 5 min) según hora España.
+ *  Coincide con el cron de update-porra.yml ("*​/5 * * * *"). */
 function naturalHourSlots() {
   const { h, m } = spainHourMinute();
-  const lastMin = m < 30 ? 0 : 30;
+  const lastMin = m - (m % 5);
   const last = `${String(h).padStart(2, "0")}:${String(lastMin).padStart(2, "0")}`;
-  let nextH = h, nextMin;
-  if (m < 30) { nextMin = 30; }
-  else { nextMin = 0; nextH = (h + 1) % 24; }
+  const add = 5 - (m % 5);
+  let nextTotal = h * 60 + m + add;
+  const nextH = Math.floor(nextTotal / 60) % 24;
+  const nextMin = nextTotal % 60;
   const next = `${String(nextH).padStart(2, "0")}:${String(nextMin).padStart(2, "0")}`;
-  const mins = m < 30 ? 30 - m : 60 - m;
+  const mins = add;
   return { last, next, mins };
 }
 
@@ -832,7 +834,7 @@ function tickBanner() {
     }
   }
 
-  // "Próxima revisión a las" = siguiente :00 o :30 desde ahora (hora España).
+  // "Próxima revisión a las" = siguiente múltiplo de 5 min desde ahora (hora España).
   const { next, mins } = naturalHourSlots();
   if (nextEl) nextEl.textContent = next;
 
@@ -1023,7 +1025,10 @@ function matchTeamsHtml(m) {
   const isLive = hasLiveScore || (_liveMatchIds && _liveMatchIds.has(m.name));
   let scoreHtml;
   if (m.played && m.result) {
-    scoreHtml = `<div class="match-score-big">${m.result.score.replace("-", " - ")}</div>`;
+    const playedTime = m.time_es
+      ? `<div class="match-played-time" title="Hora de inicio (España peninsular)">🕒 ${m.time_es} h</div>`
+      : "";
+    scoreHtml = `<div class="match-score-big">${m.result.score.replace("-", " - ")}</div>${playedTime}`;
   } else if (hasLiveScore) {
     const minute = (m.live_minute || "").trim();
     const minLabel = minute ? liveMinuteLabel(minute) : "EN JUEGO";
@@ -1436,7 +1441,7 @@ function renderProgression() {
         x: {
           title: { display: true, text: "Partido (orden cronológico)", color: "#64748B", font: { size: 11 } },
           grid: { color: "rgba(255,255,255,.05)" },
-          ticks: { color: "#475569", font: { size: 10 }, maxRotation: 60, minRotation: 45 }
+          ticks: { color: "#475569", font: { size: 14 }, maxRotation: 0, minRotation: 0, autoSkip: true, autoSkipPadding: 4, padding: 6 }
         },
         y: {
           title: { display: true, text: "Puntos acumulados", color: "#64748B", font: { size: 11 } },
@@ -2069,9 +2074,14 @@ function closeMatchDetail() {
   }
 }
 
-// Close panel on Escape key
+// Close panel/modales abiertos con la tecla Escape
 document.addEventListener("keydown", e => {
-  if (e.key === "Escape") closeMatchDetail();
+  if (e.key !== "Escape") return;
+  const grpModal  = document.getElementById("group-modal");
+  const teamModal = document.getElementById("team-modal");
+  if (grpModal && !grpModal.classList.contains("hidden")) { closeGroupModal(); return; }
+  if (teamModal && !teamModal.classList.contains("hidden")) { closeTeamModal(); return; }
+  closeMatchDetail();
 });
 
 /* ─── PUNTUACIÓN ─── */
@@ -2365,8 +2375,8 @@ function renderStats() {
   heroEl.innerHTML = [
     { icon: "⚽", val: groupMatches.length, label: "Partidos jugados (grupos)", sub: (() => { const tot = D.matches.filter(m=>m.phase==="groups").length; const pct = tot > 0 ? Math.round(groupMatches.length / tot * 100) : 0; return `de ${tot} totales · ${pct}% completado`; })(),
       info: "Número de partidos de la <strong>fase de grupos</strong> que ya se han jugado y puntuado, sobre el total de partidos de grupos del Mundial." },
-    { icon: "🎯", val: totalExacts, label: "Exactos en el grupo", sub: `${perPlayer.reduce((s,p)=>s+p.miss,0)} predicciones a 0 pts (todos los jugadores)`,
-      info: "Suma de <strong>resultados exactos</strong> (signo + diferencia + marcador clavado, 6 pts) acertados entre todos los jugadores en fase de grupos. Debajo, cuántas veces en total (sumando los 6 jugadores) alguien se quedó a 0 puntos en un partido." },
+    { icon: "🎯", val: totalExacts, label: "Marcadores exactos clavados", sub: `${perPlayer.reduce((s,p)=>s+p.miss,0)} predicciones falladas (0 pts) · suma de los ${players.length} jugadores`,
+      info: "Número total de <strong>marcadores exactos clavados</strong> (resultado idéntico = 6 pts) entre todos los jugadores en la fase de grupos. Cada partido cuenta una vez por jugador, así que este número suma los aciertos de todos los participantes. Debajo: cuántas predicciones se quedaron a <strong>0 puntos</strong> (ni 1X2, ni diferencia, ni exacto), también sumando a todos los jugadores." },
     { icon: "📈", val: bestPlayer ? `${bestPlayer.pct}%` : "—", label: "Mayor tasa de acierto", sub: bestSub,
       info: "Jugador con mayor <strong>tasa de acierto</strong>: porcentaje de partidos de grupos en los que ha sumado al menos 1 punto (acertó el 1X2, la diferencia o el resultado exacto)." },
     { icon: streakKing?.streak > 0 ? "🔥" : "🤦", val: streakKing ? `${streakKing.streak}` : "—", label: "Racha activa más larga", sub: streakKing?.streak > 0 ? `${streakKing.name} · ${streakKing.streak} en racha` : "Nadie acertó en el último partido",
@@ -3306,12 +3316,16 @@ function renderTeams() {
 
     container.querySelectorAll(".tms-sub-tab").forEach(btn => {
       btn.addEventListener("click", () => {
-        _teamsSubTab = btn.dataset.stab;
-        container.querySelectorAll(".tms-sub-tab").forEach(b => b.classList.toggle("active", b === btn));
-        _renderTeamsSubBody();
+        // Usa _switchTeamsSubTab para actualizar también el título de la sección
+        // (sin scroll: el usuario ya está mirando las sub-pestañas).
+        _switchTeamsSubTab(btn.dataset.stab, false);
       });
     });
   }
+
+  // Mantén el título sincronizado con la sub-tab activa en cada re-render
+  const titleEl = container.querySelector(".tms-title");
+  if (titleEl) titleEl.textContent = _TMS_TITLES[_teamsSubTab] || "🌍 Clasificaciones Mundial 2026";
 
   // Sync active tab (in case of re-render)
   container.querySelectorAll(".tms-sub-tab").forEach(b =>
@@ -3347,13 +3361,14 @@ function _teamsGroupsHtml() {
 
   const allThirds = _computeAllThirds();
 
-  return grpLetters.map(g => {
+  return _worldProvBanner() + grpLetters.map(g => {
     const table = _computeGroupStanding(g);
     const thirdRankInfo = allThirds.find(t => t.group === g) || null;
     const thirdRank = thirdRankInfo ? thirdRankInfo.rank : null;
     const thirdQual = thirdRank !== null && thirdRank <= 8;
     const totalThirds = allThirds.length;
     const playedInGroup = (D.matches || []).filter(m => m.phase === "groups" && m.id?.startsWith(g) && m.played).length;
+    const liveInGroup = (D.matches || []).some(m => m.phase === "groups" && m.id && m.id.charAt(0).toUpperCase() === g && !m.played && m.live && m.live_goals_l != null && m.live_goals_v != null);
 
     const rows = table.map((t, i) => {
       let rowCls = i < 2 ? "grp-qual" : (i === 2 ? (thirdQual ? "grp-third" : "grp-third grp-third-out") : "");
@@ -3394,7 +3409,7 @@ function _teamsGroupsHtml() {
 
     return `
       <div class="tms-grp-block">
-        <div class="tms-grp-hd">Grupo ${g}</div>
+        <div class="tms-grp-hd">Grupo ${g}${liveInGroup ? ` <span class="tms-grp-live">🔴 EN JUEGO</span>` : ""}</div>
         <div class="card overflow-hidden">
           <div class="overflow-x-auto">
             <table class="grp-table tms-grp-table">
@@ -3556,6 +3571,7 @@ function _teamsThirdsHtml() {
     : "";
 
   return `
+    ${_worldProvBanner()}
     <div class="card overflow-hidden mb-4">
       <div class="px-5 py-4 border-b" style="border-color:var(--border)">
         <h2 class="text-base font-bold text-white">🥉 Clasificación de terceros</h2>
@@ -3589,16 +3605,16 @@ function _teamsThirdsHtml() {
 }
 
 function _teamsGeneralHtml() {
-  const played = (D.matches || []).filter(m => m.played);
+  const counted = (D.matches || []).filter(m => _matchGoals(m));
   const teamsMap = {};
   function ensureTeam(name, flag) {
     if (!teamsMap[name]) teamsMap[name] = { name, flag: flag || "", pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0 };
   }
-  played.forEach(m => {
+  counted.forEach(m => {
     const isReal = n => n && !/^(W|L)\d|^\d+[A-Z]|^[A-Z]\d/.test(n);
     if (!isReal(m.home) || !isReal(m.away)) return;
     ensureTeam(m.home, m.flag_home); ensureTeam(m.away, m.flag_away);
-    const gh = m.goals_l ?? 0, ga = m.goals_v ?? 0;
+    const eff = _matchGoals(m); const gh = eff.gh, ga = eff.ga;
     const h = teamsMap[m.home], a = teamsMap[m.away];
     h.pj++; a.pj++; h.gf += gh; h.gc += ga; a.gf += ga; a.gc += gh;
     if (gh > ga)      { h.pg++; a.pp++; }
@@ -3629,9 +3645,9 @@ function _teamsGeneralHtml() {
     </tr>`;
   }).join("");
 
-  return `<div class="card overflow-hidden">
+  return `${_worldProvBanner()}<div class="card overflow-hidden">
     <div class="px-5 py-4 border-b" style="border-color:var(--border)">
-      <p class="text-xs text-gray-400 mt-0.5">Todos los partidos jugados (${played.length}). Pts → DIF → GF.</p>
+      <p class="text-xs text-gray-400 mt-0.5">Todos los partidos contabilizados (${counted.length}). Pts → DIF → GF.</p>
     </div>
     <div class="overflow-x-auto">
       <table class="tm-league-table">
@@ -4000,6 +4016,7 @@ function renderBracket(overrideEl) {
   container.innerHTML = `
     <div class="bkt-root${isEmbedded ? " bkt-root-embedded" : ""}">
       ${isEmbedded ? "" : `<div class="bkt-title-bar"><h2 class="bkt-main-title">⚔️ Eliminatoria</h2><p class="bkt-sub">Cruces de la fase eliminatoria · se actualiza automáticamente</p></div>`}
+      ${isEmbedded ? "" : _worldProvBanner()}
       ${isMobile
         ? buildMobileBracket()
         : `<div class="bkt-scroll-wrap">${buildDesktopBracket()}</div>`
@@ -4639,12 +4656,13 @@ function openTeamModal(teamName) {
   const played  = matches.filter(m => m.played);
   const pending = matches.filter(m => !m.played);
 
-  // Calcular stats del equipo en partidos jugados
+  // Calcular stats del equipo (partidos jugados + en juego, provisional)
   let pj = 0, pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
-  played.forEach(m => {
+  matches.forEach(m => {
+    const eff = _matchGoals(m);
+    if (!eff) return;
     const isHome = m.home === teamName;
-    const gh = m.goals_l ?? 0, ga = m.goals_v ?? 0;
-    const tf = isHome ? gh : ga, tc = isHome ? ga : gh;
+    const tf = isHome ? eff.gh : eff.ga, tc = isHome ? eff.ga : eff.gh;
     pj++; gf += tf; gc += tc;
     if (tf > tc) pg++;
     else if (tf < tc) pp++;
@@ -4669,15 +4687,17 @@ function openTeamModal(teamName) {
     const opp = isHome ? m.away : m.home;
     const oppFlag = isHome ? (m.flag_away || "") : (m.flag_home || "");
     const played = m.played;
-    const gh = m.goals_l ?? 0, ga = m.goals_v ?? 0;
-    const tf = isHome ? gh : ga, tc = isHome ? ga : gh;
+    const eff = _matchGoals(m);
     const date = fmtDate(m.date);
 
     let scoreHtml, resultCls = "";
-    if (played) {
-      if (tf > tc)      { scoreHtml = `${tf}–${tc}`; resultCls = "tm-win"; }
-      else if (tf < tc) { scoreHtml = `${tf}–${tc}`; resultCls = "tm-loss"; }
-      else              { scoreHtml = `${tf}–${tc}`; resultCls = "tm-draw"; }
+    if (eff) {
+      const tf = isHome ? eff.gh : eff.ga, tc = isHome ? eff.ga : eff.gh;
+      if (tf > tc)      resultCls = "tm-win";
+      else if (tf < tc) resultCls = "tm-loss";
+      else              resultCls = "tm-draw";
+      scoreHtml = eff.live ? `🔴 ${tf}–${tc}` : `${tf}–${tc}`;
+      if (eff.live) resultCls += " tm-live";
     } else {
       scoreHtml = m.time_es ? m.time_es + " h" : "—";
       resultCls = "tm-pending";
@@ -4760,6 +4780,7 @@ function openTeamModal(teamName) {
     }
   }
 
+  const teamLive = matches.some(m => { const e = _matchGoals(m); return e && e.live; });
   const statsHtml = pj > 0 ? `
     <div class="tm-stats">
       <div class="tm-stat"><span class="tm-stat-val">${pj}</span><span class="tm-stat-lbl">PJ</span></div>
@@ -4769,7 +4790,7 @@ function openTeamModal(teamName) {
       <div class="tm-stat"><span class="tm-stat-val">${gf}</span><span class="tm-stat-lbl">GF</span></div>
       <div class="tm-stat"><span class="tm-stat-val">${gc}</span><span class="tm-stat-lbl">GC</span></div>
       <div class="tm-stat"><span class="tm-stat-val" style="color:${gf-gc>0?'var(--green)':gf-gc<0?'#F87171':'#94A3B8'}">${gf-gc>0?"+":""}${gf-gc}</span><span class="tm-stat-lbl">DIF</span></div>
-    </div>` : "";
+    </div>${teamLive ? `<div class="tm-prov-note"><span class="world-prov-badge">🔴 PROVISIONAL</span> incluye el partido en juego</div>` : ""}` : "";
 
   // ── Cruce previsto en 16avos ─────────────────────────────────
   let r16Html = "";
@@ -4894,6 +4915,30 @@ function closeTeamModal() {
    GRUPO MODAL — helpers de clasificación (desempates FIFA 2026)
 ═══════════════════════════════════════════════════════════════ */
 
+/* Goles "efectivos" de un partido para las clasificaciones del Mundial:
+   - Jugado   → resultado final (goals_l / goals_v)
+   - En juego → marcador provisional actual (live_goals_l / live_goals_v)
+   Devuelve null si el partido aún no aporta datos. */
+function _matchGoals(m) {
+  if (m.played) return { gh: m.goals_l ?? 0, ga: m.goals_v ?? 0, live: false };
+  if (m.live && m.live_goals_l != null && m.live_goals_v != null)
+    return { gh: m.live_goals_l, ga: m.live_goals_v, live: true };
+  return null;
+}
+
+/* ¿Hay algún partido del Mundial en juego que afecte a las clasificaciones? */
+function _worldLiveActive() {
+  return (D?.matches || []).some(m =>
+    !m.played && m.live && m.live_goals_l != null && m.live_goals_v != null);
+}
+
+/* Banner "PROVISIONAL — incluye el marcador en directo" para las
+   clasificaciones deportivas del Mundial. Vacío si no hay partidos en juego. */
+function _worldProvBanner() {
+  if (!_worldLiveActive()) return "";
+  return `<div class="world-prov-banner"><span class="world-prov-badge">🔴 PROVISIONAL</span> Incluye el marcador de los partidos <strong>en juego</strong>. Se confirma al finalizar.</div>`;
+}
+
 /**
  * Calcula la tabla de un grupo con los desempates oficiales FIFA:
  * 1. Puntos  2. DIF global  3. GF global
@@ -4915,8 +4960,9 @@ function _computeGroupStanding(grp) {
       if (name && !teams[name])
         teams[name] = { name, flag: flag || "", pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
     });
-    if (!m.played) return;
-    const gh = m.goals_l ?? 0, ga = m.goals_v ?? 0;
+    const eff = _matchGoals(m);
+    if (!eff) return;
+    const gh = eff.gh, ga = eff.ga;
     const h = teams[m.home], a = teams[m.away];
     if (!h || !a) return;
     h.pj++; a.pj++;
@@ -4928,15 +4974,15 @@ function _computeGroupStanding(grp) {
   });
 
   const teamList = Object.values(teams);
-  const anyMatchPlayed = gMatches.some(m => m.played);
+  const anyMatchPlayed = gMatches.some(m => _matchGoals(m));
 
-  // H2H stats entre un subconjunto de equipos (sólo partidos ya jugados entre ellos)
+  // H2H stats entre un subconjunto de equipos (partidos jugados o en juego entre ellos)
   function h2hStats(names) {
     const s = {};
     names.forEach(n => { s[n] = { pts: 0, gf: 0, gc: 0 }; });
-    gMatches.filter(m => m.played && names.includes(m.home) && names.includes(m.away))
+    gMatches.filter(m => names.includes(m.home) && names.includes(m.away) && _matchGoals(m))
       .forEach(m => {
-        const gh = m.goals_l ?? 0, ga = m.goals_v ?? 0;
+        const eff = _matchGoals(m); const gh = eff.gh, ga = eff.ga;
         s[m.home].gf += gh; s[m.home].gc += ga;
         s[m.away].gf += ga; s[m.away].gc += gh;
         if (gh > ga)      s[m.home].pts += 3;
@@ -5221,6 +5267,7 @@ function openGroupModal(grp) {
               <tr class="tm-match-jornada-row"><td colspan="4">Jornada ${jid.slice(1)}</td></tr>
               ${jMatches.map(m => {
                 const played = m.played;
+                const liveSc = !played && m.live && m.live_goals_l != null && m.live_goals_v != null;
                 const gh = m.goals_l, ga = m.goals_v;
                 const dateFmt = m.date ? (() => {
                   const [,mo,d] = m.date.split("-");
@@ -5232,7 +5279,7 @@ function openGroupModal(grp) {
                 return `
                   <tr class="${played ? "tm-mt-played" : ""} ${m.date ? "grp-match-link" : ""}" ${dataAttrs} title="${m.date ? "Ver detalle del partido completo" : ""}">
                     <td class="tm-mt-home">${m.flag_home || ""} ${m.home}</td>
-                    <td class="${played ? "tm-mt-score" : "tm-mt-score tm-mt-pending"}">${played ? `${gh}-${ga}` : (m.time_es || "—")}</td>
+                    <td class="${played ? "tm-mt-score" : (liveSc ? "tm-mt-score tm-mt-live" : "tm-mt-score tm-mt-pending")}">${played ? `${gh}-${ga}` : (liveSc ? `🔴 ${m.live_goals_l}-${m.live_goals_v}` : (m.time_es || "—"))}</td>
                     <td class="tm-mt-away">${m.away} ${m.flag_away || ""}</td>
                     <td class="tm-mt-date">${dateFmt}${venueHtml}</td>
                   </tr>`;
@@ -5245,7 +5292,8 @@ function openGroupModal(grp) {
   // ── Montar y mostrar ─────────────────────────────────────────
   document.getElementById("grp-modal-title").innerHTML =
     `<span style="font-size:1.4rem">⚽</span>&nbsp; Grupo ${grp}`;
-  document.getElementById("grp-modal-body").innerHTML = tableHtml + matchesHtml;
+  const grpLive = matches.some(m => !m.played && m.live && m.live_goals_l != null && m.live_goals_v != null);
+  document.getElementById("grp-modal-body").innerHTML = (grpLive ? _worldProvBanner() : "") + tableHtml + matchesHtml;
   const modal = document.getElementById("group-modal");
   modal.classList.remove("hidden");
   document.body.style.overflow = "hidden";

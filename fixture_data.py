@@ -163,7 +163,7 @@ FIXTURE_BY_ROW = {
     7:  {"city": "Guadalajara",      "tv": "dazn"},
     8:  {"city": "Toronto",          "tv": "both"},
     9:  {"city": "San Francisco",    "tv": "dazn"},
-    10: {"city": "Nueva York",       "tv": "dazn"},
+    10: {"city": "Nueva York",       "tv": "both"},
     11: {"city": "Boston",           "tv": "dazn"},
     12: {"city": "Los Ángeles",      "tv": "dazn"},
     13: {"city": "Vancouver",        "tv": "dazn"},

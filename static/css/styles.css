@@ -145,6 +145,7 @@
     .match-team-name { font-weight: 800; font-size: 1.3rem; color: #E2E8F0; }
     .match-vs { color: #64748B; font-size: .85rem; font-weight: 600; }
     .match-score-big { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--gold); letter-spacing: .08em; margin-top: .35rem; line-height: 1; }
+    .match-played-time { font-size: .72rem; color: #64748B; font-weight: 600; letter-spacing: .03em; margin-top: .25rem; }
     .match-scorers { display: flex; align-items: flex-start; justify-content: center; gap: .6rem; margin-top: .5rem; }
     .match-scorers .ms-col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: .15rem; }
     .match-scorers .ms-col-home { align-items: flex-end; }
@@ -655,6 +656,65 @@
       animation: liveDot .9s ease-in-out infinite;
       vertical-align: middle;
     }
+    /* Banner "PROVISIONAL" de las clasificaciones deportivas del Mundial */
+    .world-prov-banner {
+      grid-column: 1 / -1;
+      width: 100%;
+      align-self: start;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      flex-wrap: wrap;
+      font-size: .78rem;
+      font-weight: 600;
+      color: #FCA5A5;
+      background: rgba(239,68,68,.08);
+      border: 1px solid rgba(239,68,68,.3);
+      border-radius: 12px;
+      padding: .55rem .8rem;
+      margin-bottom: .85rem;
+    }
+    .world-prov-banner strong { color: #fff; }
+    .world-prov-badge {
+      font-size: .65rem;
+      font-weight: 800;
+      letter-spacing: .07em;
+      color: #fff;
+      background: #DC2626;
+      padding: .15rem .5rem;
+      border-radius: 999px;
+      animation: liveDot .9s ease-in-out infinite;
+      white-space: nowrap;
+    }
+    /* Píldora "EN JUEGO" en la cabecera de cada grupo */
+    .tms-grp-live {
+      font-size: .6rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      color: #fff;
+      background: #DC2626;
+      padding: .1rem .4rem;
+      border-radius: 999px;
+      vertical-align: middle;
+      animation: liveDot .9s ease-in-out infinite;
+    }
+    /* Marcador en vivo en la tabla de partidos del modal de grupo */
+    .tm-mt-live {
+      color: #FCA5A5;
+      font-weight: 800;
+    }
+    /* Récord provisional y marcador en vivo en el modal de equipo */
+    .tm-prov-note {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      flex-wrap: wrap;
+      font-size: .72rem;
+      font-weight: 600;
+      color: #FCA5A5;
+      margin-top: .5rem;
+    }
+    .tm-score.tm-live { color: #FCA5A5; font-weight: 800; }
     /* Etiqueta flotante en la esquina superior izquierda de la tarjeta:
        no ocupa línea propia ni deja hueco encima del partido. */
     .card-corner-tags { display: contents; }
@@ -3135,7 +3195,7 @@
 
 /* Grupos en grid 2 columnas en desktop */
 #tms-sub-body:has(.tms-grp-block) {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 1rem;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(min(420px, 100%), 1fr)); gap: 1rem;
 }
 
 /* ── Liga table ── */
