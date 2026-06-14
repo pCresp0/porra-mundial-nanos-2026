@@ -3089,8 +3089,8 @@
 .tlg-team button:hover { color: var(--gold); }
 .tlg-g { color: #22C55E; }
 .tlg-l { color: #EF4444; }
-.tlg-pts { font-weight: 700; }
-.tlg-pts-val { color: #fff; font-size: .9rem; }
+.tlg-pts { font-weight: 700; background: rgba(245,197,24,.06); border-left: 1px solid rgba(245,197,24,.15); }
+.tlg-pts-val { color: var(--gold); font-size: 1.1rem; font-weight: 800; background: rgba(245,197,24,.06); border-left: 1px solid rgba(245,197,24,.15); }
 .tlg-pos-num { color: #22C55E; font-weight: 700; }
 .tlg-neg { color: #EF4444; font-weight: 700; }
 
