@@ -3533,22 +3533,26 @@ function openTeamModal(teamName) {
   });
 
   const months = ["","ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+  const weekdays = ["dom","lun","mar","mié","jue","vie","sáb"];
   function fmtDate(d) {
-    if (!d) return "";
-    const [,mo,dd] = d.split("-");
-    return `${parseInt(dd)} ${months[parseInt(mo)]}`;
+    if (!d) return { short: "", full: "" };
+    const [y,mo,dd] = d.split("-");
+    const dt = new Date(+y, +mo - 1, +dd);
+    const dow = weekdays[dt.getDay()];
+    return { short: `${parseInt(dd)} ${months[+mo]}`, full: `${dow} ${parseInt(dd)} ${months[+mo]}` };
   }
   function phaseLabel(m) {
     return PHASE_LABELS[m.phase] || m.phase || "";
   }
 
-  function matchRow(m, highlight) {
+  function matchRow(m) {
     const isHome = m.home === teamName;
     const opp = isHome ? m.away : m.home;
     const oppFlag = isHome ? (m.flag_away || "") : (m.flag_home || "");
     const played = m.played;
     const gh = m.goals_l ?? 0, ga = m.goals_v ?? 0;
     const tf = isHome ? gh : ga, tc = isHome ? ga : gh;
+    const date = fmtDate(m.date);
 
     let scoreHtml, resultCls = "";
     if (played) {
@@ -3562,11 +3566,60 @@ function openTeamModal(teamName) {
 
     const dataAttrs = m.date ? `data-date="${m.date}" data-match="${(m.name||"").replace(/"/g,"&quot;")}"` : "";
     return `
-      <div class="grp-match-row ${played ? "grp-match-played" : ""} ${m.date ? "grp-match-link tm-row" : "tm-row"} ${highlight ? "tm-highlight" : ""}" ${dataAttrs} title="${m.date ? "Ver partido completo" : ""}">
+      <div class="grp-match-row ${played ? "grp-match-played" : ""} ${m.date ? "grp-match-link tm-row" : "tm-row"}" ${dataAttrs} title="${m.date ? "Ver partido completo" : ""}">
         <div class="grp-match-team" style="flex:1.2">${oppFlag} ${opp}</div>
         <div class="grp-match-score tm-score ${resultCls}">${scoreHtml}</div>
-        <div class="tm-meta">${fmtDate(m.date)}<span class="tm-phase">${phaseLabel(m)}</span></div>
+        <div class="tm-meta">
+          ${date.full ? `<span class="tm-date-full">${date.full}</span>` : ""}
+          <span class="tm-phase">${phaseLabel(m)}</span>
+        </div>
       </div>`;
+  }
+
+  // ── Tabla de grupo ───────────────────────────────────────────
+  const grpMatch = matches.find(m => m.phase === "groups" && m.id);
+  const grpLetter = grpMatch ? grpMatch.id.charAt(0).toUpperCase() : null;
+  let groupHtml = "";
+  if (grpLetter) {
+    const table = _computeGroupStanding(grpLetter);
+    if (table.length) {
+      const allThirds = _computeAllThirds();
+      const thirdEntry = allThirds.find(t => t.group === grpLetter);
+      const thirdRank = thirdEntry ? thirdEntry.rank : null;
+      const rows = table.map((t, i) => {
+        const isTeam = t.name === teamName;
+        let qual = "";
+        if (i < 2) qual = "grp-qual";
+        else if (i === 2) qual = thirdRank !== null && thirdRank <= 8 ? "grp-third" : "grp-third grp-third-out";
+        return `<tr class="${qual} ${isTeam ? "tm-grp-highlight" : ""}">
+          <td>${t.flag} ${t.name}</td>
+          <td>${t.pj}</td>
+          <td>${t.pg}</td>
+          <td>${t.pe}</td>
+          <td>${t.pp}</td>
+          <td>${t.gf}</td>
+          <td>${t.gc}</td>
+          <td>${t.gf - t.gc > 0 ? "+" : ""}${t.gf - t.gc}</td>
+          <td class="grp-pts">${t.pts}</td>
+        </tr>`;
+      }).join("");
+      const playedInGroup = D.matches.filter(m => m.phase === "groups" && m.id && m.id.charAt(0).toUpperCase() === grpLetter && m.played).length;
+      const provisional = playedInGroup < 3 ? " <em style='color:#475569;font-size:.6rem'>(provisional)</em>" : "";
+      groupHtml = `
+        <div>
+          <div class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Grupo ${grpLetter}${provisional}</div>
+          <div class="card overflow-hidden">
+            <table class="grp-table">
+              <thead><tr>
+                <th style="width:40%">Equipo</th>
+                <th title="PJ">PJ</th><th title="G">G</th><th title="E">E</th><th title="P">P</th>
+                <th title="GF">GF</th><th title="GC">GC</th><th title="DIF">DIF</th><th title="PTS">PTS</th>
+              </tr></thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+        </div>`;
+    }
   }
 
   const statsHtml = pj > 0 ? `
@@ -3583,19 +3636,19 @@ function openTeamModal(teamName) {
   const playedHtml = played.length ? `
     <div>
       <div class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Jugados</div>
-      <div class="flex flex-col gap-1.5">${played.map(m => matchRow(m, false)).join("")}</div>
+      <div class="flex flex-col gap-1.5">${played.map(m => matchRow(m)).join("")}</div>
     </div>` : "";
 
   const pendingHtml = pending.length ? `
     <div>
       <div class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Próximos</div>
-      <div class="flex flex-col gap-1.5">${pending.map(m => matchRow(m, false)).join("")}</div>
+      <div class="flex flex-col gap-1.5">${pending.map(m => matchRow(m)).join("")}</div>
     </div>` : "";
 
   document.getElementById("team-modal-title").innerHTML =
     `${flag} ${teamName}`;
   document.getElementById("team-modal-body").innerHTML =
-    statsHtml + playedHtml + pendingHtml;
+    statsHtml + groupHtml + playedHtml + pendingHtml;
 
   const modal = document.getElementById("team-modal");
   modal.classList.remove("hidden");

@@ -2843,7 +2843,11 @@
     .tm-pending { color: #475569; font-size: .85rem; font-family: inherit; font-weight: 700; }
     .tm-score { min-width: 4rem; font-size: 1rem; font-family: "Bebas Neue", sans-serif; }
     .tm-meta { font-size: .68rem; color: #64748B; text-align: right; white-space: nowrap; display: flex; flex-direction: column; align-items: flex-end; gap: .1rem; }
+    .tm-date-full { font-size: .75rem; font-weight: 700; color: #CBD5E1; }
     .tm-phase { font-size: .6rem; color: #475569; }
+    /* Fila del equipo resaltado en la tabla de grupo */
+    .tm-grp-highlight td { background: rgba(56,189,248,.07); }
+    .tm-grp-highlight td:first-child { font-weight: 700; color: #E2E8F0; }
     .grp-match-team { display: flex; align-items: center; gap: .35rem; font-size: .82rem; font-weight: 600; flex: 1; }
     .grp-match-team.right { justify-content: flex-end; }
     .grp-match-score {
