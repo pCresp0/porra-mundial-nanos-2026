@@ -622,7 +622,7 @@ async function loadData(silent = false) {
     if (silent) {
       // Recarga en segundo plano: no toques la pantalla de carga ni el scroll.
       // Si los datos no han cambiado, no re-renderizamos para evitar parpadeos.
-      const newSig = JSON.stringify(json.standings) + JSON.stringify(json.progression);
+      const newSig = _dataSignature(json);
       if (newSig === _lastDataSig) return;
       _lastDataSig = newSig;
       const scrollY = window.scrollY;
@@ -633,7 +633,7 @@ async function loadData(silent = false) {
     }
 
     D = json;
-    _lastDataSig = JSON.stringify(json.standings) + JSON.stringify(json.progression);
+    _lastDataSig = _dataSignature(json);
     render();
     loadingEl.style.opacity = "0";
     setTimeout(() => loadingEl.style.display = "none", 400);
@@ -646,6 +646,37 @@ async function loadData(silent = false) {
   }
 }
 let _lastDataSig = null;
+
+/* Firma de cambios para decidir si hay que re-renderizar en el refresco
+   silencioso. Incluye TODO lo que afecta a cualquier clasificación:
+     · standings / progression → clasificación y progresión de la porra
+     · estado de cada partido (resultado final + en vivo)
+     · goleadores (finales y en vivo) → sub-tab Goleadores
+   De este modo, cuando la API corrige un partido (marcador, estado en vivo
+   o goleadores), se recalculan Grupos, Terceros, Fase Final y Goleadores.
+   Se excluyen campos volátiles (timestamps de meta.update) para no provocar
+   re-render —y parpadeo— en cada poll sin cambios reales. */
+function _dataSignature(json) {
+  if (!json) return "";
+  const matchesSig = (json.matches || []).map(m =>
+    [
+      m.id,
+      m.played ? 1 : 0,
+      m.goals_l ?? "",
+      m.goals_v ?? "",
+      m.live ? 1 : 0,
+      m.live_goals_l ?? "",
+      m.live_goals_v ?? "",
+      (m.scorers || []).length,
+      (m.live_scorers || []).length,
+    ].join(":") +
+    // contenido de goleadores (autor/min/penalti/og) para captar correcciones
+    // que no cambian el marcador
+    "#" + JSON.stringify(m.scorers || []) +
+    "@" + JSON.stringify(m.live_scorers || [])
+  ).join("|");
+  return JSON.stringify(json.standings) + JSON.stringify(json.progression) + "||" + matchesSig;
+}
 
 async function forceRefresh() {
   document.getElementById("loading").style.display = "flex";
@@ -1716,7 +1747,7 @@ function renderMatchCard(m, players, colors) {
       ${matchTeamsHtml(m)}
       ${matchMetaHtml(m)}
       ${(isLiveMatch && !hasLiveScoreCard) ? `<div class="match-live-row"><span class="text-xs font-bold live-tag"><span class="live-ball">⚽</span> En Curso</span></div>` : ""}
-      <div class="match-players-grid">${playerCards}</div>
+      <div class="match-players-grid porra-only">${playerCards}</div>
     </div>`;
 }
 
@@ -3263,13 +3294,12 @@ function renderTeams() {
   if (!container.querySelector(".tms-sub-tabs")) {
     container.innerHTML = `
       <div class="tms-root">
-        <h2 class="tms-title">🌍 Clasificaciones Mundial 2026</h2>
+        <h2 class="tms-title">${_TMS_TITLES[_teamsSubTab] || "🌍 Clasificaciones Mundial 2026"}</h2>
         <div class="tms-sub-tabs" id="tms-sub-tabs">
           <button class="tms-sub-tab active" data-stab="groups">📊 Grupos</button>
           <button class="tms-sub-tab" data-stab="scorers">⚽ Goleadores</button>
           <button class="tms-sub-tab" data-stab="general">🏆 Clasificación general</button>
           <button class="tms-sub-tab" data-stab="thirds">🥉 Terceros</button>
-          <button class="tms-sub-tab" data-stab="bracket">⚔️ Fase Final</button>
         </div>
         <div id="tms-sub-body"></div>
       </div>`;
@@ -3447,13 +3477,28 @@ function _teamsScorersHtml() {
 }
 
 /* ── Sub-tab 3: Clasificación general ── */
-function _switchTeamsSubTab(stab) {
+const _TMS_TITLES = {
+  groups:  "📊 Clasificación de grupos",
+  scorers: "⚽ Goleadores",
+  general: "🏆 Clasificación general",
+  thirds:  "🥉 Clasificación de terceros",
+  bracket: "⚔️ Fase Final",
+};
+
+function _switchTeamsSubTab(stab, scroll = true) {
   _teamsSubTab = stab;
   document.querySelectorAll(".tms-sub-tab").forEach(b =>
     b.classList.toggle("active", b.dataset.stab === stab));
+  // Actualiza el título de la sección
+  const titleEl = document.querySelector(".tms-root .tms-title");
+  if (titleEl) titleEl.textContent = _TMS_TITLES[stab] || "🌍 Clasificaciones Mundial 2026";
   _renderTeamsSubBody();
-  // scroll al inicio de la sección
-  document.getElementById("tms-sub-body")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  // scroll al inicio de la sección (solo cuando se navega desde un modal;
+  // desde la nav, el cambio de pestaña ya posiciona la vista con
+  // scrollToContentTop, y este scrollIntoView adicional la empujaría hacia abajo)
+  if (scroll) {
+    document.getElementById("tms-sub-body")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 }
 
 /* ── Sub-tab 4: Clasificación de terceros ── */
@@ -4256,8 +4301,12 @@ function closeMoreDropdown() {
 }
 
 /** Navega a la pestaña Clasificaciones Mundial y activa la sub-tab indicada.
- *  Funciona desde cualquier pestaña y desde dentro de modales. */
-function goToTeamsSubTab(stab) {
+ *  Funciona desde cualquier pestaña y desde dentro de modales.
+ *  opts.scroll (por defecto true): si es false, no hace scroll adicional al
+ *  sub-body — se usa para los accesos directos de la nav, donde el cambio de
+ *  pestaña ya coloca la vista en el inicio del contenido. */
+function goToTeamsSubTab(stab, opts = {}) {
+  const scroll = opts.scroll !== false;
   // 1. Cerrar cualquier modal abierto
   document.getElementById("group-modal")?.classList.add("hidden");
   document.getElementById("team-modal")?.classList.add("hidden");
@@ -4275,7 +4324,7 @@ function goToTeamsSubTab(stab) {
     if (typeof renderTeams === "function" && D) renderTeams();
   }
   // 3. Cambiar sub-tab tras breve espera para que renderTeams haya montado el shell
-  setTimeout(() => _switchTeamsSubTab(stab), 80);
+  setTimeout(() => _switchTeamsSubTab(stab, scroll), 80);
 }
 
 /** Lleva la vista al inicio del contenido (nav sticky pegado arriba, cabecera
@@ -4318,6 +4367,25 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
     if (tab === "bets") renderBets();
     if (tab === "matches" && D) renderMatches(currentPhase, currentWeek);
     if (tab === "scoring" && D) renderScoring();
+  });
+});
+
+/* ── Accesos directos del modo público: navegan a una sub-sección de
+      "Clasificaciones Mundial" como si fueran pestañas de primer nivel ── */
+document.querySelectorAll(".subnav-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const stab = btn.dataset.stab;
+    if (!stab) return;
+    closeNav();
+    closeMoreDropdown();
+    if (typeof closeTeamSearchSheet === "function") closeTeamSearchSheet();
+    // goToTeamsSubTab activa la pestaña "teams" (que desmarca toda la nav)
+    // y conmuta la sub-tab; marcamos este acceso directo como activo después.
+    // scroll:false → el cambio de pestaña ya posiciona la vista (sin empujón).
+    goToTeamsSubTab(stab, { scroll: false });
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(`.subnav-btn[data-stab="${stab}"]`).forEach(b => b.classList.add("active"));
+    setNavCurrent(btn.textContent.trim());
   });
 });
 
@@ -6074,4 +6142,84 @@ initVisitorCounter();
   seekEl.addEventListener("touchend", () => { seeking = false; });
 })();
 
+/* ═══════════════════════════════════════════════════════════════
+   MODO DE LA WEB — porra vs invitado
+   Se decide por el ENLACE con el que entras (no hay popup):
+     · Enlace público  →  …/                       (modo invitado)
+     · Enlace porra     →  …/?porra=1312            (modo porra)
+   La elección se guarda por dispositivo en localStorage, así que
+   un colega que entra una vez con su enlace no lo necesita después.
+═══════════════════════════════════════════════════════════════ */
+const APP_MODE_KEY = "nanos_app_mode";           // "porra" | "guest"
+const PORRA_ACCESS_CODE = "1312";                // valor del parámetro ?porra=
+const PORRA_ONLY_TABS = ["standings", "progression", "stats", "honor", "scoring", "bets"];
+
+function _getStoredMode() {
+  try { return localStorage.getItem(APP_MODE_KEY); } catch { return null; }
+}
+function _setStoredMode(mode) {
+  try { localStorage.setItem(APP_MODE_KEY, mode); } catch { /* ignore */ }
+}
+
+function applyAppMode(mode) {
+  const guest = mode === "guest";
+  document.body.classList.toggle("mode-guest", guest);
+  document.body.classList.toggle("mode-porra", !guest);
+
+  // Título de cabecera adaptado al modo
+  const title = document.getElementById("app-title");
+  if (title) {
+    title.innerHTML = guest
+      ? `MUNDIAL <span style="color:var(--gold)">FIFA</span> 2026`
+      : `PORRA <span style="color:var(--gold)">'LOS NANOS'</span> MUNDIAL 2026`;
+  }
+
+  // Si el invitado está en una pestaña exclusiva de la porra, llévalo a Partidos
+  if (guest) {
+    const active = document.querySelector(".tab-btn.active");
+    if (active && PORRA_ONLY_TABS.includes(active.dataset.tab)) {
+      document.querySelector('.tab-btn[data-tab="matches"]')?.click();
+    }
+  }
+}
+
+// Permite reabrir la elección desde la consola para pruebas: resetAppMode()
+function resetAppMode() {
+  try { localStorage.removeItem(APP_MODE_KEY); } catch { /* ignore */ }
+  location.reload();
+}
+
+(function initAppMode() {
+  const params = new URLSearchParams(location.search);
+  let mode = _getStoredMode();
+  let urlSetMode = false;
+
+  // 1) El enlace manda sobre lo guardado (permite "ascender" a porra
+  //    aunque el dispositivo entrase antes como invitado).
+  if (params.has("porra")) {
+    if ((params.get("porra") || "").trim() === PORRA_ACCESS_CODE) {
+      mode = "porra"; _setStoredMode("porra"); urlSetMode = true;
+    }
+    // Si el código del enlace no es válido, se ignora (cae a invitado/guardado).
+  } else if (params.has("publico") || params.has("invitado")) {
+    mode = "guest"; _setStoredMode("guest"); urlSetMode = true;
+  }
+
+  // 2) Sin enlace especial y sin elección previa → público por defecto.
+  if (!mode) { mode = "guest"; _setStoredMode("guest"); }
+
+  applyAppMode(mode);
+
+  // 3) Limpia el parámetro de la URL para no dejar el código a la vista
+  //    ni propagarlo si alguien comparte la barra de direcciones.
+  if (urlSetMode) {
+    try {
+      const url = new URL(location.href);
+      ["porra", "publico", "invitado"].forEach(p => url.searchParams.delete(p));
+      history.replaceState(null, "", url.pathname + url.search + url.hash);
+    } catch { /* ignore */ }
+  }
+})();
+
 loadData();
+

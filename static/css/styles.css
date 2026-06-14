@@ -2928,12 +2928,14 @@
     .bkt-scroll-wrap::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
 
     /* Track: flex row of columns */
-    .bkt-track { display: flex; align-items: flex-start; gap: 0; min-width: max-content; }
+    .bkt-track {
+      display: flex; align-items: flex-start; gap: 0; min-width: max-content;
+      --bkt-unit: 88px;   /* altura de cada slot r16; las cartas miden ~80px, dejamos margen */
+      --bkt-col-w: 200px;
+      --bkt-gap: 44px;    /* espacio entre columnas (donde viven los conectores) */
+    }
 
     /* Column */
-    --bkt-unit: 74px;
-    --bkt-col-w: 200px;
-    --bkt-gap: 44px;  /* space between columns (where connector lines live) */
     .bkt-col { display: flex; flex-direction: column; width: var(--bkt-col-w, 200px); flex-shrink: 0; }
     .bkt-col + .bkt-col { margin-left: var(--bkt-gap, 44px); }
     /* En modo embebido (sub-tab Fase Final) columnas más anchas */
@@ -3097,8 +3099,7 @@
 /* ════════════════════════════════════════════════════════════
    TEAMS TAB — Clasificación global + Máximos goleadores
 ════════════════════════════════════════════════════════════ */
-.tms-root { max-width: 960px; margin: 0 auto; padding: 1rem 0 2rem; }
-/* Fase Final ocupa el ancho completo */
+.tms-root { max-width: none; margin: 0 auto; padding: 1rem 0 2rem; }
 .tms-root.tms-mode-bracket { max-width: none; }
 .tms-mode-bracket #tms-sub-body { width: 100%; }
 .tms-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: #fff; letter-spacing: .04em; margin-bottom: .75rem; }
@@ -3381,3 +3382,14 @@
   .bts-root { padding: .6rem 0 1.5rem; }
   .bts-form-card { padding: 1rem; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   MODO INVITADO — oculta contenido exclusivo de la porra
+═══════════════════════════════════════════════════════════════ */
+body.mode-guest .porra-only { display: none !important; }
+/* Accesos directos de la nav: solo visibles en modo público */
+body.mode-porra .guest-only { display: none !important; }
+/* En público, la nav de escritorio puede fluir a 2 filas si hace falta */
+body.mode-guest .desktop-nav .page-shell { flex-wrap: wrap; }
+/* En público las sub-tabs internas son redundantes (ya están en la nav) */
+body.mode-guest .tms-sub-tabs { display: none !important; }

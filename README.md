@@ -37,18 +37,33 @@ Un dashboard web construido **a mano** (sin frameworks de frontend) para seguir 
 
 ---
 
+## Dos modos de acceso
+
+La misma web se sirve en dos «modos» según el enlace con el que se entre. El modo elegido se recuerda en el navegador (`localStorage`).
+
+| Modo | Enlace | Qué se ve |
+|------|--------|-----------|
+| 🟡 **Porra** | `…/?porra=1312` | Todo: pronósticos por jugador, puntos, clasificación de la porra, progresión, estadísticas, cuadro de honor, sistema de puntuación y apuestas |
+| 🌍 **Público** | `…/` ó `…/?publico=1` | Solo datos del Mundial: partidos y resultados, grupos, goleadores, clasificación general, terceros y fase final. Sin datos de la porra |
+
+- En **modo público**, el menú ofrece accesos directos a *Grupos · Goleadores · Clasificación general · Terceros · Fase Final* (sin submenús) y el título muestra «MUNDIAL FIFA 2026».
+- El parámetro `?porra=1312` se limpia de la URL tras cargar; es solo enrutado de interfaz (UX), **no** un control de seguridad: `data.json` es público y contiene los pronósticos.
+
+---
+
 ## Características
 
-| Pestaña | Contenido |
-|---------|-----------|
-| ⚽ **Partidos** | Todos los partidos filtrados por semana/fase; pronósticos por jugador con desglose de puntos; goleadores con indicadores PP (propia puerta) y penalty; marcador y puntos provisionales en tiempo real durante el partido |
-| 🏅 **Clasificación** | Podio animado, tabla completa ordenable por columna, fortalezas y badges por jugador; clasificación provisional durante el partido en juego |
-| 📈 **Progresión** | Gráfica de puntos acumulados día a día; proyección al final de la fase |
-| 📅 **Calendario** | Vista por día con cuenta atrás al próximo partido; filtro por mes; información de sede y TV |
-| 📊 **Estadísticas** | Tasa de acierto ordenada (partidos con ≥1 pt); evolución acumulada partido a partido; desglose de aciertos; ficha individual por jugador; ranking de partidos más acertados en conjunto |
-| 🏆 **Cuadro de Honor** | Campeón, botas de oro, balón de oro y demás apuestas especiales vs. realidad |
-| 📋 **Sistema de puntuación** | Reglas completas extraídas del Excel, con fechas límite |
-| 🛠️ **Sobre la web** | Arquitectura, stack técnico, ficheros clave, automatización y flujo CI explicado |
+| Pestaña | Contenido | Modo |
+|---------|-----------|------|
+| ⚽ **Partidos** | Todos los partidos filtrados por semana/fase; pronósticos por jugador con desglose de puntos; goleadores con indicadores PP (propia puerta) y penalty; marcador y puntos provisionales en tiempo real durante el partido | Ambos (pronósticos solo en porra) |
+| 📅 **Calendario** | Vista por día con cuenta atrás al próximo partido; filtro por mes; información de sede y TV | Ambos |
+| 📊 **Clasificaciones Mundial** | Grupos, goleadores, clasificación general, terceros y fase final, calculados en directo desde los resultados | Ambos |
+| 🏅 **Clasificación porra** | Podio animado, tabla completa ordenable por columna, fortalezas y badges por jugador; clasificación provisional durante el partido en juego | Solo porra |
+| 📈 **Progresión** | Gráfica de puntos acumulados día a día; proyección al final de la fase | Solo porra |
+| 📊 **Estadísticas** | Tasa de acierto ordenada (partidos con ≥1 pt); evolución acumulada partido a partido; desglose de aciertos; ficha individual por jugador; ranking de partidos más acertados en conjunto | Solo porra |
+| 🏆 **Cuadro de Honor** | Campeón, botas de oro, balón de oro y demás apuestas especiales vs. realidad | Solo porra |
+| 📋 **Sistema de puntuación** | Reglas completas extraídas del Excel, con fechas límite | Solo porra |
+| 🛠️ **Sobre la web** | Arquitectura, stack técnico, ficheros clave, automatización y flujo CI explicado | Ambos |
 
 ---
 

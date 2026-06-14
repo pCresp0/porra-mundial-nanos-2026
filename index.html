@@ -60,7 +60,7 @@
   <div class="header-inner page-shell flex items-center gap-3 md:gap-4">
     <img src="static/wc2026-logo.png" alt="Copa Mundial FIFA 2026" class="wc-logo" />
     <div>
-      <h1 class="bebas text-xl sm:text-2xl md:text-4xl text-white tracking-wide leading-tight">
+      <h1 id="app-title" class="bebas text-xl sm:text-2xl md:text-4xl text-white tracking-wide leading-tight">
         PORRA <span style="color:var(--gold)">'LOS NANOS'</span> MUNDIAL 2026
       </h1>
       <p class="text-xs sm:text-sm md:text-base text-gray-400 mt-0.5 font-semibold tracking-widest uppercase">
@@ -75,17 +75,25 @@
   <div class="page-shell flex gap-1.5 md:gap-2 items-center flex-wrap justify-center">
     <button class="tab-btn active" data-tab="matches">⚽ Partidos</button>
     <button class="tab-btn" data-tab="calendar">📅&nbsp;&thinsp;Calendario</button>
-    <button class="tab-btn" data-tab="standings">🏅 Clasificación Porra</button>
-    <button class="tab-btn" data-tab="progression">📈 Progresión</button>
-    <button class="tab-btn" data-tab="stats">📊 Estadísticas</button>
-    <button class="tab-btn" data-tab="teams">🌍 Clasificaciones Mundial</button>
-    <!-- overflow: Cuadro de Honor + Sistema de puntuación + Apuestas + Más info → dropdown -->
-    <div class="tab-more-wrap" id="tab-more-wrap">
+    <button class="tab-btn porra-only" data-tab="standings">🏅 Clasificación Porra</button>
+    <button class="tab-btn porra-only" data-tab="progression">📈 Progresión</button>
+    <button class="tab-btn porra-only" data-tab="stats">📊 Estadísticas</button>
+    <button class="tab-btn porra-only" data-tab="teams">🌍 Clasificaciones Mundial</button>
+    <!-- Accesos directos (solo modo público): sustituyen a 'Clasificaciones Mundial' -->
+    <button class="tab-btn subnav-btn guest-only" data-stab="groups">📊 Grupos</button>
+    <button class="tab-btn subnav-btn guest-only" data-stab="scorers">⚽ Goleadores</button>
+    <button class="tab-btn subnav-btn guest-only" data-stab="general">🏆 General</button>
+    <button class="tab-btn subnav-btn guest-only" data-stab="thirds">🥉 Terceros</button>
+    <button class="tab-btn subnav-btn guest-only" data-stab="bracket">⚔️ Fase Final</button>
+    <button class="tab-btn guest-only" data-tab="info">🛠️ Sobre la web</button>
+    <!-- overflow: Cuadro de Honor + Sistema de puntuación + Apuestas + Más info → dropdown (solo modo porra) -->
+    <div class="tab-more-wrap porra-only" id="tab-more-wrap">
       <button class="tab-btn tab-more-btn" id="tab-more-btn" type="button" aria-expanded="false" aria-haspopup="true">⋯ Más ▾</button>
       <div class="tab-more-dropdown hidden" id="tab-more-dropdown">
-        <button class="tab-btn" data-tab="honor">🏆 Cuadro de Honor</button>
-        <button class="tab-btn" data-tab="scoring">📋 Sistema de puntuación</button>
-        <button class="tab-btn" data-tab="bets">🎲 Apuestas internas</button>
+        <button class="tab-btn porra-only" data-tab="bracket">⚔️ Fase Final</button>
+        <button class="tab-btn porra-only" data-tab="honor">🏆 Cuadro de Honor</button>
+        <button class="tab-btn porra-only" data-tab="scoring">📋 Sistema de puntuación</button>
+        <button class="tab-btn porra-only" data-tab="bets">🎲 Apuestas internas</button>
         <button class="tab-btn" data-tab="info">🛠️ Sobre la web</button>
       </div>
     </div>
@@ -128,13 +136,20 @@
   </div>
   <button class="tab-btn active" data-tab="matches">⚽ Partidos</button>
   <button class="tab-btn" data-tab="calendar">📅 Calendario</button>
-  <button class="tab-btn" data-tab="standings">🏅 Clasificación Porra</button>
-  <button class="tab-btn" data-tab="progression">📈 Progresión</button>
-  <button class="tab-btn" data-tab="stats">📊 Estadísticas</button>
-  <button class="tab-btn" data-tab="teams">🌍 Clasificaciones Mundial</button>
-  <button class="tab-btn" data-tab="honor">🏆 Cuadro de Honor</button>
-  <button class="tab-btn" data-tab="scoring">📋 Sistema de puntuación</button>
-  <button class="tab-btn" data-tab="bets">🎲 Apuestas internas</button>
+  <button class="tab-btn porra-only" data-tab="standings">🏅 Clasificación Porra</button>
+  <button class="tab-btn porra-only" data-tab="progression">📈 Progresión</button>
+  <button class="tab-btn porra-only" data-tab="stats">📊 Estadísticas</button>
+  <button class="tab-btn porra-only" data-tab="teams">🌍 Clasificaciones Mundial</button>
+  <!-- Accesos directos (solo modo público) -->
+  <button class="tab-btn subnav-btn guest-only" data-stab="groups">📊 Grupos</button>
+  <button class="tab-btn subnav-btn guest-only" data-stab="scorers">⚽ Goleadores</button>
+  <button class="tab-btn subnav-btn guest-only" data-stab="general">🏆 Clasificación general</button>
+  <button class="tab-btn subnav-btn guest-only" data-stab="thirds">🥉 Terceros</button>
+  <button class="tab-btn subnav-btn guest-only" data-stab="bracket">⚔️ Fase Final</button>
+  <button class="tab-btn porra-only" data-tab="bracket">⚔️ Fase Final</button>
+  <button class="tab-btn porra-only" data-tab="honor">🏆 Cuadro de Honor</button>
+  <button class="tab-btn porra-only" data-tab="scoring">📋 Sistema de puntuación</button>
+  <button class="tab-btn porra-only" data-tab="bets">🎲 Apuestas internas</button>
   <button class="tab-btn" data-tab="info">🛠️ Sobre la web</button>
 </aside>
 
@@ -589,7 +604,22 @@
 
       <div class="cl-version">
         <div class="cl-ver-head">
-          <span class="cl-ver-badge new">v1.8</span>
+          <span class="cl-ver-badge new">v1.9</span>
+          <span class="cl-ver-date">14 Jun 2026</span>
+          <span class="cl-ver-title">Dos enlaces: porra y público</span>
+        </div>
+        <ul class="cl-items">
+          <li><span class="cl-tag feat">feat</span> Ahora hay <strong>dos enlaces</strong>: el de la porra (con todos los pronósticos, puntos y clasificaciones) y el público (solo resultados y clasificaciones del Mundial, sin datos de la porra). Tu elección se recuerda en el navegador</li>
+          <li><span class="cl-tag feat">feat</span> En el modo público, accesos directos en el menú a <strong>Grupos</strong>, <strong>Goleadores</strong>, <strong>Clasificación general</strong>, <strong>Terceros</strong> y <strong>Fase Final</strong>, sin submenús</li>
+          <li><span class="cl-tag ux">ux</span> El título de la cabecera se adapta: «MUNDIAL FIFA 2026» en el enlace público y «PORRA Los Nanos» en el de la porra</li>
+          <li><span class="cl-tag fix">fix</span> Corregido el salto del scroll al cambiar de pestaña en el modo público (la página ya no baja sola)</li>
+          <li><span class="cl-tag fix">fix</span> Las clasificaciones y goleadores se refrescan también cuando se corrige un goleador aunque no cambie el marcador</li>
+        </ul>
+      </div>
+
+      <div class="cl-version">
+        <div class="cl-ver-head">
+          <span class="cl-ver-badge">v1.8</span>
           <span class="cl-ver-date">13 Jun 2026</span>
           <span class="cl-ver-title">Sugerencias y reporte de fallos</span>
         </div>
