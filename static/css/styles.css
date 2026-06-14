@@ -3166,7 +3166,9 @@
   background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.3);
   border-radius: 4px; padding: .05rem .3rem; margin-left: .2rem; white-space: nowrap;
 }
+.trd-tie-grp { color: #94A3B8; background: rgba(148,163,184,.1); border-color: rgba(148,163,184,.25); }
 .grp-third-tie-cutoff td { background: rgba(245,158,11,.06) !important; }
+.trd-or-sep { font-size: .7rem; color: #64748B; margin: 0 .25rem; }
 
 /* ── Scorers table ── */
 .tm-scorers-table {

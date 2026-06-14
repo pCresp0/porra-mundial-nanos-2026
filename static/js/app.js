@@ -3345,9 +3345,15 @@ function _teamsGroupsHtml() {
       const rankTxt = thirdRank !== null ? `N.º <strong>${thirdRank}</strong> de ${totalThirds}` : "sin datos";
       const prov = playedInGroup < 3 ? " <em>(provisional)</em>" : "";
       const thirdsLink = `<button class="grp-thirds-link" onclick="event.stopPropagation();_switchTeamsSubTab('thirds')" type="button">ver clasificación de terceros →</button>`;
+      // Empate 2.º/3.º: mostrar ambos nombres
+      const thirdEntry = allThirds.find(t => t.group === g);
+      const tiedWith = thirdEntry?.tiedWithSecond;
+      const teamNames = tiedWith
+        ? `<strong>${escapeHtml(table[2].name)}</strong> o <strong>${escapeHtml(tiedWith.name)}</strong> 🎲`
+        : `(${rankTxt})${prov}`;
       thirdLegHtml = thirdQual
-        ? `<div class="grp-legend-item grp-legend-third-yes">🟡 3.º — <strong>clasificaría</strong> (${rankTxt})${prov} ${thirdsLink}</div>`
-        : `<div class="grp-legend-item grp-legend-third-no">⬜ 3.º — <strong>no clasificaría</strong> (${rankTxt})${prov} ${thirdsLink}</div>`;
+        ? `<div class="grp-legend-item grp-legend-third-yes">🟡 3.º — <strong>clasificaría</strong>: ${teamNames} ${thirdsLink}</div>`
+        : `<div class="grp-legend-item grp-legend-third-no">⬜ 3.º — <strong>no clasificaría</strong>: ${teamNames} ${thirdsLink}</div>`;
     }
     const sorteoLeg = table.some(t => t.tieNote === "lots")
       ? `<div class="grp-legend-item" style="color:#94A3B8">🎲 <strong>sorteo</strong> — equipos totalmente igualados; posición provisional decidida por sorteo FIFA</div>`
@@ -3458,6 +3464,7 @@ function _teamsThirdsHtml() {
   if (!thirds.length) return `<div class="card p-5 text-gray-500 text-sm">Aún no hay datos de terceros clasificados.</div>`;
 
   const hasTieAtCutoff = thirds.some(t => t.tieAtCutoff);
+  const hasTieInGroup  = thirds.some(t => t.tiedWithSecond);
 
   const rows = thirds.map((t, i) => {
     const qual = i < 8 || t.tieAtCutoff;
@@ -3468,11 +3475,23 @@ function _teamsThirdsHtml() {
     if (t.tieAtCutoff) rowCls = "grp-third grp-third-tie-cutoff";
     else if (i < 8) rowCls = "grp-third";
     else rowCls = "grp-third grp-third-out";
-    const tieBadge = t.tieAtCutoff ? ` <span class="trd-tie-badge">⚠️ empate</span>` : "";
+    const tieCutoffBadge = t.tieAtCutoff ? ` <span class="trd-tie-badge">⚠️ empate corte</span>` : "";
+    const tieGrpBadge = t.tiedWithSecond ? ` <span class="trd-tie-badge trd-tie-grp">🎲 sorteo con 2.º</span>` : "";
+
+    // Nombre: si hay empate con el 2.º, mostrar "Brasil o Marruecos"
+    const teamCell = t.tiedWithSecond
+      ? `<td class="tlg-team">
+          <span class="tlg-flag">${t.flag || ""}</span><button class="team-name-btn" data-team="${escapeHtml(t.name)}">${escapeHtml(t.name)}</button>
+          <span class="trd-or-sep">o</span>
+          <span class="tlg-flag">${t.tiedWithSecond.flag || ""}</span><button class="team-name-btn" data-team="${escapeHtml(t.tiedWithSecond.name)}">${escapeHtml(t.tiedWithSecond.name)}</button>
+          <span style="font-size:.7rem;color:#64748B;margin-left:.3rem">Gr. ${t.group}</span>
+         </td>`
+      : `<td class="tlg-team"><span class="tlg-flag">${t.flag || ""}</span><button class="team-name-btn" data-team="${escapeHtml(t.name)}">${escapeHtml(t.name)}</button>
+          <span style="font-size:.7rem;color:#64748B;margin-left:.4rem">Gr. ${t.group}</span></td>`;
+
     return `<tr class="${rowCls}">
-      <td class="tlg-pos">${i + 1}${tieBadge}</td>
-      <td class="tlg-team"><span class="tlg-flag">${t.flag || ""}</span><button class="team-name-btn" data-team="${escapeHtml(t.name)}">${escapeHtml(t.name)}</button>
-        <span style="font-size:.7rem;color:#64748B;margin-left:.4rem">Gr. ${t.group}</span></td>
+      <td class="tlg-pos">${i + 1}${tieCutoffBadge}${tieGrpBadge}</td>
+      ${teamCell}
       <td>${t.pj}</td>
       <td class="tlg-g">${t.pg}</td>
       <td>${t.pe}</td>
@@ -3515,6 +3534,7 @@ function _teamsThirdsHtml() {
       <div class="px-5 py-3 flex flex-col gap-0.5">
         <div class="grp-legend-item grp-legend-third-yes">🟡 Top 8 — clasifican a 16avos de final</div>
         ${hasTieAtCutoff ? `<div class="grp-legend-item" style="color:#F59E0B">⚠️ <strong>Empate en el corte (posición 8/9)</strong> — se necesitan más criterios (fair play, ranking FIFA) o sorteo para desempatar. Estado provisional.</div>` : ""}
+        ${hasTieInGroup ? `<div class="grp-legend-item" style="color:#94A3B8">🎲 <strong>sorteo con 2.º</strong> — el 2.º y el 3.º del grupo están igualados en todos los criterios; quién actúa como tercero se decide por sorteo FIFA.</div>` : ""}
         <div class="grp-legend-item grp-legend-third-no">⬜ Eliminados</div>
       </div>
     </div>`;
@@ -4615,9 +4635,16 @@ function openTeamModal(teamName) {
       const rankTxt = thirdRank !== null ? `N.º <strong>${thirdRank}</strong> de ${totalThirds} terceros` : "sin datos";
       const prov = playedInGroup < 3 ? " <em>(provisional)</em>" : "";
       const thirdsLink = `<button class="grp-thirds-link" onclick="event.stopPropagation();closeTeamModal&&closeTeamModal();setTimeout(()=>_switchTeamsSubTab('thirds'),120)" type="button">ver clasificación de terceros →</button>`;
-      const thirdLegHtml = table[2] ? (thirdQual
-        ? `<div class="grp-legend-item grp-legend-third-yes">🟡 3.º — <strong>clasificaría</strong> (${rankTxt})${prov} ${thirdsLink}</div>`
-        : `<div class="grp-legend-item grp-legend-third-no">⬜ 3.º — <strong>no clasificaría</strong> (${rankTxt})${prov} ${thirdsLink}</div>`) : "";
+      const tiedWith2nd = allThirds.find(t => t.group === grpLetter)?.tiedWithSecond;
+      let thirdLegHtml = "";
+      if (table[2]) {
+        const teamNames = tiedWith2nd
+          ? `<strong>${escapeHtml(table[2].name)}</strong> o <strong>${escapeHtml(tiedWith2nd.name)}</strong> 🎲`
+          : `(${rankTxt})${prov}`;
+        thirdLegHtml = thirdQual
+          ? `<div class="grp-legend-item grp-legend-third-yes">🟡 3.º — <strong>clasificaría</strong>: ${teamNames} ${thirdsLink}</div>`
+          : `<div class="grp-legend-item grp-legend-third-no">⬜ 3.º — <strong>no clasificaría</strong>: ${teamNames} ${thirdsLink}</div>`;
+      }
       groupHtml = `
         <div>
           <div class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Grupo ${grpLetter}${provisional}</div>
@@ -4944,7 +4971,13 @@ function _computeAllThirds() {
 
   const thirds = grpLetters.map(g => {
     const s = _computeGroupStanding(g);
-    return s.length >= 3 ? { ...s[2], group: g } : null;
+    if (s.length < 3) return null;
+    const entry = { ...s[2], group: g };
+    // Si el 2.º y el 3.º están empatados a sorteo, el tercero es indeterminado
+    if (s[1].tieNote === "lots" && s[2].tieNote === "lots") {
+      entry.tiedWithSecond = { name: s[1].name, flag: s[1].flag || "" };
+    }
+    return entry;
   }).filter(Boolean);
 
   // Criterios oficiales FIFA para ranking de terceros (reglamento art. 32):
@@ -5006,6 +5039,19 @@ function openGroupModal(grp) {
     const playedInGroup = matches.filter(m => m.played).length;
     const provisionalNote = playedInGroup < 3 ? " <em>(provisional)</em>" : "";
     const thirdsLinkModal = `<button class="grp-thirds-link" onclick="event.stopPropagation();closeGroupModal&&closeGroupModal();setTimeout(()=>_switchTeamsSubTab('thirds'),120)" type="button">ver clasificación de terceros →</button>`;
+    // Empate 2.º/3.º: mostrar "podría clasificar X o Y"
+    const thirdEntry = allThirds.find(t => t.group === grp);
+    const tiedWith = thirdEntry?.tiedWithSecond;
+    if (tiedWith) {
+      const teamNames = `<strong>${escapeHtml(third.name)}</strong> o <strong>${escapeHtml(tiedWith.name)}</strong> 🎲`;
+      const txt = thirdQual
+        ? `🟡 3.º — <strong>clasificaría</strong>: ${teamNames}${provisionalNote}`
+        : `⬜ 3.º — <strong>no clasificaría</strong>: ${teamNames}${provisionalNote}`;
+      return `<div class="grp-legend-item ${thirdQual ? "grp-legend-third-yes" : "grp-legend-third-no"}">
+        ${txt} ${thirdsLinkModal}
+        <span class="grp-tiebreaker-note">Empate 2.º/3.º — se decide por sorteo FIFA</span>
+      </div>`;
+    }
     if (thirdQual) {
       return `<div class="grp-legend-item grp-legend-third-yes">
         🟡 3.º — <strong>clasificaría</strong> (${rankTxt})${provisionalNote} ${thirdsLinkModal}
