@@ -2779,3 +2779,81 @@
       .team-suggest-item .ts-count { display: none; }
       .tab-btn { padding: .4rem .55rem; font-size: .7rem; }
     }
+
+    /* ════════════════════════════════════════════════════════════════
+       GROUP MODAL
+    ════════════════════════════════════════════════════════════════ */
+    .grp-badge-btn { cursor: pointer; transition: filter .15s, transform .1s; }
+    .grp-badge-btn:hover { filter: brightness(1.25); transform: scale(1.06); }
+
+    .grp-backdrop {
+      position: fixed; inset: 0; z-index: 8500;
+      background: rgba(4,6,20,.88); backdrop-filter: blur(4px);
+      display: flex; align-items: flex-start; justify-content: center;
+      padding: 2rem 1rem;
+      overflow-y: auto;
+    }
+    .grp-modal {
+      background: var(--surface); border: 1px solid #3B4270;
+      border-radius: 16px; width: 100%; max-width: 680px;
+      box-shadow: 0 24px 64px rgba(0,0,0,.7);
+      display: flex; flex-direction: column;
+      overflow: hidden; flex-shrink: 0;
+    }
+    .grp-modal-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 1.4rem .9rem;
+      border-bottom: 1px solid #2A3060; flex-shrink: 0;
+    }
+    .grp-modal-title {
+      font-size: 1.1rem; font-weight: 800; color: #38BDF8; letter-spacing: .03em;
+    }
+    .grp-modal-body {
+      padding: 1.2rem 1.4rem 1.6rem;
+      overflow-y: auto; max-height: calc(100dvh - 10rem); max-height: calc(100vh - 10rem);
+      display: flex; flex-direction: column; gap: 1.4rem;
+    }
+
+    /* Tabla de clasificación del grupo */
+    .grp-table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+    .grp-table th {
+      text-align: center; font-size: .68rem; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: #64748B; padding: .4rem .5rem;
+      border-bottom: 1px solid #2A3060;
+    }
+    .grp-table th:first-child { text-align: left; padding-left: .75rem; }
+    .grp-table td {
+      text-align: center; padding: .55rem .5rem;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+      color: #CBD5E1;
+    }
+    .grp-table td:first-child { text-align: left; padding-left: .75rem; font-weight: 600; }
+    .grp-table td.grp-pts { font-weight: 800; color: var(--gold); }
+    .grp-table tr:hover td { background: rgba(255,255,255,.03); }
+    .grp-table tr.grp-qual td { border-left: 3px solid var(--green); }
+    .grp-table tr.grp-qual td:first-child { padding-left: calc(.75rem - 3px); }
+
+    /* Tarjeta mini de partido dentro del modal */
+    .grp-match-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .55rem .75rem; border-radius: 10px;
+      background: var(--card); border: 1px solid var(--border);
+      gap: .5rem;
+    }
+    .grp-match-row.grp-match-played { border-color: rgba(34,197,94,.2); }
+    .grp-match-team { display: flex; align-items: center; gap: .35rem; font-size: .82rem; font-weight: 600; flex: 1; }
+    .grp-match-team.right { justify-content: flex-end; }
+    .grp-match-score {
+      font-family: "Bebas Neue", sans-serif; font-size: 1.3rem;
+      color: var(--gold); min-width: 3.5rem; text-align: center; flex-shrink: 0;
+    }
+    .grp-match-score.pending { color: #475569; font-size: .9rem; font-family: inherit; font-weight: 700; }
+    .grp-match-date { font-size: .68rem; color: #64748B; text-align: center; }
+
+    @media (max-width: 600px) {
+      .grp-backdrop { padding: 0; align-items: flex-start; }
+      .grp-modal { border-radius: 0 0 16px 16px; max-width: 100vw; }
+      .grp-modal-body { padding: .9rem .85rem 1.2rem; }
+      .grp-table { font-size: .75rem; }
+      .grp-match-team { font-size: .75rem; }
+    }

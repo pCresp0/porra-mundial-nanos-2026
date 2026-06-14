@@ -1626,7 +1626,7 @@ function renderMatchCard(m, players, colors) {
         <div class="card-corner-tag-right">${(() => {
           if (m.phase === "groups" && m.id) {
             const grp = m.id.charAt(0).toUpperCase();
-            return `<span class="text-xs font-bold phase-corner-tag phase-corner-tag--group">Grupo ${grp}</span>`;
+            return `<span class="text-xs font-bold phase-corner-tag phase-corner-tag--group grp-badge-btn" data-group="${grp}" title="Ver Grupo ${grp}">Grupo ${grp}</span>`;
           }
           const lbl = PHASE_LABELS[m.phase] || m.phase || "";
           return lbl ? `<span class="text-xs font-bold phase-corner-tag">${lbl}</span>` : "";
@@ -3548,6 +3548,124 @@ function closeAdminPanel() {
   if (modal) modal.classList.add("hidden");
   document.body.style.overflow = "";
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   GROUP MODAL
+═══════════════════════════════════════════════════════════════ */
+function openGroupModal(grp) {
+  if (!D) return;
+  grp = grp.toUpperCase();
+  const matches = D.matches.filter(m => m.phase === "groups" && m.id && m.id.charAt(0).toUpperCase() === grp);
+  if (!matches.length) return;
+
+  // ── Calcular tabla de clasificación ──────────────────────────
+  const teams = {};
+  const addTeam = (name, flag) => {
+    if (!teams[name]) teams[name] = { name, flag: flag || "", pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+  };
+  matches.forEach(m => {
+    addTeam(m.home, m.flag_home);
+    addTeam(m.away, m.flag_away);
+    if (!m.played) return;
+    const gh = m.goals_l ?? 0, ga = m.goals_v ?? 0;
+    const h = teams[m.home], a = teams[m.away];
+    h.pj++; a.pj++;
+    h.gf += gh; h.gc += ga;
+    a.gf += ga; a.gc += gh;
+    if (gh > ga)      { h.pg++; h.pts += 3; a.pp++; }
+    else if (gh < ga) { a.pg++; a.pts += 3; h.pp++; }
+    else              { h.pe++; h.pts++; a.pe++; a.pts++; }
+  });
+  const table = Object.values(teams).sort((a, b) =>
+    b.pts - a.pts || (b.gf - b.gc) - (a.gf - a.gc) || b.gf - a.gf
+  );
+
+  // ── HTML tabla ───────────────────────────────────────────────
+  const tableHtml = `
+    <div>
+      <div class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Clasificación</div>
+      <div class="card overflow-hidden">
+        <table class="grp-table">
+          <thead>
+            <tr>
+              <th style="width:40%">Equipo</th>
+              <th title="Partidos jugados">PJ</th>
+              <th title="Ganados">G</th>
+              <th title="Empatados">E</th>
+              <th title="Perdidos">P</th>
+              <th title="Goles a favor">GF</th>
+              <th title="Goles en contra">GC</th>
+              <th title="Diferencia">DIF</th>
+              <th title="Puntos">PTS</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${table.map((t, i) => `
+              <tr class="${i < 2 ? "grp-qual" : ""}">
+                <td>${t.flag} ${t.name}</td>
+                <td>${t.pj}</td>
+                <td>${t.pg}</td>
+                <td>${t.pe}</td>
+                <td>${t.pp}</td>
+                <td>${t.gf}</td>
+                <td>${t.gc}</td>
+                <td>${t.gf - t.gc > 0 ? "+" : ""}${t.gf - t.gc}</td>
+                <td class="grp-pts">${t.pts}</td>
+              </tr>`).join("")}
+          </tbody>
+        </table>
+      </div>
+      <div class="text-xs text-gray-600 mt-1.5">🟢 Clasificados (top 2 provisional)</div>
+    </div>`;
+
+  // ── HTML partidos ─────────────────────────────────────────────
+  // Agrupar por jornada (mismo id como A1, A2, A3)
+  const jornadas = [...new Set(matches.map(m => m.id))].sort();
+  const matchesHtml = `
+    <div>
+      <div class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Partidos</div>
+      <div class="flex flex-col gap-2">
+        ${jornadas.map(jid => {
+          const jMatches = matches.filter(m => m.id === jid);
+          return `
+            <div class="text-xs text-gray-600 font-bold uppercase tracking-wider mb-1 mt-1">Jornada ${jid.slice(1)}</div>
+            ${jMatches.map(m => {
+              const played = m.played;
+              const gh = m.goals_l, ga = m.goals_v;
+              const scoreHtml = played
+                ? `<div class="grp-match-score">${gh}-${ga}</div>`
+                : `<div class="grp-match-score pending">${m.time_es || "—"}</div>`;
+              const dateFmt = m.date ? (() => {
+                const [y,mo,d] = m.date.split("-");
+                const months = ["","ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+                return `${parseInt(d)} ${months[parseInt(mo)]}`;
+              })() : "";
+              return `
+                <div class="grp-match-row ${played ? "grp-match-played" : ""}">
+                  <div class="grp-match-team">${m.flag_home || ""} ${m.home}</div>
+                  ${scoreHtml}
+                  <div class="grp-match-team right">${m.away} ${m.flag_away || ""}</div>
+                </div>
+                ${dateFmt ? `<div class="grp-match-date mb-1">${dateFmt}${m.venue ? " · " + m.venue : ""}</div>` : ""}`;
+            }).join("")}`;
+        }).join("")}
+      </div>
+    </div>`;
+
+  // ── Montar y mostrar ─────────────────────────────────────────
+  document.getElementById("grp-modal-title").innerHTML =
+    `<span style="font-size:1.4rem">⚽</span>&nbsp; Grupo ${grp}`;
+  document.getElementById("grp-modal-body").innerHTML = tableHtml + matchesHtml;
+  const modal = document.getElementById("group-modal");
+  modal.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+}
+
+function closeGroupModal() {
+  const modal = document.getElementById("group-modal");
+  if (modal) modal.classList.add("hidden");
+  document.body.style.overflow = "";
+}
 function filterApiLog(mode, btn) {
   document.querySelectorAll("#admin-modal .adm-api-filter")
     .forEach(b => b.classList.remove("active"));
@@ -3644,6 +3762,18 @@ function _copyAdminSummary(btn) {
 document.addEventListener("click", e => {
   const modal = document.getElementById("admin-modal");
   if (modal && !modal.classList.contains("hidden") && e.target === modal) closeAdminPanel();
+});
+
+// group badge click → open group modal
+document.addEventListener("click", e => {
+  const badge = e.target.closest(".grp-badge-btn");
+  if (badge) {
+    e.stopPropagation();
+    openGroupModal(badge.dataset.group);
+  }
+  // close group modal on backdrop click
+  const grpModal = document.getElementById("group-modal");
+  if (grpModal && !grpModal.classList.contains("hidden") && e.target === grpModal) closeGroupModal();
 });
 
 function _buildAdminPanel() {
