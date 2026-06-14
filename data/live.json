@@ -19,6 +19,13 @@
         "team": "home"
       },
       {
+        "player": "K. Havertz",
+        "minute": "45'+5'",
+        "own_goal": false,
+        "penalty": true,
+        "team": "home"
+      },
+      {
         "player": "L. Comenencia",
         "minute": "21'",
         "own_goal": false,

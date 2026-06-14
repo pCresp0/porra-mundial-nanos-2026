@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "14/06/2026 17:52",
+    "generated": "14/06/2026 17:54",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-06-14T19:55",
       "next_update_time": "19:55",
       "next_update_date": "14/06/2026",
-      "last_checked_iso": "2026-06-14T19:52",
-      "last_checked_time": "19:52",
+      "last_checked_iso": "2026-06-14T19:54",
+      "last_checked_time": "19:54",
       "last_checked_date": "14/06/2026"
     },
     "players": [
@@ -141,6 +141,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-14T19:54:29+02:00",
+        "date": "14/06/2026",
+        "time": "19:54:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-14T19:52:40+02:00",
         "date": "14/06/2026",
@@ -2015,6 +2023,13 @@
           "minute": "38'",
           "own_goal": false,
           "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "K. Havertz",
+          "minute": "45'+5'",
+          "own_goal": false,
+          "penalty": true,
           "team": "home"
         },
         {
