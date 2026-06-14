@@ -516,12 +516,20 @@
       border: 2px solid #3B82F6;
       border-left: 4px solid #3B82F6;
       background: rgba(59,130,246,.06);
-      animation: livePulse 2s ease-in-out infinite;
+      animation: livePulse 2.4s ease-in-out infinite;
     }
-    .match-row.live-match:hover { background: rgba(59,130,246,.1); }
+    .match-row.live-match:hover { background: rgba(59,130,246,.12); }
     @keyframes livePulse {
-      0%,100% { box-shadow: 0 0 0 1px rgba(59,130,246,.3), 0 0 14px rgba(59,130,246,.15); }
-      50%      { box-shadow: 0 0 0 3px rgba(59,130,246,.55), 0 0 28px rgba(59,130,246,.35); }
+      0%,100% {
+        border-color: rgba(59,130,246,.5);
+        background: rgba(59,130,246,.05);
+        box-shadow: 0 0 0 1px rgba(59,130,246,.28), 0 0 14px rgba(59,130,246,.14);
+      }
+      50% {
+        border-color: rgba(59,130,246,1);
+        background: rgba(59,130,246,.12);
+        box-shadow: 0 0 0 4px rgba(59,130,246,.55), 0 0 34px rgba(59,130,246,.42);
+      }
     }
     .live-tag {
       color: #fff;
