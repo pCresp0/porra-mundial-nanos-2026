@@ -4,12 +4,14 @@
       "player": "J. Quiñones",
       "minute": "9'",
       "own_goal": false,
+      "penalty": false,
       "team": "home"
     },
     {
       "player": "R. Jiménez",
       "minute": "67'",
       "own_goal": false,
+      "penalty": false,
       "team": "home"
     }
   ],
@@ -18,18 +20,21 @@
       "player": "I.B. Hwang",
       "minute": "67'",
       "own_goal": false,
+      "penalty": false,
       "team": "home"
     },
     {
       "player": "H.G. Oh",
       "minute": "80'",
       "own_goal": false,
+      "penalty": false,
       "team": "home"
     },
     {
       "player": "L. Krejčí",
       "minute": "59'",
       "own_goal": false,
+      "penalty": false,
       "team": "away"
     }
   ],
@@ -38,12 +43,14 @@
       "player": "C. Larin",
       "minute": "11'",
       "own_goal": false,
+      "penalty": false,
       "team": "home"
     },
     {
       "player": "Jovo Lukić",
       "minute": "21'",
       "own_goal": false,
+      "penalty": false,
       "team": "away"
     }
   ],
@@ -52,30 +59,35 @@
       "player": "D. Bobadilla",
       "minute": "7'",
       "own_goal": true,
+      "penalty": false,
       "team": "home"
     },
     {
       "player": "F. Balogun",
       "minute": "31'",
       "own_goal": false,
+      "penalty": false,
       "team": "home"
     },
     {
       "player": "F. Balogun",
       "minute": "45'+5'",
       "own_goal": false,
+      "penalty": false,
       "team": "home"
     },
     {
       "player": "G. Reyna",
       "minute": "90'+8'",
       "own_goal": false,
+      "penalty": false,
       "team": "home"
     },
     {
       "player": "Maurício",
       "minute": "73'",
       "own_goal": false,
+      "penalty": false,
       "team": "away"
     }
   ],
@@ -84,6 +96,7 @@
       "player": "J. McGinn",
       "minute": "28'",
       "own_goal": false,
+      "penalty": false,
       "team": "away"
     }
   ],
@@ -92,12 +105,14 @@
       "player": "Nestory Irankunda",
       "minute": "27'",
       "own_goal": false,
+      "penalty": false,
       "team": "home"
     },
     {
       "player": "C. Metcalfe",
       "minute": "75'",
       "own_goal": false,
+      "penalty": false,
       "team": "home"
     }
   ],
@@ -106,12 +121,14 @@
       "player": "V. Júnior",
       "minute": "32'",
       "own_goal": false,
+      "penalty": false,
       "team": "home"
     },
     {
       "player": "I. Saibari",
       "minute": "21'",
       "own_goal": false,
+      "penalty": false,
       "team": "away"
     }
   ],
@@ -120,12 +137,14 @@
       "player": "B. Khoukhi",
       "minute": "90'+5'",
       "own_goal": false,
+      "penalty": false,
       "team": "home"
     },
     {
-      "player": "Breel Embolo 17' (p)",
-      "minute": "",
+      "player": "Breel Embolo",
+      "minute": "17'",
       "own_goal": false,
+      "penalty": true,
       "team": "away"
     }
   ]
