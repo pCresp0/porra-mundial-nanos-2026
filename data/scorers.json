@@ -190,6 +190,36 @@
       "team": "away"
     }
   ],
+  "Países Bajos-Japón": [
+    {
+      "player": "Virgil van Dijk",
+      "minute": "51'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "C. Summerville",
+      "minute": "64'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "K. Nakamura",
+      "minute": "57'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "K. Ogawa",
+      "minute": "89'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "Canadá-Bosnia y Herzegovina": [
     {
       "player": "C. Larin",
