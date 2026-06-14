@@ -459,6 +459,27 @@ const PHASE_LABELS = {
   honor:     "C. Honor",
 };
 
+// Banderas de jugadores del Cuadro de Honor
+const HONOR_PLAYER_FLAGS = {
+  "Harry Kane":       "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+  "Cristiano Ronaldo":"🇵🇹",
+  "Vinicius Jr.":     "🇧🇷",
+  "Mbappé":           "🇫🇷",
+  "Haaland":          "🇳🇴",
+  "Lamine Yamal":     "🇪🇸",
+  "Pedri":            "🇪🇸",
+  "Bellingham":       "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+  "Oyarzabal":        "🇪🇸",
+  "Musiala":          "🇩🇪",
+  "Vitinha":          "🇵🇹",
+  "Courtois":         "🇧🇪",
+  "Rodri":            "🇪🇸",
+  "Lewandowski":      "🇵🇱",
+  "Salah":            "🇪🇬",
+  "Neymar":           "🇧🇷",
+  "De Bruyne":        "🇧🇪",
+};
+
 const MEDAL = ["🥇","🥈","🥉","4️⃣","5️⃣","6️⃣"];
 
 /* ── worldcup26.ir English name → Spanish name (for game lookup) ── */
@@ -2240,15 +2261,16 @@ function renderHonor() {
         : `<span class="badge-pending px-2 py-0.5 rounded text-xs">Pendiente</span>`;
 
       const consensusHtml = !h.resolved && h.consensus
-        ? `<div class="honor-consensus mt-2">💬 Apuesta del grupo: <strong class="text-gray-200">${h.consensus}</strong> (${h.consensus_count}/${h.filled_count})</div>`
+        ? `<div class="honor-consensus mt-2">💬 Apuesta del grupo: <strong class="text-gray-200">${HONOR_PLAYER_FLAGS[h.consensus] ? HONOR_PLAYER_FLAGS[h.consensus] + " " : ""}${h.consensus}</strong> (${h.consensus_count}/${h.filled_count})</div>`
         : "";
 
       const rows = (h.predictions_list || []).map(p => {
         const icon = h.resolved ? (p.correct ? "✓" : "✗") : "·";
         const iconColor = h.resolved ? (p.correct ? "var(--green)" : "var(--red)") : "#64748B";
+        const flag = HONOR_PLAYER_FLAGS[p.pred] ? `${HONOR_PLAYER_FLAGS[p.pred]} ` : "";
         return `<div class="honor-pred-row">
           <span class="font-bold truncate" style="color:${p.color}">${p.name}</span>
-          <span class="text-gray-200 truncate text-right">${p.pred}</span>
+          <span class="text-gray-200 truncate text-right">${flag}${p.pred}</span>
           <span class="font-bold shrink-0" style="color:${iconColor}">${icon}${p.score > 0 ? " +" + p.score : ""}</span>
         </div>`;
       }).join("");

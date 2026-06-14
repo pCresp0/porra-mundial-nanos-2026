@@ -722,7 +722,39 @@ def _parse_honor_actual(val):
     low = s.lower()
     if low.startswith("escribe") or low.startswith("pegar"):
         return None
-    return s
+    return _normalize_honor_name(s)
+
+
+# Mapa de aliases → nombre canónico para predicciones de honor
+_HONOR_NAME_ALIASES = {
+    # Harry Kane
+    "Kane":        "Harry Kane",
+    "H. Kane":     "Harry Kane",
+    "H.Kane":      "Harry Kane",
+    # Cristiano Ronaldo
+    "CR7":         "Cristiano Ronaldo",
+    "Cristiano":   "Cristiano Ronaldo",
+    "C. Ronaldo":  "Cristiano Ronaldo",
+    # Vinicius Jr.
+    "Vini":        "Vinicius Jr.",
+    "Vini Jr":     "Vinicius Jr.",
+    "Vini Jr.":    "Vinicius Jr.",
+    "Vinicius":    "Vinicius Jr.",
+    # Mbappé
+    "Mbappe":      "Mbappé",
+    "Mbappe´":     "Mbappé",
+    # Oyarzabal
+    "M. Oyarzabal": "Oyarzabal",
+    # Haaland
+    "Erling Haaland": "Haaland",
+    "E. Haaland":  "Haaland",
+}
+
+def _normalize_honor_name(name):
+    """Aplica aliases al nombre canónico de un jugador de honor."""
+    if not name:
+        return name
+    return _HONOR_NAME_ALIASES.get(name.strip(), name.strip())
 
 
 def _abbr_team(name):
@@ -1147,7 +1179,8 @@ def build_data():
         for p, ws in zip(all_players, all_ws):
             pv = _val(ws, row, p["pred_col"])
             sv = _val(ws, row, p["score_col"])
-            pred = str(pv).strip() if pv and not str(pv).startswith("Pegar") else None
+            pred_raw = str(pv).strip() if pv and not str(pv).startswith("Pegar") else None
+            pred = _normalize_honor_name(pred_raw) if pred_raw else None
             score = float(sv) if sv else 0
             correct = bool(actual and pred and pred == actual)
             if pred:
