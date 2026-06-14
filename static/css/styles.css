@@ -3168,6 +3168,11 @@
 }
 @media (max-width: 480px) {
   .tms-root { padding: .6rem 0 1.5rem; }
+  /* Ocultar GF y GC en pantallas muy pequeñas para que PTS sea siempre visible */
+  .tm-league-table th:nth-child(7),
+  .tm-league-table td:nth-child(7),
+  .tm-league-table th:nth-child(8),
+  .tm-league-table td:nth-child(8) { display: none; } /* GF, GC */
 }
 
 /* ════════════════════════════════════════════════════════════
