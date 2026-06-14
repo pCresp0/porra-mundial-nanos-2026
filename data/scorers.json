@@ -79,6 +79,20 @@
       "team": "away"
     }
   ],
+  "Brasil-Marruecos": [
+    {
+      "player": "V. Júnior",
+      "minute": "32'",
+      "own_goal": false,
+      "team": "home"
+    },
+    {
+      "player": "I. Saibari",
+      "minute": "21'",
+      "own_goal": false,
+      "team": "away"
+    }
+  ],
   "Catar-Suiza": [
     {
       "player": "B. Khoukhi",
