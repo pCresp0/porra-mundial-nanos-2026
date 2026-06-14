@@ -2854,6 +2854,23 @@
     .grp-match-link { cursor: pointer; transition: background .15s, border-color .15s; }
     .grp-match-link:hover { background: var(--card2); border-color: #38BDF855; }
     .grp-match-link:hover .grp-match-score { color: #93C5FD; }
+
+    /* Team name clickable */
+    .team-name-btn { cursor: pointer; transition: color .15s; }
+    .team-name-btn:hover { color: #38BDF8; text-decoration: underline; text-underline-offset: 3px; }
+
+    /* Team modal stats bar */
+    .tm-stats { display: flex; gap: .5rem; justify-content: center; flex-wrap: wrap; margin-bottom: .25rem; }
+    .tm-stat { display: flex; flex-direction: column; align-items: center; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .4rem .7rem; min-width: 2.8rem; }
+    .tm-stat-val { font-family: "Bebas Neue", sans-serif; font-size: 1.25rem; line-height: 1; }
+    .tm-stat-lbl { font-size: .6rem; font-weight: 700; letter-spacing: .05em; color: #64748B; text-transform: uppercase; margin-top: .1rem; }
+    .tm-win  { color: var(--green); }
+    .tm-draw { color: var(--gold); }
+    .tm-loss { color: #F87171; }
+    .tm-pending { color: #475569; font-size: .85rem; font-family: inherit; font-weight: 700; }
+    .tm-score { min-width: 4rem; font-size: 1rem; font-family: "Bebas Neue", sans-serif; }
+    .tm-meta { font-size: .68rem; color: #64748B; text-align: right; white-space: nowrap; display: flex; flex-direction: column; align-items: flex-end; gap: .1rem; }
+    .tm-phase { font-size: .6rem; color: #475569; }
     .grp-match-team { display: flex; align-items: center; gap: .35rem; font-size: .82rem; font-weight: 600; flex: 1; }
     .grp-match-team.right { justify-content: flex-end; }
     .grp-match-score {

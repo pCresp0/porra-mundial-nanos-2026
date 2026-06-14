@@ -956,9 +956,9 @@ function matchTeamsHtml(m) {
     <div class="match-header-center">
       <div class="match-teams-row">
         <span class="match-flag">${fh}</span>
-        <span class="match-team-name">${home}</span>
+        <span class="match-team-name team-name-btn" data-team="${home.replace(/"/g,'&quot;')}" title="Ver partidos de ${home}">${home}</span>
         <span class="match-vs">vs</span>
-        <span class="match-team-name">${away}</span>
+        <span class="match-team-name team-name-btn" data-team="${away.replace(/"/g,'&quot;')}" title="Ver partidos de ${away}">${away}</span>
         <span class="match-flag">${fa}</span>
       </div>
       ${scoreHtml}
@@ -3574,6 +3574,113 @@ function closeAdminPanel() {
 /* ═══════════════════════════════════════════════════════════════
    GROUP MODAL
 ═══════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════
+   TEAM MODAL — todos los partidos de un equipo
+═══════════════════════════════════════════════════════════════ */
+function openTeamModal(teamName) {
+  if (!D) return;
+
+  // Buscar todos los partidos (cualquier fase) donde participa el equipo
+  const matches = D.matches.filter(m =>
+    m.home === teamName || m.away === teamName
+  );
+  if (!matches.length) return;
+
+  const flag = matches.find(m => m.home === teamName)?.flag_home
+            || matches.find(m => m.away === teamName)?.flag_away
+            || "";
+
+  // Separar jugados vs pendientes
+  const played  = matches.filter(m => m.played);
+  const pending = matches.filter(m => !m.played);
+
+  // Calcular stats del equipo en partidos jugados
+  let pj = 0, pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+  played.forEach(m => {
+    const isHome = m.home === teamName;
+    const gh = m.goals_l ?? 0, ga = m.goals_v ?? 0;
+    const tf = isHome ? gh : ga, tc = isHome ? ga : gh;
+    pj++; gf += tf; gc += tc;
+    if (tf > tc) pg++;
+    else if (tf < tc) pp++;
+    else pe++;
+  });
+
+  const months = ["","ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+  function fmtDate(d) {
+    if (!d) return "";
+    const [,mo,dd] = d.split("-");
+    return `${parseInt(dd)} ${months[parseInt(mo)]}`;
+  }
+  function phaseLabel(m) {
+    return PHASE_LABELS[m.phase] || m.phase || "";
+  }
+
+  function matchRow(m, highlight) {
+    const isHome = m.home === teamName;
+    const opp = isHome ? m.away : m.home;
+    const oppFlag = isHome ? (m.flag_away || "") : (m.flag_home || "");
+    const played = m.played;
+    const gh = m.goals_l ?? 0, ga = m.goals_v ?? 0;
+    const tf = isHome ? gh : ga, tc = isHome ? ga : gh;
+
+    let scoreHtml, resultCls = "";
+    if (played) {
+      if (tf > tc)      { scoreHtml = `${tf}–${tc}`; resultCls = "tm-win"; }
+      else if (tf < tc) { scoreHtml = `${tf}–${tc}`; resultCls = "tm-loss"; }
+      else              { scoreHtml = `${tf}–${tc}`; resultCls = "tm-draw"; }
+    } else {
+      scoreHtml = m.time_es ? m.time_es + " h" : "—";
+      resultCls = "tm-pending";
+    }
+
+    const dataAttrs = m.date ? `data-date="${m.date}" data-match="${(m.name||"").replace(/"/g,"&quot;")}"` : "";
+    return `
+      <div class="grp-match-row ${played ? "grp-match-played" : ""} ${m.date ? "grp-match-link tm-row" : "tm-row"} ${highlight ? "tm-highlight" : ""}" ${dataAttrs} title="${m.date ? "Ver partido completo" : ""}">
+        <div class="grp-match-team" style="flex:1.2">${oppFlag} ${opp}</div>
+        <div class="grp-match-score tm-score ${resultCls}">${scoreHtml}</div>
+        <div class="tm-meta">${fmtDate(m.date)}<span class="tm-phase">${phaseLabel(m)}</span></div>
+      </div>`;
+  }
+
+  const statsHtml = pj > 0 ? `
+    <div class="tm-stats">
+      <div class="tm-stat"><span class="tm-stat-val">${pj}</span><span class="tm-stat-lbl">PJ</span></div>
+      <div class="tm-stat"><span class="tm-stat-val tm-win">${pg}</span><span class="tm-stat-lbl">G</span></div>
+      <div class="tm-stat"><span class="tm-stat-val tm-draw">${pe}</span><span class="tm-stat-lbl">E</span></div>
+      <div class="tm-stat"><span class="tm-stat-val tm-loss">${pp}</span><span class="tm-stat-lbl">P</span></div>
+      <div class="tm-stat"><span class="tm-stat-val">${gf}</span><span class="tm-stat-lbl">GF</span></div>
+      <div class="tm-stat"><span class="tm-stat-val">${gc}</span><span class="tm-stat-lbl">GC</span></div>
+      <div class="tm-stat"><span class="tm-stat-val" style="color:${gf-gc>0?'var(--green)':gf-gc<0?'#F87171':'#94A3B8'}">${gf-gc>0?"+":""}${gf-gc}</span><span class="tm-stat-lbl">DIF</span></div>
+    </div>` : "";
+
+  const playedHtml = played.length ? `
+    <div>
+      <div class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Jugados</div>
+      <div class="flex flex-col gap-1.5">${played.map(m => matchRow(m, false)).join("")}</div>
+    </div>` : "";
+
+  const pendingHtml = pending.length ? `
+    <div>
+      <div class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Próximos</div>
+      <div class="flex flex-col gap-1.5">${pending.map(m => matchRow(m, false)).join("")}</div>
+    </div>` : "";
+
+  document.getElementById("team-modal-title").innerHTML =
+    `${flag} ${teamName}`;
+  document.getElementById("team-modal-body").innerHTML =
+    statsHtml + playedHtml + pendingHtml;
+
+  const modal = document.getElementById("team-modal");
+  modal.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+}
+
+function closeTeamModal() {
+  document.getElementById("team-modal")?.classList.add("hidden");
+  document.body.style.overflow = "";
+}
+
 function openGroupModal(grp) {
   if (!D) return;
   grp = grp.toUpperCase();
@@ -3792,6 +3899,13 @@ document.addEventListener("click", e => {
 
 // group badge click → open group modal
 document.addEventListener("click", e => {
+  // team name click → open team modal
+  const teamBtn = e.target.closest(".team-name-btn");
+  if (teamBtn) {
+    e.stopPropagation();
+    openTeamModal(teamBtn.dataset.team);
+    return;
+  }
   const badge = e.target.closest(".grp-badge-btn");
   if (badge) {
     e.stopPropagation();
@@ -3805,13 +3919,16 @@ document.addEventListener("click", e => {
     const name = matchLink.dataset.match;
     if (date) {
       closeGroupModal();
+      closeTeamModal();
       goToMatchesDay(date, name || null);
     }
     return;
   }
-  // close group modal on backdrop click
+  // close modals on backdrop click
   const grpModal = document.getElementById("group-modal");
   if (grpModal && !grpModal.classList.contains("hidden") && e.target === grpModal) closeGroupModal();
+  const teamModal = document.getElementById("team-modal");
+  if (teamModal && !teamModal.classList.contains("hidden") && e.target === teamModal) closeTeamModal();
 });
 
 function _buildAdminPanel() {
