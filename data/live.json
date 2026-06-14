@@ -1,8 +1,23 @@
 {
   "Alemania-Curazao": {
-    "home": 0,
-    "away": 0,
+    "home": 1,
+    "away": 1,
     "minute": "live",
-    "scorers": []
+    "scorers": [
+      {
+        "player": "Felix Nmecha",
+        "minute": "7'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "L. Comenencia",
+        "minute": "21'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      }
+    ]
   }
 }

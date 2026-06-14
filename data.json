@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "14/06/2026 17:28",
+    "generated": "14/06/2026 17:31",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-14T10:32",
       "last_updated_time": "10:32",
       "last_updated_date": "14/06/2026",
-      "next_update_iso": "2026-06-14T19:30",
-      "next_update_time": "19:30",
+      "next_update_iso": "2026-06-14T19:35",
+      "next_update_time": "19:35",
       "next_update_date": "14/06/2026",
-      "last_checked_iso": "2026-06-14T19:28",
-      "last_checked_time": "19:28",
+      "last_checked_iso": "2026-06-14T19:31",
+      "last_checked_time": "19:31",
       "last_checked_date": "14/06/2026"
     },
     "players": [
@@ -137,6 +137,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-14T19:31:05+02:00",
+        "date": "14/06/2026",
+        "time": "19:31:05",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-14T19:28:21+02:00",
         "date": "14/06/2026",
@@ -1892,9 +1900,24 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 0,
-      "live_goals_v": 0,
-      "live_scorers": [],
+      "live_goals_l": 1,
+      "live_goals_v": 1,
+      "live_scorers": [
+        {
+          "player": "Felix Nmecha",
+          "minute": "7'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "L. Comenencia",
+          "minute": "21'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        }
+      ],
       "goals_l": 0,
       "goals_v": 0,
       "scorers": [],
