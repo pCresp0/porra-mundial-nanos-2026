@@ -1,6 +1,6 @@
 {
   "Alemania-Curazao": {
-    "home": 6,
+    "home": 7,
     "away": 1,
     "minute": "live",
     "scorers": [
@@ -42,6 +42,13 @@
       {
         "player": "D. Undav",
         "minute": "78'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "K. Havertz",
+        "minute": "88'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
