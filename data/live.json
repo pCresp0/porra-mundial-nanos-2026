@@ -1,6 +1,6 @@
 {
   "Alemania-Curazao": {
-    "home": 3,
+    "home": 4,
     "away": 1,
     "minute": "live",
     "scorers": [
@@ -23,6 +23,13 @@
         "minute": "45'+5'",
         "own_goal": false,
         "penalty": true,
+        "team": "home"
+      },
+      {
+        "player": "J. Musiala",
+        "minute": "47'",
+        "own_goal": false,
+        "penalty": false,
         "team": "home"
       },
       {
