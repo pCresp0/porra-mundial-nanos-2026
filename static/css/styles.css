@@ -3058,6 +3058,25 @@
     .bkt-mob-card { width: 100%; }
     .bkt-mob-lbl { font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: #64748B; padding: .5rem 0 .1rem; }
 
+    /* Nav prev/next */
+    .bkt-mob-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: .75rem; padding: .5rem 0;
+      border-top: 1px solid var(--border);
+    }
+    .bkt-mob-nav-label { font-size: .72rem; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: .05em; }
+    .bkt-mob-nav-btn {
+      background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+      color: #94A3B8; font-size: .72rem; font-weight: 600; font-family: inherit;
+      padding: .4rem .8rem; cursor: pointer; transition: all .15s; min-width: 90px;
+    }
+    .bkt-mob-nav-btn:not([disabled]):hover { border-color: var(--gold); color: var(--gold); }
+    .bkt-mob-nav-btn[disabled] { opacity: 0; pointer-events: none; }
+    .bkt-mob-nav-prev { text-align: left; }
+    .bkt-mob-nav-next { text-align: right; }
+
+    .bkt-root-embedded .bkt-root { padding-top: 0; }
+
     @media (max-width: 767px) {
       .bkt-main-title { font-size: 1.3rem; }
     }
@@ -3139,6 +3158,12 @@
   transition: color .15s;
 }
 .grp-thirds-link:hover { color: var(--gold); }
+.trd-tie-badge {
+  font-size: .62rem; font-weight: 700; color: #F59E0B;
+  background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.3);
+  border-radius: 4px; padding: .05rem .3rem; margin-left: .2rem; white-space: nowrap;
+}
+.grp-third-tie-cutoff td { background: rgba(245,158,11,.06) !important; }
 
 /* ── Scorers table ── */
 .tm-scorers-table {

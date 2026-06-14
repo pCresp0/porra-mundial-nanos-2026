@@ -3457,14 +3457,20 @@ function _teamsThirdsHtml() {
 
   if (!thirds.length) return `<div class="card p-5 text-gray-500 text-sm">Aún no hay datos de terceros clasificados.</div>`;
 
+  const hasTieAtCutoff = thirds.some(t => t.tieAtCutoff);
+
   const rows = thirds.map((t, i) => {
-    const qual = i < 8;
+    const qual = i < 8 || t.tieAtCutoff;
     const dif = t.gf - t.gc;
     const difStr = dif > 0 ? `+${dif}` : `${dif}`;
     const difCls = dif > 0 ? "tms-pos-num" : dif < 0 ? "tms-neg" : "";
-    const rowCls = qual ? "grp-third" : "grp-third grp-third-out";
+    let rowCls;
+    if (t.tieAtCutoff) rowCls = "grp-third grp-third-tie-cutoff";
+    else if (i < 8) rowCls = "grp-third";
+    else rowCls = "grp-third grp-third-out";
+    const tieBadge = t.tieAtCutoff ? ` <span class="trd-tie-badge">⚠️ empate</span>` : "";
     return `<tr class="${rowCls}">
-      <td class="tlg-pos">${i + 1}</td>
+      <td class="tlg-pos">${i + 1}${tieBadge}</td>
       <td class="tlg-team"><span class="tlg-flag">${t.flag || ""}</span><button class="team-name-btn" data-team="${escapeHtml(t.name)}">${escapeHtml(t.name)}</button>
         <span style="font-size:.7rem;color:#64748B;margin-left:.4rem">Gr. ${t.group}</span></td>
       <td>${t.pj}</td>
@@ -3508,6 +3514,7 @@ function _teamsThirdsHtml() {
       </div>
       <div class="px-5 py-3 flex flex-col gap-0.5">
         <div class="grp-legend-item grp-legend-third-yes">🟡 Top 8 — clasifican a 16avos de final</div>
+        ${hasTieAtCutoff ? `<div class="grp-legend-item" style="color:#F59E0B">⚠️ <strong>Empate en el corte (posición 8/9)</strong> — se necesitan más criterios (fair play, ranking FIFA) o sorteo para desempatar. Estado provisional.</div>` : ""}
         <div class="grp-legend-item grp-legend-third-no">⬜ Eliminados</div>
       </div>
     </div>`;
@@ -3866,57 +3873,98 @@ function renderBracket(overrideEl) {
     ).join("");
 
     const firstContent = roundContent(MOB_ROUNDS[0].phase);
+    let _mobRoundIdx = 0;
+
+    function navBtnsHtml(idx) {
+      const hasPrev = idx > 0;
+      const hasNext = idx < MOB_ROUNDS.length - 1;
+      const nextLabel = hasNext ? MOB_ROUNDS[idx + 1].label : "";
+      const prevLabel = hasPrev ? MOB_ROUNDS[idx - 1].label : "";
+      return `<div class="bkt-mob-nav">
+        <button class="bkt-mob-nav-btn bkt-mob-nav-prev" data-dir="-1" ${hasPrev ? "" : "disabled"}>${hasPrev ? "← " + prevLabel : ""}</button>
+        <span class="bkt-mob-nav-label">${MOB_ROUNDS[idx].label}</span>
+        <button class="bkt-mob-nav-btn bkt-mob-nav-next" data-dir="1" ${hasNext ? "" : "disabled"}>${hasNext ? nextLabel + " →" : ""}</button>
+      </div>`;
+    }
 
     return `<div class="bkt-mobile">
       <div class="bkt-mob-tabs" id="bkt-mob-tabs">${tabsHtml}</div>
       <div class="bkt-mob-body" id="bkt-mob-body">${firstContent}</div>
+      <div id="bkt-mob-nav-wrap">${navBtnsHtml(0)}</div>
     </div>`;
   }
 
   const isMobile = window.matchMedia("(max-width: 767px)").matches;
+  const isEmbedded = !!overrideEl;
 
   container.innerHTML = `
-    <div class="bkt-root">
-      <div class="bkt-title-bar">
-        <h2 class="bkt-main-title">⚔️ Eliminatoria</h2>
-        <p class="bkt-sub">Cruces de la fase eliminatoria · se actualiza automáticamente</p>
-      </div>
+    <div class="bkt-root${isEmbedded ? " bkt-root-embedded" : ""}">
+      ${isEmbedded ? "" : `<div class="bkt-title-bar"><h2 class="bkt-main-title">⚔️ Eliminatoria</h2><p class="bkt-sub">Cruces de la fase eliminatoria · se actualiza automáticamente</p></div>`}
       ${isMobile
         ? buildMobileBracket()
         : `<div class="bkt-scroll-wrap">${buildDesktopBracket()}</div>`
       }
     </div>`;
 
-  // Tabs móvil: listener de clicks
+  // Tabs móvil: listener de clicks + flechas prev/next
   if (isMobile) {
     const tabsEl = container.querySelector("#bkt-mob-tabs");
     const bodyEl = container.querySelector("#bkt-mob-body");
-    if (tabsEl && bodyEl) {
+    const navWrap = container.querySelector("#bkt-mob-nav-wrap");
+    const MOB_ROUNDS_REF = [
+      { phase: "r16", label: "16avos", count: 16 },
+      { phase: "r4", label: "Octavos", count: 8 },
+      { phase: "r2", label: "Cuartos", count: 4 },
+      { phase: "r34", label: "Semis", count: 2 },
+      { phase: "r34_final", label: "Final", count: 2 },
+    ];
+    let currentIdx = 0;
+
+    function switchMobRound(idx) {
+      if (idx < 0 || idx >= MOB_ROUNDS_REF.length) return;
+      currentIdx = idx;
+      const r = MOB_ROUNDS_REF[idx];
+      tabsEl.querySelectorAll(".bkt-mob-tab").forEach(b => b.classList.toggle("active", b.dataset.bktRound === r.phase));
+      const phase = r.phase;
+      if (phase === "r34_final") {
+        bodyEl.innerHTML = `
+          <div class="bkt-mob-lbl">Semifinales</div>
+          ${byPhase["r34"].map(m => matchCard(m, "bkt-mob-card")).join("")}
+          <div class="bkt-mob-lbl">3.er y 4.º puesto · 18 jul</div>
+          ${matchCard(thirdMatch, "bkt-mob-card")}
+          <div class="bkt-mob-lbl">🏆 Final · 19 jul</div>
+          ${matchCard(finalMatch, "bkt-mob-card")}`;
+      } else {
+        const ms = byPhase[phase];
+        const count = { r16: 16, r4: 8, r2: 4, r34: 2 }[phase];
+        bodyEl.innerHTML = Array.from({ length: count }, (_, i) => matchCard(ms[i] || null, "bkt-mob-card")).join("");
+      }
+      bodyEl.scrollTop = 0;
+      // Update nav buttons
+      if (navWrap) {
+        const hasPrev = idx > 0, hasNext = idx < MOB_ROUNDS_REF.length - 1;
+        navWrap.innerHTML = `<div class="bkt-mob-nav">
+          <button class="bkt-mob-nav-btn bkt-mob-nav-prev" data-dir="-1" ${hasPrev ? "" : "disabled"}>${hasPrev ? "\u2190 " + MOB_ROUNDS_REF[idx-1].label : ""}</button>
+          <span class="bkt-mob-nav-label">${r.label}</span>
+          <button class="bkt-mob-nav-btn bkt-mob-nav-next" data-dir="1" ${hasNext ? "" : "disabled"}>${hasNext ? MOB_ROUNDS_REF[idx+1].label + " \u2192" : ""}</button>
+        </div>`;
+        navWrap.querySelector(".bkt-mob-nav-prev")?.addEventListener("click", () => switchMobRound(currentIdx - 1));
+        navWrap.querySelector(".bkt-mob-nav-next")?.addEventListener("click", () => switchMobRound(currentIdx + 1));
+      }
+    }
+
+    if (tabsEl) {
       tabsEl.addEventListener("click", e => {
         const btn = e.target.closest(".bkt-mob-tab");
         if (!btn) return;
-        tabsEl.querySelectorAll(".bkt-mob-tab").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
         const phase = btn.dataset.bktRound;
-
-        if (phase === "r34_final") {
-          const semis = byPhase["r34"];
-          bodyEl.innerHTML = `
-            <div class="bkt-mob-lbl">Semifinales</div>
-            ${semis.map(m => matchCard(m, "bkt-mob-card")).join("")}
-            <div class="bkt-mob-lbl">3.er y 4.º puesto · 18 jul</div>
-            ${matchCard(thirdMatch, "bkt-mob-card")}
-            <div class="bkt-mob-lbl">🏆 Final · 19 jul</div>
-            ${matchCard(finalMatch, "bkt-mob-card")}`;
-        } else {
-          const ms = byPhase[phase];
-          const count = { r16: 16, r4: 8, r2: 4, r34: 2 }[phase];
-          bodyEl.innerHTML = Array.from({ length: count }, (_, i) =>
-            matchCard(ms[i] || null, "bkt-mob-card")).join("");
-        }
-        bodyEl.scrollTop = 0;
+        const idx = MOB_ROUNDS_REF.findIndex(r => r.phase === phase);
+        if (idx >= 0) switchMobRound(idx);
       });
     }
+    // Wire up initial nav buttons
+    navWrap?.querySelector(".bkt-mob-nav-next")?.addEventListener("click", () => switchMobRound(currentIdx + 1));
+    navWrap?.querySelector(".bkt-mob-nav-prev")?.addEventListener("click", () => switchMobRound(currentIdx - 1));
   }
 
   // Re-render al cruzar breakpoint (solo desde el bracket-container original)
@@ -4864,6 +4912,20 @@ function _computeAllThirds() {
   );
 
   thirds.forEach((t, idx) => { t.rank = idx + 1; });
+
+  // Detectar empate en el corte 8/9: si el 8.º y el 9.º tienen los mismos stats → ambos provisionales
+  if (thirds.length >= 9) {
+    const t8 = thirds[7], t9 = thirds[8];
+    const sameStats = t8.pts === t9.pts && (t8.gf - t8.gc) === (t9.gf - t9.gc) && t8.gf === t9.gf;
+    if (sameStats) {
+      // Extender el empate al grupo completo que comparta esos stats en el corte
+      let lo = 7, hi = 8;
+      while (lo > 0 && thirds[lo-1].pts === t8.pts && (thirds[lo-1].gf - thirds[lo-1].gc) === (t8.gf - t8.gc) && thirds[lo-1].gf === t8.gf) lo--;
+      while (hi < thirds.length - 1 && thirds[hi+1].pts === t9.pts && (thirds[hi+1].gf - thirds[hi+1].gc) === (t9.gf - t9.gc) && thirds[hi+1].gf === t9.gf) hi++;
+      for (let i = lo; i <= hi; i++) thirds[i].tieAtCutoff = true;
+    }
+  }
+
   return thirds;
 }
 
