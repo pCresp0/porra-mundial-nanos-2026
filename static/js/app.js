@@ -3347,7 +3347,7 @@ function _teamsGroupsHtml() {
     if (table[2]) {
       const rankTxt = thirdRank !== null ? `N.º <strong>${thirdRank}</strong> de ${totalThirds}` : "sin datos";
       const prov = playedInGroup < 3 ? " <em>(provisional)</em>" : "";
-      const thirdsLink = `<button class="grp-thirds-link" onclick="event.stopPropagation();_switchTeamsSubTab('thirds')" type="button">ver clasificación de terceros →</button>`;
+      const thirdsLink = `<button class="grp-thirds-link" onclick="event.stopPropagation();goToTeamsSubTab('thirds')" type="button">ver clasificación de terceros →</button>`;
       // Empate 2.º/3.º: mostrar ambos nombres
       const thirdEntry = allThirds.find(t => t.group === g);
       const tiedWith = thirdEntry?.tiedWithSecond;
@@ -4255,6 +4255,29 @@ function closeMoreDropdown() {
   document.getElementById("tab-more-btn")?.setAttribute("aria-expanded", "false");
 }
 
+/** Navega a la pestaña Clasificaciones Mundial y activa la sub-tab indicada.
+ *  Funciona desde cualquier pestaña y desde dentro de modales. */
+function goToTeamsSubTab(stab) {
+  // 1. Cerrar cualquier modal abierto
+  document.getElementById("group-modal")?.classList.add("hidden");
+  document.getElementById("team-modal")?.classList.add("hidden");
+  document.body.style.overflow = "";
+  // 2. Activar pestaña "teams" (simula click en el tab-btn)
+  const teamsBtn = document.querySelector('.tab-btn[data-tab="teams"]');
+  if (teamsBtn) {
+    teamsBtn.click();
+  } else {
+    // fallback manual
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === "teams"));
+    ["matches","calendar","standings","progression","stats","honor","bracket","teams","bets","scoring","info"].forEach(t => {
+      document.getElementById("tab-" + t)?.classList.toggle("hidden", t !== "teams");
+    });
+    if (typeof renderTeams === "function" && D) renderTeams();
+  }
+  // 3. Cambiar sub-tab tras breve espera para que renderTeams haya montado el shell
+  setTimeout(() => _switchTeamsSubTab(stab), 80);
+}
+
 /** Lleva la vista al inicio del contenido (nav sticky pegado arriba, cabecera
  *  oculta). Calcula la altura del nav visible y posiciona el <main> justo
  *  debajo. */
@@ -4637,7 +4660,7 @@ function openTeamModal(teamName) {
       const totalThirds = allThirds.length;
       const rankTxt = thirdRank !== null ? `N.º <strong>${thirdRank}</strong> de ${totalThirds} terceros` : "sin datos";
       const prov = playedInGroup < 3 ? " <em>(provisional)</em>" : "";
-      const thirdsLink = `<button class="grp-thirds-link" onclick="event.stopPropagation();closeTeamModal&&closeTeamModal();setTimeout(()=>_switchTeamsSubTab('thirds'),120)" type="button">ver clasificación de terceros →</button>`;
+      const thirdsLink = `<button class="grp-thirds-link" onclick="event.stopPropagation();goToTeamsSubTab('thirds')" type="button">ver clasificación de terceros →</button>`;
       const tiedWith2nd = allThirds.find(t => t.group === grpLetter)?.tiedWithSecond;
       let thirdLegHtml = "";
       if (table[2]) {
@@ -5041,7 +5064,7 @@ function openGroupModal(grp) {
       : "sin datos suficientes aún";
     const playedInGroup = matches.filter(m => m.played).length;
     const provisionalNote = playedInGroup < 3 ? " <em>(provisional)</em>" : "";
-    const thirdsLinkModal = `<button class="grp-thirds-link" onclick="event.stopPropagation();closeGroupModal&&closeGroupModal();setTimeout(()=>_switchTeamsSubTab('thirds'),120)" type="button">ver clasificación de terceros →</button>`;
+    const thirdsLinkModal = `<button class="grp-thirds-link" onclick="event.stopPropagation();goToTeamsSubTab('thirds')" type="button">ver clasificación de terceros →</button>`;
     // Empate 2.º/3.º: mostrar "podría clasificar X o Y"
     const thirdEntry = allThirds.find(t => t.group === grp);
     const tiedWith = thirdEntry?.tiedWithSecond;
