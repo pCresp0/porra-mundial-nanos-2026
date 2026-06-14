@@ -2832,6 +2832,8 @@
     .grp-table tr:hover td { background: rgba(255,255,255,.03); }
     .grp-table tr.grp-qual td { border-left: 3px solid var(--green); }
     .grp-table tr.grp-qual td:first-child { padding-left: calc(.75rem - 3px); }
+    .grp-table tr.grp-third td { border-left: 3px solid #EAB308; }
+    .grp-table tr.grp-third td:first-child { padding-left: calc(.75rem - 3px); }
 
     /* Tarjeta mini de partido dentro del modal */
     .grp-match-row {
@@ -2841,6 +2843,9 @@
       gap: .5rem;
     }
     .grp-match-row.grp-match-played { border-color: rgba(34,197,94,.2); }
+    .grp-match-link { cursor: pointer; transition: background .15s, border-color .15s; }
+    .grp-match-link:hover { background: var(--card2); border-color: #38BDF855; }
+    .grp-match-link:hover .grp-match-score { color: #93C5FD; }
     .grp-match-team { display: flex; align-items: center; gap: .35rem; font-size: .82rem; font-weight: 600; flex: 1; }
     .grp-match-team.right { justify-content: flex-end; }
     .grp-match-score {

@@ -3603,6 +3603,7 @@ function openGroupModal(grp) {
   );
 
   // ── HTML tabla ───────────────────────────────────────────────
+  // Mundial 2026: top-2 clasifican directamente; 8 mejores terceros también pasan
   const tableHtml = `
     <div>
       <div class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Clasificación</div>
@@ -3623,7 +3624,7 @@ function openGroupModal(grp) {
           </thead>
           <tbody>
             ${table.map((t, i) => `
-              <tr class="${i < 2 ? "grp-qual" : ""}">
+              <tr class="${i < 2 ? "grp-qual" : i === 2 ? "grp-third" : ""}">
                 <td>${t.flag} ${t.name}</td>
                 <td>${t.pj}</td>
                 <td>${t.pg}</td>
@@ -3637,15 +3638,17 @@ function openGroupModal(grp) {
           </tbody>
         </table>
       </div>
-      <div class="text-xs text-gray-600 mt-1.5">🟢 Clasificados (top 2 provisional)</div>
+      <div class="flex flex-col gap-0.5 mt-1.5">
+        <div class="text-xs text-gray-600">🟢 Top 2 — clasificados directamente</div>
+        <div class="text-xs text-gray-600">🟡 3.º — puede clasificar (8 mejores terceros del Mundial pasan)</div>
+      </div>
     </div>`;
 
-  // ── HTML partidos ─────────────────────────────────────────────
-  // Agrupar por jornada (mismo id como A1, A2, A3)
+  // ── HTML partidos (clickables → van al partido en la pestaña) ─
   const jornadas = [...new Set(matches.map(m => m.id))].sort();
   const matchesHtml = `
     <div>
-      <div class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Partidos</div>
+      <div class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Partidos <span class="text-gray-700 normal-case font-normal">· pulsa para ver el partido completo</span></div>
       <div class="flex flex-col gap-2">
         ${jornadas.map(jid => {
           const jMatches = matches.filter(m => m.id === jid);
@@ -3658,12 +3661,13 @@ function openGroupModal(grp) {
                 ? `<div class="grp-match-score">${gh}-${ga}</div>`
                 : `<div class="grp-match-score pending">${m.time_es || "—"}</div>`;
               const dateFmt = m.date ? (() => {
-                const [y,mo,d] = m.date.split("-");
+                const [,mo,d] = m.date.split("-");
                 const months = ["","ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
                 return `${parseInt(d)} ${months[parseInt(mo)]}`;
               })() : "";
+              const dataAttrs = m.date ? `data-date="${m.date}" data-match="${(m.name||"").replace(/"/g,"&quot;")}"` : "";
               return `
-                <div class="grp-match-row ${played ? "grp-match-played" : ""}">
+                <div class="grp-match-row ${played ? "grp-match-played" : ""} ${m.date ? "grp-match-link" : ""}" ${dataAttrs} title="${m.date ? "Ver partido completo" : ""}">
                   <div class="grp-match-team">${m.flag_home || ""} ${m.home}</div>
                   ${scoreHtml}
                   <div class="grp-match-team right">${m.away} ${m.flag_away || ""}</div>
@@ -3792,6 +3796,18 @@ document.addEventListener("click", e => {
   if (badge) {
     e.stopPropagation();
     openGroupModal(badge.dataset.group);
+    return;
+  }
+  // click on a match row inside the group modal → go to that match
+  const matchLink = e.target.closest(".grp-match-link");
+  if (matchLink) {
+    const date = matchLink.dataset.date;
+    const name = matchLink.dataset.match;
+    if (date) {
+      closeGroupModal();
+      goToMatchesDay(date, name || null);
+    }
+    return;
   }
   // close group modal on backdrop click
   const grpModal = document.getElementById("group-modal");
