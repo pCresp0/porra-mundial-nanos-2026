@@ -1728,7 +1728,7 @@
     .adm-modal {
       background: var(--surface); border: 1px solid #3B4270;
       border-radius: 16px; width: 100%; max-width: 960px;
-      height: 80vh;
+      height: calc(100dvh - 3rem); height: calc(100vh - 3rem);
       box-shadow: 0 24px 64px rgba(0,0,0,.7);
       display: flex; flex-direction: column;
       overflow: hidden;
