@@ -10,6 +10,13 @@
         "own_goal": false,
         "penalty": false,
         "team": "home"
+      },
+      {
+        "player": "K. Nakamura",
+        "minute": "57'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
       }
     ]
   }
