@@ -285,6 +285,12 @@
       <div class="card p-5">
         <div class="info-wrap mb-4">
           <h3 class="font-bold text-white">% de partidos con puntos <span id="hr-count" class="text-sm font-normal text-gray-400"></span></h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+
+      <!-- % de partidos con puntos -->
+      <div class="card p-5">
+        <div class="info-wrap mb-4">
+          <h3 class="font-bold text-white">% de partidos con puntos <span id="hr-count" class="text-sm font-normal text-gray-400"></span></h3>
           <span class="info-btn">i</span>
           <div class="info-tip">
             <strong>¿Qué muestra esta gráfica?</strong><br>
@@ -297,24 +303,25 @@
           <canvas id="hitRateChart"></canvas>
         </div>
       </div>
-    </div>
 
-    <!-- desglose de aciertos -->
-    <div class="card p-5 mb-6">
-      <div class="info-wrap mb-4">
-        <h3 class="font-bold text-white">Desglose de aciertos (fase de grupos)</h3>
-        <span class="info-btn">i</span>
-        <div class="info-tip">
-          <strong>Tipos de acierto por partido:</strong><br>
-          🟢 <strong>Exacto</strong> — signo + dif. + resultado exacto (máx. 6 pts)<br>
-          🔵 <strong>1X2 + Dif.</strong> — signo correcto y diferencia de goles<br>
-          🟠 <strong>Solo 1X2</strong> — solo acertó el signo (1/X/2)<br>
-          ⚪ <strong>0 pts</strong> — sin ningún acierto en ese partido
+      <!-- desglose de aciertos -->
+      <div class="card p-5">
+        <div class="info-wrap mb-4">
+          <h3 class="font-bold text-white">Desglose de aciertos (fase de grupos)</h3>
+          <span class="info-btn">i</span>
+          <div class="info-tip">
+            <strong>Tipos de acierto por partido:</strong><br>
+            🟢 <strong>Exacto</strong> — signo + dif. + resultado exacto (máx. 6 pts)<br>
+            🔵 <strong>1X2 + Dif.</strong> — signo correcto y diferencia de goles<br>
+            🟠 <strong>Solo 1X2</strong> — solo acertó el signo (1/X/2)<br>
+            ⚪ <strong>0 pts</strong> — sin ningún acierto en ese partido
+          </div>
+        </div>
+        <div style="height:260px;position:relative">
+          <canvas id="breakdownChart"></canvas>
         </div>
       </div>
-      <div style="height:280px;position:relative">
-        <canvas id="breakdownChart"></canvas>
-      </div>
+
     </div>
 
     <!-- ficha por jugador -->

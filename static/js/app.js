@@ -2391,7 +2391,7 @@ function renderStats() {
         tooltip: { callbacks: { label: i => ` ${i.parsed.y}% (${sortedHR[i.dataIndex].hits}/${sortedHR[i.dataIndex].total} partidos)` } },
       },
       scales: {
-        y: { beginAtZero: true, max: 115, display: false },
+        y: { beginAtZero: true, suggestedMax: Math.max(...sortedHR.map(h => h.pct)) + 8, display: false },
         x: { grid: { display: false }, ticks: { color: "#94A3B8", font: { weight: "bold" } } }
       },
       layout: { padding: { top: 24 } },
