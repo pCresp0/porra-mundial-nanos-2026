@@ -87,6 +87,20 @@
       "team": "away"
     }
   ],
+  "Australia-Turquía": [
+    {
+      "player": "Nestory Irankunda",
+      "minute": "27'",
+      "own_goal": false,
+      "team": "home"
+    },
+    {
+      "player": "C. Metcalfe",
+      "minute": "75'",
+      "own_goal": false,
+      "team": "home"
+    }
+  ],
   "Brasil-Marruecos": [
     {
       "player": "V. Júnior",
