@@ -1,18 +1,43 @@
 {
-  "México-Sudáfrica": [
+  "Australia-Turquía": [
     {
-      "player": "J. Quiñones",
-      "minute": "9'",
+      "player": "Nestory Irankunda",
+      "minute": "27'",
       "own_goal": false,
       "penalty": false,
       "team": "home"
     },
     {
-      "player": "R. Jiménez",
-      "minute": "67'",
+      "player": "C. Metcalfe",
+      "minute": "75'",
       "own_goal": false,
       "penalty": false,
       "team": "home"
+    }
+  ],
+  "Catar-Suiza": [
+    {
+      "player": "B. Khoukhi",
+      "minute": "90'+5'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Breel Embolo",
+      "minute": "17'",
+      "own_goal": false,
+      "penalty": true,
+      "team": "away"
+    }
+  ],
+  "Haití-Escocia": [
+    {
+      "player": "J. McGinn",
+      "minute": "28'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
     }
   ],
   "Corea del Sur-República Checa": [
@@ -33,22 +58,6 @@
     {
       "player": "L. Krejčí",
       "minute": "59'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Canadá-Bosnia y Herzegovina": [
-    {
-      "player": "C. Larin",
-      "minute": "11'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Jovo Lukić",
-      "minute": "21'",
       "own_goal": false,
       "penalty": false,
       "team": "away"
@@ -88,63 +97,6 @@
       "minute": "73'",
       "own_goal": false,
       "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Haití-Escocia": [
-    {
-      "player": "J. McGinn",
-      "minute": "28'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Australia-Turquía": [
-    {
-      "player": "Nestory Irankunda",
-      "minute": "27'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "C. Metcalfe",
-      "minute": "75'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    }
-  ],
-  "Brasil-Marruecos": [
-    {
-      "player": "V. Júnior",
-      "minute": "32'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "I. Saibari",
-      "minute": "21'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Catar-Suiza": [
-    {
-      "player": "B. Khoukhi",
-      "minute": "90'+5'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Breel Embolo",
-      "minute": "17'",
-      "own_goal": false,
-      "penalty": true,
       "team": "away"
     }
   ],
@@ -200,6 +152,54 @@
     },
     {
       "player": "L. Comenencia",
+      "minute": "21'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "México-Sudáfrica": [
+    {
+      "player": "J. Quiñones",
+      "minute": "9'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "R. Jiménez",
+      "minute": "67'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
+  "Brasil-Marruecos": [
+    {
+      "player": "V. Júnior",
+      "minute": "32'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "I. Saibari",
+      "minute": "21'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Canadá-Bosnia y Herzegovina": [
+    {
+      "player": "C. Larin",
+      "minute": "11'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Jovo Lukić",
       "minute": "21'",
       "own_goal": false,
       "penalty": false,

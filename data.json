@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "14/06/2026 20:58",
+    "generated": "14/06/2026 21:00",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-14T21:10",
       "last_updated_time": "21:10",
       "last_updated_date": "14/06/2026",
-      "next_update_iso": "2026-06-14T23:00",
-      "next_update_time": "23:00",
+      "next_update_iso": "2026-06-14T23:05",
+      "next_update_time": "23:05",
       "next_update_date": "14/06/2026",
-      "last_checked_iso": "2026-06-14T22:58",
-      "last_checked_time": "22:58",
+      "last_checked_iso": "2026-06-14T23:00",
+      "last_checked_time": "23:00",
       "last_checked_date": "14/06/2026"
     },
     "players": [
@@ -145,6 +145,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-14T23:00:47+02:00",
+        "date": "14/06/2026",
+        "time": "23:00:47",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-14T22:58:30+02:00",
         "date": "14/06/2026",
@@ -1168,32 +1176,6 @@
         "updated": false,
         "trigger": "schedule",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-13T23:56:04+02:00",
-        "date": "13/06/2026",
-        "time": "23:56:04",
-        "updated": true,
-        "trigger": "schedule",
-        "changes": [
-          {
-            "label": "🇶🇦Catar 1-1 Suiza🇨🇭",
-            "name": "Catar-Suiza",
-            "date": "2026-06-13",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "0-0",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "1-1",
-              "jugado": "sí"
-            }
-          }
-        ]
       }
     ]
   },
