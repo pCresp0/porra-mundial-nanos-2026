@@ -1,12 +1,19 @@
 {
   "Alemania-Curazao": {
-    "home": 1,
+    "home": 2,
     "away": 1,
     "minute": "live",
     "scorers": [
       {
         "player": "Felix Nmecha",
         "minute": "7'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "N. Schlotterbeck",
+        "minute": "38'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
