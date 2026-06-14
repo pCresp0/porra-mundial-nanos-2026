@@ -3013,6 +3013,9 @@
     .bkt-tn { font-size: .72rem; font-weight: 600; color: #94A3B8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .bkt-win .bkt-tn { color: #E2E8F0; }
     .bkt-ph { font-size: .65rem; color: #475569; font-style: italic; font-weight: 400; }
+    /* Equipo resuelto provisionalmente desde clasificación de grupos */
+    .bkt-prov { color: #64748B; font-style: italic; }
+    .bkt-prov-slot { font-size: .58rem; color: #475569; margin-left: .25rem; font-style: normal; background: rgba(255,255,255,.06); border-radius: 3px; padding: .05rem .25rem; }
 
     /* Score / time */
     .bkt-mid { text-align: center; font-size: .7rem; color: #475569; }

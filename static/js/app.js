@@ -3761,6 +3761,29 @@ function renderBracket(overrideEl) {
     return !name || /^(W|L)\d|^\d+[A-Z]|^[A-Z]\d|^Por def/i.test(name) || name.trim() === "";
   }
 
+  // Resolver slot provisional (ej "1A"→1º gA, "2B"→2º gB, "3ABCD"→mejor 3º de esos grupos)
+  function _resolveSlot(slot) {
+    if (!slot || !D) return null;
+    // Patrón "1A" o "2C" → posición + letra
+    const m1 = slot.match(/^([12])([A-L])$/);
+    if (m1) {
+      const pos = parseInt(m1[1]) - 1;
+      const grp = m1[2];
+      const table = _computeGroupStanding(grp);
+      const t = table[pos];
+      return t ? { name: t.name, flag: t.flag } : null;
+    }
+    // Patrón "3ABCDF" → mejor 3.º de entre esos grupos
+    const m3 = slot.match(/^3([A-L]+)$/);
+    if (m3) {
+      const letters = m3[1].split("");
+      const thirds = _computeAllThirds().filter(t => letters.includes(t.group));
+      const best = thirds[0];
+      return best ? { name: best.name, flag: best.flag || "" } : null;
+    }
+    return null;
+  }
+
   function matchCard(m, extra) {
     const cls = extra || "";
     if (!m) {
@@ -3780,11 +3803,20 @@ function renderBracket(overrideEl) {
       ? `<div class="bkt-mid bkt-score${gh === ga ? " bkt-draw" : ""}">${gh}–${ga}</div>`
       : `<div class="bkt-mid bkt-time">${timeStr}<span class="bkt-dt">${dateStr}</span></div>`;
     const ph_h = isPlaceholder(m.home), ph_a = isPlaceholder(m.away);
+    // Intentar resolver slots de grupo (1A, 2B, 3ABCD) provisionalmente
+    const isGroupSlot = s => s && /^[123][A-L]/.test(s);
+    const provH = ph_h && isGroupSlot(m.home) ? _resolveSlot(m.home) : null;
+    const provA = ph_a && isGroupSlot(m.away) ? _resolveSlot(m.away) : null;
     const da = m.date ? `data-date="${m.date}" data-match="${(m.name || "").replace(/"/g, "&quot;")}"` : "";
+    function teamHtml(isPh, prov, slot, flag, name, isWin) {
+      if (!isPh) return `<div class="bkt-team${isWin ? " bkt-win" : ""}"><span class="bkt-fl">${flag || "🛡"}</span><span class="bkt-tn">${escapeHtml(name)}</span></div>`;
+      if (prov) return `<div class="bkt-team"><span class="bkt-fl">${prov.flag || "🛡"}</span><span class="bkt-tn bkt-prov" title="Provisional según clasificación actual">${escapeHtml(prov.name)}<span class="bkt-prov-slot">${slot}</span></span></div>`;
+      return `<div class="bkt-team"><span class="bkt-fl">🛡</span><span class="bkt-tn"><span class="bkt-ph">Por definir</span></span></div>`;
+    }
     return `<div class="bkt-card${played ? " bkt-played" : ""}${m.date ? " grp-match-link bkt-click" : ""}${cls ? " " + cls : ""}" ${da}>
-      <div class="bkt-team${winH ? " bkt-win" : ""}"><span class="bkt-fl">${m.flag_home || "🛡"}</span><span class="bkt-tn">${ph_h ? '<span class="bkt-ph">Por definir</span>' : escapeHtml(m.home)}</span></div>
+      ${teamHtml(ph_h, provH, m.home, m.flag_home, m.home, winH)}
       ${midHtml}
-      <div class="bkt-team${winA ? " bkt-win" : ""}"><span class="bkt-fl">${m.flag_away || "🛡"}</span><span class="bkt-tn">${ph_a ? '<span class="bkt-ph">Por definir</span>' : escapeHtml(m.away)}</span></div>
+      ${teamHtml(ph_a, provA, m.flag_away, m.flag_away, m.away, winA)}
     </div>`;
   }
 
@@ -4578,6 +4610,14 @@ function openTeamModal(teamName) {
       }).join("");
       const playedInGroup = D.matches.filter(m => m.phase === "groups" && m.id && m.id.charAt(0).toUpperCase() === grpLetter && m.played).length;
       const provisional = playedInGroup < 3 ? " <em style='color:#475569;font-size:.6rem'>(provisional)</em>" : "";
+      const thirdQual = thirdRank !== null && thirdRank <= 8;
+      const totalThirds = allThirds.length;
+      const rankTxt = thirdRank !== null ? `N.º <strong>${thirdRank}</strong> de ${totalThirds} terceros` : "sin datos";
+      const prov = playedInGroup < 3 ? " <em>(provisional)</em>" : "";
+      const thirdsLink = `<button class="grp-thirds-link" onclick="event.stopPropagation();closeTeamModal&&closeTeamModal();setTimeout(()=>_switchTeamsSubTab('thirds'),120)" type="button">ver clasificación de terceros →</button>`;
+      const thirdLegHtml = table[2] ? (thirdQual
+        ? `<div class="grp-legend-item grp-legend-third-yes">🟡 3.º — <strong>clasificaría</strong> (${rankTxt})${prov} ${thirdsLink}</div>`
+        : `<div class="grp-legend-item grp-legend-third-no">⬜ 3.º — <strong>no clasificaría</strong> (${rankTxt})${prov} ${thirdsLink}</div>`) : "";
       groupHtml = `
         <div>
           <div class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Grupo ${grpLetter}${provisional}</div>
@@ -4590,6 +4630,10 @@ function openTeamModal(teamName) {
               </tr></thead>
               <tbody>${rows}</tbody>
             </table>
+          </div>
+          <div class="flex flex-col gap-0.5 mt-1.5">
+            <div class="grp-legend-item grp-legend-qual">🟢 Top 2 — clasificados directamente</div>
+            ${thirdLegHtml}
           </div>
         </div>`;
     }
@@ -4961,14 +5005,15 @@ function openGroupModal(grp) {
       : "sin datos suficientes aún";
     const playedInGroup = matches.filter(m => m.played).length;
     const provisionalNote = playedInGroup < 3 ? " <em>(provisional)</em>" : "";
+    const thirdsLinkModal = `<button class="grp-thirds-link" onclick="event.stopPropagation();closeGroupModal&&closeGroupModal();setTimeout(()=>_switchTeamsSubTab('thirds'),120)" type="button">ver clasificación de terceros →</button>`;
     if (thirdQual) {
       return `<div class="grp-legend-item grp-legend-third-yes">
-        🟡 3.º — <strong>clasificaría</strong> (${rankTxt})${provisionalNote}
+        🟡 3.º — <strong>clasificaría</strong> (${rankTxt})${provisionalNote} ${thirdsLinkModal}
         <span class="grp-tiebreaker-note">Criterios 3.ºs: Pts → DIF → GF (sin H2H entre grupos)</span>
       </div>`;
     } else {
       return `<div class="grp-legend-item grp-legend-third-no">
-        ⬜ 3.º — <strong>no clasificaría</strong> (${rankTxt})${provisionalNote}
+        ⬜ 3.º — <strong>no clasificaría</strong> (${rankTxt})${provisionalNote} ${thirdsLinkModal}
         <span class="grp-tiebreaker-note">Criterios 3.ºs: Pts → DIF → GF (sin H2H entre grupos)</span>
       </div>`;
     }
