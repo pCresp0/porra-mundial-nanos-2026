@@ -2341,7 +2341,7 @@ function renderStats() {
     { icon: streakKing?.streak > 0 ? "🔥" : "🤦", val: streakKing ? `${streakKing.streak}` : "—", label: "Racha activa más larga", sub: streakKing?.streak > 0 ? `${streakKing.name} · ${streakKing.streak} en racha` : "Nadie acertó en el último partido",
       info: "<strong>Racha activa</strong>: partidos seguidos puntuando (≥1 pt) contando desde el último partido hacia atrás. Se muestra quién tiene la racha viva más larga ahora mismo." },
   ].map(h => `
-    <div class="card p-4 text-center" style="position:relative">
+    <div class="card p-4 text-center" style="position:relative;isolation:isolate">
       <div class="stat-info-corner">${infoTip(h.info, "right")}</div>
       <div class="text-2xl mb-1">${h.icon}</div>
       <div class="bebas text-3xl text-yellow-400">${h.val}</div>
