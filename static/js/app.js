@@ -3253,7 +3253,7 @@ function renderBetsMain(container) {
 /* ═══════════════════════════════════════════════════════════════
    CLASIFICACIÓN MUNDIAL — sub-tabs: Grupos / Goleadores / General
 ═══════════════════════════════════════════════════════════════ */
-let _teamsSubTab = "groups"; // "groups" | "scorers" | "general"
+let _teamsSubTab = "groups"; // "groups" | "scorers" | "general" | "bracket"
 
 function renderTeams() {
   const container = document.getElementById("teams-container");
@@ -3263,11 +3263,12 @@ function renderTeams() {
   if (!container.querySelector(".tms-sub-tabs")) {
     container.innerHTML = `
       <div class="tms-root">
-        <h2 class="tms-title">🌍 Clasificación Mundial 2026</h2>
+        <h2 class="tms-title">🌍 Clasificaciones Mundial 2026</h2>
         <div class="tms-sub-tabs" id="tms-sub-tabs">
           <button class="tms-sub-tab active" data-stab="groups">📊 Grupos</button>
           <button class="tms-sub-tab" data-stab="scorers">⚽ Goleadores</button>
           <button class="tms-sub-tab" data-stab="general">🏆 Clasificación general</button>
+          <button class="tms-sub-tab" data-stab="bracket">⚔️ Fase Final</button>
         </div>
         <div id="tms-sub-body"></div>
       </div>`;
@@ -3294,6 +3295,10 @@ function _renderTeamsSubBody() {
   if (_teamsSubTab === "groups")  body.innerHTML = _teamsGroupsHtml();
   if (_teamsSubTab === "scorers") body.innerHTML = _teamsScorersHtml();
   if (_teamsSubTab === "general") body.innerHTML = _teamsGeneralHtml();
+  if (_teamsSubTab === "bracket") {
+    body.innerHTML = '<div id="tms-bracket-inner"></div>';
+    renderBracket(document.getElementById("tms-bracket-inner"));
+  }
 }
 
 /* ── Sub-tab 1: Clasificación de grupos ── */
@@ -3642,8 +3647,8 @@ function _teamsGeneralHtml() {
 /* ═══════════════════════════════════════════════════════════════
    BRACKET — Eliminatoria
 ═══════════════════════════════════════════════════════════════ */
-function renderBracket() {
-  const container = document.getElementById("bracket-container");
+function renderBracket(overrideEl) {
+  const container = overrideEl || document.getElementById("bracket-container");
   if (!container || !D) return;
 
   // ── Definición de rondas (fases reales con fechas válidas) ──
@@ -3836,9 +3841,10 @@ function renderBracket() {
     }
   }
 
-  // Re-render al cruzar breakpoint
-  if (!container.dataset.resizeBound) {
-    container.dataset.resizeBound = "1";
+  // Re-render al cruzar breakpoint (solo desde el bracket-container original)
+  const realBktEl = document.getElementById("bracket-container");
+  if (realBktEl && !realBktEl.dataset.resizeBound) {
+    realBktEl.dataset.resizeBound = "1";
     let _wasM = window.matchMedia("(max-width: 767px)").matches;
     window.addEventListener("resize", () => {
       const isM = window.matchMedia("(max-width: 767px)").matches;
@@ -3847,6 +3853,8 @@ function renderBracket() {
         if (!document.getElementById("tab-bracket").classList.contains("hidden")) {
           renderBracket();
         }
+        const tmsEl = document.getElementById("tms-bracket-inner");
+        if (tmsEl) renderBracket(tmsEl);
       }
     });
   }
@@ -4102,7 +4110,6 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
     if (tab === "matches") scrollMatchesToToday = true;
     if (tab === "progression" && D) renderProgression();
     if (tab === "stats" && D) renderStats();
-    if (tab === "bracket" && D) renderBracket();
     if (tab === "teams" && D) renderTeams();
     if (tab === "bets") renderBets();
     if (tab === "matches" && D) renderMatches(currentPhase, currentWeek);
