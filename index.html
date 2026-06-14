@@ -51,6 +51,7 @@
       <span class="upd-line" id="upd-line">Datos actualizados a las <strong id="upd-last">—</strong><span id="upd-match"></span></span>
     </span>
     <span class="hidden sm:inline text-gray-600" id="upd-tz"> · hora España</span>
+    <span id="upd-live-poll-badge" class="hidden upd-live-poll-badge">🔴 actualizando en directo</span>
   </div>
 </div>
 
@@ -77,6 +78,9 @@
     <button class="tab-btn" data-tab="standings">🏅 Clasificación</button>
     <button class="tab-btn" data-tab="progression">📈 Progresión</button>
     <button class="tab-btn" data-tab="stats">📊 Estadísticas</button>
+    <button class="tab-btn" data-tab="teams">🌍 Equipos</button>
+    <button class="tab-btn" data-tab="bets">🎲 Apuestas</button>
+    <button class="tab-btn" data-tab="bracket">⚔️ Eliminatoria</button>
     <button class="tab-btn" data-tab="honor">🏆 Cuadro de Honor</button>
     <!-- overflow: Sistema de puntuación + Más info → dropdown -->
     <div class="tab-more-wrap" id="tab-more-wrap">
@@ -128,6 +132,9 @@
   <button class="tab-btn" data-tab="standings">🏅 Clasificación</button>
   <button class="tab-btn" data-tab="progression">📈 Progresión</button>
   <button class="tab-btn" data-tab="stats">📊 Estadísticas</button>
+  <button class="tab-btn" data-tab="teams">🌍 Equipos</button>
+  <button class="tab-btn" data-tab="bets">🎲 Apuestas</button>
+  <button class="tab-btn" data-tab="bracket">⚔️ Eliminatoria</button>
   <button class="tab-btn" data-tab="honor">🏆 Cuadro de Honor</button>
   <button class="tab-btn" data-tab="scoring">📋 Sistema de puntuación</button>
   <button class="tab-btn" data-tab="info">🛠️ Sobre la web</button>
@@ -274,8 +281,6 @@
     <!-- hero numbers -->
     <div id="stats-hero" class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6"></div>
 
-    <div id="trend-forecast" class="card forecast-card p-5 mb-6"></div>
-
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
       <div class="card p-5">
         <div class="info-wrap mb-4">
@@ -290,21 +295,6 @@
         </div>
         <div style="height:260px;position:relative">
           <canvas id="hitRateChart"></canvas>
-        </div>
-      </div>
-      <div class="card p-5">
-        <div class="info-wrap mb-4">
-          <h3 class="font-bold text-white">Forma reciente</h3>
-          <span class="info-btn">i</span>
-          <div class="info-tip">
-            <strong>¿Qué muestra este gráfico?</strong><br>
-            Puntos obtenidos por cada jugador en los últimos 8 partidos jugados.
-            Cada grupo de barras es un partido — la altura indica los puntos (0–6).
-            Útil para ver quién está en racha y quién está bajando el nivel.
-          </div>
-        </div>
-        <div style="height:260px;position:relative">
-          <canvas id="phaseChart"></canvas>
         </div>
       </div>
     </div>
@@ -344,6 +334,27 @@
   <section id="tab-honor" class="hidden">
     <div id="honor-summary" class="card p-5 mb-6"></div>
     <div id="honor-sections"></div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       TAB: APUESTAS INTERNAS
+  ════════════════════════════════════════════ -->
+  <section id="tab-bets" class="hidden">
+    <div id="bets-container"></div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       TAB: EQUIPOS (clasificación + goleadores)
+  ════════════════════════════════════════════ -->
+  <section id="tab-teams" class="hidden">
+    <div id="teams-container"></div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       TAB: ELIMINATORIA (BRACKET)
+  ════════════════════════════════════════════ -->
+  <section id="tab-bracket" class="hidden">
+    <div id="bracket-container"></div>
   </section>
 
   <!-- ════════════════════════════════════════════
@@ -719,6 +730,9 @@
   </div>
 </div>
 
+<!-- Firebase SDK (Realtime Database) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
 <script src="static/js/app.js"></script>
 </body>
 </html>
