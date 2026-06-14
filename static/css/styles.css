@@ -1725,6 +1725,14 @@
       padding: 1.5rem;
       overflow-y: auto;
     }
+    /* Pantalla de login: modal centrado y compacto */
+    .adm-backdrop.adm-gate-mode {
+      align-items: center;
+    }
+    .adm-backdrop.adm-gate-mode .adm-modal {
+      height: auto;
+      max-height: calc(100vh - 3rem);
+    }
     .adm-modal {
       background: var(--surface); border: 1px solid #3B4270;
       border-radius: 16px; width: 100%; max-width: 960px;

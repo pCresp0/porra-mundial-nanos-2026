@@ -3518,11 +3518,13 @@ function openAdminGate() {
   if (isAdminUnlocked()) {
     _buildAdminPanel();
     modal.classList.remove("hidden");
+    modal.classList.remove("adm-gate-mode");
     document.body.style.overflow = "hidden";
     return;
   }
   _renderAdminGate();
   modal.classList.remove("hidden");
+  modal.classList.add("adm-gate-mode");
   document.body.style.overflow = "hidden";
   setTimeout(() => document.getElementById("adm-pass-input")?.focus(), 50);
 }
@@ -3536,7 +3538,7 @@ function _renderAdminGate(error) {
       <p class="adm-gate-text">Introduce el PIN de administrador</p>
       <form id="adm-pass-form" autocomplete="off">
         <input type="password" id="adm-pass-input" class="adm-pass-input"
-          inputmode="numeric" autocomplete="off" placeholder="••••••" aria-label="PIN" />
+          inputmode="numeric" autocomplete="off" placeholder="_ _ _ _ _ _" aria-label="PIN" />
         <button type="submit" class="adm-pass-btn">Entrar</button>
       </form>
       ${error ? `<p class="adm-gate-error">${error}</p>` : ""}
@@ -3549,10 +3551,8 @@ function _renderAdminGate(error) {
     const hash = await _sha256Hex(val);
     if (hash === ADMIN_PASS_HASH) {
       markAdminUnlocked();
-      // Guarda el PIN para reutilizarlo como clave de lectura de las
-      // sugerencias (mismo valor que READ_TOKEN en el Apps Script). Así no
-      // hay que volver a teclear nada y la lista se carga sola.
       try { localStorage.setItem(FEEDBACK_TOKEN_KEY, val); } catch { /* ignore */ }
+      document.getElementById("admin-modal")?.classList.remove("adm-gate-mode");
       _buildAdminPanel();
     } else {
       _renderAdminGate("PIN incorrecto");
