@@ -2937,6 +2937,8 @@
     .bkt-col { display: flex; flex-direction: column; width: var(--bkt-col-w, 200px); flex-shrink: 0; }
     .bkt-col + .bkt-col { margin-left: var(--bkt-gap, 44px); }
     /* En modo embebido (sub-tab Fase Final) columnas más anchas */
+    .bkt-root-embedded { width: 100%; }
+    .bkt-root-embedded .bkt-scroll-wrap { width: 100%; }
     .bkt-root-embedded .bkt-col { width: 230px; }
     .bkt-root-embedded .bkt-col + .bkt-col { margin-left: 52px; }
     .bkt-root-embedded .bkt-pair:not(.bkt-pair-last)::before { right: calc(-52px + 4px); }
@@ -3098,6 +3100,7 @@
 .tms-root { max-width: 960px; margin: 0 auto; padding: 1rem 0 2rem; }
 /* Fase Final ocupa el ancho completo */
 .tms-root.tms-mode-bracket { max-width: none; }
+.tms-mode-bracket #tms-sub-body { width: 100%; }
 .tms-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: #fff; letter-spacing: .04em; margin-bottom: .75rem; }
 
 /* ── Sub-tabs ── */
