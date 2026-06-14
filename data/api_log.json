@@ -90,5 +90,31 @@
         }
       }
     ]
+  },
+  {
+    "ts_iso": "2026-06-14T05:25:20+02:00",
+    "date": "14/06/2026",
+    "time": "05:25:20",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇭🇹Haití 0-1 Escocia🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+        "name": "Haití-Escocia",
+        "date": "2026-06-14",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "0-0",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "0-1",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]
