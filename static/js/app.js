@@ -3681,23 +3681,35 @@ function closeTeamModal() {
   document.body.style.overflow = "";
 }
 
-function openGroupModal(grp) {
-  if (!D) return;
-  grp = grp.toUpperCase();
-  const matches = D.matches.filter(m => m.phase === "groups" && m.id && m.id.charAt(0).toUpperCase() === grp);
-  if (!matches.length) return;
+/* ═══════════════════════════════════════════════════════════════
+   GRUPO MODAL — helpers de clasificación (desempates FIFA 2026)
+═══════════════════════════════════════════════════════════════ */
 
-  // ── Calcular tabla de clasificación ──────────────────────────
+/**
+ * Calcula la tabla de un grupo con los desempates oficiales FIFA:
+ * 1. Puntos  2. DIF global  3. GF global
+ * 4. Puntos enfrentamiento directo (entre los empatados)
+ * 5. DIF enfrentamiento directo  6. GF enfrentamiento directo
+ * 7. Sorteo
+ */
+function _computeGroupStanding(grp) {
+  if (!D) return [];
+  grp = grp.toUpperCase();
+  const gMatches = D.matches.filter(m =>
+    m.phase === "groups" && m.id && m.id.charAt(0).toUpperCase() === grp
+  );
+  if (!gMatches.length) return [];
+
   const teams = {};
-  const addTeam = (name, flag) => {
-    if (!teams[name]) teams[name] = { name, flag: flag || "", pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
-  };
-  matches.forEach(m => {
-    addTeam(m.home, m.flag_home);
-    addTeam(m.away, m.flag_away);
+  gMatches.forEach(m => {
+    [[m.home, m.flag_home], [m.away, m.flag_away]].forEach(([name, flag]) => {
+      if (name && !teams[name])
+        teams[name] = { name, flag: flag || "", pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    });
     if (!m.played) return;
     const gh = m.goals_l ?? 0, ga = m.goals_v ?? 0;
     const h = teams[m.home], a = teams[m.away];
+    if (!h || !a) return;
     h.pj++; a.pj++;
     h.gf += gh; h.gc += ga;
     a.gf += ga; a.gc += gh;
@@ -3705,12 +3717,137 @@ function openGroupModal(grp) {
     else if (gh < ga) { a.pg++; a.pts += 3; h.pp++; }
     else              { h.pe++; h.pts++; a.pe++; a.pts++; }
   });
-  const table = Object.values(teams).sort((a, b) =>
-    b.pts - a.pts || (b.gf - b.gc) - (a.gf - a.gc) || b.gf - a.gf
+
+  const teamList = Object.values(teams);
+  const anyMatchPlayed = gMatches.some(m => m.played);
+  function h2hStats(names) {
+    const s = {};
+    names.forEach(n => { s[n] = { pts: 0, gf: 0, gc: 0 }; });
+    gMatches.filter(m => m.played && names.includes(m.home) && names.includes(m.away))
+      .forEach(m => {
+        const gh = m.goals_l ?? 0, ga = m.goals_v ?? 0;
+        s[m.home].gf += gh; s[m.home].gc += ga;
+        s[m.away].gf += ga; s[m.away].gc += gh;
+        if (gh > ga)      s[m.home].pts += 3;
+        else if (gh < ga) s[m.away].pts += 3;
+        else              { s[m.home].pts++; s[m.away].pts++; }
+      });
+    return s;
+  }
+
+  const cmpOverall = (a, b) =>
+    (b.pts - a.pts) || ((b.gf - b.gc) - (a.gf - a.gc)) || (b.gf - a.gf);
+
+  teamList.sort(cmpOverall);
+
+  // Resolver empates con H2H (criterios 4-6)
+  const result = [];
+  let i = 0;
+  while (i < teamList.length) {
+    let j = i + 1;
+    while (j < teamList.length && cmpOverall(teamList[i], teamList[j]) === 0) j++;
+
+    if (j - i === 1) {
+      teamList[i].tieNote = null;
+      result.push(teamList[i]);
+    } else {
+      const tiedNames = teamList.slice(i, j).map(t => t.name);
+      const h2h = h2hStats(tiedNames);
+      const cmpH2H = (a, b) =>
+        (h2h[b.name].pts - h2h[a.name].pts) ||
+        ((h2h[b.name].gf - h2h[b.name].gc) - (h2h[a.name].gf - h2h[a.name].gc)) ||
+        (h2h[b.name].gf - h2h[a.name].gf);
+
+      const tiedSorted = teamList.slice(i, j).sort(cmpH2H);
+
+      // Marcar los que siguen empatados tras H2H como "sorteo"
+      let k = 0;
+      while (k < tiedSorted.length) {
+        let l = k + 1;
+        while (l < tiedSorted.length && cmpH2H(tiedSorted[k], tiedSorted[l]) === 0) l++;
+        tiedSorted.slice(k, l).forEach(t => { t.tieNote = (l - k > 1 && anyMatchPlayed) ? "lots" : null; });
+        k = l;
+      }
+      result.push(...tiedSorted);
+    }
+    i = j;
+  }
+  return result;
+}
+
+/**
+ * Devuelve los 12 terceros clasificados de cada grupo ordenados
+ * por los criterios FIFA para comparar terceros (pts > DIF > GF).
+ * No se aplica H2H entre grupos distintos.
+ * Cada entry lleva: .group (letra), .rank (1-12)
+ */
+function _computeAllThirds() {
+  if (!D) return [];
+  const grpLetters = [...new Set(
+    D.matches.filter(m => m.phase === "groups" && m.id)
+             .map(m => m.id.charAt(0).toUpperCase())
+  )].sort();
+
+  const thirds = grpLetters.map(g => {
+    const s = _computeGroupStanding(g);
+    return s.length >= 3 ? { ...s[2], group: g } : null;
+  }).filter(Boolean);
+
+  thirds.sort((a, b) =>
+    (b.pts - a.pts) ||
+    ((b.gf - b.gc) - (a.gf - a.gc)) ||
+    (b.gf - a.gf)
   );
+
+  thirds.forEach((t, idx) => { t.rank = idx + 1; });
+  return thirds;
+}
+
+/* ─────────────────────────────────────────────────────────────── */
+
+function openGroupModal(grp) {
+  if (!D) return;
+  grp = grp.toUpperCase();
+  const matches = D.matches.filter(m => m.phase === "groups" && m.id && m.id.charAt(0).toUpperCase() === grp);
+  if (!matches.length) return;
+
+  // ── Clasificación con desempates FIFA ────────────────────────
+  const table = _computeGroupStanding(grp);
+
+  // ── Rank del 3.º entre todos los grupos ──────────────────────
+  const allThirds = _computeAllThirds();
+  const third = table[2] || null;
+  const thirdRankInfo = third
+    ? allThirds.find(t => t.group === grp) || null
+    : null;
+  const thirdRank = thirdRankInfo ? thirdRankInfo.rank : null;
+  const thirdQual = thirdRank !== null && thirdRank <= 8;
+  const totalThirds = allThirds.length;
 
   // ── HTML tabla ───────────────────────────────────────────────
   // Mundial 2026: top-2 clasifican directamente; 8 mejores terceros también pasan
+
+  // Leyenda dinámica del 3.º
+  const thirdLegend = (() => {
+    if (!third) return "";
+    const rankTxt = thirdRank !== null
+      ? `N.º&nbsp;<strong>${thirdRank}</strong> de ${totalThirds} terceros`
+      : "sin datos suficientes aún";
+    const playedInGroup = matches.filter(m => m.played).length;
+    const provisionalNote = playedInGroup < 3 ? " <em>(provisional)</em>" : "";
+    if (thirdQual) {
+      return `<div class="grp-legend-item grp-legend-third-yes">
+        🟡 3.º — <strong>clasificaría</strong> (${rankTxt})${provisionalNote}
+        <span class="grp-tiebreaker-note">Criterios: Pts → DIF → GF entre todos los terceros</span>
+      </div>`;
+    } else {
+      return `<div class="grp-legend-item grp-legend-third-no">
+        ⬜ 3.º — <strong>no clasificaría</strong> (${rankTxt})${provisionalNote}
+        <span class="grp-tiebreaker-note">Criterios: Pts → DIF → GF entre todos los terceros</span>
+      </div>`;
+    }
+  })();
+
   const tableHtml = `
     <div>
       <div class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Clasificación</div>
@@ -3730,9 +3867,16 @@ function openGroupModal(grp) {
             </tr>
           </thead>
           <tbody>
-            ${table.map((t, i) => `
-              <tr class="${i < 2 ? "grp-qual" : i === 2 ? "grp-third" : ""}">
-                <td>${t.flag} ${t.name}</td>
+            ${table.map((t, i) => {
+              let rowCls = "";
+              if (i < 2) rowCls = "grp-qual";
+              else if (i === 2) rowCls = thirdQual ? "grp-third" : "grp-third grp-third-out";
+              const tieBadge = t.tieNote === "lots"
+                ? `<span class="grp-tie-badge" title="Desempate por sorteo (FIFA)">↯</span>`
+                : "";
+              return `
+              <tr class="${rowCls}">
+                <td>${t.flag} ${t.name}${tieBadge}</td>
                 <td>${t.pj}</td>
                 <td>${t.pg}</td>
                 <td>${t.pe}</td>
@@ -3741,13 +3885,14 @@ function openGroupModal(grp) {
                 <td>${t.gc}</td>
                 <td>${t.gf - t.gc > 0 ? "+" : ""}${t.gf - t.gc}</td>
                 <td class="grp-pts">${t.pts}</td>
-              </tr>`).join("")}
+              </tr>`;
+            }).join("")}
           </tbody>
         </table>
       </div>
       <div class="flex flex-col gap-0.5 mt-1.5">
-        <div class="text-xs text-gray-600">🟢 Top 2 — clasificados directamente</div>
-        <div class="text-xs text-gray-600">🟡 3.º — puede clasificar (8 mejores terceros del Mundial pasan)</div>
+        <div class="grp-legend-item grp-legend-qual">🟢 Top 2 — clasificados directamente</div>
+        ${thirdLegend}
       </div>
     </div>`;
 

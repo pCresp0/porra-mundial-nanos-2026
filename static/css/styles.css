@@ -2842,6 +2842,16 @@
     .grp-table tr.grp-qual td:first-child { padding-left: calc(.75rem - 3px); }
     .grp-table tr.grp-third td { border-left: 3px solid #EAB308; }
     .grp-table tr.grp-third td:first-child { padding-left: calc(.75rem - 3px); }
+    /* 3.º que NO clasificaría — borde gris */
+    .grp-table tr.grp-third-out td { border-left-color: #475569 !important; }
+    /* Badge de sorteo (empate irresoluble) */
+    .grp-tie-badge { display: inline-block; font-size: .65rem; background: rgba(250,204,21,.15); color: #FCD34D; border: 1px solid rgba(250,204,21,.3); border-radius: 4px; padding: 0 .3rem; margin-left: .35rem; vertical-align: middle; cursor: help; }
+    /* Leyenda dinámica del 3.º */
+    .grp-legend-item { font-size: .72rem; color: #9CA3AF; line-height: 1.5; }
+    .grp-legend-qual { color: #6EE7B7; }
+    .grp-legend-third-yes { color: #FCD34D; }
+    .grp-legend-third-no { color: #6B7280; }
+    .grp-tiebreaker-note { display: block; font-size: .65rem; color: #475569; margin-top: .05rem; margin-left: 1.2rem; font-style: italic; }
 
     /* Tarjeta mini de partido dentro del modal */
     .grp-match-row {
