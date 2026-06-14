@@ -1145,44 +1145,7 @@
     .player-pred-card .ppc-chips { margin-top: .25rem; text-align: center; }
 
     /* ─── Player info popover (Partidos) ─── */
-    .pp-trigger { cursor: pointer; }
-    .pp-trigger:hover { border-color: rgba(148, 163, 184, .45); }
-    .player-pop {
-      position: fixed;
-      z-index: 8000;
-      width: 300px;
-      max-width: calc(100vw - 16px);
-      background: #161B33;
-      border: 1px solid #2A3060;
-      border-radius: 12px;
-      padding: .85rem 1rem;
-      box-shadow: 0 14px 38px rgba(0, 0, 0, .55);
-      display: none;
-      left: 0;
-      top: 0;
-      max-height: 82vh;
-      overflow-y: auto;
-      text-align: left;
-    }
-    .player-pop.open { display: block; }
-    .ppop-head { display: flex; align-items: baseline; gap: .5rem; }
-    .ppop-name { font-weight: 800; text-transform: uppercase; font-size: 1.05rem; letter-spacing: .03em; }
-    .ppop-pos { font-size: .72rem; color: #64748B; }
-    .ppop-badges { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .5rem; }
-    .ppop-section { font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #64748B; margin: .75rem 0 .45rem; }
-    .ppop-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: .5rem;
-      text-align: center;
-      margin-top: .75rem;
-      padding-top: .7rem;
-      border-top: 1px solid var(--border);
-    }
-    .ppop-g-lbl { font-size: .62rem; color: #64748B; }
-    .ppop-g-val { font-weight: 700; font-size: .92rem; }
-    .ppop-best { font-size: .72rem; color: #94A3B8; margin-top: .6rem; }
-    .ppop-best strong { color: #E2E8F0; }
+    .pp-trigger { cursor: default; }
 
     /* ── info tooltip ── */
     .info-btn {
