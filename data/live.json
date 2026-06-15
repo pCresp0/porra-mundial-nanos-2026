@@ -1,16 +1,1 @@
-{
-  "Arabia Saudí-Uruguay": {
-    "home": 1,
-    "away": 0,
-    "minute": "live",
-    "scorers": [
-      {
-        "player": "Abdallh Alamri",
-        "minute": "41'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "home"
-      }
-    ]
-  }
-}
+{}

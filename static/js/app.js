@@ -886,6 +886,7 @@ function tickBanner() {
 
   // ── Si hay partidos en juego, el banner anuncia el directo ──
   const liveMatches = (D?.matches || []).filter(m => !m.played && m.live);
+  _updateLiveBanner(liveMatches);
   const lineEl = document.getElementById("upd-line");
   const tzEl = document.getElementById("upd-tz");
   if (lineEl) {
@@ -982,6 +983,7 @@ function _updateLiveBadge(active) {
 
 /* ── Toast de actualización automática ── */
 let _toastTimer = null;
+
 function _showUpdateToast(msg) {
   const el = document.getElementById("upd-toast");
   if (!el) return;
@@ -6435,40 +6437,41 @@ function openGroupModal(grp) {
       </div>
     </div>`;
 
-  // ── HTML partidos (clickables → van al partido en la pestaña) ─
+  // ── HTML partidos: una subtabla por jornada ───────────────────
   const jornadas = [...new Set(matches.map(m => m.id))].sort();
   const matchesHtml = `
     <div>
       <div class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Partidos <span class="text-gray-700 normal-case font-normal">· pulsa para ver detalle del partido completo</span></div>
-      <div class="card overflow-hidden">
-      <table class="tm-match-table">
-        <tbody>
-          ${jornadas.map(jid => {
-            const jMatches = matches.filter(m => m.id === jid);
-            return `
-              <tr class="tm-match-jornada-row"><td colspan="4">Jornada ${jid.slice(1)}</td></tr>
-              ${jMatches.map(m => {
-                const played = m.played;
-                const liveSc = !played && m.live && m.live_goals_l != null && m.live_goals_v != null;
-                const gh = m.goals_l, ga = m.goals_v;
-                const dateFmt = m.date ? (() => {
-                  const [,mo,d] = m.date.split("-");
-                  const months = ["","ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
-                  return `${parseInt(d)} ${months[parseInt(mo)]}`;
-                })() : "";
-                const dataAttrs = m.date ? `data-date="${m.date}" data-match="${(m.name||"").replace(/"/g,"&quot;")}"` : "";
-                const venueHtml = m.venue ? `<span class="tm-mt-venue"> · ${m.venue}</span>` : "";
-                return `
-                  <tr class="${played ? "tm-mt-played" : ""} ${m.date ? "grp-match-link" : ""}" ${dataAttrs} title="${m.date ? "Ver detalle del partido completo" : ""}">
-                    <td class="tm-mt-home">${m.flag_home || ""} ${m.home}</td>
-                    <td class="${played ? "tm-mt-score" : (liveSc ? "tm-mt-score tm-mt-live" : "tm-mt-score tm-mt-pending")}">${played ? `${gh}-${ga}` : (liveSc ? `🔴 ${m.live_goals_l}-${m.live_goals_v}` : (m.time_es || "—"))}</td>
-                    <td class="tm-mt-away">${m.away} ${m.flag_away || ""}</td>
-                    <td class="tm-mt-date">${dateFmt}${venueHtml}</td>
-                  </tr>`;
-              }).join("")}`;
-          }).join("")}
-        </tbody>
-      </table>
+      <div class="grp-jornadas">
+        ${jornadas.map(jid => {
+          const jMatches = matches.filter(m => m.id === jid);
+          return `
+            <div class="card overflow-hidden grp-jornada-block">
+              <div class="grp-jornada-hd">Jornada ${jid.slice(1)}</div>
+              <table class="tm-match-table">
+                <tbody>
+                  ${jMatches.map(m => {
+                    const played = m.played;
+                    const liveSc = !played && m.live && m.live_goals_l != null && m.live_goals_v != null;
+                    const gh = m.goals_l, ga = m.goals_v;
+                    const dateFmt = m.date ? (() => {
+                      const [,mo,d] = m.date.split("-");
+                      const months = ["","ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+                      return `${parseInt(d)} ${months[parseInt(mo)]}`;
+                    })() : "";
+                    const dataAttrs = m.date ? `data-date="${m.date}" data-match="${(m.name||"").replace(/"/g,"&quot;")}"` : "";
+                    return `
+                      <tr class="${played ? "tm-mt-played" : ""} ${m.date ? "grp-match-link" : ""}" ${dataAttrs} title="${m.date ? "Ver detalle del partido completo" : ""}">
+                        <td class="tm-mt-home">${m.flag_home || ""} ${m.home}</td>
+                        <td class="${played ? "tm-mt-score" : (liveSc ? "tm-mt-score tm-mt-live" : "tm-mt-score tm-mt-pending")}">${played ? `${gh}–${ga}` : (liveSc ? `🔴 ${m.live_goals_l}-${m.live_goals_v}` : (m.time_es || "—"))}</td>
+                        <td class="tm-mt-away">${m.away} ${m.flag_away || ""}</td>
+                        <td class="tm-mt-date">${dateFmt}</td>
+                      </tr>`;
+                  }).join("")}
+                </tbody>
+              </table>
+            </div>`;
+        }).join("")}
       </div>
     </div>`;
 
