@@ -3356,6 +3356,14 @@ function _calRow(m, iso) {
     : `<span class="cal-row-vs">vs</span>`;
   const nm = (m.name || "").replace(/'/g, "\\'").replace(/"/g, "&quot;");
   const tv = tvBadgesHtml(m);
+  const calBtn = (!m.played && m.date && m.time_es) ? (() => {
+    const safeName = (m.name || m.id || "").replace(/'/g, "\\'");
+    const gcUrl = _googleCalUrl(m);
+    return `<span class="cal-add-wrap" onclick="event.stopPropagation()">` +
+      `<button class="cal-add-btn" onclick="addMatchToCalendar('${safeName}')" title="Añadir al calendario">📅</button>` +
+      (gcUrl ? `<a class="cal-gcal-btn" href="${gcUrl}" target="_blank" rel="noopener" title="Google Calendar">G</a>` : "") +
+      `</span>`;
+  })() : "";
   return `<div class="cal-row" onclick="goToMatchesDay('${iso}','${nm}')">
       <span class="cal-row-time">${time}</span>
       <span class="cal-row-teams">
@@ -3364,6 +3372,7 @@ function _calRow(m, iso) {
         <span class="cal-row-team">${away} ${fa}</span>
       </span>
       ${tv ? `<span class="cal-row-tv" onclick="event.stopPropagation()">${tv}</span>` : ""}
+      ${calBtn}
     </div>`;
 }
 
