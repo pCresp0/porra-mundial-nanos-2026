@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "15/06/2026 02:38",
+    "generated": "15/06/2026 02:40",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-15T03:06",
       "last_updated_time": "03:06",
       "last_updated_date": "15/06/2026",
-      "next_update_iso": "2026-06-15T04:40",
-      "next_update_time": "04:40",
+      "next_update_iso": "2026-06-15T04:45",
+      "next_update_time": "04:45",
       "next_update_date": "15/06/2026",
-      "last_checked_iso": "2026-06-15T04:38",
-      "last_checked_time": "04:38",
+      "last_checked_iso": "2026-06-15T04:40",
+      "last_checked_time": "04:40",
       "last_checked_date": "15/06/2026"
     },
     "players": [
@@ -151,6 +151,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-15T04:40:34+02:00",
+        "date": "15/06/2026",
+        "time": "04:40:34",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-15T04:38:33+02:00",
         "date": "15/06/2026",
@@ -1117,14 +1125,6 @@
         "ts_iso": "2026-06-15T00:44:17+02:00",
         "date": "15/06/2026",
         "time": "00:44:17",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-15T00:42:19+02:00",
-        "date": "15/06/2026",
-        "time": "00:42:19",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -2895,7 +2895,15 @@
       "live_scorers": [],
       "goals_l": 1,
       "goals_v": 0,
-      "scorers": [],
+      "scorers": [
+        {
+          "player": "A. Diallo",
+          "minute": "90'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        }
+      ],
       "predictions": {
         "JUANCHO": {
           "pred": {
