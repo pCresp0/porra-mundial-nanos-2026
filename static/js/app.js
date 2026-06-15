@@ -995,10 +995,12 @@ function _showUpdateToast(msg) {
   }, 3500);
 }
 
-/* ── Botón manual: fuerza recarga sin caché ── */
+/* ── Botón manual: fuerza recarga sin caché y re-render siempre ── */
 async function _manualRefresh() {
   const btn = document.getElementById("upd-refresh-btn");
   if (btn) { btn.disabled = true; btn.textContent = "⏳ Cargando…"; }
+  // Resetea la firma para forzar re-render aunque los datos no hayan cambiado
+  _lastDataSig = null;
   await loadData(true);
   if (btn) { btn.disabled = false; btn.textContent = "🔄 Actualizar"; }
   _showUpdateToast("✅ Datos al día");
