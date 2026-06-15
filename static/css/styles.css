@@ -203,6 +203,8 @@
     .match-scorers .ms-line { font-size: .72rem; color: #94A3B8; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .match-scorers .ms-name { color: #CBD5E1; font-weight: 600; }
     .match-scorers .ms-name.ms-og { color: #F87171; }
+    /* Nombres en árabe/persa: fuente más legible y dirección RTL */
+    .match-scorers .ms-name-ar { font-family: 'Noto Sans Arabic', 'Segoe UI', sans-serif; font-size: .68rem; unicode-bidi: embed; }
     .match-scorers .ms-og-tag { display: inline-block; font-size: .62rem; font-weight: 800; color: #fff; background: #DC2626; border-radius: 3px; padding: 0 .3rem; margin-left: .2rem; vertical-align: middle; line-height: 1.35; }
     .match-scorers .ms-pen-tag { display: inline-block; font-size: .62rem; font-weight: 700; color: #fff; background: #7C3AED; border-radius: 3px; padding: 0 .3rem; margin-left: .2rem; vertical-align: middle; line-height: 1.35; letter-spacing: .02em; }
     .match-scorers .ms-min { color: var(--gold); font-weight: 700; }
@@ -3034,21 +3036,21 @@
     }
     .grp-modal {
       background: var(--surface); border: 1px solid #3B4270;
-      border-radius: 16px; width: 100%; max-width: 680px;
+      border-radius: 16px; width: 100%; max-width: 860px;
       box-shadow: 0 24px 64px rgba(0,0,0,.7);
       display: flex; flex-direction: column;
       overflow: hidden; flex-shrink: 0;
     }
     .grp-modal-head {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 1.1rem 1.4rem .9rem;
+      padding: 1.1rem 1.6rem .9rem;
       border-bottom: 1px solid #2A3060; flex-shrink: 0;
     }
     .grp-modal-title {
-      font-size: 1.1rem; font-weight: 800; color: #38BDF8; letter-spacing: .03em;
+      font-size: 1.2rem; font-weight: 800; color: #38BDF8; letter-spacing: .03em;
     }
     .grp-modal-body {
-      padding: 1.2rem 1.4rem 1.6rem;
+      padding: 1.4rem 1.8rem 2rem;
       overflow-y: auto; max-height: calc(100dvh - 10rem); max-height: calc(100vh - 10rem);
       display: flex; flex-direction: column; gap: 1.4rem;
     }
