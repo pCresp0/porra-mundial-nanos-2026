@@ -1707,19 +1707,26 @@ function renderProgression() {
     const avg = matchesPl > 0 ? (p.groups / matchesPl).toFixed(1) : "—";
     const deltaCls = v => v > 0 ? "color:var(--green)" : "color:#64748B";
     return `
-      <div class="card p-4 text-center">
-        <div class="text-xs text-gray-400 uppercase font-bold tracking-wider mb-2">${p.name}</div>
-        <div class="bebas text-3xl" style="color:${p.color}">${last}</div>
-        <div class="text-xs text-gray-500 mb-1">acumulado</div>
-        <div class="prog-deltas mb-2">
-          <div class="text-xs font-bold" style="${deltaCls(matchDelta)}">+${matchDelta} último partido</div>
-          <div class="text-xs font-bold" style="${deltaCls(dayDelta)}">+${dayFmt} último día</div>
+      <div class="card p-4" style="border-color:${p.color}44">
+        <div class="pstat-head mb-3">
+          <div class="pstat-bar" style="background:${p.color}"></div>
+          <div>
+            <div class="font-extrabold text-white text-lg uppercase">${p.name}</div>
+            <div class="text-xs text-gray-400">#${p.pos} en la clasificación general</div>
+          </div>
         </div>
-        <div class="score-bar-wrap mb-2">
-          <div class="score-bar" style="background:${p.color};width:${pct}%"></div>
+        <div class="text-center">
+          <div class="bebas text-3xl" style="color:${p.color}">${last}</div>
+          <div class="text-xs text-gray-500 mb-1">acumulado</div>
+          <div class="prog-deltas mb-2">
+            <div class="text-xs font-bold" style="${deltaCls(matchDelta)}">+${matchDelta} último partido</div>
+            <div class="text-xs font-bold" style="${deltaCls(dayDelta)}">+${dayFmt} último día</div>
+          </div>
+          <div class="score-bar-wrap mb-2">
+            <div class="score-bar" style="background:${p.color};width:${pct}%"></div>
+          </div>
+          <div class="text-xs text-gray-400">~${avg} pts/partido</div>
         </div>
-        <div class="text-xs text-gray-400 mb-2">~${avg} pts/partido</div>
-        <div class="prog-rank-tag" style="border-color:${p.color}55;color:${p.color}">#${p.pos} clasificación</div>
       </div>`;
   }).join("");
 }
@@ -3470,8 +3477,7 @@ function _calRow(m, iso) {
         ${mid}
         <span class="cal-row-team">${away} ${fa}</span>
       </span>
-      ${tv ? `<span class="cal-row-tv" onclick="event.stopPropagation()">${tv}</span>` : ""}
-      ${calBtn}
+      <span class="cal-row-actions" onclick="event.stopPropagation()">${tv}${calBtn}</span>
     </div>`;
 }
 
