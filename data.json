@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "15/06/2026 03:50",
+    "generated": "15/06/2026 03:52",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-06-15T05:55",
       "next_update_time": "05:55",
       "next_update_date": "15/06/2026",
-      "last_checked_iso": "2026-06-15T05:50",
-      "last_checked_time": "05:50",
+      "last_checked_iso": "2026-06-15T05:52",
+      "last_checked_time": "05:52",
       "last_checked_date": "15/06/2026"
     },
     "players": [
@@ -153,6 +153,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-15T05:52:35+02:00",
+        "date": "15/06/2026",
+        "time": "05:52:35",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-15T05:50:23+02:00",
         "date": "15/06/2026",
@@ -1122,14 +1130,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-15T01:54:32+02:00",
-        "date": "15/06/2026",
-        "time": "01:54:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -1218,8 +1218,8 @@
     {
       "name": "MEDINA",
       "total": 17.0,
-      "live_points": 3.0,
-      "total_live": 20.0,
+      "live_points": 2.0,
+      "total_live": 19.0,
       "groups": 17.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -1272,8 +1272,8 @@
     {
       "name": "LARRY",
       "total": 10.0,
-      "live_points": 3.0,
-      "total_live": 13.0,
+      "live_points": 2.0,
+      "total_live": 12.0,
       "groups": 10.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -3229,7 +3229,7 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 3,
+      "live_goals_l": 4,
       "live_goals_v": 1,
       "live_scorers": [
         {
@@ -3285,15 +3285,15 @@
           "breakdown": null,
           "live_breakdown": {
             "sign": 2.0,
-            "diff": 1.0,
+            "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 2.0,
             "reasons": [
               "1X2 correcto (+2.0)",
-              "Diferencia de goles (+1)"
+              "Diferencia de goles no acertada"
             ]
           },
-          "live_score": 3.0
+          "live_score": 2.0
         },
         "LUIS/VIR": {
           "pred": {
@@ -3322,15 +3322,15 @@
           "breakdown": null,
           "live_breakdown": {
             "sign": 2.0,
-            "diff": 1.0,
+            "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 2.0,
             "reasons": [
               "1X2 correcto (+2.0)",
-              "Diferencia de goles (+1)"
+              "Diferencia de goles no acertada"
             ]
           },
-          "live_score": 3.0
+          "live_score": 2.0
         },
         "VÍCTOR": {
           "pred": {
