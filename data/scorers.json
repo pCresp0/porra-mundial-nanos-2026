@@ -167,6 +167,29 @@
       "team": "away"
     }
   ],
+  "Suecia-Túnez": [
+    {
+      "player": "Y.Ayari",
+      "minute": "7'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "A. Isak",
+      "minute": "30'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "O. Rekik",
+      "minute": "43'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "México-Sudáfrica": [
     {
       "player": "J. Quiñones",

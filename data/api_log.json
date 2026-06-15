@@ -2812,5 +2812,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-15T06:02:37+02:00",
+    "date": "15/06/2026",
+    "time": "06:02:37",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇸🇪Suecia 5-1 Túnez🇹🇳",
+        "name": "Suecia-Túnez",
+        "date": "2026-06-15",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "0-0",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "5-1",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]
