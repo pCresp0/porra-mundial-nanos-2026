@@ -1039,11 +1039,17 @@ function matchTeamsHtml(m) {
       <div style="font-size:.78rem;color:#93C5FD;margin-top:.15rem;letter-spacing:.04em">${m.time_es} h</div>`;
   } else if (m.time_es) {
     const isNext = _nextMatchId && (m.id === _nextMatchId || m.name === _nextMatchId);
+    const calBtnHtml = m.date ? (() => {
+      const sn = (m.name || m.id || "").replace(/'/g, "\\'");
+      return `<button class="cal-add-btn cal-add-inline" onclick="event.stopPropagation();_showCalPickerForMatch('${sn}',this)" title="Añadir al calendario">📅 Añadir</button>`;
+    })() : "";
     if (isNext) {
       scoreHtml = `<div style="margin-top:.4rem;font-size:1.1rem;font-weight:700;color:#64748B;letter-spacing:.03em">${m.time_es}<span style="font-size:.7rem;font-weight:400;margin-left:.3rem;opacity:.7">h</span></div>
-        <div id="match-countdown" style="font-family:'Courier New',monospace;font-size:1.2rem;font-weight:900;color:var(--gold);letter-spacing:.06em;margin-top:.3rem">--:--</div>`;
+        <div id="match-countdown" style="font-family:'Courier New',monospace;font-size:1.2rem;font-weight:900;color:var(--gold);letter-spacing:.06em;margin-top:.3rem">--:--</div>
+        ${calBtnHtml ? `<div style="margin-top:.4rem">${calBtnHtml}</div>` : ""}`;
     } else {
-      scoreHtml = `<div style="margin-top:.4rem;font-size:1.1rem;font-weight:700;color:#64748B;letter-spacing:.03em">${m.time_es}<span style="font-size:.7rem;font-weight:400;margin-left:.3rem;opacity:.7">h</span></div>`;
+      scoreHtml = `<div style="margin-top:.4rem;font-size:1.1rem;font-weight:700;color:#64748B;letter-spacing:.03em">${m.time_es}<span style="font-size:.7rem;font-weight:400;margin-left:.3rem;opacity:.7">h</span></div>
+        ${calBtnHtml ? `<div style="margin-top:.4rem">${calBtnHtml}</div>` : ""}`;
     }
   } else {
     scoreHtml = `<div style="margin-top:.4rem;font-size:.85rem;color:#334155;font-weight:600;letter-spacing:.06em;text-transform:uppercase">vs</div>`;
@@ -1111,11 +1117,7 @@ function matchMetaHtml(m) {
   }
   const tv = tvBadgesHtml(m);
   if (tv) parts.push(tv);
-  // Botón añadir al calendario — solo partidos no jugados con fecha y hora
-  if (!m.played && m.date && m.time_es) {
-    const safeName = (m.name || m.id || "").replace(/'/g, "\\'");
-    parts.push(`<button class="cal-add-btn" onclick="event.stopPropagation();_showCalPickerForMatch('${safeName}',this)" title="Añadir al calendario">📅 Añadir</button>`);
-  }
+  // Botón añadir al calendario — eliminado de aqui, ahora va junto a la hora en matchTeamsHtml
   if (!parts.length) return "";
   return `<div class="match-meta-row">${parts.join("")}</div>`;
 }

@@ -2731,6 +2731,8 @@
     }
     .cal-add-btn:hover, .cal-add-btn:active { background: rgba(59,130,246,.28); }
     .cal-add-compact { padding: .22rem .45rem; font-size: .78rem; }
+    /* Versión centrada dentro de la tarjeta de partido (junto a la hora) */
+    .cal-add-inline { margin: 0 auto; }
     .cal-export-all-btn {
       display: inline-flex; align-items: center; gap: .3rem;
       font-size: .75rem; font-weight: 600;
