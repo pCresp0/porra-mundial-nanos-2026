@@ -2738,14 +2738,17 @@ function renderStats() {
                            : sc >= 3 ? "1X2 + diferencia"
                            : sc >= 2 ? "acertó 1X2"
                            :           "falló el 1X2";
-    const lastBar = last10.length ? `<div class="flex gap-1 mt-1 flex-wrap">
-      ${last10.map(m => {
-        const sc = m.predictions[p.name]?.score ?? 0;
-        const col = scoreColor(sc);
-        const lbl = `${m.name}: ${sc} pts (${scoreTip(sc)})`;
-        return `<div title="${lbl.replace(/"/g,"&quot;")}" style="width:13px;height:20px;border-radius:3px;background:${col};flex-shrink:0"></div>`;
-      }).join("")}
-    </div>` : `<div class="text-xs text-gray-600 mt-1">Aún sin partidos</div>`;
+    const lastBar = last10.length ? `
+      <div class="pstat-dir-row">
+        <span class="pstat-dir-lbl">antiguo ›</span>
+        <div class="pstat-squares">${last10.map(m => {
+          const sc = m.predictions[p.name]?.score ?? 0;
+          const col = scoreColor(sc);
+          const lbl = `${m.name}: ${sc} pts (${scoreTip(sc)})`;
+          return `<div title="${lbl.replace(/"/g,"&quot;")}" style="width:13px;height:20px;border-radius:3px;background:${col};flex-shrink:0"></div>`;
+        }).join("")}</div>
+        <span class="pstat-dir-lbl">‹ reciente</span>
+      </div>` : `<div class="text-xs text-gray-600 mt-1">Aún sin partidos</div>`;
 
     return `
       <div class="card p-5 pstat-card" style="border-color:${p.color}44">
