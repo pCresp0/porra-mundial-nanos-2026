@@ -886,7 +886,6 @@ function tickBanner() {
 
   // ── Si hay partidos en juego, el banner anuncia el directo ──
   const liveMatches = (D?.matches || []).filter(m => !m.played && m.live);
-  _updateLiveBanner(liveMatches);
   const lineEl = document.getElementById("upd-line");
   const tzEl = document.getElementById("upd-tz");
   if (lineEl) {
