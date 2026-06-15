@@ -3220,9 +3220,9 @@
     .grp-match-date { font-size: .68rem; color: #64748B; text-align: center; }
 
     /* Subtabla de partidos en modal de grupo */
-    .tm-match-table { width: 100%; border-collapse: collapse; margin-top: .25rem; }
-    .tm-match-jornada-row td { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #64748B; padding: .6rem 0 .2rem; }
-    .tm-match-table td { padding: .42rem .35rem; border-bottom: 1px solid var(--border); font-size: .82rem; font-weight: 600; vertical-align: middle; }
+    .tm-match-table { width: 100%; border-collapse: collapse; margin-top: 0; }
+    .tm-match-jornada-row td { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #64748B; padding: .55rem .75rem .2rem; }
+    .tm-match-table td { padding: .42rem .75rem; border-bottom: 1px solid var(--border); font-size: .82rem; font-weight: 600; vertical-align: middle; }
     .tm-match-table tr.tm-mt-played td { border-bottom-color: rgba(34,197,94,.15); }
     .tm-match-table tr.grp-match-link { cursor: pointer; transition: background .15s; }
     .tm-match-table tr.grp-match-link:hover td { background: var(--card2); }

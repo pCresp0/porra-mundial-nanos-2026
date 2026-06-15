@@ -6388,6 +6388,7 @@ function openGroupModal(grp) {
     <div>
       <div class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Clasificación</div>
       <div class="card overflow-hidden">
+        <div class="overflow-x-auto">
         <table class="grp-table">
           <thead>
             <tr>
@@ -6425,6 +6426,7 @@ function openGroupModal(grp) {
             }).join("")}
           </tbody>
         </table>
+        </div>
       </div>
       <div class="flex flex-col gap-0.5 mt-1.5">
         <div class="grp-legend-item grp-legend-qual">🟢 Top 2 — clasificados directamente</div>
@@ -6438,6 +6440,7 @@ function openGroupModal(grp) {
   const matchesHtml = `
     <div>
       <div class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Partidos <span class="text-gray-700 normal-case font-normal">· pulsa para ver detalle del partido completo</span></div>
+      <div class="card overflow-hidden">
       <table class="tm-match-table">
         <tbody>
           ${jornadas.map(jid => {
@@ -6466,6 +6469,7 @@ function openGroupModal(grp) {
           }).join("")}
         </tbody>
       </table>
+      </div>
     </div>`;
 
   // ── Montar y mostrar ─────────────────────────────────────────
