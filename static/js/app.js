@@ -725,6 +725,8 @@ async function loadData(silent = false) {
       D = json;
       render();
       window.scrollTo({ top: scrollY, behavior: "instant" });
+      // Toast automático: notifica al usuario que los datos se han actualizado
+      _showUpdateToast();
       return;
     }
 
@@ -978,6 +980,30 @@ function _updateLiveBadge(active) {
   el.classList.toggle("hidden", !active);
 }
 
+/* ── Toast de actualización automática ── */
+let _toastTimer = null;
+function _showUpdateToast(msg) {
+  const el = document.getElementById("upd-toast");
+  if (!el) return;
+  el.textContent = msg || "⚡ Datos actualizados";
+  el.classList.remove("hidden", "upd-toast-hide");
+  el.classList.add("upd-toast-show");
+  if (_toastTimer) clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(() => {
+    el.classList.add("upd-toast-hide");
+    setTimeout(() => { el.classList.add("hidden"); el.classList.remove("upd-toast-show", "upd-toast-hide"); }, 400);
+  }, 3500);
+}
+
+/* ── Botón manual: fuerza recarga sin caché ── */
+async function _manualRefresh() {
+  const btn = document.getElementById("upd-refresh-btn");
+  if (btn) { btn.disabled = true; btn.textContent = "⏳ Cargando…"; }
+  await loadData(true);
+  if (btn) { btn.disabled = false; btn.textContent = "🔄 Actualizar"; }
+  _showUpdateToast("✅ Datos al día");
+}
+
 function startLivePoll() {
   // Limpia timer anterior si existe
   if (_livePollTimer) { clearInterval(_livePollTimer); _livePollTimer = null; }
@@ -1064,7 +1090,7 @@ function renderPodium() {
         <span class="font-bold text-white ml-2">${p.name}</span>
         ${(liveActive && p.live_points > 0) ? `<span class="rest-prov">+${_fmtPts(p.live_points)} en juego</span>` : ""}
       </div>
-      <span class="bebas text-xl" style="color:${p.color}">${_fmtPts(totOf(p))}${liveActive ? " <span class='prov-tag'>prov.</span>" : ""}</span>
+      <span class="bebas text-xl" style="color:${p.color}">${_fmtPts(totOf(p))} <span style="font-size:.75em;opacity:.7">PTS</span>${liveActive ? " <span class='prov-tag'>prov.</span>" : ""}</span>
     </div>`).join("");
 }
 
@@ -1131,8 +1157,13 @@ function matchTeamsHtml(m) {
     scoreHtml = `<div class="match-score-big match-score-live">${m.live_goals_l} - ${m.live_goals_v}</div>
       <div class="live-minute-pill"><span class="live-ball">⚽</span> ${minLabel} · EN DIRECTO</div>`;
   } else if (isLive) {
-    scoreHtml = `<div style="margin-top:.5rem;font-size:2.2rem;font-weight:900;color:#3B82F6;font-family:'Bebas Neue',sans-serif;letter-spacing:.08em">EN CURSO</div>
-      <div style="font-size:.78rem;color:#93C5FD;margin-top:.15rem;letter-spacing:.04em">${m.time_es} h</div>`;
+    // Partido en curso pero sin datos de goles aún → mostrar 0-0 provisional
+    const liveGoalL = m.live_goals_l ?? 0;
+    const liveGoalV = m.live_goals_v ?? 0;
+    const minute = (m.live_minute || "").trim();
+    const minLabel = minute ? liveMinuteLabel(minute) : "EN JUEGO";
+    scoreHtml = `<div class="match-score-big match-score-live">${liveGoalL} - ${liveGoalV}</div>
+      <div class="live-minute-pill"><span class="live-ball">⚽</span> ${minLabel} · EN DIRECTO</div>`;
   } else if (m.time_es) {
     const isNext = _nextMatchId && (m.id === _nextMatchId || m.name === _nextMatchId);
     const calBtnHtml = m.date ? (() => {

@@ -52,8 +52,10 @@
     </span>
     <span class="hidden sm:inline text-gray-600" id="upd-tz"> · hora España</span>
     <span id="upd-live-poll-badge" class="hidden upd-live-poll-badge">🔴 actualizando en directo</span>
+    <button id="upd-refresh-btn" class="upd-refresh-btn" onclick="_manualRefresh()" title="Forzar recarga de datos">🔄 Actualizar</button>
   </div>
 </div>
+<div id="upd-toast" class="upd-toast hidden" aria-live="polite"></div>
 
 <!-- ── header ── -->
 <header class="header-bg py-4 md:py-6">
@@ -79,7 +81,6 @@
     <button class="tab-btn porra-only" data-tab="standings">🏅 Clasificación Porra</button>
     <button class="tab-btn porra-only" data-tab="progression">📈 Progresión</button>
     <button class="tab-btn porra-only" data-tab="stats">📊 Estadísticas</button>
-    <button class="tab-btn porra-only" data-tab="h2h">🆚 Cara a cara</button>
     <!-- Accesos directos (solo modo público): sustituyen a 'Clasificaciones Mundial' -->
     <button class="tab-btn subnav-btn guest-only" data-stab="groups">📊 Grupos</button>
     <button class="tab-btn subnav-btn guest-only" data-stab="scorers">⚽ Goleadores</button>
@@ -93,7 +94,9 @@
       <div class="tab-more-dropdown hidden" id="tab-more-dropdown">
         <button class="tab-btn porra-only" data-tab="bracket">⚔️ Fase Final</button>
         <button class="tab-btn porra-only" data-tab="teams">🌍 Clasificaciones Mundial</button>
+        <button class="tab-btn subnav-btn porra-only" data-stab="general">🏆 Clasificación General</button>
         <button class="tab-btn porra-only" data-tab="honor">🏆 Cuadro de Honor</button>
+        <button class="tab-btn porra-only" data-tab="h2h">🆚 Cara a cara</button>
         <button class="tab-btn porra-only" data-tab="scoring">📋 Sistema de puntuación</button>
         <button class="tab-btn porra-only" data-tab="bets">🎲 Apuestas internas</button>
         <button class="tab-btn" data-tab="info">🛠️ Sobre la web</button>
@@ -141,8 +144,8 @@
   <button class="tab-btn porra-only" data-tab="standings">🏅 Clasificación Porra</button>
   <button class="tab-btn porra-only" data-tab="progression">📈 Progresión</button>
   <button class="tab-btn porra-only" data-tab="stats">📊 Estadísticas</button>
-  <button class="tab-btn porra-only" data-tab="h2h">🆚 Cara a cara</button>
   <button class="tab-btn porra-only" data-tab="teams">🌍 Clasificaciones Mundial</button>
+  <button class="tab-btn subnav-btn porra-only" data-stab="general">🏆 Clasificación General</button>
   <!-- Accesos directos (solo modo público) -->
   <button class="tab-btn subnav-btn guest-only" data-stab="groups">📊 Grupos</button>
   <button class="tab-btn subnav-btn guest-only" data-stab="scorers">⚽ Goleadores</button>
@@ -151,6 +154,7 @@
   <button class="tab-btn subnav-btn guest-only" data-stab="bracket">⚔️ Fase Final</button>
   <button class="tab-btn porra-only" data-tab="bracket">⚔️ Fase Final</button>
   <button class="tab-btn porra-only" data-tab="honor">🏆 Cuadro de Honor</button>
+  <button class="tab-btn porra-only" data-tab="h2h">🆚 Cara a cara</button>
   <button class="tab-btn porra-only" data-tab="scoring">📋 Sistema de puntuación</button>
   <button class="tab-btn porra-only" data-tab="bets">🎲 Apuestas internas</button>
   <button class="tab-btn" data-tab="info">🛠️ Sobre la web</button>
