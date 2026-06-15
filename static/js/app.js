@@ -2640,6 +2640,7 @@ function renderStats() {
         chart.getDatasetMeta(0).data.forEach((bar, i) => {
           const val = data.datasets[0].data[i];
           if (val == null) return;
+          // % encima de la barra
           ctx.save();
           ctx.fillStyle = "#CBD5E1";
           ctx.font = "bold 11px sans-serif";
@@ -2647,6 +2648,17 @@ function renderStats() {
           ctx.textBaseline = "bottom";
           ctx.fillText(val + "%", bar.x, bar.y - 4);
           ctx.restore();
+          // aciertos/total dentro de la barra
+          const hr = sortedHR[i];
+          if (hr && bar.base - bar.y > 36) {
+            ctx.save();
+            ctx.fillStyle = "#FFFFFF";
+            ctx.font = "bold 12px sans-serif";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "top";
+            ctx.fillText(`${hr.hits}/${hr.total}`, bar.x, bar.y + 20);
+            ctx.restore();
+          }
         });
       }
     }],
@@ -2716,12 +2728,21 @@ function renderStats() {
   playersEl.innerHTML = D.standings.map(p => {
     const pp = perPlayer.find(x => x.name === p.name) || {};
     const last10 = groupMatches.slice(-10);
-    const scoreColor = (sc) => sc >= 5 ? "#22C55E" : sc >= 3 ? "#EAB308" : sc >= 1 ? "#F97316" : "#374151";
+    // En grupos solo existen 4 resultados: 0 (falló 1X2), 2 (acertó 1X2),
+    // 3 (1X2 + diferencia) y 6 (exacto). Un color distinto por estado real.
+    const scoreColor = (sc) => sc >= 6 ? "#22C55E"   // exacto
+                             : sc >= 3 ? "#FACC15"   // 1X2 + diferencia
+                             : sc >= 2 ? "#F97316"   // solo 1X2
+                             :           "#374151";  // falló
+    const scoreTip = (sc) => sc >= 6 ? "resultado exacto"
+                           : sc >= 3 ? "1X2 + diferencia"
+                           : sc >= 2 ? "acertó 1X2"
+                           :           "falló el 1X2";
     const lastBar = last10.length ? `<div class="flex gap-1 mt-1 flex-wrap">
       ${last10.map(m => {
         const sc = m.predictions[p.name]?.score ?? 0;
         const col = scoreColor(sc);
-        const lbl = `${m.name}: ${sc} pts`;
+        const lbl = `${m.name}: ${sc} pts (${scoreTip(sc)})`;
         return `<div title="${lbl.replace(/"/g,"&quot;")}" style="width:13px;height:20px;border-radius:3px;background:${col};flex-shrink:0"></div>`;
       }).join("")}
     </div>` : `<div class="text-xs text-gray-600 mt-1">Aún sin partidos</div>`;
@@ -2768,10 +2789,10 @@ function renderStats() {
         </div>
         ${lastBar}
         <div class="pstat-legend">
-          <span><i style="background:#22C55E"></i> 5+ pts</span>
-          <span><i style="background:#EAB308"></i> 3-4 pts</span>
-          <span><i style="background:#F97316"></i> 1-2 pts</span>
-          <span><i style="background:#374151"></i> 0 pts</span>
+          <span><i style="background:#22C55E"></i> Exacto (6)</span>
+          <span><i style="background:#FACC15"></i> 1X2 + dif. (3)</span>
+          <span><i style="background:#F97316"></i> Solo 1X2 (2)</span>
+          <span><i style="background:#374151"></i> Fallo (0)</span>
         </div>
       </div>`;
   }).join("");
@@ -6146,7 +6167,9 @@ function _buildAdminPanel() {
         <span class="adm-badge">${played.length} / ${allMatches.length}</span>
       </div>
       <div class="adm-matches">
-        ${played.length ? played.map(m => {
+        ${played.length ? [...played].sort((a, b) =>
+          `${b.date || ""} ${b.time_es || ""}`.localeCompare(`${a.date || ""} ${a.time_es || ""}`)
+        ).map(m => {
           const hasScore = m.goals_l != null && m.goals_v != null;
           const scoreStr = hasScore ? `${m.goals_l}-${m.goals_v}` : (m.result || "—");
           return `<div class="adm-match-row">

@@ -106,7 +106,7 @@ def main() -> None:
                   file=sys.stderr)
             return
 
-    # 2) Sin partido activo → comprobación periódica cada 30 min.
+    # 2) Sin partido activo → comprobación periódica cada 15 min.
     last = _last_api_call(now)
     if last is None:
         print("run=yes")

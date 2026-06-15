@@ -1856,7 +1856,7 @@
     .adm-rel { font-size: .7rem; color: #4ADE80; font-weight: 500; }
     .adm-matches {
       display: flex; flex-direction: column; gap: 3px;
-      max-height: 240px; overflow-y: auto;
+      max-height: 60vh; overflow-y: auto;
       background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: .5rem .75rem;
     }
     .adm-match-row {
