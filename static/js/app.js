@@ -1111,6 +1111,13 @@ function matchMetaHtml(m) {
   }
   const tv = tvBadgesHtml(m);
   if (tv) parts.push(tv);
+  // Botón añadir al calendario — solo partidos no jugados con fecha y hora
+  if (!m.played && m.date && m.time_es) {
+    const safeName = (m.name || m.id || "").replace(/'/g, "\\'");
+    const gcUrl = _googleCalUrl(m);
+    parts.push(`<span class="cal-add-wrap">
+      <button class="cal-add-btn" onclick="addMatchToCalendar('${safeName}');event.stopPropagation()" title="Añadir al calendario (descarga .ics)">📅 Añadir</button>${gcUrl ? `<a class="cal-gcal-btn" href="${gcUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Añadir a Google Calendar">G</a>` : ""}</span>`);
+  }
   if (!parts.length) return "";
   return `<div class="match-meta-row">${parts.join("")}</div>`;
 }
@@ -1870,6 +1877,137 @@ function toggleDay(header) {
   const isCollapsed = header.classList.toggle("collapsed");
   const matches = header.nextElementSibling;
   if (matches) matches.classList.toggle("collapsed", isCollapsed);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ADD TO CALENDAR (ICS / Google Calendar)
+   Genera ficheros .ics client-side, sin dependencias.
+   Timezone: Europe/Madrid (CEST verano UTC+2, CET invierno UTC+1).
+   Compatible con: iOS Calendario, Android Google Calendar,
+   Outlook, Apple Calendar, Thunderbird y todos los navegadores.
+═══════════════════════════════════════════════════════════════ */
+
+// VTIMEZONE block para Europe/Madrid — necesario para RFC 5545 completo
+const _ICS_VTIMEZONE = [
+  "BEGIN:VTIMEZONE",
+  "TZID:Europe/Madrid",
+  "BEGIN:STANDARD",
+  "DTSTART:19701025T030000",
+  "RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=10",
+  "TZOFFSETFROM:+0200",
+  "TZOFFSETTO:+0100",
+  "TZNAME:CET",
+  "END:STANDARD",
+  "BEGIN:DAYLIGHT",
+  "DTSTART:19700329T020000",
+  "RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=3",
+  "TZOFFSETFROM:+0100",
+  "TZOFFSETTO:+0200",
+  "TZNAME:CEST",
+  "END:DAYLIGHT",
+  "END:VTIMEZONE",
+].join("\r\n");
+
+// "2026-06-15" + "19:00" → "20260615T190000"
+function _icsLocalDt(dateStr, timeStr) {
+  return dateStr.replace(/-/g, "") + "T" + (timeStr || "00:00").replace(":", "") + "00";
+}
+
+// Genera el bloque VEVENT de un partido (2 h de duración)
+function _icsEvent(m) {
+  const date = (m.date || "").slice(0, 10);
+  const time = m.time_es || "00:00";
+  if (!date || date.length < 10) return "";
+  const [hh, mm] = time.split(":").map(Number);
+  const endHH = String(hh + 2).padStart(2, "0");
+  const endTime = `${endHH}:${String(mm).padStart(2, "0")}`;
+  const dtStart = _icsLocalDt(date, time);
+  const dtEnd   = _icsLocalDt(date, endTime);
+  const home = m.home || "Local";
+  const away = m.away || "Visitante";
+  const phase = PHASE_LABELS[m.phase] || m.phase || "Mundial 2026";
+  const uid = `match-${(m.id || m.name || date).replace(/[^a-z0-9]/gi, "-")}@porra-nanos-2026`;
+  const summary = `${(m.flag_home || "")}${home} vs ${(m.flag_away || "")}${away}`;
+  const desc = `Mundial FIFA 2026 · ${phase}\\nHora España: ${time}h\\nPorra «Los Nanos»`;
+  return [
+    "BEGIN:VEVENT",
+    `UID:${uid}`,
+    `DTSTART;TZID=Europe/Madrid:${dtStart}`,
+    `DTEND;TZID=Europe/Madrid:${dtEnd}`,
+    `SUMMARY:${summary}`,
+    `DESCRIPTION:${desc}`,
+    `LOCATION:${m.city ? `${m.city}, ${m.country || ""}` : "Mundial 2026"}`,
+    "END:VEVENT",
+  ].join("\r\n");
+}
+
+// Genera el ICS completo para un array de partidos
+function _generateIcs(matches) {
+  const events = matches.map(_icsEvent).filter(Boolean).join("\r\n");
+  return [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//Porra Los Nanos//Mundial 2026//ES",
+    "CALSCALE:GREGORIAN",
+    "METHOD:PUBLISH",
+    "X-WR-CALNAME:Mundial 2026 – Porra Los Nanos",
+    "X-WR-TIMEZONE:Europe/Madrid",
+    _ICS_VTIMEZONE,
+    events,
+    "END:VCALENDAR",
+  ].join("\r\n");
+}
+
+// Descarga el ICS o lo abre en nueva pestaña (fallback iOS Safari)
+function _downloadIcs(icsText, filename) {
+  const blob = new Blob([icsText], { type: "text/calendar;charset=utf-8" });
+  const url  = URL.createObjectURL(blob);
+  // iOS Safari no admite el atributo download en blobs — abre en nueva pestaña
+  const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  if (isIos) {
+    window.open(url, "_blank");
+  } else {
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
+}
+
+// URL de Google Calendar para un partido (alternativa online)
+function _googleCalUrl(m) {
+  const date = (m.date || "").slice(0, 10);
+  const time = m.time_es || "00:00";
+  if (!date) return "";
+  const [hh, mm] = time.split(":").map(Number);
+  // Google Calendar usa UTC; CEST = UTC+2 en verano
+  const startUtcH = hh - 2;
+  const start = date.replace(/-/g, "") + "T" + String(startUtcH < 0 ? startUtcH + 24 : startUtcH).padStart(2, "0") + String(mm).padStart(2, "0") + "00Z";
+  const endUtcH = startUtcH + 2;
+  const end   = date.replace(/-/g, "") + "T" + String(endUtcH).padStart(2, "0") + String(mm).padStart(2, "0") + "00Z";
+  const home = m.home || "Local";
+  const away = m.away || "Visitante";
+  const text = encodeURIComponent(`${(m.flag_home||"")}${home} vs ${(m.flag_away||"")}${away} · Mundial 2026`);
+  const details = encodeURIComponent(`Porra «Los Nanos» · Hora España: ${time}h`);
+  const loc = encodeURIComponent(m.city ? `${m.city}, ${m.country || ""}` : "Mundial 2026");
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${start}/${end}&details=${details}&location=${loc}`;
+}
+
+// Botón individual de añadir al calendario (partido sin jugar)
+function addMatchToCalendar(matchName) {
+  const m = (D.matches || []).find(x => x.name === matchName || x.id === matchName);
+  if (!m) return;
+  _downloadIcs(_generateIcs([m]), `partido-${(m.id || matchName).replace(/\s+/g, "-").toLowerCase()}.ics`);
+}
+
+// Todos los partidos pendientes
+function addAllMatchesToCalendar() {
+  const pending = (D.matches || []).filter(m => !m.played && m.date && m.time_es);
+  if (!pending.length) { alert("No hay partidos pendientes."); return; }
+  _downloadIcs(_generateIcs(pending), "mundial-2026-pendientes.ics");
 }
 
 function renderMatchCard(m, players, colors) {
