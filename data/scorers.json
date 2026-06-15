@@ -183,6 +183,27 @@
       "team": "home"
     },
     {
+      "player": "V. Gyökeres",
+      "minute": "59'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "M. Svanberg",
+      "minute": "84'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Y.Ayari",
+      "minute": "90'+6'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
       "player": "O. Rekik",
       "minute": "43'",
       "own_goal": false,
