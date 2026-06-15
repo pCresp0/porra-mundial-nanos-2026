@@ -2880,6 +2880,8 @@
       }
       .cal-add-btn, .cal-add-compact { font-size: .68rem; padding: .2rem .5rem; }
       .cal-export-all-btn { font-size: .7rem; padding: .28rem .7rem; width: 100%; justify-content: center; }
+      .cal-picker { min-width: 200px; }
+      .cal-picker-opt { min-height: 44px; font-size: .9rem; }
       .player-pred-card { padding: .4rem .35rem; }
       .player-pred-card .pname { font-size: .6rem; }
       .brk-chip { font-size: .58rem; padding: .08rem .3rem; }

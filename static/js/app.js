@@ -2050,16 +2050,27 @@ function _showCalPicker(matches, filename, btnEl) {
   document.body.appendChild(picker);
   _calPickerEl = picker;
 
-  // Posicionar cerca del botón
+  // Posicionar cerca del botón; en móvil se centra horizontalmente
   const rect = btnEl.getBoundingClientRect();
   const pw = 220, ph = 130;
-  let left = rect.left;
-  let top  = rect.bottom + 6;
-  if (left + pw > window.innerWidth - 8) left = window.innerWidth - pw - 8;
-  if (left < 8) left = 8;
-  if (top + ph > window.innerHeight - 8) top = rect.top - ph - 6;
-  picker.style.left = left + "px";
-  picker.style.top  = top  + "px";
+  const isMobileVp = window.innerWidth <= 480;
+  if (isMobileVp) {
+    picker.style.left = "50%";
+    picker.style.transform = "translateX(-50%)";
+    // arriba o abajo del botón
+    let top = rect.bottom + 6;
+    if (top + ph > window.innerHeight - 8) top = rect.top - ph - 6;
+    if (top < 8) top = 8;
+    picker.style.top = top + "px";
+  } else {
+    let left = rect.left;
+    let top  = rect.bottom + 6;
+    if (left + pw > window.innerWidth - 8) left = window.innerWidth - pw - 8;
+    if (left < 8) left = 8;
+    if (top + ph > window.innerHeight - 8) top = rect.top - ph - 6;
+    picker.style.left = left + "px";
+    picker.style.top  = top  + "px";
+  }
 
   // Google Calendar
   picker.querySelector("#_cpGoogle").addEventListener("click", () => {
