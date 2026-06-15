@@ -1718,7 +1718,8 @@ function renderProgression() {
         <div class="score-bar-wrap mb-2">
           <div class="score-bar" style="background:${p.color};width:${pct}%"></div>
         </div>
-        <div class="text-xs text-gray-400">~${avg} pts/partido</div>
+        <div class="text-xs text-gray-400 mb-2">~${avg} pts/partido</div>
+        <div class="prog-rank-tag" style="border-color:${p.color}55;color:${p.color}">#${p.pos} clasificación</div>
       </div>`;
   }).join("");
 }

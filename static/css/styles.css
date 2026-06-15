@@ -781,6 +781,11 @@
     /* ── sparkline-like bar ── */
     .score-bar-wrap { background: rgba(255,255,255,.05); border-radius: 4px; overflow: hidden; height: 6px; }
     .prog-deltas { display: flex; flex-direction: column; gap: .1rem; line-height: 1.35; }
+    .prog-rank-tag {
+      display: inline-block; font-size: .65rem; font-weight: 700;
+      border: 1px solid; border-radius: 20px; padding: .15rem .6rem;
+      letter-spacing: .03em; opacity: .85;
+    }
     .standings-updated { font-size: .72rem; font-weight: 500; color: #64748B; }
     .score-bar { height: 6px; border-radius: 4px; transition: width .5s; }
 
