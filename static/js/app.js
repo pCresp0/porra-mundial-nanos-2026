@@ -3472,11 +3472,9 @@ function _calRow(m, iso) {
   })() : "";
   return `<div class="cal-row" onclick="goToMatchesDay('${iso}','${nm}')">
       <span class="cal-row-time">${time}</span>
-      <span class="cal-row-teams">
-        <span class="cal-row-team">${fh} ${home}</span>
-        ${mid}
-        <span class="cal-row-team">${away} ${fa}</span>
-      </span>
+      <span class="cal-row-home">${fh} ${home}</span>
+      ${mid}
+      <span class="cal-row-away">${away} ${fa}</span>
       <span class="cal-row-actions" onclick="event.stopPropagation()">${tv}${calBtn}</span>
     </div>`;
 }
