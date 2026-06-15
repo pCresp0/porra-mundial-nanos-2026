@@ -2103,8 +2103,12 @@ function _showCalPickerForMatch(matchName, btnEl) {
 }
 
 function _showCalPickerForAll(btnEl) {
-  const pending = (D.matches || []).filter(m => !m.played && m.date && m.time_es);
-  if (!pending.length) { alert("No hay partidos pendientes."); return; }
+  const isPlaceholder = v => !v || /^\d|^Win|^Los|^[A-Z]\d|^[A-Z]{1,2}\d/.test(v);
+  const pending = (D.matches || []).filter(m =>
+    !m.played && m.date && m.time_es &&
+    !isPlaceholder(m.home) && !isPlaceholder(m.away)
+  );
+  if (!pending.length) { alert("No hay partidos pendientes con equipos definidos."); return; }
   _showCalPicker(pending, "mundial-2026-pendientes.ics", btnEl);
 }
 
