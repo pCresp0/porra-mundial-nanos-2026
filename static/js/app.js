@@ -2727,7 +2727,7 @@ function renderStats() {
   const playersEl = document.getElementById("stats-players");
   playersEl.innerHTML = D.standings.map(p => {
     const pp = perPlayer.find(x => x.name === p.name) || {};
-    const last10 = groupMatches.slice(-10);
+    const last10 = groupMatches.slice(-16);
     // En grupos solo existen 4 resultados: 0 (falló 1X2), 2 (acertó 1X2),
     // 3 (1X2 + diferencia) y 6 (exacto). Un color distinto por estado real.
     const scoreColor = (sc) => sc >= 6 ? "#22C55E"   // exacto
@@ -2746,8 +2746,7 @@ function renderStats() {
           const col = scoreColor(sc);
           const lbl = `${m.name}: ${sc} pts (${scoreTip(sc)})`;
           return `<div title="${lbl.replace(/"/g,"&quot;")}" style="width:13px;height:20px;border-radius:3px;background:${col};flex-shrink:0"></div>`;
-        }).join("")}</div>
-        <span class="pstat-dir-lbl">‹ reciente</span>
+        }).join("")}<span class="pstat-dir-lbl pstat-dir-end">‹ reciente</span></div>
       </div>` : `<div class="text-xs text-gray-600 mt-1">Aún sin partidos</div>`;
 
     return `
@@ -2788,7 +2787,7 @@ function renderStats() {
         </div>
 
         <div class="pstat-last-head">
-          <span>Últimos ${last10.length || 10} partidos (grupos)</span>
+          <span>Últimos ${last10.length || 16} partidos (grupos)</span>
         </div>
         ${lastBar}
         <div class="pstat-legend">

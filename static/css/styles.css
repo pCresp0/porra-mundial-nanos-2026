@@ -1276,12 +1276,14 @@
     .pstat-legend span { display: inline-flex; align-items: center; gap: .3rem; font-size: .62rem; color: #94A3B8; }
     .pstat-legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
     .pstat-dir-row {
-      display: flex; align-items: center; gap: .4rem; margin-top: .3rem; flex-wrap: nowrap;
+      display: flex; align-items: flex-start; gap: .4rem; margin-top: .3rem;
     }
-    .pstat-squares { display: flex; gap: 3px; flex-wrap: wrap; flex: 1; }
+    .pstat-squares { display: flex; gap: 3px; flex-wrap: wrap; align-items: center; }
     .pstat-dir-lbl {
-      font-size: .55rem; color: #475569; white-space: nowrap; flex-shrink: 0; letter-spacing: .01em;
+      font-size: .55rem; color: #475569; white-space: nowrap; flex-shrink: 0;
+      letter-spacing: .01em; line-height: 20px;
     }
+    .pstat-dir-end { margin-left: 2px; }
 
     /* ── Tabla ranking partidos más acertados ── */
     .tmr-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
