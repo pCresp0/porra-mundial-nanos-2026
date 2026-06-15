@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "15/06/2026 01:54",
+    "generated": "15/06/2026 01:56",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-15T03:06",
       "last_updated_time": "03:06",
       "last_updated_date": "15/06/2026",
-      "next_update_iso": "2026-06-15T03:55",
-      "next_update_time": "03:55",
+      "next_update_iso": "2026-06-15T04:00",
+      "next_update_time": "04:00",
       "next_update_date": "15/06/2026",
-      "last_checked_iso": "2026-06-15T03:54",
-      "last_checked_time": "03:54",
+      "last_checked_iso": "2026-06-15T03:56",
+      "last_checked_time": "03:56",
       "last_checked_date": "15/06/2026"
     },
     "players": [
@@ -151,6 +151,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-15T03:56:33+02:00",
+        "date": "15/06/2026",
+        "time": "03:56:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-15T03:54:24+02:00",
         "date": "15/06/2026",
@@ -1120,32 +1128,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-14T23:58:21+02:00",
-        "date": "14/06/2026",
-        "time": "23:58:21",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇳🇱Países Bajos 2-2 Japón🇯🇵",
-            "name": "Países Bajos-Japón",
-            "date": "2026-06-14",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "0-0",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "2-2",
-              "jugado": "sí"
-            }
-          }
-        ]
       }
     ]
   },
