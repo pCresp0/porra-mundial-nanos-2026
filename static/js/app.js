@@ -1114,9 +1114,7 @@ function matchMetaHtml(m) {
   // Botón añadir al calendario — solo partidos no jugados con fecha y hora
   if (!m.played && m.date && m.time_es) {
     const safeName = (m.name || m.id || "").replace(/'/g, "\\'");
-    const gcUrl = _googleCalUrl(m);
-    parts.push(`<span class="cal-add-wrap">
-      <button class="cal-add-btn" onclick="addMatchToCalendar('${safeName}');event.stopPropagation()" title="Añadir al calendario (descarga .ics)">📅 Añadir</button>${gcUrl ? `<a class="cal-gcal-btn" href="${gcUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Añadir a Google Calendar">G</a>` : ""}</span>`);
+    parts.push(`<button class="cal-add-btn" onclick="event.stopPropagation();_showCalPickerForMatch('${safeName}',this)" title="Añadir al calendario">📅 Añadir</button>`);
   }
   if (!parts.length) return "";
   return `<div class="match-meta-row">${parts.join("")}</div>`;
@@ -2008,6 +2006,93 @@ function addAllMatchesToCalendar() {
   const pending = (D.matches || []).filter(m => !m.played && m.date && m.time_es);
   if (!pending.length) { alert("No hay partidos pendientes."); return; }
   _downloadIcs(_generateIcs(pending), "mundial-2026-pendientes.ics");
+}
+
+/* ── Popover selector de calendario ── */
+let _calPickerEl = null;
+
+function _hideCalPicker() {
+  if (_calPickerEl) {
+    _calPickerEl.remove();
+    _calPickerEl = null;
+    document.removeEventListener("click", _calPickerOutside);
+    document.removeEventListener("keydown", _calPickerKey);
+  }
+}
+function _calPickerOutside(e) {
+  if (_calPickerEl && !_calPickerEl.contains(e.target)) _hideCalPicker();
+}
+function _calPickerKey(e) {
+  if (e.key === "Escape") _hideCalPicker();
+}
+
+// matches: array de partidos; filename: nombre del .ics; btnEl: botón que lo dispara
+function _showCalPicker(matches, filename, btnEl) {
+  _hideCalPicker();
+  const isSingle = matches.length === 1;
+  const gcUrl = isSingle ? _googleCalUrl(matches[0]) : null;
+
+  const picker = document.createElement("div");
+  picker.className = "cal-picker";
+  picker.innerHTML = `
+    <div class="cal-picker-title">Añadir al calendario</div>
+    <button class="cal-picker-opt" id="_cpGoogle">
+      <span class="cal-picker-icon">&#x1F4C6;</span>
+      <span>Google Calendar</span>
+    </button>
+    <button class="cal-picker-opt" id="_cpApple">
+      <span class="cal-picker-icon">&#x1F34E;</span>
+      <span>Apple / Otros (ICS)</span>
+    </button>
+  `;
+  document.body.appendChild(picker);
+  _calPickerEl = picker;
+
+  // Posicionar cerca del botón
+  const rect = btnEl.getBoundingClientRect();
+  const pw = 220, ph = 130;
+  let left = rect.left;
+  let top  = rect.bottom + 6;
+  if (left + pw > window.innerWidth - 8) left = window.innerWidth - pw - 8;
+  if (left < 8) left = 8;
+  if (top + ph > window.innerHeight - 8) top = rect.top - ph - 6;
+  picker.style.left = left + "px";
+  picker.style.top  = top  + "px";
+
+  // Google Calendar
+  picker.querySelector("#_cpGoogle").addEventListener("click", () => {
+    if (gcUrl) {
+      window.open(gcUrl, "_blank", "noopener");
+    } else {
+      // Múltiples partidos: descarga ICS e indica cómo importar
+      _downloadIcs(_generateIcs(matches), filename);
+      setTimeout(() => alert("¿Cómo importar en Google Calendar?\n\n1. Abre Google Calendar en PC\n2. Ajustes (⚙️) → Importar\n3. Selecciona el archivo .ics recién descargado"), 400);
+    }
+    _hideCalPicker();
+  });
+
+  // Apple / ICS
+  picker.querySelector("#_cpApple").addEventListener("click", () => {
+    _downloadIcs(_generateIcs(matches), filename);
+    _hideCalPicker();
+  });
+
+  setTimeout(() => {
+    document.addEventListener("click", _calPickerOutside);
+    document.addEventListener("keydown", _calPickerKey);
+  }, 10);
+}
+
+function _showCalPickerForMatch(matchName, btnEl) {
+  const m = (D.matches || []).find(x => x.name === matchName || x.id === matchName);
+  if (!m) return;
+  _showCalPicker([m], `partido-${(m.id || matchName).replace(/\s+/g, "-").toLowerCase()}.ics`, btnEl);
+}
+
+function _showCalPickerForAll(btnEl) {
+  const pending = (D.matches || []).filter(m => !m.played && m.date && m.time_es);
+  if (!pending.length) { alert("No hay partidos pendientes."); return; }
+  _showCalPicker(pending, "mundial-2026-pendientes.ics", btnEl);
 }
 
 function renderMatchCard(m, players, colors) {
@@ -3358,11 +3443,7 @@ function _calRow(m, iso) {
   const tv = tvBadgesHtml(m);
   const calBtn = (!m.played && m.date && m.time_es) ? (() => {
     const safeName = (m.name || m.id || "").replace(/'/g, "\\'");
-    const gcUrl = _googleCalUrl(m);
-    return `<span class="cal-add-wrap" onclick="event.stopPropagation()">` +
-      `<button class="cal-add-btn" onclick="addMatchToCalendar('${safeName}')" title="Añadir al calendario">📅</button>` +
-      (gcUrl ? `<a class="cal-gcal-btn" href="${gcUrl}" target="_blank" rel="noopener" title="Google Calendar">G</a>` : "") +
-      `</span>`;
+    return `<button class="cal-add-btn cal-add-compact" onclick="event.stopPropagation();_showCalPickerForMatch('${safeName}',this)" title="Añadir al calendario">📅</button>`;
   })() : "";
   return `<div class="cal-row" onclick="goToMatchesDay('${iso}','${nm}')">
       <span class="cal-row-time">${time}</span>

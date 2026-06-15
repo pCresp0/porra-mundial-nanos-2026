@@ -1767,8 +1767,7 @@
       .cal-row { gap: .45rem; padding: .5rem .25rem; }
       .cal-row-time { min-width: 38px; font-size: .76rem; }
       .cal-row-teams { gap: .35rem; font-size: .76rem; }
-      .cal-row .cal-add-btn { min-width: 36px; min-height: 36px; font-size: .8rem; }
-      .cal-row .cal-gcal-btn { min-width: 30px; min-height: 36px; }
+      .cal-row .cal-add-btn { min-width: 36px; min-height: 36px; font-size: .8rem; padding: .2rem .45rem; }
       .cal-nav { gap: .4rem; margin-bottom: .75rem; }
       .cal-nav-btn { width: 34px; height: 34px; font-size: 1.25rem; }
       .cal-nav-title { font-size: .92rem; }
@@ -2721,28 +2720,17 @@
     .match-detail-btn:hover, .match-detail-btn:active { color: var(--gold); }
 
     /* ── Añadir al calendario ── */
-    .cal-add-wrap { display: inline-flex; align-items: center; gap: 0; }
     .cal-add-btn {
       display: inline-flex; align-items: center; gap: .25rem;
       font-size: .72rem; font-weight: 600;
       color: #93C5FD; background: rgba(59,130,246,.12);
-      border: 1px solid rgba(59,130,246,.3); border-radius: 12px 0 0 12px;
+      border: 1px solid rgba(59,130,246,.3); border-radius: 12px;
       padding: .18rem .55rem; cursor: pointer; transition: background .15s;
       touch-action: manipulation; -webkit-tap-highlight-color: transparent;
       white-space: nowrap;
     }
     .cal-add-btn:hover, .cal-add-btn:active { background: rgba(59,130,246,.28); }
-    .cal-gcal-btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      font-size: .65rem; font-weight: 700;
-      color: #4ADE80; background: rgba(74,222,128,.12);
-      border: 1px solid rgba(74,222,128,.3); border-left: none;
-      border-radius: 0 12px 12px 0;
-      padding: .18rem .45rem; cursor: pointer; transition: background .15s;
-      text-decoration: none; touch-action: manipulation;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .cal-gcal-btn:hover, .cal-gcal-btn:active { background: rgba(74,222,128,.28); }
+    .cal-add-compact { padding: .22rem .45rem; font-size: .78rem; }
     .cal-export-all-btn {
       display: inline-flex; align-items: center; gap: .3rem;
       font-size: .75rem; font-weight: 600;
@@ -2753,6 +2741,32 @@
       white-space: nowrap;
     }
     .cal-export-all-btn:hover, .cal-export-all-btn:active { background: rgba(59,130,246,.28); }
+
+    /* ── Popover selector de calendario ── */
+    .cal-picker {
+      position: fixed; z-index: 10000;
+      background: #1A2240; border: 1px solid var(--border);
+      border-radius: 14px; padding: .35rem;
+      min-width: 210px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.04);
+      display: flex; flex-direction: column; gap: .15rem;
+    }
+    .cal-picker-title {
+      font-size: .65rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .07em; color: #475569;
+      padding: .3rem .7rem .1rem;
+    }
+    .cal-picker-opt {
+      display: flex; align-items: center; gap: .65rem;
+      padding: .55rem .75rem; border-radius: 10px;
+      border: none; background: none;
+      color: #E2E8F0; font-size: .85rem; font-weight: 600;
+      cursor: pointer; text-align: left; width: 100%;
+      transition: background .12s;
+      touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+    }
+    .cal-picker-opt:hover, .cal-picker-opt:active { background: rgba(255,255,255,.07); }
+    .cal-picker-icon { font-size: 1.1rem; flex-shrink: 0; }
 
     /* ── load-more: texto largo en desktop, corto en móvil ── */
     .mlm-short { display: none; }
@@ -2862,7 +2876,7 @@
         font-size: .72rem;
         line-height: 1.35;
       }
-      .cal-add-btn, .cal-gcal-btn { font-size: .68rem; padding: .2rem .5rem; }
+      .cal-add-btn, .cal-add-compact { font-size: .68rem; padding: .2rem .5rem; }
       .cal-export-all-btn { font-size: .7rem; padding: .28rem .7rem; width: 100%; justify-content: center; }
       .player-pred-card { padding: .4rem .35rem; }
       .player-pred-card .pname { font-size: .6rem; }
