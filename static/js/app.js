@@ -5921,7 +5921,7 @@ function _buildAdminPanel() {
   }
 
 
-  const API_WINDOW_H = 15;
+  const API_WINDOW_H = 48;
   const apiLogAll = meta.api_log || [];
   const apiCutoff = new Date(now.getTime() - API_WINDOW_H * 3600 * 1000);
   const apiLog = apiLogAll.filter(e => {
@@ -5980,7 +5980,7 @@ function _buildAdminPanel() {
   if (!apiLogAll.length) {
     apiLogBody = `<div class="adm-empty">Sin llamadas registradas todavía. El registro empieza tras el próximo partido.</div>`;
   } else if (!apiLog.length) {
-    apiLogBody = `<div class="adm-empty">Sin llamadas a la API en las últimas 15 h<br><span class="adm-rel">(${apiLogAll.length} en el histórico)</span></div>`;
+    apiLogBody = `<div class="adm-empty">Sin llamadas a la API en las últimas 48 h<br><span class="adm-rel">(${apiLogAll.length} en el histórico)</span></div>`;
   } else {
     apiLogBody = apiLog.map(apiRow).join("");
   }
@@ -6113,7 +6113,7 @@ function _buildAdminPanel() {
     </div>
     <div class="adm-section">
       <div class="adm-section-title">
-        📡 Llamadas a la API <span class="adm-badge">últimas 15 h</span>
+        📡 Llamadas a la API <span class="adm-badge">últimas 48 h</span>
       </div>
       <div class="adm-api-summary">
         <span class="adm-api-stat"><strong>${apiLog.length}</strong> llamadas</span>

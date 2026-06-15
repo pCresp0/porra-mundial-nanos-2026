@@ -4,11 +4,13 @@ Decide si la GitHub Action debe hacer trabajo real (llamar a la API, actualizar
 los Excel y regenerar data.json) o salir sin hacer nada.
 
 Tiene sentido actualizar cuando:
-  • Hay un partido EN CURSO (ya ha empezado y aún no ha terminado): así se
-    capturan el marcador y los puntos provisionales cada ~15 min.
-  • Hay un partido que ya debería haber terminado pero cuyo resultado todavía
-    NO está en data.json: para capturar el resultado final.
-Fuera de esas ventanas no se hace nada (no se generan commits innecesarios).
+  • Hay un partido ACTIVO (desde 30 min antes del inicio hasta 30 min después
+    del final, cubriendo prórroga y penaltis): así se capturan marcador y puntos
+    provisionales en cada pasada → cadencia de ~2 min con el cron externo.
+  • Fuera de esa ventana, han pasado ≥15 min desde la última llamada: una
+    comprobación periódica (cada 15 min) para captar cambios que la API publique
+    con retraso, sin llamar cada 2 min sin necesidad.
+Fuera de esas condiciones no se hace nada (no se generan commits innecesarios).
 
 Imprime en stdout una sola línea apta para $GITHUB_OUTPUT:
     run=yes   → hay que actualizar
@@ -28,14 +30,44 @@ except Exception:  # pragma: no cover
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(BASE, "data.json")
+LOG_JSON = os.path.join(BASE, "data", "api_log.json")
 
-# Ventana de actividad alrededor de cada partido. Empezamos un par de minutos
-# antes del inicio (para captar el directo en cuanto arranca) y seguimos hasta
-# 6 h después por si hay prórroga, penaltis o la API tarda en publicar.
-# A partir de ~110 min el partido ya debería haber terminado.
-WINDOW_START = timedelta(minutes=-2)
-FINISHED_AFTER = timedelta(minutes=110)
-WINDOW_END = timedelta(hours=6)
+# Un partido se considera ACTIVO desde 30 min antes del inicio hasta 30 min
+# después del final. Tomamos ~160 min como duración máxima (90' + descanso +
+# tiempo añadido + prórroga + penaltis en eliminatorias) y sumamos 30 min de
+# margen, así que la ventana activa va de -30 min a +190 min respecto al inicio.
+# Mientras hay un partido activo actualizamos en cada pasada: como el cron
+# externo dispara cada ~2 min, la cadencia efectiva es de 2 min.
+WINDOW_START = timedelta(minutes=-30)
+ACTIVE_END = timedelta(minutes=190)
+# Fuera de la ventana de partido NO actualizamos en cada pasada: solo si han
+# pasado al menos 15 min desde la última llamada registrada. Así se captan
+# resultados o cambios que la API publique con retraso sin llamar cada 2 min.
+IDLE_INTERVAL = timedelta(minutes=15)
+
+
+def _last_api_call(now):
+    """Devuelve el datetime de la última llamada API registrada, o None."""
+    try:
+        with open(LOG_JSON, encoding="utf-8") as fh:
+            entries = json.load(fh)
+    except (FileNotFoundError, ValueError):
+        return None
+    if not isinstance(entries, list) or not entries:
+        return None
+    ts = entries[-1].get("ts_iso")
+    if not ts:
+        return None
+    try:
+        d = datetime.fromisoformat(ts)
+    except ValueError:
+        return None
+    # Alinea la zona horaria para poder restar con `now`.
+    if now.tzinfo is None and d.tzinfo is not None:
+        d = d.replace(tzinfo=None)
+    elif now.tzinfo is not None and d.tzinfo is None:
+        d = d.replace(tzinfo=now.tzinfo)
+    return d
 
 
 def main() -> None:
@@ -50,6 +82,7 @@ def main() -> None:
         print("Sin data.json legible → actualizar por seguridad", file=sys.stderr)
         return
 
+    # 1) ¿Hay algún partido ACTIVO ahora mismo? → actualizar en cada pasada (2 min).
     for m in data.get("matches", []):
         if m.get("played"):
             continue  # resultado ya capturado
@@ -65,16 +98,31 @@ def main() -> None:
         kickoff = (datetime(y, mo, dd, hh, mm, tzinfo=TZ) if TZ
                    else datetime(y, mo, dd, hh, mm))
         elapsed = now - kickoff
-        if WINDOW_START <= elapsed <= WINDOW_END:
+        if WINDOW_START <= elapsed <= ACTIVE_END:
             mins = int(elapsed.total_seconds() // 60)
-            estado = "en curso" if elapsed < FINISHED_AFTER else "pendiente de resultado"
             print("run=yes")
-            print(f"Partido {estado}: {m.get('name')} "
-                  f"(inicio hace {mins} min) → actualizar", file=sys.stderr)
+            print(f"Partido activo: {m.get('name')} "
+                  f"(inicio hace {mins} min) → actualizar (cadencia 2 min)",
+                  file=sys.stderr)
             return
 
+    # 2) Sin partido activo → comprobación periódica cada 30 min.
+    last = _last_api_call(now)
+    if last is None:
+        print("run=yes")
+        print("Sin partido activo y sin registro previo → comprobar", file=sys.stderr)
+        return
+    gap = now - last
+    if gap >= IDLE_INTERVAL:
+        print("run=yes")
+        print(f"Sin partido activo; última llamada hace "
+              f"{int(gap.total_seconds() // 60)} min (≥15) → comprobar",
+              file=sys.stderr)
+        return
+
     print("run=no")
-    print("Ningún partido en curso ni recién terminado → no actualizar",
+    print(f"Sin partido activo; última llamada hace "
+          f"{int(gap.total_seconds() // 60)} min (<15) → no actualizar",
           file=sys.stderr)
 
 

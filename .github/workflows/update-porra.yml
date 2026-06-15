@@ -8,6 +8,11 @@ on:
     # nada, así que no genera commits innecesarios.
     - cron: "*/5 * * * *"
   workflow_dispatch:
+    inputs:
+      force:
+        description: "Forzar actualización aunque no haya partido activo"
+        type: boolean
+        default: false
   push:
     paths:
       - "data/**"
@@ -35,11 +40,11 @@ jobs:
       - name: Instalar dependencias
         run: pip install -r requirements.txt
 
-      - name: ¿Hay partido recién terminado?
+      - name: ¿Hay partido activo o reciente?
         id: guard
         run: |
-          if [ "${{ github.event_name }}" != "schedule" ]; then
-            echo "Evento ${{ github.event_name }} → ejecutar siempre"
+          if [ "${{ github.event_name }}" = "push" ] || [ "${{ inputs.force }}" = "true" ]; then
+            echo "Evento ${{ github.event_name }} (force=${{ inputs.force }}) → ejecutar siempre"
             echo "run=yes" >> "$GITHUB_OUTPUT"
           else
             python should_update.py >> "$GITHUB_OUTPUT"

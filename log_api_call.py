@@ -46,7 +46,7 @@ LOG_JSON = os.path.join(BASE, "data", "api_log.json")
 # Cuánto histórico guardamos en el archivo y cuánto embebemos en data.json.
 ARCHIVE_DAYS = 30
 ARCHIVE_MAX = 2000
-EMBED_MAX = 120
+EMBED_MAX = 500
 
 
 def _now():
