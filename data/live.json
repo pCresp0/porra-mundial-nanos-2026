@@ -1,9 +1,16 @@
 {
   "Bélgica-Egipto": {
-    "home": 0,
+    "home": 1,
     "away": 1,
     "minute": "live",
     "scorers": [
+      {
+        "player": "محمد هانی",
+        "minute": "66'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
       {
         "player": "امام آشور",
         "minute": "19'",
