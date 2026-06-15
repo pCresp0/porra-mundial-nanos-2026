@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "15/06/2026 15:48",
+    "generated": "15/06/2026 15:50",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-15T06:02",
       "last_updated_time": "06:02",
       "last_updated_date": "15/06/2026",
-      "next_update_iso": "2026-06-15T17:50",
-      "next_update_time": "17:50",
+      "next_update_iso": "2026-06-15T17:55",
+      "next_update_time": "17:55",
       "next_update_date": "15/06/2026",
-      "last_checked_iso": "2026-06-15T17:48",
-      "last_checked_time": "17:48",
+      "last_checked_iso": "2026-06-15T17:50",
+      "last_checked_time": "17:50",
       "last_checked_date": "15/06/2026"
     },
     "players": [
@@ -159,6 +159,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-15T17:50:49+02:00",
+        "date": "15/06/2026",
+        "time": "17:50:49",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-15T17:48:19+02:00",
         "date": "15/06/2026",
@@ -4236,32 +4244,6 @@
             },
             "new": {
               "marcador": "2-0",
-              "jugado": "sí"
-            }
-          }
-        ]
-      },
-      {
-        "ts_iso": "2026-06-14T05:25:20+02:00",
-        "date": "14/06/2026",
-        "time": "05:25:20",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇭🇹Haití 0-1 Escocia🏴󠁧󠁢󠁳󠁣󠁴󠁿",
-            "name": "Haití-Escocia",
-            "date": "2026-06-14",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "0-0",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "0-1",
               "jugado": "sí"
             }
           }
