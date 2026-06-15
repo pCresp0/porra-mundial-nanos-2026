@@ -92,7 +92,12 @@ function isSearchableTeam(name, flag) {
   if (/^3[A-Z]{3,6}$/i.test(n)) return false;
   if (/^W\d+/i.test(n)) return false;
   if (/º|finalista|dieciseisavo|octavo|cuart|semi/i.test(n)) return false;
-  if (!flag || flag === "🏳️" || !/\p{Regional_Indicator}/u.test(flag)) return false;
+  if (!flag || flag === "🏳️") return false;
+  // Acepta tanto banderas de indicadores regionales (🇪🇸) como banderas con
+  // secuencias de etiqueta (🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra, 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia, etc.)
+  const hasRegional = /\p{Regional_Indicator}/u.test(flag);
+  const hasTagFlag  = /\u{1F3F4}/u.test(flag);   // 🏴 base de banderas con tags
+  if (!hasRegional && !hasTagFlag) return false;
   return true;
 }
 
@@ -540,56 +545,147 @@ const TEAM_TO_FIFA = {
   "Chile":"CHI","Bolivia":"BOL","Perú":"PER",
 };
 
+/* ── FIFA World Ranking (12 junio 2026 — fuente: transfermarkt/FIFA) ── */
+const FIFA_RANK = {
+  // Top 10
+  "Argentina":1,
+  "España":2,"Francia":3,"Inglaterra":4,"Portugal":5,
+  "Brasil":6,"Marruecos":7,"Países Bajos":8,"Holanda":8,"Bélgica":9,"Alemania":10,
+  // 11-20
+  "Croacia":11,"Colombia":13,"México":14,"Senegal":15,
+  "Uruguay":16,"EE.UU.":17,"Estados Unidos":17,"Japón":18,"Suiza":19,"Irán":20,
+  // 21-30
+  "Dinamarca":21,"Turquía":22,"Ecuador":23,"Austria":24,"Corea del Sur":25,
+  "Nigeria":26,"Australia":27,"Argelia":28,"Egipto":29,"Canadá":30,
+  // 31-50
+  "Noruega":31,"Costa de Marfil":33,"Panamá":34,
+  "Suecia":38,"Paraguay":41,"Escocia":42,"Serbia":43,
+  "Túnez":45,"R.D. Congo":46,"Congo DR":46,"RD Congo":46,"Grecia":48,
+  "Venezuela":49,"Uzbekistán":50,
+  // 51-70
+  "Chile":51,"Perú":52,"Costa Rica":53,
+  "Qatar":56,"Catar":56,"Iraq":57,"Irak":57,
+  "Sudáfrica":60,"Arabia Saudita":61,"Arabia Saudí":61,"Jordania":63,
+  "Bosnia y Herz.":64,"Bosnia y Herzegovina":64,"Bosnia":64,
+  "Honduras":65,"Cabo Verde":67,"Jamaica":71,"Ghana":73,
+  // 77+
+  "Bolivia":77,"Curazao":82,"Haití":83,"Nueva Zelanda":85,
+};
+
+/* ── Técnicos / seleccionadores ── */
+const COACHES = {
+  "MEX":{"name":"Javier Aguirre",       "nat":"🇲🇽 México",       "since":"2023","note":"Experimentado. Dirigió a México en 2002 y 2010"},
+  "RSA":{"name":"Hugo Broos",            "nat":"🇧🇪 Bélgica",      "since":"2021","note":"Revitalizó a Bafana Bafana tras años en el ostracismo"},
+  "KOR":{"name":"Hong Myung-bo",         "nat":"🇰🇷 Corea del Sur","since":"2023","note":"Leyenda del fútbol coreano. Jugó el 4.º puesto de 2002"},
+  "CZE":{"name":"Ivan Hašek",            "nat":"🇨🇿 Rep. Checa",   "since":"2024","note":"Ex capitán de la selección"},
+  "CAN":{"name":"Jesse Marsch",          "nat":"🇺🇸 EE.UU.",       "since":"2023","note":"Primer seleccionador americano de Canadá"},
+  "BIH":{"name":"Sergej Barbarez",       "nat":"🇧🇦 Bosnia",       "since":"2024","note":"Ex delantero internacional de Bosnia"},
+  "QAT":{"name":"Marcello Lippi",        "nat":"🇮🇹 Italia",       "since":"2016","note":"Campeón del mundo con Italia en 2006"},
+  "SUI":{"name":"Murat Yakin",           "nat":"🇨🇭 Suiza",        "since":"2021","note":"Ex internacional suizo. 3.ª fase de grupos seguida"},
+  "BRA":{"name":"Dorival Júnior",        "nat":"🇧🇷 Brasil",       "since":"2024","note":"Campeón de la Copa Libertadores 2022 con Flamengo"},
+  "MAR":{"name":"Walid Regragui",        "nat":"🇲🇦 Marruecos",    "since":"2022","note":"Llevó a Marruecos a semifinales en Qatar 2022"},
+  "HAI":{"name":"Marc Collat",           "nat":"🇫🇷 Francia",      "since":"2023","note":"Técnico francés con amplia experiencia en África"},
+  "SCO":{"name":"Steve Clarke",          "nat":"🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia",     "since":"2019","note":"Primera Eurocopa en 25 años y primer Mundial en 28"},
+  "USA":{"name":"Mauricio Pochettino",   "nat":"🇦🇷 Argentina",    "since":"2024","note":"Ex PSG, Tottenham y Chelsea"},
+  "PRY":{"name":"Gustavo Alfaro",        "nat":"🇦🇷 Argentina",    "since":"2024","note":"Llevó a Ecuador al Mundial 2022"},
+  "AUS":{"name":"Tony Popovic",          "nat":"🇦🇺 Australia",    "since":"2024","note":"Leyenda de los Socceroos como jugador"},
+  "TUR":{"name":"Vincenzo Montella",     "nat":"🇮🇹 Italia",       "since":"2023","note":"Ex delantero. Dirigió la sorpresa turca en la Euro 2024"},
+  "ALG":{"name":"Pepe",                  "nat":"🇵🇹 Portugal",     "since":"2023","note":"Leyenda del fútbol portugués al mando de Argelia"},
+  "GER":{"name":"Julian Nagelsmann",     "nat":"🇩🇪 Alemania",     "since":"2023","note":"El técnico más joven en dirigir una Eurocopa"},
+  "CIV":{"name":"Emerse Faé",            "nat":"🇨🇮 C. de Marfil", "since":"2024","note":"Llevó a Costa de Marfil al título de la Copa África 2023"},
+  "ECU":{"name":"Sebastián Beccacece",   "nat":"🇦🇷 Argentina",    "since":"2024","note":"Excelente trabajo previo en Defensa y Justicia"},
+  "NED":{"name":"Ronald Koeman",         "nat":"🇳🇱 P. Bajos",     "since":"2023","note":"Subcampeón del mundo como jugador en 1994"},
+  "JPN":{"name":"Hajime Moriyasu",       "nat":"🇯🇵 Japón",        "since":"2018","note":"8 años al mando; campeón de Asia 2023"},
+  "SWE":{"name":"Jon Dahl Tomasson",     "nat":"🇩🇰 Dinamarca",    "since":"2022","note":"Ex delantero; guía a Suecia a su primer Mundial desde 2018"},
+  "TUN":{"name":"Faouzi Benzarti",       "nat":"🇹🇳 Túnez",        "since":"2024","note":"Veterano técnico tunecino con varias etapas en la selección"},
+  "BEL":{"name":"Domenico Tedesco",      "nat":"🇩🇪 Alemania",     "since":"2023","note":"Fue el técnico del Leipzig en Champions"},
+  "EGY":{"name":"Hossam Hassan",         "nat":"🇪🇬 Egipto",       "since":"2024","note":"Máximo goleador histórico de África como jugador"},
+  "IRN":{"name":"Amir Ghalenoei",        "nat":"🇮🇷 Irán",         "since":"2023","note":"Primer iraní al frente de la selección en un Mundial"},
+  "NZL":{"name":"Darren Bazeley",        "nat":"🇳🇿 N. Zelanda",   "since":"2023","note":"Ex lateral del Watford en la Premier League"},
+  "ESP":{"name":"Luis de la Fuente",     "nat":"🇪🇸 España",       "since":"2022","note":"Campeón de la Eurocopa 2024 con España"},
+  "CPV":{"name":"Pedro Brito «Bubista»", "nat":"🇨🇻 Cabo Verde",   "since":"2020","note":"Artífice del ascenso de Cabo Verde al top-60 FIFA"},
+  "KSA":{"name":"Hervé Renard",          "nat":"🇫🇷 Francia",      "since":"2025","note":"Ganó la Copa África en 2 ocasiones con diferentes países"},
+  "URU":{"name":"Marcelo Bielsa",        "nat":"🇦🇷 Argentina",    "since":"2023","note":"«El Loco». Filosofía de pressing total"},
+  "FRA":{"name":"Didier Deschamps",      "nat":"🇫🇷 Francia",      "since":"2012","note":"Campeón del mundo 1998 (jugador) y 2018 (técnico)"},
+  "SEN":{"name":"Aliou Cissé",           "nat":"🇸🇳 Senegal",      "since":"2015","note":"Llevó a Senegal al título de la CAN 2021"},
+  "IRQ":{"name":"Jesús Casas",           "nat":"🇪🇸 España",       "since":"2023","note":"Ex técnico de la sub-21 española"},
+  "NOR":{"name":"Ståle Solbakken",       "nat":"🇳🇴 Noruega",      "since":"2020","note":"Gestiona el proyecto Haaland con inteligencia"},
+  "ARG":{"name":"Lionel Scaloni",        "nat":"🇦🇷 Argentina",    "since":"2018","note":"Campeón del mundo en Qatar 2022. La era dorada del fútbol argentino"},
+  "DZA":{"name":"Vladimir Petković",     "nat":"🇧🇦 Bosnia",       "since":"2023","note":"Ex seleccionador de Suiza y de la Lazio"},
+  "AUT":{"name":"Ralf Rangnick",         "nat":"🇩🇪 Alemania",     "since":"2022","note":"Padre del pressing moderno. Fundador del modelo RB"},
+  "JOR":{"name":"Hussein Ammouta",       "nat":"🇲🇦 Marruecos",    "since":"2023","note":"Logró el histórico ascenso de Jordania al top-70 FIFA"},
+  "POR":{"name":"Roberto Martínez",      "nat":"🇪🇸 España",       "since":"2023","note":"Dirigió a Bélgica durante 6 años. Ex seleccionador de la Roja Sub-21"},
+  "COD":{"name":"Sébastien Desabre",     "nat":"🇫🇷 Francia",      "since":"2022","note":"Amplia experiencia en el fútbol africano"},
+  "UZB":{"name":"Srecko Katanec",        "nat":"🇸🇮 Eslovenia",    "since":"2016","note":"Ex internacional yugoslavo; lleva a Uzbekistán a su primer Mundial"},
+  "COL":{"name":"Néstor Lorenzo",        "nat":"🇦🇷 Argentina",    "since":"2022","note":"Discípulo de Bielsa. Llevó a Colombia invicta al Mundial"},
+  "ENG":{"name":"Thomas Tuchel",         "nat":"🇩🇪 Alemania",     "since":"2024","note":"Campeón de la Champions con Chelsea. Favorito al título"},
+  "HRV":{"name":"Zlatko Dalić",          "nat":"🇭🇷 Croacia",      "since":"2017","note":"Final en 2018, 3.º en 2022. El gran técnico croata"},
+  "GHA":{"name":"Otto Addo",             "nat":"🇬🇭 Ghana",        "since":"2022","note":"Lleva una doble vida: técnico de Ghana y ojeador del Dortmund"},
+  "PAN":{"name":"Thomas Christiansen",   "nat":"🇩🇰 Dinamarca",    "since":"2022","note":"Ex internacional danés. Ha mejorado el juego de Panamá"},
+  "DEN":{"name":"Kasper Hjulmand",       "nat":"🇩🇰 Dinamarca",    "since":"2020","note":"Semifinalista de la Eurocopa 2020 de forma sorprendente"},
+  "GRE":{"name":"Ivan Jovanović",        "nat":"🇷🇸 Serbia",       "since":"2023","note":"Guía a Grecia a su primera gran fase final en mucho tiempo"},
+  "SRB":{"name":"Dragan Stojković",      "nat":"🇷🇸 Serbia",       "since":"2021","note":"Leyenda del fútbol serbio. El «Piksi»"},
+  "NGA":{"name":"Eric Chelle",           "nat":"🇲🇱 Malí",         "since":"2024","note":"Ex técnico de Malí, nombrado para revitalizar a las Súper Águilas"},
+  "CRC":{"name":"Claudio Vivas",         "nat":"🇦🇷 Argentina",    "since":"2023","note":"Pupilo de Bielsa con amplia trayectoria en CONCACAF"},
+  "HON":{"name":"Reinaldo Rueda",        "nat":"🇨🇴 Colombia",     "since":"2024","note":"Dirigió a Colombia, Ecuador, Chile y Honduras"},
+  "JAM":{"name":"Heimir Hallgrímsson",   "nat":"🇮🇸 Islandia",     "since":"2022","note":"Llevó a Islandia a la Eurocopa 2016; ahora con Jamaica"},
+  "VEN":{"name":"Fernando Batista",      "nat":"🇦🇷 Argentina",    "since":"2022","note":"Ex técnico de la sub-20 argentina"},
+  "CHI":{"name":"Ricardo Gareca",        "nat":"🇦🇷 Argentina",    "since":"2024","note":"Llevó a Perú a Rusia 2018. Ahora al frente de Chile"},
+  "BOL":{"name":"Óscar Villegas",        "nat":"🇧🇴 Bolivia",      "since":"2023","note":"Primer boliviano en dirigir a Bolivia en una Copa del Mundo"},
+  "PER":{"name":"Jorge Fossati",         "nat":"🇺🇾 Uruguay",      "since":"2024","note":"Veterano con amplia experiencia en Perú y la región"},
+  "CUW":{"name":"Diego Vázquez",         "nat":"🇦🇷 Argentina",    "since":"2015","note":"Uno de los técnicos más longevos en la selección de Curazao"},
+};
+
 /* ── Key players per FIFA code ── */
 const KEY_PLAYERS = {
-  "MEX":[{"name":"Santiago Giménez","pos":"DC","club":"Feyenoord","note":"Máximo goleador de México en activo"},{"name":"Hirving Lozano","pos":"EXT","club":"PSV","note":"Velocidad y desborde por la banda"},{"name":"Guillermo Ochoa","pos":"POR","club":"Club América","note":"Leyenda viva del fútbol mexicano"},{"name":"Edson Álvarez","pos":"MCD","club":"West Ham","note":"Pilar del centro del campo"}],
-  "RSA":[{"name":"Percy Tau","pos":"EXT","club":"Mamelodi Sundowns","note":"Mejor jugador africano 2022"},{"name":"Themba Zwane","pos":"MC","club":"Mamelodi Sundowns","note":"Elegancia y visión de juego"},{"name":"Ronwen Williams","pos":"POR","club":"Mamelodi Sundowns","note":"Portero número 1 de Sudáfrica"}],
-  "KOR":[{"name":"Son Heung-min","pos":"EXT","club":"Tottenham","note":"Capitán y referencia absoluta"},{"name":"Lee Jae-sung","pos":"MC","club":"Mainz","note":"Motor del centro del campo"},{"name":"Kim Min-jae","pos":"DFC","club":"Bayern München","note":"Uno de los mejores centrales del mundo"}],
-  "CZE":[{"name":"Patrik Schick","pos":"DC","club":"Bayer Leverkusen","note":"Potencia y gol. 2º goleador de la Eurocopa 2020"},{"name":"Tomáš Souček","pos":"MCD","club":"West Ham","note":"Presencia aérea y garra"},{"name":"Vladimír Coufal","pos":"LAD","club":"West Ham","note":"Lateral derecho fiable y con llegada"}],
-  "CAN":[{"name":"Alphonso Davies","pos":"LAI","club":"Bayern München","note":"Velocidad extrema. Mejor jugador canadiense de la historia"},{"name":"Jonathan David","pos":"DC","club":"Lille","note":"Uno de los goleadores más letales de Europa"},{"name":"Tajon Buchanan","pos":"EXT","club":"Inter de Milán","note":"Desequilibrio por la banda"}],
-  "BIH":[{"name":"Edin Džeko","pos":"DC","club":"Fenerbahçe","note":"Máximo goleador histórico de Bosnia"},{"name":"Ermedin Demirović","pos":"DC","club":"Stuttgart","note":"Nuevo referente del gol bosnio"},{"name":"Miralem Pjanić","pos":"MC","club":"—","note":"Leyenda bosnia"}],
-  "QAT":[{"name":"Akram Afif","pos":"EXT","club":"Al-Sadd","note":"Mejor jugador de la Copa de Asia 2023"},{"name":"Almoez Ali","pos":"DC","club":"Al-Duhail","note":"Máximo goleador histórico de Qatar"},{"name":"Abdelkarim Hassan","pos":"LAI","club":"Al-Arabi","note":"Lateral rápido y con llegada"}],
-  "SUI":[{"name":"Granit Xhaka","pos":"MC","club":"Bayer Leverkusen","note":"Liderazgo y técnica. Corazón de Suiza"},{"name":"Xherdan Shaqiri","pos":"EXT","club":"Chicago Fire","note":"Imprevisible. Campeón de la Eurocopa 2008"},{"name":"Yann Sommer","pos":"POR","club":"Inter de Milán","note":"Portero de clase mundial"},{"name":"Manuel Akanji","pos":"DFC","club":"Man City","note":"Central sólido y con salida de balón"}],
-  "BRA":[{"name":"Vinícius Jr.","pos":"EXT","club":"Real Madrid","note":"Balón de Oro 2024. El más desequilibrante del mundo"},{"name":"Rodrygo","pos":"EXT","club":"Real Madrid","note":"Clutch player. Decisivo en los grandes momentos"},{"name":"Endrick","pos":"DC","club":"Real Madrid","note":"Joya de 18 años. El futuro del fútbol brasileño"},{"name":"Alisson Becker","pos":"POR","club":"Liverpool","note":"Mejor portero del mundo en los últimos años"}],
-  "MAR":[{"name":"Achraf Hakimi","pos":"LAD","club":"PSG","note":"Mejor lateral derecho del mundo. 4º puesto en Qatar 2022"},{"name":"Hakim Ziyech","pos":"EXT","club":"Galatasaray","note":"Magia y creatividad en el ataque"},{"name":"Youssef En-Nesyri","pos":"DC","club":"Fenerbahçe","note":"Héroe de la semifinal de Qatar 2022"},{"name":"Sofyan Amrabat","pos":"MCD","club":"Fiorentina","note":"Sensación del Mundial 2022"}],
-  "HAI":[{"name":"Frantzdy Pierrot","pos":"DC","club":"Atlanta United","note":"Artillero de la MLS"},{"name":"Duckens Nazon","pos":"EXT","club":"Panathinaikos","note":"Velocidad y desborde"},{"name":"Naïco Ducasse","pos":"MC","club":"FC Nantes","note":"Mediocampista elegante"}],
-  "SCO":[{"name":"Andrew Robertson","pos":"LAI","club":"Liverpool","note":"Capitán. Uno de los mejores laterales del mundo"},{"name":"Scott McTominay","pos":"MC","club":"Napoli","note":"Gol y llegada desde segunda línea"},{"name":"Che Adams","pos":"DC","club":"Torino","note":"Delantero físico y trabajador"}],
-  "USA":[{"name":"Christian Pulisic","pos":"EXT","club":"AC Milan","note":"Capitán y estrella. «Captain America»"},{"name":"Tyler Adams","pos":"MCD","club":"Bournemouth","note":"Dinamismo e intensidad en el centro"},{"name":"Gio Reyna","pos":"MC","club":"Borussia Dortmund","note":"Talento generacional"},{"name":"Matt Turner","pos":"POR","club":"Crystal Palace","note":"Portero seguro bajo los tres palos"}],
-  "PRY":[{"name":"Miguel Almirón","pos":"MC","club":"Newcastle","note":"Motor incansable. Dobletes con Newcastle"},{"name":"Julio Enciso","pos":"EXT","club":"Brighton","note":"Joven talento. El nuevo referente paraguayo"},{"name":"Gustavo Gómez","pos":"DFC","club":"Palmeiras","note":"Capitán. Líder de la defensa"}],
-  "AUS":[{"name":"Mathew Ryan","pos":"POR","club":"Real Sociedad","note":"Portero experimentado y seguro"},{"name":"Marco Tilio","pos":"EXT","club":"Celtic","note":"Joven promesa del fútbol australiano"},{"name":"Mitchell Duke","pos":"DC","club":"FC Macarthur","note":"Héroe del gol ante Dinamarca en Qatar 2022"}],
-  "TUR":[{"name":"Arda Güler","pos":"MC","club":"Real Madrid","note":"Joya de 19 años. El nuevo Özil"},{"name":"Hakan Çalhanoğlu","pos":"MCD","club":"Inter de Milán","note":"Cerebro del equipo. Lanzador de falta letal"},{"name":"Merih Demiral","pos":"DFC","club":"Al-Ahli","note":"Central potente y buen salto"},{"name":"Kerem Aktürkoğlu","pos":"EXT","club":"Galatasaray","note":"Goleador en Champions"}],
-  "GER":[{"name":"Jamal Musiala","pos":"MC","club":"Bayern München","note":"El más prometedor de Europa. Gambeta y gol"},{"name":"Florian Wirtz","pos":"MC","club":"Bayer Leverkusen","note":"Elegancia y visión. Corazón del Leverkusen campeón"},{"name":"Harry Kane","pos":"DC","club":"Bayern München","note":"Máximo goleador de la historia del Bayern"},{"name":"Toni Kroos","pos":"MC","club":"Real Madrid","note":"Leyenda absoluta"}],
-  "CUW":[{"name":"Leandro Bacuna","pos":"MC","club":"Burton Albion","note":"Experiencia y técnica"},{"name":"Jarchinio Antonia","pos":"EXT","club":"Beerschot","note":"Habilidad y regates"}],
-  "CIV":[{"name":"Sébastien Haller","pos":"DC","club":"Borussia Dortmund","note":"Luchó contra el cáncer y volvió más fuerte"},{"name":"Franck Kessié","pos":"MC","club":"Al-Ahli","note":"Físico y gol. Pulmón del centro"},{"name":"Nicolas Pépé","pos":"EXT","club":"OGC Niza","note":"Desequilibrio y velocidad"}],
-  "ECU":[{"name":"Enner Valencia","pos":"DC","club":"LDU Quito","note":"El goleador histórico de Ecuador. Héroe de Qatar 2022"},{"name":"Moisés Caicedo","pos":"MCD","club":"Chelsea","note":"Centrocampista élite. Fichaje récord del Chelsea"},{"name":"Gonzalo Plata","pos":"EXT","club":"Galatasaray","note":"Velocidad y peligro por la derecha"}],
-  "NED":[{"name":"Virgil van Dijk","pos":"DFC","club":"Liverpool","note":"Mejor central del mundo en los últimos años"},{"name":"Cody Gakpo","pos":"EXT","club":"Liverpool","note":"Llegó al Mundial 2022 de suplente y fue figura"},{"name":"Frenkie de Jong","pos":"MC","club":"Barcelona","note":"El más elegante de Países Bajos"},{"name":"Memphis Depay","pos":"DC","club":"Corinthians","note":"Gol e instinto en cualquier equipo"}],
-  "JPN":[{"name":"Takehiro Tomiyasu","pos":"DFC","club":"Arsenal","note":"Polivalente. Titular en el Arsenal"},{"name":"Wataru Endō","pos":"MCD","club":"Liverpool","note":"Solidez en el centro"},{"name":"Takumi Minamino","pos":"MC","club":"Monaco","note":"Gol y trabajo"},{"name":"Ritsu Doan","pos":"EXT","club":"SC Freiburg","note":"Goleador del histórico 2-1 a Alemania en Qatar"}],
-  "SWE":[{"name":"Victor Nilsson Lindelöf","pos":"DFC","club":"Man United","note":"Central sólido y con salida de balón"},{"name":"Dejan Kulusevski","pos":"EXT","club":"Tottenham","note":"Creatividad y llegada desde la banda"},{"name":"Alexander Isak","pos":"DC","club":"Newcastle","note":"Rápido y letal. Figura de la Premier League"}],
-  "TUN":[{"name":"Youssef Msakni","pos":"EXT","club":"Espérance","note":"Líder histórico. El referente ofensivo"},{"name":"Wahbi Khazri","pos":"MC","club":"Montpellier","note":"Experiencia y calidad en el balón parado"}],
-  "BEL":[{"name":"Kevin De Bruyne","pos":"MC","club":"Man City","note":"Quizás el mejor centrocampista del mundo"},{"name":"Romelu Lukaku","pos":"DC","club":"Roma","note":"El goleador histórico de Bélgica. Fuerza bruta"},{"name":"Thibaut Courtois","pos":"POR","club":"Real Madrid","note":"Uno de los mejores porteros del mundo"},{"name":"Lois Openda","pos":"DC","club":"RB Leipzig","note":"La nueva generación belga"}],
-  "EGY":[{"name":"Mohamed Salah","pos":"EXT","club":"Liverpool","note":"El Faraón. Uno de los 3 mejores jugadores del mundo"},{"name":"Omar Marmoush","pos":"EXT","club":"Man City","note":"En estado de gracia. Máximo goleador de la Bundesliga 2023/24"},{"name":"Mohamed El-Shenawy","pos":"POR","club":"Al-Ahly","note":"Portero experto en la Champions africana"}],
-  "IRN":[{"name":"Mehdi Taremi","pos":"DC","club":"Inter de Milán","note":"Técnica y gol. El más completo de Irán"},{"name":"Sardar Azmoun","pos":"EXT","club":"Roma","note":"El «Messi iraní». Muy querido en su país"},{"name":"Alireza Jahanbakhsh","pos":"EXT","club":"Feyenoord","note":"Velocidad y desborde"}],
-  "NZL":[{"name":"Chris Wood","pos":"DC","club":"Nottm Forest","note":"El goleador histórico de Nueva Zelanda"},{"name":"Ryan Thomas","pos":"MC","club":"PSV","note":"Técnica en el centro"},{"name":"Bill Tuilagi","pos":"DFC","club":"Wigan Athletic","note":"Defensa contundente"}],
-  "ESP":[{"name":"Lamine Yamal","pos":"EXT","club":"Barcelona","note":"Campeón de Europa con 17 años. La nueva joya mundial"},{"name":"Pedri","pos":"MC","club":"Barcelona","note":"Sucesor de Iniesta. Elegancia y técnica infinita"},{"name":"Rodri","pos":"MCD","club":"Man City","note":"Balón de Oro 2023. El mejor pivote del mundo"},{"name":"Unai Simón","pos":"POR","club":"Athletic Club","note":"Portero titular de La Roja desde 2021"}],
-  "CPV":[{"name":"Garry Rodrigues","pos":"EXT","club":"Galatasaray","note":"El mejor jugador histórico de Cabo Verde"},{"name":"Jamiro Monteiro","pos":"MC","club":"New England Rev.","note":"Creatividad en el centro del campo"}],
-  "KSA":[{"name":"Salem Al-Dawsari","pos":"EXT","club":"Al-Hilal","note":"El gol que eliminó a Argentina en 2022"},{"name":"Mohamed Kanno","pos":"MCD","club":"Al-Hilal","note":"El cerebro del mediocampo saudí"},{"name":"Yasser Al-Shahrani","pos":"LAI","club":"Al-Hilal","note":"Lateral con llegada y buen despliegue"}],
-  "URU":[{"name":"Darwin Núñez","pos":"DC","club":"Liverpool","note":"Explosión física y gol. El gran delantero uruguayo"},{"name":"Federico Valverde","pos":"MC","club":"Real Madrid","note":"Capacidad física tremenda. Gol y asistencia"},{"name":"Ronald Araújo","pos":"DFC","club":"Barcelona","note":"Uno de los mejores centrales del mundo"},{"name":"Luis Suárez","pos":"DC","club":"—","note":"Leyenda uruguaya"}],
-  "FRA":[{"name":"Kylian Mbappé","pos":"DC","club":"Real Madrid","note":"El mejor del mundo. Capitán y faro ofensivo"},{"name":"Antoine Griezmann","pos":"MC","club":"Atlético de Madrid","note":"El corazón de Francia. Campeón del Mundo 2018"},{"name":"Aurélien Tchouaméni","pos":"MCD","club":"Real Madrid","note":"La nueva generación. Sólido y con balón"},{"name":"Mike Maignan","pos":"POR","club":"AC Milan","note":"Portazo cuando le necesitas"}],
-  "SEN":[{"name":"Sadio Mané","pos":"EXT","club":"Al-Nassr","note":"Campeón Africa Cup 2022. La estrella de Senegal"},{"name":"Kalidou Koulibaly","pos":"DFC","club":"Al-Hilal","note":"Uno de los centrales más completos del mundo"},{"name":"Ismaïla Sarr","pos":"EXT","club":"Crystal Palace","note":"Velocidad extrema por la banda derecha"}],
-  "IRQ":[{"name":"Amjed Attwan","pos":"MCD","club":"Al-Shorta","note":"Capitán histórico de Iraq"},{"name":"Mohanad Ali","pos":"DC","club":"Al-Zawraa","note":"Máximo goleador histórico de Iraq"},{"name":"Bashar Resan","pos":"EXT","club":"PAOK","note":"El más brillante de la generación actual"}],
-  "NOR":[{"name":"Erling Haaland","pos":"DC","club":"Man City","note":"La máquina de hacer goles. Récords en la Premier"},{"name":"Martin Ødegaard","pos":"MC","club":"Arsenal","note":"Capitán del Arsenal. Técnica y liderazgo"},{"name":"Alexander Sørloth","pos":"DC","club":"Atlético de Madrid","note":"Físico intimidante y muy buen rematador"},{"name":"Sander Berge","pos":"MCD","club":"Fulham","note":"Contención y distribución en el centro"}],
-  "ARG":[{"name":"Lionel Messi","pos":"DC","club":"Inter Miami","note":"El mejor de la historia. Campeón del Mundo 2022"},{"name":"Julián Álvarez","pos":"DC","club":"Atlético de Madrid","note":"La araña. Héroe del Mundial 2022"},{"name":"Enzo Fernández","pos":"MC","club":"Chelsea","note":"Mejor jugador joven del Mundial 2022"},{"name":"Emiliano Martínez","pos":"POR","club":"Aston Villa","note":"Dibu. El portero de los penaltis históricos"}],
-  "DZA":[{"name":"Riyad Mahrez","pos":"EXT","club":"Al-Ahli","note":"El más técnico del fútbol argelino. Campeón de África 2019"},{"name":"Islam Slimani","pos":"DC","club":"Montpellier","note":"Goleador histórico de Argelia"},{"name":"Youcef Atal","pos":"LAD","club":"OGC Niza","note":"Lateral atacante con mucho peligro"}],
-  "AUT":[{"name":"Marcel Sabitzer","pos":"MC","club":"Borussia Dortmund","note":"Gol y carácter. Motor del mediocampo"},{"name":"David Alaba","pos":"DFC","club":"Real Madrid","note":"Capitán y leyenda. Polivalencia máxima"},{"name":"Christoph Baumgartner","pos":"MC","club":"RB Leipzig","note":"Talento en alza. Trabajo y gol"}],
-  "JOR":[{"name":"Yazan Al-Naimat","pos":"DC","club":"Al-Jazeera","note":"El artillero de la selección jordana"},{"name":"Ahmad Hayel","pos":"MCD","club":"Al-Faisaly","note":"La sangre del mediocampo jordano"}],
-  "POR":[{"name":"Cristiano Ronaldo","pos":"DC","club":"Al-Nassr","note":"El máximo goleador de la historia del fútbol internacional"},{"name":"Bruno Fernandes","pos":"MC","club":"Man United","note":"Capitán. Creatividad y gol desde el centro"},{"name":"Rafael Leão","pos":"EXT","club":"AC Milan","note":"Velocidad y desborde. El más explosivo de Portugal"},{"name":"Rúben Dias","pos":"DFC","club":"Man City","note":"El mejor central portugués"}],
-  "COD":[{"name":"Cédric Bakambu","pos":"DC","club":"OM Marseille","note":"El goleador más prolífico de R.D. Congo"},{"name":"Chancel Mbemba","pos":"DFC","club":"OM Marseille","note":"Central poderoso. Referente defensivo"},{"name":"Yannick Bolasie","pos":"EXT","club":"Aris Limassol","note":"Velocidad y habilidad por banda"}],
-  "UZB":[{"name":"Eldor Shomurodov","pos":"DC","club":"Roma","note":"El delantero uzbeko en la Serie A"},{"name":"Jaloliddin Masharipov","pos":"MC","club":"Pakhtakor","note":"El jugador más técnico de Uzbekistán"}],
-  "COL":[{"name":"Luis Díaz","pos":"EXT","club":"Liverpool","note":"Velocidad, magia y gol. Figura de Colombia"},{"name":"James Rodríguez","pos":"MC","club":"Rayo Vallecano","note":"El Bota de Oro del Mundial 2014"},{"name":"Richard Ríos","pos":"MCD","club":"Palmeiras","note":"La revelación de la Copa América 2024"},{"name":"Davinson Sánchez","pos":"DFC","club":"Galatasaray","note":"Central con experiencia en las grandes ligas"}],
-  "ENG":[{"name":"Jude Bellingham","pos":"MC","club":"Real Madrid","note":"El mejor centrocampista de su generación"},{"name":"Phil Foden","pos":"MC","club":"Man City","note":"El Mago de Stockport. Habilidad en estado puro"},{"name":"Harry Kane","pos":"DC","club":"Bayern München","note":"Máximo goleador histórico de Inglaterra"},{"name":"Bukayo Saka","pos":"EXT","club":"Arsenal","note":"El chico de oro del Arsenal. Constante y letal"}],
-  "HRV":[{"name":"Luka Modrić","pos":"MC","club":"Real Madrid","note":"Balón de Oro 2018. Una leyenda viva a sus 38 años"},{"name":"Ivan Perišić","pos":"EXT","club":"Hajduk Split","note":"Héroe del 2º puesto en Rusia 2018"},{"name":"Mateo Kovačić","pos":"MC","club":"Man City","note":"Control y velocidad. Imprescindible para Croacia"}],
-  "GHA":[{"name":"Mohammed Kudus","pos":"EXT","club":"West Ham","note":"Joya ghanesa. Técnica y gol en la Premier League"},{"name":"André Ayew","pos":"MC","club":"Le Havre","note":"Capitán histórico. Liderazgo y experiencia"},{"name":"Jordan Ayew","pos":"EXT","club":"Leicester City","note":"Trabajo y desequilibrio"}],
-  "PAN":[{"name":"Rolando Blackburn","pos":"DC","club":"Necaxa","note":"Fuerza y gol del delantero panameño"},{"name":"Cecilio Waterman","pos":"DC","club":"Club Tijuana","note":"Velocidad y peligro en el área"},{"name":"Alberto Quintero","pos":"EXT","club":"New England Rev.","note":"Desborde y asistencias por banda"}],
+  "ARG":[{"pos":"PO","name":"Juan Musso","club":"Atlético De Madrid","note":"4 int."},{"pos":"MC","name":"Marcos Senesi","club":"AFC Bournemouth","note":"3 int."},{"pos":"DF","name":"Nicolas Tagliafico","club":"Olympique Lyonnais","note":"76 int. · 1 gls"},{"pos":"DF","name":"Gonzalo Montiel","club":"CA River Plate","note":"39 int. · 2 gls"},{"pos":"MC","name":"Leandro Paredes","club":"CA Boca Juniors","note":"77 int. · 5 gls"},{"pos":"DF","name":"Lisandro Martinez","club":"Manchester United FC","note":"28 int. · 1 gls"},{"pos":"MC","name":"Rodrigo De Paul","club":"Inter Miami CF","note":"87 int. · 2 gls"},{"pos":"MC","name":"Valentin Barco","club":"RC Strasbourg","note":"4 int. · 2 gls"},{"pos":"DC","name":"Julian Alvarez","club":"Atlético De Madrid","note":"51 int. · 14 gls"},{"pos":"DC","name":"Lionel Messi","club":"Inter Miami CF","note":"199 int. · 117 gls"},{"pos":"MC","name":"Giovani Lo Celso","club":"Real Betis","note":"67 int. · 4 gls"},{"pos":"PO","name":"Geronimo Rulli","club":"Olympique Marseille","note":"8 int."},{"pos":"DF","name":"Cristian Romero","club":"Tottenham Hotspur FC","note":"51 int. · 3 gls"},{"pos":"MC","name":"Exequiel Palacios","club":"Bayer 04 Leverkusen","note":"40 int."},{"pos":"MC","name":"Nico Gonzalez","club":"Atlético De Madrid","note":"51 int. · 6 gls"},{"pos":"DC","name":"Thiago Almada","club":"Atlético De Madrid","note":"16 int. · 5 gls"},{"pos":"DC","name":"Giuliano Simeone","club":"Atlético De Madrid","note":"13 int. · 2 gls"},{"pos":"DC","name":"Nico Paz","club":"Como","note":"9 int. · 1 gls"},{"pos":"DF","name":"Nicolas Otamendi","club":"SL Benca","note":"132 int. · 8 gls"},{"pos":"MC","name":"Alexis Mac Allister","club":"Liverpool FC","note":"46 int. · 6 gls"},{"pos":"DC","name":"Jose Lopez","club":"SE Palmeiras","note":"5 int."},{"pos":"DC","name":"Lautaro Martinez","club":"FC Internazionale Milano","note":"77 int. · 37 gls"},{"pos":"PO","name":"Emiliano Martinez","club":"Aston Villa FC","note":"59 int."},{"pos":"MC","name":"Enzo Fernandez","club":"Chelsea FC","note":"42 int. · 6 gls"},{"pos":"DF","name":"Facundo Medina","club":"Olympique Marseille","note":"9 int."},{"pos":"DF","name":"Nahuel Molina","club":"Atlético De Madrid","note":"58 int. · 1 gls"}],
+  "AUS":[{"pos":"PO","name":"Mathew Ryan","club":"Levante UD","note":"104 int."},{"pos":"DF","name":"Milos Degenek","club":"APOEL FC","note":"57 int. · 1 gls"},{"pos":"DF","name":"Alessandro Circati","club":"Parma","note":"14 int. · 1 gls"},{"pos":"DF","name":"Jacob Italiano","club":"Grazer AK","note":"6 int."},{"pos":"DF","name":"Jordan Bos","club":"Feyenoord Rotterdam","note":"28 int. · 4 gls"},{"pos":"DF","name":"Jason Geria","club":"Albirex Niigata","note":"15 int."},{"pos":"DC","name":"Mathew Leckie","club":"Melbourne City FC","note":"81 int. · 14 gls"},{"pos":"MC","name":"Connor Metcalfe","club":"FC St. Pauli","note":"37 int. · 2 gls"},{"pos":"DC","name":"Mohamed Toure","club":"Norwich City FC","note":"11 int. · 2 gls"},{"pos":"DC","name":"Ajdin Hrustic","club":"SC Heracles Almelo","note":"37 int. · 3 gls"},{"pos":"DC","name":"Awer Mabil","club":"CD Castellón","note":"38 int. · 10 gls"},{"pos":"PO","name":"Paul Izzo","club":"Randers FC","note":"4 int."},{"pos":"MC","name":"Aiden Oneill","club":"New York City FC","note":"32 int."},{"pos":"MC","name":"Cameron Devlin","club":"Heart Of Midlothian FC","note":"5 int."},{"pos":"DF","name":"Kai Trewin","club":"New York City FC","note":"6 int."},{"pos":"DF","name":"Aziz Behich","club":"Melbourne City FC","note":"85 int. · 3 gls"},{"pos":"DC","name":"Nestory Irankunda","club":"Watford FC","note":"16 int. · 6 gls"},{"pos":"PO","name":"Patrick Beach","club":"Melbourne City FC","note":"3 int."},{"pos":"DF","name":"Harry Souttar","club":"Leicester City FC","note":"39 int. · 11 gls"},{"pos":"DC","name":"Cristian Volpato","club":"US Sassuolo","note":"1 int."},{"pos":"DF","name":"Cameron Burgess","club":"Swansea City AFC","note":"28 int."},{"pos":"MC","name":"Jackson Irvine","club":"FC St. Pauli","note":"83 int. · 14 gls"},{"pos":"DC","name":"Nishan Velupillay","club":"Melbourne Victory FC","note":"8 int. · 3 gls"},{"pos":"MC","name":"Paul Okon-engstler","club":"Sydney FC","note":"7 int."},{"pos":"DF","name":"Lucas Herrington","club":"Colorado Rapids","note":"4 int."},{"pos":"DC","name":"Tete Yengi","club":"FC Machida Zelvia","note":"2 int. · 1 gls"}],
+  "AUT":[{"pos":"PO","name":"Alexander Schlager","club":"FC Red Bull Salzburg","note":"26 int."},{"pos":"DF","name":"David Affengruber","club":"Elche CF","note":"1 int."},{"pos":"DF","name":"Kevin Danso","club":"Tottenham Hotspur FC","note":"32 int."},{"pos":"MC","name":"Xaver Schlager","club":"RB Leipzig","note":"51 int. · 4 gls"},{"pos":"DF","name":"Stefan Posch","club":"1. FSV Mainz 05","note":"52 int. · 5 gls"},{"pos":"MC","name":"Nicolas Seiwald","club":"RB Leipzig","note":"47 int. · 1 gls"},{"pos":"DC","name":"Marko Arnautovic","club":"FK Crvena Zvezda","note":"133 int. · 47 gls"},{"pos":"DF","name":"David Alaba","club":"Real Madrid C. F.","note":"113 int. · 15 gls"},{"pos":"MC","name":"Marcel Sabitzer","club":"Borussia Dortmund","note":"98 int. · 26 gls"},{"pos":"MC","name":"Florian Grillitsch","club":"SC Braga","note":"59 int. · 1 gls"},{"pos":"DC","name":"Michael Gregoritsch","club":"FC Augsburg","note":"75 int. · 24 gls"},{"pos":"PO","name":"Florian Wiegele","club":"FC Viktoria Plze ň","note":"1 int."},{"pos":"PO","name":"Patrick Pentz","club":"Brøndby IF","note":"18 int."},{"pos":"DC","name":"Sasa Kalajdzic","club":"LASK Linz","note":"22 int. · 4 gls"},{"pos":"DF","name":"Philipp Lienhart","club":"SC Freiburg","note":"41 int. · 3 gls"},{"pos":"DF","name":"Phillip Mwene","club":"1. FSV Mainz 05","note":"30 int."},{"pos":"MC","name":"Carney Chukwuemeka","club":"Borussia Dortmund","note":"3 int. · 1 gls"},{"pos":"MC","name":"Romano Schmid","club":"SV Werder Bremen","note":"34 int. · 3 gls"},{"pos":"MC","name":"Dejan Ljubicic","club":"FC Schalke 04","note":"9 int. · 1 gls"},{"pos":"MC","name":"Konrad Laimer","club":"FC Bayern München","note":"57 int. · 7 gls"},{"pos":"DC","name":"Patrick Wimmer","club":"VfL Wolfsburg","note":"30 int. · 1 gls"},{"pos":"MC","name":"Alexander Prass","club":"TSG Hoffenheim","note":"19 int."},{"pos":"DF","name":"Marco Friedl","club":"SV Werder Bremen","note":"11 int."},{"pos":"MC","name":"Paul Wanner","club":"PSV Eindhoven","note":"3 int."},{"pos":"DF","name":"Michael Svoboda","club":"Venezia FC","note":"4 int."},{"pos":"MC","name":"Alessandro Schoepf","club":"Wolfsberger AC","note":"35 int. · 6 gls"}],
+  "BEL":[{"pos":"PO","name":"Thibaut Courtois","club":"Real Madrid C. F.","note":"109 int."},{"pos":"DF","name":"Zeno Debast","club":"Sporting CP","note":"26 int. · 1 gls"},{"pos":"DF","name":"Arthur Theate","club":"Eintracht Frankfurt","note":"33 int. · 1 gls"},{"pos":"DF","name":"Brandon Mechele","club":"Club Brugge","note":"9 int. · 1 gls"},{"pos":"DF","name":"Maxim De Cuyper","club":"Brighton & Hove Albion FC","note":"19 int. · 4 gls"},{"pos":"MC","name":"Axel Witsel","club":"Girona FC","note":"138 int. · 12 gls"},{"pos":"MC","name":"Kevin De Bruyne","club":"SSC Napoli","note":"119 int. · 37 gls"},{"pos":"MC","name":"Youri Tielemans","club":"Aston Villa FC","note":"85 int. · 13 gls"},{"pos":"DC","name":"Romelu Lukaku","club":"SSC Napoli","note":"126 int. · 90 gls"},{"pos":"DC","name":"Leandro Trossard","club":"Arsenal FC","note":"51 int. · 12 gls"},{"pos":"DC","name":"Jeremy Doku","club":"Manchester City FC","note":"43 int. · 7 gls"},{"pos":"PO","name":"Senne Lammens","club":"Manchester United FC","note":"2 int."},{"pos":"PO","name":"Mike Penders","club":"RC Strasbourg","note":"0 int."},{"pos":"DC","name":"Dodi Lukebakio","club":"SL Benca","note":"30 int. · 6 gls"},{"pos":"DF","name":"Thomas Meunier","club":"Lille OSC","note":"80 int. · 10 gls"},{"pos":"DF","name":"Koni De Winter","club":"AC Milan","note":"8 int."},{"pos":"DC","name":"Charles De Ketelaere","club":"Atalanta Bergamo","note":"30 int. · 6 gls"},{"pos":"DF","name":"Joaquin Seys","club":"Club Brugge","note":"5 int."},{"pos":"MC","name":"Diego Moreira","club":"RC Strasbourg","note":"3 int."},{"pos":"MC","name":"Hans Vanaken","club":"Club Brugge","note":"34 int. · 7 gls"},{"pos":"DF","name":"Timothy Castagne","club":"Fulham FC","note":"63 int. · 2 gls"},{"pos":"MC","name":"Alexis Saelemaekers","club":"AC Milan","note":"24 int. · 2 gls"},{"pos":"MC","name":"Nicolas Raskin","club":"Rangers FC","note":"13 int. · 2 gls"},{"pos":"MC","name":"Amadou Onana","club":"Aston Villa FC","note":"29 int. · 1 gls"},{"pos":"DF","name":"Nathan Ngoy","club":"Lille OSC","note":"4 int."},{"pos":"DC","name":"Matias Fernandez-pardo","club":"Lille OSC","note":"2 int."}],
+  "BIH":[{"pos":"PO","name":"Nikola Vasilj","club":"FC St. Pauli","note":"27 int."},{"pos":"DF","name":"Nihad Mujakic","club":"Gaziantep FK","note":"12 int. · 1 gls"},{"pos":"DF","name":"Dennis Hadzikadunic","club":"UC Sampdoria","note":"32 int."},{"pos":"DF","name":"Tarik Muharemovic","club":"US Sassuolo","note":"15 int. · 1 gls"},{"pos":"DF","name":"Sead Kolasinac","club":"Atalanta Bergamo","note":"66 int."},{"pos":"MC","name":"Benjamin Tahirovic","club":"Brøndby IF","note":"29 int. · 2 gls"},{"pos":"DF","name":"Amar Dedic","club":"SL Benca","note":"29 int. · 1 gls"},{"pos":"MC","name":"Armin Gigovic","club":"BSC Young Boys","note":"21 int. · 1 gls"},{"pos":"DC","name":"Samed Bazdar","club":"Jagiellonia Bia ł ystok","note":"14 int. · 1 gls"},{"pos":"DC","name":"Ermedin Demirovic","club":"VfB Stuttgart","note":"41 int. · 4 gls"},{"pos":"DC","name":"Edin Dzeko","club":"FC Schalke 04","note":"148 int. · 73 gls"},{"pos":"PO","name":"Mladen Jurkas","club":"FK Borac Banja Luka","note":"0 int."},{"pos":"MC","name":"Ivan Basic","club":"FC Astana","note":"18 int."},{"pos":"MC","name":"Ivan Sunjic","club":"Pafos FC","note":"12 int."},{"pos":"MC","name":"Amar Memic","club":"FC Viktoria Plze ň","note":"14 int. · 1 gls"},{"pos":"MC","name":"Amir Hadziahmetovic","club":"Hull City FC","note":"36 int."},{"pos":"MC","name":"Dzenis Burnic","club":"Karlsruher SC","note":"21 int."},{"pos":"DF","name":"Nikola Katic","club":"FC Schalke 04","note":"18 int. · 2 gls"},{"pos":"DC","name":"Kerim Alajbegovic","club":"FC Red Bull Salzburg","note":"11 int. · 1 gls"},{"pos":"DC","name":"Esmir Bajraktarevic","club":"PSV Eindhoven","note":"17 int. · 1 gls"},{"pos":"DF","name":"Stjepan Radeljic","club":"HNK Rijeka","note":"5 int."},{"pos":"PO","name":"Martin Zlomislic","club":"HNK Rijeka","note":"3 int."},{"pos":"DC","name":"Haris Tabakovic","club":"Borussia Mönchengladbach","note":"10 int. · 4 gls"},{"pos":"DF","name":"Arjan Malic","club":"SK Sturm Graz","note":"8 int."},{"pos":"DC","name":"Jovo Lukic","club":"Universitatea Cluj","note":"4 int. · 1 gls"},{"pos":"MC","name":"Ermin Mahmic","club":"FC Slovan Liberec","note":"2 int."}],
+  "BRA":[{"pos":"PO","name":"Alisson","club":"Liverpool FC","note":"79 int."},{"pos":"MC","name":"Ederson Silva","club":"Atalanta Bergamo","note":"3 int."},{"pos":"DF","name":"Gabriel Magalhaes","club":"Arsenal FC","note":"18 int. · 1 gls"},{"pos":"DF","name":"Marcos Marquinhos","club":"Paris Saint-Germain","note":"106 int. · 7 gls"},{"pos":"MC","name":"Carlos Casemiro","club":"Manchester United FC","note":"87 int. · 9 gls"},{"pos":"DF","name":"Alex","club":"CR Flamengo","note":"45 int. · 2 gls"},{"pos":"DC","name":"Vinicius","club":"Real Madrid C. F.","note":"50 int. · 10 gls"},{"pos":"MC","name":"Bruno","club":"Newcastle United FC","note":"44 int. · 3 gls"},{"pos":"DC","name":"Matheus Cunha","club":"Manchester United FC","note":"24 int. · 1 gls"},{"pos":"DC","name":"Neymar Jr","club":"Santos FC","note":"128 int. · 79 gls"},{"pos":"DC","name":"Raphael Raphinha","club":"FC Barcelona","note":"40 int. · 11 gls"},{"pos":"PO","name":"Weverton","club":"Grêmio FBPA","note":"11 int."},{"pos":"DF","name":"Danilo","club":"CR Flamengo","note":"71 int. · 1 gls"},{"pos":"DF","name":"Gleison Bremer","club":"Juventus FC","note":"8 int. · 1 gls"},{"pos":"DF","name":"Leonardo Leo","club":"CR Flamengo","note":"4 int."},{"pos":"DF","name":"Douglas Santos","club":"FC Zenit St. Petersburg","note":"8 int."},{"pos":"MC","name":"Fabio Fabinho","club":"Al Ittihad","note":"34 int."},{"pos":"MC","name":"Danilo Santos","club":"Botafogo","note":"5 int. · 2 gls"},{"pos":"DC","name":"Endrick","club":"Olympique Lyonnais","note":"17 int. · 4 gls"},{"pos":"MC","name":"Lucas Paqueta","club":"CR Flamengo","note":"64 int. · 13 gls"},{"pos":"DC","name":"Luiz","club":"FC Zenit St. Petersburg","note":"16 int. · 2 gls"},{"pos":"DC","name":"Gabriel","club":"Arsenal FC","note":"23 int. · 4 gls"},{"pos":"PO","name":"Ederson","club":"Fenerbahçe SK","note":"32 int."},{"pos":"DF","name":"Roger","club":"Al Ahli FC","note":"8 int."},{"pos":"DC","name":"Igor Thiago","club":"Brentford FC","note":"5 int. · 2 gls"},{"pos":"DC","name":"Rayan","club":"AFC Bournemouth","note":"2 int. · 1 gls"}],
+  "CAN":[{"pos":"PO","name":"Dayne St. Clair","club":"Inter Miami CF","note":"20 int."},{"pos":"DF","name":"Alistair Johnston","club":"Celtic FC","note":"59 int. · 1 gls"},{"pos":"DF","name":"Al Jones","club":"Middlesbrough FC","note":"2 int."},{"pos":"DF","name":"Luc De Fougerolles","club":"FCV Dender EH","note":"14 int."},{"pos":"DF","name":"Joel Waterman","club":"Chicago Fire FC","note":"17 int."},{"pos":"MC","name":"Mathieu Choiniere","club":"LAFC","note":"24 int."},{"pos":"MC","name":"Stephen Eustaquio","club":"LAFC","note":"57 int. · 4 gls"},{"pos":"MC","name":"Ismael Kone","club":"US Sassuolo","note":"41 int. · 4 gls"},{"pos":"DC","name":"Cyle Larin","club":"Southampton FC","note":"91 int. · 31 gls"},{"pos":"DC","name":"Jonathan David","club":"Juventus FC","note":"78 int. · 39 gls"},{"pos":"MC","name":"Liam Millar","club":"Hull City FC","note":"42 int. · 1 gls"},{"pos":"DC","name":"Tani Oluwaseyi","club":"Villarreal CF","note":"25 int. · 2 gls"},{"pos":"DF","name":"Derek Cornelius","club":"Rangers FC","note":"45 int. · 1 gls"},{"pos":"MC","name":"Jacob Shaffelburg","club":"LAFC","note":"32 int. · 6 gls"},{"pos":"DF","name":"Moise Bombito","club":"OGC Nice","note":"20 int."},{"pos":"PO","name":"Maxime Crepeau","club":"Orlando City SC","note":"33 int."},{"pos":"DC","name":"Tajon Buchanan","club":"Villarreal CF","note":"61 int. · 8 gls"},{"pos":"PO","name":"Owen Goodman","club":"Barnsley","note":"0 int."},{"pos":"DF","name":"Alphonso Davies","club":"FC Bayern München","note":"58 int. · 15 gls"},{"pos":"DC","name":"Ali Ahmed","club":"Norwich City FC","note":"25 int. · 1 gls"},{"pos":"MC","name":"Jonathan Osorio","club":"Toronto FC","note":"92 int. · 10 gls"},{"pos":"DF","name":"Richie Laryea","club":"Toronto FC","note":"77 int. · 1 gls"},{"pos":"DF","name":"Niko Sigur","club":"HNK Hajduk Split","note":"19 int. · 2 gls"},{"pos":"DC","name":"Promise David","club":"Royale Union Saint-Gilloise","note":"11 int. · 3 gls"},{"pos":"MC","name":"Nathan Saliba","club":"RSC Anderlecht","note":"15 int. · 2 gls"},{"pos":"DC","name":"Jayden Nelson","club":"Austin FC","note":"15 int. · 3 gls"}],
+  "CIV":[{"pos":"PO","name":"Yahia Fofana","club":"Çaykur Rizespor","note":"37 int."},{"pos":"DF","name":"Ousmane Diomande","club":"Sporting CP","note":"16 int. · 1 gls"},{"pos":"DF","name":"Ghislain Konan","club":"Gil Vicente FC","note":"55 int."},{"pos":"MC","name":"Jean Seri","club":"NK Maribor","note":"65 int. · 4 gls"},{"pos":"DF","name":"Wilfried Singo","club":"Galatasaray SK","note":"36 int. · 1 gls"},{"pos":"MC","name":"Seko Fofana","club":"FC Porto","note":"33 int. · 7 gls"},{"pos":"DF","name":"Odilon Kossounou","club":"Atalanta Bergamo","note":"37 int."},{"pos":"MC","name":"Franck Kessie","club":"Al Ahli FC","note":"105 int. · 15 gls"},{"pos":"DC","name":"Ange Bonny","club":"FC Internazionale Milano","note":"2 int."},{"pos":"DC","name":"Simon Adingra","club":"AS Monaco","note":"29 int. · 5 gls"},{"pos":"DC","name":"Yan Diomande","club":"RB Leipzig","note":"11 int. · 3 gls"},{"pos":"DC","name":"Elye Wahi","club":"OGC Nice","note":"3 int."},{"pos":"DF","name":"Christopher Operi","club":"Ba ş ak ş ehir FK","note":"12 int."},{"pos":"DC","name":"Oumar Diakite","club":"Cercle Brugge","note":"29 int. · 6 gls"},{"pos":"DC","name":"Amad Diallo","club":"Manchester United FC","note":"20 int. · 7 gls"},{"pos":"PO","name":"Mohamed Kone","club":"Sporting Charleroi","note":"0 int."},{"pos":"DF","name":"Guela Doue","club":"RC Strasbourg","note":"21 int. · 3 gls"},{"pos":"MC","name":"Ibrahim Sangare","club":"Nottingham Forest FC","note":"56 int. · 11 gls"},{"pos":"DC","name":"Nicolas Pepe","club":"Villarreal CF","note":"57 int. · 12 gls"},{"pos":"DF","name":"Emmanuel Agbadou","club":"Be ş ikta ş  JK","note":"22 int. · 2 gls"},{"pos":"DF","name":"Evan Ndicka","club":"AS Roma","note":"29 int."},{"pos":"DC","name":"Evann Guessand","club":"Crystal Palace FC","note":"21 int. · 4 gls"},{"pos":"PO","name":"Alban Lafont","club":"Panathinaikos FC","note":"4 int."},{"pos":"DC","name":"Bazoumana Toure","club":"TSG Hoffenheim","note":"7 int. · 2 gls"},{"pos":"MC","name":"Parfait Guiagon","club":"Sporting Charleroi","note":"5 int."},{"pos":"MC","name":"Christ Oulai","club":"Trabzonspor","note":"10 int."}],
+  "COD":[{"pos":"PO","name":"Lionel Mpasi","club":"Le Havre AC","note":"28 int."},{"pos":"DF","name":"Aaron Wan-bissaka","club":"West Ham United FC","note":"12 int."},{"pos":"DF","name":"Steve Kapuadi","club":"Widzew Ł ód ź","note":"3 int."},{"pos":"DF","name":"Axel Tuanzebe","club":"Burnley FC","note":"13 int. · 1 gls"},{"pos":"DF","name":"Dylan Batubinsika","club":"AEL FC","note":"15 int. · 1 gls"},{"pos":"MC","name":"Ngalayel Mukau","club":"Lille OSC","note":"14 int."},{"pos":"MC","name":"Nathanael Mbuku","club":"Montpellier HSC","note":"19 int. · 2 gls"},{"pos":"MC","name":"Samuel Moutoussamy","club":"Atromitos FC","note":"58 int."},{"pos":"DC","name":"Brian Cipenga","club":"CD Castellón","note":"8 int."},{"pos":"MC","name":"Theo Bongonda","club":"FC Spartak Moscow","note":"38 int. · 7 gls"},{"pos":"DC","name":"Gael Kakuta","club":"AEL FC","note":"31 int. · 5 gls"},{"pos":"DF","name":"Joris Kayembe","club":"KRC Genk","note":"26 int. · 1 gls"},{"pos":"DC","name":"Meschack Elia","club":"Alanyaspor","note":"68 int. · 12 gls"},{"pos":"MC","name":"Noah Sadiki","club":"Sunderland AFC","note":"20 int."},{"pos":"MC","name":"Aaron Tshibola","club":"Kilmarnock FC","note":"17 int. · 1 gls"},{"pos":"PO","name":"Timothy Fayulu","club":"FC Noah","note":"3 int."},{"pos":"DC","name":"Cedric Bakambu","club":"Real Betis","note":"70 int. · 21 gls"},{"pos":"MC","name":"Charles Pickel","club":"RCD Espanyol","note":"34 int. · 1 gls"},{"pos":"DC","name":"Fiston Mayele","club":"Pyramids FC","note":"36 int. · 5 gls"},{"pos":"DC","name":"Yoane Wissa","club":"Newcastle United FC","note":"38 int. · 8 gls"},{"pos":"PO","name":"Matthieu Epolo","club":"Standard Liège","note":"1 int."},{"pos":"DF","name":"Chancel Mbemba","club":"Lille OSC","note":"109 int. · 7 gls"},{"pos":"DC","name":"Simon Banza","club":"Al Jazira","note":"15 int. · 2 gls"},{"pos":"DF","name":"Gedeon Kalulu","club":"Aris Limassol FC","note":"28 int."},{"pos":"MC","name":"Edo Kayembe","club":"Watford FC","note":"42 int. · 2 gls"},{"pos":"DF","name":"Arthur Masuaku","club":"RC Lens","note":"44 int. · 4 gls"}],
+  "COL":[{"pos":"PO","name":"David Ospina","club":"Atlético Nacional","note":"130 int."},{"pos":"DF","name":"Daniel Munoz","club":"Crystal Palace FC","note":"46 int. · 3 gls"},{"pos":"DF","name":"Jhon Lucumi","club":"Bologna FC","note":"37 int. · 1 gls"},{"pos":"DF","name":"Santiago Arias","club":"CA Independiente","note":"68 int."},{"pos":"MC","name":"Kevin Castano","club":"CA River Plate","note":"25 int."},{"pos":"MC","name":"Richard Rios","club":"SL Benca","note":"32 int. · 2 gls"},{"pos":"DC","name":"Luis Diaz","club":"FC Bayern München","note":"74 int. · 22 gls"},{"pos":"MC","name":"Jorge Carrascal","club":"CR Flamengo","note":"25 int. · 2 gls"},{"pos":"DC","name":"Jhon Cordoba","club":"FC Krasnodar","note":"21 int. · 6 gls"},{"pos":"MC","name":"James Rodriguez","club":"Minnesota United FC","note":"126 int. · 31 gls"},{"pos":"MC","name":"Jhon Arias","club":"SE Palmeiras","note":"38 int. · 6 gls"},{"pos":"PO","name":"Camilo Vargas","club":"Atlas FC","note":"42 int."},{"pos":"DF","name":"Yerry Mina","club":"Cagliari","note":"54 int. · 8 gls"},{"pos":"DF","name":"Gustavo Puerta","club":"Racing Santander","note":"6 int. · 1 gls"},{"pos":"MC","name":"Juan Portilla","club":"Athletico Paranaense","note":"10 int."},{"pos":"MC","name":"Jefferson Lerma","club":"Crystal Palace FC","note":"65 int. · 5 gls"},{"pos":"DF","name":"Johan Mojica","club":"RCD Mallorca","note":"45 int. · 1 gls"},{"pos":"DF","name":"Willer Ditta","club":"CF Cruz Azul","note":"5 int."},{"pos":"DC","name":"Cucho Hernandez","club":"Real Betis","note":"9 int. · 2 gls"},{"pos":"MC","name":"Juan Quintero","club":"CA River Plate","note":"49 int. · 6 gls"},{"pos":"DC","name":"Jaminton Campaz","club":"CA Rosario Central","note":"10 int. · 1 gls"},{"pos":"DF","name":"Deiver Machado","club":"FC Nantes","note":"15 int."},{"pos":"DF","name":"Davinson Sanchez","club":"Galatasaray SK","note":"79 int. · 4 gls"},{"pos":"PO","name":"Alvaro Montero","club":"CA Vélez Sarseld","note":"12 int."},{"pos":"DC","name":"Luis Suarez","club":"Sporting CP","note":"12 int. · 5 gls"},{"pos":"DC","name":"Andres Gomez","club":"CR Vasco Da Gama","note":"8 int. · 2 gls"}],
+  "CPV":[{"pos":"PO","name":"Josimar Vozinha","club":"GD Chaves","note":"90 int."},{"pos":"DF","name":"Ianique Stopira","club":"SCU Torreense","note":"61 int. · 4 gls"},{"pos":"DF","name":"Edilson Diney","club":"Al Bataeh Club","note":"32 int. · 2 gls"},{"pos":"DF","name":"Roberto Pico Lopes","club":"Shamrock Rovers FC","note":"45 int."},{"pos":"DF","name":"Logan Costa","club":"Villarreal CF","note":"28 int."},{"pos":"MC","name":"Kevin Pina","club":"FC Krasnodar","note":"31 int. · 3 gls"},{"pos":"MC","name":"Jovane","club":"CF Estrela Da Amadora","note":"29 int. · 3 gls"},{"pos":"MC","name":"Joao Paulo","club":"FC FCSB","note":"41 int. · 1 gls"},{"pos":"DC","name":"Gilson","club":"FC Akron Tolyatti","note":"21 int. · 6 gls"},{"pos":"MC","name":"Jamiro","club":"PEC Zwolle","note":"55 int. · 5 gls"},{"pos":"MC","name":"Garry","club":"Apollon Limassol","note":"61 int. · 10 gls"},{"pos":"PO","name":"Marcio","club":"PFC Montana","note":"11 int."},{"pos":"DF","name":"Sidny Lopes","club":"SL Benca","note":"11 int. · 3 gls"},{"pos":"MC","name":"Deroy Duarte","club":"PFC Ludogorets Razgrad","note":"33 int."},{"pos":"MC","name":"Laros Duarte","club":"Puskás Akadémia FC","note":"20 int. · 1 gls"},{"pos":"MC","name":"Jair Yannick","club":"SC Farense","note":"11 int. · 1 gls"},{"pos":"MC","name":"Willy","club":"AC Omonia","note":"38 int. · 3 gls"},{"pos":"MC","name":"Telmo","club":"Vitória SC","note":"16 int. · 1 gls"},{"pos":"DC","name":"Dailon Livramento","club":"Casa Pia AC","note":"22 int. · 7 gls"},{"pos":"DC","name":"Ryan","club":"I ğ dır FK","note":"98 int. · 22 gls"},{"pos":"MC","name":"Nuno Da Costa","club":"Ba ş ak ş ehir FK","note":"9 int. · 2 gls"},{"pos":"DF","name":"Steven","club":"Columbus Crew","note":"20 int."},{"pos":"PO","name":"Carlos Cj Dos Santos","club":"San Diego FC","note":"1 int."},{"pos":"DF","name":"Wagner Pina","club":"Trabzonspor","note":"14 int."},{"pos":"DF","name":"Kelvin","club":"SJK","note":"6 int. · 1 gls"},{"pos":"MC","name":"Helio Varela","club":"Maccabi Tel-Aviv FC","note":"21 int."}],
+  "CUW":[{"pos":"PO","name":"Eloy Room","club":"Miami FC","note":"73 int."},{"pos":"DF","name":"Shurandy Sambo","club":"Sparta Rotterdam","note":"8 int."},{"pos":"DF","name":"Jurien Gaari","club":"Abha Club","note":"60 int. · 1 gls"},{"pos":"DF","name":"Roshon Van Eijma","club":"RKC Waalwijk","note":"28 int. · 1 gls"},{"pos":"DF","name":"Sherel Floranus","club":"PEC Zwolle","note":"28 int."},{"pos":"MC","name":"Godfried Roemeratoe","club":"RKC Waalwijk","note":"29 int. · 1 gls"},{"pos":"MC","name":"Juninho Bacuna","club":"FC Volendam","note":"51 int. · 14 gls"},{"pos":"MC","name":"Livano Comenencia","club":"FC Zürich","note":"21 int. · 3 gls"},{"pos":"DC","name":"Juergen Locadia","club":"Miami FC","note":"14 int. · 1 gls"},{"pos":"MC","name":"Leandro Bacuna","club":"I ğ dır FK","note":"73 int. · 16 gls"},{"pos":"DC","name":"Jeremy Antonisse","club":"AE Kisia FC","note":"28 int. · 4 gls"},{"pos":"DC","name":"Sontje Hansen","club":"Middlesbrough FC","note":"7 int. · 1 gls"},{"pos":"DC","name":"Tyrese Noslin","club":"SC Telstar","note":"7 int. · 1 gls"},{"pos":"DC","name":"Kenji Gorre","club":"Maccabi Haifa FC","note":"38 int. · 6 gls"},{"pos":"MC","name":"Arjany Martha","club":"Rotherham United FC","note":"9 int. · 2 gls"},{"pos":"DC","name":"Jearl Margaritha","club":"SK Beveren","note":"23 int. · 5 gls"},{"pos":"DC","name":"Brandley Kuwas","club":"FC Volendam","note":"36 int. · 2 gls"},{"pos":"DF","name":"Armando Obispo","club":"PSV Eindhoven","note":"7 int."},{"pos":"DC","name":"Gervane Kastaneer","club":"Terengganu FC","note":"30 int. · 9 gls"},{"pos":"DF","name":"Joshua Brenet","club":"Kayserispor","note":"18 int. · 2 gls"},{"pos":"MC","name":"Tahith Chong","club":"Sheeld United FC","note":"7 int. · 3 gls"},{"pos":"MC","name":"Kevin Felida","club":"FC Den Bosch","note":"19 int. · 1 gls"},{"pos":"DF","name":"Riechedly Bazoer","club":"Konyaspor","note":"6 int."},{"pos":"DF","name":"Deveron Fonville","club":"NEC Nijmegen","note":"3 int."},{"pos":"PO","name":"Tyrick Bodak","club":"SC Telstar","note":"4 int."},{"pos":"PO","name":"Trevor Doornbusch","club":"VVV Venlo","note":"8 int."}],
+  "CZE":[{"pos":"PO","name":"Matej Kovar","club":"PSV Eindhoven","note":"21 int."},{"pos":"DF","name":"David Zima","club":"SK Slavia Praha","note":"25 int. · 1 gls"},{"pos":"DF","name":"Tomas Holes","club":"SK Slavia Praha","note":"41 int. · 2 gls"},{"pos":"DF","name":"Robin Hranac","club":"TSG Hoffenheim","note":"15 int. · 1 gls"},{"pos":"DF","name":"Vladimir Coufal","club":"TSG Hoffenheim","note":"63 int. · 2 gls"},{"pos":"DF","name":"StepanŠ Chaloupek","club":"SK Slavia Praha","note":"6 int."},{"pos":"DF","name":"Ladislav Krejci","club":"Wolverhampton Wanderers FC","note":"28 int. · 6 gls"},{"pos":"MC","name":"Vladimir Darida","club":"FC Hradec Králové","note":"79 int. · 8 gls"},{"pos":"DC","name":"Adam Hlozek","club":"TSG Hoffenheim","note":"44 int. · 5 gls"},{"pos":"DC","name":"Patrik Schick","club":"Bayer 04 Leverkusen","note":"54 int. · 26 gls"},{"pos":"DC","name":"Jan Kuchta","club":"AC Sparta Praha","note":"31 int. · 3 gls"},{"pos":"MC","name":"Lukas Cerv","club":"FC Viktoria Plze ň","note":"17 int. · 2 gls"},{"pos":"DC","name":"Mojmir Chytil","club":"SK Slavia Praha","note":"23 int. · 6 gls"},{"pos":"DF","name":"David Jurasek","club":"SK Slavia Praha","note":"18 int. · 1 gls"},{"pos":"DC","name":"Pavel Sulc","club":"Olympique Lyonnais","note":"22 int. · 5 gls"},{"pos":"PO","name":"Jindrich Stanek","club":"SK Slavia Praha","note":"14 int."},{"pos":"MC","name":"Lukas Provod","club":"SK Slavia Praha","note":"39 int. · 3 gls"},{"pos":"MC","name":"Michal Sadilek","club":"SK Slavia Praha","note":"36 int. · 1 gls"},{"pos":"DC","name":"Tomas Chory","club":"SK Slavia Praha","note":"23 int. · 7 gls"},{"pos":"DF","name":"Jaroslav Zeleny","club":"AC Sparta Praha","note":"24 int."},{"pos":"DF","name":"David Doudera","club":"SK Slavia Praha","note":"17 int. · 2 gls"},{"pos":"MC","name":"Tomas Soucek","club":"West Ham United FC","note":"91 int. · 17 gls"},{"pos":"PO","name":"Lukas Hornicek","club":"SC Braga","note":"1 int."},{"pos":"MC","name":"Alexandr Sojka","club":"FC Viktoria Plze ň","note":"3 int."},{"pos":"MC","name":"Hugo Sochurek","club":"AC Sparta Praha","note":"1 int."},{"pos":"DC","name":"Denis Visinsky","club":"FC Viktoria Plze ň","note":"2 int. · 1 gls"}],
+  "DZA":[{"pos":"PO","name":"Melvin Mastil","club":"FC Stade Nyonnais","note":"2 int."},{"pos":"DF","name":"Aissa Mandi","club":"Lille OSC","note":"119 int. · 8 gls"},{"pos":"DF","name":"Achref Abada","club":"USM Alger","note":"10 int. · 1 gls"},{"pos":"DF","name":"Mohamed Tougai","club":"Espérance De Tunisie","note":"30 int. · 2 gls"},{"pos":"DF","name":"Zineddine Belaid","club":"JS Kabylie","note":"18 int. · 1 gls"},{"pos":"MC","name":"Ramiz Zerrouki","club":"FC Twente","note":"53 int. · 3 gls"},{"pos":"DC","name":"Riyad Mahrez","club":"Al Ahli FC","note":"116 int. · 38 gls"},{"pos":"MC","name":"Houssem Aouar","club":"Al Ittihad","note":"23 int. · 6 gls"},{"pos":"DC","name":"Amine Gouiri","club":"Olympique Marseille","note":"23 int. · 10 gls"},{"pos":"MC","name":"Fares Chaibi","club":"Eintracht Frankfurt","note":"31 int. · 3 gls"},{"pos":"DC","name":"Anis Hadj Moussa","club":"Feyenoord Rotterdam","note":"15 int. · 2 gls"},{"pos":"DC","name":"Nadhir Benbouali","club":"Györi ETO FC","note":"4 int. · 1 gls"},{"pos":"DF","name":"Jaouen Hadjam","club":"BSC Young Boys","note":"18 int. · 3 gls"},{"pos":"MC","name":"Hicham Boudaoui","club":"OGC Nice","note":"34 int."},{"pos":"DF","name":"Rayan Ait-nouri","club":"Manchester City FC","note":"30 int."},{"pos":"PO","name":"Oussama Benbot","club":"USM Alger","note":"3 int."},{"pos":"DF","name":"Ra Belghali","club":"Hellas Verona FC","note":"13 int. · 1 gls"},{"pos":"DC","name":"Mohamed Amoura","club":"VfL Wolfsburg","note":"47 int. · 19 gls"},{"pos":"MC","name":"Nabil Bentaleb","club":"Lille OSC","note":"60 int. · 6 gls"},{"pos":"DC","name":"Adil Boulbina","club":"Al Duhail SC","note":"11 int. · 5 gls"},{"pos":"DF","name":"Ramy Bensebaini","club":"Borussia Dortmund","note":"82 int. · 9 gls"},{"pos":"MC","name":"Ibrahim Maza","club":"Bayer 04 Leverkusen","note":"17 int. · 2 gls"},{"pos":"PO","name":"Luca Zidane","club":"Granada CF","note":"7 int."},{"pos":"MC","name":"Yassine Titraoui","club":"Sporting Charleroi","note":"5 int."},{"pos":"DC","name":"Fares Ghedjemis","club":"Frosinone","note":"1 int. · 1 gls"},{"pos":"DF","name":"Samir Chergui","club":"Paris FC","note":"5 int."}],
+  "ECU":[{"pos":"PO","name":"Hernan Galindez","club":"CA Huracán","note":"36 int."},{"pos":"DF","name":"Felix Torres","club":"SC Internacional","note":"49 int. · 5 gls"},{"pos":"DF","name":"Piero Hincapie","club":"Arsenal FC","note":"53 int. · 2 gls"},{"pos":"DF","name":"Joel Ordonez","club":"Club Brugge","note":"18 int."},{"pos":"MC","name":"Jordy Alcivar","club":"Independiente Del Valle","note":"11 int. · 1 gls"},{"pos":"DF","name":"Willian Pacho","club":"Paris Saint-Germain","note":"35 int. · 2 gls"},{"pos":"DF","name":"Pervis Estupinan","club":"AC Milan","note":"54 int. · 5 gls"},{"pos":"MC","name":"Anthony Valencia","club":"Royal Antwerp FC","note":"3 int. · 1 gls"},{"pos":"DC","name":"John Yeboah","club":"Venezia FC","note":"23 int. · 3 gls"},{"pos":"MC","name":"Kendry Paez","club":"CA River Plate","note":"26 int. · 2 gls"},{"pos":"DC","name":"Kevin Rodriguez","club":"Royale Union Saint-Gilloise","note":"32 int. · 2 gls"},{"pos":"PO","name":"Moises Ramirez","club":"AE Kisia FC","note":"7 int."},{"pos":"DC","name":"Enner Valencia","club":"CF Pachuca","note":"106 int. · 49 gls"},{"pos":"MC","name":"Alan Minda","club":"Atlético Mineiro","note":"21 int. · 2 gls"},{"pos":"MC","name":"Pedro Vite","club":"Pumas UNAM","note":"18 int. · 1 gls"},{"pos":"DC","name":"Jordy Caicedo","club":"CA Huracán","note":"20 int. · 4 gls"},{"pos":"DF","name":"AngeloÁngelo Preciado","club":"Atlético Mineiro","note":"57 int."},{"pos":"MC","name":"Denil Castillo","club":"FC Midtjylland","note":"5 int."},{"pos":"DC","name":"Gonzalo Plata","club":"CR Flamengo","note":"51 int. · 8 gls"},{"pos":"DC","name":"Nilson Angulo","club":"Sunderland AFC","note":"15 int. · 2 gls"},{"pos":"MC","name":"Alan Franco","club":"Atlético Mineiro","note":"59 int. · 1 gls"},{"pos":"PO","name":"Gonzalo Valle","club":"LDU Quito","note":"4 int."},{"pos":"MC","name":"Moises Caicedo","club":"Chelsea FC","note":"62 int. · 3 gls"},{"pos":"DC","name":"Jeremy Arevalo","club":"VfB Stuttgart","note":"4 int."},{"pos":"DF","name":"Jackson Porozo","club":"Club Tijuana","note":"10 int. · 1 gls"},{"pos":"DF","name":"Yaimar Medina","club":"KRC Genk","note":"6 int."}],
+  "EGY":[{"pos":"PO","name":"Mohamed Elshenawy","club":"Al Ahly FC","note":"77 int."},{"pos":"DF","name":"Yasser","club":"Al Ahly FC","note":"18 int. · 1 gls"},{"pos":"DF","name":"Mohamed Hany","club":"Al Ahly FC","note":"43 int."},{"pos":"DF","name":"Hossam Abdelmaguid","club":"Zamalek SC","note":"13 int."},{"pos":"DF","name":"Ramy Rabia","club":"Al Ain FC","note":"47 int. · 6 gls"},{"pos":"DF","name":"Mohamed","club":"OGC Nice","note":"36 int. · 3 gls"},{"pos":"DC","name":"Mahmoud Trezeguet","club":"Al Ahly FC","note":"96 int. · 23 gls"},{"pos":"MC","name":"Emam","club":"Al Ahly FC","note":"29 int."},{"pos":"DC","name":"Hamza","club":"FC Barcelona","note":"2 int."},{"pos":"DC","name":"Mohamed Salah","club":"Liverpool FC","note":"116 int. · 67 gls"},{"pos":"MC","name":"Mostafa Zico","club":"Pyramids FC","note":"2 int. · 2 gls"},{"pos":"DC","name":"Haissem Hassan","club":"Real Oviedo","note":"4 int."},{"pos":"DF","name":"Ahmed Fatouh","club":"Zamalek SC","note":"39 int. · 1 gls"},{"pos":"MC","name":"Hamdy Fathy","club":"Al Wakrah SC","note":"64 int. · 4 gls"},{"pos":"DF","name":"Karim Hafez","club":"Pyramids FC","note":"9 int."},{"pos":"PO","name":"Mahdy Soliman","club":"Zamalek SC","note":"0 int."},{"pos":"MC","name":"Mohanad Lashin","club":"Pyramids FC","note":"23 int."},{"pos":"MC","name":"Nabil","club":"Al Najmah SC","note":"12 int."},{"pos":"MC","name":"Marawan Attia","club":"Al Ahly FC","note":"35 int. · 1 gls"},{"pos":"DC","name":"Ibrahim","club":"FC Nordsjælland","note":"24 int. · 3 gls"},{"pos":"MC","name":"Mahmoud","club":"ZED FC","note":"15 int. · 1 gls"},{"pos":"DC","name":"Omar","club":"Manchester City FC","note":"50 int. · 11 gls"},{"pos":"PO","name":"Mostafa","club":"Al Ahly FC","note":"10 int."},{"pos":"DF","name":"Tarek Alaa","club":"ZED FC","note":"3 int."},{"pos":"DC","name":"Ahmed Zizo","club":"Al Ahly FC","note":"64 int. · 5 gls"},{"pos":"PO","name":"Mohamed Alaa","club":"El Gouna FC","note":"0 int."}],
+  "ENG":[{"pos":"PO","name":"Jordan Pickford","club":"Everton FC","note":"84 int."},{"pos":"DF","name":"Ezri Konsa","club":"Aston Villa FC","note":"20 int. · 1 gls"},{"pos":"DF","name":"Nico Oreilly","club":"Manchester City FC","note":"5 int."},{"pos":"MC","name":"Declan Rice","club":"Arsenal FC","note":"73 int. · 7 gls"},{"pos":"DF","name":"John Stones","club":"Manchester City FC","note":"89 int. · 3 gls"},{"pos":"DF","name":"Marc Guehi","club":"Manchester City FC","note":"29 int. · 1 gls"},{"pos":"DC","name":"Bukayo Saka","club":"Arsenal FC","note":"49 int. · 14 gls"},{"pos":"MC","name":"Elliot Anderson","club":"Nottingham Forest FC","note":"9 int."},{"pos":"DC","name":"Harry Kane","club":"FC Bayern München","note":"114 int. · 79 gls"},{"pos":"MC","name":"Jude Bellingham","club":"Real Madrid C. F.","note":"48 int. · 6 gls"},{"pos":"DC","name":"Marcus Rashford","club":"FC Barcelona","note":"72 int. · 18 gls"},{"pos":"DF","name":"Tino Livramento","club":"Newcastle United FC","note":"6 int."},{"pos":"PO","name":"Dean Henderson","club":"Crystal Palace FC","note":"4 int."},{"pos":"MC","name":"Jordan Henderson","club":"Brentford FC","note":"91 int. · 3 gls"},{"pos":"DF","name":"Dan Burn","club":"Newcastle United FC","note":"8 int."},{"pos":"MC","name":"Kobbie Mainoo","club":"Manchester United FC","note":"14 int."},{"pos":"MC","name":"Morgan Rogers","club":"Aston Villa FC","note":"15 int. · 1 gls"},{"pos":"DC","name":"Anthony Gordon","club":"Newcastle United FC","note":"19 int. · 3 gls"},{"pos":"DC","name":"Ollie Watkins","club":"Aston Villa FC","note":"22 int. · 7 gls"},{"pos":"DC","name":"Noni Madueke","club":"Arsenal FC","note":"11 int. · 1 gls"},{"pos":"MC","name":"Eberechi Eze","club":"Arsenal FC","note":"17 int. · 3 gls"},{"pos":"DC","name":"Ivan Toney","club":"Al Ahli FC","note":"8 int. · 1 gls"},{"pos":"PO","name":"James Trafford","club":"Manchester City FC","note":"2 int."},{"pos":"DF","name":"Reece James","club":"Chelsea FC","note":"24 int. · 1 gls"},{"pos":"DF","name":"Djed Spence","club":"Tottenham Hotspur FC","note":"6 int."},{"pos":"DF","name":"Jarell Quansah","club":"Bayer 04 Leverkusen","note":"3 int."}],
+  "ESP":[{"pos":"PO","name":"David Raya","club":"Arsenal FC","note":"13 int."},{"pos":"DF","name":"Marc Pubill","club":"Atlético De Madrid","note":"2 int."},{"pos":"DF","name":"Alex Grimaldo","club":"Bayer 04 Leverkusen","note":"14 int."},{"pos":"DF","name":"Eric Garcia","club":"FC Barcelona","note":"21 int."},{"pos":"DF","name":"Marcos Llorente","club":"Atlético De Madrid","note":"24 int."},{"pos":"MC","name":"Mikel Merino","club":"Arsenal FC","note":"43 int. · 10 gls"},{"pos":"DC","name":"Ferran Torres","club":"FC Barcelona","note":"57 int. · 24 gls"},{"pos":"MC","name":"Fabian Ruiz","club":"Paris Saint-Germain","note":"42 int. · 6 gls"},{"pos":"MC","name":"Pablo Gavi","club":"FC Barcelona","note":"30 int. · 5 gls"},{"pos":"DC","name":"Dani Olmo","club":"FC Barcelona","note":"50 int. · 12 gls"},{"pos":"DC","name":"Yeremy Pino","club":"Crystal Palace FC","note":"23 int. · 4 gls"},{"pos":"DF","name":"Pedro Porro","club":"Tottenham Hotspur FC","note":"18 int."},{"pos":"PO","name":"Joan Garcia","club":"FC Barcelona","note":"2 int."},{"pos":"DF","name":"Aymeric Laporte","club":"Athletic Club","note":"46 int. · 2 gls"},{"pos":"MC","name":"Alex Baena","club":"Atlético De Madrid","note":"17 int. · 2 gls"},{"pos":"MC","name":"Rodrigo Rodri","club":"Manchester City FC","note":"62 int. · 4 gls"},{"pos":"DC","name":"Nico Williams","club":"Athletic Club","note":"30 int. · 6 gls"},{"pos":"MC","name":"Martin Zubimendi","club":"Arsenal FC","note":"26 int. · 3 gls"},{"pos":"DC","name":"Lamine Yamal","club":"FC Barcelona","note":"25 int. · 6 gls"},{"pos":"MC","name":"Pedro Pedri","club":"FC Barcelona","note":"41 int. · 6 gls"},{"pos":"DC","name":"Mikel Oyarzabal","club":"Real Sociedad","note":"53 int. · 25 gls"},{"pos":"DF","name":"Pau Cubarsi","club":"FC Barcelona","note":"12 int."},{"pos":"PO","name":"Unai Simon","club":"Athletic Club","note":"58 int."},{"pos":"DF","name":"Marc Cucurella","club":"Chelsea FC","note":"24 int. · 1 gls"},{"pos":"DC","name":"Victor Munoz","club":"CA Osasuna","note":"2 int. · 1 gls"},{"pos":"DC","name":"Borja Iglesias","club":"RC Celta Vigo","note":"8 int."}],
+  "FRA":[{"pos":"PO","name":"Brice Samba","club":"Stade Rennais FC","note":"4 int."},{"pos":"DF","name":"Malo Gusto","club":"Chelsea FC","note":"11 int."},{"pos":"DF","name":"Lucas Digne","club":"Aston Villa FC","note":"58 int."},{"pos":"DF","name":"Dayot Upamecano","club":"FC Bayern München","note":"38 int. · 2 gls"},{"pos":"DF","name":"Jules Kounde","club":"FC Barcelona","note":"48 int."},{"pos":"MC","name":"Manu Kone","club":"AS Roma","note":"14 int."},{"pos":"DC","name":"Ousmane Dembele","club":"Paris Saint-Germain","note":"59 int. · 7 gls"},{"pos":"MC","name":"Aurelien Tchouameni","club":"Real Madrid C. F.","note":"46 int. · 3 gls"},{"pos":"DC","name":"Marcus Thuram","club":"FC Internazionale Milano","note":"34 int. · 3 gls"},{"pos":"DC","name":"Kylian Mbappe","club":"Real Madrid C. F.","note":"98 int. · 56 gls"},{"pos":"DC","name":"Michael Olise","club":"FC Bayern München","note":"17 int. · 7 gls"},{"pos":"DC","name":"Bradley Barcola","club":"Paris Saint-Germain","note":"20 int. · 3 gls"},{"pos":"MC","name":"Ngolo Kante","club":"Fenerbahçe SK","note":"69 int. · 2 gls"},{"pos":"MC","name":"Adrien Rabiot","club":"AC Milan","note":"59 int. · 7 gls"},{"pos":"DF","name":"Ibrahima Konate","club":"Liverpool FC","note":"28 int."},{"pos":"PO","name":"Mike Maignan","club":"AC Milan","note":"40 int."},{"pos":"DF","name":"William Saliba","club":"Arsenal FC","note":"32 int."},{"pos":"MC","name":"Warren Zaire-emery","club":"Paris Saint-Germain","note":"11 int. · 1 gls"},{"pos":"DF","name":"Theo Hernandez","club":"Al Hilal SC","note":"44 int. · 2 gls"},{"pos":"DC","name":"Desire Doue","club":"Paris Saint-Germain","note":"7 int. · 2 gls"},{"pos":"DF","name":"Lucas Hernandez","club":"Paris Saint-Germain","note":"42 int."},{"pos":"DC","name":"Jean Mateta","club":"Crystal Palace FC","note":"4 int. · 2 gls"},{"pos":"PO","name":"Robin Risser","club":"RC Lens","note":"0 int."},{"pos":"MC","name":"Rayan Cherki","club":"Manchester City FC","note":"7 int. · 2 gls"},{"pos":"MC","name":"Maghnes Akliouche","club":"AS Monaco","note":"9 int. · 1 gls"},{"pos":"DF","name":"Maxence Lacroix","club":"Crystal Palace FC","note":"4 int."}],
+  "GER":[{"pos":"PO","name":"Manuel Neuer","club":"FC Bayern München","note":"125 int."},{"pos":"DF","name":"Antonio Ruediger","club":"Real Madrid C. F.","note":"83 int. · 3 gls"},{"pos":"DF","name":"Waldemar Anton","club":"Borussia Dortmund","note":"14 int."},{"pos":"DF","name":"Jonathan Tah","club":"FC Bayern München","note":"48 int. · 1 gls"},{"pos":"MC","name":"Aleksandar Pavlovic","club":"FC Bayern München","note":"12 int. · 1 gls"},{"pos":"DF","name":"Joshua Kimmich","club":"FC Bayern München","note":"111 int. · 10 gls"},{"pos":"DC","name":"Kai Havertz","club":"Arsenal FC","note":"59 int. · 24 gls"},{"pos":"MC","name":"Leon Goretzka","club":"FC Bayern München","note":"71 int. · 15 gls"},{"pos":"MC","name":"Jamie Leweling","club":"VfB Stuttgart","note":"5 int. · 1 gls"},{"pos":"MC","name":"Jamal Musiala","club":"FC Bayern München","note":"43 int. · 10 gls"},{"pos":"DC","name":"Nick Woltemade","club":"Newcastle United FC","note":"11 int. · 4 gls"},{"pos":"PO","name":"Oliver Baumann","club":"TSG Hoffenheim","note":"13 int."},{"pos":"MC","name":"Pascal Gross","club":"Brighton & Hove Albion FC","note":"18 int. · 1 gls"},{"pos":"DC","name":"Maximilian Beier","club":"Borussia Dortmund","note":"9 int."},{"pos":"DF","name":"Nico Schlotterbeck","club":"Borussia Dortmund","note":"28 int. · 1 gls"},{"pos":"MC","name":"Angelo Stiller","club":"VfB Stuttgart","note":"8 int."},{"pos":"MC","name":"Florian Wirtz","club":"Liverpool FC","note":"42 int. · 11 gls"},{"pos":"DF","name":"Nathaniel Brown","club":"Eintracht Frankfurt","note":"6 int. · 1 gls"},{"pos":"MC","name":"Leroy Sane","club":"Galatasaray SK","note":"77 int. · 17 gls"},{"pos":"MC","name":"Nadiem Amiri","club":"1. FSV Mainz 05","note":"11 int. · 1 gls"},{"pos":"PO","name":"Alexander Nuebel","club":"VfB Stuttgart","note":"3 int."},{"pos":"DF","name":"David Raum","club":"RB Leipzig","note":"38 int. · 1 gls"},{"pos":"MC","name":"Felix Nmecha","club":"Borussia Dortmund","note":"9 int. · 2 gls"},{"pos":"DF","name":"Malick Thiaw","club":"Newcastle United FC","note":"5 int."},{"pos":"MC","name":"Assan Ouedraogo","club":"RB Leipzig","note":"1 int. · 1 gls"},{"pos":"DC","name":"Deniz Undav","club":"VfB Stuttgart","note":"10 int. · 7 gls"}],
+  "GHA":[{"pos":"PO","name":"Lawrence Zigi","club":"FC St. Gallen","note":"30 int."},{"pos":"DF","name":"Alidu Seidu","club":"Stade Rennais FC","note":"24 int. · 1 gls"},{"pos":"MC","name":"Caleb Yirenkyi","club":"FC Nordsjælland","note":"11 int. · 1 gls"},{"pos":"DF","name":"Jonas Adjetey","club":"VfL Wolfsburg","note":"10 int."},{"pos":"MC","name":"Thomas Partey","club":"Villarreal CF","note":"59 int. · 16 gls"},{"pos":"DF","name":"Abdul Mumin","club":"Rayo Vallecano","note":"5 int."},{"pos":"DC","name":"Abdul Fatawu","club":"Leicester City FC","note":"28 int. · 3 gls"},{"pos":"MC","name":"Kwasi Sibo","club":"Real Oviedo","note":"8 int."},{"pos":"DC","name":"Jordan Ayew","club":"Leicester City FC","note":"120 int. · 34 gls"},{"pos":"DC","name":"Brandon Thomas-asante","club":"Coventry City FC","note":"8 int. · 1 gls"},{"pos":"MC","name":"Antoine Semenyo","club":"Manchester City FC","note":"34 int. · 3 gls"},{"pos":"PO","name":"Joseph Anang","club":"St Patrick's Athletic FC","note":"1 int."},{"pos":"DC","name":"Christopher Bonsu Baah","club":"Al Qadsiah FC","note":"9 int."},{"pos":"DF","name":"Gideon Mensah","club":"AJ Auxerre","note":"40 int."},{"pos":"MC","name":"Elisha Owusu","club":"AJ Auxerre","note":"20 int."},{"pos":"PO","name":"Benjamin Asare","club":"Hearts Of Oak SC","note":"13 int."},{"pos":"DF","name":"Baba Rahman","club":"PAOK Saloniki","note":"53 int. · 1 gls"},{"pos":"DF","name":"Jerome Opoku","club":"Ba ş ak ş ehir FK","note":"11 int. · 1 gls"},{"pos":"DC","name":"Inaki Williams","club":"Athletic Club","note":"26 int. · 2 gls"},{"pos":"MC","name":"Augustine Boakye","club":"AS Saint-Etienne","note":"0 int."},{"pos":"DF","name":"Kojo Oppong","club":"OGC Nice","note":"4 int."},{"pos":"DC","name":"Kamaldeen Sulemana","club":"Atalanta Bergamo","note":"28 int. · 1 gls"},{"pos":"DF","name":"Derrick Luckassen","club":"Pafos FC","note":"1 int."},{"pos":"DC","name":"Ernest Nuamah","club":"Olympique Lyonnais","note":"19 int. · 4 gls"},{"pos":"DC","name":"Prince Adu","club":"FC Viktoria Plze ň","note":"5 int."},{"pos":"DF","name":"Marvin Senaya","club":"AJ Auxerre","note":"2 int."}],
+  "HAI":[{"pos":"PO","name":"Johny Placide","club":"SC Bastia","note":"84 int."},{"pos":"DF","name":"Carlens Arcus","club":"Angers SCO","note":"57 int. · 1 gls"},{"pos":"DF","name":"Keeto Thermoncy","club":"BSC Young Boys","note":"1 int."},{"pos":"DF","name":"Ricardo Ade","club":"LDU Quito","note":"62 int. · 2 gls"},{"pos":"DF","name":"Hannes Delcroix","club":"FC Lugano","note":"8 int."},{"pos":"MC","name":"Carl Sainte","club":"El Paso Locomotive FC","note":"26 int."},{"pos":"DC","name":"Derrick Etienne","club":"Toronto FC","note":"50 int. · 8 gls"},{"pos":"DF","name":"Martin Experience","club":"AS Nancy","note":"22 int."},{"pos":"DC","name":"Duckens Nazon","club":"Esteghlal Tehran FC","note":"83 int. · 44 gls"},{"pos":"MC","name":"Jean Bellegarde","club":"Wolverhampton Wanderers FC","note":"11 int."},{"pos":"DC","name":"Louicius Deedson","club":"FC Dallas","note":"33 int. · 10 gls"},{"pos":"PO","name":"Alexandre Pierre","club":"FC Sochaux-Montbéliard","note":"17 int."},{"pos":"DF","name":"Markhus Lacroix","club":"Colorado Springs Switchbacks FC","note":"16 int. · 3 gls"},{"pos":"DF","name":"Garven Metusala","club":"Colorado Springs Switchbacks FC","note":"15 int."},{"pos":"DC","name":"Ruben Providence","club":"Almere City FC","note":"16 int. · 3 gls"},{"pos":"DC","name":"Lenny Joseph","club":"Ferencvárosi TC","note":"3 int. · 1 gls"},{"pos":"MC","name":"Danley Jean Jacques","club":"Philadelphia Union","note":"32 int. · 6 gls"},{"pos":"DC","name":"Wilson Isidor","club":"Sunderland AFC","note":"5 int. · 2 gls"},{"pos":"DC","name":"Yassin Fortune","club":"FC Vizela","note":"5 int."},{"pos":"DC","name":"Frantzdy Pierrot","club":"Çaykur Rizespor","note":"54 int. · 34 gls"},{"pos":"DC","name":"Josue Casimir","club":"AJ Auxerre","note":"8 int."},{"pos":"DF","name":"Jean Duverne","club":"KAA Gent","note":"17 int. · 1 gls"},{"pos":"PO","name":"Josue Duverger","club":"FC Cosmos Koblenz","note":"7 int."},{"pos":"DF","name":"Wilguens Paugain","club":"SV Zulte Waregem","note":"8 int."},{"pos":"MC","name":"Dominique Simon","club":"FC Tatran Pre š ov","note":"2 int."},{"pos":"MC","name":"Woodensky Pierre","club":"Violette AC","note":"1 int."}],
+  "HRV":[{"pos":"PO","name":"Dominik Livakovic","club":"GNK Dinamo Zagreb","note":"75 int."},{"pos":"DF","name":"Josip Stanisic","club":"FC Bayern München","note":"31 int."},{"pos":"DF","name":"Marin Pongracic","club":"ACF Fiorentina","note":"20 int."},{"pos":"DF","name":"Josko Gvardiol","club":"Manchester City FC","note":"48 int. · 4 gls"},{"pos":"DF","name":"Duje Caleta-car","club":"Real Sociedad","note":"38 int. · 1 gls"},{"pos":"DF","name":"Josip Sutalo","club":"AFC Ajax","note":"33 int."},{"pos":"MC","name":"Nikola Moro","club":"Bologna FC","note":"10 int."},{"pos":"MC","name":"Mateo Kovacic","club":"Manchester City FC","note":"113 int. · 5 gls"},{"pos":"DC","name":"Andrej Kramaric","club":"TSG Hoffenheim","note":"116 int. · 36 gls"},{"pos":"MC","name":"Luka Modric","club":"AC Milan","note":"198 int. · 29 gls"},{"pos":"DC","name":"Ante Budimir","club":"CA Osasuna","note":"38 int. · 6 gls"},{"pos":"PO","name":"Ivor Pandur","club":"Hull City FC","note":"0 int."},{"pos":"MC","name":"Nikola Vlasic","club":"Torino FC","note":"63 int. · 10 gls"},{"pos":"DC","name":"Ivan Perisic","club":"PSV Eindhoven","note":"154 int. · 38 gls"},{"pos":"MC","name":"Mario Pasalic","club":"Atalanta Bergamo","note":"85 int. · 12 gls"},{"pos":"MC","name":"Martin Baturina","club":"Como","note":"19 int. · 1 gls"},{"pos":"MC","name":"Petar Sucic","club":"FC Internazionale Milano","note":"17 int. · 1 gls"},{"pos":"DF","name":"Kristijan Jakic","club":"FC Augsburg","note":"17 int. · 2 gls"},{"pos":"MC","name":"Toni Fruk","club":"HNK Rijeka","note":"7 int. · 1 gls"},{"pos":"DC","name":"Igor Matanovic","club":"SC Freiburg","note":"9 int. · 2 gls"},{"pos":"MC","name":"Luka Sucic","club":"Real Sociedad","note":"21 int. · 1 gls"},{"pos":"DF","name":"Luka Vuskovic","club":"Hamburger SV","note":"5 int. · 1 gls"},{"pos":"PO","name":"Dominik Kotarski","club":"FC København","note":"4 int."},{"pos":"DC","name":"Marco Pasalic","club":"Orlando City SC","note":"15 int. · 1 gls"},{"pos":"DF","name":"Martin Erlic","club":"FC Midtjylland","note":"13 int. · 1 gls"},{"pos":"DC","name":"Petar Musa","club":"FC Dallas","note":"11 int. · 1 gls"}],
+  "IRN":[{"pos":"PO","name":"Alireza Beiranvand","club":"Tractor Sazi Tabriz FC","note":"87 int."},{"pos":"DF","name":"Saleh Hardani","club":"Esteghlal Tehran FC","note":"18 int. · 1 gls"},{"pos":"DF","name":"Ehsan Hajisafi","club":"Sepahan SC","note":"146 int. · 7 gls"},{"pos":"DF","name":"Shoja Khalilzadeh","club":"Tractor Sazi Tabriz FC","note":"58 int. · 2 gls"},{"pos":"DF","name":"Milad Mohammadi","club":"Persepolis FC","note":"77 int. · 1 gls"},{"pos":"MC","name":"Saeid Ezatolahi","club":"Shabab Al Ahli Club","note":"84 int. · 2 gls"},{"pos":"MC","name":"Alireza Jahanbakhsh","club":"FCV Dender EH","note":"99 int. · 17 gls"},{"pos":"MC","name":"Mohammad Mohebbi","club":"FC Rostov","note":"37 int. · 13 gls"},{"pos":"DC","name":"Mehdi Taremi","club":"Olympiacos FC","note":"10659 int."},{"pos":"DC","name":"Mehdi Ghayedi","club":"Al Nasr SC","note":"30 int. · 10 gls"},{"pos":"DC","name":"Ali Alipour","club":"Persepolis FC","note":"14 int. · 1 gls"},{"pos":"PO","name":"Payam Niazmand","club":"Persepolis FC","note":"15 int."},{"pos":"DF","name":"Hossein Kanani","club":"Persepolis FC","note":"65 int. · 6 gls"},{"pos":"MC","name":"Saman Ghoddos","club":"Al Ittihad Kalba SCC","note":"68 int. · 3 gls"},{"pos":"MC","name":"Roozbeh Cheshmi","club":"Esteghlal Tehran FC","note":"41 int. · 3 gls"},{"pos":"MC","name":"Mehdi Torabi","club":"Tractor Sazi Tabriz FC","note":"52 int. · 7 gls"},{"pos":"DF","name":"Arya Yousefi","club":"Sepahan SC","note":"14 int. · 1 gls"},{"pos":"DC","name":"Amirhossein Hosseinzadeh","club":"Tractor Sazi Tabriz FC","note":"18 int. · 5 gls"},{"pos":"DF","name":"Ali Nemati","club":"Foolad Khuzestan FC","note":"18 int."},{"pos":"DC","name":"Shahriyar Moghanloo","club":"Al Ittihad Kalba SCC","note":"21 int. · 2 gls"},{"pos":"MC","name":"Mohammad Ghorbani","club":"Al Wahda SC","note":"16 int."},{"pos":"PO","name":"Hossein Hosseini","club":"Sepahan SC","note":"14 int."},{"pos":"DF","name":"Ramin Rezaeian","club":"Foolad Khuzestan FC","note":"74 int. · 8 gls"},{"pos":"DC","name":"Dennis Dargahi","club":"Standard Liège","note":"0 int."},{"pos":"DF","name":"Danial Iri","club":"Malavan Anzali FC","note":"0 int."},{"pos":"MC","name":"Amirmohammad Razaghinia","club":"Esteghlal Tehran FC","note":"4 int."}],
+  "IRQ":[{"pos":"PO","name":"Fahad Talib","club":"Al Talaba SC","note":"21 int."},{"pos":"DF","name":"Rebin Sulaka","club":"Port FC","note":"56 int. · 1 gls"},{"pos":"DF","name":"Hussein","club":"Pogo ń  Szczecin","note":"27 int. · 1 gls"},{"pos":"DF","name":"Zaid","club":"Pakhtakor Tashkent FK","note":"28 int. · 1 gls"},{"pos":"DF","name":"Akam Hashim","club":"Al Zawra'a SC","note":"14 int. · 1 gls"},{"pos":"DF","name":"Munaf Younus","club":"Al Shorta SC","note":"34 int. · 1 gls"},{"pos":"MC","name":"Youssef Amyn","club":"AEK Larnaca FC","note":"27 int. · 2 gls"},{"pos":"MC","name":"Ibrahim Bayesh","club":"Al Dhafra SCC","note":"76 int. · 8 gls"},{"pos":"DC","name":"Ali Alhamadi","club":"Luton Town FC","note":"20 int. · 5 gls"},{"pos":"DC","name":"Mohanad Ali","club":"Dibba FC","note":"72 int. · 26 gls"},{"pos":"DC","name":"Ahmed","club":"Nashville SC","note":"3 int."},{"pos":"PO","name":"Jalal Hassan","club":"Al Zawra'a SC","note":"104 int."},{"pos":"DC","name":"Ali Yousif","club":"Al Talaba SC","note":"7 int. · 1 gls"},{"pos":"MC","name":"Zidane","club":"FC Utrecht","note":"25 int. · 2 gls"},{"pos":"DF","name":"Ahmed Maknazi","club":"Al Karma SC","note":"7 int."},{"pos":"MC","name":"Amir Alammari","club":"KS Cracovia","note":"51 int. · 3 gls"},{"pos":"DC","name":"Ali Jasim","club":"Al Najmah SC","note":"36 int. · 2 gls"},{"pos":"DC","name":"Aymen","club":"Al Karma SC","note":"95 int. · 33 gls"},{"pos":"MC","name":"Kevin Yakob","club":"Aarhus GF","note":"9 int."},{"pos":"MC","name":"Aimar","club":"Sarpsborg 08 FF","note":"7 int."},{"pos":"DC","name":"Marko Farji","club":"Venezia FC","note":"12 int."},{"pos":"PO","name":"Ahmed","club":"Al Shorta SC","note":"16 int."},{"pos":"DF","name":"Merchas","club":"FC Viktoria Plze ň","note":"31 int. · 1 gls"},{"pos":"MC","name":"Zaid Ismael","club":"Al Talaba SC","note":"6 int."},{"pos":"DF","name":"Mustafa","club":"Al Shorta SC","note":"17 int."},{"pos":"DF","name":"Frans","club":"Persib Bandung","note":"28 int."}],
+  "JOR":[{"pos":"PO","name":"Yazeed Abulaila","club":"Al Hussein SC","note":"76 int."},{"pos":"DF","name":"Mohammad","club":"Al Karma SC","note":"56 int. · 1 gls"},{"pos":"DF","name":"Abdallah Nasib","club":"Al Zawra'a SC","note":"65 int. · 2 gls"},{"pos":"DF","name":"Husam Abudahab","club":"Al Faisaly SC","note":"17 int."},{"pos":"DF","name":"Yazan Alarab","club":"FC Seoul","note":"80 int. · 3 gls"},{"pos":"MC","name":"Amer Jamous","club":"Al Zawra'a SC","note":"19 int. · 1 gls"},{"pos":"DC","name":"Mohammad","club":"Raja Casablanca","note":"40 int. · 5 gls"},{"pos":"MC","name":"Noor Alrawabdeh","club":"Selangor FC","note":"68 int. · 3 gls"},{"pos":"DC","name":"Ali Olwan","club":"Al Sailiya SC","note":"66 int. · 29 gls"},{"pos":"DC","name":"Mousa Altamari","club":"Stade Rennais FC","note":"92 int. · 24 gls"},{"pos":"DC","name":"Odeh Fakhoury","club":"Pyramids FC","note":"10 int. · 1 gls"},{"pos":"PO","name":"Noureddin Nour Baniateyah","club":"Al Faisaly SC","note":"5 int."},{"pos":"DC","name":"Mahmoud Almardi","club":"Al Hussein SC","note":"87 int. · 8 gls"},{"pos":"MC","name":"Raja Rajaei Ayed","club":"Al Hussein SC","note":"73 int."},{"pos":"MC","name":"Ibrahim","club":"Al Karma SC","note":"57 int. · 3 gls"},{"pos":"DF","name":"Mohammad Abualnadi","club":"Selangor FC","note":"18 int."},{"pos":"DF","name":"Saleem","club":"Al Hussein SC","note":"12 int."},{"pos":"MC","name":"Mohammad","club":"Al Hussein SC","note":"0 int."},{"pos":"DF","name":"Sa Saed","club":"Al Hussein SC","note":"21 int. · 2 gls"},{"pos":"MC","name":"Mohannad Abutaha","club":"Al-Quwa Al-Jawiya","note":"30 int. · 1 gls"},{"pos":"MC","name":"Nizar Alrashdan","club":"Qatar SC","note":"47 int. · 4 gls"},{"pos":"PO","name":"Abdallah Alfakhori","club":"Al Wahdat SC","note":"16 int."},{"pos":"DF","name":"Ehsan Haddad","club":"Al Hussein SC","note":"90 int. · 2 gls"},{"pos":"DC","name":"Ali Azaizeh","club":"Al Shabab FC","note":"4 int."},{"pos":"MC","name":"Mohammad Aldaoud","club":"Al Wahdat SC","note":"13 int. · 1 gls"},{"pos":"DF","name":"Anas Badawi","club":"Al Faisaly SC","note":"1 int."}],
+  "JPN":[{"pos":"PO","name":"Zion Suzuki","club":"Parma","note":"26 int."},{"pos":"DF","name":"Yukinari Sugawara","club":"SV Werder Bremen","note":"23 int. · 2 gls"},{"pos":"DF","name":"Shogo Taniguchi","club":"Sint-Truiden VV","note":"40 int. · 1 gls"},{"pos":"DF","name":"Kou Itakura","club":"AFC Ajax","note":"41 int. · 3 gls"},{"pos":"DF","name":"Yuto Nagatomo","club":"FC Tokyo","note":"145 int. · 4 gls"},{"pos":"DC","name":"Shuto Machino","club":"Borussia Mönchengladbach","note":"14 int. · 5 gls"},{"pos":"MC","name":"Ao Tanaka","club":"Leeds United FC","note":"38 int. · 8 gls"},{"pos":"MC","name":"Takefusa Kubo","club":"Real Sociedad","note":"50 int. · 7 gls"},{"pos":"DC","name":"Keisuke Goto","club":"Sint-Truiden VV","note":"4 int."},{"pos":"MC","name":"Ritsu Doan","club":"Eintracht Frankfurt","note":"67 int. · 11 gls"},{"pos":"MC","name":"Daizen Maeda","club":"Celtic FC","note":"29 int. · 5 gls"},{"pos":"PO","name":"Keisuke Osako","club":"Sanfrecce Hiroshima","note":"11 int."},{"pos":"MC","name":"Keito Nakamura","club":"Stade Reims","note":"27 int. · 12 gls"},{"pos":"MC","name":"Junya Ito","club":"KRC Genk","note":"70 int. · 15 gls"},{"pos":"MC","name":"Daichi Kamada","club":"Crystal Palace FC","note":"50 int. · 13 gls"},{"pos":"DF","name":"Tsuyoshi Watanabe","club":"Feyenoord Rotterdam","note":"13 int."},{"pos":"MC","name":"Yuito Suzuki","club":"SC Freiburg","note":"6 int."},{"pos":"DC","name":"Ayase Ueda","club":"Feyenoord Rotterdam","note":"41 int. · 16 gls"},{"pos":"DC","name":"Koki Ogawa","club":"NEC Nijmegen","note":"16 int. · 11 gls"},{"pos":"DF","name":"Ayumu Seko","club":"Le Havre AC","note":"14 int."},{"pos":"DF","name":"Hiroki Ito","club":"FC Bayern München","note":"26 int. · 1 gls"},{"pos":"DF","name":"Takehiro Tomiyasu","club":"AFC Ajax","note":"44 int. · 1 gls"},{"pos":"PO","name":"Tomoki Hayakawa","club":"Kashima Antlers","note":"4 int."},{"pos":"MC","name":"Kaishu Sano","club":"1. FSV Mainz 05","note":"15 int."},{"pos":"DF","name":"Junnosuke Suzuki","club":"FC København","note":"6 int."},{"pos":"DC","name":"Kento Shiogai","club":"VfL Wolfsburg","note":"3 int."}],
+  "KOR":[{"pos":"PO","name":"Seunggyu Kim","club":"FC Tokyo","note":"87 int."},{"pos":"DF","name":"Hanbeom Lee","club":"FC Midtjylland","note":"9 int."},{"pos":"MC","name":"Gihyuk Lee","club":"Gangwon FC","note":"4 int."},{"pos":"DF","name":"Minjae Kim","club":"FC Bayern München","note":"80 int. · 4 gls"},{"pos":"DF","name":"Taehyeon Kim","club":"Kashima Antlers","note":"7 int."},{"pos":"MC","name":"Inbeom Hwang","club":"Feyenoord Rotterdam","note":"74 int. · 7 gls"},{"pos":"DC","name":"Heungmin Son","club":"LAFC","note":"145 int. · 56 gls"},{"pos":"MC","name":"Seungho Paik","club":"Birmingham City FC","note":"28 int. · 3 gls"},{"pos":"DC","name":"Guesung Cho","club":"FC Midtjylland","note":"44 int. · 12 gls"},{"pos":"MC","name":"Jaesung Lee","club":"1. FSV Mainz 05","note":"106 int. · 15 gls"},{"pos":"MC","name":"Heechan Hwang","club":"Wolverhampton Wanderers FC","note":"80 int. · 17 gls"},{"pos":"PO","name":"Bumkeun Song","club":"Jeonbuk Hyundai Motors FC","note":"3 int."},{"pos":"DF","name":"Taeseok Lee","club":"FK Austria Wien","note":"16 int. · 1 gls"},{"pos":"DF","name":"Wije Cho","club":"Jeonbuk Hyundai Motors FC","note":"1 int."},{"pos":"DF","name":"Moonhwan Kim","club":"Daejeon Hana Citizen FC","note":"36 int."},{"pos":"DF","name":"Jinseob Park","club":"Zhejiang FC","note":"15 int. · 1 gls"},{"pos":"MC","name":"Junho Bae","club":"Stoke City FC","note":"13 int. · 2 gls"},{"pos":"DC","name":"Hyeongyu Oh","club":"Be ş ikta ş  JK","note":"28 int. · 7 gls"},{"pos":"MC","name":"Kangin Lee","club":"Paris Saint-Germain","note":"48 int. · 10 gls"},{"pos":"MC","name":"Hyunjun Yang","club":"Celtic FC","note":"9 int."},{"pos":"PO","name":"Hyeonwoo Jo","club":"Ulsan HD","note":"48 int."},{"pos":"DF","name":"Youngwoo Seol","club":"FK Crvena Zvezda","note":"35 int."},{"pos":"DF","name":"Jens Castrop","club":"Borussia Mönchengladbach","note":"7 int."},{"pos":"MC","name":"Jingyu Kim","club":"Jeonbuk Hyundai Motors FC","note":"23 int. · 3 gls"},{"pos":"MC","name":"Jisung Eom","club":"Swansea City AFC","note":"10 int. · 2 gls"},{"pos":"MC","name":"Donggyeong Lee","club":"Ulsan HD","note":"18 int. · 4 gls"}],
+  "KSA":[{"pos":"PO","name":"Nawaf Alaqidi","club":"Al Nassr FC","note":"24 int."},{"pos":"DF","name":"Ali Majrashi","club":"Al Ahli FC","note":"21 int."},{"pos":"DF","name":"Ali Lajami","club":"Al Hilal SC","note":"24 int. · 1 gls"},{"pos":"DF","name":"Abdulelah Alamri","club":"Al Nassr FC","note":"44 int. · 1 gls"},{"pos":"DF","name":"Hassan","club":"Al Hilal SC","note":"54 int. · 1 gls"},{"pos":"MC","name":"Nasser Aldawsari","club":"Al Hilal SC","note":"47 int. · 1 gls"},{"pos":"MC","name":"Musab Aljuwayr","club":"Al Qadsiah FC","note":"37 int. · 6 gls"},{"pos":"DC","name":"Aiman Yahya","club":"Al Nassr FC","note":"26 int."},{"pos":"DC","name":"Feras","club":"Al Ahli FC","note":"72 int. · 16 gls"},{"pos":"DC","name":"Salem Aldawsari","club":"Al Hilal SC","note":"111 int. · 27 gls"},{"pos":"DC","name":"Saleh","club":"Al Ittihad","note":"59 int. · 17 gls"},{"pos":"DF","name":"Saud Abdulhamid","club":"RC Lens","note":"55 int. · 1 gls"},{"pos":"DF","name":"Nawaf Bu Washl","club":"Al Nassr FC","note":"27 int."},{"pos":"DF","name":"Hassan","club":"Al Ittihad","note":"21 int. · 2 gls"},{"pos":"MC","name":"Abdullah Alkhaibari","club":"Al Nassr FC","note":"42 int."},{"pos":"MC","name":"Ziyad Aljohani","club":"Al Ahli FC","note":"12 int."},{"pos":"DC","name":"Khalid Alghannam","club":"Al Ettifaq FC","note":"7 int."},{"pos":"MC","name":"Ala Alhajji","club":"Neom SC","note":"3 int."},{"pos":"DC","name":"Abdullah Alhamddan","club":"Al Nassr FC","note":"52 int. · 13 gls"},{"pos":"DC","name":"Sultan Mandash","club":"Al Hilal SC","note":"7 int. · 2 gls"},{"pos":"PO","name":"Mohammed Alowais","club":"Al Ula Saudi FC","note":"65 int."},{"pos":"PO","name":"Ahmed","club":"Al Qadsiah FC","note":"9 int."},{"pos":"MC","name":"Mohamed","club":"Al Hilal SC","note":"79 int. · 8 gls"},{"pos":"DF","name":"Moteb Alharbi","club":"Al Hilal SC","note":"13 int."},{"pos":"DF","name":"Jehad Thikri","club":"Al Qadsiah FC","note":"8 int."},{"pos":"DF","name":"Mohammed Abu Alshamat","club":"Al Qadsiah FC","note":"8 int."}],
+  "MAR":[{"pos":"PO","name":"Yassine Bounou","club":"Al Hilal SC","note":"91 int."},{"pos":"DF","name":"Achraf Hakimi","club":"Paris Saint-Germain","note":"97 int. · 11 gls"},{"pos":"DF","name":"Noussair Mazraoui","club":"Manchester United FC","note":"46 int. · 2 gls"},{"pos":"MC","name":"Sofyan Amrabat","club":"Real Betis","note":"75 int."},{"pos":"DF","name":"Marwane Saadane","club":"Al Fateh SC","note":"17 int. · 1 gls"},{"pos":"MC","name":"Ayyoub Bouaddi","club":"Lille OSC","note":"4 int."},{"pos":"MC","name":"Chemsdine Talbi","club":"Sunderland AFC","note":"6 int."},{"pos":"MC","name":"Azzedine Ounahi","club":"Girona FC","note":"50 int. · 9 gls"},{"pos":"DC","name":"Sou Rahimi","club":"Al Ain FC","note":"38 int. · 12 gls"},{"pos":"DC","name":"Brahim Diaz","club":"Real Madrid C. F.","note":"27 int. · 15 gls"},{"pos":"MC","name":"Ismael Saibari","club":"PSV Eindhoven","note":"31 int. · 10 gls"},{"pos":"PO","name":"Munir El Kajoui","club":"RS Berkane","note":"52 int."},{"pos":"DF","name":"Zakaria El Ouahdi","club":"KRC Genk","note":"3 int."},{"pos":"DF","name":"Issa Diop","club":"Fulham FC","note":"5 int."},{"pos":"MC","name":"Samir El Mourabet","club":"RC Strasbourg","note":"5 int."},{"pos":"MC","name":"Gessime Yassine","club":"RC Strasbourg","note":"4 int."},{"pos":"DC","name":"Amine Sbai","club":"Angers SCO","note":"2 int."},{"pos":"DF","name":"Chadi Riad","club":"Crystal Palace FC","note":"7 int. · 1 gls"},{"pos":"DF","name":"Youssef Belammari","club":"Al Ahly FC","note":"18 int."},{"pos":"DC","name":"Ayoub El Kaabi","club":"Olympiacos FC","note":"71 int. · 36 gls"},{"pos":"DC","name":"Ayoube Amaimouni","club":"Eintracht Frankfurt","note":"3 int."},{"pos":"PO","name":"Ahmed Tagnaouti","club":"ASFAR","note":"3 int."},{"pos":"MC","name":"Bilal El Khannouss","club":"VfB Stuttgart","note":"38 int. · 3 gls"},{"pos":"MC","name":"Neil El Aynaoui","club":"AS Roma","note":"17 int. · 2 gls"},{"pos":"DF","name":"Redouane Halhal","club":"KV Mechelen","note":"3 int."},{"pos":"DF","name":"Anass Salah Eddine","club":"PSV Eindhoven","note":"10 int."}],
+  "MEX":[{"pos":"PO","name":"Raul Rangel","club":"CD Guadalajara","note":"15 int."},{"pos":"DF","name":"Jorge Sanchez","club":"PAOK Saloniki","note":"59 int. · 3 gls"},{"pos":"DF","name":"Cesar Montes","club":"FC Lokomotiv Moscow","note":"69 int. · 4 gls"},{"pos":"DF","name":"Edson Alvarez","club":"Fenerbahçe SK","note":"100 int. · 7 gls"},{"pos":"DF","name":"Johan Vasquez","club":"Genoa CFC","note":"47 int. · 3 gls"},{"pos":"MC","name":"Erik Lira","club":"CF Cruz Azul","note":"26 int."},{"pos":"MC","name":"Luis Romo","club":"CD Guadalajara","note":"62 int. · 4 gls"},{"pos":"MC","name":"Alvaro Fidalgo","club":"Real Betis","note":"5 int."},{"pos":"DC","name":"Raul Jimenez","club":"Fulham FC","note":"127 int. · 46 gls"},{"pos":"DC","name":"Alexis Vega","club":"Deportivo Toluca FC","note":"53 int. · 7 gls"},{"pos":"DC","name":"Santiago Gimenez","club":"AC Milan","note":"47 int. · 6 gls"},{"pos":"PO","name":"Carlos Acevedo","club":"Club Santos Laguna","note":"7 int."},{"pos":"PO","name":"Guillermo Ochoa","club":"AEL Limassol","note":"153 int."},{"pos":"DC","name":"Armando Gonzalez","club":"CD Guadalajara","note":"8 int. · 1 gls"},{"pos":"DF","name":"Israel Reyes","club":"Club América","note":"35 int. · 2 gls"},{"pos":"DC","name":"Julian Quinones","club":"Al Qadsiah FC","note":"23 int. · 3 gls"},{"pos":"MC","name":"Orbelin Pineda","club":"AEK Athens","note":"92 int. · 12 gls"},{"pos":"MC","name":"Obed Vargas","club":"Atlético De Madrid","note":"6 int."},{"pos":"MC","name":"Gilberto Mora","club":"Club Tijuana","note":"9 int."},{"pos":"DF","name":"Mateo Chavez","club":"AZ Alkmaar","note":"10 int."},{"pos":"DC","name":"Cesar Huerta","club":"RSC Anderlecht","note":"26 int. · 3 gls"},{"pos":"DC","name":"Guillermo Martinez","club":"Pumas UNAM","note":"12 int. · 3 gls"},{"pos":"DF","name":"Jesus Gallardo","club":"Deportivo Toluca FC","note":"123 int. · 3 gls"},{"pos":"MC","name":"Luis Chavez","club":"FC Dynamo Moscow","note":"46 int. · 5 gls"},{"pos":"DC","name":"Roberto Alvarado","club":"CD Guadalajara","note":"69 int. · 6 gls"},{"pos":"MC","name":"Brian Gutierrez","club":"CD Guadalajara","note":"8 int. · 2 gls"}],
+  "NED":[{"pos":"PO","name":"Bart Verbruggen","club":"Brighton & Hove Albion FC","note":"30 int."},{"pos":"DF","name":"Lutsharel Geertruida","club":"Sunderland AFC","note":"21 int."},{"pos":"MC","name":"Marten De Roon","club":"Atalanta Bergamo","note":"43 int. · 1 gls"},{"pos":"DF","name":"Virgil Van Dijk","club":"Liverpool FC","note":"93 int. · 13 gls"},{"pos":"DF","name":"Nathan Ake","club":"Manchester City FC","note":"60 int. · 5 gls"},{"pos":"DF","name":"Jan Van Hecke","club":"Brighton & Hove Albion FC","note":"13 int."},{"pos":"MC","name":"Justin Kluivert","club":"AFC Bournemouth","note":"12 int."},{"pos":"MC","name":"Ryan Gravenberch","club":"Liverpool FC","note":"28 int. · 1 gls"},{"pos":"DC","name":"Wout Weghorst","club":"AFC Ajax","note":"52 int. · 14 gls"},{"pos":"DC","name":"Memphis Depay","club":"SC Corinthians","note":"110 int. · 55 gls"},{"pos":"DC","name":"Cody Gakpo","club":"Liverpool FC","note":"51 int. · 21 gls"},{"pos":"DF","name":"Mats Wieffer","club":"Brighton & Hove Albion FC","note":"15 int. · 1 gls"},{"pos":"PO","name":"Robin Roefs","club":"Sunderland AFC","note":"1 int."},{"pos":"MC","name":"Tijjani Reijnders","club":"Manchester City FC","note":"33 int. · 7 gls"},{"pos":"DF","name":"Micky Van De Ven","club":"Tottenham Hotspur FC","note":"22 int. · 1 gls"},{"pos":"MC","name":"Guus Til","club":"PSV Eindhoven","note":"7 int. · 1 gls"},{"pos":"DC","name":"Noa Lang","club":"Galatasaray SK","note":"15 int. · 3 gls"},{"pos":"DC","name":"Donyell Malen","club":"AS Roma","note":"54 int. · 13 gls"},{"pos":"DC","name":"Brian Brobbey","club":"Sunderland AFC","note":"13 int. · 1 gls"},{"pos":"MC","name":"Teun Koopmeiners","club":"Juventus FC","note":"29 int. · 3 gls"},{"pos":"MC","name":"Frenkie De Jong","club":"FC Barcelona","note":"67 int. · 2 gls"},{"pos":"DF","name":"Denzel Dumfries","club":"FC Internazionale Milano","note":"73 int. · 11 gls"},{"pos":"PO","name":"Mark Flekken","club":"Bayer 04 Leverkusen","note":"12 int."},{"pos":"DC","name":"Crysencio Summerville","club":"West Ham United FC","note":"3 int. · 1 gls"},{"pos":"DF","name":"Jorrel Hato","club":"Chelsea FC","note":"8 int."},{"pos":"MC","name":"Quinten Timber","club":"Olympique Marseille","note":"12 int. · 1 gls"}],
+  "NOR":[{"pos":"PO","name":"Orjan Nyland","club":"Sevilla FC","note":"71 int."},{"pos":"MC","name":"Morten Thorsby","club":"US Cremonese","note":"31 int."},{"pos":"DF","name":"Kristoffer Ajer","club":"Brentford FC","note":"52 int. · 2 gls"},{"pos":"DF","name":"Leo Ostigard","club":"Genoa CFC","note":"38 int. · 1 gls"},{"pos":"DF","name":"David Moller Wolfe","club":"Wolverhampton Wanderers FC","note":"22 int. · 1 gls"},{"pos":"MC","name":"Patrick Berg","club":"FK Bodø/Glimt","note":"43 int."},{"pos":"DC","name":"Alexander Sorloth","club":"Atlético De Madrid","note":"72 int. · 26 gls"},{"pos":"MC","name":"Sander Berge","club":"Fulham FC","note":"66 int. · 1 gls"},{"pos":"DC","name":"Erling Haaland","club":"Manchester City FC","note":"50 int. · 55 gls"},{"pos":"MC","name":"Martin Odegaard","club":"Arsenal FC","note":"68 int. · 5 gls"},{"pos":"DC","name":"Jorgen Strand Larsen","club":"Crystal Palace FC","note":"28 int. · 6 gls"},{"pos":"PO","name":"Sander Tangvik","club":"Hamburger SV","note":"0 int."},{"pos":"PO","name":"Egil Selvik","club":"Watford FC","note":"7 int."},{"pos":"MC","name":"Fredrik Aursnes","club":"SL Benca","note":"22 int. · 1 gls"},{"pos":"DF","name":"Fredrik Bjorkan","club":"FK Bodø/Glimt","note":"21 int. · 1 gls"},{"pos":"DF","name":"Marcus Holmgren Pedersen","club":"Torino FC","note":"32 int."},{"pos":"DF","name":"Torbjorn Heggem","club":"Bologna FC","note":"15 int."},{"pos":"MC","name":"Kristian Thorstvedt","club":"US Sassuolo","note":"37 int. · 4 gls"},{"pos":"MC","name":"Thelo Aasgaard","club":"Rangers FC","note":"8 int. · 5 gls"},{"pos":"DC","name":"Antonio Nusa","club":"RB Leipzig","note":"24 int. · 8 gls"},{"pos":"MC","name":"Andreas Schjelderup","club":"SL Benca","note":"12 int. · 1 gls"},{"pos":"MC","name":"Oscar Bobb","club":"Fulham FC","note":"20 int. · 2 gls"},{"pos":"MC","name":"Jens Hauge","club":"FK Bodø/Glimt","note":"15 int. · 1 gls"},{"pos":"DF","name":"Sondre Langas","club":"Derby County FC","note":"3 int."},{"pos":"DF","name":"Henrik Falchener","club":"Viking Stavanger","note":"1 int."},{"pos":"DC","name":"Julian Ryerson","club":"Borussia Dortmund","note":"43 int. · 1 gls"}],
+  "NZL":[{"pos":"PO","name":"Max Crocombe","club":"Millwall FC","note":"24 int."},{"pos":"DF","name":"Tim Payne","club":"Wellington Phoenix FC","note":"52 int. · 3 gls"},{"pos":"DF","name":"Francis De Vries","club":"Auckland FC","note":"20 int. · 1 gls"},{"pos":"DF","name":"Tyler Bindon","club":"Sheeld United FC","note":"25 int. · 2 gls"},{"pos":"DF","name":"Michael Boxall","club":"Minnesota United FC","note":"64 int. · 1 gls"},{"pos":"MC","name":"Joe Bell","club":"Viking Stavanger","note":"32 int. · 1 gls"},{"pos":"DC","name":"Logan Rogerson","club":"Auckland FC","note":"18 int. · 2 gls"},{"pos":"MC","name":"Marko Stamenic","club":"Swansea City AFC","note":"40 int. · 3 gls"},{"pos":"DC","name":"Chris Wood","club":"Nottingham Forest FC","note":"90 int. · 45 gls"},{"pos":"MC","name":"Sarpreet Singh","club":"Wellington Phoenix FC","note":"28 int. · 3 gls"},{"pos":"MC","name":"Elijah Just","club":"Motherwell FC","note":"44 int. · 9 gls"},{"pos":"PO","name":"Alex Paulsen","club":"Lechia Gda ń sk","note":"8 int."},{"pos":"DF","name":"Liberato Cacace","club":"Wrexham AFC","note":"37 int. · 1 gls"},{"pos":"MC","name":"Alex Rufer","club":"Wellington Phoenix FC","note":"26 int."},{"pos":"DF","name":"Nando Pijnaker","club":"Auckland FC","note":"26 int."},{"pos":"DF","name":"Finn Surman","club":"Portland Timbers","note":"19 int. · 2 gls"},{"pos":"DC","name":"Kosta Barbarouses","club":"WS Wanderers FC","note":"76 int. · 10 gls"},{"pos":"DC","name":"Ben Waine","club":"Port Vale FC","note":"31 int. · 9 gls"},{"pos":"MC","name":"Ben Old","club":"AS Saint-Etienne","note":"24 int. · 2 gls"},{"pos":"MC","name":"Mc","club":"Silkeborg IF","note":"33 int. · 5 gls"},{"pos":"DC","name":"Jesse Randall","club":"Auckland FC","note":"11 int. · 2 gls"},{"pos":"PO","name":"Michael Woud","club":"Auckland FC","note":"7 int."},{"pos":"MC","name":"Ryan Thomas","club":"PEC Zwolle","note":"25 int. · 3 gls"},{"pos":"DF","name":"Callan Elliot","club":"Auckland FC","note":"11 int."},{"pos":"MC","name":"Lachlan Bayliss","club":"Newcastle United Jets FC","note":"4 int."},{"pos":"DF","name":"Tommy Smith","club":"Braintree Town FC","note":"57 int. · 2 gls"}],
+  "PAN":[{"pos":"PO","name":"Luis Mejia","club":"Club Nacional","note":"56 int."},{"pos":"DF","name":"Cesar Blackman","club":"Š K Slovan Bratislava","note":"40 int. · 3 gls"},{"pos":"DF","name":"Jose Cordoba","club":"Norwich City FC","note":"32 int. · 1 gls"},{"pos":"DF","name":"Fidel Escobar","club":"Deportivo Saprissa","note":"99 int. · 4 gls"},{"pos":"DF","name":"Edgardo Farina","club":"FC Pari Nizhny Novgorod","note":"18 int."},{"pos":"MC","name":"Cristian Martinez","club":"Hapoel Kiryat Shmona FC","note":"67 int. · 2 gls"},{"pos":"MC","name":"Jose Rodriguez","club":"FC Juárez","note":"70 int. · 8 gls"},{"pos":"MC","name":"Adalberto Carrasquilla","club":"Pumas UNAM","note":"73 int. · 3 gls"},{"pos":"DC","name":"Tomas Rodriguez","club":"Deportivo Saprissa","note":"13 int. · 4 gls"},{"pos":"MC","name":"Ismael Diaz","club":"Club León","note":"56 int. · 17 gls"},{"pos":"MC","name":"Edgar Barcenas","club":"Mazatlán FC","note":"104 int. · 10 gls"},{"pos":"PO","name":"Cesar Samudio","club":"CD Marathón","note":"5 int."},{"pos":"DF","name":"Jiovany Ramos","club":"Puerto Cabello CF","note":"23 int. · 2 gls"},{"pos":"DF","name":"Carlos Harvey","club":"Minnesota United FC","note":"28 int. · 3 gls"},{"pos":"DF","name":"Eric Davis","club":"CD Plaza Amador","note":"107 int. · 9 gls"},{"pos":"DF","name":"Andres Andrade","club":"LASK Linz","note":"50 int. · 1 gls"},{"pos":"DC","name":"Jose Fajardo","club":"CD Universidad Católica","note":"69 int. · 17 gls"},{"pos":"DC","name":"Cecilio Waterman","club":"CD Universidad De Concepción","note":"55 int. · 15 gls"},{"pos":"MC","name":"Alberto Quintero","club":"CD Plaza Amador","note":"141 int. · 7 gls"},{"pos":"MC","name":"Anibal Godoy","club":"San Diego FC","note":"159 int. · 4 gls"},{"pos":"MC","name":"Cesar Yanis","club":"CD Cobresal","note":"55 int. · 5 gls"},{"pos":"PO","name":"Orlando Mosquera","club":"Al Fayha FC","note":"49 int."},{"pos":"DF","name":"Amir Murillo","club":"Be ş ikta ş  JK","note":"93 int. · 9 gls"},{"pos":"DC","name":"Azarias Londono","club":"CD Universidad Católica","note":"12 int. · 1 gls"},{"pos":"DF","name":"Roderick Miller","club":"Turan Tovuz","note":"49 int. · 2 gls"},{"pos":"DF","name":"Jorge Gutierrez","club":"Deportivo La Guaira","note":"18 int."}],
+  "POR":[{"pos":"PO","name":"Diogo Costa","club":"FC Porto","note":"43 int."},{"pos":"DF","name":"Nelson","club":"Fenerbahçe SK","note":"50 int."},{"pos":"DF","name":"Ruben Dias","club":"Manchester City FC","note":"76 int. · 3 gls"},{"pos":"DF","name":"Tomas Araujo","club":"SL Benca","note":"5 int."},{"pos":"DF","name":"José Diogo Dalot","club":"Manchester United FC","note":"35 int. · 3 gls"},{"pos":"MC","name":"Matheus","club":"Manchester City FC","note":"20 int. · 2 gls"},{"pos":"DC","name":"Cristiano","club":"Al Nassr FC","note":"228143 int."},{"pos":"MC","name":"Bruno","club":"Manchester United FC","note":"89 int. · 29 gls"},{"pos":"DC","name":"Goncalo","club":"Paris Saint-Germain","note":"25 int. · 10 gls"},{"pos":"MC","name":"Bernardo Silva","club":"Manchester City FC","note":"10914 int."},{"pos":"DC","name":"Joao Felix","club":"Al Nassr FC","note":"54 int. · 12 gls"},{"pos":"PO","name":"Jose Sa","club":"Wolverhampton Wanderers FC","note":"5 int."},{"pos":"DF","name":"Renato","club":"Villarreal CF","note":"13 int. · 1 gls"},{"pos":"DF","name":"Goncalo Inacio","club":"Sporting CP","note":"22 int. · 2 gls"},{"pos":"MC","name":"Joao","club":"Paris Saint-Germain","note":"22 int. · 3 gls"},{"pos":"DC","name":"Francisco Trincao","club":"Sporting CP","note":"18 int. · 3 gls"},{"pos":"DC","name":"Rafael Leao","club":"AC Milan","note":"44 int. · 5 gls"},{"pos":"DC","name":"Pedro Neto","club":"Chelsea FC","note":"25 int. · 3 gls"},{"pos":"DC","name":"Goncalo","club":"Real Sociedad","note":"35 int. · 8 gls"},{"pos":"DF","name":"Joao Cancelo","club":"FC Barcelona","note":"68 int. · 12 gls"},{"pos":"MC","name":"Ruben","club":"Al Hilal SC","note":"67 int. · 1 gls"},{"pos":"PO","name":"Rui Silva","club":"Sporting CP","note":"3 int."},{"pos":"MC","name":"Vitor Vitinha","club":"Paris Saint-Germain","note":"38 int."},{"pos":"DF","name":"Samuel Samu Costa","club":"RCD Mallorca","note":"6 int."},{"pos":"DF","name":"Nuno","club":"Paris Saint-Germain","note":"44 int. · 1 gls"},{"pos":"DC","name":"Francisco Conceicao","club":"Juventus FC","note":"17 int. · 4 gls"}],
+  "PRY":[{"pos":"PO","name":"Gatito Fernandez","club":"Cerro Porteño","note":"30 int."},{"pos":"DF","name":"Gustavo Velazquez","club":"Cerro Porteño","note":"14 int. · 1 gls"},{"pos":"DF","name":"Omar Alderete","club":"Sunderland AFC","note":"37 int. · 3 gls"},{"pos":"DF","name":"Juan Caceres","club":"FC Dynamo Moscow","note":"18 int."},{"pos":"DF","name":"Fabian Balbuena","club":"Grêmio FBPA","note":"47 int. · 2 gls"},{"pos":"DF","name":"Junior Alonso","club":"Atlético Mineiro","note":"72 int. · 3 gls"},{"pos":"MC","name":"Ramon Sosa","club":"SE Palmeiras","note":"30 int. · 1 gls"},{"pos":"MC","name":"Diego Gomez","club":"Brighton & Hove Albion FC","note":"25 int. · 3 gls"},{"pos":"DC","name":"Antonio Sanabria","club":"US Cremonese","note":"49 int. · 7 gls"},{"pos":"MC","name":"Miguel Almiron","club":"Atlanta United FC","note":"77 int. · 10 gls"},{"pos":"MC","name":"Mauricio","club":"SE Palmeiras","note":"4 int. · 1 gls"},{"pos":"PO","name":"Orlando Gill","club":"CA San Lorenzo","note":"7 int."},{"pos":"DF","name":"Jose Canale","club":"CA Lanús","note":"2 int."},{"pos":"MC","name":"Andres Cubas","club":"Vancouver Whitecaps FC","note":"34 int."},{"pos":"DF","name":"Gustavo Gomez","club":"SE Palmeiras","note":"90 int. · 4 gls"},{"pos":"MC","name":"Damian Bobadilla","club":"São Paulo FC","note":"20 int. · 1 gls"},{"pos":"DC","name":"Alejandro Romero Gamarra","club":"Al Ain FC","note":"35 int. · 6 gls"},{"pos":"DC","name":"Alex Arce","club":"CS Independiente Rivadavia","note":"16 int. · 1 gls"},{"pos":"DC","name":"Julio Enciso","club":"RC Strasbourg","note":"33 int. · 4 gls"},{"pos":"MC","name":"Braian Ojeda","club":"Orlando City SC","note":"17 int."},{"pos":"DC","name":"Gabriel Avalos","club":"CA Independiente","note":"23 int. · 2 gls"},{"pos":"PO","name":"Gaston Olveira","club":"Club Olimpia","note":"1 int."},{"pos":"MC","name":"Matias Galarza","club":"Atlanta United FC","note":"15 int. · 3 gls"},{"pos":"MC","name":"Gustavo Caballero","club":"Portsmouth FC","note":"2 int. · 1 gls"},{"pos":"DC","name":"Isidro Pitta","club":"Red Bull Bragantino","note":"5 int."},{"pos":"DF","name":"Alexandro Maidana","club":"CA Talleres","note":"2 int. · 1 gls"}],
+  "QAT":[{"pos":"PO","name":"Mahmoud Abunada","club":"Al Rayyan SC","note":"7 int."},{"pos":"DF","name":"Pedro","club":"Al Sadd SC","note":"112 int. · 4 gls"},{"pos":"DF","name":"Lucas","club":"Al Wakrah SC","note":"28 int. · 2 gls"},{"pos":"DF","name":"Gueye Issa Laye","club":"Al Arabi SC","note":"5 int."},{"pos":"DF","name":"Jassem","club":"Al Rayyan SC","note":"38 int. · 1 gls"},{"pos":"MC","name":"Abdelaziz Abdulaziz Hatem","club":"Al Rayyan SC","note":"132 int. · 11 gls"},{"pos":"DC","name":"Ahmed","club":"Al Rayyan SC","note":"78 int. · 10 gls"},{"pos":"DC","name":"Edmilson","club":"Al Duhail SC","note":"17 int."},{"pos":"DC","name":"Mohammed Muntari","club":"Al Gharafa SC","note":"74 int. · 17 gls"},{"pos":"DC","name":"Hasan Hassan Alhaydos","club":"Al Sadd SC","note":"190 int. · 39 gls"},{"pos":"DC","name":"Akram","club":"Al Sadd SC","note":"137 int. · 40 gls"},{"pos":"MC","name":"Karim Boudiaf","club":"Al Duhail SC","note":"129 int. · 6 gls"},{"pos":"DF","name":"Ayoub Aloui","club":"Al Gharafa SC","note":"8 int."},{"pos":"DF","name":"Homam","club":"Cultural Leonesa","note":"77 int. · 3 gls"},{"pos":"DC","name":"Yusuf Abdurisag","club":"Al Wakrah SC","note":"45 int. · 3 gls"},{"pos":"DF","name":"Boualem","club":"Al Sadd SC","note":"129 int. · 21 gls"},{"pos":"MC","name":"Ahmed","club":"Al Gharafa SC","note":"15 int. · 1 gls"},{"pos":"DF","name":"Sultan","club":"Al Duhail SC","note":"20 int."},{"pos":"DC","name":"Almoez","club":"Al Duhail SC","note":"128 int. · 58 gls"},{"pos":"MC","name":"Ahmed Fathy","club":"Al Arabi SC","note":"55 int."},{"pos":"PO","name":"Salah Zakaria","club":"Al Duhail SC","note":"10 int."},{"pos":"PO","name":"Meshaal Barsham","club":"Al Sadd SC","note":"60 int."},{"pos":"MC","name":"Assim Madibo","club":"Al Wakrah SC","note":"65 int."},{"pos":"DC","name":"Tahsin","club":"Al Duhail SC","note":"5 int."},{"pos":"DF","name":"Alhashmi","club":"Al Arabi SC","note":"10 int."},{"pos":"DC","name":"Mohamed Manai","club":"Al Shamal SC","note":"12 int."}],
+  "RSA":[{"pos":"PO","name":"Ronwen Williams","club":"Mamelodi Sundowns FC","note":"65 int."},{"pos":"DF","name":"Thabang Matuludi","club":"Polokwane City FC","note":"3 int."},{"pos":"DF","name":"Khulumani Ndamane","club":"Mamelodi Sundowns FC","note":"5 int."},{"pos":"MC","name":"Teboho Mokoena","club":"Mamelodi Sundowns FC","note":"58 int. · 9 gls"},{"pos":"MC","name":"Thalente Mbatha","club":"Orlando Pirates FC","note":"17 int. · 3 gls"},{"pos":"DF","name":"Aubrey Modiba","club":"Mamelodi Sundowns FC","note":"49 int. · 3 gls"},{"pos":"DC","name":"Oswin Appollis","club":"Orlando Pirates FC","note":"28 int. · 8 gls"},{"pos":"DC","name":"Tshepang Moremi","club":"Orlando Pirates FC","note":"10 int. · 1 gls"},{"pos":"DC","name":"Lyle Foster","club":"Burnley FC","note":"32 int. · 10 gls"},{"pos":"DC","name":"Relebohile Mofokeng","club":"Orlando Pirates FC","note":"14 int. · 1 gls"},{"pos":"MC","name":"Themba Zwane","club":"Mamelodi Sundowns FC","note":"56 int. · 12 gls"},{"pos":"DC","name":"Thapelo Maseko","club":"AEL Limassol","note":"8 int. · 1 gls"},{"pos":"MC","name":"Sphephelo Sithole","club":"CD Tondela","note":"30 int. · 1 gls"},{"pos":"DF","name":"Mbekezeli Mbokazi","club":"Chicago Fire FC","note":"11 int. · 1 gls"},{"pos":"DC","name":"Iqraam Rayners","club":"Mamelodi Sundowns FC","note":"21 int. · 5 gls"},{"pos":"PO","name":"Sipho Chaine","club":"Orlando Pirates FC","note":"4 int."},{"pos":"DC","name":"Evidence Makgopa","club":"Orlando Pirates FC","note":"28 int. · 6 gls"},{"pos":"DF","name":"Samukele Kabini","club":"Molde FK","note":"6 int."},{"pos":"DF","name":"Nkosinathi Sibisi","club":"Orlando Pirates FC","note":"22 int."},{"pos":"DF","name":"Khuliso Mudau","club":"Mamelodi Sundowns FC","note":"35 int. · 1 gls"},{"pos":"DF","name":"Ime Okon","club":"Hannover 96","note":"9 int. · 1 gls"},{"pos":"PO","name":"Ricardo Goss","club":"Siwelele FC","note":"7 int."},{"pos":"MC","name":"Jayden Adams","club":"Mamelodi Sundowns FC","note":"9 int. · 2 gls"},{"pos":"DF","name":"Olwethu Makhanya","club":"Philadelphia Union","note":"1 int."},{"pos":"DC","name":"Kamogelo Sebelebele","club":"Orlando Pirates FC","note":"9 int. · 1 gls"},{"pos":"DF","name":"Bradley Cross","club":"Kaizer Chiefs FC","note":"1 int."}],
+  "SCO":[{"pos":"PO","name":"Angus Gunn","club":"Nottingham Forest FC","note":"23 int."},{"pos":"DF","name":"Aaron Hickey","club":"Brentford FC","note":"22 int."},{"pos":"DF","name":"Andy Robertson","club":"Liverpool FC","note":"95 int. · 4 gls"},{"pos":"MC","name":"Mc","club":"SSC Napoli","note":"71 int. · 15 gls"},{"pos":"DF","name":"Grant Hanley","club":"Hibernian FC","note":"69 int. · 2 gls"},{"pos":"DF","name":"Kieran Tierney","club":"Celtic FC","note":"56 int. · 2 gls"},{"pos":"MC","name":"Mc","club":"Aston Villa FC","note":"87 int. · 21 gls"},{"pos":"MC","name":"Tyler Fletcher","club":"Manchester United FC","note":"2 int."},{"pos":"DC","name":"Lyndon Dykes","club":"Charlton Athletic FC","note":"52 int. · 10 gls"},{"pos":"DC","name":"Che Adams","club":"Torino FC","note":"48 int. · 13 gls"},{"pos":"MC","name":"Ryan Christie","club":"AFC Bournemouth","note":"69 int. · 10 gls"},{"pos":"PO","name":"Liam Kelly","club":"Rangers FC","note":"3 int."},{"pos":"DF","name":"Jack Hendry","club":"Al Ettifaq FC","note":"39 int. · 3 gls"},{"pos":"DC","name":"Ross Stewart","club":"Southampton FC","note":"3 int."},{"pos":"DF","name":"John Souttar","club":"Rangers FC","note":"24 int. · 2 gls"},{"pos":"DF","name":"Dominic Hyam","club":"Wrexham AFC","note":"4 int."},{"pos":"DC","name":"Ben Gannon-doak","club":"AFC Bournemouth","note":"15 int. · 1 gls"},{"pos":"DC","name":"George Hirst","club":"Ipswich Town FC","note":"10 int. · 1 gls"},{"pos":"MC","name":"Lewis Ferguson","club":"Bologna FC","note":"25 int. · 1 gls"},{"pos":"DC","name":"Lawrence Shankland","club":"Heart Of Midlothian FC","note":"21 int. · 7 gls"},{"pos":"PO","name":"Craig Gordon","club":"Heart Of Midlothian FC","note":"84 int."},{"pos":"DF","name":"Nathan Patterson","club":"Everton FC","note":"27 int. · 1 gls"},{"pos":"MC","name":"Mc","club":"Norwich City FC","note":"59 int. · 3 gls"},{"pos":"DF","name":"Anthony Ralston","club":"Celtic FC","note":"27 int. · 1 gls"},{"pos":"DC","name":"Findlay Curtis","club":"Kilmarnock FC","note":"4 int. · 1 gls"},{"pos":"DF","name":"Mc","club":"GNK Dinamo Zagreb","note":"50 int. · 1 gls"}],
+  "SEN":[{"pos":"PO","name":"Yehvann Diouf","club":"OGC Nice","note":"2 int."},{"pos":"DF","name":"Mamadou Sarr","club":"Chelsea FC","note":"8 int."},{"pos":"DF","name":"Kalidou Koulibaly","club":"Al Hilal SC","note":"104 int. · 2 gls"},{"pos":"DF","name":"Abdoulaye Seck","club":"Maccabi Haifa FC","note":"23 int. · 4 gls"},{"pos":"MC","name":"Idrissa Gueye","club":"Everton FC","note":"136 int. · 7 gls"},{"pos":"MC","name":"Pathe Ciss","club":"Rayo Vallecano","note":"31 int."},{"pos":"DC","name":"Assane Diao","club":"Como","note":"5 int."},{"pos":"MC","name":"Lamine Camara","club":"AS Monaco","note":"45 int. · 7 gls"},{"pos":"DC","name":"Bamba Dieng","club":"FC Lorient","note":"23 int. · 2 gls"},{"pos":"DC","name":"Sadio Mane","club":"Al Nassr FC","note":"130 int. · 54 gls"},{"pos":"DC","name":"Nicolas Jackson","club":"FC Bayern München","note":"34 int. · 8 gls"},{"pos":"DC","name":"Cherif Ndiaye","club":"Samsunspor","note":"19 int. · 4 gls"},{"pos":"DC","name":"Iliman Ndiaye","club":"Everton FC","note":"41 int. · 4 gls"},{"pos":"DF","name":"Ismail Jakobs","club":"Galatasaray SK","note":"31 int."},{"pos":"DF","name":"Krepin Diatta","club":"AS Monaco","note":"62 int. · 2 gls"},{"pos":"PO","name":"Edouard Mendy","club":"Al Ahli FC","note":"58 int."},{"pos":"MC","name":"Pape Sarr","club":"Tottenham Hotspur FC","note":"41 int. · 4 gls"},{"pos":"DC","name":"Ismaila Sarr","club":"Crystal Palace FC","note":"84 int. · 19 gls"},{"pos":"DF","name":"Moussa Niakhate","club":"Olympique Lyonnais","note":"32 int."},{"pos":"DC","name":"Ibrahim Mbaye","club":"Paris Saint-Germain","note":"11 int. · 3 gls"},{"pos":"MC","name":"Habib Diarra","club":"Sunderland AFC","note":"21 int. · 4 gls"},{"pos":"MC","name":"Bara Ndiaye","club":"FC Bayern München","note":"1 int."},{"pos":"PO","name":"Mory Diaw","club":"Le Havre AC","note":"5 int."},{"pos":"DF","name":"Antoine Mendy","club":"OGC Nice","note":"7 int."},{"pos":"DF","name":"El Diouf","club":"West Ham United FC","note":"20 int. · 1 gls"},{"pos":"MC","name":"Pape Gueye","club":"Villarreal CF","note":"42 int. · 6 gls"}],
+  "SUI":[{"pos":"PO","name":"Gregor Kobel","club":"Borussia Dortmund","note":"22 int."},{"pos":"DF","name":"Miro Muheim","club":"Hamburger SV","note":"11 int."},{"pos":"DF","name":"Silvan Widmer","club":"1. FSV Mainz 05","note":"60 int. · 5 gls"},{"pos":"DF","name":"Nico Elvedi","club":"Borussia Mönchengladbach","note":"68 int. · 3 gls"},{"pos":"DF","name":"Manuel Akanji","club":"FC Internazionale Milano","note":"82 int. · 4 gls"},{"pos":"MC","name":"Denis Zakaria","club":"AS Monaco","note":"66 int. · 3 gls"},{"pos":"DC","name":"Breel Embolo","club":"Stade Rennais FC","note":"87 int. · 25 gls"},{"pos":"MC","name":"Remo Freuler","club":"Bologna FC","note":"89 int. · 11 gls"},{"pos":"MC","name":"Johan Manzambi","club":"SC Freiburg","note":"13 int. · 3 gls"},{"pos":"MC","name":"Granit Xhaka","club":"Sunderland AFC","note":"147 int. · 17 gls"},{"pos":"DC","name":"Dan Ndoye","club":"Nottingham Forest FC","note":"32 int. · 8 gls"},{"pos":"PO","name":"Yvon Mvogo","club":"FC Lorient","note":"13 int."},{"pos":"DF","name":"Ricardo Rodriguez","club":"Real Betis","note":"139 int. · 9 gls"},{"pos":"MC","name":"Ardon Jashari","club":"AC Milan","note":"9 int."},{"pos":"MC","name":"Djibril Sow","club":"Sevilla FC","note":"52 int."},{"pos":"DC","name":"Christian Fassnacht","club":"BSC Young Boys","note":"23 int. · 5 gls"},{"pos":"DC","name":"Ruben Vargas","club":"Sevilla FC","note":"62 int. · 11 gls"},{"pos":"DF","name":"Eray Coemert","club":"Valencia CF","note":"22 int."},{"pos":"DC","name":"Noah Okafor","club":"Leeds United FC","note":"25 int. · 2 gls"},{"pos":"MC","name":"Michel Aebischer","club":"Pisa SC","note":"41 int. · 2 gls"},{"pos":"PO","name":"Marvin Keller","club":"BSC Young Boys","note":"1 int."},{"pos":"MC","name":"Fabian Rieder","club":"FC Augsburg","note":"29 int. · 1 gls"},{"pos":"DC","name":"Zeki Amdouni","club":"Burnley FC","note":"30 int. · 11 gls"},{"pos":"DF","name":"Aurele Amenda","club":"Eintracht Frankfurt","note":"7 int."},{"pos":"DF","name":"Luca Jaquez","club":"VfB Stuttgart","note":"3 int."},{"pos":"DC","name":"Cedric Itten","club":"Fortuna Düsseldorf","note":"15 int. · 5 gls"}],
+  "SWE":[{"pos":"PO","name":"Jacob Widell Zetterstrom","club":"Derby County FC","note":"3 int."},{"pos":"DF","name":"Gustaf Lagerbielke","club":"SC Braga","note":"12 int. · 2 gls"},{"pos":"DF","name":"Victor Lindelof","club":"Aston Villa FC","note":"77 int. · 3 gls"},{"pos":"DF","name":"Isak Hien","club":"Atalanta Bergamo","note":"30 int."},{"pos":"DF","name":"Gabriel Gudmundsson","club":"Leeds United FC","note":"25 int."},{"pos":"DF","name":"Herman Johansson","club":"FC Dallas","note":"3 int."},{"pos":"MC","name":"Lucas Bergvall","club":"Tottenham Hotspur FC","note":"11 int."},{"pos":"DF","name":"Daniel Svensson","club":"Borussia Dortmund","note":"14 int."},{"pos":"DC","name":"Alexander Isak","club":"Liverpool FC","note":"59 int. · 18 gls"},{"pos":"MC","name":"Benjamin Nygren","club":"Celtic FC","note":"12 int. · 3 gls"},{"pos":"DC","name":"Anthony Elanga","club":"Newcastle United FC","note":"31 int. · 6 gls"},{"pos":"PO","name":"Viktor Johansson","club":"Stoke City FC","note":"12 int."},{"pos":"MC","name":"Ken Sema","club":"Pafos FC","note":"32 int. · 5 gls"},{"pos":"DF","name":"Hjalmar Ekdal","club":"Burnley FC","note":"13 int."},{"pos":"DF","name":"Carl Starfelt","club":"RC Celta Vigo","note":"18 int."},{"pos":"MC","name":"Jesper Karlstrom","club":"Udinese","note":"25 int."},{"pos":"DC","name":"Viktor Gyokeres","club":"Arsenal FC","note":"34 int. · 21 gls"},{"pos":"MC","name":"Yasin Ayari","club":"Brighton & Hove Albion FC","note":"22 int. · 5 gls"},{"pos":"MC","name":"Mattias Svanberg","club":"VfL Wolfsburg","note":"41 int. · 3 gls"},{"pos":"DF","name":"Eric Smith","club":"FC St. Pauli","note":"2 int."},{"pos":"DF","name":"Alexander Bernhardsson","club":"Holstein Kiel","note":"12 int."},{"pos":"MC","name":"Besfort Zeneli","club":"Royale Union Saint-Gilloise","note":"8 int."},{"pos":"PO","name":"Kristoffer Nordfeldt","club":"AIK Stockholm","note":"22 int."},{"pos":"DF","name":"Elliot Stroud","club":"Mjällby AIF","note":"2 int."},{"pos":"DC","name":"Gustaf Nilsson","club":"Club Brugge","note":"9 int. · 4 gls"},{"pos":"DC","name":"Taha Ali","club":"Malmö FF","note":"2 int."}],
+  "TUN":[{"pos":"PO","name":"Mouhib Chamakh","club":"Club Africain","note":"4 int."},{"pos":"DF","name":"Ali Abdi","club":"OGC Nice","note":"47 int. · 7 gls"},{"pos":"DF","name":"Montassar Talbi","club":"FC Lorient","note":"65 int. · 4 gls"},{"pos":"DF","name":"Omar Rekik","club":"NK Maribor","note":"7 int. · 1 gls"},{"pos":"DF","name":"Adam Arous","club":"Kasımpa ş a SK","note":"2 int."},{"pos":"DF","name":"Dylan Bronn","club":"Servette FC","note":"52 int. · 2 gls"},{"pos":"DC","name":"Elias Achouri","club":"FC København","note":"31 int. · 5 gls"},{"pos":"DC","name":"Elias Saad","club":"Hannover 96","note":"16 int. · 3 gls"},{"pos":"DC","name":"Hazem Mastouri","club":"FC Dynamo Makhachkala","note":"19 int. · 4 gls"},{"pos":"MC","name":"Hannibal Mejbri","club":"Burnley FC","note":"46 int. · 1 gls"},{"pos":"MC","name":"Ismael Gharbi","club":"FC Augsburg","note":"18 int. · 2 gls"},{"pos":"DF","name":"Mortadha Ben Ouanes","club":"Kasımpa ş a SK","note":"18 int."},{"pos":"MC","name":"Rani Khedira","club":"1. FC Union Berlin","note":"4 int."},{"pos":"MC","name":"Khalil Ayari","club":"Paris Saint-Germain","note":"4 int."},{"pos":"MC","name":"Mohamed Hadj Mahmoud","club":"FC Lugano","note":"10 int."},{"pos":"PO","name":"Aymen Dahmen","club":"CS Sfaxien","note":"37 int."},{"pos":"MC","name":"Ellyes Skhiri","club":"Eintracht Frankfurt","note":"84 int. · 4 gls"},{"pos":"DC","name":"Rayan Elloumi","club":"Vancouver Whitecaps FC","note":"4 int."},{"pos":"DC","name":"Firas Chaouat","club":"Club Africain","note":"31 int. · 6 gls"},{"pos":"DF","name":"Yan Valery","club":"BSC Young Boys","note":"23 int."},{"pos":"DF","name":"Mohamed Ben Hmida","club":"Espérance De Tunisie","note":"14 int."},{"pos":"PO","name":"Sabri Ben Hessen","club":"Étoile Du Sahel","note":"1 int."},{"pos":"DF","name":"Moutaz Neffati","club":"IFK Norrköping FK","note":"5 int."},{"pos":"DF","name":"Raed Chikhaoui","club":"US Monastir","note":"0 int."},{"pos":"MC","name":"Anis Slimane","club":"Norwich City FC","note":"41 int. · 4 gls"},{"pos":"MC","name":"Sebastian Tounekti","club":"Celtic FC","note":"13 int. · 1 gls"}],
+  "TUR":[{"pos":"PO","name":"Mert Gunok","club":"Fenerbahçe SK","note":"37 int."},{"pos":"DF","name":"Zeki Celik","club":"AS Roma","note":"62 int. · 3 gls"},{"pos":"DF","name":"Merih Demiral","club":"Al Ahli FC","note":"64 int. · 6 gls"},{"pos":"DF","name":"CaglarÇa Soyuncu","club":"Fenerbahçe SK","note":"60 int. · 2 gls"},{"pos":"MC","name":"Salih Ozcan","club":"Borussia Dortmund","note":"31 int. · 1 gls"},{"pos":"MC","name":"Orkun Kokcu","club":"Be ş ikta ş  JK","note":"51 int. · 4 gls"},{"pos":"DC","name":"Kerem Akturkoglu","club":"Fenerbahçe SK","note":"53 int. · 15 gls"},{"pos":"DC","name":"Arda Guler","club":"Real Madrid C. F.","note":"31 int. · 6 gls"},{"pos":"DC","name":"Deniz Gul","club":"FC Porto","note":"9 int. · 2 gls"},{"pos":"MC","name":"Hakan Calhanoglu","club":"FC Internazionale Milano","note":"107 int. · 22 gls"},{"pos":"DC","name":"Kenan Yildiz","club":"Juventus FC","note":"29 int. · 5 gls"},{"pos":"PO","name":"Altay Bayindir","club":"Manchester United FC","note":"12 int."},{"pos":"DF","name":"Eren Elmali","club":"Galatasaray SK","note":"23 int."},{"pos":"DF","name":"Abdulkerim Bardakci","club":"Galatasaray SK","note":"28 int. · 2 gls"},{"pos":"DF","name":"Ozan Kabak","club":"TSG Hoffenheim","note":"30 int. · 2 gls"},{"pos":"MC","name":"Ismailİsma Yuksek","club":"Fenerbahçe SK","note":"33 int. · 1 gls"},{"pos":"DC","name":"Irfan Kahveci","club":"Kasımpa ş a SK","note":"47 int. · 6 gls"},{"pos":"DF","name":"Mert Muldur","club":"Fenerbahçe SK","note":"46 int. · 3 gls"},{"pos":"DC","name":"Yunus Akgun","club":"Galatasaray SK","note":"20 int. · 4 gls"},{"pos":"DF","name":"Ferdi Kadioglu","club":"Brighton & Hove Albion FC","note":"31 int. · 2 gls"},{"pos":"DC","name":"Baris Yilmaz","club":"Galatasaray SK","note":"36 int. · 4 gls"},{"pos":"MC","name":"Kaan Ayhan","club":"Galatasaray SK","note":"73 int. · 5 gls"},{"pos":"PO","name":"Ugurcan Cakir","club":"Galatasaray SK","note":"40 int."},{"pos":"DC","name":"Oguz Aydin","club":"Fenerbahçe SK","note":"11 int."},{"pos":"DF","name":"Samet Akaydin","club":"Çaykur Rizespor","note":"19 int. · 1 gls"},{"pos":"DC","name":"Can Uzun","club":"Eintracht Frankfurt","note":"6 int. · 1 gls"}],
+  "URU":[{"pos":"PO","name":"Sergio Rochet","club":"SC Internacional","note":"35 int."},{"pos":"DF","name":"Jose Gimenez","club":"Atlético De Madrid","note":"99 int. · 8 gls"},{"pos":"DF","name":"Sebastian Caceres","club":"Club América","note":"23 int."},{"pos":"DF","name":"Ronald Araujo","club":"FC Barcelona","note":"27 int. · 1 gls"},{"pos":"MC","name":"Manuel Ugarte","club":"Manchester United FC","note":"35 int. · 1 gls"},{"pos":"MC","name":"Rodrigo Bentancur","club":"Tottenham Hotspur FC","note":"73 int. · 3 gls"},{"pos":"MC","name":"Nicolas De La Cruz","club":"CR Flamengo","note":"34 int. · 5 gls"},{"pos":"MC","name":"Federico Valverde","club":"Real Madrid C. F.","note":"73 int. · 9 gls"},{"pos":"DC","name":"Darwin Nunez","club":"Al Hilal SC","note":"38 int. · 13 gls"},{"pos":"MC","name":"Giorgian De Arrascaeta","club":"CR Flamengo","note":"59 int. · 13 gls"},{"pos":"DC","name":"Facundo Pellistri","club":"Panathinaikos FC","note":"39 int. · 2 gls"},{"pos":"PO","name":"Santiago Mele","club":"CF Monterrey","note":"8 int."},{"pos":"DF","name":"Guillermo Varela","club":"CR Flamengo","note":"27 int."},{"pos":"MC","name":"Agustin Canobbio","club":"Fluminense FC","note":"14 int. · 1 gls"},{"pos":"MC","name":"Emiliano Martinez","club":"SE Palmeiras","note":"10 int."},{"pos":"DF","name":"Mathias Olivera","club":"SSC Napoli","note":"35 int. · 2 gls"},{"pos":"DF","name":"Matias Vina","club":"CA River Plate","note":"43 int. · 1 gls"},{"pos":"DC","name":"Brian Rodriguez","club":"Club América","note":"33 int. · 4 gls"},{"pos":"DC","name":"Rodrigo Aguirre","club":"Tigres UANL","note":"10 int. · 3 gls"},{"pos":"MC","name":"Maxi Araujo","club":"Sporting CP","note":"28 int. · 3 gls"},{"pos":"DC","name":"Federico Vinas","club":"Real Oviedo","note":"11 int. · 2 gls"},{"pos":"MC","name":"Joaquin Piquerez","club":"SE Palmeiras","note":"19 int."},{"pos":"PO","name":"Fernando Muslera","club":"Estudiantes LP","note":"134 int."},{"pos":"DF","name":"Santiago Bueno","club":"Wolverhampton Wanderers FC","note":"8 int."},{"pos":"MC","name":"Juan Sanabria","club":"Real Salt Lake","note":"5 int. · 1 gls"},{"pos":"MC","name":"Rodrigo Zalazar","club":"SC Braga","note":"7 int. · 2 gls"}],
+  "USA":[{"pos":"PO","name":"Matt Turner","club":"New England Revolution","note":"54 int."},{"pos":"DF","name":"Sergino Dest","club":"PSV Eindhoven","note":"40 int. · 3 gls"},{"pos":"DF","name":"Chris Richards","club":"Crystal Palace FC","note":"37 int. · 3 gls"},{"pos":"MC","name":"Tyler Adams","club":"AFC Bournemouth","note":"55 int. · 2 gls"},{"pos":"DF","name":"Antonee Robinson","club":"Fulham FC","note":"55 int. · 5 gls"},{"pos":"DF","name":"Auston Trusty","club":"Celtic FC","note":"8 int."},{"pos":"MC","name":"Giovanni Reyna","club":"Borussia Mönchengladbach","note":"39 int. · 10 gls"},{"pos":"MC","name":"Mc","club":"Juventus FC","note":"67 int. · 12 gls"},{"pos":"DC","name":"Ricardo Pepi","club":"PSV Eindhoven","note":"38 int. · 13 gls"},{"pos":"DC","name":"Christian Pulisic","club":"AC Milan","note":"87 int. · 33 gls"},{"pos":"DC","name":"Brenden Aaronson","club":"Leeds United FC","note":"58 int. · 9 gls"},{"pos":"DF","name":"Miles Robinson","club":"FC Cincinnatti","note":"40 int. · 3 gls"},{"pos":"DF","name":"Tim Ream","club":"Charlotte FC","note":"83 int. · 1 gls"},{"pos":"MC","name":"Sebastian Berhalter","club":"Vancouver Whitecaps FC","note":"14 int. · 1 gls"},{"pos":"MC","name":"Cristian Roldan","club":"Seattle Sounders FC","note":"47 int."},{"pos":"DF","name":"Alex Freeman","club":"Villarreal CF","note":"18 int. · 2 gls"},{"pos":"MC","name":"Malik Tillman","club":"Bayer 04 Leverkusen","note":"31 int. · 3 gls"},{"pos":"DF","name":"Max Arfsten","club":"Columbus Crew","note":"20 int. · 1 gls"},{"pos":"DC","name":"Haji Wright","club":"Coventry City FC","note":"20 int. · 7 gls"},{"pos":"DC","name":"Folarin Balogun","club":"AS Monaco","note":"28 int. · 11 gls"},{"pos":"DC","name":"Timothy Weah","club":"Olympique Marseille","note":"52 int. · 7 gls"},{"pos":"DF","name":"Mc","club":"Toulouse FC","note":"29 int."},{"pos":"DF","name":"Joe Scally","club":"Borussia Mönchengladbach","note":"26 int."},{"pos":"PO","name":"Matt Freese","club":"New York City FC","note":"16 int."},{"pos":"PO","name":"Chris Brady","club":"Chicago Fire FC","note":"1 int."},{"pos":"DC","name":"Alex Zendejas","club":"Club América","note":"14 int. · 2 gls"}],
+  "UZB":[{"pos":"PO","name":"Utkir Yusupov","club":"PFC Navbahor Namangan","note":"45 int."},{"pos":"DF","name":"Abdukodir Khusanov","club":"Manchester City FC","note":"27 int."},{"pos":"DF","name":"Khojiakbar Alijonov","club":"Pakhtakor Tashkent FK","note":"52 int. · 3 gls"},{"pos":"DF","name":"Farrukh Sayfiev","club":"FK Neftchi Farg'ona","note":"71 int. · 1 gls"},{"pos":"DF","name":"Rustam Ashurmatov","club":"Esteghlal Tehran FC","note":"51 int. · 1 gls"},{"pos":"MC","name":"Akmal Mozgovoy","club":"Pakhtakor Tashkent FK","note":"25 int. · 1 gls"},{"pos":"MC","name":"Otabek Shukurov","club":"Baniyas Club","note":"90 int. · 10 gls"},{"pos":"MC","name":"Jamshid Iskanderov","club":"FK Neftchi Farg'ona","note":"46 int. · 4 gls"},{"pos":"MC","name":"Odiljon Xamrobekov","club":"Tractor Sazi Tabriz FC","note":"76 int. · 1 gls"},{"pos":"MC","name":"Jaloliddin Masharipov","club":"Esteghlal Tehran FC","note":"75 int. · 14 gls"},{"pos":"MC","name":"Oston Urunov","club":"Persepolis FC","note":"45 int. · 10 gls"},{"pos":"PO","name":"Abduvohid Nematov","club":"Nasaf Qarshi FC","note":"15 int."},{"pos":"DF","name":"Sherzod Nasrullaev","club":"Pakhtakor Tashkent FK","note":"40 int. · 2 gls"},{"pos":"DC","name":"Eldor Shomurodov","club":"Ba ş ak ş ehir FK","note":"93 int. · 44 gls"},{"pos":"DF","name":"Umar Eshmurodov","club":"Nasaf Qarshi FC","note":"40 int."},{"pos":"PO","name":"Botirali Ergashev","club":"FK Neftchi Farg'ona","note":"5 int."},{"pos":"MC","name":"Dostonbek Khamdamov","club":"Pakhtakor Tashkent FK","note":"37 int. · 5 gls"},{"pos":"DF","name":"Abdulla Abdullaev","club":"Dibba FC","note":"29 int."},{"pos":"MC","name":"Azizjon Ganiev","club":"Al Bataeh Club","note":"24 int."},{"pos":"DC","name":"Azizbek Amonov","club":"FK Dinamo Samarkand","note":"13 int. · 2 gls"},{"pos":"DC","name":"Igor Sergeev","club":"Persepolis FC","note":"85 int. · 25 gls"},{"pos":"MC","name":"Abbosbek Fayzullaev","club":"Ba ş ak ş ehir FK","note":"32 int. · 8 gls"},{"pos":"MC","name":"Sherzod Esanov","club":"FK Buxoro","note":"1 int."},{"pos":"DF","name":"Behruzjon Karimov","club":"Surkhon FK","note":"2 int."},{"pos":"DF","name":"Avazbek Ulmasaliyev","club":"OKMK FK","note":"0 int."},{"pos":"DF","name":"Jakhongir Urozov","club":"FK Dinamo Samarkand","note":"4 int. · 1 gls"}],
 };
 
 /* ═══════════════════════════════════════════════════════════════
@@ -1054,14 +1150,28 @@ function matchTeamsHtml(m) {
   } else {
     scoreHtml = `<div style="margin-top:.4rem;font-size:.85rem;color:#334155;font-weight:600;letter-spacing:.06em;text-transform:uppercase">vs</div>`;
   }
+  const rankH = FIFA_RANK[home] ? `FIFA #${FIFA_RANK[home]}` : "";
+  const rankA = FIFA_RANK[away] ? `FIFA #${FIFA_RANK[away]}` : "";
+  const badgeH = rankH ? `<div class="match-rank-inner home"><span class="match-fifa-rank">${rankH}</span></div>` : "";
+  const badgeA = rankA ? `<div class="match-rank-inner away"><span class="match-fifa-rank">${rankA}</span></div>` : "";
   return `
     <div class="match-header-center">
-      <div class="match-teams-row">
-        <span class="match-flag">${fh}</span>
-        <span class="match-team-name team-name-btn" data-team="${home.replace(/"/g,'&quot;')}" title="Ver partidos de ${home}">${home}</span>
-        <span class="match-vs">vs</span>
-        <span class="match-team-name team-name-btn" data-team="${away.replace(/"/g,'&quot;')}" title="Ver partidos de ${away}">${away}</span>
-        <span class="match-flag">${fa}</span>
+      <div class="match-teams-block">
+        <div class="match-side-home">
+          <div class="match-name-row">
+            <span class="match-flag">${fh}</span>
+            <span class="match-team-name team-name-btn" data-team="${home.replace(/"/g,'&quot;')}" title="Ver partidos de ${home}">${home}</span>
+          </div>
+          ${badgeH}
+        </div>
+        <div class="match-vs-wrap"><span class="match-vs">vs</span></div>
+        <div class="match-side-away">
+          <div class="match-name-row">
+            <span class="match-team-name team-name-btn" data-team="${away.replace(/"/g,'&quot;')}" title="Ver partidos de ${away}">${away}</span>
+            <span class="match-flag">${fa}</span>
+          </div>
+          ${badgeA}
+        </div>
       </div>
       ${scoreHtml}
       ${matchScorersHtml(m)}
@@ -2336,6 +2446,20 @@ function parseScorers(str) {
     .filter(s => s && s !== "null");
 }
 
+function _openStadiumLightbox(wrap) {
+  const src     = wrap.dataset.src;
+  const caption = wrap.dataset.caption || "";
+  if (!src) return;
+  const lb = document.createElement("div");
+  lb.id = "stadium-lightbox";
+  lb.innerHTML = `<img src="${escapeHtml(src)}" alt="${escapeHtml(caption)}">${caption ? `<div id="stadium-lightbox-caption">${escapeHtml(caption)}</div>` : ""}`;
+  lb.addEventListener("click", () => lb.remove());
+  document.addEventListener("keydown", function esc(e) {
+    if (e.key === "Escape") { lb.remove(); document.removeEventListener("keydown", esc); }
+  });
+  document.body.appendChild(lb);
+}
+
 function openMatchDetail(matchName) {
   if (!D) return;
   const m = D.matches.find(x => x.name === matchName);
@@ -2387,7 +2511,7 @@ async function _fillMatchDetail(m, body) {
 
     // Stadium photo from Wikipedia (if available)
     if (wikiImg) {
-      html += `<div class="stadium-photo-wrap">
+      html += `<div class="stadium-photo-wrap" onclick="_openStadiumLightbox(this)" data-src="${escapeHtml(wikiImg)}" data-caption="${escapeHtml(m.stadium || '')}">
         <img src="${escapeHtml(wikiImg)}" alt="${escapeHtml(m.stadium)}" class="stadium-photo" loading="lazy"
              onerror="this.parentElement.style.display='none'">
         <div class="stadium-photo-caption">${escapeHtml(m.stadium)}</div>
@@ -2797,6 +2921,87 @@ function _signFromScore(score) {
   return h > a ? "1" : h < a ? "2" : "X";
 }
 
+/* ─── STATS helpers: tabla paginada ─── */
+const _matchTableState = {};
+
+function _buildMatchRowHtml(row, globalIndex, MAX_PTS) {
+  const MEDAL = ["🥇", "🥈", "🥉"];
+  const ptColor = pts => pts >= 5 ? "#22C55E" : pts >= 3 ? "#EAB308" : pts >= 1 ? "#F97316" : "#374151";
+  const { m, byPlayer, totalPts } = row;
+  const pct    = Math.round(totalPts / MAX_PTS * 100);
+  const medal  = globalIndex < 3 ? MEDAL[globalIndex] : `${globalIndex + 1}`;
+  const score  = m.goals_l != null
+    ? `<span class="font-bold" style="color:var(--gold)">${m.goals_l}–${m.goals_v}</span>`
+    : "";
+  const playerCells = byPlayer.map(p =>
+    `<td class="text-center font-bold" style="color:${ptColor(p.pts)}">${p.pts}</td>`
+  ).join("");
+  const evenBg = globalIndex % 2 === 1 ? "background:rgba(255,255,255,.02)" : "";
+  return `
+    <tr style="${evenBg}">
+      <td class="text-center font-bold" style="color:#64748B">${medal}</td>
+      <td>
+        <div style="font-size:.85rem;color:#E2E8F0;font-weight:600">${m.flag_home || ""} ${escapeHtml(m.home)} vs ${escapeHtml(m.away)} ${m.flag_away || ""}</div>
+        <div style="font-size:.7rem;color:#64748B;margin-top:.1rem">${score}${score ? " · " : ""}${m.day_label || ""}</div>
+      </td>
+      <td class="text-center">
+        <span class="font-bold" style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--gold);line-height:1">${totalPts}</span><span style="font-size:.7rem;color:#475569">/${MAX_PTS}</span>
+        <div style="height:3px;background:rgba(255,255,255,.07);border-radius:2px;margin-top:.25rem"><div style="height:3px;width:${pct}%;background:var(--gold);border-radius:2px"></div></div>
+      </td>
+      ${playerCells}
+    </tr>`;
+}
+
+function _initMatchTable(containerId, matchRows, title, subtitle, MAX_PTS, playerCols, step) {
+  step = step || 5;
+  const allRowHtml = matchRows.map((row, i) => _buildMatchRowHtml(row, i, MAX_PTS));
+  _matchTableState[containerId] = { rowHtml: allRowHtml, shown: step, step };
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  const firstHtml  = allRowHtml.slice(0, step).join("");
+  const remaining  = allRowHtml.length - step;
+  const moreBtnHtml = remaining > 0
+    ? `<div id="${containerId}-more" class="px-4 py-3 border-t text-center" style="border-color:var(--border)">
+        <button class="ver-mas-btn" onclick="loadMoreMatchRows('${containerId}')">Ver ${Math.min(step, remaining)} más ↓</button>
+       </div>`
+    : "";
+  el.innerHTML = `
+    <div class="card overflow-hidden mb-4">
+      <div class="px-6 py-4 border-b" style="border-color:var(--border)">
+        <h2 class="text-lg font-bold text-white">${title}</h2>
+        <p class="text-xs text-gray-400 mt-1">${subtitle}</p>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="pred-table w-full">
+          <thead><tr><th>#</th><th class="text-left">Partido</th><th>Pts totales</th>${playerCols}</tr></thead>
+          <tbody id="${containerId}-tbody">${firstHtml}</tbody>
+        </table>
+      </div>
+      ${moreBtnHtml}
+    </div>`;
+}
+
+function loadMoreMatchRows(containerId) {
+  const state = _matchTableState[containerId];
+  if (!state) return;
+  const { rowHtml, step } = state;
+  const prevShown = state.shown;
+  const newShown  = Math.min(prevShown + step, rowHtml.length);
+  state.shown = newShown;
+  const tbody = document.getElementById(containerId + "-tbody");
+  if (tbody) tbody.insertAdjacentHTML("beforeend", rowHtml.slice(prevShown, newShown).join(""));
+  const moreDiv = document.getElementById(containerId + "-more");
+  if (moreDiv) {
+    const remaining = rowHtml.length - newShown;
+    if (remaining <= 0) {
+      moreDiv.remove();
+    } else {
+      const btn = moreDiv.querySelector("button");
+      if (btn) btn.textContent = `Ver ${Math.min(step, remaining)} más ↓`;
+    }
+  }
+}
+
 /* ─── STATS ─── */
 function renderStats() {
   const players = D.meta.players;
@@ -2833,7 +3038,8 @@ function renderStats() {
     const total = groupMatches.length;
     const pct   = total > 0 ? Math.round(hits / total * 100) : 0;
     const avg   = total > 0 ? (((D.standings.find(s => s.name === name)?.groups) || 0) / total).toFixed(2) : "—";
-    return { name, exact, diff, sign, miss, hits, total, pct, avg, best, streak: liveStreak, maxStreak: streak };
+    const last4pts = groupMatches.slice(-4).reduce((s, m) => s + (m.predictions[name]?.score ?? 0), 0);
+    return { name, exact, diff, sign, miss, hits, total, pct, avg, best, last4pts, streak: liveStreak, maxStreak: streak };
   });
 
   // ── HERO numbers ───────────────────────────────────────────────────────
@@ -2966,7 +3172,7 @@ function renderStats() {
       "• <strong>Pts/partido</strong>: media de puntos por partido de grupos.<br>" +
       "• <strong>Racha activa</strong>: partidos seguidos puntuando ahora mismo.<br>" +
       "• <strong>Exactos</strong>: resultados clavados (6 pts).<br>" +
-      "• <strong>Mejor partido</strong>: máximo de puntos logrado en un solo partido.<br>" +
+      "• <strong>Últ. 4 partidos</strong>: suma de puntos en los últimos 4 partidos de grupos.<br>" +
       "• <strong>Últimos partidos</strong>: cada cuadro es un partido reciente (ver leyenda).",
       "left"
     );
@@ -3029,8 +3235,8 @@ function renderStats() {
             <div class="pstat-lbl">Exactos (6 pts)</div>
           </div>
           <div class="pstat-box">
-            <div class="pstat-num" style="color:${p.color}">${pp.best ?? 0}</div>
-            <div class="pstat-lbl">Mejor partido</div>
+            <div class="pstat-num" style="color:${p.color}">${pp.last4pts ?? 0}</div>
+            <div class="pstat-lbl">Últ. 4 partidos</div>
           </div>
         </div>
 
@@ -3047,73 +3253,44 @@ function renderStats() {
       </div>`;
   }).join("");
 
-  // ── Ranking de partidos más acertados ──────────────────────────────────
-  const topMatchesEl = document.getElementById("stats-top-matches");
-  if (topMatchesEl && playedAll.length) {
-    const players = D.meta.players;
-    const colors  = D.meta.colors;
-    const MAX_PTS = players.length * 6;
+  // ── Ranking de partidos más / menos acertados ───────────────────────
+  if (playedAll.length) {
+    const players2 = D.meta.players;
+    const colors2  = D.meta.colors;
+    const MAX_PTS  = players2.length * 6;
 
     const matchRows = playedAll.map(m => {
-      const byPlayer = players.map(name => ({
+      const byPlayer = players2.map(name => ({
         name,
         pts: m.predictions?.[name]?.score ?? 0,
       }));
       const totalPts = byPlayer.reduce((s, p) => s + p.pts, 0);
       return { m, byPlayer, totalPts };
-    }).sort((a, b) => b.totalPts - a.totalPts);
+    });
 
-    const MEDAL = ["🥇", "🥈", "🥉"];
-    const ptColor = (pts) => pts >= 5 ? "#22C55E" : pts >= 3 ? "#EAB308" : pts >= 1 ? "#F97316" : "#374151";
-
-    const playerCols = players.map(name =>
-      `<th class="text-center" style="color:${colors[name] || '#94A3B8'}">${name}</th>`
+    const playerCols2 = players2.map(name =>
+      `<th class="text-center" style="color:${colors2[name] || '#94A3B8'}">${name}</th>`
     ).join("");
 
-    const rows = matchRows.map((row, i) => {
-      const { m, byPlayer, totalPts } = row;
-      const pct   = Math.round(totalPts / MAX_PTS * 100);
-      const medal = i < 3 ? MEDAL[i] : `${i + 1}`;
-      const score = m.goals_l != null ? `<span class="font-bold" style="color:var(--gold)">${m.goals_l}–${m.goals_v}</span>` : "";
-      const playerCells = byPlayer.map(p =>
-        `<td class="text-center font-bold" style="color:${ptColor(p.pts)}">${p.pts}</td>`
-      ).join("");
-      const evenBg = i % 2 === 1 ? "background:rgba(255,255,255,.02)" : "";
-      return `
-        <tr style="${evenBg}">
-          <td class="text-center font-bold" style="color:#64748B">${medal}</td>
-          <td>
-            <div style="font-size:.85rem;color:#E2E8F0;font-weight:600">${m.flag_home || ""} ${escapeHtml(m.home)} vs ${escapeHtml(m.away)} ${m.flag_away || ""}</div>
-            <div style="font-size:.7rem;color:#64748B;margin-top:.1rem">${score}${score ? " · " : ""}${m.day_label || ""}</div>
-          </td>
-          <td class="text-center">
-            <span class="font-bold" style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--gold);line-height:1">${totalPts}</span><span style="font-size:.7rem;color:#475569">/${MAX_PTS}</span>
-            <div style="height:3px;background:rgba(255,255,255,.07);border-radius:2px;margin-top:.25rem"><div style="height:3px;width:${pct}%;background:var(--gold);border-radius:2px"></div></div>
-          </td>
-          ${playerCells}
-        </tr>`;
-    }).join("");
+    // Más acertados (desc)
+    const topRows  = [...matchRows].sort((a, b) => b.totalPts - a.totalPts);
+    _initMatchTable(
+      "stats-top-matches",
+      topRows,
+      "🏆 Partidos más acertados",
+      `Puntos totales sumados entre todos los participantes. Máximo ${MAX_PTS} pts (${players2.length} jugadores × 6 pts). Solo partidos ya jugados.`,
+      MAX_PTS, playerCols2, 5
+    );
 
-    topMatchesEl.innerHTML = `
-      <div class="card overflow-hidden mb-4">
-        <div class="px-6 py-4 border-b" style="border-color:var(--border)">
-          <h2 class="text-lg font-bold text-white">🏆 Partidos más acertados</h2>
-          <p class="text-xs text-gray-400 mt-1">Puntos totales sumados entre todos los participantes. Máximo ${MAX_PTS} pts (${players.length} jugadores × 6 pts). Solo partidos ya jugados.</p>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="pred-table w-full">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th class="text-left">Partido</th>
-                <th>Pts totales</th>
-                ${playerCols}
-              </tr>
-            </thead>
-            <tbody>${rows}</tbody>
-          </table>
-        </div>
-      </div>`;
+    // Menos acertados (asc)
+    const worstRows = [...matchRows].sort((a, b) => a.totalPts - b.totalPts);
+    _initMatchTable(
+      "stats-worst-matches",
+      worstRows,
+      "📉 Partidos menos acertados",
+      `Los partidos donde la porra acertó menos (menos puntos totales entre todos). Solo partidos ya jugados.`,
+      MAX_PTS, playerCols2, 5
+    );
   }
 
   // ── El gemelo: parejas con predicciones más parecidas / opuestas ───────
@@ -4240,9 +4417,29 @@ function _teamsGeneralHtml() {
 
   if (!list.length) return `<div class="card p-5 text-gray-500 text-sm">Aún no hay partidos jugados.</div>`;
 
+  // ── Indicador rendimiento vs. ranking FIFA ──────────────────
+  function fifaPerf(name, tablePos) {
+    const rank = FIFA_RANK[name];
+    if (!rank) return { rankCell: `<span class="tlg-fifa-na">—</span>`, perfCell: `<span class="tlg-fifa-na">—</span>` };
+    const delta = rank - tablePos; // + = mejor de lo esperado, - = peor
+    const rankCell = `<span class="tlg-fifa-rank-num">#${rank}</span>`;
+    let icon, color, label, cls;
+    if      (delta >= 15)  { icon = "🔥"; color = "#22C55E"; label = `+${delta}`; cls = "tlg-perf-fire"; }
+    else if (delta >= 8)   { icon = "▲";  color = "#4ADE80"; label = `+${delta}`; cls = "tlg-perf-good"; }
+    else if (delta >= 3)   { icon = "↑";  color = "#86EFAC"; label = `+${delta}`; cls = "tlg-perf-ok";   }
+    else if (delta >= -2)  { icon = "≈";  color = "#475569"; label = "";          cls = "tlg-perf-eq";   }
+    else if (delta >= -7)  { icon = "↓";  color = "#FCA5A5"; label = `${delta}`; cls = "tlg-perf-bad";  }
+    else if (delta >= -14) { icon = "▼";  color = "#F87171"; label = `${delta}`; cls = "tlg-perf-poor"; }
+    else                   { icon = "💔"; color = "#EF4444"; label = `${delta}`; cls = "tlg-perf-dis";  }
+    const title = `FIFA #${rank} · Posición actual: ${tablePos} · ${delta > 0 ? "Rinde +" + delta + " posiciones sobre su ranking" : delta < 0 ? "Rinde " + delta + " posiciones bajo su ranking" : "Rinde según su ranking"}`;
+    const perfCell = `<span class="tlg-perf ${cls}" style="color:${color}" title="${title}">${icon}${label ? `<span class="tlg-perf-val"> ${label}</span>` : ""}</span>`;
+    return { rankCell, perfCell };
+  }
+
   const rows = list.map((t, i) => {
     const difStr = t.dif > 0 ? `+${t.dif}` : `${t.dif}`;
     const difCls = t.dif > 0 ? "tms-pos-num" : t.dif < 0 ? "tms-neg" : "";
+    const { rankCell, perfCell } = fifaPerf(t.name, i + 1);
     return `<tr>
       <td class="tlg-pos">${i + 1}</td>
       <td class="tlg-team"><span class="tlg-flag">${t.flag}</span><button class="team-name-btn" data-team="${escapeHtml(t.name)}">${escapeHtml(t.name)}</button></td>
@@ -4253,6 +4450,8 @@ function _teamsGeneralHtml() {
       <td>${t.gf}</td><td>${t.gc}</td>
       <td class="${difCls}">${difStr}</td>
       <td class="tlg-pts tlg-pts-val">${t.pts}</td>
+      <td class="tlg-td-fifa">${rankCell}</td>
+      <td class="tlg-td-perf">${perfCell}</td>
     </tr>`;
   }).join("");
 
@@ -4260,14 +4459,23 @@ function _teamsGeneralHtml() {
     <div class="px-5 py-4 border-b" style="border-color:var(--border)">
       <p class="text-xs text-gray-400 mt-0.5">Todos los partidos contabilizados (${counted.length}). Pts → DIF → GF.</p>
     </div>
+    <div class="tlg-perf-legend">
+      <span class="tlg-leg-item"><span style="color:#22C55E">🔥▲↑</span> Mejor de lo esperado por FIFA</span>
+      <span class="tlg-leg-sep">·</span>
+      <span class="tlg-leg-item"><span style="color:#475569">≈</span> Según lo esperado</span>
+      <span class="tlg-leg-sep">·</span>
+      <span class="tlg-leg-item"><span style="color:#EF4444">↓▼💔</span> Peor de lo esperado</span>
+    </div>
     <div class="overflow-x-auto">
-      <table class="tm-league-table">
+      <table class="tm-league-table tlg-general">
         <thead><tr>
           <th class="tlg-pos">#</th>
           <th class="tlg-team text-left">Equipo</th>
           <th title="PJ">PJ</th><th title="Ganados">G</th><th title="Empatados">E</th>
           <th title="Perdidos">P</th><th title="GF">GF</th><th title="GC">GC</th>
           <th title="DIF">DIF</th><th title="Puntos" class="tlg-pts">PTS</th>
+          <th class="tlg-td-fifa" title="Ranking FIFA actual">FIFA</th>
+          <th class="tlg-td-perf" title="Rendimiento vs. ranking FIFA esperado">Rend.</th>
         </tr></thead>
         <tbody>${rows}</tbody>
       </table>
@@ -5251,6 +5459,86 @@ function closeAdminPanel() {
 /* ═══════════════════════════════════════════════════════════════
    TEAM MODAL — todos los partidos de un equipo
 ═══════════════════════════════════════════════════════════════ */
+function _squadSort(key, dir) {
+  const modal = document.getElementById("team-modal");
+  if (!modal || !modal._tmPanels) return;
+  // Reobtener fifaCode del título actual para reconstruir el HTML
+  const titleEl = document.getElementById("team-modal-title");
+  if (!titleEl) return;
+  // El nombre del equipo está guardado en modal._tmTeamName
+  const teamName = modal._tmTeamName;
+  if (!teamName) return;
+  const fifaCode = TEAM_TO_FIFA[teamName] || "";
+  const players = KEY_PLAYERS[fifaCode] || [];
+  if (!players.length) return;
+
+  const POS_ORDER = { PO: 0, DF: 1, MC: 2, DC: 3 };
+  const POS_LABEL = { PO: "🧤 Porteros", DF: "🛡️ Defensas", MC: "⚙️ Mediocampistas", DC: "⚡ Delanteros" };
+  const POS_COLOR = { PO: "#F59E0B", DF: "#3B82F6", MC: "#22C55E", DC: "#EF4444" };
+
+  function parseStat(p) {
+    const m = (p.note || "").match(/(\d+)\s*int\.(?:\s*·\s*(\d+)\s*gls)?/);
+    return { caps: m ? parseInt(m[1]) : 0, goals: m ? parseInt(m[2] || "0") : 0 };
+  }
+
+  let sorted = players.map(p => ({ ...p, ...parseStat(p) }));
+  sorted = sorted.slice().sort((a, b) => {
+    const av = key === "name" ? a.name : (a[key] ?? 0);
+    const bv = key === "name" ? b.name : (b[key] ?? 0);
+    if (typeof av === "string") return dir === "asc" ? av.localeCompare(bv, "es") : bv.localeCompare(av, "es");
+    return dir === "asc" ? av - bv : bv - av;
+  });
+
+  const groups = { PO: [], DF: [], MC: [], DC: [] };
+  sorted.forEach(p => { (groups[p.pos] || groups["DC"]).push(p); });
+
+  const thSortClass = (k) => {
+    if (k !== key) return "sq-th-sort";
+    return `sq-th-sort sq-th-active sq-th-${dir}`;
+  };
+  const sortAttr = (k) => {
+    const newDir = (k === key && dir === "desc") ? "asc" : "desc";
+    return `onclick="_squadSort('${k}','${newDir}')"`;
+  };
+
+  const sections = Object.keys(groups).filter(pos => groups[pos].length).map(pos => {
+    const rows = groups[pos].map((p, i) => `
+      <tr>
+        <td class="sq-num">${i + 1}</td>
+        <td class="sq-name">${p.name}</td>
+        <td class="sq-club">${p.club}</td>
+        <td class="sq-caps">${p.caps || "—"}</td>
+        <td class="sq-goals">${p.goals > 0 ? `<span class="sq-goals-val">${p.goals}</span>` : `<span style="color:#374151">—</span>`}</td>
+      </tr>`).join("");
+    return `
+      <div class="sq-pos-section">
+        <div class="sq-pos-hd" style="border-left-color:${POS_COLOR[pos]};color:${POS_COLOR[pos]}">${POS_LABEL[pos]}</div>
+        <div class="sq-table-wrap">
+          <table class="sq-table">
+            <thead><tr>
+              <th class="sq-num"></th>
+              <th class="sq-name-th ${thSortClass("name")}" ${sortAttr("name")}>Jugador${key==="name" ? (dir==="asc"?" ↑":" ↓") : ""}</th>
+              <th class="sq-club-th">Club</th>
+              <th class="sq-caps-th ${thSortClass("caps")}" ${sortAttr("caps")}>Int.${key==="caps" ? (dir==="asc"?" ↑":" ↓") : ""}</th>
+              <th class="sq-goals-th ${thSortClass("goals")}" ${sortAttr("goals")}>Gls.${key==="goals" ? (dir==="asc"?" ↑":" ↓") : ""}</th>
+            </tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </div>`;
+  }).join("");
+
+  const newSquad = `<div class="sq-container" data-sort-key="${key}" data-sort-dir="${dir}">${sections}</div>
+  <div class="tm-squad-note">📋 Convocatoria oficial FIFA · Copa del Mundo 2026 · Pulsa Int./Gls. para ordenar</div>`;
+
+  modal._tmPanels.squad = newSquad;
+  // Si la pestaña activa es 'squad', actualizar el DOM
+  const activeSubtab = document.querySelector(".tm-subtab.active");
+  if (activeSubtab && activeSubtab.dataset.subtab === "squad") {
+    document.getElementById("team-modal-body").innerHTML = newSquad;
+  }
+}
+
 function openTeamModal(teamName) {
   if (!D) return;
 
@@ -5508,14 +5796,115 @@ function openTeamModal(teamName) {
       <div class="flex flex-col gap-1.5">${pending.map(m => matchRow(m)).join("")}</div>
     </div>` : "";
 
-  document.getElementById("team-modal-title").innerHTML =
-    `${flag} ${teamName}`;
-  document.getElementById("team-modal-body").innerHTML =
-    statsHtml + groupHtml + playedHtml + pendingHtml + r16Html;
+  // ── Plantilla (lista por posición, ordenable) ──────────────
+  const fifaCode = TEAM_TO_FIFA[teamName] || "";
+  const players  = KEY_PLAYERS[fifaCode] || [];
 
+  function _buildSquadHtml(sortKey, sortDir) {
+    if (!players.length) return `<div class="tm-empty-panel">Sin datos de plantilla disponibles</div>`;
+
+    const POS_ORDER = { PO: 0, DF: 1, MC: 2, DC: 3 };
+    const POS_LABEL = { PO: "🧤 Porteros", DF: "🛡️ Defensas", MC: "⚙️ Mediocampistas", DC: "⚡ Delanteros" };
+    const POS_COLOR = { PO: "#F59E0B", DF: "#3B82F6", MC: "#22C55E", DC: "#EF4444" };
+
+    // Parsear "caps" de note: "104 int. · 0 gls" → caps=104, goals=0
+    function parseStat(p) {
+      const m = (p.note || "").match(/(\d+)\s*int\.(?:\s*·\s*(\d+)\s*gls)?/);
+      return { caps: m ? parseInt(m[1]) : 0, goals: m ? parseInt(m[2] || "0") : 0 };
+    }
+
+    let sorted = players.map(p => ({ ...p, ...parseStat(p) }));
+    if (sortKey) {
+      sorted = sorted.slice().sort((a, b) => {
+        const av = sortKey === "name" ? a.name : (a[sortKey] ?? 0);
+        const bv = sortKey === "name" ? b.name : (b[sortKey] ?? 0);
+        if (typeof av === "string") return sortDir === "asc" ? av.localeCompare(bv, "es") : bv.localeCompare(av, "es");
+        return sortDir === "asc" ? av - bv : bv - av;
+      });
+    }
+
+    const groups = { PO: [], DF: [], MC: [], DC: [] };
+    sorted.forEach(p => { (groups[p.pos] || groups["DC"]).push(p); });
+
+    const thSortClass = (k) => {
+      if (k !== sortKey) return "sq-th-sort";
+      return `sq-th-sort sq-th-active sq-th-${sortDir}`;
+    };
+    const sortAttr = (k) => {
+      const newDir = (k === sortKey && sortDir === "desc") ? "asc" : "desc";
+      return `onclick="_squadSort('${k}','${newDir}')"`;
+    };
+
+    const sections = Object.keys(groups).filter(pos => groups[pos].length).map(pos => {
+      const rows = groups[pos].map((p, i) => `
+        <tr>
+          <td class="sq-num">${i + 1}</td>
+          <td class="sq-name">${p.name}</td>
+          <td class="sq-club">${p.club}</td>
+          <td class="sq-caps">${p.caps || "—"}</td>
+          <td class="sq-goals">${p.goals > 0 ? `<span class="sq-goals-val">${p.goals}</span>` : `<span style="color:#374151">—</span>`}</td>
+        </tr>`).join("");
+      return `
+        <div class="sq-pos-section">
+          <div class="sq-pos-hd" style="border-left-color:${POS_COLOR[pos]};color:${POS_COLOR[pos]}">${POS_LABEL[pos]}</div>
+          <div class="sq-table-wrap">
+            <table class="sq-table">
+              <thead><tr>
+                <th class="sq-num"></th>
+                <th class="sq-name-th ${thSortClass("name")}" ${sortAttr("name")}>Jugador${sortKey==="name" ? (sortDir==="asc"?" ↑":" ↓") : ""}</th>
+                <th class="sq-club-th">Club</th>
+                <th class="sq-caps-th ${thSortClass("caps")}" ${sortAttr("caps")}>Int.${sortKey==="caps" ? (sortDir==="asc"?" ↑":" ↓") : ""}</th>
+                <th class="sq-goals-th ${thSortClass("goals")}" ${sortAttr("goals")}>Gls.${sortKey==="goals" ? (sortDir==="asc"?" ↑":" ↓") : ""}</th>
+              </tr></thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+        </div>`;
+    }).join("");
+
+    return `<div class="sq-container" data-sort-key="${sortKey || ""}" data-sort-dir="${sortDir || ""}">${sections}</div>
+    <div class="tm-squad-note">📋 Convocatoria oficial FIFA · Copa del Mundo 2026 · Pulsa Int./Gls. para ordenar</div>`;
+  }
+
+  const squadHtml = _buildSquadHtml("", "desc");
+
+  // ── Técnico / seleccionador ──────────────────────────────────
+  const coach = COACHES[fifaCode];
+  const coachHtml = coach ? `
+    <div class="tm-coach-card">
+      <div class="tm-coach-avatar">🧑‍💼</div>
+      <div class="tm-coach-info">
+        <div class="tm-coach-name">${coach.name}</div>
+        <div class="tm-coach-nat">${coach.nat}</div>
+        <div class="tm-coach-since">Seleccionador desde ${coach.since}</div>
+        ${coach.note ? `<div class="tm-coach-note">${coach.note}</div>` : ""}
+      </div>
+    </div>` :
+    `<div class="tm-empty-panel">Sin datos del técnico disponibles</div>`;
+
+  // Guardar paneles para el sistema de subpestañas
+  const matchesContent = statsHtml + groupHtml + playedHtml + pendingHtml + r16Html;
+  document.getElementById("team-modal-title").innerHTML = `${flag} ${teamName}`;
+
+  // Reset subpestañas a "Partidos" por defecto
+  document.querySelectorAll(".tm-subtab").forEach(b => b.classList.remove("active"));
+  document.querySelector('.tm-subtab[data-subtab="matches"]')?.classList.add("active");
+  document.getElementById("team-modal-body").innerHTML = matchesContent;
+
+  // Guardar los tres paneles en el modal para poder cambiar sin recomputar
   const modal = document.getElementById("team-modal");
+  modal._tmPanels = { matches: matchesContent, squad: squadHtml, coach: coachHtml };
+  modal._tmTeamName = teamName;
   modal.classList.remove("hidden");
   document.body.style.overflow = "hidden";
+}
+
+function switchTeamSubtab(subtab) {
+  const modal = document.getElementById("team-modal");
+  if (!modal || !modal._tmPanels) return;
+  document.getElementById("team-modal-body").innerHTML = modal._tmPanels[subtab] || "";
+  document.querySelectorAll(".tm-subtab").forEach(b =>
+    b.classList.toggle("active", b.dataset.subtab === subtab));
 }
 
 function closeTeamModal() {
@@ -6836,6 +7225,18 @@ function applyAppMode(mode) {
       : `PORRA <span style="color:var(--gold)">'LOS NANOS'</span> MUNDIAL 2026`;
   }
 
+  // Botón cambio de modo
+  const btn = document.getElementById("mode-switch-btn");
+  if (btn) {
+    if (guest) {
+      btn.textContent = "🏆 Ir a la Porra";
+      btn.className = "mode-switch-btn to-porra";
+    } else {
+      btn.textContent = "🌍 Solo el Mundial";
+      btn.className = "mode-switch-btn to-public";
+    }
+  }
+
   // Si el invitado está en una pestaña exclusiva de la porra, llévalo a Partidos
   if (guest) {
     const active = document.querySelector(".tab-btn.active");
@@ -6843,6 +7244,12 @@ function applyAppMode(mode) {
       document.querySelector('.tab-btn[data-tab="matches"]')?.click();
     }
   }
+}
+
+function toggleAppMode() {
+  const newMode = document.body.classList.contains("mode-porra") ? "guest" : "porra";
+  _setStoredMode(newMode);
+  applyAppMode(newMode);
 }
 
 // Permite reabrir la elección desde la consola para pruebas: resetAppMode()

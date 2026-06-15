@@ -67,6 +67,7 @@
         USA · CANADA · MEXICO
       </p>
     </div>
+    <button id="mode-switch-btn" class="mode-switch-btn" onclick="toggleAppMode()" title="Cambiar modo de visualización"></button>
   </div>
 </header>
 
@@ -345,6 +346,7 @@
     <div id="stats-players" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
 
     <div id="stats-top-matches" class="mt-6"></div>
+    <div id="stats-worst-matches" class="mt-4"></div>
 
     <div id="stats-twins" class="mt-6"></div>
   </section>
@@ -777,6 +779,11 @@
     <div class="grp-modal-head">
       <div id="team-modal-title" class="grp-modal-title"></div>
       <button class="adm-close" onclick="closeTeamModal()" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="tm-subtabs" id="team-modal-subtabs">
+      <button class="tm-subtab active" data-subtab="matches" onclick="switchTeamSubtab('matches')">⚽ Partidos</button>
+      <button class="tm-subtab" data-subtab="squad" onclick="switchTeamSubtab('squad')">👕 Plantilla</button>
+      <button class="tm-subtab" data-subtab="coach" onclick="switchTeamSubtab('coach')">🧑‍💼 Técnico</button>
     </div>
     <div class="grp-modal-body" id="team-modal-body"></div>
   </div>
