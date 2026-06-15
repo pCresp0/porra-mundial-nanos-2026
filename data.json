@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "15/06/2026 19:24",
+    "generated": "15/06/2026 19:26",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-15T20:10",
       "last_updated_time": "20:10",
       "last_updated_date": "15/06/2026",
-      "next_update_iso": "2026-06-15T21:25",
-      "next_update_time": "21:25",
+      "next_update_iso": "2026-06-15T21:30",
+      "next_update_time": "21:30",
       "next_update_date": "15/06/2026",
-      "last_checked_iso": "2026-06-15T21:24",
-      "last_checked_time": "21:24",
+      "last_checked_iso": "2026-06-15T21:26",
+      "last_checked_time": "21:26",
       "last_checked_date": "15/06/2026"
     },
     "players": [
@@ -165,6 +165,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-15T21:26:43+02:00",
+        "date": "15/06/2026",
+        "time": "21:26:43",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-15T21:24:33+02:00",
         "date": "15/06/2026",
@@ -4228,14 +4236,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-14T22:22:34+02:00",
-        "date": "14/06/2026",
-        "time": "22:22:34",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -6531,8 +6531,16 @@
       "live": true,
       "live_minute": "live",
       "live_goals_l": 0,
-      "live_goals_v": 0,
-      "live_scorers": [],
+      "live_goals_v": 1,
+      "live_scorers": [
+        {
+          "player": "امام آشور",
+          "minute": "19'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        }
+      ],
       "goals_l": 0,
       "goals_v": 0,
       "scorers": [],
