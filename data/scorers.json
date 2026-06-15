@@ -288,5 +288,21 @@
       "penalty": false,
       "team": "away"
     }
+  ],
+  "Bélgica-Egipto": [
+    {
+      "player": "محمد هانی",
+      "minute": "66'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "امام آشور",
+      "minute": "19'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
   ]
 }

@@ -5368,5 +5368,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-15T23:02:51+02:00",
+    "date": "15/06/2026",
+    "time": "23:02:51",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇧🇪Bélgica 1-1 Egipto🇪🇬",
+        "name": "Bélgica-Egipto",
+        "date": "2026-06-15",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "0-0",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "1-1",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]
