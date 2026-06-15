@@ -17,6 +17,13 @@
         "own_goal": false,
         "penalty": false,
         "team": "home"
+      },
+      {
+        "player": "O. Rekik",
+        "minute": "43'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
       }
     ]
   }
