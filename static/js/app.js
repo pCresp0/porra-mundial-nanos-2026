@@ -1712,7 +1712,7 @@ function renderProgression() {
           <div class="pstat-bar" style="background:${p.color}"></div>
           <div>
             <div class="font-extrabold text-white text-lg uppercase">${p.name}</div>
-            <div class="text-xs text-gray-400">#${p.pos} en la clasificación general</div>
+            <div class="text-xs text-gray-400">#${p.pos}</div>
           </div>
         </div>
         <div class="text-center">
