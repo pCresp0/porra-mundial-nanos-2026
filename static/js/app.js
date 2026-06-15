@@ -1209,6 +1209,148 @@ function matchTeamsHtml(m) {
     </div>`;
 }
 
+/* ── Diccionario de transliteración árabe/persa → latín ──────────────────────
+   Cubre los jugadores de EGY, KSA, IRN, MAR, TUN, IRQ conocidos en la
+   convocatoria oficial FIFA 2026. Se usa en matchScorersHtml para mostrar
+   los nombres en caracteres latinos cuando la API los devuelve en árabe/persa.
+─────────────────────────────────────────────────────────────────────────────*/
+const ARABIC_NAMES = {
+  // ── Egipto (EGY) ──
+  "محمد هانى":           "Mohamed Hany",
+  "محمد هانی":           "Mohamed Hany",
+  "امام آشور":           "Emam Ashour",
+  "إمام عاشور":          "Emam Ashour",
+  "محمد صلاح":           "Mohamed Salah",
+  "مصطفى محمد":          "Mostafa Mohamed",
+  "مصطفى زيزو":          "Mostafa Zico",
+  "محمود تريزيجيه":      "Mahmoud Trezeguet",
+  "حمزة المرسي":         "Hamza El Masry",
+  "أحمد فتوح":           "Ahmed Fatouh",
+  "أحمد زيزو":           "Ahmed Zizo",
+  "حمدي فتحي":           "Hamdy Fathy",
+  "كريم حافظ":           "Karim Hafez",
+  "مروان عطية":          "Marawan Attia",
+  "إبراهيم عادل":        "Ibrahim Adel",
+  "نبيل إيمان":          "Nabil Eman",
+  "محمد علاء":           "Mohamed Alaa",
+  "رامي ربيعة":          "Ramy Rabia",
+  "هيثم حسن":            "Haissem Hassan",
+  "محمود سليمان":        "Mahdy Soliman",
+  "محمد بن حمدا":        "Mohamed Ben Hamda",
+  "مهند لشين":           "Mohanad Lashin",
+  "حسام عبد المجيد":     "Hossam Abdelmaguid",
+  "طارق علاء":           "Tarek Alaa",
+  "عمر مرموش":           "Omar Marmoush",
+  "ياسر إبراهيم":        "Yasser Ibrahim",
+  "محمد الشناوي":        "Mohamed Elshenawy",
+
+  // ── Arabia Saudita (KSA) ──
+  "ناصر الدوسري":        "Nasser Aldawsari",
+  "سالم الدوسري":        "Salem Aldawsari",
+  "محمد قاسم":           "Mohamed Qassem",
+  "عبدالله الحمدان":     "Abdullah Alhamddan",
+  "عبدالإله العمري":     "Abdulelah Alamri",
+  "عبدالله العمري":      "Abdallh Alamri",
+  "عبدالله الكهيبري":    "Abdullah Alkhaibari",
+  "نواف البقيق":         "Nawaf Bu Washl",
+  "نواف العقيدي":        "Nawaf Alaqidi",
+  "علي الحازم":          "Ali Alhazmn",
+  "علي المجرشي":         "Ali Majrashi",
+  "فراس البريكان":       "Feras Albrikan",
+  "عائض مدخلي":         "Aiman Yahya",
+  "أيمن يحيى":          "Aiman Yahya",
+  "عصام العويس":         "Mohammed Alowais",
+  "سعود عبد الحميد":     "Saud Abdulhamid",
+  "مصعب الجويعر":        "Musab Aljuwayr",
+  "صالح الشهري":         "Saleh Alshehri",
+  "حسن":                 "Hassan",
+  "زياد الجوهني":        "Ziyad Aljohani",
+  "خالد الغنام":         "Khalid Alghannam",
+  "علاء الحاجي":         "Ala Alhajji",
+  "سلطان منداش":         "Sultan Mandash",
+  "أحمد":                "Ahmed",
+  "محمد":                "Mohammed",
+  "متعب الهارب":         "Moteb Alharbi",
+  "جهاد ذكري":           "Jehad Thikri",
+  "محمد أبو الشامات":    "Mohammed Abu Alshamat",
+
+  // ── Irán (IRN) ──
+  "مهدی طارمی":          "Mehdi Taremi",
+  "مهدی تارمی":          "Mehdi Taremi",
+  "علیرضا بیرانوند":     "Alireza Beiranvand",
+  "احسان حاجی صفی":     "Ehsan Hajisafi",
+  "سعید عزت اللهی":     "Saeid Ezatolahi",
+  "علیرضا جهانبخش":     "Alireza Jahanbakhsh",
+  "محمد محبی":           "Mohammad Mohebbi",
+  "مهدی غایدی":         "Mehdi Ghayedi",
+  "سامان قدوس":          "Saman Ghoddos",
+  "روزبه چشمی":         "Roozbeh Cheshmi",
+  "مهدی ترابی":         "Mehdi Torabi",
+  "شجاع خلیل زاده":     "Shoja Khalilzadeh",
+  "میلاد محمدی":        "Milad Mohammadi",
+  "علی علی پور":        "Ali Alipour",
+  "پیام نیازمند":       "Payam Niazmand",
+  "حسین کنعانی":        "Hossein Kanani",
+  "آریا یوسفی":         "Arya Yousefi",
+  "امیرحسین حسین زاده": "Amirhossein Hosseinzadeh",
+  "علی نعمتی":          "Ali Nemati",
+  "شهریار مقانلو":      "Shahriyar Moghanloo",
+  "محمد قربانی":        "Mohammad Ghorbani",
+  "حسین حسینی":        "Hossein Hosseini",
+  "رامین رضاییان":      "Ramin Rezaeian",
+  "صالح هردانی":        "Saleh Hardani",
+
+  // ── Marruecos (MAR) ──
+  "ياسين بونو":          "Yassine Bounou",
+  "أشرف حكيمي":          "Achraf Hakimi",
+  "نصير مزراوي":         "Noussair Mazraoui",
+  "صفيان أمرابط":        "Sofyan Amrabat",
+  "براهيم دياز":         "Brahim Diaz",
+  "أيوب بوادي":          "Ayyoub Bouaddi",
+  "عزالدين أوناحي":      "Azzedine Ounahi",
+  "أيوب العقابي":        "Ayoub El Kaabi",
+  "بلال الخنوس":         "Bilal El Khannouss",
+  "زكريا الواهدي":       "Zakaria El Ouahdi",
+  "إسماعيل الصيبري":     "Ismael Saibari",
+  "نيل الطبيب":          "Neil El Aynaoui",
+  "أنس صلاح الدين":      "Anass Salah Eddine",
+  "ردوان هلال":          "Redouane Halhal",
+
+  // ── Túnez (TUN) ──
+  "إلياس سعد":           "Elias Saad",
+  "إلياس عشوري":         "Elias Achouri",
+  "حازم مستوري":         "Hazem Mastouri",
+  "حنيبال مجبري":        "Hannibal Mejbri",
+  "إسماعيل غربي":        "Ismael Gharbi",
+  "رني حديرة":           "Rani Khedira",
+  "إليس سخيري":          "Ellyes Skhiri",
+  "أيمن الدهماني":       "Aymen Dahmen",
+  "محمد بن حمدة":        "Mohamed Hadj Mahmoud",
+  "أنيس سليمان":         "Anis Slimane",
+  "فيراس شاوات":         "Firas Chaouat",
+
+  // ── Irak (IRQ) ──
+  "أيمن":                "Aymen",
+  "جلال حسن":            "Jalal Hassan",
+  "علي يوسف":            "Ali Yousif",
+  "أحمد مكنزي":          "Ahmed Maknazi",
+  "أمير العماري":        "Amir Alammari",
+  "علي جاسم":            "Ali Jasim",
+  "مناف يونس":           "Munaf Younus",
+  "يوسف أمين":           "Youssef Amyn",
+  "إبراهيم بييش":        "Ibrahim Bayesh",
+  "علي الحمادي":         "Ali Alhamadi",
+  "مهند علي":            "Mohanad Ali",
+  "زيدان":               "Zidane",
+  "ريبين سولاكا":        "Rebin Sulaka",
+  "زيد إسماعيل":        "Zaid Ismael",
+};
+
+/** Traduce un nombre árabe/persa si existe en el diccionario, si no lo deja como está */
+function _translateArabicName(name) {
+  return ARABIC_NAMES[name] || ARABIC_NAMES[name.trim()] || name;
+}
+
 function matchScorersHtml(m) {
   const list = m.played ? m.scorers : (m.live ? m.live_scorers : null);
   if (!Array.isArray(list) || !list.length) return "";
@@ -1229,10 +1371,11 @@ function matchScorersHtml(m) {
     const icon  = isOG ? '<span class="ms-og-icon">⚽</span>' : "⚽";
     const penTag = isPen ? ' <span class="ms-pen-tag">penalty</span>' : "";
     const ogTag  = isOG  ? ' <span class="ms-og-tag">PP</span>' : "";
-    // Detectar nombres en script árabe/persa → añadir dir=rtl y clase especial
-    const isArabic = /[\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF]/.test(s.player || "");
+    // Traducir nombre árabe/persa si hay entrada en el diccionario
+    const playerName = _translateArabicName(s.player || "");
+    const isArabic = /[\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF]/.test(playerName);
     const nameAttr = isArabic ? ' dir="rtl" class="ms-name ms-name-ar' + (isOG ? " ms-og" : "") + '"' : ' class="ms-name' + (isOG ? " ms-og" : "") + '"';
-    const name  = `<span${nameAttr}>${escapeHtml(s.player)}${ogTag}${penTag}</span>`;
+    const name  = `<span${nameAttr}>${escapeHtml(playerName)}${ogTag}${penTag}</span>`;
     const min   = s.minute ? `<span class="ms-min">${fmtMinute(s.minute)}</span>` : "";
     if (side === "away") {
       return `<div class="ms-line ms-line-away">${min} ${name} ${icon}</div>`;
