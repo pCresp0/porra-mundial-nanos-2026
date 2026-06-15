@@ -2090,5 +2090,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-15T03:06:41+02:00",
+    "date": "15/06/2026",
+    "time": "03:06:41",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇨🇮Costa de Marfil 1-0 Ecuador🇪🇨",
+        "name": "Costa de Marfil-Ecuador",
+        "date": "2026-06-15",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "0-0",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "1-0",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]
