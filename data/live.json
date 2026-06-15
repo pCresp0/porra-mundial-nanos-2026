@@ -1,8 +1,23 @@
 {
   "Suecia-Túnez": {
     "home": 2,
-    "away": 0,
+    "away": 1,
     "minute": "live",
-    "scorers": []
+    "scorers": [
+      {
+        "player": "Y.Ayari",
+        "minute": "7'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "A. Isak",
+        "minute": "30'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      }
+    ]
   }
 }
