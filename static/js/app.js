@@ -898,10 +898,13 @@ function tickBanner() {
         const sc = (m.live_goals_l != null && m.live_goals_v != null)
           ? `${m.live_goals_l}-${m.live_goals_v}` : "";
         const rawMin = calcLiveMinute(m); const min = rawMin ? ` · ${liveMinuteLabel(rawMin)}` : "";
-        return `${fh} ${ch} ${sc} ${ca} ${fa}${min}`.replace(/\s+/g, " ").trim();
+        const label = `${fh} ${ch} ${sc} ${ca} ${fa}${min}`.replace(/\s+/g, " ").trim();
+        const safeDate = escapeHtml(m.date || "");
+        const safeName = escapeHtml((m.name || "").replace(/'/g, "\\'"));
+        return `<button class="upd-live-match-btn" onclick="goToMatchesDay('${safeDate}','${safeName}')" title="Ir al partido">${label}</button>`;
       });
       const lead = liveMatches.length > 1 ? "Partidos en juego" : "Partido en juego";
-      lineEl.innerHTML = `<span class="upd-live-dot"></span><strong class="upd-live-lead">${lead}:</strong> ${parts.join(" · ")} <span class="upd-live-prov">· clasificación provisional</span>`;
+      lineEl.innerHTML = `<span class="upd-live-dot"></span><strong class="upd-live-lead">${lead}:</strong> ${parts.join(" <span class='upd-live-sep'>·</span> ")} <span class="upd-live-prov">· clasificación provisional</span>`;
       lineEl.classList.add("upd-line-live");
       if (tzEl) tzEl.classList.add("hidden");
       // El resto del tick (próxima revisión) sigue actualizándose abajo.
