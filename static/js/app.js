@@ -2097,7 +2097,7 @@ function renderForma(prog, cutIdx) {
     if (last >= maxPerMatch) return { icon: "🥇", text: "¡Exacto!", col: "#F5C518" };
     if (last >= 3 && streak >= 2) return { icon: "🔥", text: `Racha ${streak}`, col: "#22C55E" };
     if (last >= 3)         return { icon: "📈", text: "Última buena", col: "#22C55E" };
-    if (last >= 1)         return { icon: "✅", text: "En puntos", col: "#84CC16" };
+    if (last >= 1)         return { icon: "✅", text: "Puntuó el último", col: "#84CC16" };
     if (sum3 === 0)        return { icon: "❄️", text: "En blanco", col: "#94A3B8" };
     return { icon: "📉", text: "Irregular", col: "#F59E0B" };
   }
