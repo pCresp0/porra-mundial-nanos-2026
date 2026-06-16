@@ -2111,12 +2111,14 @@ function renderForma(prog, cutIdx) {
 
   function _sparkSvg(pts, color) {
     const n = pts.length; if (n === 0) return "";
-    const W=100, H=42, pL=5, pR=5, pT=9, pB=5;
-    const iW = W-pL-pR, iH = H-pT-pB;
-    const xs = pts.map((_, i) => pL + (n === 1 ? iW/2 : (i/(n-1))*iW));
+    const W=100, H=42, pT=9, pB=5;
+    const iH = H-pT-pB;
+    // Align each SVG point with the center of its corresponding flex dot:
+    // .forma-dot-wrap has flex:1 → center of item i = (2i+1)/(2n) * 100%
+    const xs = pts.map((_, i) => (2*i + 1) / (2*n) * W);
     const ys = pts.map(v  => pT + iH - (Math.min(+v,maxPerMatch)/maxPerMatch)*iH);
     const path = xs.map((x,i) => `${i===0?"M":"L"}${x.toFixed(1)} ${ys[i].toFixed(1)}`).join(" ");
-    const fill = `${path} L${xs.at(-1).toFixed(1)} ${pT+iH} L${pL} ${pT+iH} Z`;
+    const fill = `${path} L${xs.at(-1).toFixed(1)} ${pT+iH} L${xs[0].toFixed(1)} ${pT+iH} Z`;
     const dots = xs.map((x,i) => {
       const c = pts[i] > 0 ? color : "#EF4444";
       const r = pts[i] >= maxPerMatch ? 4.5 : pts[i] > 0 ? 3.5 : 3;
