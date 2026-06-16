@@ -4556,8 +4556,8 @@ body.mode-guest .tms-sub-tabs { display: none !important; }
   font-weight: 600;
   cursor: pointer;
   transition: background .15s, border-color .15s;
-  pointer-events: none; /* card click handles it */
   white-space: nowrap;
+  text-decoration: none;
 }
 .match-row:hover .match-hl-btn {
   background: rgba(239,68,68,.22);
