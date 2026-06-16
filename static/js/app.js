@@ -3507,7 +3507,7 @@ function renderStats() {
       "• <strong>Pts/partido</strong>: media de puntos por partido de grupos.<br>" +
       "• <strong>Racha activa</strong>: partidos seguidos puntuando ahora mismo.<br>" +
       "• <strong>Exactos</strong>: resultados clavados (6 pts).<br>" +
-      "• <strong>Últ. 4 partidos</strong>: suma de puntos en los últimos 4 partidos de grupos.<br>" +
+      "• <strong>pts (últ. 4)</strong>: suma de puntos en los últimos 4 partidos de grupos.<br>" +
       "• <strong>Últimos partidos</strong>: cada cuadro es un partido reciente (ver leyenda).",
       "left"
     );
@@ -3571,7 +3571,7 @@ function renderStats() {
           </div>
           <div class="pstat-box">
             <div class="pstat-num" style="color:${p.color}">${pp.last4pts ?? 0}</div>
-            <div class="pstat-lbl">Últ. 4 partidos</div>
+            <div class="pstat-lbl">pts (últ. 4)</div>
           </div>
         </div>
 
