@@ -3948,6 +3948,101 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   TAB: ESCENARIOS
+═══════════════════════════════════════════════════════════════ */
+.sce-hero-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .75rem;
+  text-align: center;
+}
+.sce-hero-stat-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.7rem;
+  color: #fff;
+  line-height: 1;
+}
+.sce-hero-stat-lbl {
+  font-size: .65rem;
+  color: #64748B;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-top: .2rem;
+}
+.sce-table { border-collapse: collapse; }
+.sce-th {
+  padding: .55rem .75rem;
+  text-align: left;
+  font-size: .65rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #64748B;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.sce-td {
+  padding: .65rem .75rem;
+  vertical-align: middle;
+  border-bottom: 1px solid transparent;
+}
+.sce-tr:not(:last-child) .sce-td { border-bottom-color: var(--border); }
+.sce-tr:hover { background: rgba(255,255,255,.025); }
+.sce-td-num { text-align: right; }
+.sce-pos-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem; height: 1.5rem;
+  border-radius: 50%;
+  background: var(--card2);
+  font-size: .75rem;
+  font-weight: 700;
+  color: #94A3B8;
+}
+.sce-player-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.sce-max-wrap { display: flex; flex-direction: column; gap: .25rem; min-width: 80px; }
+.sce-max-bar-bg { height: 4px; background: rgba(255,255,255,.08); border-radius: 2px; overflow: hidden; }
+.sce-max-bar-fill { height: 4px; border-radius: 2px; transition: width .5s; }
+.sce-diff-badge { font-size: .75rem; font-weight: 700; white-space: nowrap; }
+
+/* Próximas predicciones */
+.sce-upcoming-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .75rem;
+}
+.sce-match-hd {
+  display: flex;
+  flex-direction: column;
+  gap: .1rem;
+  margin-bottom: .6rem;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid var(--border);
+}
+.sce-match-name { font-weight: 700; font-size: .85rem; color: #fff; }
+.sce-match-time { font-size: .68rem; color: #64748B; }
+.sce-preds { display: flex; flex-direction: column; gap: .3rem; }
+.sce-pred-row { display: flex; align-items: center; gap: .5rem; }
+.sce-pred-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.sce-pred-name { font-size: .75rem; color: #94A3B8; flex: 1; }
+.sce-pred-score { font-family: 'Bebas Neue', sans-serif; font-size: .9rem; color: #fff; }
+
+@media (max-width: 767px) {
+  .sce-hero-stats { grid-template-columns: repeat(2, 1fr); }
+  .sce-hide-sm { display: none !important; }
+  .sce-upcoming-grid { grid-template-columns: 1fr; }
+  .sce-diff-badge { font-size: .68rem; }
+  .sce-td { padding: .55rem .5rem; }
+}
+@media (max-width: 480px) {
+  .sce-hero-stat-val { font-size: 1.35rem; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    MODO INVITADO — oculta contenido exclusivo de la porra
 ═══════════════════════════════════════════════════════════════ */
 body.mode-guest .porra-only { display: none !important; }

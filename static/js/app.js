@@ -805,6 +805,7 @@ function render() {
   renderHonor();
   renderScoring();
   renderStats();
+  renderScenarios();
   renderMeta();
 }
 
@@ -4264,6 +4265,198 @@ function renderBetsMain(container) {
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   TAB: ESCENARIOS — ¿Qué necesito para ganar?
+═══════════════════════════════════════════════════════════════ */
+function renderScenarios() {
+  const el = document.getElementById("scenarios-container");
+  if (!el || !D) return;
+
+  const players = D.meta?.players || [];
+  const colors  = D.meta?.colors  || {};
+
+  // standings ordenados por total de mayor a menor
+  const standings = [...D.standings].sort((a, b) => b.total - a.total);
+  const leader    = standings[0];
+
+  const maxPerMatch = +(D.scoring_rules?.max_per_group_match || 6);
+
+  // partidos de grupos no jugados, ordenados cronológicamente
+  const remainingGroups = D.matches
+    .filter(m => m.phase === "groups" && !m.played)
+    .sort((a, b) => {
+      const da = `${a.date || ""}T${a.time_es || "00:00"}`;
+      const db = `${b.date || ""}T${b.time_es || "00:00"}`;
+      return da < db ? -1 : da > db ? 1 : 0;
+    });
+
+  const totalRem         = remainingGroups.length;
+  const maxGroupPtsTotal = totalRem * maxPerMatch;
+
+  // datos por jugador
+  const pData = standings.map(p => {
+    const remWithPred = remainingGroups.filter(m => {
+      const pred = m.predictions?.[p.name]?.pred;
+      return pred && (pred.score || pred.sign);
+    }).length;
+    const maxReachable = p.total + remWithPred * maxPerMatch;
+    const gap          = leader.total - p.total; // positivo = por detrás
+    const isLeader     = p.name === leader.name;
+
+    let diffLabel, diffColor;
+    if (isLeader) {
+      const second = standings[1];
+      const lead   = second ? (p.total - second.total) : p.total;
+      diffLabel = second ? `+${lead} sobre el 2º` : "Sin rival";
+      diffColor = "var(--gold)";
+    } else if (maxReachable < leader.total) {
+      diffLabel = "Imposible (grupos)";
+      diffColor = "#EF4444";
+    } else {
+      const ptsNeed = totalRem > 0 ? gap / totalRem : Infinity;
+      if (ptsNeed < 0.5)      { diffLabel = "Muy accesible"; diffColor = "#22C55E"; }
+      else if (ptsNeed < 2)   { diffLabel = "Posible";       diffColor = "#F59E0B"; }
+      else                    { diffLabel = "Complicado";     diffColor = "#EF4444"; }
+    }
+
+    return { ...p, remWithPred, maxReachable, gap, isLeader, diffLabel, diffColor };
+  });
+
+  // próximos 6 partidos de grupos
+  const upcoming = remainingGroups.slice(0, 6);
+
+  // ── Hero ──────────────────────────────────────────────────
+  const heroHtml = `
+    <div class="card p-5 mb-5">
+      <div class="flex items-center gap-3 flex-wrap mb-2">
+        <span class="text-2xl">🎯</span>
+        <h2 class="font-bold text-white text-xl">¿Qué necesito para ganar?</h2>
+      </div>
+      <p class="text-sm text-gray-400 mb-4">
+        Análisis de escenarios en la <strong class="text-gray-300">fase de grupos</strong>.
+        Quedan <strong class="text-gray-300">${totalRem} partidos</strong> con hasta
+        <strong class="text-gray-300">${maxGroupPtsTotal} pts</strong> en juego.
+      </p>
+      <div class="sce-hero-stats">
+        <div class="sce-hero-stat">
+          <div class="sce-hero-stat-val">${totalRem}</div>
+          <div class="sce-hero-stat-lbl">Partidos restantes</div>
+        </div>
+        <div class="sce-hero-stat">
+          <div class="sce-hero-stat-val">${maxPerMatch}</div>
+          <div class="sce-hero-stat-lbl">Pts máx/partido</div>
+        </div>
+        <div class="sce-hero-stat">
+          <div class="sce-hero-stat-val" style="color:${leader.color}">${leader.name}</div>
+          <div class="sce-hero-stat-lbl">Líder actual</div>
+        </div>
+        <div class="sce-hero-stat">
+          <div class="sce-hero-stat-val" style="color:var(--gold)">${leader.total}</div>
+          <div class="sce-hero-stat-lbl">Pts del líder</div>
+        </div>
+      </div>
+    </div>`;
+
+  // ── Tabla de escenarios ────────────────────────────────────
+  const tableRows = pData.map((p, i) => {
+    const gapHtml = p.isLeader
+      ? `<span style="color:var(--gold);font-weight:700">👑 Líder</span>`
+      : `<span style="color:#EF4444;font-weight:700">-${p.gap} pts</span>`;
+
+    const maxPct = p.maxReachable > 0 ? Math.round((p.total / p.maxReachable) * 100) : 0;
+    return `
+      <tr class="sce-tr">
+        <td class="sce-td"><span class="sce-pos-badge">${i + 1}</span></td>
+        <td class="sce-td">
+          <div class="flex items-center gap-2">
+            <div class="sce-player-dot" style="background:${p.color}"></div>
+            <span class="font-bold text-white">${p.name}</span>
+          </div>
+        </td>
+        <td class="sce-td sce-td-num">
+          <span class="bebas text-xl font-extrabold" style="color:${p.color}">${p.total}</span>
+        </td>
+        <td class="sce-td sce-td-num">${gapHtml}</td>
+        <td class="sce-td sce-td-num sce-hide-sm">
+          <span class="text-gray-300">${p.remWithPred}</span>
+          <span class="text-gray-500 text-xs"> part.</span>
+        </td>
+        <td class="sce-td sce-hide-sm">
+          <div class="sce-max-wrap">
+            <span class="font-bold text-gray-200 text-sm">${p.maxReachable}</span>
+            <div class="sce-max-bar-bg">
+              <div class="sce-max-bar-fill" style="width:${maxPct}%;background:${p.color}"></div>
+            </div>
+          </div>
+        </td>
+        <td class="sce-td">
+          <span class="sce-diff-badge" style="color:${p.diffColor}">${p.diffLabel}</span>
+        </td>
+      </tr>`;
+  }).join("");
+
+  const tableHtml = `
+    <div class="card overflow-hidden mb-5">
+      <div class="overflow-x-auto">
+        <table class="sce-table w-full">
+          <thead>
+            <tr>
+              <th class="sce-th">#</th>
+              <th class="sce-th">Jugador</th>
+              <th class="sce-th sce-td-num">Pts</th>
+              <th class="sce-th sce-td-num">Al líder</th>
+              <th class="sce-th sce-td-num sce-hide-sm">Restantes</th>
+              <th class="sce-th sce-hide-sm">Máx. alcanzable</th>
+              <th class="sce-th">Situación</th>
+            </tr>
+          </thead>
+          <tbody>${tableRows}</tbody>
+        </table>
+      </div>
+      <div class="px-4 py-2 text-xs text-gray-600" style="border-top:1px solid var(--border)">
+        * Máx. alcanzable: puntos actuales + partidos de grupos restantes con predicción × ${maxPerMatch} pts. No incluye eliminatorias ni posiciones.
+      </div>
+    </div>`;
+
+  // ── Próximas predicciones ──────────────────────────────────
+  const upcomingHtml = upcoming.length === 0 ? `
+    <div class="card p-5 text-center text-gray-500">¡Fase de grupos completada! No quedan más partidos.</div>
+  ` : `
+    <div class="flex items-center gap-2 mb-1 mt-6">
+      <h3 class="font-bold text-white text-lg">⏭️ Próximas predicciones</h3>
+    </div>
+    <p class="text-sm text-gray-400 mb-4">Lo que cada jugador ha predicho para los próximos partidos. ¡Comprueba dónde ganas o pierdes terreno!</p>
+    <div class="sce-upcoming-grid">
+      ${upcoming.map(m => {
+        const dateStr = m.date
+          ? new Date(m.date + "T12:00:00").toLocaleDateString("es-ES", { weekday: "short", day: "numeric", month: "short" })
+          : "";
+        const timeStr = m.time_es || "";
+        const predsHtml = players.map(name => {
+          const pred  = m.predictions?.[name]?.pred;
+          const score = pred?.score || "—";
+          const color = colors[name] || "#888";
+          return `
+            <div class="sce-pred-row">
+              <div class="sce-pred-dot" style="background:${color}"></div>
+              <span class="sce-pred-name">${escapeHtml(name)}</span>
+              <span class="sce-pred-score">${escapeHtml(score)}</span>
+            </div>`;
+        }).join("");
+        return `
+          <div class="card p-4">
+            <div class="sce-match-hd">
+              <span class="sce-match-name">${escapeHtml(m.home || "")} — ${escapeHtml(m.away || "")}</span>
+              <span class="sce-match-time">${escapeHtml(dateStr)}${timeStr ? " · " + escapeHtml(timeStr) : ""}</span>
+            </div>
+            <div class="sce-preds">${predsHtml}</div>
+          </div>`;
+      }).join("")}
+    </div>`;
+
+  el.innerHTML = heroHtml + tableHtml + upcomingHtml;
+}
+
+/* ═══════════════════════════════════════════════════════════════
    CLASIFICACIÓN MUNDIAL — sub-tabs: Grupos / Goleadores / General
 ═══════════════════════════════════════════════════════════════ */
 let _teamsSubTab = "groups"; // "groups" | "scorers" | "general" | "thirds" | "bracket"
@@ -5208,7 +5401,7 @@ function goToMatchesDay(isoDate, matchName) {
   // 1. Switch to matches tab MANUALLY (avoid the click handler's scroll-to-today)
   document.querySelectorAll(".tab-btn").forEach(b =>
     b.classList.toggle("active", b.dataset.tab === "matches"));
-  ["matches","calendar","standings","progression","stats","honor","bracket","teams","bets","scoring","info","h2h"].forEach(t => {
+  ["matches","calendar","standings","progression","stats","scenarios","honor","bracket","teams","bets","scoring","info","h2h"].forEach(t => {
     const sec = document.getElementById("tab-" + t);
     if (sec) sec.classList.toggle("hidden", t !== "matches");
   });
@@ -5340,7 +5533,7 @@ function goToTeamsSubTab(stab, opts = {}) {
   } else {
     // fallback manual
     document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === "teams"));
-    ["matches","calendar","standings","progression","stats","honor","bracket","teams","bets","scoring","info","h2h"].forEach(t => {
+    ["matches","calendar","standings","progression","stats","scenarios","honor","bracket","teams","bets","scoring","info","h2h"].forEach(t => {
       document.getElementById("tab-" + t)?.classList.toggle("hidden", t !== "teams");
     });
     if (typeof renderTeams === "function" && D) renderTeams();
@@ -5373,7 +5566,7 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
     closeNav();
     closeMoreDropdown();
     if (typeof closeTeamSearchSheet === "function") closeTeamSearchSheet();
-    ["matches","calendar","standings","progression","stats","honor","bracket","teams","bets","scoring","info","h2h"].forEach(t => {
+    ["matches","calendar","standings","progression","stats","scenarios","honor","bracket","teams","bets","scoring","info","h2h"].forEach(t => {
       document.getElementById("tab-"+t).classList.toggle("hidden", t !== tab);
     });
     if (typeof updateNavSearchBtn === "function") updateNavSearchBtn();
@@ -5385,6 +5578,7 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
     if (tab === "matches") scrollMatchesToToday = true;
     if (tab === "progression" && D) renderProgression();
     if (tab === "stats" && D) renderStats();
+    if (tab === "scenarios" && D) renderScenarios();
     if (tab === "teams" && D) renderTeams();
     if (tab === "bets") renderBets();
     if (tab === "matches" && D) renderMatches(currentPhase, currentWeek);
