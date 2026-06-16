@@ -5804,13 +5804,14 @@ function renderCalendar() {
 /* ═══════════════════════════════════════════════════════════════
    TOP TABLE — Los 30 partidos más top por ranking FIFA combinado
 ═══════════════════════════════════════════════════════════════ */
-let _tptFilter = "all"; // "all" | "played" | "pending"
+let _tptFilter = "all"; // "all" | "played" | "pending" | "proximos"
 
 function renderTopTable() {
   const container = document.getElementById("toptable-container");
   if (!container || !D) return;
 
   const TOP_N = 30;
+  const todayISO = new Date().toISOString().slice(0, 10);
 
   // Build list with combined FIFA rank (lower = more top)
   const matches = D.matches
@@ -5824,7 +5825,7 @@ function renderTopTable() {
     .slice(0, TOP_N);
 
   const playedCount  = matches.filter(({ m }) => m.played).length;
-  const pendingCount = matches.filter(({ m }) => !m.played).length;
+  const pendingCount = matches.filter(({ m }) => !m.played && !m.live).length;
 
   const PHASE_LABEL = {
     groups: "Grupos", r16: "16avos", r4: "Octavos", r2: "Cuartos",
@@ -5836,6 +5837,7 @@ function renderTopTable() {
       const phase  = PHASE_LABEL[m.phase] || m.phase || "";
       const flagH  = m.flag_home || "";
       const flagA  = m.flag_away || "";
+      const isToday = !m.played && !m.live && m.date === todayISO;
 
       // Result / status
       let resultHtml;
@@ -5843,6 +5845,8 @@ function renderTopTable() {
         resultHtml = `<span class="tpt-live">EN VIVO ${m.live_minute ? m.live_minute + "'" : ""}</span>`;
       } else if (m.played && m.result?.score) {
         resultHtml = `<span class="tpt-score">${escapeHtml(m.result.score)}</span>`;
+      } else if (isToday) {
+        resultHtml = `<span class="tpt-date tpt-date-hoy"><span class="tpt-hoy-label">HOY</span>${m.time_es ? escapeHtml(m.time_es) : ""}</span>`;
       } else {
         const dateShort = m.date
           ? new Date(m.date + "T12:00:00").toLocaleDateString("es-ES", { day: "numeric", month: "short" })
@@ -5864,7 +5868,7 @@ function renderTopTable() {
       const rankCls = rank <= 5 ? "tpt-rank-gold" : rank <= 10 ? "tpt-rank-green" : rank <= 20 ? "tpt-rank-amber" : "tpt-rank-muted";
 
       return `
-        <div class="tpt-row${m.played ? " tpt-played" : ""}${m.live ? " tpt-live-row" : ""}"
+        <div class="tpt-row${m.played ? " tpt-played" : ""}${m.live ? " tpt-live-row" : ""}${isToday ? " tpt-row-hoy" : ""}"
              role="button" tabindex="0"
              onclick="goToMatchesDay('${escapeHtml(m.date || "")}','${escapeHtml(m.name || "")}')"
              title="Ver partido en la pestaña Partidos">
@@ -5904,14 +5908,26 @@ function renderTopTable() {
   // Add rank to each item before filtering
   const ranked = matches.map((item, idx) => ({ ...item, rank: idx + 1 }));
 
-  const filtered = _tptFilter === "played"  ? ranked.filter(({ m }) => m.played)
-                 : _tptFilter === "pending" ? ranked.filter(({ m }) => !m.played && !m.live)
+  // Próximos: pending sorted by date+time asc, up to 10
+  const proximosList = ranked
+    .filter(({ m }) => !m.played && !m.live)
+    .sort((a, b) => {
+      const da = (a.m.date || "9999") + "T" + (a.m.time_es || "23:59");
+      const db = (b.m.date || "9999") + "T" + (b.m.time_es || "23:59");
+      return da.localeCompare(db);
+    })
+    .slice(0, 10);
+
+  const filtered = _tptFilter === "played"   ? ranked.filter(({ m }) => m.played)
+                 : _tptFilter === "pending"  ? ranked.filter(({ m }) => !m.played && !m.live)
+                 : _tptFilter === "proximos" ? proximosList
                  : ranked;
 
   const TPT_FILTERS = [
-    { key: "all",     label: "Todos",       count: TOP_N       },
-    { key: "played",  label: "✅ Finalizados", count: playedCount  },
-    { key: "pending", label: "⏳ Pendientes",  count: pendingCount },
+    { key: "all",      label: "Todos",           count: TOP_N                          },
+    { key: "proximos", label: "📅 Próximos",      count: proximosList.length            },
+    { key: "played",   label: "✅ Finalizados",   count: playedCount                    },
+    { key: "pending",  label: "⏳ Pendientes",    count: pendingCount                   },
   ];
 
   const filterPills = TPT_FILTERS.map(f => {
