@@ -4638,6 +4638,22 @@ body.mode-guest .tms-sub-tabs { display: none !important; }
     min-width: 0;
   }
   .tpt-tv-row { justify-content: center; }
+  /* HOY / MAÑANA en una sola línea en mobile */
+  .tpt-date-hoy,
+  .tpt-date-manana {
+    flex-direction: row;
+    align-items: center;
+    gap: .22rem;
+  }
+  .tpt-hoy-label,
+  .tpt-manana-label {
+    font-size: .52rem;
+    padding: .09rem .28rem;
+    animation: none;  /* sin pulso en mobile para que no moleste */
+  }
+  .tpt-date-hoy .tpt-hoy-label { animation: liveDotPulse 2s ease-in-out infinite; }
+  /* TV badges más pequeños en mobile */
+  .tpt-tv-row .tv-badge { font-size: .5rem !important; padding: .08rem .28rem !important; }
   .tpt-go { display: none; }
   .tpt-combined { font-size: .62rem; }
 }
