@@ -4416,6 +4416,7 @@ function renderBetsMain(container) {
    TAB: ESCENARIOS — ¿Qué necesito para ganar?
 ═══════════════════════════════════════════════════════════════ */
 let _sceSelectedPlayer = null;
+let _sceBattleFilter   = "all"; // "all" | "sign_diff" | "score_diff"
 
 function renderScenarios() {
   const el = document.getElementById("scenarios-container");
@@ -4760,7 +4761,18 @@ function _renderScePersonal(standings, leader, maxPerMatch, remainingGroups, col
     </div>`;
 
   // ── Battle cards ─────────────────────────────────────────
-  const battleCards = battles.slice(0, 12).map(b => {
+  // ── Battle filter + cards ──────────────────────────────────
+  const BATTLE_FILTERS = [
+    { key: "all",        label: "Todas",            count: battleCount },
+    { key: "sign_diff",  label: "⚡ Signo opuesto",  count: signBattles  },
+    { key: "score_diff", label: "🎯 Mismo signo",    count: scoreBattles },
+  ];
+
+  const filteredBattles = _sceBattleFilter === "all"
+    ? battles
+    : battles.filter(b => b.type === _sceBattleFilter);
+
+  const battleCards = filteredBattles.slice(0, 20).map(b => {
     const { m, myScore, rivScore, mySign, rivSign, type } = b;
     const dateStr = m.date
       ? new Date(m.date + "T12:00:00").toLocaleDateString("es-ES", { weekday: "short", day: "numeric", month: "short" })
@@ -4770,18 +4782,14 @@ function _renderScePersonal(standings, leader, maxPerMatch, remainingGroups, col
     const isBigBattle = type === "sign_diff";
     const borderCol   = isBigBattle ? "#EF4444" : "#F59E0B";
 
-    const mySignLbl  = mySign  ? SIGN_LABEL[mySign]  : "—";
-    const rivSignLbl = rivSign ? SIGN_LABEL[rivSign]  : "—";
+    const mySignLbl   = mySign  ? SIGN_LABEL[mySign]  : "—";
+    const rivSignLbl  = rivSign ? SIGN_LABEL[rivSign]  : "—";
     const mySignIcon  = mySign  ? SIGN_ICON[mySign]   : "❓";
     const rivSignIcon = rivSign ? SIGN_ICON[rivSign]  : "❓";
 
-    // Outcome label
-    let outcomeHtml;
-    if (isBigBattle) {
-      outcomeHtml = `<div class="sce-battle-outcome" style="color:#EF4444">⚡ Signo opuesto — partido clave</div>`;
-    } else {
-      outcomeHtml = `<div class="sce-battle-outcome" style="color:#F59E0B">🎯 Mismo signo, marcadores distintos</div>`;
-    }
+    const outcomeHtml = isBigBattle
+      ? `<div class="sce-battle-outcome" style="color:#EF4444">⚡ Signo opuesto — partido clave</div>`
+      : `<div class="sce-battle-outcome" style="color:#F59E0B">🎯 Mismo signo, marcadores distintos</div>`;
 
     return `
       <div class="sce-battle-card" style="border-color:${borderCol}44;border-left:3px solid ${borderCol}">
@@ -4806,15 +4814,29 @@ function _renderScePersonal(standings, leader, maxPerMatch, remainingGroups, col
       </div>`;
   }).join("");
 
+  const filterPillsHtml = BATTLE_FILTERS
+    .filter(f => f.key === "all" || f.count > 0)
+    .map(f => {
+      const active     = f.key === _sceBattleFilter;
+      const accentCol  = f.key === "sign_diff" ? "#EF4444" : f.key === "score_diff" ? "#F59E0B" : null;
+      const styleAttr  = active && accentCol
+        ? `style="background:${accentCol};border-color:${accentCol};color:#fff"`
+        : accentCol
+          ? `style="border-color:${accentCol}88;color:${accentCol}"`
+          : "";
+      return `<button class="sce-bfilt-btn${active ? " sce-bfilt-active" : ""}" data-bfilt="${f.key}" ${styleAttr}>${f.label}<span class="sce-bfilt-count">${f.count}</span></button>`;
+    }).join("");
+
   const battlesSection = battleCount === 0 ? `
     <div class="card p-5 text-center text-gray-500 mb-4">
       ${isLeader ? "👑 Tienes las mismas predicciones que tu rival en todos los partidos restantes." : "✅ No hay batallas directas — tus predicciones coinciden con las del líder en todos los partidos restantes."}
     </div>` : `
-    <div class="flex items-center gap-2 mb-3 flex-wrap">
+    <div class="flex items-center gap-2 mb-2 flex-wrap">
       <h4 class="font-bold text-white">⚡ Tus batallas contra ${escapeHtml(rival?.name || "")}</h4>
       <span class="text-xs text-gray-500">${battleCount} partido${battleCount !== 1 ? "s" : ""} donde diferís</span>
     </div>
-    <div class="sce-battle-grid">${battleCards}</div>`;
+    <div class="sce-bfilt-row">${filterPillsHtml}</div>
+    <div class="sce-battle-grid">${battleCards || `<div class="sce-bfilt-empty">No hay batallas de este tipo.</div>`}</div>`;
 
   el.innerHTML = `
     <div style="scroll-margin-top:4rem">
@@ -4829,6 +4851,12 @@ function _renderScePersonal(standings, leader, maxPerMatch, remainingGroups, col
   el.querySelector("#sce-close-btn")?.addEventListener("click", () => {
     _sceSelectedPlayer = null;
     renderScenarios();
+  });
+  el.querySelectorAll(".sce-bfilt-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      _sceBattleFilter = btn.dataset.bfilt;
+      _renderScePersonal(standings, leader, maxPerMatch, remainingGroups, colors);
+    });
   });
 }
 

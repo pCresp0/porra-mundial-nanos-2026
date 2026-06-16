@@ -4147,6 +4147,61 @@
 .sce-battle-pred-sign { font-size: .63rem; font-weight: 700; }
 .sce-battle-sep { font-size: .65rem; font-weight: 800; color: #475569; flex-shrink: 0; }
 
+/* ── battle filter pills ── */
+.sce-bfilt-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-bottom: 1rem;
+}
+.sce-bfilt-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .3rem .85rem;
+  border-radius: 20px;
+  font-size: .78rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--card2);
+  color: #94A3B8;
+  transition: all .15s;
+  white-space: nowrap;
+}
+.sce-bfilt-btn:hover:not(.sce-bfilt-active) {
+  border-color: #475569;
+  color: #CBD5E1;
+}
+.sce-bfilt-active {
+  background: var(--card2);
+  color: #F1F5F9;
+  border-color: #64748B;
+}
+.sce-bfilt-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.2rem;
+  height: 1.2rem;
+  padding: 0 .3rem;
+  border-radius: 999px;
+  font-size: .68rem;
+  font-weight: 800;
+  background: rgba(255,255,255,.1);
+  color: inherit;
+}
+.sce-bfilt-empty {
+  grid-column: 1 / -1;
+  padding: 1.5rem;
+  text-align: center;
+  color: #64748B;
+  font-size: .85rem;
+}
+@media (max-width: 480px) {
+  .sce-bfilt-btn { padding: .25rem .65rem; font-size: .74rem; }
+}
+
 @media (max-width: 767px) {
   .sce-pers-stats   { grid-template-columns: repeat(2, 1fr); }
   .sce-battle-grid  { grid-template-columns: 1fr; }
