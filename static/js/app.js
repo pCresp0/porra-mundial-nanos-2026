@@ -2832,6 +2832,35 @@ async function _fillMatchDetail(m, body) {
 
   let html = "";
 
+  // ── Highlights DAZN ──────────────────────────────────────────────────────
+  if (m.played && !m.live && m.highlights_video_id) {
+    const vid   = escapeHtml(m.highlights_video_id);
+    const ytUrl = `https://www.youtube.com/watch?v=${vid}`;
+    html += `
+    <div class="hl-section">
+      <div class="hl-header">
+        <span class="hl-title">🎬 Resumen oficial</span>
+        <span class="hl-dazn-badge">DAZN</span>
+        <a class="hl-yt-link" href="${escapeHtml(ytUrl)}" target="_blank"
+           rel="noopener noreferrer" onclick="event.stopPropagation()"
+           title="Ver en YouTube">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6v2H5v11h11v-5h2v6a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1h6zm11-3v8h-2V6.413l-7.793 7.794-1.414-1.414L17.585 5H13V3h8z"/></svg>
+          YouTube
+        </a>
+      </div>
+      <div class="hl-player-wrap">
+        <iframe
+          src="https://www.youtube.com/embed/${vid}?rel=0&modestbranding=1"
+          class="hl-iframe"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+          title="Resumen ${escapeHtml((m.home||"")+" vs "+(m.away||""))}">
+        </iframe>
+      </div>
+    </div>`;
+  }
+
   // ── Venue ────────────────────────────────────────────────────────────────
   if (m.stadium || m.city) {
     html += `<div class="panel-section">

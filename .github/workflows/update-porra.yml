@@ -59,6 +59,17 @@ jobs:
         if: steps.guard.outputs.run == 'yes'
         run: python build_static.py
 
+      - name: Buscar resúmenes DAZN en YouTube
+        if: steps.guard.outputs.run == 'yes'
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: python fetch_highlights.py
+        continue-on-error: true
+
+      - name: Regenerar data.json con highlights
+        if: steps.guard.outputs.run == 'yes'
+        run: python build_static.py
+
       - name: Registrar llamada API
         id: apilog
         if: steps.guard.outputs.run == 'yes'

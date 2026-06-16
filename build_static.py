@@ -66,6 +66,23 @@ def main():
         except (OSError, ValueError):
             pass
 
+    # Integrar highlights de DAZN (data/highlights.json)
+    highlights_path = os.path.join(BASE, "data", "highlights.json")
+    if os.path.isfile(highlights_path):
+        try:
+            with open(highlights_path, encoding="utf-8") as f:
+                highlights = json.load(f)
+            count = 0
+            for m in data.get("matches", []):
+                vid = highlights.get(m.get("name", ""))
+                if vid:
+                    m["highlights_video_id"] = vid
+                    count += 1
+            if count:
+                print(f"🎬 Highlights integrados: {count} partido(s)")
+        except (OSError, ValueError):
+            pass
+
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
