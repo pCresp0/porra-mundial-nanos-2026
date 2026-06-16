@@ -66,8 +66,21 @@ jobs:
         continue-on-error: true
 
       - name: Regenerar data.json con highlights
-        if: steps.guard.outputs.run == 'yes'
         run: python build_static.py
+
+      - name: Subir highlights si hay nuevos (sin partido activo)
+        if: steps.guard.outputs.run != 'yes'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data.json data/highlights.json
+          if git diff --staged --quiet; then
+            echo "Sin nuevos resúmenes"
+          else
+            git commit -m "chore: nuevos resúmenes disponibles ($(date -u +%Y-%m-%dT%H:%MZ))"
+            git pull --rebase origin main
+            git push
+          fi
 
       - name: Registrar llamada API
         id: apilog
