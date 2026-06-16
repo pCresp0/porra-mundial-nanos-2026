@@ -4025,24 +4025,25 @@
   cursor: default;
 }
 .forma-dot {
-  width: 28px; height: 28px;
+  width: 26px; height: 26px;
   border-radius: 50%;
   border: 1.5px solid;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: .72rem;
+  font-size: .68rem;
   font-weight: 800;
   line-height: 1;
   transition: transform .15s;
+  flex-shrink: 0;
 }
 .forma-dot-wrap:hover .forma-dot { transform: scale(1.15); }
 .forma-dot-lbl {
-  font-size: .55rem;
+  font-size: .52rem;
   color: #475569;
   font-weight: 600;
   text-align: center;
-  max-width: 32px;
+  max-width: 28px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -4067,15 +4068,18 @@
 }
 @media (max-width: 767px) {
   .forma-grid { grid-template-columns: repeat(2, 1fr); gap: .6rem; }
-  .forma-dot  { width: 24px; height: 24px; font-size: .65rem; }
+  .forma-dots-row { gap: .18rem; }
+  .forma-dot  { width: 22px; height: 22px; font-size: .6rem; }
+  .forma-dot-lbl { font-size: .48rem; max-width: 24px; }
   .forma-name { font-size: .8rem; }
   .forma-spark-svg { height: 36px; }
 }
 @media (max-width: 480px) {
   .forma-grid { grid-template-columns: repeat(2, 1fr); gap: .5rem; }
-  .forma-card { padding: .75rem; gap: .45rem; }
-  .forma-dot  { width: 22px; height: 22px; font-size: .6rem; }
-  .forma-dot-lbl { font-size: .5rem; max-width: 28px; }
+  .forma-card { padding: .65rem .6rem; gap: .4rem; }
+  .forma-dots-row { gap: .12rem; }
+  .forma-dot  { width: 20px; height: 20px; font-size: .57rem; }
+  .forma-dot-lbl { font-size: .44rem; max-width: 22px; }
 }
 
 /* ═══════════════════════════════════════════════════════════════

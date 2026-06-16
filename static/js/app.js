@@ -2063,7 +2063,7 @@ function renderForma(prog, cutIdx) {
   const allLabels = (prog.labels  || []).slice(0, cutIdx + 1);
   const allTitles = (prog.titles  || []).slice(0, cutIdx + 1);
 
-  const N = 5;
+  const N = 6;
   const startIdx = Math.max(0, cutIdx + 1 - N);
   const last5Labels = allLabels.slice(startIdx);
   const last5Titles = allTitles.slice(startIdx);
@@ -2158,7 +2158,7 @@ function renderForma(prog, cutIdx) {
   el.innerHTML = `
     <div class="flex items-center gap-3 mb-1 flex-wrap">
       <h3 class="font-bold text-white text-lg">🌡️ Termómetro de forma</h3>
-      <span class="text-xs text-gray-500 font-semibold uppercase tracking-wide">Últimos ${shown} partidos</span>
+      <span class="text-xs text-gray-500 font-semibold uppercase tracking-wide">Últimos ${shown} partido${shown !== 1 ? 's' : ''}</span>
     </div>
     <p class="text-sm text-gray-400 mb-4">
       Rendimiento reciente de cada jugador partido a partido.
