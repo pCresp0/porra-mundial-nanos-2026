@@ -897,7 +897,7 @@ function tickBanner() {
         const fh = m.flag_home || "", fa = m.flag_away || "";
         const sc = (m.live_goals_l != null && m.live_goals_v != null)
           ? `${m.live_goals_l}-${m.live_goals_v}` : "";
-        const min = m.live_minute ? ` · ${liveMinuteLabel(m.live_minute)}` : "";
+        const rawMin = calcLiveMinute(m); const min = rawMin ? ` · ${liveMinuteLabel(rawMin)}` : "";
         return `${fh} ${ch} ${sc} ${ca} ${fa}${min}`.replace(/\s+/g, " ").trim();
       });
       const lead = liveMatches.length > 1 ? "Partidos en juego" : "Partido en juego";
@@ -1132,6 +1132,25 @@ function _renderLiveStandingsBanner() {
   el.classList.remove("hidden");
 }
 
+function calcLiveMinute(m) {
+  // Returns the best available live minute string for a match.
+  // If the API gives a real value (numeric, HT, FT…) use it.
+  // If the API only returned "live" (no real minute), estimate from kickoff.
+  const raw = (m.live_minute || "").trim().toLowerCase();
+  if (raw && raw !== "live") return m.live_minute;
+  // Estimate from Spain kickoff time (datetime_es is in CEST = UTC+2 in summer)
+  if (!m.datetime_es) return "";
+  try {
+    const kickoff = new Date(m.datetime_es + "+02:00");
+    const now = new Date();
+    const elapsed = Math.floor((now - kickoff) / 60000);
+    if (elapsed < 0 || elapsed > 200) return "";
+    return String(Math.min(elapsed, 90));
+  } catch (e) {
+    return "";
+  }
+}
+
 function liveMinuteLabel(raw) {
   const s = String(raw || "").trim();
   if (!s) return "EN JUEGO";
@@ -1157,7 +1176,7 @@ function matchTeamsHtml(m) {
       : "";
     scoreHtml = `<div class="match-score-big">${m.result.score.replace("-", " - ")}</div>${playedTime}`;
   } else if (hasLiveScore) {
-    const minute = (m.live_minute || "").trim();
+    const minute = calcLiveMinute(m);
     const minLabel = minute ? liveMinuteLabel(minute) : "EN JUEGO";
     scoreHtml = `<div class="match-score-big match-score-live">${m.live_goals_l} - ${m.live_goals_v}</div>
       <div class="live-minute-pill"><span class="live-ball">⚽</span> ${minLabel} · EN DIRECTO</div>`;
@@ -1165,7 +1184,7 @@ function matchTeamsHtml(m) {
     // Partido en curso pero sin datos de goles aún → mostrar 0-0 provisional
     const liveGoalL = m.live_goals_l ?? 0;
     const liveGoalV = m.live_goals_v ?? 0;
-    const minute = (m.live_minute || "").trim();
+    const minute = calcLiveMinute(m);
     const minLabel = minute ? liveMinuteLabel(minute) : "EN JUEGO";
     scoreHtml = `<div class="match-score-big match-score-live">${liveGoalL} - ${liveGoalV}</div>
       <div class="live-minute-pill"><span class="live-ball">⚽</span> ${minLabel} · EN DIRECTO</div>`;
@@ -5912,7 +5931,8 @@ function renderTopTable() {
       // Result / status
       let resultHtml;
       if (m.live) {
-        resultHtml = `<span class="tpt-live">EN VIVO ${m.live_minute ? m.live_minute + "'" : ""}</span>`;
+        const tptMin = calcLiveMinute(m);
+        resultHtml = `<span class="tpt-live">EN VIVO${tptMin ? " " + liveMinuteLabel(tptMin) : ""}</span>`;
       } else if (m.played && m.result?.score) {
         resultHtml = `<span class="tpt-score">${escapeHtml(m.result.score)}</span>`;
       } else if (isToday) {
