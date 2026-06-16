@@ -4585,7 +4585,14 @@ body.mode-guest .tms-sub-tabs { display: none !important; }
   .tpt-go { display: none; }
   .tpt-combined { font-size: .62rem; }
 }
+/* filter pills compact on mobile */
+@media (max-width: 767px) {
+  .tpt-filt-btn { padding: .22rem .55rem; font-size: .74rem; }
+}
 @media (max-width: 480px) {
   .tpt-name { max-width: 68px; font-size: .74rem; }
   .tpt-vs { min-width: 3.4rem; }
+  /* pills aún más compactos en móvil muy pequeño */
+  .tpt-filt-btn { padding: .18rem .38rem; font-size: .68rem; }
+  .tpt-filt-count { min-width: .95rem; height: .95rem; font-size: .58rem; }
 }
