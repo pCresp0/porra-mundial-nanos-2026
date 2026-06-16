@@ -3234,6 +3234,7 @@ function renderStats() {
   const bestPct     = bestPlayer?.pct ?? -1;
   const bestPlayers = perPlayer.filter(p => p.pct === bestPct);
   const streakKing  = [...perPlayer].sort((a,b) => b.streak - a.streak)[0];
+  const streakKings = streakKing ? perPlayer.filter(p => p.streak === streakKing.streak) : [];
   const topExact    = [...perPlayer].sort((a,b) => b.exact - a.exact)[0];
   const bestSub     = bestPlayers.length > 1 ? bestPlayers.map(p => p.name).join(" · ") + " (empate)" : (bestPlayer?.name || "");
   heroEl.innerHTML = [
@@ -3243,7 +3244,7 @@ function renderStats() {
       info: "Número total de <strong>marcadores exactos clavados</strong> (resultado idéntico = 6 pts) entre todos los jugadores en la fase de grupos. Cada partido cuenta una vez por jugador, así que este número suma los aciertos de todos los participantes. Debajo: cuántas predicciones se quedaron a <strong>0 puntos</strong> (ni 1X2, ni diferencia, ni exacto), también sumando a todos los jugadores." },
     { icon: "📈", val: bestPlayer ? `${bestPlayer.pct}%` : "—", label: "Mayor tasa de acierto", sub: bestSub,
       info: "Jugador con mayor <strong>tasa de acierto</strong>: porcentaje de partidos de grupos en los que ha sumado al menos 1 punto (acertó el 1X2, la diferencia o el resultado exacto)." },
-    { icon: streakKing?.streak > 0 ? "🔥" : "🤦", val: streakKing ? `${streakKing.streak}` : "—", label: "Racha activa más larga", sub: streakKing?.streak > 0 ? `${streakKing.name} · ${streakKing.streak} en racha` : "Nadie acertó en el último partido",
+    { icon: streakKing?.streak > 0 ? "🔥" : "🤦", val: streakKing ? `${streakKing.streak}` : "—", label: "Racha activa más larga", sub: streakKing?.streak > 0 ? `${streakKings.map(p=>p.name).join(" · ")} · ${streakKing.streak} en racha${streakKings.length > 1 ? " (empate)" : ""}` : "Nadie acertó en el último partido",
       info: "<strong>Racha activa</strong>: partidos seguidos puntuando (≥1 pt) contando desde el último partido hacia atrás. Se muestra quién tiene la racha viva más larga ahora mismo." },
   ].map(h => `
     <div class="card p-4 text-center" style="position:relative;isolation:isolate">
