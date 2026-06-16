@@ -2789,7 +2789,7 @@ function openHighlightsModal(videoId, evt) {
   // Backdrop
   const overlay = document.createElement('div');
   overlay.id = 'hl-video-modal';
-  overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;z-index:99998;background:rgba(0,0,0,.88);';
+  overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;z-index:99998;background:rgba(0,0,0,.88);pointer-events:auto;';
   overlay.addEventListener('click', () => closeHighlightsModal());
 
   // Modal box — transform centering, reliable across all viewports & scroll positions
@@ -2810,15 +2810,16 @@ function openHighlightsModal(videoId, evt) {
         <button class="hl-modal-close" onclick="closeHighlightsModal()" aria-label="Cerrar">✕</button>
       </div>
     </div>
-    <div style="position:relative;width:100%;padding-top:56.25%;background:#000;">
+    <div style="position:relative;width:100%;padding-top:56.25%;background:#000;overflow:hidden;border-radius:0 0 12px 12px;">
       <iframe
         id="hl-modal-iframe"
-        src="https://www.youtube.com/embed/${vid}?rel=0&modestbranding=1&playsinline=1"
-        style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;display:block;"
+        src="https://www.youtube-nocookie.com/embed/${vid}?rel=0&modestbranding=1&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(location.origin)}"
+        style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;display:block;pointer-events:auto;"
         allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
         allowfullscreen
         playsinline
         webkit-playsinline
+        loading="eager"
         title="Resumen partido">
       </iframe>
     </div>`;
