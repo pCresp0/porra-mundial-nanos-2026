@@ -6684,5 +6684,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-16T05:06:43+02:00",
+    "date": "16/06/2026",
+    "time": "05:06:43",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇮🇷Irán 2-2 Nueva Zelanda🇳🇿",
+        "name": "Irán-Nueva Zelanda",
+        "date": "2026-06-16",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "0-0",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "2-2",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]

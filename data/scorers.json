@@ -305,6 +305,36 @@
       "team": "away"
     }
   ],
+  "Irán-Nueva Zelanda": [
+    {
+      "player": "Ramin Rzaiian",
+      "minute": "32'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Mohamed Mhbi",
+      "minute": "64'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Ali Jast",
+      "minute": "7'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Ali Jast",
+      "minute": "54'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "Bélgica-Egipto": [
     {
       "player": "Mohamed Hany",
