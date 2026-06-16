@@ -4467,22 +4467,45 @@ body.mode-guest .tms-sub-tabs { display: none !important; }
     grid-template-columns: 2.4rem 1fr;
     grid-template-rows: auto auto;
     gap: .4rem .5rem;
+    padding: .65rem .75rem;
   }
-  .tpt-teams { grid-column: 2; }
+  .tpt-teams {
+    grid-column: 2;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .2rem;
+  }
+  .tpt-team-home,
+  .tpt-team-away {
+    justify-content: flex-start;
+    text-align: left;
+    width: 100%;
+  }
+  .tpt-team-away .tpt-fifa-rank { order: -1; }
+  .tpt-vs {
+    align-self: flex-start;
+    min-width: unset;
+    padding: .05rem 0;
+  }
+  .tpt-name {
+    font-size: .82rem;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+  }
   .tpt-meta  {
     grid-column: 1 / -1;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
-    gap: .35rem .6rem;
+    gap: .3rem .5rem;
     border-top: 1px solid var(--border);
     padding-top: .4rem;
-    margin-top: .2rem;
+    margin-top: .1rem;
   }
   .tpt-go { display: none; }
-  .tpt-name { font-size: .8rem; }
-  .tpt-vs { min-width: 3.5rem; }
+  .tpt-combined { font-size: .62rem; }
 }
 @media (max-width: 480px) {
   .tpt-row { padding: .6rem .75rem; }

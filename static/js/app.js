@@ -5845,10 +5845,8 @@ function renderTopTable() {
       resultHtml = `<span class="tpt-date">${escapeHtml(dateShort)}${m.time_es ? " · " + escapeHtml(m.time_es) : ""}</span>`;
     }
 
-    // TV label
-    const tvHtml = m.tv_label
-      ? `<span class="tpt-tv">${escapeHtml(m.tv_label)}</span>`
-      : "";
+    // TV badges (same style as matches tab)
+    const tvHtml = tvBadgesHtml(m);
 
     // Phase badge
     const phaseBadge = `<span class="tpt-phase">${escapeHtml(phase)}</span>`;
