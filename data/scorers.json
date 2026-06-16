@@ -307,15 +307,15 @@
   ],
   "Bélgica-Egipto": [
     {
-      "player": "محمد هانی",
+      "player": "Mohamed Hany",
       "minute": "66'",
       "own_goal": false,
       "penalty": false,
       "team": "home"
     },
     {
-      "player": "امام آشور",
-      "minute": "19'",
+      "player": "Emam Ashour",
+      "minute": "20'",
       "own_goal": false,
       "penalty": false,
       "team": "away"
