@@ -10,6 +10,13 @@
         "own_goal": false,
         "penalty": false,
         "team": "home"
+      },
+      {
+        "player": "Brdli Barkvla",
+        "minute": "82'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
       }
     ]
   }
