@@ -273,6 +273,22 @@
       "team": "away"
     }
   ],
+  "Arabia Saudita-Uruguay": [
+    {
+      "player": "Abdallh Alamri",
+      "minute": "41'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Maksimilianv Araivkhv",
+      "minute": "80'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "Canadá-Bosnia y Herzegovina": [
     {
       "player": "C. Larin",

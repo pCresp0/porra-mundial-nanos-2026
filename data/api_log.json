@@ -6026,5 +6026,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-16T02:06:39+02:00",
+    "date": "16/06/2026",
+    "time": "02:06:39",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇸🇦Arabia Saudita 1-1 Uruguay🇺🇾",
+        "name": "Arabia Saudita-Uruguay",
+        "date": "2026-06-16",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "0-0",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "1-1",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]
