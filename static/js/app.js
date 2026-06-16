@@ -1098,7 +1098,7 @@ function renderPodium() {
         <span class="font-bold text-white ml-2">${p.name}</span>
         ${(liveActive && p.live_points > 0) ? `<span class="rest-prov">+${_fmtPts(p.live_points)} en juego</span>` : ""}
       </div>
-      <span class="bebas text-xl" style="color:${p.color}">${_fmtPts(totOf(p))} <span style="font-size:.75em;opacity:.7">PTS</span>${liveActive ? " <span class='prov-tag'>prov.</span>" : ""}</span>
+      <span class="bebas text-xl rest-pts-block" style="color:${p.color}">${_fmtPts(totOf(p))} <span style="font-size:.75em;opacity:.7">PTS</span>${liveActive ? " <span class='prov-tag'>prov.</span>" : ""}</span>
     </div>`).join("");
 }
 
