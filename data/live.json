@@ -1,9 +1,16 @@
 {
   "Irak-Noruega": {
-    "home": 0,
+    "home": 1,
     "away": 1,
     "minute": "live",
     "scorers": [
+      {
+        "player": "Aimn Hsin",
+        "minute": "39'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
       {
         "player": "Arling Halnd",
         "minute": "29'",
