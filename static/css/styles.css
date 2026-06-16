@@ -296,8 +296,12 @@
     @media (min-width: 768px) and (max-width: 1180px) {
       .desktop-nav .tab-btn { padding: .6rem .85rem; font-size: .82rem; }
     }
+    @media (min-width: 768px) and (max-width: 1050px) {
+      body.mode-guest .desktop-nav .tab-btn { padding: .55rem .6rem; font-size: .78rem; }
+    }
     @media (min-width: 768px) and (max-width: 920px) {
       .desktop-nav .tab-btn { padding: .55rem .65rem; font-size: .78rem; }
+      body.mode-guest .desktop-nav .tab-btn { padding: .5rem .45rem; font-size: .74rem; }
     }
     @media (max-width: 767px) {
       .desktop-nav { display: none; }
@@ -4307,7 +4311,7 @@
 body.mode-guest .porra-only { display: none !important; }
 /* Accesos directos de la nav: solo visibles en modo público */
 body.mode-porra .guest-only { display: none !important; }
-/* En público, la nav de escritorio puede fluir a 2 filas si hace falta */
-body.mode-guest .desktop-nav .page-shell { flex-wrap: wrap; }
+/* En público, forzar siempre una sola fila en la nav de escritorio */
+body.mode-guest .desktop-nav .page-shell { flex-wrap: nowrap; }
 /* En público las sub-tabs internas son redundantes (ya están en la nav) */
 body.mode-guest .tms-sub-tabs { display: none !important; }
