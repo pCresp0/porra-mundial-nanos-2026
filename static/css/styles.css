@@ -4436,6 +4436,15 @@ body.mode-guest .tms-sub-tabs { display: none !important; }
 .tpt-team-home { justify-content: flex-end; text-align: right; }
 .tpt-team-away { justify-content: flex-start; text-align: left; }
 .tpt-flag { font-size: 1.15rem; flex-shrink: 0; }
+/* name + FIFA rank stacked vertically */
+.tpt-name-block {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+.tpt-team-home .tpt-name-block { align-items: flex-end; }
+.tpt-team-away .tpt-name-block { align-items: flex-start; }
 .tpt-name {
   font-weight: 700;
   font-size: .88rem;
@@ -4443,13 +4452,14 @@ body.mode-guest .tms-sub-tabs { display: none !important; }
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 100%;
 }
 .tpt-fifa-rank {
-  font-size: .68rem;
+  font-size: .65rem;
   font-weight: 700;
   color: #64748B;
   white-space: nowrap;
-  flex-shrink: 0;
+  line-height: 1.2;
 }
 
 /* centre VS / result */
@@ -4499,11 +4509,12 @@ body.mode-guest .tms-sub-tabs { display: none !important; }
   text-transform: uppercase;
   letter-spacing: .04em;
 }
-.tpt-tv {
-  font-size: .68rem;
-  color: #94A3B8;
-  font-weight: 600;
-  text-align: right;
+.tpt-tv-row {
+  display: flex;
+  gap: .3rem;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-end;
 }
 .tpt-combined {
   font-size: .65rem;
@@ -4549,8 +4560,6 @@ body.mode-guest .tms-sub-tabs { display: none !important; }
   .tpt-team { min-width: 0; }
   .tpt-team-home { justify-content: flex-end; text-align: right; }
   .tpt-team-away { justify-content: flex-start; text-align: left; }
-  /* reset the away-rank swap used in vertical layout */
-  .tpt-team-away .tpt-fifa-rank { order: 0; }
   .tpt-name {
     font-size: .78rem;
     white-space: nowrap;

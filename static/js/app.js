@@ -5875,21 +5875,25 @@ function renderTopTable() {
           <div class="tpt-teams">
             <div class="tpt-team tpt-team-home">
               <span class="tpt-flag">${flagH}</span>
-              <span class="tpt-name">${escapeHtml(m.home || "")}</span>
-              <span class="tpt-fifa-rank">#${rHome === 999 ? "—" : rHome}</span>
+              <span class="tpt-name-block">
+                <span class="tpt-name">${escapeHtml(m.home || "")}</span>
+                <span class="tpt-fifa-rank">#${rHome === 999 ? "—" : rHome}</span>
+              </span>
             </div>
             <div class="tpt-vs">
               ${resultHtml}
             </div>
             <div class="tpt-team tpt-team-away">
-              <span class="tpt-fifa-rank">#${rAway === 999 ? "—" : rAway}</span>
-              <span class="tpt-name">${escapeHtml(m.away || "")}</span>
+              <span class="tpt-name-block">
+                <span class="tpt-name">${escapeHtml(m.away || "")}</span>
+                <span class="tpt-fifa-rank">#${rAway === 999 ? "—" : rAway}</span>
+              </span>
               <span class="tpt-flag">${flagA}</span>
             </div>
           </div>
           <div class="tpt-meta">
             ${phaseBadge}
-            ${tvHtml}
+            <div class="tpt-tv-row">${tvHtml}</div>
             <span class="tpt-combined" title="Suma ranking FIFA: ${rHome} + ${rAway}">#${combined} FIFA</span>
             <span class="tpt-go">↗</span>
           </div>
