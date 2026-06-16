@@ -5811,7 +5811,8 @@ function renderTopTable() {
   if (!container || !D) return;
 
   const TOP_N = 30;
-  const todayISO = new Date().toISOString().slice(0, 10);
+  const todayISO    = new Date().toISOString().slice(0, 10);
+  const tomorrowISO = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
 
   // Build list with combined FIFA rank (lower = more top)
   const matches = D.matches
@@ -5837,7 +5838,8 @@ function renderTopTable() {
       const phase  = PHASE_LABEL[m.phase] || m.phase || "";
       const flagH  = m.flag_home || "";
       const flagA  = m.flag_away || "";
-      const isToday = !m.played && !m.live && m.date === todayISO;
+      const isToday    = !m.played && !m.live && m.date === todayISO;
+      const isTomorrow = !m.played && !m.live && m.date === tomorrowISO;
 
       // Result / status
       let resultHtml;
@@ -5847,6 +5849,8 @@ function renderTopTable() {
         resultHtml = `<span class="tpt-score">${escapeHtml(m.result.score)}</span>`;
       } else if (isToday) {
         resultHtml = `<span class="tpt-date tpt-date-hoy"><span class="tpt-hoy-label">HOY</span>${m.time_es ? escapeHtml(m.time_es) : ""}</span>`;
+      } else if (isTomorrow) {
+        resultHtml = `<span class="tpt-date tpt-date-manana"><span class="tpt-manana-label">MAÑANA</span>${m.time_es ? escapeHtml(m.time_es) : ""}</span>`;
       } else {
         const dateShort = m.date
           ? new Date(m.date + "T12:00:00").toLocaleDateString("es-ES", { day: "numeric", month: "short" })
@@ -5868,7 +5872,7 @@ function renderTopTable() {
       const rankCls = rank <= 5 ? "tpt-rank-gold" : rank <= 10 ? "tpt-rank-green" : rank <= 20 ? "tpt-rank-amber" : "tpt-rank-muted";
 
       return `
-        <div class="tpt-row${m.played ? " tpt-played" : ""}${m.live ? " tpt-live-row" : ""}${isToday ? " tpt-row-hoy" : ""}"
+        <div class="tpt-row${m.played ? " tpt-played" : ""}${m.live ? " tpt-live-row" : ""}${isToday ? " tpt-row-hoy" : ""}${isTomorrow ? " tpt-row-manana" : ""}"
              role="button" tabindex="0"
              onclick="goToMatchesDay('${escapeHtml(m.date || "")}','${escapeHtml(m.name || "")}')"
              title="Ver partido en la pestaña Partidos">
