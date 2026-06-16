@@ -1,7 +1,7 @@
 {
   "Irán-Nueva Zelanda": {
     "home": 1,
-    "away": 1,
+    "away": 2,
     "minute": "live",
     "scorers": [
       {
@@ -14,6 +14,13 @@
       {
         "player": "Ali Jast",
         "minute": "7'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Ali Jast",
+        "minute": "54'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
