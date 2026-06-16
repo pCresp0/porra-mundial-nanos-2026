@@ -2119,9 +2119,15 @@ function renderForma(prog, cutIdx) {
     const ys = pts.map(v  => pT + iH - (Math.min(+v,maxPerMatch)/maxPerMatch)*iH);
     const path = xs.map((x,i) => `${i===0?"M":"L"}${x.toFixed(1)} ${ys[i].toFixed(1)}`).join(" ");
     const fill = `${path} L${xs.at(-1).toFixed(1)} ${pT+iH} L${xs[0].toFixed(1)} ${pT+iH} Z`;
-    return `<svg viewBox="0 0 ${W} ${H}" fill="none" xmlns="http://www.w3.org/2000/svg" class="forma-spark-svg">
+    const dots = xs.map((x,i) => {
+      const c = pts[i] > 0 ? color : "#EF4444";
+      const r = pts[i] >= maxPerMatch ? 4.5 : pts[i] > 0 ? 3.5 : 3;
+      return `<circle cx="${x.toFixed(1)}" cy="${ys[i].toFixed(1)}" r="${r}" fill="${c}" stroke="#0F172A" stroke-width="1.5"/>`;
+    }).join("");
+    return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" class="forma-spark-svg">
       <path d="${fill}" fill="${color}28"/>
       <path d="${path}" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      ${dots}
     </svg>`;
   }
 
