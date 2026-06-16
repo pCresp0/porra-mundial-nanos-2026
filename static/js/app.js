@@ -1133,22 +1133,13 @@ function _renderLiveStandingsBanner() {
 }
 
 function calcLiveMinute(m) {
-  // Returns the best available live minute string for a match.
-  // If the API gives a real value (numeric, HT, FT…) use it.
-  // If the API only returned "live" (no real minute), estimate from kickoff.
+  // Only return a minute if the API provides a real value (numeric, HT, FT…).
+  // "live" means the API doesn't know the minute — we don't estimate it because
+  // stoppage time, halftime break (~15 min) and hydration pauses make any
+  // wall-clock calculation unreliable by 15-20 minutes.
   const raw = (m.live_minute || "").trim().toLowerCase();
   if (raw && raw !== "live") return m.live_minute;
-  // Estimate from Spain kickoff time (datetime_es is in CEST = UTC+2 in summer)
-  if (!m.datetime_es) return "";
-  try {
-    const kickoff = new Date(m.datetime_es + "+02:00");
-    const now = new Date();
-    const elapsed = Math.floor((now - kickoff) / 60000);
-    if (elapsed < 0 || elapsed > 200) return "";
-    return String(Math.min(elapsed, 90));
-  } catch (e) {
-    return "";
-  }
+  return "";
 }
 
 function liveMinuteLabel(raw) {
