@@ -380,6 +380,9 @@ function initTeamSearchSheet() {
     if (e.key === "Escape" && document.getElementById("ts-sheet")?.classList.contains("open")) {
       closeTeamSearchSheet();
     }
+    if (e.key === "Escape" && !document.getElementById("player-modal")?.classList.contains("hidden")) {
+      closePlayerModal();
+    }
   });
   // Si la ventana se agranda a escritorio con el panel abierto, ciérralo.
   window.addEventListener("resize", () => {
@@ -726,6 +729,8 @@ async function loadData(silent = false) {
       D = json;
       render();
       window.scrollTo({ top: scrollY, behavior: "instant" });
+      // Si el modal de jugador está abierto, refresca solo las stats en vivo
+      _refreshOpenPlayerModal();
       // Toast automático: notifica al usuario que los datos se han actualizado
       _showUpdateToast();
       return;
@@ -1396,8 +1401,9 @@ function matchScorersHtml(m) {
     // Traducir nombre árabe/persa si hay entrada en el diccionario
     const playerName = _translateArabicName(s.player || "");
     const isArabic = /[\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF]/.test(playerName);
-    const nameAttr = isArabic ? ' dir="rtl" class="ms-name ms-name-ar' + (isOG ? " ms-og" : "") + '"' : ' class="ms-name' + (isOG ? " ms-og" : "") + '"';
-    const name  = `<span${nameAttr}>${escapeHtml(playerName)}${ogTag}${penTag}</span>`;
+    const dirAttr = isArabic ? ' dir="rtl"' : '';
+    const nameClass = "ms-name player-link-btn" + (isOG ? " ms-og" : "") + (isArabic ? " ms-name-ar" : "");
+    const name  = `<button class="${nameClass}"${dirAttr} data-player="${escapeHtml(playerName)}">${escapeHtml(playerName)}${ogTag}${penTag}</button>`;
     const min   = s.minute ? `<span class="ms-min">${fmtMinute(s.minute)}</span>` : "";
     if (side === "away") {
       return `<div class="ms-line ms-line-away">${min} ${name} ${icon}</div>`;
@@ -5113,19 +5119,12 @@ function _teamsScorersHtml() {
 
   if (!list.length) return `<div class="card p-5 text-gray-500 text-sm">Aún no hay goleadores registrados.</div>`;
 
-  const playerClubs = D.meta.player_clubs || {};
-
   const rows = list.map((s, i) => {
     const penStr = s.pens > 0 ? `<span class="tsc-pen-tag">${s.pens}P</span>` : "—";
-    const clubInfo = playerClubs[s.name] || {};
-    const clubHtml = clubInfo.club
-      ? `<span class="tsc-club">${escapeHtml(clubInfo.club)}</span>${clubInfo.club_country ? `<span class="tsc-club-country">(${escapeHtml(clubInfo.club_country)})</span>` : ""}`
-      : `<span class="tsc-club tsc-club-unknown">—</span>`;
     return `<tr>
       <td class="tsc-pos">${i + 1}</td>
-      <td class="tsc-name"><span class="tsc-player">${escapeHtml(s.name)}</span></td>
+      <td class="tsc-name"><button class="tsc-player player-link-btn" data-player="${escapeHtml(s.name)}">${escapeHtml(s.name)}</button></td>
       <td class="tsc-team"><span class="tsc-flag">${s.flag}</span><button class="team-name-btn" data-team="${escapeHtml(s.team)}">${escapeHtml(s.team)}</button></td>
-      <td class="tsc-club-col">${clubHtml}</td>
       <td class="tsc-g tsc-g-val">${s.goals}</td>
       <td class="tsc-pen">${penStr}</td>
       <td class="tsc-pj">${s.matches}</td>
@@ -5141,8 +5140,7 @@ function _teamsScorersHtml() {
         <thead><tr>
           <th class="tsc-pos">#</th>
           <th class="tsc-name text-left">Jugador</th>
-          <th class="tsc-team text-left">Selección</th>
-          <th class="tsc-club-col text-left">Club</th>
+          <th class="tsc-team text-left">Equipo</th>
           <th title="Goles" class="tsc-g">⚽</th>
           <th title="De penalti" class="tsc-pen">(P)</th>
           <th title="Partidos" class="tsc-pj">PJ</th>
@@ -5496,7 +5494,7 @@ function _teamsGeneralHtml() {
               const penStr = s.pens > 0 ? `<span class="tsc-pen-tag">${s.pens}P</span>` : "—";
               return `<tr>
                 <td class="tsc-pos">${i + 1}</td>
-                <td class="tsc-name"><button class="tsc-player">${escapeHtml(s.name)}</button></td>
+                <td class="tsc-name"><button class="tsc-player player-link-btn" data-player="${escapeHtml(s.name)}">${escapeHtml(s.name)}</button></td>
                 <td class="tsc-team"><span class="tsc-flag">${s.flag}</span><button class="team-name-btn" data-team="${escapeHtml(s.team)}">${escapeHtml(s.team)}</button></td>
                 <td class="tsc-g tsc-g-val">${s.goals}</td>
                 <td class="tsc-pen">${penStr}</td>
@@ -6545,8 +6543,8 @@ function _squadSort(key, dir) {
     const rows = groups[pos].map((p, i) => `
       <tr>
         <td class="sq-num">${i + 1}</td>
-        <td class="sq-name">${p.name}</td>
-        <td class="sq-club">${p.club}</td>
+        <td class="sq-name"><button class="player-link-btn" data-player="${escapeHtml(p.name)}">${escapeHtml(p.name)}</button></td>
+        <td class="sq-club">${escapeHtml(p.club)}</td>
         <td class="sq-caps">${p.caps || "—"}</td>
         <td class="sq-goals">${p.goals > 0 ? `<span class="sq-goals-val">${p.goals}</span>` : `<span style="color:#374151">—</span>`}</td>
       </tr>`).join("");
@@ -6578,6 +6576,247 @@ function _squadSort(key, dir) {
     document.getElementById("team-modal-body").innerHTML = newSquad;
   }
 }
+
+// ── Modal de Jugador ──────────────────────────────────────────────────────
+const _plrCache = {};  // {name: playerData|null}
+
+const _NAT_ES = {
+  "Algeria":{"es":"Argelia","flag":"🇩🇿"},"Angola":{"es":"Angola","flag":"🇦🇴"},
+  "Argentina":{"es":"Argentina","flag":"🇦🇷"},"Australia":{"es":"Australia","flag":"🇦🇺"},
+  "Austria":{"es":"Austria","flag":"🇦🇹"},"Belgium":{"es":"Bélgica","flag":"🇧🇪"},
+  "Bolivia":{"es":"Bolivia","flag":"🇧🇴"},"Brazil":{"es":"Brasil","flag":"🇧🇷"},
+  "Cameroon":{"es":"Camerún","flag":"🇨🇲"},"Canada":{"es":"Canadá","flag":"🇨🇦"},
+  "Chile":{"es":"Chile","flag":"🇨🇱"},"China":{"es":"China","flag":"🇨🇳"},
+  "Colombia":{"es":"Colombia","flag":"🇨🇴"},"Costa Rica":{"es":"Costa Rica","flag":"🇨🇷"},
+  "Croatia":{"es":"Croacia","flag":"🇭🇷"},"Czech Republic":{"es":"República Checa","flag":"🇨🇿"},
+  "Denmark":{"es":"Dinamarca","flag":"🇩🇰"},"Ecuador":{"es":"Ecuador","flag":"🇪🇨"},
+  "Egypt":{"es":"Egipto","flag":"🇪🇬"},"England":{"es":"Inglaterra","flag":"🏴󠁧󠁢󠁥󠁮󠁧󠁿"},
+  "France":{"es":"Francia","flag":"🇫🇷"},"Germany":{"es":"Alemania","flag":"🇩🇪"},
+  "Ghana":{"es":"Ghana","flag":"🇬🇭"},"Greece":{"es":"Grecia","flag":"🇬🇷"},
+  "Honduras":{"es":"Honduras","flag":"🇭🇳"},"Hungary":{"es":"Hungría","flag":"🇭🇺"},
+  "Indonesia":{"es":"Indonesia","flag":"🇮🇩"},"Iran":{"es":"Irán","flag":"🇮🇷"},
+  "Iraq":{"es":"Iraq","flag":"🇮🇶"},"Israel":{"es":"Israel","flag":"🇮🇱"},
+  "Italy":{"es":"Italia","flag":"🇮🇹"},"Ivory Coast":{"es":"Costa de Marfil","flag":"🇨🇮"},
+  "Jamaica":{"es":"Jamaica","flag":"🇯🇲"},"Japan":{"es":"Japón","flag":"🇯🇵"},
+  "Mexico":{"es":"México","flag":"🇲🇽"},"Morocco":{"es":"Marruecos","flag":"🇲🇦"},
+  "Netherlands":{"es":"Países Bajos","flag":"🇳🇱"},"New Zealand":{"es":"Nueva Zelanda","flag":"🇳🇿"},
+  "Nigeria":{"es":"Nigeria","flag":"🇳🇬"},"Norway":{"es":"Noruega","flag":"🇳🇴"},
+  "Panama":{"es":"Panamá","flag":"🇵🇦"},"Paraguay":{"es":"Paraguay","flag":"🇵🇾"},
+  "Peru":{"es":"Perú","flag":"🇵🇪"},"Poland":{"es":"Polonia","flag":"🇵🇱"},
+  "Portugal":{"es":"Portugal","flag":"🇵🇹"},"Qatar":{"es":"Catar","flag":"🇶🇦"},
+  "Romania":{"es":"Rumanía","flag":"🇷🇴"},"Saudi Arabia":{"es":"Arabia Saudí","flag":"🇸🇦"},
+  "Scotland":{"es":"Escocia","flag":"🏴󠁧󠁢󠁳󠁣󠁴󠁿"},"Senegal":{"es":"Senegal","flag":"🇸🇳"},
+  "Serbia":{"es":"Serbia","flag":"🇷🇸"},"Slovakia":{"es":"Eslovaquia","flag":"🇸🇰"},
+  "Slovenia":{"es":"Eslovenia","flag":"🇸🇮"},"South Africa":{"es":"Sudáfrica","flag":"🇿🇦"},
+  "South Korea":{"es":"Corea del Sur","flag":"🇰🇷"},"Spain":{"es":"España","flag":"🇪🇸"},
+  "Sweden":{"es":"Suecia","flag":"🇸🇪"},"Switzerland":{"es":"Suiza","flag":"🇨🇭"},
+  "Tunisia":{"es":"Túnez","flag":"🇹🇳"},"Turkey":{"es":"Turquía","flag":"🇹🇷"},
+  "Ukraine":{"es":"Ucrania","flag":"🇺🇦"},"United States":{"es":"Estados Unidos","flag":"🇺🇸"},
+  "Uruguay":{"es":"Uruguay","flag":"🇺🇾"},"Uzbekistan":{"es":"Uzbekistán","flag":"🇺🇿"},
+  "Venezuela":{"es":"Venezuela","flag":"🇻🇪"},"Wales":{"es":"Gales","flag":"🏴󠁧󠁢󠁷󠁬󠁳󠁿"},
+  "Kenya":{"es":"Kenia","flag":"🇰🇪"},"Tanzania":{"es":"Tanzania","flag":"🇹🇿"},
+  "Congo DR":{"es":"Congo RD","flag":"🇨🇩"},"United Arab Emirates":{"es":"Emiratos Árabes Unidos","flag":"🇦🇪"},
+};
+
+function _getPlayerWorldCupStats(playerName) {
+  let goals = 0, pens = 0, matchSet = new Set(), liveGoals = 0;
+  (D.matches || []).forEach(m => {
+    // Goles confirmados
+    if (m.played) {
+      (m.scorers || []).forEach(s => {
+        if (!s.own_goal && s.player === playerName) {
+          goals++;
+          if (s.penalty) pens++;
+          matchSet.add(m.name);
+        }
+      });
+    }
+    // Goles en vivo (partido en curso)
+    if (m.live) {
+      (m.live_scorers || []).forEach(s => {
+        if (!s.own_goal && s.player === playerName) {
+          liveGoals++;
+          matchSet.add(m.name);
+        }
+      });
+    }
+  });
+  return { goals, pens, liveGoals, matches: matchSet.size };
+}
+
+async function _fetchPlayerData(name) {
+  if (name in _plrCache) return _plrCache[name];
+  try {
+    const q = encodeURIComponent(name);
+    const r = await fetch(`https://www.thesportsdb.com/api/v1/json/3/searchplayers.php?p=${q}`);
+    const j = await r.json();
+    const hit = (j.player || []).find(p => p.strSport === "Soccer");
+    if (!hit) { _plrCache[name] = null; return null; }
+    // Lookup completo por ID para obtener altura, salario, etc.
+    const r2 = await fetch(`https://www.thesportsdb.com/api/v1/json/3/lookupplayer.php?id=${hit.idPlayer}`);
+    const j2 = await r2.json();
+    const full = (j2.players || [])[0] || hit;
+    _plrCache[name] = full;
+    return full;
+  } catch(e) {
+    _plrCache[name] = null;
+    return null;
+  }
+}
+
+function _calcAge(dateBorn) {
+  if (!dateBorn) return null;
+  const b = new Date(dateBorn);
+  const now = new Date();
+  let age = now.getFullYear() - b.getFullYear();
+  const m = now.getMonth() - b.getMonth();
+  if (m < 0 || (m === 0 && now.getDate() < b.getDate())) age--;
+  return age;
+}
+
+function _renderPlayerModal(playerName, apiData) {
+  const wc = _getPlayerWorldCupStats(playerName);
+  const body = document.getElementById("player-modal-body");
+  const title = document.getElementById("player-modal-title");
+
+  const p = apiData;
+  const displayName = p ? (p.strPlayer || playerName) : playerName;
+  title.textContent = displayName;
+
+  if (!p) {
+    body.innerHTML = `
+      <div class="plr-wc-goals">
+        <div class="plr-wc-icon">⚽</div>
+        <div class="plr-wc-text">
+          <div class="plr-wc-title">Goles en este Mundial</div>
+          <div class="plr-wc-val">${wc.goals}${wc.liveGoals > 0 ? ` <span style="color:#EF4444;font-size:.85rem">+${wc.liveGoals}🔴</span>` : ""}${wc.pens > 0 ? ` <span style="font-size:.8rem;color:#A78BFA">(${wc.pens}P)</span>` : ""}</div>
+          <div class="plr-wc-sub">${wc.matches} partido${wc.matches !== 1 ? "s" : ""}</div>
+        </div>
+      </div>
+      <p class="text-xs text-center" style="color:#475569">Sin datos adicionales disponibles para este jugador.</p>`;
+    return;
+  }
+
+  const age = _calcAge(p.dateBorn);
+  const photo = p.strCutout || p.strRender || p.strThumb;
+  const photoHtml = photo
+    ? `<img class="plr-photo" src="${escapeHtml(photo)}" alt="${escapeHtml(displayName)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+      + `<div class="plr-photo-placeholder" style="display:none">👤</div>`
+    : `<div class="plr-photo-placeholder">👤</div>`;
+
+  const _POS_ES = {
+    "Goalkeeper":"Portero","Defender":"Defensa","Centre-Back":"Defensa central",
+    "Left-Back":"Lateral izquierdo","Right-Back":"Lateral derecho",
+    "Midfielder":"Centrocampista","Defensive Midfielder":"Mediocampista defensivo",
+    "Central Midfielder":"Mediocampista central","Attacking Midfielder":"Mediapunta",
+    "Left Midfielder":"Extremo izquierdo","Right Midfielder":"Extremo derecho",
+    "Forward":"Delantero","Centre-Forward":"Delantero centro","Striker":"Delantero",
+    "Left Winger":"Extremo izquierdo","Right Winger":"Extremo derecho","Winger":"Extremo",
+  };
+  const pos = p.strPosition || "";
+  const posEs = _POS_ES[pos] || pos;
+  const nat = p.strNationality || "";
+  const natInfo = nat ? (_NAT_ES[nat] || null) : null;
+  const natDisplay = nat ? `${natInfo ? natInfo.flag : "🌍"} ${natInfo ? natInfo.es : nat}` : "";
+  const club = p.strTeam || "";
+  const number = p.strNumber ? `#${p.strNumber}` : "";
+  const height = p.strHeight ? p.strHeight.replace(/ \/ .+/, "") : "";
+  // Peso: extrae kg si viene "(74 kg)", si no convierte lbs → kg
+  const weightRaw = p.strWeight || "";
+  const weightKg = (() => {
+    const kg = weightRaw.match(/\((\d+)\s*kg\)/i);
+    if (kg) return `${kg[1]} kg`;
+    const lbs = weightRaw.match(/(\d+)\s*lb/i);
+    if (lbs) return `${Math.round(parseInt(lbs[1]) / 2.205)} kg`;
+    return weightRaw;
+  })();
+  const side = p.strSide ? (p.strSide === "Left" ? "Zurdo" : p.strSide === "Right" ? "Diestro" : "Ambidiestro") : "";
+  const wage  = p.strWage || "";
+  const signing = p.strSigning || "";
+  const bioEs = p.strDescriptionES || "";
+  const bioEn = p.strDescriptionEN || "";
+  const bio = bioEs || bioEn;
+  const bioLang = bioEs ? "" : (bioEn ? " (EN)" : "");
+  const shortBio = bio.length > 400 ? bio.slice(0, 400).replace(/\s+\S+$/, "") + "…" : bio;
+
+  const details = [];
+  if (club) details.push({ lbl: "Club", val: `${club}${number ? " · " + number : ""}` });
+  if (posEs) details.push({ lbl: "Posición", val: posEs });
+  if (age)  details.push({ lbl: "Edad", val: `${age} años` });
+  if (height) details.push({ lbl: "Altura", val: height });
+  if (side) details.push({ lbl: "Pie", val: side });
+  if (weightKg) details.push({ lbl: "Peso", val: weightKg });
+  if (signing) details.push({ lbl: "Fichaje", val: signing });
+  if (wage)    details.push({ lbl: "Salario sem.", val: wage });
+
+  const detailsHtml = details.map(d =>
+    `<div class="plr-detail"><div class="plr-detail-lbl">${escapeHtml(d.lbl)}</div><div class="plr-detail-val">${escapeHtml(d.val)}</div></div>`
+  ).join("");
+
+  body.innerHTML = `
+    <div class="plr-hero">
+      ${photoHtml}
+      <div class="plr-info">
+        <div class="plr-name">${escapeHtml(displayName)}</div>
+        ${natDisplay ? `<div class="plr-nat">${escapeHtml(natDisplay)}</div>` : ""}
+        <div class="plr-stats">${_playerStatsHtml(wc)}</div>
+      </div>
+    </div>
+    ${details.length ? `<div class="plr-details">${detailsHtml}</div>` : ""}
+    ${shortBio ? `<div class="plr-bio">${escapeHtml(shortBio)}${bioLang ? `<span style="color:#475569;font-size:.65rem;margin-left:.4rem">${bioLang}</span>` : ""}</div>` : ""}`;
+}
+
+function _refreshOpenPlayerModal() {
+  const modal = document.getElementById("player-modal");
+  if (!modal || modal.classList.contains("hidden")) return;
+  const name = modal._currentPlayerName;
+  if (!name) return;
+  // Solo refresca las stats (no vuelve a llamar a la API)
+  const wc = _getPlayerWorldCupStats(name);
+  const statsEl = modal.querySelector(".plr-stats");
+  if (!statsEl) return;
+  statsEl.innerHTML = _playerStatsHtml(wc);
+}
+
+function _playerStatsHtml(wc) {
+  const liveTag = wc.liveGoals > 0
+    ? `<div class="plr-stat" style="border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.1)">
+         <span class="plr-stat-val" style="color:#EF4444">${wc.liveGoals}</span>
+         <span class="plr-stat-lbl" style="color:#F87171">En vivo 🔴</span>
+       </div>`
+    : "";
+  const pens = wc.pens > 0
+    ? `<div class="plr-stat"><span class="plr-stat-val">${wc.pens}</span><span class="plr-stat-lbl">Penaltis</span></div>`
+    : "";
+  return `
+    <div class="plr-stat"><span class="plr-stat-val">${wc.goals}</span><span class="plr-stat-lbl">Goles MUN</span></div>
+    ${liveTag}${pens}
+    <div class="plr-stat"><span class="plr-stat-val">${wc.matches}</span><span class="plr-stat-lbl">Partidos</span></div>`;
+}
+
+async function openPlayerModal(playerName) {
+  if (!playerName) return;
+  const modal = document.getElementById("player-modal");
+  const body  = document.getElementById("player-modal-body");
+  const title = document.getElementById("player-modal-title");
+  modal._currentPlayerName = playerName;
+  title.textContent = playerName;
+  body.innerHTML = `<div class="plr-loading"><div class="plr-spin">⏳</div><br>Buscando datos…</div>`;
+  modal.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+
+  const data = await _fetchPlayerData(playerName);
+  // Check modal still open (user may have closed it)
+  if (modal.classList.contains("hidden")) return;
+  _renderPlayerModal(playerName, data);
+}
+
+function closePlayerModal() {
+  const modal = document.getElementById("player-modal");
+  if (modal) { modal.classList.add("hidden"); modal._currentPlayerName = null; }
+  document.body.style.overflow = "";
+}
+// ─────────────────────────────────────────────────────────────────────────────
 
 function openTeamModal(teamName) {
   if (!D) return;
@@ -6879,8 +7118,8 @@ function openTeamModal(teamName) {
       const rows = groups[pos].map((p, i) => `
         <tr>
           <td class="sq-num">${i + 1}</td>
-          <td class="sq-name">${p.name}</td>
-          <td class="sq-club">${p.club}</td>
+          <td class="sq-name"><button class="player-link-btn" data-player="${escapeHtml(p.name)}">${escapeHtml(p.name)}</button></td>
+          <td class="sq-club">${escapeHtml(p.club)}</td>
           <td class="sq-caps">${p.caps || "—"}</td>
           <td class="sq-goals">${p.goals > 0 ? `<span class="sq-goals-val">${p.goals}</span>` : `<span style="color:#374151">—</span>`}</td>
         </tr>`).join("");
@@ -7464,6 +7703,12 @@ document.addEventListener("click", e => {
     openTeamModal(teamBtn.dataset.team);
     return;
   }
+  const playerBtn = e.target.closest(".player-link-btn");
+  if (playerBtn && playerBtn.dataset.player) {
+    e.stopPropagation();
+    openPlayerModal(playerBtn.dataset.player);
+    return;
+  }
   const badge = e.target.closest(".grp-badge-btn");
   if (badge) {
     e.stopPropagation();
@@ -7487,6 +7732,8 @@ document.addEventListener("click", e => {
   if (grpModal && !grpModal.classList.contains("hidden") && e.target === grpModal) closeGroupModal();
   const teamModal = document.getElementById("team-modal");
   if (teamModal && !teamModal.classList.contains("hidden") && e.target === teamModal) closeTeamModal();
+  const playerModal = document.getElementById("player-modal");
+  if (playerModal && !playerModal.classList.contains("hidden") && e.target === playerModal) closePlayerModal();
 });
 
 function _buildAdminPanel() {
