@@ -1293,7 +1293,20 @@ def get_data():
     now = time.time()
     if _cache["data"] is None or (now - _cache["ts"]) > CACHE_TTL:
         try:
-            _cache["data"] = build_data()
+            data = build_data()
+            # Inject highlights (data/highlights.json) into each match
+            _hl_path = os.path.join(BASE, "data", "highlights.json")
+            if os.path.isfile(_hl_path):
+                try:
+                    with open(_hl_path, encoding="utf-8") as _f:
+                        _hl = json.load(_f)
+                    for _m in data.get("matches", []):
+                        _vid = _hl.get(_m.get("name", ""))
+                        if _vid:
+                            _m["highlights_video_id"] = _vid
+                except (OSError, ValueError):
+                    pass
+            _cache["data"] = data
             _cache["error"] = None
         except Exception as e:
             _cache["error"] = str(e)
