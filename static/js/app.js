@@ -4389,6 +4389,8 @@ function renderBetsMain(container) {
 /* ═══════════════════════════════════════════════════════════════
    TAB: ESCENARIOS — ¿Qué necesito para ganar?
 ═══════════════════════════════════════════════════════════════ */
+let _sceSelectedPlayer = null;
+
 function renderScenarios() {
   const el = document.getElementById("scenarios-container");
   if (!el || !D) return;
@@ -4396,13 +4398,10 @@ function renderScenarios() {
   const players = D.meta?.players || [];
   const colors  = D.meta?.colors  || {};
 
-  // standings ordenados por total de mayor a menor
   const standings = [...D.standings].sort((a, b) => b.total - a.total);
   const leader    = standings[0];
-
   const maxPerMatch = +(D.scoring_rules?.max_per_group_match || 6);
 
-  // partidos de grupos no jugados, ordenados cronológicamente
   const remainingGroups = D.matches
     .filter(m => m.phase === "groups" && !m.played)
     .sort((a, b) => {
@@ -4414,16 +4413,14 @@ function renderScenarios() {
   const totalRem         = remainingGroups.length;
   const maxGroupPtsTotal = totalRem * maxPerMatch;
 
-  // datos por jugador
   const pData = standings.map(p => {
     const remWithPred = remainingGroups.filter(m => {
       const pred = m.predictions?.[p.name]?.pred;
       return pred && (pred.score || pred.sign);
     }).length;
     const maxReachable = p.total + remWithPred * maxPerMatch;
-    const gap          = leader.total - p.total; // positivo = por detrás
+    const gap          = leader.total - p.total;
     const isLeader     = p.name === leader.name;
-
     let diffLabel, diffColor;
     if (isLeader) {
       const second = standings[1];
@@ -4435,16 +4432,12 @@ function renderScenarios() {
       diffColor = "#EF4444";
     } else {
       const ptsNeed = totalRem > 0 ? gap / totalRem : Infinity;
-      if (ptsNeed < 0.5)      { diffLabel = "Muy accesible"; diffColor = "#22C55E"; }
-      else if (ptsNeed < 2)   { diffLabel = "Posible";       diffColor = "#F59E0B"; }
-      else                    { diffLabel = "Complicado";     diffColor = "#EF4444"; }
+      if (ptsNeed < 0.5)    { diffLabel = "Muy accesible"; diffColor = "#22C55E"; }
+      else if (ptsNeed < 2) { diffLabel = "Posible";       diffColor = "#F59E0B"; }
+      else                  { diffLabel = "Complicado";     diffColor = "#EF4444"; }
     }
-
     return { ...p, remWithPred, maxReachable, gap, isLeader, diffLabel, diffColor };
   });
-
-  // próximos 6 partidos de grupos
-  const upcoming = remainingGroups.slice(0, 6);
 
   // ── Hero ──────────────────────────────────────────────────
   const heroHtml = `
@@ -4483,15 +4476,16 @@ function renderScenarios() {
     const gapHtml = p.isLeader
       ? `<span style="color:var(--gold);font-weight:700">👑 Líder</span>`
       : `<span style="color:#EF4444;font-weight:700">-${p.gap} pts</span>`;
-
     const maxPct = p.maxReachable > 0 ? Math.round((p.total / p.maxReachable) * 100) : 0;
+    const isSelected = _sceSelectedPlayer === p.name;
     return `
-      <tr class="sce-tr">
+      <tr class="sce-tr${isSelected ? " sce-tr-selected" : ""}" data-player="${escapeHtml(p.name)}" style="cursor:pointer" title="Seleccionar ${escapeHtml(p.name)}">
         <td class="sce-td"><span class="sce-pos-badge">${i + 1}</span></td>
         <td class="sce-td">
           <div class="flex items-center gap-2">
             <div class="sce-player-dot" style="background:${p.color}"></div>
-            <span class="font-bold text-white">${p.name}</span>
+            <span class="font-bold text-white">${escapeHtml(p.name)}</span>
+            ${isSelected ? `<span class="sce-yo-badge">YO</span>` : ""}
           </div>
         </td>
         <td class="sce-td sce-td-num">
@@ -4518,8 +4512,11 @@ function renderScenarios() {
 
   const tableHtml = `
     <div class="card overflow-hidden mb-5">
+      <div class="px-4 pt-4 pb-2 flex items-center gap-2 flex-wrap">
+        <span class="text-sm font-semibold text-gray-400">👆 Toca tu fila para ver tu análisis personalizado</span>
+      </div>
       <div class="overflow-x-auto">
-        <table class="sce-table w-full">
+        <table class="sce-table w-full" id="sce-main-table">
           <thead>
             <tr>
               <th class="sce-th">#</th>
@@ -4539,10 +4536,12 @@ function renderScenarios() {
       </div>
     </div>`;
 
+  // ── Personal ──────────────────────────────────────────────
+  const personalHtml = `<div id="sce-personal" class="mb-5"></div>`;
+
   // ── Próximas predicciones ──────────────────────────────────
-  const upcomingHtml = upcoming.length === 0 ? `
-    <div class="card p-5 text-center text-gray-500">¡Fase de grupos completada! No quedan más partidos.</div>
-  ` : `
+  const upcoming = remainingGroups.slice(0, 6);
+  const upcomingHtml = upcoming.length === 0 ? "" : `
     <div class="flex items-center gap-2 mb-1 mt-6">
       <h3 class="font-bold text-white text-lg">⏭️ Próximas predicciones</h3>
     </div>
@@ -4575,7 +4574,201 @@ function renderScenarios() {
       }).join("")}
     </div>`;
 
-  el.innerHTML = heroHtml + tableHtml + upcomingHtml;
+  el.innerHTML = heroHtml + tableHtml + personalHtml + upcomingHtml;
+
+  // ── Wire table row clicks ─────────────────────────────────
+  el.querySelectorAll("#sce-main-table tbody tr[data-player]").forEach(row => {
+    row.addEventListener("click", () => {
+      const name = row.dataset.player;
+      _sceSelectedPlayer = _sceSelectedPlayer === name ? null : name;
+      renderScenarios();
+      if (_sceSelectedPlayer) {
+        setTimeout(() => {
+          document.getElementById("sce-personal")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 60);
+      }
+    });
+  });
+
+  // ── Render personal if selection exists ──────────────────
+  if (_sceSelectedPlayer) _renderScePersonal(standings, leader, maxPerMatch, remainingGroups, colors);
+}
+
+function _renderScePersonal(standings, leader, maxPerMatch, remainingGroups, colors) {
+  const el = document.getElementById("sce-personal");
+  if (!el || !_sceSelectedPlayer) return;
+
+  const me    = standings.find(s => s.name === _sceSelectedPlayer);
+  if (!me) return;
+  const isLeader = me.name === leader.name;
+  const rival    = isLeader ? standings[1] : leader;
+  const gap      = Math.abs(me.total - (rival?.total ?? 0));
+  const myColor  = colors[me.name]  || "#888";
+  const rivColor = rival ? (colors[rival.name] || "#888") : "#888";
+
+  const SIGN_LABEL = { "1": "Local", "X": "Empate", "2": "Visitante" };
+  const SIGN_ICON  = { "1": "🏠", "X": "🤝", "2": "✈️" };
+
+  // classify each remaining match
+  const battles = [], neutrals = [], noPred = [];
+
+  for (const m of remainingGroups) {
+    const myP  = m.predictions?.[me.name]?.pred;
+    const rivP = rival ? m.predictions?.[rival.name]?.pred : null;
+
+    const myScore  = myP?.score  || null;
+    const rivScore = rivP?.score || null;
+    const mySign   = myScore ? _signFromScore(myScore) : (myP?.sign || null);
+    const rivSign  = rivScore ? _signFromScore(rivScore) : (rivP?.sign || null);
+
+    if (!myScore && !mySign) { noPred.push(m); continue; }
+    if (!rival || (!rivScore && !rivSign)) { neutrals.push({ m, myScore, rivScore: null, mySign, rivSign: null, type: "no_rival_pred" }); continue; }
+
+    if (mySign !== rivSign) {
+      battles.push({ m, myScore, rivScore, mySign, rivSign, type: "sign_diff" });
+    } else if (myScore !== rivScore) {
+      battles.push({ m, myScore, rivScore, mySign, rivSign, type: "score_diff" });
+    } else {
+      neutrals.push({ m, myScore, rivScore, mySign, rivSign, type: "same" });
+    }
+  }
+
+  // Sort battles: sign_diff first (higher impact), then score_diff
+  battles.sort((a, b) => {
+    if (a.type === "sign_diff" && b.type !== "sign_diff") return -1;
+    if (b.type === "sign_diff" && a.type !== "sign_diff") return 1;
+    return 0;
+  });
+
+  const battleCount  = battles.length;
+  const neutralCount = neutrals.filter(n => n.type === "same").length;
+  const signBattles  = battles.filter(b => b.type === "sign_diff").length;
+  const scoreBattles = battles.filter(b => b.type === "score_diff").length;
+
+  // max possible net gain in sign battles = signBattles * maxPerMatch (you get max, rival gets 0)
+  // max possible net gain in score battles = scoreBattles * 3 (rough: diff/exact differ)
+  const maxNetGain = signBattles * maxPerMatch + scoreBattles * 3;
+
+  // ── Personal hero ─────────────────────────────────────────
+  let situationHtml;
+  if (isLeader) {
+    const lead = rival ? gap : me.total;
+    situationHtml = `<div class="sce-pers-sit" style="color:var(--gold)">👑 Eres el líder · +${lead} sobre ${rival?.name || "todos"}</div>`;
+  } else if (me.total + battleCount * maxPerMatch < (rival?.total ?? 0)) {
+    situationHtml = `<div class="sce-pers-sit" style="color:#EF4444">⚠️ Matemáticamente muy difícil en grupos · necesitas ${gap} pts de ventaja neta</div>`;
+  } else {
+    const needed  = gap;
+    situationHtml = `<div class="sce-pers-sit" style="color:#F59E0B">Necesitas sacar <strong>${needed} pts</strong> de ventaja neta al líder en los ${battleCount} partido${battleCount !== 1 ? "s" : ""} que os diferencian</div>`;
+  }
+
+  const heroCard = `
+    <div class="card p-5 mb-4" style="border-color:${myColor}44;border-top:3px solid ${myColor}">
+      <div class="sce-pers-head">
+        <div class="flex items-center gap-3">
+          <div style="width:14px;height:14px;border-radius:50%;background:${myColor};flex-shrink:0"></div>
+          <span class="font-extrabold text-white text-lg uppercase">${escapeHtml(me.name)}</span>
+          <span class="bebas text-2xl" style="color:${myColor}">${me.total} pts</span>
+        </div>
+        ${rival ? `<div class="sce-pers-vs">
+          <span class="text-xs text-gray-500">vs</span>
+          <div style="width:10px;height:10px;border-radius:50%;background:${rivColor}"></div>
+          <span class="font-bold text-gray-300">${escapeHtml(rival.name)}</span>
+          <span class="bebas text-xl" style="color:${rivColor}">${rival.total}</span>
+        </div>` : ""}
+      </div>
+      ${situationHtml}
+      <div class="sce-pers-stats">
+        <div class="sce-pers-stat">
+          <div class="sce-pers-stat-val" style="color:${isLeader ? "var(--gold)" : "#EF4444"}">${isLeader ? "+" : "-"}${gap}</div>
+          <div class="sce-pers-stat-lbl">${isLeader ? "de ventaja" : "de desventaja"}</div>
+        </div>
+        <div class="sce-pers-stat">
+          <div class="sce-pers-stat-val" style="color:#EF4444">${signBattles}</div>
+          <div class="sce-pers-stat-lbl">batallas de signo</div>
+        </div>
+        <div class="sce-pers-stat">
+          <div class="sce-pers-stat-val" style="color:#F59E0B">${scoreBattles}</div>
+          <div class="sce-pers-stat-lbl">batallas de marcador</div>
+        </div>
+        <div class="sce-pers-stat">
+          <div class="sce-pers-stat-val" style="color:#22C55E">${neutralCount}</div>
+          <div class="sce-pers-stat-lbl">partidos neutros</div>
+        </div>
+      </div>
+      ${!isLeader && maxNetGain > 0 ? `<div class="text-xs text-gray-500 mt-3">Máxima ventaja neta posible en tus batallas: <strong class="text-gray-300">+${maxNetGain} pts</strong></div>` : ""}
+    </div>`;
+
+  // ── Battle cards ─────────────────────────────────────────
+  const battleCards = battles.slice(0, 12).map(b => {
+    const { m, myScore, rivScore, mySign, rivSign, type } = b;
+    const dateStr = m.date
+      ? new Date(m.date + "T12:00:00").toLocaleDateString("es-ES", { weekday: "short", day: "numeric", month: "short" })
+      : "";
+    const timeStr = m.time_es || "";
+
+    const isBigBattle = type === "sign_diff";
+    const borderCol   = isBigBattle ? "#EF4444" : "#F59E0B";
+
+    const mySignLbl  = mySign  ? SIGN_LABEL[mySign]  : "—";
+    const rivSignLbl = rivSign ? SIGN_LABEL[rivSign]  : "—";
+    const mySignIcon  = mySign  ? SIGN_ICON[mySign]   : "❓";
+    const rivSignIcon = rivSign ? SIGN_ICON[rivSign]  : "❓";
+
+    // Outcome label
+    let outcomeHtml;
+    if (isBigBattle) {
+      outcomeHtml = `<div class="sce-battle-outcome" style="color:#EF4444">⚡ Signo opuesto — partido clave</div>`;
+    } else {
+      outcomeHtml = `<div class="sce-battle-outcome" style="color:#F59E0B">🎯 Mismo signo, marcadores distintos</div>`;
+    }
+
+    return `
+      <div class="sce-battle-card" style="border-color:${borderCol}44;border-left:3px solid ${borderCol}">
+        <div class="sce-battle-hd">
+          <span class="sce-battle-match">${escapeHtml(m.home || "")} — ${escapeHtml(m.away || "")}</span>
+          <span class="sce-battle-time">${escapeHtml(dateStr)}${timeStr ? " · " + escapeHtml(timeStr) : ""}</span>
+        </div>
+        ${outcomeHtml}
+        <div class="sce-battle-preds">
+          <div class="sce-battle-pred sce-battle-pred-me" style="border-color:${myColor}33;background:${myColor}0a">
+            <div class="sce-battle-pred-who" style="color:${myColor}">🙋 ${escapeHtml(me.name)}</div>
+            <div class="sce-battle-pred-score">${escapeHtml(myScore || "—")}</div>
+            <div class="sce-battle-pred-sign" style="color:${myColor}">${mySignIcon} ${escapeHtml(mySignLbl)}</div>
+          </div>
+          <div class="sce-battle-sep">VS</div>
+          <div class="sce-battle-pred sce-battle-pred-riv" style="border-color:${rivColor}33;background:${rivColor}0a">
+            <div class="sce-battle-pred-who" style="color:${rivColor}">👑 ${escapeHtml(rival?.name || "")}</div>
+            <div class="sce-battle-pred-score">${escapeHtml(rivScore || "—")}</div>
+            <div class="sce-battle-pred-sign" style="color:${rivColor}">${rivSignIcon} ${escapeHtml(rivSignLbl)}</div>
+          </div>
+        </div>
+      </div>`;
+  }).join("");
+
+  const battlesSection = battleCount === 0 ? `
+    <div class="card p-5 text-center text-gray-500 mb-4">
+      ${isLeader ? "👑 Tienes las mismas predicciones que tu rival en todos los partidos restantes." : "✅ No hay batallas directas — tus predicciones coinciden con las del líder en todos los partidos restantes."}
+    </div>` : `
+    <div class="flex items-center gap-2 mb-3 flex-wrap">
+      <h4 class="font-bold text-white">⚡ Tus batallas contra ${escapeHtml(rival?.name || "")}</h4>
+      <span class="text-xs text-gray-500">${battleCount} partido${battleCount !== 1 ? "s" : ""} donde diferís</span>
+    </div>
+    <div class="sce-battle-grid">${battleCards}</div>`;
+
+  el.innerHTML = `
+    <div style="scroll-margin-top:4rem">
+      <div class="flex items-center gap-3 mb-3 flex-wrap">
+        <h3 class="font-bold text-white text-lg">🙋 Mi análisis personal</h3>
+        <button class="sce-close-btn" id="sce-close-btn" title="Cerrar análisis personal">✕ Cerrar</button>
+      </div>
+      ${heroCard}
+      ${battlesSection}
+    </div>`;
+
+  el.querySelector("#sce-close-btn")?.addEventListener("click", () => {
+    _sceSelectedPlayer = null;
+    renderScenarios();
+  });
 }
 
 /* ═══════════════════════════════════════════════════════════════

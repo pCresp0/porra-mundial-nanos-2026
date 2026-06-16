@@ -4052,7 +4052,63 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   TAB: ESCENARIOS═══════════════════════════════════════════════════════════════ */
+   TAB: ESCENARIOS
+═══════════════════════════════════════════════════════════════ */
+/* row selection */
+.sce-tr-selected { background: rgba(255,255,255,.04) !important; }
+.sce-tr-selected .sce-td { box-shadow: inset 3px 0 0 var(--gold); }
+.sce-yo-badge {
+  font-size: .6rem; font-weight: 800; padding: .1rem .35rem;
+  border-radius: 3px; background: var(--gold); color: #0F172A;
+  text-transform: uppercase; letter-spacing: .04em;
+}
+.sce-close-btn {
+  font-size: .7rem; font-weight: 700; color: #64748B;
+  background: none; border: 1px solid var(--border); border-radius: 6px;
+  padding: .25rem .6rem; cursor: pointer; transition: color .15s, border-color .15s;
+}
+.sce-close-btn:hover { color: #fff; border-color: #475569; }
+
+/* personal section */
+.sce-pers-head {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: .5rem; margin-bottom: .6rem;
+}
+.sce-pers-vs { display: flex; align-items: center; gap: .4rem; }
+.sce-pers-sit { font-size: .82rem; margin-bottom: .75rem; line-height: 1.45; }
+.sce-pers-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: .5rem; text-align: center;
+}
+.sce-pers-stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; line-height: 1; }
+.sce-pers-stat-lbl { font-size: .6rem; color: #64748B; font-weight: 700; text-transform: uppercase; margin-top: .1rem; }
+
+/* battle grid */
+.sce-battle-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem; margin-bottom: .5rem; }
+.sce-battle-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: .9rem 1rem;
+}
+.sce-battle-hd { display: flex; flex-direction: column; gap: .1rem; margin-bottom: .45rem; }
+.sce-battle-match { font-weight: 700; font-size: .83rem; color: #fff; }
+.sce-battle-time  { font-size: .65rem; color: #64748B; }
+.sce-battle-outcome { font-size: .7rem; font-weight: 700; margin-bottom: .55rem; }
+.sce-battle-preds { display: flex; align-items: center; gap: .5rem; }
+.sce-battle-pred {
+  flex: 1; border: 1px solid; border-radius: 8px; padding: .5rem .6rem; text-align: center;
+}
+.sce-battle-pred-who { font-size: .6rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; margin-bottom: .25rem; }
+.sce-battle-pred-score { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; line-height: 1; color: #fff; margin-bottom: .15rem; }
+.sce-battle-pred-sign { font-size: .63rem; font-weight: 700; }
+.sce-battle-sep { font-size: .65rem; font-weight: 800; color: #475569; flex-shrink: 0; }
+
+@media (max-width: 767px) {
+  .sce-pers-stats   { grid-template-columns: repeat(2, 1fr); }
+  .sce-battle-grid  { grid-template-columns: 1fr; }
+  .sce-pers-stat-val { font-size: 1.3rem; }
+  .sce-battle-pred-score { font-size: 1.25rem; }
+}
+
 .sce-hero-stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
