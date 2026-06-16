@@ -783,18 +783,24 @@
     .tm-score.tm-live { color: #FCA5A5; font-weight: 800; }
     /* Etiqueta flotante en la esquina superior izquierda de la tarjeta:
        no ocupa línea propia ni deja hueco encima del partido. */
-    .card-corner-tags { display: contents; }
+    .card-corner-tags {
+      display: flex;
+      align-items: center;
+      margin-bottom: .55rem;
+    }
     .card-corner-tag {
-      position: absolute;
-      top: .7rem;
-      left: .7rem;
-      z-index: 2;
+      flex: 1;
+    }
+    .card-corner-center {
+      flex: 0 1 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .card-corner-tag-right {
-      position: absolute;
-      top: .7rem;
-      right: .7rem;
-      z-index: 2;
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
     }
     .phase-corner-tag {
       color: #94A3B8;
@@ -812,18 +818,7 @@
     /* En móvil la tarjeta es estrecha y los tags se solaparían: los ponemos
        en una fila flex para que queden en la misma línea izq/dcha. */
     @media (max-width: 767px) {
-      .card-corner-tags {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: .55rem;
-      }
-      .card-corner-tags .card-corner-tag,
-      .card-corner-tags .card-corner-tag-right {
-        position: static;
-        margin: 0;
-      }
-      .card-corner-tags > div:only-child { margin-left: auto; }
+      .card-corner-tags { justify-content: space-between; }
     }
 
     /* ── pulse when arriving at a match selected from the calendar ── */
@@ -4548,23 +4543,21 @@ body.mode-guest .tms-sub-tabs { display: none !important; }
 }
 
 /* ── Highlights button on match card ─────────────────────────────────── */
-.match-hl-btn-wrap {
-  margin: .5rem 0 .25rem;
-}
 .match-hl-btn {
   display: inline-flex;
   align-items: center;
   gap: .35rem;
-  padding: .3rem .75rem;
+  padding: .25rem .7rem;
   border-radius: 20px;
   border: 1px solid rgba(239,68,68,.45);
   background: rgba(239,68,68,.12);
   color: #f87171;
-  font-size: .72rem;
+  font-size: .7rem;
   font-weight: 600;
   cursor: pointer;
   transition: background .15s, border-color .15s;
   pointer-events: none; /* card click handles it */
+  white-space: nowrap;
 }
 .match-row:hover .match-hl-btn {
   background: rgba(239,68,68,.22);

@@ -2643,7 +2643,8 @@ function renderMatchCard(m, players, colors) {
   return `
     <div class="card match-row ${playedClass}${liveClass}${isNextMatch ? " next-match" : ""} p-4 mb-2" data-match-name="${(m.name||"").replace(/"/g,"&quot;")}">
       <div class="card-corner-tags">
-        ${isNextMatch ? `<div class="card-corner-tag"><span class="text-xs font-bold next-match-tag">⏱ Próximo partido</span></div>` : (m.played ? `<div class="card-corner-tag"><span class="text-xs font-bold finished-tag">✓ Finalizado</span></div>` : "<div></div>")}
+        ${isNextMatch ? `<div class="card-corner-tag"><span class="text-xs font-bold next-match-tag">⏱ Próximo partido</span></div>` : (m.played ? `<div class="card-corner-tag"><span class="text-xs font-bold finished-tag">✓ Finalizado</span></div>` : "<div class=\"card-corner-tag\"></div>")}
+        <div class="card-corner-center">${m.highlights_video_id ? `<button class="match-hl-btn" title="Ver resumen del partido">🎬 Ver resumen</button>` : ""}</div>
         <div class="card-corner-tag-right">${(() => {
           if (m.phase === "groups" && m.id) {
             const grp = m.id.charAt(0).toUpperCase();
@@ -2655,7 +2656,6 @@ function renderMatchCard(m, players, colors) {
       </div>
       ${matchTeamsHtml(m)}
       ${matchMetaHtml(m)}
-      ${m.highlights_video_id ? `<div class="match-hl-btn-wrap"><button class="match-hl-btn" title="Ver resumen del partido">🎬 Ver resumen</button></div>` : ""}
       <div class="match-players-grid porra-only">${playerCards}</div>
     </div>`;
 }
