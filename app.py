@@ -141,39 +141,55 @@ _SCORER_NAME_ALIASES = {
     # Bradley Barcola
     "brdli barkvla":  "B. Barcola",
     "bradley barcola": "B. Barcola",
-    # Son Heung-min — API reverses given/family name tokens
-    "aimn hsin":      "Son Heung-min",
-    "hsin aimn":      "Son Heung-min",
-    "son heung-min":  "Son Heung-min",
-    "son heung min":  "Son Heung-min",
-    # Erling Haaland — handled by fuzzy but explicit as fallback
-    "arling halnd":   "E. Haaland",
-    "erling haaland": "E. Haaland",
+    # Add explicit overrides here for names the fuzzy cannot resolve correctly
+}
+
+# Spanish team name → FIFA code (same names used as keys in live.json / scorers.json)
+_TEAM_ES_TO_FIFA = {
+    "México":"MEX","Sudáfrica":"RSA","Corea del Sur":"KOR","República Checa":"CZE",
+    "Canadá":"CAN","Bosnia y Herzegovina":"BIH","Catar":"QAT","Qatar":"QAT","Suiza":"SUI",
+    "Brasil":"BRA","Marruecos":"MAR","Haití":"HAI","Escocia":"SCO",
+    "Estados Unidos":"USA","EE.UU.":"USA","Paraguay":"PRY","Australia":"AUS","Turquía":"TUR",
+    "Alemania":"GER","Curazao":"CUW","Costa de Marfil":"CIV","Ecuador":"ECU",
+    "Países Bajos":"NED","Japón":"JPN","Suecia":"SWE","Túnez":"TUN",
+    "Bélgica":"BEL","Egipto":"EGY","Irán":"IRN","Nueva Zelanda":"NZL",
+    "España":"ESP","Cabo Verde":"CPV","Arabia Saudita":"KSA","Uruguay":"URU",
+    "Francia":"FRA","Senegal":"SEN","Irak":"IRQ","Iraq":"IRQ","Noruega":"NOR",
+    "Argentina":"ARG","Argelia":"DZA","Austria":"AUT","Jordania":"JOR",
+    "Portugal":"POR","RD Congo":"COD","R.D. Congo":"COD","Uzbekistán":"UZB","Colombia":"COL",
+    "Inglaterra":"ENG","Croacia":"HRV","Ghana":"GHA","Panamá":"PAN",
+    "Dinamarca":"DEN","Grecia":"GRE","Serbia":"SRB","Nigeria":"NGA",
+    "Costa Rica":"CRC","Honduras":"HON","Jamaica":"JAM","Venezuela":"VEN",
+    "Chile":"CHI","Bolivia":"BOL","Perú":"PER",
 }
 
 # ── Fuzzy player lookup built lazily from team_players.KEY_PLAYERS ─────────────
-_PLAYER_LOOKUP = None  # list of (norm_str, display_name, full_name), built lazily
+_PLAYER_LOOKUP = None  # dict {fifa_code: [(norm_str, display_name), ...]}, built lazily
 
-def _build_player_lookup() -> list:
-    """Build normalised lookup from KEY_PLAYERS for fuzzy name matching."""
+def _build_player_lookup():
+    """Build normalised lookup from KEY_PLAYERS → dict {fifa_code: [(norm, display), ...]}"""
     import unicodedata as _ud
     try:
         from team_players import KEY_PLAYERS
     except ImportError:
-        return []
-    result = []
-    for players in KEY_PLAYERS.values():
+        return {}
+    result = {}
+    for fifa_code, players in KEY_PLAYERS.items():
+        entries = []
         for p in players:
             full = p["name"]
             parts = full.split()
             display = f"{parts[0][0]}. {' '.join(parts[1:])}" if len(parts) >= 2 else full
             norm = _ud.normalize("NFD", full.lower().replace("-", " "))
             norm = "".join(c for c in norm if _ud.category(c) != "Mn")
-            result.append((norm, display, full))
+            entries.append((norm, display))
+        result[fifa_code] = entries
     return result
 
-def _fuzzy_player_match(norm_key, threshold=0.68):
-    """Return display name for closest squad player, or None if below threshold."""
+def _fuzzy_player_match(norm_key, fifa_code=None, threshold=0.68):
+    """Return display name for closest squad player, or None if below threshold.
+    If fifa_code is given, only searches that team's players.
+    """
     global _PLAYER_LOOKUP
     if _PLAYER_LOOKUP is None:
         _PLAYER_LOOKUP = _build_player_lookup()
@@ -182,19 +198,24 @@ def _fuzzy_player_match(norm_key, threshold=0.68):
     import difflib
     tokens = norm_key.split()
     candidates = [norm_key, " ".join(reversed(tokens))]
+    # Scope to one team if known, else all teams
+    if fifa_code and fifa_code in _PLAYER_LOOKUP:
+        entries = _PLAYER_LOOKUP[fifa_code]
+    else:
+        entries = [e for team_entries in _PLAYER_LOOKUP.values() for e in team_entries]
     best_score, best_display = 0.0, None
-    for norm_canon, display, _ in _PLAYER_LOOKUP:
+    for norm_canon, display in entries:
         for api_str in candidates:
             s = difflib.SequenceMatcher(None, api_str, norm_canon, autojunk=False).ratio()
             if s > best_score:
                 best_score, best_display = s, display
     return best_display if best_score >= threshold else None
 
-def _fix_scorer_name(name: str) -> str:
+def _fix_scorer_name(name, fifa_code=None):
     """Fix API transliteration errors in scorer names.
 
     1. Explicit alias dict (exact known mappings).
-    2. Fuzzy match against all squad players in team_players.KEY_PLAYERS.
+    2. Fuzzy match scoped to the team's squad (fifa_code) when available.
     3. Return original name if nothing matches well enough.
     """
     import unicodedata as _ud
@@ -202,7 +223,7 @@ def _fix_scorer_name(name: str) -> str:
     key  = "".join(c for c in norm if _ud.category(c) != "Mn")
     if key in _SCORER_NAME_ALIASES:
         return _SCORER_NAME_ALIASES[key]
-    fuzzy = _fuzzy_player_match(key)
+    fuzzy = _fuzzy_player_match(key, fifa_code=fifa_code)
     return fuzzy if fuzzy else name.strip()
 
 
@@ -299,10 +320,18 @@ def _load_live():
     for key, val in raw.items():
         if not isinstance(val, dict):
             continue
-        # Fix API transliteration errors in scorer names
+        # Extract home/away FIFA codes from the key ("Irak-Noruega" → IRQ, NOR)
+        key_parts = key.split("-", 1)
+        home_fifa = _TEAM_ES_TO_FIFA.get(key_parts[0].strip()) if len(key_parts) >= 1 else None
+        away_fifa = _TEAM_ES_TO_FIFA.get(key_parts[1].strip()) if len(key_parts) >= 2 else None
+        # Fix API transliteration errors in scorer names, scoped to the scorer's team
         scorers = val.get("scorers", [])
         if scorers and isinstance(scorers, list):
-            scorers = [{**sc, "player": _fix_scorer_name(sc.get("player", ""))} for sc in scorers]
+            def _fix_sc(sc):
+                side = sc.get("team")  # "home" or "away"
+                code = home_fifa if side == "home" else away_fifa
+                return {**sc, "player": _fix_scorer_name(sc.get("player", ""), fifa_code=code)}
+            scorers = [_fix_sc(sc) for sc in scorers]
             val = {**val, "scorers": scorers}
             # Recalculate score from scorers when API score lags behind
             # (API updates scorers list before updating home/away score fields)
