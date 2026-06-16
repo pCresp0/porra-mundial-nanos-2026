@@ -4547,6 +4547,30 @@ body.mode-guest .tms-sub-tabs { display: none !important; }
   animation: liveDotPulse 1.4s ease-in-out infinite;
 }
 
+/* ── Highlights button on match card ─────────────────────────────────── */
+.match-hl-btn-wrap {
+  margin: .5rem 0 .25rem;
+}
+.match-hl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .3rem .75rem;
+  border-radius: 20px;
+  border: 1px solid rgba(239,68,68,.45);
+  background: rgba(239,68,68,.12);
+  color: #f87171;
+  font-size: .72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+  pointer-events: none; /* card click handles it */
+}
+.match-row:hover .match-hl-btn {
+  background: rgba(239,68,68,.22);
+  border-color: rgba(239,68,68,.7);
+}
+
 /* ── Highlights DAZN player ───────────────────────────────────────────── */
 .hl-section {
   border-radius: 10px;
