@@ -2644,7 +2644,7 @@ function renderMatchCard(m, players, colors) {
     <div class="card match-row ${playedClass}${liveClass}${isNextMatch ? " next-match" : ""} p-4 mb-2" data-match-name="${(m.name||"").replace(/"/g,"&quot;")}">
       <div class="card-corner-tags">
         ${isNextMatch ? `<div class="card-corner-tag"><span class="text-xs font-bold next-match-tag">⏱ Próximo partido</span></div>` : (m.played ? `<div class="card-corner-tag"><span class="text-xs font-bold finished-tag">✓ Finalizado</span></div>` : "<div class=\"card-corner-tag\"></div>")}
-        <div class="card-corner-center">${m.highlights_video_id ? `<a class="match-hl-btn" href="https://www.youtube.com/watch?v=${escapeHtml(m.highlights_video_id)}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" title="Ver resumen en YouTube">🎬 Ver resumen</a>` : ""}</div>
+        <div class="card-corner-center">${m.highlights_video_id ? `<button class="match-hl-btn" onclick="openHighlightsModal('${escapeHtml(m.highlights_video_id)}',event)" title="Ver resumen del partido">🎬 Ver resumen</button>` : ""}</div>
         <div class="card-corner-tag-right">${(() => {
           if (m.phase === "groups" && m.id) {
             const grp = m.id.charAt(0).toUpperCase();
@@ -2773,6 +2773,55 @@ function parseScorers(str) {
   return inner.split('","')
     .map(s => s.replace(/^"/, "").replace(/"$/, "").trim())
     .filter(s => s && s !== "null");
+}
+
+/* ── Highlights video modal ─────────────────────────────────────────── */
+function openHighlightsModal(videoId, evt) {
+  if (evt) { evt.stopPropagation(); evt.preventDefault(); }
+  // Remove any existing instance
+  const existing = document.getElementById('hl-video-modal');
+  if (existing) existing.remove();
+
+  const overlay = document.createElement('div');
+  overlay.id = 'hl-video-modal';
+  overlay.innerHTML = `
+    <div class="hl-modal-box" id="hl-modal-box">
+      <div class="hl-modal-header">
+        <span class="hl-modal-title">🎬 Resumen oficial <span class="hl-dazn-badge">DAZN</span></span>
+        <button class="hl-modal-close" onclick="closeHighlightsModal()" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="hl-player-wrap">
+        <iframe
+          id="hl-modal-iframe"
+          src="https://www.youtube.com/embed/${escapeHtml(videoId)}?rel=0&modestbranding=1&autoplay=1"
+          class="hl-iframe"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          title="Resumen partido">
+        </iframe>
+      </div>
+    </div>`;
+  overlay.addEventListener('click', function(e) {
+    if (!document.getElementById('hl-modal-box').contains(e.target)) closeHighlightsModal();
+  });
+  document.addEventListener('keydown', function _hlEsc(e) {
+    if (e.key === 'Escape') { closeHighlightsModal(); document.removeEventListener('keydown', _hlEsc); }
+  });
+  document.body.appendChild(overlay);
+  document.body.style.overflow = 'hidden';
+}
+
+function closeHighlightsModal() {
+  const modal = document.getElementById('hl-video-modal');
+  if (modal) {
+    const iframe = modal.querySelector('iframe');
+    if (iframe) iframe.src = ''; // stop video playback
+    modal.remove();
+  }
+  // Only restore scroll if no other overlay is open
+  if (!document.getElementById('match-detail-drawer')?.classList.contains('open')) {
+    document.body.style.overflow = '';
+  }
 }
 
 function _openStadiumLightbox(wrap) {

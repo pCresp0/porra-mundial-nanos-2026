@@ -4542,6 +4542,58 @@ body.mode-guest .tms-sub-tabs { display: none !important; }
   animation: liveDotPulse 1.4s ease-in-out infinite;
 }
 
+/* ── Highlights video modal ─────────────────────────────────────────── */
+#hl-video-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0,0,0,.82);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: cl-fade .18s ease;
+}
+.hl-modal-box {
+  background: var(--card);
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  width: 100%;
+  max-width: 760px;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0,0,0,.7);
+}
+.hl-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .65rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.hl-modal-title {
+  font-size: .85rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+}
+.hl-modal-close {
+  background: none;
+  border: none;
+  color: #94A3B8;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: .2rem .4rem;
+  border-radius: 6px;
+  transition: color .15s;
+}
+.hl-modal-close:hover { color: #f1f5f9; }
+@media (max-width: 767px) {
+  #hl-video-modal { padding: .5rem; align-items: flex-end; }
+  .hl-modal-box { border-radius: 14px 14px 10px 10px; max-width: 100%; }
+}
+
 /* ── Highlights button on match card ─────────────────────────────────── */
 .match-hl-btn {
   display: inline-flex;

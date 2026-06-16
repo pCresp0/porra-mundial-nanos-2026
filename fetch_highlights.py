@@ -27,6 +27,10 @@ DATA_JSON       = os.path.join(BASE, "data.json")
 DAZN_CHANNEL_ID = "UCK-mxP4hLap1t3dp4bPbSBg"
 YT_SEARCH_URL   = "https://www.googleapis.com/youtube/v3/search"
 
+# Intervalo mínimo entre búsquedas del mismo partido sin resultado (30 min).
+# Esto limita el consumo de cuota de la API de YouTube cuando se lanza frecuentemente.
+HL_SEARCH_INTERVAL = timedelta(minutes=30)
+
 
 def _load_json(path: str, default):
     if os.path.isfile(path):
@@ -122,13 +126,30 @@ def main():
     played = [m for m in matches if m.get("played") and m.get("home") and m.get("away")]
     print(f"🎬 Buscando resúmenes DAZN para {len(played)} partidos jugados…")
 
+    # Timestamps de la última búsqueda por partido (para partidos sin resultado aún)
+    last_searched: dict = highlights.get("_last_searched", {})
+    now_utc = datetime.now(timezone.utc)
+
     for m in played:
         name = m.get("name", "")
         if not name:
             continue
-        if name in highlights:
+        if name in highlights and not name.startswith("_"):
             # Ya tenemos el video_id guardado
             continue
+
+        # Rate-limit: no buscar el mismo partido más de 1 vez cada 30 min
+        last_ts_str = last_searched.get(name)
+        if last_ts_str:
+            try:
+                last_ts = datetime.fromisoformat(last_ts_str)
+                if last_ts.tzinfo is None:
+                    last_ts = last_ts.replace(tzinfo=timezone.utc)
+                if now_utc - last_ts < HL_SEARCH_INTERVAL:
+                    print(f"  ⏩ {name}: buscado hace < 30 min, esperando")
+                    continue
+            except ValueError:
+                pass
 
         home  = m.get("home", "")
         away  = m.get("away", "")
@@ -136,13 +157,17 @@ def main():
 
         print(f"  🔍 {name} ({home} vs {away})")
         video_id = _search_highlight(api_key, name, home, away, date)
+        # Registrar timestamp de búsqueda (con o sin resultado)
+        last_searched[name] = now_utc.strftime("%Y-%m-%dT%H:%M:%SZ")
         if video_id:
             highlights[name] = video_id
-            changed = True
+        changed = True  # siempre guardar para actualizar _last_searched
 
+    highlights["_last_searched"] = last_searched
     if changed:
         _save_json(HIGHLIGHTS_JSON, highlights)
-        print(f"✅ Guardados en {HIGHLIGHTS_JSON} ({len(highlights)} entradas)")
+        found = sum(1 for k, v in highlights.items() if not k.startswith("_") and v)
+        print(f"✅ Guardados en {HIGHLIGHTS_JSON} ({found} resúmenes encontrados)")
     else:
         print("ℹ️  Sin novedades en highlights")
 
