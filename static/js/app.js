@@ -2778,47 +2778,59 @@ function parseScorers(str) {
 /* ── Highlights video modal ─────────────────────────────────────────── */
 function openHighlightsModal(videoId, evt) {
   if (evt) { evt.stopPropagation(); evt.preventDefault(); }
-  // Remove any existing instance
   const existing = document.getElementById('hl-video-modal');
   if (existing) existing.remove();
+  const existingBox = document.getElementById('hl-modal-box');
+  if (existingBox) existingBox.remove();
 
+  const isMobile = window.innerWidth <= 767;
+
+  // Backdrop — just a dark overlay, no flex centering needed
   const overlay = document.createElement('div');
   overlay.id = 'hl-video-modal';
-  overlay.innerHTML = `
-    <div class="hl-modal-box" id="hl-modal-box">
-      <div class="hl-modal-header">
-        <span class="hl-modal-title">🎬 Resumen oficial <span class="hl-dazn-badge">DAZN</span></span>
-        <button class="hl-modal-close" onclick="closeHighlightsModal()" aria-label="Cerrar">✕</button>
-      </div>
-      <div class="hl-player-wrap">
-        <iframe
-          id="hl-modal-iframe"
-          src="https://www.youtube.com/embed/${escapeHtml(videoId)}?rel=0&modestbranding=1&autoplay=1"
-          class="hl-iframe"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          title="Resumen partido">
-        </iframe>
-      </div>
+  overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;z-index:99998;background:rgba(0,0,0,.87);';
+  overlay.addEventListener('click', () => closeHighlightsModal());
+
+  // Modal box — positioned independently via transform centering
+  const box = document.createElement('div');
+  box.id = 'hl-modal-box';
+  box.className = 'hl-modal-box';
+  if (isMobile) {
+    box.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:99999;border-radius:14px 14px 0 0;width:100%;';
+  } else {
+    box.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:99999;width:calc(100% - 3rem);max-width:860px;';
+  }
+  box.innerHTML = `
+    <div class="hl-modal-header">
+      <span class="hl-modal-title">🎬 Resumen oficial <span class="hl-dazn-badge">DAZN</span></span>
+      <button class="hl-modal-close" onclick="closeHighlightsModal()" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="hl-player-wrap">
+      <iframe
+        id="hl-modal-iframe"
+        src="https://www.youtube.com/embed/${escapeHtml(videoId)}?rel=0&modestbranding=1&autoplay=1"
+        class="hl-iframe"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        title="Resumen partido">
+      </iframe>
     </div>`;
-  overlay.addEventListener('click', function(e) {
-    if (!document.getElementById('hl-modal-box').contains(e.target)) closeHighlightsModal();
-  });
+
   document.addEventListener('keydown', function _hlEsc(e) {
     if (e.key === 'Escape') { closeHighlightsModal(); document.removeEventListener('keydown', _hlEsc); }
   });
   document.body.appendChild(overlay);
+  document.body.appendChild(box);
   document.body.style.overflow = 'hidden';
 }
 
 function closeHighlightsModal() {
+  const iframe = document.getElementById('hl-modal-iframe');
+  if (iframe) iframe.src = ''; // stop video playback
+  const box = document.getElementById('hl-modal-box');
+  if (box) box.remove();
   const modal = document.getElementById('hl-video-modal');
-  if (modal) {
-    const iframe = modal.querySelector('iframe');
-    if (iframe) iframe.src = ''; // stop video playback
-    modal.remove();
-  }
-  // Only restore scroll if no other overlay is open
+  if (modal) modal.remove();
   if (!document.getElementById('match-detail-drawer')?.classList.contains('open')) {
     document.body.style.overflow = '';
   }
