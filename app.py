@@ -130,25 +130,80 @@ def _result_from_goals(gl, gv):
     return {"sign": sign, "score": f"{gl}-{gv}"}
 
 
-# Transliteration aliases from the API (worldcup26.ir uses Arabic transliteration)
+# Transliteration aliases from the API (worldcup26.ir uses Arabic/Persian transliteration)
 # Format: "api_name_lowercase_no_accents" → "canonical display name"
+# Explicit overrides take priority over fuzzy matching.
 _SCORER_NAME_ALIASES = {
-    # Kylian Mbappé — API returns Arabic transliteration "Kilian Ambaph"
+    # Kylian Mbappé
     "kilian ambaph":  "K. Mbappé",
     "kylian mbappe":  "K. Mbappé",
     "k. mbappe":      "K. Mbappé",
-    # Bradley Barcola — API returns "Brdli Barkvla"
+    # Bradley Barcola
     "brdli barkvla":  "B. Barcola",
     "bradley barcola": "B. Barcola",
-    # Add more as they appear during the tournament
+    # Son Heung-min — API reverses given/family name tokens
+    "aimn hsin":      "Son Heung-min",
+    "hsin aimn":      "Son Heung-min",
+    "son heung-min":  "Son Heung-min",
+    "son heung min":  "Son Heung-min",
+    # Erling Haaland — handled by fuzzy but explicit as fallback
+    "arling halnd":   "E. Haaland",
+    "erling haaland": "E. Haaland",
 }
 
+# ── Fuzzy player lookup built lazily from team_players.KEY_PLAYERS ─────────────
+_PLAYER_LOOKUP = None  # list of (norm_str, display_name, full_name), built lazily
+
+def _build_player_lookup() -> list:
+    """Build normalised lookup from KEY_PLAYERS for fuzzy name matching."""
+    import unicodedata as _ud
+    try:
+        from team_players import KEY_PLAYERS
+    except ImportError:
+        return []
+    result = []
+    for players in KEY_PLAYERS.values():
+        for p in players:
+            full = p["name"]
+            parts = full.split()
+            display = f"{parts[0][0]}. {' '.join(parts[1:])}" if len(parts) >= 2 else full
+            norm = _ud.normalize("NFD", full.lower().replace("-", " "))
+            norm = "".join(c for c in norm if _ud.category(c) != "Mn")
+            result.append((norm, display, full))
+    return result
+
+def _fuzzy_player_match(norm_key, threshold=0.68):
+    """Return display name for closest squad player, or None if below threshold."""
+    global _PLAYER_LOOKUP
+    if _PLAYER_LOOKUP is None:
+        _PLAYER_LOOKUP = _build_player_lookup()
+    if not _PLAYER_LOOKUP:
+        return None
+    import difflib
+    tokens = norm_key.split()
+    candidates = [norm_key, " ".join(reversed(tokens))]
+    best_score, best_display = 0.0, None
+    for norm_canon, display, _ in _PLAYER_LOOKUP:
+        for api_str in candidates:
+            s = difflib.SequenceMatcher(None, api_str, norm_canon, autojunk=False).ratio()
+            if s > best_score:
+                best_score, best_display = s, display
+    return best_display if best_score >= threshold else None
+
 def _fix_scorer_name(name: str) -> str:
-    """Fix API transliteration errors in scorer names."""
+    """Fix API transliteration errors in scorer names.
+
+    1. Explicit alias dict (exact known mappings).
+    2. Fuzzy match against all squad players in team_players.KEY_PLAYERS.
+    3. Return original name if nothing matches well enough.
+    """
     import unicodedata as _ud
     norm = _ud.normalize("NFD", name.strip().lower())
     key  = "".join(c for c in norm if _ud.category(c) != "Mn")
-    return _SCORER_NAME_ALIASES.get(key, name.strip())
+    if key in _SCORER_NAME_ALIASES:
+        return _SCORER_NAME_ALIASES[key]
+    fuzzy = _fuzzy_player_match(key)
+    return fuzzy if fuzzy else name.strip()
 
 
 def _normalize_scorer(s: dict) -> dict:
