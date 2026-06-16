@@ -5804,6 +5804,8 @@ function renderCalendar() {
 /* ═══════════════════════════════════════════════════════════════
    TOP TABLE — Los 30 partidos más top por ranking FIFA combinado
 ═══════════════════════════════════════════════════════════════ */
+let _tptFilter = "all"; // "all" | "played" | "pending"
+
 function renderTopTable() {
   const container = document.getElementById("toptable-container");
   if (!container || !D) return;
@@ -5821,82 +5823,119 @@ function renderTopTable() {
     .sort((a, b) => a.combined - b.combined)
     .slice(0, TOP_N);
 
+  const playedCount  = matches.filter(({ m }) => m.played).length;
+  const pendingCount = matches.filter(({ m }) => !m.played).length;
+
   const PHASE_LABEL = {
     groups: "Grupos", r16: "16avos", r4: "Octavos", r2: "Cuartos",
     r34: "Semifinales", r34_final: "Final / 3.º-4.º"
   };
 
-  const rows = matches.map(({ m, rHome, rAway, combined }, idx) => {
-    const rank = idx + 1;
-    const phase = PHASE_LABEL[m.phase] || m.phase || "";
-    const flagH = m.flag_home || "";
-    const flagA = m.flag_away || "";
+  function buildRows(list) {
+    return list.map(({ m, rHome, rAway, combined, rank }) => {
+      const phase  = PHASE_LABEL[m.phase] || m.phase || "";
+      const flagH  = m.flag_home || "";
+      const flagA  = m.flag_away || "";
 
-    // Result / status
-    let resultHtml;
-    if (m.live) {
-      resultHtml = `<span class="tpt-live">EN VIVO ${m.live_minute ? m.live_minute + "'" : ""}</span>`;
-    } else if (m.played && m.result?.score) {
-      resultHtml = `<span class="tpt-score">${escapeHtml(m.result.score)}</span>`;
-    } else {
-      const dateShort = m.date
-        ? new Date(m.date + "T12:00:00").toLocaleDateString("es-ES", { day: "numeric", month: "short" })
-        : "";
-      resultHtml = `<span class="tpt-date">${escapeHtml(dateShort)}${m.time_es ? " · " + escapeHtml(m.time_es) : ""}</span>`;
-    }
+      // Result / status
+      let resultHtml;
+      if (m.live) {
+        resultHtml = `<span class="tpt-live">EN VIVO ${m.live_minute ? m.live_minute + "'" : ""}</span>`;
+      } else if (m.played && m.result?.score) {
+        resultHtml = `<span class="tpt-score">${escapeHtml(m.result.score)}</span>`;
+      } else {
+        const dateShort = m.date
+          ? new Date(m.date + "T12:00:00").toLocaleDateString("es-ES", { day: "numeric", month: "short" })
+          : "";
+        resultHtml = `<span class="tpt-date">${escapeHtml(dateShort)}${m.time_es ? " · " + escapeHtml(m.time_es) : ""}</span>`;
+      }
 
-    // TV badges (same style as matches tab)
-    const tvHtml = tvBadgesHtml(m);
+      // TV badges (same style as matches tab)
+      const tvHtml = tvBadgesHtml(m);
 
-    // Phase badge
-    const phaseBadge = `<span class="tpt-phase">${escapeHtml(phase)}</span>`;
+      // Phase badge
+      const phaseBadge = `<span class="tpt-phase">${escapeHtml(phase)}</span>`;
 
-    // Rank badge color: top5=gold, top10=green, top20=amber, rest=muted
-    const rankCls = rank <= 5 ? "tpt-rank-gold" : rank <= 10 ? "tpt-rank-green" : rank <= 20 ? "tpt-rank-amber" : "tpt-rank-muted";
+      // Finalizado chip (top-left overlay on the rank badge)
+      const finBadge = m.played && !m.live
+        ? `<span class="tpt-fin-badge" title="Partido finalizado">✓</span>` : "";
 
-    return `
-      <div class="tpt-row${m.played ? " tpt-played" : ""}${m.live ? " tpt-live-row" : ""}"
-           role="button" tabindex="0"
-           onclick="goToMatchesDay('${escapeHtml(m.date || "")}','${escapeHtml(m.name || "")}')"
-           title="Ver partido en la pestaña Partidos">
-        <div class="tpt-rank ${rankCls}">#${rank}</div>
-        <div class="tpt-teams">
-          <div class="tpt-team tpt-team-home">
-            <span class="tpt-flag">${flagH}</span>
-            <span class="tpt-name">${escapeHtml(m.home || "")}</span>
-            <span class="tpt-fifa-rank">#${rHome === 999 ? "—" : rHome}</span>
+      // Rank badge color
+      const rankCls = rank <= 5 ? "tpt-rank-gold" : rank <= 10 ? "tpt-rank-green" : rank <= 20 ? "tpt-rank-amber" : "tpt-rank-muted";
+
+      return `
+        <div class="tpt-row${m.played ? " tpt-played" : ""}${m.live ? " tpt-live-row" : ""}"
+             role="button" tabindex="0"
+             onclick="goToMatchesDay('${escapeHtml(m.date || "")}','${escapeHtml(m.name || "")}')"
+             title="Ver partido en la pestaña Partidos">
+          <div class="tpt-rank-wrap">
+            <div class="tpt-rank ${rankCls}">#${rank}</div>
+            ${finBadge}
           </div>
-          <div class="tpt-vs">
-            ${resultHtml}
+          <div class="tpt-teams">
+            <div class="tpt-team tpt-team-home">
+              <span class="tpt-flag">${flagH}</span>
+              <span class="tpt-name">${escapeHtml(m.home || "")}</span>
+              <span class="tpt-fifa-rank">#${rHome === 999 ? "—" : rHome}</span>
+            </div>
+            <div class="tpt-vs">
+              ${resultHtml}
+            </div>
+            <div class="tpt-team tpt-team-away">
+              <span class="tpt-fifa-rank">#${rAway === 999 ? "—" : rAway}</span>
+              <span class="tpt-name">${escapeHtml(m.away || "")}</span>
+              <span class="tpt-flag">${flagA}</span>
+            </div>
           </div>
-          <div class="tpt-team tpt-team-away">
-            <span class="tpt-fifa-rank">#${rAway === 999 ? "—" : rAway}</span>
-            <span class="tpt-name">${escapeHtml(m.away || "")}</span>
-            <span class="tpt-flag">${flagA}</span>
+          <div class="tpt-meta">
+            ${phaseBadge}
+            ${tvHtml}
+            <span class="tpt-combined" title="Suma ranking FIFA: ${rHome} + ${rAway}">#${combined} FIFA</span>
+            <span class="tpt-go">↗</span>
           </div>
-        </div>
-        <div class="tpt-meta">
-          ${phaseBadge}
-          ${tvHtml}
-          <span class="tpt-combined" title="Suma ranking FIFA: ${rHome} + ${rAway}">#${combined} FIFA</span>
-          <span class="tpt-go">↗</span>
-        </div>
-      </div>`;
+        </div>`;
+    }).join("");
+  }
+
+  // Add rank to each item before filtering
+  const ranked = matches.map((item, idx) => ({ ...item, rank: idx + 1 }));
+
+  const filtered = _tptFilter === "played"  ? ranked.filter(({ m }) => m.played)
+                 : _tptFilter === "pending" ? ranked.filter(({ m }) => !m.played && !m.live)
+                 : ranked;
+
+  const TPT_FILTERS = [
+    { key: "all",     label: "Todos",       count: TOP_N       },
+    { key: "played",  label: "✅ Finalizados", count: playedCount  },
+    { key: "pending", label: "⏳ Pendientes",  count: pendingCount },
+  ];
+
+  const filterPills = TPT_FILTERS.map(f => {
+    const active = f.key === _tptFilter;
+    return `<button class="tpt-filt-btn${active ? " tpt-filt-active" : ""}" data-tptf="${f.key}">${f.label}<span class="tpt-filt-count">${f.count}</span></button>`;
   }).join("");
 
   container.innerHTML = `
     <div class="card p-5 mb-4">
       <div class="flex flex-col gap-1 mb-1">
         <h2 class="text-lg font-bold text-white">🔥 Top ${TOP_N} partidos del Mundial</h2>
-        <p class="text-sm text-gray-400">Clasificados por suma del ranking FIFA de ambos equipos — menor suma, mayor calidad del duelo. Pulsa cualquier partido para verlo en detalle.</p>
+        <p class="text-sm text-gray-400">Clasificados por suma del ranking FIFA — menor suma, mayor calidad del duelo. Pulsa cualquier partido para verlo en detalle.</p>
       </div>
-      <div class="flex gap-4 flex-wrap mt-3 mb-1">
+      <div class="flex gap-4 flex-wrap mt-2 mb-3">
         <span class="tpt-legend tpt-rank-gold">Top 5</span>
         <span class="tpt-legend tpt-rank-green">Top 10</span>
         <span class="tpt-legend tpt-rank-amber">Top 20</span>
       </div>
+      <div class="tpt-filt-row">${filterPills}</div>
     </div>
-    <div class="tpt-list">${rows}</div>`;
+    <div class="tpt-list">${buildRows(filtered)}</div>`;
+
+  container.querySelectorAll(".tpt-filt-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      _tptFilter = btn.dataset.tptf;
+      renderTopTable();
+    });
+  });
 }
 
 function goToMatchesDay(isoDate, matchName) {

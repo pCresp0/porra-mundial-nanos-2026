@@ -4336,6 +4336,68 @@ body.mode-guest .tms-sub-tabs { display: none !important; }
   cursor: pointer;
   transition: border-color .15s, background .15s;
 }
+/* rank column wrapper — position:relative so the fin-badge can anchor to it */
+.tpt-rank-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.8rem;
+}
+.tpt-fin-badge {
+  position: absolute;
+  top: -.55rem;
+  right: -.55rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background: #22C55E;
+  color: #fff;
+  font-size: .58rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  border: 1.5px solid var(--card);
+  pointer-events: none;
+}
+/* filter pills */
+.tpt-filt-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+}
+.tpt-filt-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  padding: .28rem .75rem;
+  border-radius: 20px;
+  font-size: .78rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--card2);
+  color: #94A3B8;
+  transition: all .15s;
+  white-space: nowrap;
+}
+.tpt-filt-btn:hover:not(.tpt-filt-active) { border-color: #475569; color: #CBD5E1; }
+.tpt-filt-active { background: var(--gold); border-color: var(--gold); color: #0F172A; }
+.tpt-filt-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.15rem;
+  height: 1.15rem;
+  padding: 0 .25rem;
+  border-radius: 999px;
+  font-size: .66rem;
+  font-weight: 800;
+  background: rgba(255,255,255,.12);
+  color: inherit;
+}
 .tpt-row:hover { border-color: #475569; background: var(--card2); }
 .tpt-row:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 .tpt-played { opacity: .72; }
@@ -4401,9 +4463,10 @@ body.mode-guest .tms-sub-tabs { display: none !important; }
 }
 .tpt-score {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.25rem;
-  color: #F1F5F9;
+  font-size: 1.3rem;
+  color: var(--gold);
   white-space: nowrap;
+  font-weight: 700;
 }
 .tpt-date {
   font-size: .73rem;
@@ -4469,10 +4532,13 @@ body.mode-guest .tms-sub-tabs { display: none !important; }
     gap: .3rem .5rem;
     padding: .65rem .75rem;
   }
-  /* rank badge spans both rows, vertically centred */
-  .tpt-rank {
+  /* rank-wrap (+ badge) spans both rows, vertically centred */
+  .tpt-rank-wrap {
     grid-row: 1 / 3;
     align-self: center;
+    width: 2.4rem;
+  }
+  .tpt-rank {
     font-size: 1.05rem;
   }
   /* teams row: keep horizontal (home | vs | away), tighter */
