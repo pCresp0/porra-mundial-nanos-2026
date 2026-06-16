@@ -1,12 +1,19 @@
 {
   "Irán-Nueva Zelanda": {
-    "home": 1,
+    "home": 2,
     "away": 2,
     "minute": "live",
     "scorers": [
       {
         "player": "Ramin Rzaiian",
         "minute": "32'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Mohamed Mhbi",
+        "minute": "64'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
