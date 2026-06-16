@@ -137,6 +137,9 @@ _SCORER_NAME_ALIASES = {
     "kilian ambaph":  "K. Mbappé",
     "kylian mbappe":  "K. Mbappé",
     "k. mbappe":      "K. Mbappé",
+    # Bradley Barcola — API returns "Brdli Barkvla"
+    "brdli barkvla":  "B. Barcola",
+    "bradley barcola": "B. Barcola",
     # Add more as they appear during the tournament
 }
 
@@ -242,11 +245,21 @@ def _load_live():
         if not isinstance(val, dict):
             continue
         # Fix API transliteration errors in scorer names
-        if "scorers" in val and isinstance(val["scorers"], list):
-            val = {**val, "scorers": [
-                {**sc, "player": _fix_scorer_name(sc.get("player", ""))}
-                for sc in val["scorers"]
-            ]}
+        scorers = val.get("scorers", [])
+        if scorers and isinstance(scorers, list):
+            scorers = [{**sc, "player": _fix_scorer_name(sc.get("player", ""))} for sc in scorers]
+            val = {**val, "scorers": scorers}
+            # Recalculate score from scorers when API score lags behind
+            # (API updates scorers list before updating home/away score fields)
+            home_from_sc = sum(1 for sc in scorers if sc.get("team") == "home" and not sc.get("own_goal"))
+            home_from_sc += sum(1 for sc in scorers if sc.get("team") == "away" and sc.get("own_goal"))
+            away_from_sc = sum(1 for sc in scorers if sc.get("team") == "away" and not sc.get("own_goal"))
+            away_from_sc += sum(1 for sc in scorers if sc.get("team") == "home" and sc.get("own_goal"))
+            api_home = val.get("home", 0) or 0
+            api_away = val.get("away", 0) or 0
+            val = {**val,
+                   "home": max(api_home, home_from_sc),
+                   "away": max(api_away, away_from_sc)}
         out[key] = val
         out[key.replace(" ", "")] = val
     return out
