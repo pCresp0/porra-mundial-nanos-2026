@@ -2113,9 +2113,9 @@ function renderForma(prog, cutIdx) {
     const n = pts.length; if (n === 0) return "";
     const W=100, H=42, pT=9, pB=5;
     const iH = H-pT-pB;
-    // Align each SVG point with the center of its corresponding flex dot:
-    // .forma-dot-wrap has flex:1 → center of item i = (2i+1)/(2n) * 100%
-    const xs = pts.map((_, i) => (2*i + 1) / (2*n) * W);
+    // xs[i] = i/(n-1)*W → spans 0..W (full width).
+    // Dots use position:absolute left:i/(n-1)*100% → exact alignment.
+    const xs = pts.map((_, i) => n === 1 ? W/2 : (i / (n-1)) * W);
     const ys = pts.map(v  => pT + iH - (Math.min(+v,maxPerMatch)/maxPerMatch)*iH);
     const path = xs.map((x,i) => `${i===0?"M":"L"}${x.toFixed(1)} ${ys[i].toFixed(1)}`).join(" ");
     const fill = `${path} L${xs.at(-1).toFixed(1)} ${pT+iH} L${xs[0].toFixed(1)} ${pT+iH} Z`;
@@ -2145,7 +2145,8 @@ function renderForma(prog, cutIdx) {
       const title = escapeHtml(last5Titles[i] || "");
       const lbl   = escapeHtml(last5Labels[i] || "");
       const ptsStr = pts > 0 ? (pts % 1 === 0 ? String(pts) : pts.toFixed(1)) : "0";
-      return `<div class="forma-dot-wrap" title="${title}">
+      const xPct  = (last5.length === 1 ? 50 : (i / (last5.length - 1) * 100)).toFixed(1);
+      return `<div class="forma-dot-wrap" style="left:${xPct}%" title="${title}">
         <div class="forma-dot" style="background:${dc.bg};border-color:${dc.border};color:${dc.text}">${ptsStr}</div>
         <div class="forma-dot-lbl">${lbl}</div>
       </div>`;

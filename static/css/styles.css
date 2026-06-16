@@ -4030,15 +4030,17 @@
 .forma-spark-svg { width: 100%; height: 42px; display: block; }
 /* dots row */
 .forma-dots-row {
-  display: flex;
-  gap: 0;
+  position: relative;
+  height: 46px; /* dot(26) + gap(3.5) + label(~12) + buffer */
 }
 .forma-dot-wrap {
+  position: absolute;
+  top: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: .22rem;
-  flex: 1;
+  transform: translateX(-50%);
   cursor: default;
 }
 .forma-dot {
@@ -4085,6 +4087,7 @@
 }
 @media (max-width: 767px) {
   .forma-grid { grid-template-columns: repeat(2, 1fr); gap: .6rem; }
+  .forma-dots-row { height: 38px; }
   .forma-dot  { width: 22px; height: 22px; font-size: .6rem; }
   .forma-dot-lbl { font-size: .48rem; max-width: 24px; }
   .forma-name { font-size: .8rem; }
@@ -4093,6 +4096,7 @@
 @media (max-width: 480px) {
   .forma-grid { grid-template-columns: repeat(2, 1fr); gap: .5rem; }
   .forma-card { padding: .65rem .6rem; gap: .4rem; }
+  .forma-dots-row { height: 34px; }
   .forma-dot  { width: 20px; height: 20px; font-size: .57rem; }
   .forma-dot-lbl { font-size: .44rem; max-width: 22px; }
 }
