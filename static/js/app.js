@@ -2119,15 +2119,9 @@ function renderForma(prog, cutIdx) {
     const ys = pts.map(v  => pT + iH - (Math.min(+v,maxPerMatch)/maxPerMatch)*iH);
     const path = xs.map((x,i) => `${i===0?"M":"L"}${x.toFixed(1)} ${ys[i].toFixed(1)}`).join(" ");
     const fill = `${path} L${xs.at(-1).toFixed(1)} ${pT+iH} L${xs[0].toFixed(1)} ${pT+iH} Z`;
-    const dots = xs.map((x,i) => {
-      const c = pts[i] > 0 ? color : "#EF4444";
-      const r = pts[i] >= maxPerMatch ? 4.5 : pts[i] > 0 ? 3.5 : 3;
-      return `<circle cx="${x.toFixed(1)}" cy="${ys[i].toFixed(1)}" r="${r}" fill="${c}" stroke="#0F172A" stroke-width="1.5"/>`;
-    }).join("");
     return `<svg viewBox="0 0 ${W} ${H}" fill="none" xmlns="http://www.w3.org/2000/svg" class="forma-spark-svg">
       <path d="${fill}" fill="${color}28"/>
       <path d="${path}" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      ${dots}
     </svg>`;
   }
 
@@ -2145,8 +2139,9 @@ function renderForma(prog, cutIdx) {
       const title = escapeHtml(last5Titles[i] || "");
       const lbl   = escapeHtml(last5Labels[i] || "");
       const ptsStr = pts > 0 ? (pts % 1 === 0 ? String(pts) : pts.toFixed(1)) : "0";
-      const xPct  = (last5.length === 1 ? 50 : (i / (last5.length - 1) * 100)).toFixed(1);
-      return `<div class="forma-dot-wrap" style="left:${xPct}%" title="${title}">
+      const _frac = last5.length === 1 ? 0.5 : i / (last5.length - 1);
+      const _left = last5.length === 1 ? 'left:50%' : `left:calc(13px + ${_frac.toFixed(4)} * (100% - 26px))`;
+      return `<div class="forma-dot-wrap" style="${_left}" title="${title}">
         <div class="forma-dot" style="background:${dc.bg};border-color:${dc.border};color:${dc.text}">${ptsStr}</div>
         <div class="forma-dot-lbl">${lbl}</div>
       </div>`;
