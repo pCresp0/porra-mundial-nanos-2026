@@ -1,8 +1,16 @@
 {
   "Francia-Senegal": {
-    "home": 0,
+    "home": 1,
     "away": 0,
     "minute": "live",
-    "scorers": []
+    "scorers": [
+      {
+        "player": "Kilian Ambaph",
+        "minute": "66'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      }
+    ]
   }
 }
