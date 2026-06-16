@@ -4031,8 +4031,7 @@
 /* dots row */
 .forma-dots-row {
   display: flex;
-  justify-content: space-between;
-  gap: .25rem;
+  gap: 0;
 }
 .forma-dot-wrap {
   display: flex;
@@ -4086,7 +4085,6 @@
 }
 @media (max-width: 767px) {
   .forma-grid { grid-template-columns: repeat(2, 1fr); gap: .6rem; }
-  .forma-dots-row { gap: .18rem; }
   .forma-dot  { width: 22px; height: 22px; font-size: .6rem; }
   .forma-dot-lbl { font-size: .48rem; max-width: 24px; }
   .forma-name { font-size: .8rem; }
@@ -4095,7 +4093,6 @@
 @media (max-width: 480px) {
   .forma-grid { grid-template-columns: repeat(2, 1fr); gap: .5rem; }
   .forma-card { padding: .65rem .6rem; gap: .4rem; }
-  .forma-dots-row { gap: .12rem; }
   .forma-dot  { width: 20px; height: 20px; font-size: .57rem; }
   .forma-dot-lbl { font-size: .44rem; max-width: 22px; }
 }
