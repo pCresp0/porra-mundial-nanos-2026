@@ -4665,8 +4665,13 @@ function _renderScePersonal(standings, leader, maxPerMatch, remainingGroups, col
     }
   }
 
-  // Sort battles: sign_diff first (higher impact), then score_diff
+  // Sort battles by date/time ascending (soonest first)
   battles.sort((a, b) => {
+    const da = `${a.m.date || ""}T${a.m.time_es || "00:00"}`;
+    const db = `${b.m.date || ""}T${b.m.time_es || "00:00"}`;
+    if (da < db) return -1;
+    if (da > db) return 1;
+    // secondary: sign_diff (higher impact) first within same slot
     if (a.type === "sign_diff" && b.type !== "sign_diff") return -1;
     if (b.type === "sign_diff" && a.type !== "sign_diff") return 1;
     return 0;
