@@ -2020,6 +2020,128 @@ function renderProgression() {
         </div>
       </div>`;
   }).join("");
+
+  renderForma(prog, cutIdx);
+}
+
+function renderForma(prog, cutIdx) {
+  const el = document.getElementById("prog-forma");
+  if (!el || !D) return;
+
+  const players = D.meta.players;
+  const colors  = D.meta.colors;
+  const maxPerMatch = +(D.scoring_rules?.max_per_group_match || 6);
+  const allDayPts = prog.day_points || {};
+  const allLabels = (prog.labels  || []).slice(0, cutIdx + 1);
+  const allTitles = (prog.titles  || []).slice(0, cutIdx + 1);
+
+  const N = 5;
+  const startIdx = Math.max(0, cutIdx + 1 - N);
+  const last5Labels = allLabels.slice(startIdx);
+  const last5Titles = allTitles.slice(startIdx);
+  const shown = last5Labels.length;
+  if (shown === 0) { el.innerHTML = ""; return; }
+
+  function _formaInfo(pts) {
+    if (!pts.length) return { icon: "—", text: "Sin datos", col: "#64748B" };
+    const last = pts.at(-1);
+    let streak = 0;
+    for (let i = pts.length - 1; i >= 0; i--) { if (pts[i] > 0) streak++; else break; }
+    const sum3 = pts.slice(-3).reduce((a, b) => a + b, 0);
+    if (streak >= 4)       return { icon: "🔥", text: `Racha de ${streak}`, col: "#F5C518" };
+    if (last >= maxPerMatch) return { icon: "🥇", text: "¡Exacto!", col: "#F5C518" };
+    if (last >= 3 && streak >= 2) return { icon: "🔥", text: `Racha ${streak}`, col: "#22C55E" };
+    if (last >= 3)         return { icon: "📈", text: "Última buena", col: "#22C55E" };
+    if (last >= 1)         return { icon: "✅", text: "En puntos", col: "#84CC16" };
+    if (sum3 === 0)        return { icon: "❄️", text: "En blanco", col: "#94A3B8" };
+    return { icon: "📉", text: "Irregular", col: "#F59E0B" };
+  }
+
+  function _dotStyle(pts) {
+    if (pts >= maxPerMatch) return { bg: "#F5C51828", border: "#F5C518", text: "#F5C518" };
+    if (pts >= 3)           return { bg: "#22C55E28", border: "#22C55E", text: "#22C55E" };
+    if (pts >= 1)           return { bg: "#F59E0B28", border: "#F59E0B", text: "#F59E0B" };
+    return                         { bg: "#EF444418", border: "#EF444455", text: "#EF4444" };
+  }
+
+  function _sparkSvg(pts, color) {
+    const n = pts.length; if (n === 0) return "";
+    const W=100, H=42, pL=5, pR=5, pT=9, pB=5;
+    const iW = W-pL-pR, iH = H-pT-pB;
+    const xs = pts.map((_, i) => pL + (n === 1 ? iW/2 : (i/(n-1))*iW));
+    const ys = pts.map(v  => pT + iH - (Math.min(+v,maxPerMatch)/maxPerMatch)*iH);
+    const path = xs.map((x,i) => `${i===0?"M":"L"}${x.toFixed(1)} ${ys[i].toFixed(1)}`).join(" ");
+    const fill = `${path} L${xs.at(-1).toFixed(1)} ${pT+iH} L${pL} ${pT+iH} Z`;
+    const dots = xs.map((x,i) => {
+      const c = pts[i] > 0 ? color : "#EF4444";
+      const r = pts[i] >= maxPerMatch ? 4.5 : pts[i] > 0 ? 3.5 : 3;
+      return `<circle cx="${x.toFixed(1)}" cy="${ys[i].toFixed(1)}" r="${r}" fill="${c}" stroke="#0F172A" stroke-width="1.5"/>`;
+    }).join("");
+    return `<svg viewBox="0 0 ${W} ${H}" fill="none" xmlns="http://www.w3.org/2000/svg" class="forma-spark-svg">
+      <path d="${fill}" fill="${color}28"/>
+      <path d="${path}" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      ${dots}
+    </svg>`;
+  }
+
+  const standings = D.standings || [];
+
+  const cards = players.map(name => {
+    const color   = colors[name];
+    const stand   = standings.find(s => s.name === name) || {};
+    const allPts  = (allDayPts[name] || []).slice(0, cutIdx + 1);
+    const last5   = allPts.slice(startIdx);
+    const sum5    = last5.reduce((a, b) => a + b, 0);
+    const forma   = _formaInfo(last5);
+    const spark   = _sparkSvg(last5, color);
+
+    const dotsHtml = last5.map((pts, i) => {
+      const dc    = _dotStyle(pts);
+      const title = escapeHtml(last5Titles[i] || "");
+      const lbl   = escapeHtml(last5Labels[i] || "");
+      const ptsStr = pts > 0 ? (pts % 1 === 0 ? String(pts) : pts.toFixed(1)) : "0";
+      return `<div class="forma-dot-wrap" title="${title}">
+        <div class="forma-dot" style="background:${dc.bg};border-color:${dc.border};color:${dc.text}">${ptsStr}</div>
+        <div class="forma-dot-lbl">${lbl}</div>
+      </div>`;
+    }).join("");
+
+    // heat bar: sum5 / (shown * maxPerMatch)
+    const heatPct = Math.round((sum5 / (shown * maxPerMatch)) * 100);
+
+    return `<div class="forma-card" style="--fcolor:${color}">
+      <div class="forma-card-head">
+        <div class="forma-name-row">
+          <div class="forma-color-dot" style="background:${color}"></div>
+          <span class="forma-name">${escapeHtml(name)}</span>
+        </div>
+        <div class="forma-meta">#${stand.pos ?? "—"} · <span class="bebas" style="color:${color};font-size:.95rem">${stand.total ?? 0}</span> pts total</div>
+      </div>
+      <div class="forma-heat-wrap" title="Rendimiento: ${heatPct}% de puntos posibles en últimos ${shown}">
+        <div class="forma-heat-bar" style="width:${heatPct}%;background:${color}"></div>
+      </div>
+      <div class="forma-spark">${spark}</div>
+      <div class="forma-dots-row">${dotsHtml}</div>
+      <div class="forma-footer">
+        <span class="forma-badge" style="color:${forma.col}">${forma.icon} ${forma.text}</span>
+        <span class="forma-sum" title="Puntos en últimos ${shown} partidos">+${sum5} pts</span>
+      </div>
+    </div>`;
+  }).join("");
+
+  el.innerHTML = `
+    <div class="flex items-center gap-3 mb-1 flex-wrap">
+      <h3 class="font-bold text-white text-lg">🌡️ Termómetro de forma</h3>
+      <span class="text-xs text-gray-500 font-semibold uppercase tracking-wide">Últimos ${shown} partidos</span>
+    </div>
+    <p class="text-sm text-gray-400 mb-4">
+      Rendimiento reciente de cada jugador partido a partido.
+      <span class="forma-legend-item" style="color:#F5C518">⬤ exacto (${maxPerMatch}p)</span>
+      <span class="forma-legend-item" style="color:#22C55E">⬤ ≥3p</span>
+      <span class="forma-legend-item" style="color:#F59E0B">⬤ 1-2p</span>
+      <span class="forma-legend-item" style="color:#EF4444">⬤ 0p</span>
+    </p>
+    <div class="forma-grid">${cards}</div>`;
 }
 
 /* ─── MATCHES ─── */

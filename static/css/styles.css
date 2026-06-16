@@ -3948,8 +3948,111 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   TAB: ESCENARIOS
+   TERMÓMETRO DE FORMA (tab Progresión)
 ═══════════════════════════════════════════════════════════════ */
+.forma-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .875rem;
+}
+.forma-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--fcolor, var(--border));
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .55rem;
+  transition: box-shadow .2s;
+}
+.forma-card:hover { box-shadow: 0 0 0 1px var(--fcolor, var(--border)); }
+.forma-card-head { display: flex; flex-direction: column; gap: .15rem; }
+.forma-name-row { display: flex; align-items: center; gap: .45rem; }
+.forma-color-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.forma-name { font-weight: 800; color: #fff; font-size: .9rem; text-transform: uppercase; letter-spacing: .04em; }
+.forma-meta { font-size: .63rem; color: #64748B; font-weight: 600; }
+/* heat bar */
+.forma-heat-wrap {
+  height: 3px;
+  background: rgba(255,255,255,.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.forma-heat-bar { height: 3px; border-radius: 2px; transition: width .6s; min-width: 2px; }
+/* sparkline */
+.forma-spark { border-radius: 6px; overflow: hidden; }
+.forma-spark-svg { width: 100%; height: 42px; display: block; }
+/* dots row */
+.forma-dots-row {
+  display: flex;
+  justify-content: space-between;
+  gap: .25rem;
+}
+.forma-dot-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .22rem;
+  flex: 1;
+  cursor: default;
+}
+.forma-dot {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .72rem;
+  font-weight: 800;
+  line-height: 1;
+  transition: transform .15s;
+}
+.forma-dot-wrap:hover .forma-dot { transform: scale(1.15); }
+.forma-dot-lbl {
+  font-size: .55rem;
+  color: #475569;
+  font-weight: 600;
+  text-align: center;
+  max-width: 32px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: -.01em;
+}
+/* footer */
+.forma-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: .45rem;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+.forma-badge { font-size: .73rem; font-weight: 700; }
+.forma-sum { font-size: .65rem; color: #64748B; font-weight: 600; }
+/* legend in description */
+.forma-legend-item { font-size: .72rem; font-weight: 700; margin-left: .5rem; }
+
+@media (max-width: 1024px) {
+  .forma-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 767px) {
+  .forma-grid { grid-template-columns: repeat(2, 1fr); gap: .6rem; }
+  .forma-dot  { width: 24px; height: 24px; font-size: .65rem; }
+  .forma-name { font-size: .8rem; }
+  .forma-spark-svg { height: 36px; }
+}
+@media (max-width: 480px) {
+  .forma-grid { grid-template-columns: repeat(2, 1fr); gap: .5rem; }
+  .forma-card { padding: .75rem; gap: .45rem; }
+  .forma-dot  { width: 22px; height: 22px; font-size: .6rem; }
+  .forma-dot-lbl { font-size: .5rem; max-width: 28px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TAB: ESCENARIOS═══════════════════════════════════════════════════════════════ */
 .sce-hero-stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
