@@ -13,6 +13,7 @@ const VISITOR_PATH = "/porra-mundial-nanos-2026";
 const FEEDBACK_API = "https://script.google.com/macros/s/AKfycbwoXHBr6i2H7Klp4KBPS2KCBUtIiuX2DAimFk1e-mkRKzNeWLtZRlfKZikyvltcRPLd/exec";
 let progressionChart = null;
 let hitRateChart = null;
+let _progWindow = 10; // last N matches to show in progression chart (0 = all)
 let breakdownChart = null;
 let currentPhase = "all";
 let currentWeek  = "all";
@@ -1903,9 +1904,31 @@ function renderProgression() {
     if (allDates[i] > todayStr) { cutIdx = i - 1; break; }
   }
   cutIdx = Math.max(0, cutIdx);
-  const labels = allFlagLabels.slice(0, cutIdx + 1);
-  const dates  = allDates.slice(0, cutIdx + 1);
-  const titles = allTitles.slice(0, cutIdx + 1);
+
+  // Apply window filter: show last _progWindow matches (0 = all)
+  const totalPlayed = cutIdx + 1;
+  const winStart = (_progWindow > 0 && _progWindow < totalPlayed) ? totalPlayed - _progWindow : 0;
+
+  const labels = allFlagLabels.slice(winStart, cutIdx + 1);
+  const dates  = allDates.slice(winStart, cutIdx + 1);
+  const titles = allTitles.slice(winStart, cutIdx + 1);
+
+  // ── Window selector UI ────────────────────────────────────
+  const WIN_OPTS = [5, 10, 15, 0]; // 0 = Todos
+  const winRow = document.getElementById("prog-window-row");
+  if (winRow) {
+    winRow.innerHTML = WIN_OPTS.map(w => {
+      const lbl    = w === 0 ? "Todos" : String(w);
+      const active = (w === _progWindow) || (w === 0 && _progWindow === 0);
+      return `<button class="prog-win-btn${active ? " prog-win-active" : ""}" data-win="${w}">${lbl}</button>`;
+    }).join("");
+    winRow.querySelectorAll(".prog-win-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        _progWindow = +btn.dataset.win;
+        renderProgression();
+      });
+    });
+  }
 
   // Different dash patterns so overlapping lines (tied players) are always distinguishable
   const DASHES = [[], [8,4], [4,4], [12,4,4,4], [5,2,2,2], [2,2]];
@@ -1913,7 +1936,7 @@ function renderProgression() {
 
   const datasets = players.map((name, idx) => ({
     label: name,
-    data:  ((prog.players && prog.players[name]) || []).slice(0, cutIdx + 1),
+    data:  ((prog.players && prog.players[name]) || []).slice(winStart, cutIdx + 1),
     borderColor: colors[name],
     backgroundColor: colors[name] + "22",
     borderWidth: 2.5,
@@ -1944,7 +1967,8 @@ function renderProgression() {
           callbacks: {
             title: items => {
               const i = items[0].dataIndex;
-              const dayPts = prog.day_points?.[items[0].dataset.label]?.[i];
+              const absIdx = winStart + i; // map sliced index back to full array
+              const dayPts = prog.day_points?.[items[0].dataset.label]?.[absIdx];
               const head = titles[i] || dates[i] || labels[i];
               return `${head}${dayPts > 0 ? ` (+${dayPts} este partido)` : ""}`;
             },

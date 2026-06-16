@@ -280,12 +280,16 @@
   ════════════════════════════════════════════ -->
   <section id="tab-progression" class="hidden">
     <div class="card p-6 mb-4">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-3">
         <div>
           <h2 class="text-lg font-bold text-white">Progresión partido a partido</h2>
           <p class="text-sm text-gray-400 mt-1">Puntos acumulados tras cada partido jugado (orden cronológico)</p>
         </div>
         <div class="flex gap-2 flex-wrap" id="prog-legend"></div>
+      </div>
+      <div class="flex items-center gap-2 mb-4 flex-wrap">
+        <span class="text-xs text-gray-500">Últimos:</span>
+        <div id="prog-window-row" class="flex gap-1.5 flex-wrap"></div>
       </div>
       <div style="height:380px; position:relative">
         <canvas id="progressionChart"></canvas>
