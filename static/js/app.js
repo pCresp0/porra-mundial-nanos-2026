@@ -2111,20 +2111,18 @@ function renderForma(prog, cutIdx) {
 
   function _sparkSvg(pts, color) {
     const n = pts.length; if (n === 0) return "";
-    const W=100, H=42, pT=9, pB=5;
-    const iH = H-pT-pB;
-    // xs[i] = i/(n-1)*W → spans 0..W (full width).
-    // Dots use position:absolute left:i/(n-1)*100% → exact alignment.
-    const xs = pts.map((_, i) => n === 1 ? W/2 : (i / (n-1)) * W);
+    const W=100, H=42, pL=5, pR=5, pT=9, pB=5;
+    const iW = W-pL-pR, iH = H-pT-pB;
+    const xs = pts.map((_, i) => pL + (n === 1 ? iW/2 : (i/(n-1))*iW));
     const ys = pts.map(v  => pT + iH - (Math.min(+v,maxPerMatch)/maxPerMatch)*iH);
     const path = xs.map((x,i) => `${i===0?"M":"L"}${x.toFixed(1)} ${ys[i].toFixed(1)}`).join(" ");
-    const fill = `${path} L${xs.at(-1).toFixed(1)} ${pT+iH} L${xs[0].toFixed(1)} ${pT+iH} Z`;
+    const fill = `${path} L${xs.at(-1).toFixed(1)} ${pT+iH} L${pL} ${pT+iH} Z`;
     const dots = xs.map((x,i) => {
       const c = pts[i] > 0 ? color : "#EF4444";
       const r = pts[i] >= maxPerMatch ? 4.5 : pts[i] > 0 ? 3.5 : 3;
       return `<circle cx="${x.toFixed(1)}" cy="${ys[i].toFixed(1)}" r="${r}" fill="${c}" stroke="#0F172A" stroke-width="1.5"/>`;
     }).join("");
-    return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" class="forma-spark-svg">
+    return `<svg viewBox="0 0 ${W} ${H}" fill="none" xmlns="http://www.w3.org/2000/svg" class="forma-spark-svg">
       <path d="${fill}" fill="${color}28"/>
       <path d="${path}" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
       ${dots}
@@ -2145,9 +2143,7 @@ function renderForma(prog, cutIdx) {
       const title = escapeHtml(last5Titles[i] || "");
       const lbl   = escapeHtml(last5Labels[i] || "");
       const ptsStr = pts > 0 ? (pts % 1 === 0 ? String(pts) : pts.toFixed(1)) : "0";
-      const _frac = last5.length === 1 ? 0.5 : i / (last5.length - 1);
-      const _left = last5.length === 1 ? 'left:50%' : `left:calc(13px + ${_frac.toFixed(4)} * (100% - 26px))`;
-      return `<div class="forma-dot-wrap" style="${_left}" title="${title}">
+      return `<div class="forma-dot-wrap" title="${title}">
         <div class="forma-dot" style="background:${dc.bg};border-color:${dc.border};color:${dc.text}">${ptsStr}</div>
         <div class="forma-dot-lbl">${lbl}</div>
       </div>`;
