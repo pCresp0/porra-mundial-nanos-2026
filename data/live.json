@@ -1,6 +1,5 @@
 {
   "Francia-Senegal": {
-<<<<<<< Updated upstream
     "home": 1,
     "away": 0,
     "minute": "live",
@@ -13,11 +12,5 @@
         "team": "home"
       }
     ]
-=======
-    "home": 0,
-    "away": 0,
-    "minute": "live",
-    "scorers": []
->>>>>>> Stashed changes
   }
 }

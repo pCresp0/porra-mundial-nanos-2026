@@ -130,6 +130,24 @@ def _result_from_goals(gl, gv):
     return {"sign": sign, "score": f"{gl}-{gv}"}
 
 
+# Transliteration aliases from the API (worldcup26.ir uses Arabic transliteration)
+# Format: "api_name_lowercase_no_accents" → "canonical display name"
+_SCORER_NAME_ALIASES = {
+    # Kylian Mbappé — API returns Arabic transliteration "Kilian Ambaph"
+    "kilian ambaph":  "K. Mbappé",
+    "kylian mbappe":  "K. Mbappé",
+    "k. mbappe":      "K. Mbappé",
+    # Add more as they appear during the tournament
+}
+
+def _fix_scorer_name(name: str) -> str:
+    """Fix API transliteration errors in scorer names."""
+    import unicodedata as _ud
+    norm = _ud.normalize("NFD", name.strip().lower())
+    key  = "".join(c for c in norm if _ud.category(c) != "Mn")
+    return _SCORER_NAME_ALIASES.get(key, name.strip())
+
+
 def _normalize_scorer(s: dict) -> dict:
     """Normalise scorer dicts that were saved with the old broken parser.
 
@@ -150,26 +168,26 @@ def _normalize_scorer(s: dict) -> dict:
     if m:
         extra = _re.match(r"^(\d+)'?$", minute.strip())
         if extra:
-            return {**s, "player": m.group(1).strip(),
+            return {**s, "player": _fix_scorer_name(m.group(1).strip()),
                     "minute": f"{m.group(2)}'+{extra.group(1)}'",
                     "own_goal": own_goal, "penalty": penalty}
 
     # Case 2: OG embedded in player with minute: "Name 7'(OG)"
     m = _re.match(r"^(.*?)\s*(\d+)\s*'?\s*\(OG\)\s*$", player, _re.IGNORECASE)
     if m:
-        return {**s, "player": m.group(1).strip(),
+        return {**s, "player": _fix_scorer_name(m.group(1).strip()),
                 "minute": m.group(2) + "'",
                 "own_goal": True, "penalty": False}
 
     # Case 3: penalty embedded in player: "Name 7'(P)"
     m = _re.match(r"^(.*?)\s*(\d+)\s*'?\s*\(P\)\s*$", player, _re.IGNORECASE)
     if m:
-        return {**s, "player": m.group(1).strip(),
+        return {**s, "player": _fix_scorer_name(m.group(1).strip()),
                 "minute": m.group(2) + "'",
                 "own_goal": False, "penalty": True}
 
     # Already OK
-    return {**s, "own_goal": own_goal, "penalty": penalty}
+    return {**s, "player": _fix_scorer_name(player), "own_goal": own_goal, "penalty": penalty}
 
 
 def _load_scorers():
@@ -223,6 +241,12 @@ def _load_live():
     for key, val in raw.items():
         if not isinstance(val, dict):
             continue
+        # Fix API transliteration errors in scorer names
+        if "scorers" in val and isinstance(val["scorers"], list):
+            val = {**val, "scorers": [
+                {**sc, "player": _fix_scorer_name(sc.get("player", ""))}
+                for sc in val["scorers"]
+            ]}
         out[key] = val
         out[key.replace(" ", "")] = val
     return out
