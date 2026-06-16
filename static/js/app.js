@@ -2778,39 +2778,53 @@ function parseScorers(str) {
 /* ── Highlights video modal ─────────────────────────────────────────── */
 function openHighlightsModal(videoId, evt) {
   if (evt) { evt.stopPropagation(); evt.preventDefault(); }
-  const existing = document.getElementById('hl-video-modal');
-  if (existing) existing.remove();
-  const existingBox = document.getElementById('hl-modal-box');
-  if (existingBox) existingBox.remove();
+  document.getElementById('hl-video-modal')?.remove();
+  document.getElementById('hl-modal-box')?.remove();
 
-  const isMobile = window.innerWidth <= 767;
+  const vid    = escapeHtml(videoId);
+  const ytUrl  = `https://www.youtube.com/watch?v=${vid}`;
+  const vw     = window.innerWidth;
+  const vh     = window.innerHeight;
+  const mobile = vw <= 767;
 
-  // Backdrop — just a dark overlay, no flex centering needed
+  // Max width: 860px desktop, full width - 24px mobile
+  const boxW   = mobile ? vw - 24 : Math.min(860, vw - 48);
+  // Height = header (44px) + 16/9 player
+  const playerH = Math.round(boxW * 9 / 16);
+  const boxH   = playerH + 44;
+  const left   = Math.round((vw - boxW) / 2);
+  const top    = Math.round((vh - boxH) / 2);
+
+  // Backdrop
   const overlay = document.createElement('div');
   overlay.id = 'hl-video-modal';
-  overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;z-index:99998;background:rgba(0,0,0,.87);';
+  overlay.style.cssText = `position:fixed;top:0;left:0;right:0;bottom:0;z-index:99998;background:rgba(0,0,0,.88);`;
   overlay.addEventListener('click', () => closeHighlightsModal());
 
-  // Modal box — positioned independently via transform centering
+  // Modal box — always centered via absolute coordinates
   const box = document.createElement('div');
-  box.id = 'hl-modal-box';
+  box.id  = 'hl-modal-box';
   box.className = 'hl-modal-box';
-  if (isMobile) {
-    box.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:99999;border-radius:14px 14px 0 0;width:100%;';
-  } else {
-    box.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:99999;width:calc(100% - 3rem);max-width:860px;';
-  }
+  box.style.cssText = `position:fixed;top:${top}px;left:${left}px;width:${boxW}px;z-index:99999;border-radius:12px;overflow:hidden;background:var(--card);border:1px solid var(--border);box-shadow:0 24px 80px rgba(0,0,0,.8);`;
   box.innerHTML = `
     <div class="hl-modal-header">
-      <span class="hl-modal-title">🎬 Resumen oficial <span class="hl-dazn-badge">DAZN</span></span>
-      <button class="hl-modal-close" onclick="closeHighlightsModal()" aria-label="Cerrar">✕</button>
+      <span class="hl-modal-title">🎬 Resumen oficial &nbsp;<span class="hl-dazn-badge">DAZN</span></span>
+      <div style="display:flex;align-items:center;gap:.5rem;flex-shrink:0;">
+        <a href="${escapeHtml(ytUrl)}" target="_blank" rel="noopener noreferrer"
+           onclick="event.stopPropagation()" title="Ver en YouTube"
+           style="display:inline-flex;align-items:center;gap:.3rem;color:#94A3B8;font-size:.72rem;font-weight:600;text-decoration:none;padding:.2rem .5rem;border-radius:6px;border:1px solid rgba(148,163,184,.25);white-space:nowrap;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6v2H5v11h11v-5h2v6a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1h6zm11-3v8h-2V6.413l-7.793 7.794-1.414-1.414L17.585 5H13V3h8z"/></svg>
+          YouTube
+        </a>
+        <button class="hl-modal-close" onclick="closeHighlightsModal()" aria-label="Cerrar">✕</button>
+      </div>
     </div>
-    <div class="hl-player-wrap">
+    <div style="position:relative;width:100%;padding-top:${(9/16*100).toFixed(4)}%;background:#000;">
       <iframe
         id="hl-modal-iframe"
-        src="https://www.youtube.com/embed/${escapeHtml(videoId)}?rel=0&modestbranding=1&autoplay=1"
-        class="hl-iframe"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        src="https://www.youtube.com/embed/${vid}?rel=0&modestbranding=1&autoplay=1"
+        style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;display:block;"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
         allowfullscreen
         title="Resumen partido">
       </iframe>
@@ -2826,11 +2840,9 @@ function openHighlightsModal(videoId, evt) {
 
 function closeHighlightsModal() {
   const iframe = document.getElementById('hl-modal-iframe');
-  if (iframe) iframe.src = ''; // stop video playback
-  const box = document.getElementById('hl-modal-box');
-  if (box) box.remove();
-  const modal = document.getElementById('hl-video-modal');
-  if (modal) modal.remove();
+  if (iframe) iframe.src = '';
+  document.getElementById('hl-modal-box')?.remove();
+  document.getElementById('hl-video-modal')?.remove();
   if (!document.getElementById('match-detail-drawer')?.classList.contains('open')) {
     document.body.style.overflow = '';
   }
