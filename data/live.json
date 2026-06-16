@@ -1,1 +1,23 @@
-{}
+{
+  "Irán-Nueva Zelanda": {
+    "home": 1,
+    "away": 1,
+    "minute": "live",
+    "scorers": [
+      {
+        "player": "Ramin Rzaiian",
+        "minute": "32'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Ali Jast",
+        "minute": "7'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      }
+    ]
+  }
+}
