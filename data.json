@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "16/06/2026 20:04",
+    "generated": "16/06/2026 20:06",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-16T13:10",
       "last_updated_time": "13:10",
       "last_updated_date": "16/06/2026",
-      "next_update_iso": "2026-06-16T22:05",
-      "next_update_time": "22:05",
+      "next_update_iso": "2026-06-16T22:10",
+      "next_update_time": "22:10",
       "next_update_date": "16/06/2026",
-      "last_checked_iso": "2026-06-16T22:04",
-      "last_checked_time": "22:04",
+      "last_checked_iso": "2026-06-16T22:06",
+      "last_checked_time": "22:06",
       "last_checked_date": "16/06/2026"
     },
     "players": [
@@ -185,6 +185,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-16T22:06:44+02:00",
+        "date": "16/06/2026",
+        "time": "22:06:44",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-16T22:04:47+02:00",
         "date": "16/06/2026",
@@ -4248,14 +4256,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-15T08:48:27+02:00",
-        "date": "15/06/2026",
-        "time": "08:48:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -6730,28 +6730,28 @@
       "goals_v": 2,
       "scorers": [
         {
-          "player": "Ramin Rzaiian",
+          "player": "Ramin Rezaiian",
           "minute": "32'",
           "own_goal": false,
           "penalty": false,
           "team": "home"
         },
         {
-          "player": "Mohamed Mohebi",
+          "player": "Mohammad Mohebi",
           "minute": "64'",
           "own_goal": false,
           "penalty": false,
           "team": "home"
         },
         {
-          "player": "Ali Jast",
+          "player": "Elijah Just",
           "minute": "7'",
           "own_goal": false,
           "penalty": false,
           "team": "away"
         },
         {
-          "player": "Ali Jast",
+          "player": "Elijah Just",
           "minute": "54'",
           "own_goal": false,
           "penalty": false,
