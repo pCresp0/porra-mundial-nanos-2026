@@ -100,6 +100,36 @@
       "team": "away"
     }
   ],
+  "Francia-Senegal": [
+    {
+      "player": "Kilian Ambaph",
+      "minute": "66'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Brdli Barkvla",
+      "minute": "82'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Kilian Ambaph",
+      "minute": "90'+6'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Ibrahim Am Baih",
+      "minute": "90'+5'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "Costa de Marfil-Ecuador": [
     {
       "player": "A. Diallo",
