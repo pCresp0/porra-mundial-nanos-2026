@@ -79,5 +79,6 @@ jobs:
               MSG="chore: registro de llamada API sin cambios ($(date -u +%Y-%m-%dT%H:%MZ))"
             fi
             git commit -m "$MSG"
+            git pull --rebase origin main
             git push
           fi
