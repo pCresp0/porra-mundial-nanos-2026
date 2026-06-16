@@ -22,7 +22,97 @@ ADMIN, FILE1, FILE2 = _excel_paths()
 import urllib.request as _urllib_req
 
 from fixture_data import lookup_fixture, TV_LABELS
-from team_players import get_team_players
+from team_players import get_team_players, KEY_PLAYERS as _KEY_PLAYERS
+
+# ── Club country map (club name → country flag + name) ─────────────────────────
+# Used in _build_player_clubs() to enrich the scorers table.
+_CLUB_COUNTRY = {
+    # España
+    "Real Madrid":"🇪🇸 España", "FC Barcelona":"🇪🇸 España", "Barcelona":"🇪🇸 España",
+    "Atletico de Madrid":"🇪🇸 España", "Atlético de Madrid":"🇪🇸 España",
+    "Athletic Club":"🇪🇸 España", "Real Sociedad":"🇪🇸 España", "Villarreal":"🇪🇸 España",
+    "Sevilla":"🇪🇸 España", "Rayo Vallecano":"🇪🇸 España", "Valencia":"🇪🇸 España",
+    # Inglaterra
+    "Arsenal FC":"🇬🇧 Inglaterra", "Arsenal":"🇬🇧 Inglaterra",
+    "Liverpool FC":"🇬🇧 Inglaterra", "Liverpool":"🇬🇧 Inglaterra",
+    "Man City":"🇬🇧 Inglaterra", "Manchester City":"🇬🇧 Inglaterra",
+    "Man United":"🇬🇧 Inglaterra", "Manchester United":"🇬🇧 Inglaterra",
+    "Chelsea":"🇬🇧 Inglaterra", "Tottenham":"🇬🇧 Inglaterra",
+    "Newcastle":"🇬🇧 Inglaterra", "Aston Villa":"🇬🇧 Inglaterra",
+    "West Ham":"🇬🇧 Inglaterra", "Crystal Palace":"🇬🇧 Inglaterra",
+    "Brighton":"🇬🇧 Inglaterra", "Fulham":"🇬🇧 Inglaterra",
+    "Bournemouth":"🇬🇧 Inglaterra", "Leicester City":"🇬🇧 Inglaterra",
+    "Nottm Forest":"🇬🇧 Inglaterra", "Ipswich Town":"🇬🇧 Inglaterra",
+    # Alemania
+    "Bayern München":"🇩🇪 Alemania", "FC Bayern München":"🇩🇪 Alemania",
+    "Borussia Dortmund":"🇩🇪 Alemania", "RB Leipzig":"🇩🇪 Alemania",
+    "Bayer Leverkusen":"🇩🇪 Alemania", "Mainz":"🇩🇪 Alemania",
+    "SC Freiburg":"🇩🇪 Alemania", "Stuttgart":"🇩🇪 Alemania", "AGF Aarhus":"🇩🇰 Dinamarca",
+    # Francia
+    "PSG":"🇫🇷 Francia", "Paris Saint-Germain":"🇫🇷 Francia",
+    "Olympique de Marsella":"🇫🇷 Francia", "OM Marseille":"🇫🇷 Francia",
+    "OGC Niza":"🇫🇷 Francia", "Montpellier":"🇫🇷 Francia", "FC Nantes":"🇫🇷 Francia",
+    "Monaco":"🇫🇷 Francia",
+    # Italia
+    "AC Milan":"🇮🇹 Italia", "FC Internazionale Milano":"🇮🇹 Italia",
+    "Inter de Milán":"🇮🇹 Italia", "Juventus":"🇮🇹 Italia", "Roma":"🇮🇹 Italia",
+    "Napoli":"🇮🇹 Italia", "Fiorentina":"🇮🇹 Italia", "Venezia FC":"🇮🇹 Italia",
+    "Salernitana":"🇮🇹 Italia", "Aris Limassol":"🇨🇾 Chipre",
+    # Portugal
+    "Benfica":"🇵🇹 Portugal", "Porto":"🇵🇹 Portugal", "Sporting CP":"🇵🇹 Portugal",
+    # Países Bajos
+    "Feyenoord":"🇳🇱 Países Bajos", "PSV":"🇳🇱 Países Bajos", "Ajax":"🇳🇱 Países Bajos",
+    "FC Utrecht":"🇳🇱 Países Bajos",
+    # Bélgica
+    "Beerschot":"🇧🇪 Bélgica",
+    # Turquía
+    "Galatasaray":"🇹🇷 Turquía", "Fenerbahçe SK":"🇹🇷 Turquía", "Fenerbahçe":"🇹🇷 Turquía",
+    # Arabia / Medio Oriente
+    "Al-Nassr":"🇸🇦 Arabia Saudita", "Al-Hilal":"🇸🇦 Arabia Saudita",
+    "Al-Ahli":"🇸🇦 Arabia Saudita", "Al-Dawsari":"🇸🇦 Arabia Saudita",
+    "Al-Talaba":"🇮🇶 Iraq", "Al-Zawraa":"🇮🇶 Iraq", "Al-Shorta":"🇮🇶 Iraq",
+    "Al-Karma":"🇮🇶 Iraq", "Al-Dhafra":"🇦🇪 Emiratos", "Dibba Al-Hisn":"🇦🇪 Emiratos",
+    "Al-Ahly":"🇪🇬 Egipto", "Al-Duhail":"🇶🇦 Qatar", "Al-Sadd":"🇶🇦 Qatar",
+    "Al-Arabi":"🇶🇦 Qatar", "Al-Jazeera":"🇯🇴 Jordania", "Al-Faisaly":"🇯🇴 Jordania",
+    "Al-Ramtha":"🇯🇴 Jordania", "Al-Najma":"🇧🇭 Bahréin",
+    # Resto Europa
+    "Cracovia":"🇵🇱 Polonia", "Pogoń Szczecin":"🇵🇱 Polonia",
+    "Pakhtakor":"🇺🇿 Uzbekistán", "Port FC":"🇹🇭 Tailandia",
+    "Viktoria Plzeň":"🇨🇿 Rep. Checa", "Persib Bandung":"🇮🇩 Indonesia",
+    "Sarpsborg 08":"🇳🇴 Noruega",
+    # América
+    "Inter Miami":"🇺🇸 EE.UU.", "Nashville SC":"🇺🇸 EE.UU.",
+    "New England Rev.":"🇺🇸 EE.UU.", "Atlanta United":"🇺🇸 EE.UU.",
+    "Corinthians":"🇧🇷 Brasil", "Palmeiras":"🇧🇷 Brasil", "LDU Quito":"🇪🇨 Ecuador",
+    "Club América":"🇲🇽 México", "Necaxa":"🇲🇽 México", "Club Tijuana":"🇲🇽 México",
+    "Panathinaikos":"🇬🇷 Grecia",
+    # África
+    "Mamelodi Sundowns":"🇿🇦 Sudáfrica", "Espérance":"🇹🇳 Túnez",
+    "Hafr Al-Batin":"🇸🇦 Arabia Saudita",
+    # Varios / retirados
+    "Al-Karma":"🇮🇶 Iraq", "AEK Larnaca":"🇨🇾 Chipre",
+    "Retirado":"—", "Retirado/Amateur":"—", "Burton Albion":"🇬🇧 Inglaterra",
+    "Wigan Athletic":"🇬🇧 Inglaterra", "Le Havre":"🇫🇷 Francia",
+    "Hajduk Split":"🇭🇷 Croacia", "Torino":"🇮🇹 Italia",
+    "FC Macarthur":"🇦🇺 Australia", "Celtic":"🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia",
+}
+
+def _build_player_clubs():
+    """Return dict {display_name: {club, club_country}} from KEY_PLAYERS."""
+    import unicodedata as _ud
+    out = {}
+    for players in _KEY_PLAYERS.values():
+        for p in players:
+            full = p["name"]
+            parts = full.split()
+            display = f"{parts[0][0]}. {' '.join(parts[1:])}" if len(parts) >= 2 else full
+            club = p.get("club", "")
+            country = _CLUB_COUNTRY.get(club, "")
+            # Store under both full name and display name for lookup flexibility
+            entry = {"club": club, "club_country": country}
+            out[full] = entry
+            out[display] = entry
+    return out
 
 app = Flask(__name__)
 
@@ -1391,6 +1481,7 @@ def build_data():
             },
             "colors":    {p["name"]: PLAYER_COLORS[i] for i, p in enumerate(all_players)},
             "weeks":     weeks,
+            "player_clubs": _build_player_clubs(),
             "scoring": {
                 "sign":  pts_sign,
                 "diff":  pts_diff,

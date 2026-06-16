@@ -3811,6 +3811,10 @@
 .tsc-g-val { color: #fff; font-weight: 700; font-size: .9rem; }
 .tsc-pen-tag { background: rgba(124,58,237,.25); color: #A78BFA; font-size: .65rem;
   font-weight: 700; padding: .1rem .35rem; border-radius: 4px; letter-spacing: .03em; }
+.tsc-club-col { text-align: left !important; }
+.tsc-club { color: #CBD5E1; font-size: .78rem; white-space: nowrap; }
+.tsc-club-country { color: #64748B; font-size: .7rem; margin-left: .3rem; white-space: nowrap; }
+.tsc-club-unknown { color: #475569; }
 
 /* ── Responsive ── */
 @media (max-width: 767px) {
@@ -3821,6 +3825,8 @@
   .tm-league-table td:nth-child(5) { display: none; } /* E (empates) */
   .tm-scorers-table th.tsc-pj,
   .tm-scorers-table td.tsc-pj { display: none; } /* PJ */
+  .tm-scorers-table th.tsc-club-col,
+  .tm-scorers-table td.tsc-club-col { display: none; } /* Club — oculto en móvil */
   /* La celda de equipo puede ocupar varias líneas para no empujar las
      columnas de estadísticas fuera de pantalla. */
   .tm-league-table td.tlg-team { white-space: normal; padding-top: .5rem; padding-bottom: .5rem; }

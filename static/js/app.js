@@ -5113,12 +5113,19 @@ function _teamsScorersHtml() {
 
   if (!list.length) return `<div class="card p-5 text-gray-500 text-sm">Aún no hay goleadores registrados.</div>`;
 
+  const playerClubs = D.meta.player_clubs || {};
+
   const rows = list.map((s, i) => {
     const penStr = s.pens > 0 ? `<span class="tsc-pen-tag">${s.pens}P</span>` : "—";
+    const clubInfo = playerClubs[s.name] || {};
+    const clubHtml = clubInfo.club
+      ? `<span class="tsc-club">${escapeHtml(clubInfo.club)}</span>${clubInfo.club_country ? `<span class="tsc-club-country">(${escapeHtml(clubInfo.club_country)})</span>` : ""}`
+      : `<span class="tsc-club tsc-club-unknown">—</span>`;
     return `<tr>
       <td class="tsc-pos">${i + 1}</td>
       <td class="tsc-name"><span class="tsc-player">${escapeHtml(s.name)}</span></td>
       <td class="tsc-team"><span class="tsc-flag">${s.flag}</span><button class="team-name-btn" data-team="${escapeHtml(s.team)}">${escapeHtml(s.team)}</button></td>
+      <td class="tsc-club-col">${clubHtml}</td>
       <td class="tsc-g tsc-g-val">${s.goals}</td>
       <td class="tsc-pen">${penStr}</td>
       <td class="tsc-pj">${s.matches}</td>
@@ -5134,7 +5141,8 @@ function _teamsScorersHtml() {
         <thead><tr>
           <th class="tsc-pos">#</th>
           <th class="tsc-name text-left">Jugador</th>
-          <th class="tsc-team text-left">Equipo</th>
+          <th class="tsc-team text-left">Selección</th>
+          <th class="tsc-club-col text-left">Club</th>
           <th title="Goles" class="tsc-g">⚽</th>
           <th title="De penalti" class="tsc-pen">(P)</th>
           <th title="Partidos" class="tsc-pj">PJ</th>
