@@ -46,7 +46,7 @@ EN_TO_ES = {
     "new zealand": "Nueva Zelanda",
     "spain": "España",
     "cape verde": "Cabo Verde",
-    "saudi arabia": "Arabia Saudí",
+    "saudi arabia": "Arabia Saudita",
     "uruguay": "Uruguay",
     "france": "Francia",
     "senegal": "Senegal",
