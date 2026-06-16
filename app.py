@@ -1481,7 +1481,6 @@ def build_data():
             },
             "colors":    {p["name"]: PLAYER_COLORS[i] for i, p in enumerate(all_players)},
             "weeks":     weeks,
-            "player_clubs": _build_player_clubs(),
             "scoring": {
                 "sign":  pts_sign,
                 "diff":  pts_diff,
