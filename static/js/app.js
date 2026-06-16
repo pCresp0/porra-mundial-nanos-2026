@@ -5801,11 +5801,111 @@ function renderCalendar() {
     _calRenderMonthGrid(2026, month, label, today, byDate, false);
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   TOP TABLE — Los 30 partidos más top por ranking FIFA combinado
+═══════════════════════════════════════════════════════════════ */
+function renderTopTable() {
+  const container = document.getElementById("toptable-container");
+  if (!container || !D) return;
+
+  const TOP_N = 30;
+
+  // Build list with combined FIFA rank (lower = more top)
+  const matches = D.matches
+    .filter(m => m.home && m.away)
+    .map(m => {
+      const rHome = FIFA_RANK[m.home] ?? 999;
+      const rAway = FIFA_RANK[m.away] ?? 999;
+      return { m, rHome, rAway, combined: rHome + rAway };
+    })
+    .sort((a, b) => a.combined - b.combined)
+    .slice(0, TOP_N);
+
+  const PHASE_LABEL = {
+    groups: "Grupos", r16: "16avos", r4: "Octavos", r2: "Cuartos",
+    r34: "Semifinales", r34_final: "Final / 3.º-4.º"
+  };
+
+  const rows = matches.map(({ m, rHome, rAway, combined }, idx) => {
+    const rank = idx + 1;
+    const phase = PHASE_LABEL[m.phase] || m.phase || "";
+    const flagH = m.flag_home || "";
+    const flagA = m.flag_away || "";
+
+    // Result / status
+    let resultHtml;
+    if (m.live) {
+      resultHtml = `<span class="tpt-live">EN VIVO ${m.live_minute ? m.live_minute + "'" : ""}</span>`;
+    } else if (m.played && m.result?.score) {
+      resultHtml = `<span class="tpt-score">${escapeHtml(m.result.score)}</span>`;
+    } else {
+      const dateShort = m.date
+        ? new Date(m.date + "T12:00:00").toLocaleDateString("es-ES", { day: "numeric", month: "short" })
+        : "";
+      resultHtml = `<span class="tpt-date">${escapeHtml(dateShort)}${m.time_es ? " · " + escapeHtml(m.time_es) : ""}</span>`;
+    }
+
+    // TV label
+    const tvHtml = m.tv_label
+      ? `<span class="tpt-tv">${escapeHtml(m.tv_label)}</span>`
+      : "";
+
+    // Phase badge
+    const phaseBadge = `<span class="tpt-phase">${escapeHtml(phase)}</span>`;
+
+    // Rank badge color: top5=gold, top10=green, top20=amber, rest=muted
+    const rankCls = rank <= 5 ? "tpt-rank-gold" : rank <= 10 ? "tpt-rank-green" : rank <= 20 ? "tpt-rank-amber" : "tpt-rank-muted";
+
+    return `
+      <div class="tpt-row${m.played ? " tpt-played" : ""}${m.live ? " tpt-live-row" : ""}"
+           role="button" tabindex="0"
+           onclick="goToMatchesDay('${escapeHtml(m.date || "")}','${escapeHtml(m.name || "")}')"
+           title="Ver partido en la pestaña Partidos">
+        <div class="tpt-rank ${rankCls}">#${rank}</div>
+        <div class="tpt-teams">
+          <div class="tpt-team tpt-team-home">
+            <span class="tpt-flag">${flagH}</span>
+            <span class="tpt-name">${escapeHtml(m.home || "")}</span>
+            <span class="tpt-fifa-rank">#${rHome === 999 ? "—" : rHome}</span>
+          </div>
+          <div class="tpt-vs">
+            ${resultHtml}
+          </div>
+          <div class="tpt-team tpt-team-away">
+            <span class="tpt-fifa-rank">#${rAway === 999 ? "—" : rAway}</span>
+            <span class="tpt-name">${escapeHtml(m.away || "")}</span>
+            <span class="tpt-flag">${flagA}</span>
+          </div>
+        </div>
+        <div class="tpt-meta">
+          ${phaseBadge}
+          ${tvHtml}
+          <span class="tpt-combined" title="Suma ranking FIFA: ${rHome} + ${rAway}">#${combined} FIFA</span>
+          <span class="tpt-go">↗</span>
+        </div>
+      </div>`;
+  }).join("");
+
+  container.innerHTML = `
+    <div class="card p-5 mb-4">
+      <div class="flex flex-col gap-1 mb-1">
+        <h2 class="text-lg font-bold text-white">🔥 Top ${TOP_N} partidos del Mundial</h2>
+        <p class="text-sm text-gray-400">Clasificados por suma del ranking FIFA de ambos equipos — menor suma, mayor calidad del duelo. Pulsa cualquier partido para verlo en detalle.</p>
+      </div>
+      <div class="flex gap-4 flex-wrap mt-3 mb-1">
+        <span class="tpt-legend tpt-rank-gold">Top 5</span>
+        <span class="tpt-legend tpt-rank-green">Top 10</span>
+        <span class="tpt-legend tpt-rank-amber">Top 20</span>
+      </div>
+    </div>
+    <div class="tpt-list">${rows}</div>`;
+}
+
 function goToMatchesDay(isoDate, matchName) {
   // 1. Switch to matches tab MANUALLY (avoid the click handler's scroll-to-today)
   document.querySelectorAll(".tab-btn").forEach(b =>
     b.classList.toggle("active", b.dataset.tab === "matches"));
-  ["matches","calendar","standings","progression","stats","scenarios","honor","bracket","teams","bets","scoring","info","h2h"].forEach(t => {
+  ["matches","calendar","standings","progression","stats","scenarios","toptable","honor","bracket","teams","bets","scoring","info","h2h"].forEach(t => {
     const sec = document.getElementById("tab-" + t);
     if (sec) sec.classList.toggle("hidden", t !== "matches");
   });
@@ -5970,7 +6070,7 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
     closeNav();
     closeMoreDropdown();
     if (typeof closeTeamSearchSheet === "function") closeTeamSearchSheet();
-    ["matches","calendar","standings","progression","stats","scenarios","honor","bracket","teams","bets","scoring","info","h2h"].forEach(t => {
+    ["matches","calendar","standings","progression","stats","scenarios","toptable","honor","bracket","teams","bets","scoring","info","h2h"].forEach(t => {
       document.getElementById("tab-"+t).classList.toggle("hidden", t !== tab);
     });
     if (typeof updateNavSearchBtn === "function") updateNavSearchBtn();
@@ -5983,6 +6083,7 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
     if (tab === "progression" && D) renderProgression();
     if (tab === "stats" && D) renderStats();
     if (tab === "scenarios" && D) renderScenarios();
+    if (tab === "toptable" && D) renderTopTable();
     if (tab === "teams" && D) renderTeams();
     if (tab === "bets") renderBets();
     if (tab === "matches" && D) renderMatches(currentPhase, currentWeek);
