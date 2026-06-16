@@ -2781,31 +2781,22 @@ function openHighlightsModal(videoId, evt) {
   document.getElementById('hl-video-modal')?.remove();
   document.getElementById('hl-modal-box')?.remove();
 
-  const vid    = escapeHtml(videoId);
-  const ytUrl  = `https://www.youtube.com/watch?v=${vid}`;
-  const vw     = window.innerWidth;
-  const vh     = window.innerHeight;
-  const mobile = vw <= 767;
-
-  // Max width: 860px desktop, full width - 24px mobile
-  const boxW   = mobile ? vw - 24 : Math.min(860, vw - 48);
-  // Height = header (44px) + 16/9 player
-  const playerH = Math.round(boxW * 9 / 16);
-  const boxH   = playerH + 44;
-  const left   = Math.round((vw - boxW) / 2);
-  const top    = Math.round((vh - boxH) / 2);
+  const vid   = escapeHtml(videoId);
+  const ytUrl = `https://www.youtube.com/watch?v=${vid}`;
+  const vw    = window.innerWidth;
+  const boxW  = Math.min(860, vw - 32);
 
   // Backdrop
   const overlay = document.createElement('div');
   overlay.id = 'hl-video-modal';
-  overlay.style.cssText = `position:fixed;top:0;left:0;right:0;bottom:0;z-index:99998;background:rgba(0,0,0,.88);`;
+  overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;z-index:99998;background:rgba(0,0,0,.88);';
   overlay.addEventListener('click', () => closeHighlightsModal());
 
-  // Modal box — always centered via absolute coordinates
+  // Modal box — transform centering, reliable across all viewports & scroll positions
   const box = document.createElement('div');
-  box.id  = 'hl-modal-box';
+  box.id = 'hl-modal-box';
   box.className = 'hl-modal-box';
-  box.style.cssText = `position:fixed;top:${top}px;left:${left}px;width:${boxW}px;z-index:99999;border-radius:12px;overflow:hidden;background:var(--card);border:1px solid var(--border);box-shadow:0 24px 80px rgba(0,0,0,.8);`;
+  box.style.cssText = `position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:${boxW}px;z-index:99999;border-radius:12px;overflow:hidden;background:var(--card);border:1px solid var(--border);box-shadow:0 24px 80px rgba(0,0,0,.8);`;
   box.innerHTML = `
     <div class="hl-modal-header">
       <span class="hl-modal-title">🎬 Resumen oficial &nbsp;<span class="hl-dazn-badge">DAZN</span></span>
@@ -2819,12 +2810,12 @@ function openHighlightsModal(videoId, evt) {
         <button class="hl-modal-close" onclick="closeHighlightsModal()" aria-label="Cerrar">✕</button>
       </div>
     </div>
-    <div style="position:relative;width:100%;padding-top:${(9/16*100).toFixed(4)}%;background:#000;">
+    <div style="position:relative;width:100%;padding-top:56.25%;background:#000;">
       <iframe
         id="hl-modal-iframe"
-        src="https://www.youtube.com/embed/${vid}?rel=0&modestbranding=1&autoplay=1"
+        src="https://www.youtube.com/embed/${vid}?rel=0&modestbranding=1"
         style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;display:block;"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
         allowfullscreen
         title="Resumen partido">
       </iframe>
