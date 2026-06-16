@@ -3186,7 +3186,13 @@ function renderStats() {
   const players = D.meta.players;
   const colors  = D.meta.colors;
 
-  const groupMatches = D.matches.filter(m => m.phase === "groups" && m.played);
+  const groupMatches = D.matches
+    .filter(m => m.phase === "groups" && m.played)
+    .sort((a, b) => {
+      const da = `${a.date||""}T${(a.time_es||"00:00")}`;
+      const db = `${b.date||""}T${(b.time_es||"00:00")}`;
+      return da < db ? -1 : da > db ? 1 : 0;
+    });
   const playedAll    = D.matches.filter(m => m.played);
 
   // ── per-player breakdown (groups) ──────────────────────────────────────
