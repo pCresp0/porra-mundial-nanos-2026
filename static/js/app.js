@@ -1126,7 +1126,11 @@ function _renderLiveStandingsBanner() {
     return `${home}${sc} ${away}`.trim();
   });
   const list = names.length
-    ? `<div class="lsb-matches">${names.map(n => `<span class="lsb-match"><span class="live-dot"></span>${n}</span>`).join("")}</div>`
+    ? `<div class="lsb-matches">${liveMatches.map((m, i) => {
+        const safeDate = escapeHtml(m.date || "");
+        const safeName = escapeHtml((m.name || "").replace(/'/g, "\\'"));
+        return `<button class="lsb-match lsb-match-btn" onclick="goToMatchesDay('${safeDate}','${safeName}')" title="Ir al partido"><span class="live-dot"></span>${names[i]}</button>`;
+      }).join("")}</div>`
     : "";
   el.innerHTML = `
     <div class="lsb-head"><span class="lsb-badge">🔴 PROVISIONAL</span>

@@ -707,6 +707,14 @@
       padding: .2rem .55rem;
       border-radius: 8px;
     }
+    .lsb-match-btn {
+      cursor: pointer;
+      transition: background .15s, border-color .15s;
+    }
+    .lsb-match-btn:hover {
+      background: rgba(239,68,68,.25);
+      border-color: rgba(239,68,68,.6);
+    }
     .podium-prov { font-size: .68rem; font-weight: 700; color: #FCA5A5; margin-top: .15rem; }
     .rest-prov { font-size: .68rem; font-weight: 700; color: #FCA5A5; margin-left: .5rem; }
     .st-prov-row td { background: rgba(239,68,68,.04); }
