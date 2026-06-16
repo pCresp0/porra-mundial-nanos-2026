@@ -2028,7 +2028,11 @@ function renderForma(prog, cutIdx) {
   const el = document.getElementById("prog-forma");
   if (!el || !D) return;
 
-  const players = D.meta.players;
+  // ordenar por clasificación actual (pos ascendente)
+  const standings = D.standings || [];
+  const players = standings.length
+    ? [...standings].sort((a, b) => (a.pos ?? 99) - (b.pos ?? 99)).map(s => s.name)
+    : D.meta.players;
   const colors  = D.meta.colors;
   const maxPerMatch = +(D.scoring_rules?.max_per_group_match || 6);
   const allDayPts = prog.day_points || {};
@@ -2083,8 +2087,6 @@ function renderForma(prog, cutIdx) {
       ${dots}
     </svg>`;
   }
-
-  const standings = D.standings || [];
 
   const cards = players.map(name => {
     const color   = colors[name];
@@ -4510,11 +4512,27 @@ function renderScenarios() {
       </tr>`;
   }).join("");
 
+  // ── Selector de jugador ───────────────────────────────────
+  const selectorPills = pData.map(p => {
+    const active = _sceSelectedPlayer === p.name;
+    return `<button class="sce-pill${active ? " sce-pill-active" : ""}" data-pill="${escapeHtml(p.name)}"
+      style="${active ? `background:${p.color};border-color:${p.color};color:#0F172A` : `border-color:${p.color}44;color:${p.color}`}">
+      <span class="sce-pill-dot" style="background:${p.color}"></span>
+      ${escapeHtml(p.name)}
+      ${active ? `<span class="sce-pill-yo">YO</span>` : ""}
+    </button>`;
+  }).join("");
+
+  const selectorHtml = `
+    <div class="card p-4 mb-5">
+      <div class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">🙋 ¿Quién eres tú?</div>
+      <div class="sce-pill-row">${selectorPills}</div>
+      ${_sceSelectedPlayer ? `<div class="text-xs text-gray-600 mt-2">Pulsa de nuevo para deseleccionar</div>` : `<div class="text-xs text-gray-500 mt-2">Selecciona tu nombre para ver tu análisis personalizado</div>`}
+    </div>`;
+
   const tableHtml = `
+    ${selectorHtml}
     <div class="card overflow-hidden mb-5">
-      <div class="px-4 pt-4 pb-2 flex items-center gap-2 flex-wrap">
-        <span class="text-sm font-semibold text-gray-400">👆 Toca tu fila para ver tu análisis personalizado</span>
-      </div>
       <div class="overflow-x-auto">
         <table class="sce-table w-full" id="sce-main-table">
           <thead>
@@ -4575,6 +4593,20 @@ function renderScenarios() {
     </div>`;
 
   el.innerHTML = heroHtml + tableHtml + personalHtml + upcomingHtml;
+
+  // ── Wire pill clicks ─────────────────────────────────────
+  el.querySelectorAll(".sce-pill[data-pill]").forEach(pill => {
+    pill.addEventListener("click", () => {
+      const name = pill.dataset.pill;
+      _sceSelectedPlayer = _sceSelectedPlayer === name ? null : name;
+      renderScenarios();
+      if (_sceSelectedPlayer) {
+        setTimeout(() => {
+          document.getElementById("sce-personal")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 60);
+      }
+    });
+  });
 
   // ── Wire table row clicks ─────────────────────────────────
   el.querySelectorAll("#sce-main-table tbody tr[data-player]").forEach(row => {
