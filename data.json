@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "17/06/2026 04:26",
+    "generated": "17/06/2026 04:28",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-06-17T06:30",
       "next_update_time": "06:30",
       "next_update_date": "17/06/2026",
-      "last_checked_iso": "2026-06-17T06:26",
-      "last_checked_time": "06:26",
+      "last_checked_iso": "2026-06-17T06:28",
+      "last_checked_time": "06:28",
       "last_checked_date": "17/06/2026"
     },
     "players": [
@@ -193,6 +193,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-17T06:28:37+02:00",
+        "date": "17/06/2026",
+        "time": "06:28:37",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-17T06:26:45+02:00",
         "date": "17/06/2026",
@@ -4292,14 +4300,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-15T22:44:24+02:00",
-        "date": "15/06/2026",
-        "time": "22:44:24",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -7811,7 +7811,7 @@
       "live_scorers": [
         {
           "player": "Rvmanv Ashmid",
-          "minute": "21'",
+          "minute": "20'",
           "own_goal": false,
           "penalty": false,
           "team": "home"
