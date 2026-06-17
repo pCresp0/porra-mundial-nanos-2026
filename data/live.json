@@ -1,12 +1,19 @@
 {
   "Austria-Jordania": {
-    "home": 1,
+    "home": 2,
     "away": 1,
     "minute": "live",
     "scorers": [
       {
         "player": "Rvmanv Ashmid",
         "minute": "21'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Izn Alarb",
+        "minute": "76'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
