@@ -31,6 +31,13 @@
         "own_goal": false,
         "penalty": false,
         "team": "away"
+      },
+      {
+        "player": "Kristin Tvrstvdk",
+        "minute": "90'+7'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
       }
     ]
   }
