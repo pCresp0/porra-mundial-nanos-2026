@@ -12,6 +12,13 @@
         "team": "home"
       },
       {
+        "player": "Jvd Blingham",
+        "minute": "47'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
         "player": "Martin Batvrina",
         "minute": "36'",
         "own_goal": false,
