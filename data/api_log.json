@@ -11408,5 +11408,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-18T00:02:43+02:00",
+    "date": "18/06/2026",
+    "time": "00:02:43",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🏴󠁧󠁢󠁥󠁮󠁧󠁿Inglaterra 4-2 Croacia🇭🇷",
+        "name": "Inglaterra-Croacia",
+        "date": "2026-06-17",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "0-0",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "4-2",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]

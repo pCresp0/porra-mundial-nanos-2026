@@ -479,5 +479,42 @@
       "penalty": false,
       "team": "away"
     }
+  ],
+  "Inglaterra-Croacia": [
+    {
+      "player": "Hri Kin",
+      "minute": "42'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Jvd Blingham",
+      "minute": "47'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Markvs Rshfvrd",
+      "minute": "85'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Martin Batvrina",
+      "minute": "36'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Ptar Mvsa",
+      "minute": "45'+5'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
   ]
 }
