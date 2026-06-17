@@ -1,7 +1,7 @@
 {
   "Inglaterra-Croacia": {
     "home": 2,
-    "away": 1,
+    "away": 2,
     "minute": "live",
     "scorers": [
       {
@@ -14,6 +14,13 @@
       {
         "player": "Martin Batvrina",
         "minute": "36'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Ptar Mvsa",
+        "minute": "45'+5'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
