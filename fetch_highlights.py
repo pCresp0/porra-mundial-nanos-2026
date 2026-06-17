@@ -20,6 +20,11 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta, timezone
 
+try:
+    from team_names import EN_TO_ES
+except Exception:
+    EN_TO_ES = {}
+
 BASE = os.path.dirname(os.path.abspath(__file__))
 HIGHLIGHTS_JSON = os.path.join(BASE, "data", "highlights.json")
 DATA_JSON       = os.path.join(BASE, "data.json")
@@ -30,6 +35,41 @@ YT_SEARCH_URL   = "https://www.googleapis.com/youtube/v3/search"
 # Intervalo mínimo entre búsquedas del mismo partido sin resultado (30 min).
 # Esto limita el consumo de cuota de la API de YouTube cuando se lanza frecuentemente.
 HL_SEARCH_INTERVAL = timedelta(minutes=30)
+
+
+def _norm(s: str) -> str:
+    import unicodedata
+
+    s = unicodedata.normalize("NFD", (s or "").lower().strip())
+    return "".join(c for c in s if unicodedata.category(c) != "Mn")
+
+
+_ES_TO_EN: dict[str, set[str]] = {}
+for en_name, es_name in EN_TO_ES.items():
+    _ES_TO_EN.setdefault(_norm(es_name), set()).add(_norm(en_name))
+
+
+def _team_terms(name: str) -> list[str]:
+    base = _norm(name)
+    terms = {base}
+    terms.update(_ES_TO_EN.get(base, set()))
+    if " " in base:
+        terms.add(base.split()[0])
+    return sorted(t for t in terms if t)
+
+
+def _candidate_queries(home: str, away: str) -> list[str]:
+    home_terms = _team_terms(home)
+    away_terms = _team_terms(away)
+    home_primary = home_terms[0] if home_terms else _norm(home)
+    away_primary = away_terms[0] if away_terms else _norm(away)
+    queries = [
+        f"{home} {away} Resumen y goles",
+        f"{home} {away} Resumen",
+        f"{home} {away} Highlights",
+        f"{home_primary} {away_primary} highlights",
+    ]
+    return list(dict.fromkeys(q for q in queries if q.strip()))
 
 
 def _load_json(path: str, default):
@@ -54,14 +94,14 @@ def _search_highlight(api_key: str, match_name: str, home: str, away: str,
     Busca el resumen del partido en DAZN ES.
     Devuelve el video_id si lo encuentra, None si no.
     """
-    # La query imita el formato del título: "México vs Sudáfrica Resumen"
-    query = f"{home} {away} Resumen Copa Mundial FIFA 2026"
+    # Buscamos varias variantes del título para cubrir DAZN ES y títulos
+    # en inglés o con palabras/orden distinto.
 
-    # Solo buscar vídeos publicados después de la fecha del partido
-    # (añadimos 1 día de margen para zonas horarias distintas)
+    # Solo buscar vídeos publicados después de la fecha del partido.
+    # Usamos el inicio del día en UTC para no perder vídeos subidos pronto.
     if match_date:
         try:
-            after_dt = datetime.strptime(match_date, "%Y-%m-%d") + timedelta(hours=12)
+            after_dt = datetime.strptime(match_date, "%Y-%m-%d")
             published_after = after_dt.replace(tzinfo=timezone.utc).strftime(
                 "%Y-%m-%dT%H:%M:%SZ"
             )
@@ -73,34 +113,36 @@ def _search_highlight(api_key: str, match_name: str, home: str, away: str,
     params = {
         "part": "snippet",
         "channelId": DAZN_CHANNEL_ID,
-        "q": query,
         "type": "video",
         "order": "date",
-        "maxResults": 5,
         "key": api_key,
     }
     if published_after:
         params["publishedAfter"] = published_after
 
-    url = YT_SEARCH_URL + "?" + urllib.parse.urlencode(params)
-    try:
-        req = urllib.request.Request(url, headers={"User-Agent": "PorraLosNanos/1.0"})
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            data = json.load(resp)
-    except Exception as e:
-        print(f"  ⚠️  Error buscando highlights para {match_name}: {e}")
-        return None
+    for query in _candidate_queries(home, away):
+        params["q"] = query
+        params["maxResults"] = 10
+        url = YT_SEARCH_URL + "?" + urllib.parse.urlencode(params)
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "PorraLosNanos/1.0"})
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                data = json.load(resp)
+        except Exception as e:
+            print(f"  ⚠️  Error buscando highlights para {match_name}: {e}")
+            return None
 
-    items = data.get("items", [])
-    for item in items:
-        title = item.get("snippet", {}).get("title", "").lower()
-        video_id = item.get("id", {}).get("videoId", "")
-        # Verificar que el título incluye alguno de los equipos y "resumen"
-        home_norm = home.lower().split()[0]  # primera palabra del nombre
-        away_norm = away.lower().split()[0]
-        if video_id and "resumen" in title and (home_norm in title or away_norm in title):
-            print(f"  ✅  Encontrado: [{video_id}] {item['snippet']['title'][:70]}")
-            return video_id
+        items = data.get("items", [])
+        for item in items:
+            title_raw = item.get("snippet", {}).get("title", "")
+            title = _norm(title_raw)
+            video_id = item.get("id", {}).get("videoId", "")
+            has_keyword = any(word in title for word in ("resumen", "highlight", "highlights", "goles"))
+            has_home = any(term in title for term in _team_terms(home))
+            has_away = any(term in title for term in _team_terms(away))
+            if video_id and has_keyword and has_home and has_away:
+                print(f"  ✅  Encontrado: [{video_id}] {title_raw[:70]}")
+                return video_id
 
     print(f"  ℹ️  Sin resumen disponible aún para {match_name}")
     return None
