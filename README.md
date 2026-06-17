@@ -15,7 +15,7 @@
   <img src="https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white" alt="Python" />
   <img src="https://img.shields.io/badge/Flask-3.x-000?logo=flask&logoColor=white" alt="Flask" />
   <img src="https://img.shields.io/badge/GitHub_Pages-live-brightgreen?logo=github" alt="GitHub Pages" />
-  <img src="https://img.shields.io/badge/GitHub_Actions-cron_15min-2088FF?logo=githubactions&logoColor=white" alt="GitHub Actions" />
+  <img src="https://img.shields.io/badge/GitHub_Actions-cron_5min-2088FF?logo=githubactions&logoColor=white" alt="GitHub Actions" />
   <img src="https://img.shields.io/badge/Mundial-2026-F5C518" alt="World Cup 2026" />
 </p>
 
@@ -98,7 +98,7 @@ La misma web se sirve en dos «modos» según el enlace con el que se entre. El 
 
 ### Pipeline de actualización automática (GitHub Actions)
 
-Cada 15 minutos el cron se activa, pero `should_update.py` decide si hay trabajo real:
+Cada 5 minutos el cron se activa, pero `should_update.py` decide si hay trabajo real:
 
 ```
 should_update.py  ──► ¿hay partido en juego o recién terminado sin resultado?
@@ -130,8 +130,10 @@ git push          ──► GitHub Pages publica automáticamente
 | **Backend dev** | Python 3.11, Flask 3.x |
 | **Lectura Excel** | openpyxl |
 | **Producción** | GitHub Pages (estático, sin servidor) |
-| **CI / Automatización** | GitHub Actions — cron `*/15 * * * *` |
+| **CI / Automatización** | GitHub Actions — cron `*/5 * * * *` |
 | **API resultados** | [worldcup26.ir/get/games](https://worldcup26.ir/get/games) (pública, sin clave) |
+| **API resúmenes** | YouTube Data API v3 (canal DAZN ES) |
+| **API jugadores** | TheSportsDB (pública, sin clave) |
 
 ---
 
@@ -146,10 +148,12 @@ porra-mundial-nanos-2026/
 ├── fetch_results.py        # API → parsea goles → scorers.json + live.json
 ├── should_update.py        # Guardián del cron (evita commits innecesarios)
 ├── excel_sync.py           # Sincroniza copias del Excel ADMIN
+├── fetch_highlights.py     # Busca resúmenes DAZN en YouTube (API v3)
 ├── fixture_data.py         # 104 partidos: sedes, horarios ES, canales TV
 ├── team_names.py           # Mapeo nombres API → Excel (normalización)
-├── team_players.py         # Jugadores destacados por selección
+├── team_players.py         # Jugadores destacados por selección (TheSportsDB)
 ├── log_api_call.py         # Registra llamadas en data/api_log.json
+├── snapshot_visits.py      # Foto horaria del contador de visitas
 ├── update_schedule.py      # Calcula próxima actualización para el banner
 ├── update_config.json      # Config: URL API, flags de activación
 ├── launch.py               # Arranque rápido local + Chrome
@@ -159,17 +163,20 @@ porra-mundial-nanos-2026/
 │   ├── ADMIN-Excel-… [2].xlsx   # Pronósticos jugador 6
 │   ├── scorers.json              # Goleadores de partidos finalizados
 │   ├── live.json                 # Partidos en juego ahora (vacío si no hay)
-│   └── api_log.json              # Historial de llamadas a la API
+│   ├── highlights.json           # IDs de vídeos resumen (DAZN YouTube)
+│   ├── api_log.json              # Historial de llamadas a la API
+│   └── visits_log.json           # Snapshots horarios de visitas
 ├── static/
 │   ├── css/styles.css            # Todos los estilos del proyecto
-│   ├── js/app.js                 # ~4 000 líneas — toda la lógica de UI
+│   ├── js/app.js                 # ~8 500 líneas — toda la lógica de UI
 │   └── audio/                    # Audio opcional
 ├── docs/                         # Capturas para el README
 └── .github/
     ├── copilot-instructions.md   # Reglas para Copilot en este repo
     └── workflows/
-        ├── update-porra.yml      # Cron principal (cada 15 min)
-        └── nightly-backup.yml    # Backup automático cada noche a las 23:55
+        ├── update-porra.yml      # Cron principal (cada 5 min)
+        ├── nightly-backup.yml    # Backup automático (rama diaria a las 23:55)
+        └── snapshot-visits.yml   # Foto del contador de visitas (cada hora)
 ```
 
 ---
@@ -330,16 +337,25 @@ Dos modos de despliegue que comparten la misma interfaz (`index.html`):
 porra-mundial-nanos-2026/
 ├── index.html              # Interfaz web (raíz → GitHub Pages)
 ├── data.json               # Snapshot para la versión online
-├── data/                   # Excel ADMIN (fuente de verdad en el repo)
-│   ├── ADMIN-Excel-… [1].xlsx
-│   └── ADMIN-Excel-… [2].xlsx
+├── data/                   # Excel ADMIN + datos runtime
+│   ├── ADMIN-Excel-… [1].xlsx   # Pronósticos jugadores 1-5
+│   ├── ADMIN-Excel-… [2].xlsx   # Pronósticos jugador 6
+│   ├── scorers.json              # Goleadores finalizados
+│   ├── live.json                 # Partidos en juego (vacío si no hay)
+│   ├── highlights.json           # IDs vídeos resumen (DAZN YouTube)
+│   ├── api_log.json              # Historial de llamadas API
+│   └── visits_log.json           # Snapshots de visitas
 ├── app.py                  # Backend Flask + motor de lectura Excel
 ├── build_static.py         # Genera data.json
 ├── fetch_results.py        # Descarga resultados en vivo → Excel
+├── fetch_highlights.py     # Resúmenes DAZN en YouTube (API v3)
 ├── fixture_data.py         # Sedes y TV (104 partidos)
 ├── team_names.py           # Mapeo nombres API → Excel
-├── team_players.py         # Jugadores destacados por selección
+├── team_players.py         # Jugadores destacados por selección (TheSportsDB)
 ├── excel_sync.py           # Sincroniza 00. ADMIN/ → data/
+├── log_api_call.py         # Registra llamadas API
+├── snapshot_visits.py      # Foto horaria del contador
+├── should_update.py        # Guardián del cron
 ├── update_schedule.py      # Calcula próxima actualización (banner)
 ├── update_config.json      # Horarios de actualización automática
 ├── launch.py               # Arranque local + Chrome
@@ -347,7 +363,10 @@ porra-mundial-nanos-2026/
 ├── requirements.txt        # Dependencias (flask, openpyxl)
 ├── static/                 # Logo WC 2026, favicons, fondos, audio
 ├── docs/                   # Capturas para el README
-└── .github/workflows/      # CI: actualización programada
+└── .github/workflows/
+    ├── update-porra.yml        # Cron principal (cada 5 min)
+    ├── nightly-backup.yml      # Backup rama diaria (23:55)
+    └── snapshot-visits.yml     # Foto visitas (cada hora)
 ```
 
 ---
@@ -368,6 +387,8 @@ porra-mundial-nanos-2026/
 |--------|-----|
 | `fixture_data.py` | Ciudad, país y emisión TV en España |
 | [worldcup26.ir API](https://worldcup26.ir/get/games) | Resultados en vivo (actualización automática) |
+| [YouTube Data API v3](https://developers.google.com/youtube/v3) | Resúmenes de partidos (canal DAZN ES) |
+| [TheSportsDB](https://www.thesportsdb.com/) | Fichas de jugadores (foto, bio, stats) |
 
 ---
 
@@ -401,13 +422,13 @@ La web **solo lee** datos; **nunca escribe** pronósticos. Hay dos flujos distin
 |---|---|---|
 | **Qué es** | Resultado real de cada partido (columnas AC/AD en WORLDCUP) | Lo que apostáis cada uno en el Excel ADMIN |
 | **Quién lo actualiza** | Automático (GitHub Actions) | Tú, a mano en Excel |
-| **Frecuencia** | **Justo después de cada partido** (el bot vigila cada 30 min) | Cuando cambiéis un pronóstico |
+| **Frecuencia** | **Justo después de cada partido** (el bot vigila cada 5 min) | Cuando cambiéis un pronóstico |
 | **¿Hay que hacer push?** | No — el bot lo hace solo | Sí — `build_static.py` + `git push` |
 
 ### Flujo automático (goles → web online)
 
 Cuando acaba un partido, **no tienes que subir nada a mano** para que la web pública se entere.
-La Action se despierta **cada 30 minutos**, pero un **guardián** (`should_update.py`) decide si hay
+La Action se despierta **cada 5 minutos**, pero un **guardián** (`should_update.py`) decide si hay
 trabajo real: solo llama a la API cuando un partido acaba de terminar y su resultado todavía no está
 publicado. El resto de veces sale sin gastar nada. Esto es lo que pasa:
 
@@ -446,11 +467,11 @@ publicado. El resto de veces sale sin gastar nada. Esto es lo que pasa:
 > abrir el archivo a mano. Para que la actualización sea 100% automática, `app.py` recalcula los
 > puntos de la fase de grupos (1X2, diferencia y resultado exacto) al generar `data.json`.
 
-**API de resultados:** [https://worldcup26.ir/get/games](https://worldcup26.ir/get/games) (pública, sin clave). Configuración en `update_config.json`. Horario del cron en `.github/workflows/update-porra.yml` (`*/30 * * * *` = cada 30 min, filtrado por `should_update.py`).
+**API de resultados:** [https://worldcup26.ir/get/games](https://worldcup26.ir/get/games) (pública, sin clave). Configuración en `update_config.json`. Horario del cron en `.github/workflows/update-porra.yml` (`*/5 * * * *` = cada 5 min, filtrado por `should_update.py`).
 
 **Dos ritmos distintos:**
 
-- **Pipeline en GitHub:** se despierta cada 30 min, pero solo publica `data.json` cuando un partido acaba de terminar.
+- **Pipeline en GitHub:** se despierta cada 5 min, pero solo publica `data.json` cuando un partido acaba de terminar.
 - **Navegador del usuario:** carga `data.json` al abrir la web. Para ver datos nuevos basta con recargar la página.
 
 La barra superior de la web («Actualizada a las XX:XX · Próxima actualización…») refleja ese ciclo.
