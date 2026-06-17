@@ -463,5 +463,21 @@
       "penalty": false,
       "team": "away"
     }
+  ],
+  "Portugal-RD Congo": [
+    {
+      "player": "J. Neves",
+      "minute": "6'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Y. Wissa",
+      "minute": "45'+5'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
   ]
 }
