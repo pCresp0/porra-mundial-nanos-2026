@@ -1,9 +1,16 @@
 {
   "Inglaterra-Croacia": {
-    "home": 1,
+    "home": 2,
     "away": 1,
     "minute": "live",
     "scorers": [
+      {
+        "player": "Hri Kin",
+        "minute": "42'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
       {
         "player": "Martin Batvrina",
         "minute": "36'",
