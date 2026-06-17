@@ -1,6 +1,6 @@
 {
   "Inglaterra-Croacia": {
-    "home": 3,
+    "home": 4,
     "away": 2,
     "minute": "live",
     "scorers": [
@@ -14,6 +14,13 @@
       {
         "player": "Jvd Blingham",
         "minute": "47'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Markvs Rshfvrd",
+        "minute": "85'",
         "own_goal": false,
         "penalty": false,
         "team": "home"

@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "17/06/2026 21:48",
+    "generated": "17/06/2026 21:51",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-17T21:28",
       "last_updated_time": "21:28",
       "last_updated_date": "17/06/2026",
-      "next_update_iso": "2026-06-17T23:50",
-      "next_update_time": "23:50",
+      "next_update_iso": "2026-06-17T23:55",
+      "next_update_time": "23:55",
       "next_update_date": "17/06/2026",
-      "last_checked_iso": "2026-06-17T23:48",
-      "last_checked_time": "23:48",
+      "last_checked_iso": "2026-06-17T23:51",
+      "last_checked_time": "23:51",
       "last_checked_date": "17/06/2026"
     },
     "players": [
@@ -213,6 +213,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-17T23:51:04+02:00",
+        "date": "17/06/2026",
+        "time": "23:51:04",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-17T23:48:45+02:00",
         "date": "17/06/2026",
@@ -4294,14 +4302,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-16T20:54:39+02:00",
-        "date": "16/06/2026",
-        "time": "20:54:39",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4363,8 +4363,8 @@
     {
       "name": "MEDINA",
       "total": 30.0,
-      "live_points": 2.0,
-      "total_live": 32.0,
+      "live_points": 3.0,
+      "total_live": 33.0,
       "groups": 30.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -4390,8 +4390,8 @@
     {
       "name": "VÍCTOR",
       "total": 28.0,
-      "live_points": 3.0,
-      "total_live": 31.0,
+      "live_points": 2.0,
+      "total_live": 30.0,
       "groups": 28.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -4444,8 +4444,8 @@
     {
       "name": "LARRY",
       "total": 18.0,
-      "live_points": 2.0,
-      "total_live": 20.0,
+      "live_points": 3.0,
+      "total_live": 21.0,
       "groups": 18.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -8255,7 +8255,7 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 3,
+      "live_goals_l": 4,
       "live_goals_v": 2,
       "live_scorers": [
         {
@@ -8268,6 +8268,13 @@
         {
           "player": "J. Bellingham",
           "minute": "47'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Markvs Rshfvrd",
+          "minute": "85'",
           "own_goal": false,
           "penalty": false,
           "team": "home"
@@ -8318,15 +8325,15 @@
           "breakdown": null,
           "live_breakdown": {
             "sign": 2.0,
-            "diff": 0.0,
+            "diff": 1.0,
             "exact": 0,
-            "total": 2.0,
+            "total": 3.0,
             "reasons": [
               "1X2 correcto (+2.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles (+1)"
             ]
           },
-          "live_score": 2.0
+          "live_score": 3.0
         },
         "LUIS/VIR": {
           "pred": {
@@ -8355,15 +8362,15 @@
           "breakdown": null,
           "live_breakdown": {
             "sign": 2.0,
-            "diff": 0.0,
+            "diff": 1.0,
             "exact": 0,
-            "total": 2.0,
+            "total": 3.0,
             "reasons": [
               "1X2 correcto (+2.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles (+1)"
             ]
           },
-          "live_score": 2.0
+          "live_score": 3.0
         },
         "VÍCTOR": {
           "pred": {
@@ -8374,15 +8381,15 @@
           "breakdown": null,
           "live_breakdown": {
             "sign": 2.0,
-            "diff": 1.0,
+            "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 2.0,
             "reasons": [
               "1X2 correcto (+2.0)",
-              "Diferencia de goles (+1)"
+              "Diferencia de goles no acertada"
             ]
           },
-          "live_score": 3.0
+          "live_score": 2.0
         },
         "CRESPO": {
           "pred": {
