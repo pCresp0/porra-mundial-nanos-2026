@@ -130,6 +130,43 @@
       "team": "away"
     }
   ],
+  "Irak-Noruega": [
+    {
+      "player": "Aymen Hussein",
+      "minute": "39'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Erling Haaland",
+      "minute": "29'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Erling Haaland",
+      "minute": "43'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Leo Østigård",
+      "minute": "76'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Aymen Hussein",
+      "minute": "90'+7'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "Costa de Marfil-Ecuador": [
     {
       "player": "A. Diallo",
@@ -319,6 +356,29 @@
       "team": "away"
     }
   ],
+  "Austria-Jordania": [
+    {
+      "player": "Rvmanv Ashmid",
+      "minute": "21'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Izn Alarb",
+      "minute": "76'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Ali Avlvan",
+      "minute": "50'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "Canadá-Bosnia y Herzegovina": [
     {
       "player": "C. Larin",
@@ -363,6 +423,29 @@
       "own_goal": false,
       "penalty": false,
       "team": "away"
+    }
+  ],
+  "Argentina-Argelia": [
+    {
+      "player": "Lionel Messi",
+      "minute": "17'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Lionel Messi",
+      "minute": "60'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Lionel Messi",
+      "minute": "76'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
     }
   ],
   "Bélgica-Egipto": [
