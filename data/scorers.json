@@ -356,6 +356,29 @@
       "team": "away"
     }
   ],
+  "Austria-Jordania": [
+    {
+      "player": "Rvmanv Ashmid",
+      "minute": "21'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Izn Alarb",
+      "minute": "76'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Ali Avlvan",
+      "minute": "50'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "Canadá-Bosnia y Herzegovina": [
     {
       "player": "C. Larin",

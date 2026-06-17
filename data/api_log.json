@@ -9836,5 +9836,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-17T08:14:34+02:00",
+    "date": "17/06/2026",
+    "time": "08:14:34",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇦🇹Austria 3-1 Jordania🇯🇴",
+        "name": "Austria-Jordania",
+        "date": "2026-06-17",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "0-0",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "3-1",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]
