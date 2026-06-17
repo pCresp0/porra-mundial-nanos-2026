@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "17/06/2026 15:22",
+    "generated": "17/06/2026 15:24",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -10,7 +10,10 @@
       "last_updated_date": "17/06/2026",
       "next_update_iso": "2026-06-17T17:25",
       "next_update_time": "17:25",
-      "next_update_date": "17/06/2026"
+      "next_update_date": "17/06/2026",
+      "last_checked_iso": "2026-06-17T17:24",
+      "last_checked_time": "17:24",
+      "last_checked_date": "17/06/2026"
     },
     "players": [
       "JUANCHO",
@@ -196,6 +199,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-17T17:24:28+02:00",
+        "date": "17/06/2026",
+        "time": "17:24:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-17T17:08:48+02:00",
         "date": "17/06/2026",
@@ -4277,32 +4288,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-16T02:06:39+02:00",
-        "date": "16/06/2026",
-        "time": "02:06:39",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇸🇦Arabia Saudita 1-1 Uruguay🇺🇾",
-            "name": "Arabia Saudita-Uruguay",
-            "date": "2026-06-16",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "0-0",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "1-1",
-              "jugado": "sí"
-            }
-          }
-        ]
       }
     ]
   },
