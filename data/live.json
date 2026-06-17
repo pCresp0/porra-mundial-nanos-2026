@@ -1,8 +1,23 @@
 {
   "Portugal-RD Congo": {
     "home": 1,
-    "away": 0,
+    "away": 1,
     "minute": "Live",
-    "scorers": []
+    "scorers": [
+      {
+        "player": "J. Neves",
+        "minute": "6'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Y. Wissa",
+        "minute": "45'+5'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      }
+    ]
   }
 }
