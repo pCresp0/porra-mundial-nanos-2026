@@ -402,6 +402,29 @@
       "team": "away"
     }
   ],
+  "Argentina-Argelia": [
+    {
+      "player": "Livnl Msi",
+      "minute": "17'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Livnl Msi",
+      "minute": "60'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Livnl Msi",
+      "minute": "76'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
   "Bélgica-Egipto": [
     {
       "player": "Mohamed Hany",
