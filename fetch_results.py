@@ -37,14 +37,29 @@ def _load_config():
     return defaults
 
 
-def _fetch_games(url: str) -> list:
-    req = urllib.request.Request(url, headers={"User-Agent": "PorraLosNanos/1.0"})
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        data = json.load(resp)
-    games = data.get("games", data) if isinstance(data, dict) else data
-    if not isinstance(games, list):
-        raise ValueError("Respuesta API inesperada")
-    return games
+def _fetch_games(url: str, retries: int = 8, backoff: float = 3.0) -> list:
+    """Fetch games from the API with retries (the server is flaky)."""
+    import time as _time
+
+    last_err = None
+    for attempt in range(1, retries + 1):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "PorraLosNanos/1.0"})
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                data = json.load(resp)
+            games = data.get("games", data) if isinstance(data, dict) else data
+            if not isinstance(games, list):
+                raise ValueError("Respuesta API inesperada")
+            if attempt > 1:
+                print(f"  ✅ API respondió en intento {attempt}/{retries}")
+            return games
+        except Exception as e:
+            last_err = e
+            if attempt < retries:
+                wait = backoff * attempt
+                print(f"  ⚠️  Intento {attempt}/{retries} falló ({e}), reintentando en {wait:.0f}s…")
+                _time.sleep(wait)
+    raise last_err
 
 
 def _match_key(home_es: str, away_es: str) -> str:
