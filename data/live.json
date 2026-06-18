@@ -1,16 +1,1 @@
-{
-  "República Checa-Sudáfrica": {
-    "home": 1,
-    "away": 1,
-    "minute": "live",
-    "scorers": [
-      {
-        "player": "‫mikhal Sadilk",
-        "minute": "6'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "home"
-      }
-    ]
-  }
-}
+{}
