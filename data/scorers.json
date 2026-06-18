@@ -563,6 +563,36 @@
       "team": "home"
     }
   ],
+  "Suiza-Bosnia y Herzegovina": [
+    {
+      "player": "Jvhan Mnzambi",
+      "minute": "74'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Rvbn Vargas",
+      "minute": "84'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Jvhan Mnzambi",
+      "minute": "90'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Armin Mhmich",
+      "minute": "90'+3'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "República Checa-Sudáfrica": [
     {
       "player": "mikhal Sadilk",
