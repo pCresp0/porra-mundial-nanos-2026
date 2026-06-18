@@ -524,6 +524,36 @@
       "team": "away"
     }
   ],
+  "Uzbekistán-Colombia": [
+    {
+      "player": "Abas Bk Fiz Allh Af",
+      "minute": "60'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Dnil Mvnvz",
+      "minute": "40'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Lviiz Diaz",
+      "minute": "65'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Khamintvn Kampaz",
+      "minute": "90'+9'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "Ghana-Panamá": [
     {
       "player": "Kalb Iirnki",
