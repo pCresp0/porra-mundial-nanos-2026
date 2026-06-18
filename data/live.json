@@ -1,8 +1,16 @@
 {
   "Uzbekistán-Colombia": {
     "home": 0,
-    "away": 0,
+    "away": 1,
     "minute": "live",
-    "scorers": []
+    "scorers": [
+      {
+        "player": "Dnil Mvnvz",
+        "minute": "40'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      }
+    ]
   }
 }
