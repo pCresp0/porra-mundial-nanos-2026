@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "18/06/2026 20:52",
+    "generated": "18/06/2026 20:54",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-06-18T22:55",
       "next_update_time": "22:55",
       "next_update_date": "18/06/2026",
-      "last_checked_iso": "2026-06-18T22:52",
-      "last_checked_time": "22:52",
+      "last_checked_iso": "2026-06-18T22:54",
+      "last_checked_time": "22:54",
       "last_checked_date": "18/06/2026"
     },
     "players": [
@@ -237,6 +237,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-18T22:54:53+02:00",
+        "date": "18/06/2026",
+        "time": "22:54:53",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-18T22:52:47+02:00",
         "date": "18/06/2026",
@@ -4315,14 +4323,6 @@
         "ts_iso": "2026-06-17T18:44:29+02:00",
         "date": "17/06/2026",
         "time": "18:44:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-17T18:42:33+02:00",
-        "date": "17/06/2026",
-        "time": "18:42:33",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -8978,7 +8978,7 @@
       "live": true,
       "live_minute": "live",
       "live_goals_l": 3,
-      "live_goals_v": 0,
+      "live_goals_v": 1,
       "live_scorers": [
         {
           "player": "Jvhan Mnzambi",
@@ -9000,6 +9000,13 @@
           "own_goal": false,
           "penalty": false,
           "team": "home"
+        },
+        {
+          "player": "Armin Mhmich",
+          "minute": "90'+3'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
         }
       ],
       "goals_l": 0,

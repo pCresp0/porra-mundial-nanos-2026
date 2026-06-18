@@ -1,7 +1,7 @@
 {
   "Suiza-Bosnia y Herzegovina": {
     "home": 3,
-    "away": 0,
+    "away": 1,
     "minute": "live",
     "scorers": [
       {
@@ -24,6 +24,13 @@
         "own_goal": false,
         "penalty": false,
         "team": "home"
+      },
+      {
+        "player": "Armin Mhmich",
+        "minute": "90'+3'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
       }
     ]
   }
