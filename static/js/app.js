@@ -1072,14 +1072,17 @@ function renderPodium() {
     ? [...D.standings].sort((a, b) => (b.total_live || 0) - (a.total_live || 0) || (a.pos || 0) - (b.pos || 0))
     : D.standings;
   const totOf = p => liveActive ? (p.total_live != null ? p.total_live : p.total) : p.total;
-  const provTag = p => (liveActive && p.live_points > 0)
-    ? `<div class="podium-prov">+${_fmtPts(p.live_points)} en juego</div>` : "";
+  const provTag = p => {
+    if (!liveActive) return "";
+    if (p.live_points > 0) return `<div class="podium-prov">+${_fmtPts(p.live_points)} en juego</div>`;
+    return `<div class="podium-prov" style="visibility:hidden">+0 en juego</div>`;
+  };
   const top3 = ranked.slice(0, 3);
   const _posChg = p => {
     if (liveActive) return (p.pos || 0) - (p.live_pos || p.pos || 0);
     return p.pos_change || 0;
   };
-  const anyChange = ranked.some(p => _posChg(p) !== 0);
+  const anyChange = liveActive || ranked.some(p => _posChg(p) !== 0);
   const order  = [{ idx: 1, cls: "podium-2nd", medal: "🥈" },
                   { idx: 0, cls: "podium-1st", medal: "🥇" },
                   { idx: 2, cls: "podium-3rd", medal: "🥉" }];
@@ -1471,7 +1474,7 @@ function renderStandingsTable() {
   });
   const fmt = v => Number.isInteger(v) ? v : (+v).toFixed(2).replace(/\.?0+$/, "");
   const liveActive = _liveStandingsActive();
-  const anyTblChange = rows.some(r => (r.pos_change || 0) !== 0);
+  const anyTblChange = liveActive || rows.some(r => (r.pos_change || 0) !== 0);
   tbody.innerHTML = rows.map(r => {
     const medal = r.pos <= 3 ? MEDAL[r.pos - 1] + " " : "";
     const provBadge = (liveActive && r.live_points > 0)
