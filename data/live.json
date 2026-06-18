@@ -17,6 +17,13 @@
         "own_goal": false,
         "penalty": false,
         "team": "away"
+      },
+      {
+        "player": "Lviiz Diaz",
+        "minute": "65'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
       }
     ]
   }
