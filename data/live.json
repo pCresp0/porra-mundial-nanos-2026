@@ -1,8 +1,16 @@
 {
   "Suiza-Bosnia y Herzegovina": {
-    "home": 0,
+    "home": 1,
     "away": 0,
     "minute": "live",
-    "scorers": []
+    "scorers": [
+      {
+        "player": "Jvhan Mnzambi",
+        "minute": "74'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      }
+    ]
   }
 }
