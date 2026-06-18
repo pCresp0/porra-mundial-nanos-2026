@@ -14548,5 +14548,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-19T00:12:43+02:00",
+    "date": "19/06/2026",
+    "time": "00:12:43",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇨🇦Canadá 1-1 Catar🇶🇦",
+        "name": "Canadá-Catar",
+        "date": "2026-06-19",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "0-0",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "1-1",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]
