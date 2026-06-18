@@ -1,16 +1,1 @@
-{
-  "Canadá-Catar": {
-    "home": 1,
-    "away": 0,
-    "minute": "live",
-    "scorers": [
-      {
-        "player": "Kail Larin",
-        "minute": "16'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "home"
-      }
-    ]
-  }
-}
+{}
