@@ -2219,9 +2219,10 @@ function renderForma(prog, cutIdx) {
     const stand   = standings.find(s => s.name === name) || {};
     const allPts  = (allDayPts[name] || []).slice(0, cutIdx + 1);
     const last5   = allPts.slice(startIdx);
-    const lp      = _liveStandingsActive() ? (+stand.live_points || 0) : 0;
+    const _fLA    = _liveStandingsActive();
+    const lp      = _fLA ? (+stand.live_points || 0) : 0;
     const sum5    = last5.reduce((a, b) => a + b, 0) + lp;
-    const formaArr = lp > 0 ? [...last5, lp] : last5;
+    const formaArr = _fLA ? [...last5, lp] : last5;
     const forma   = _formaInfo(formaArr);
     const spark   = _sparkSvg(formaArr, color);
 
@@ -2237,7 +2238,7 @@ function renderForma(prog, cutIdx) {
     }).join("");
 
     // Dot provisional si hay partido en curso
-    if (lp > 0) {
+    if (_fLA) {
       const dc = _dotStyle(lp);
       const ptsStr = lp % 1 === 0 ? String(lp) : lp.toFixed(1);
       dotsHtml += `<div class="forma-dot-wrap" title="En juego (provisional)">
@@ -2247,7 +2248,7 @@ function renderForma(prog, cutIdx) {
     }
 
     // heat bar: sum5 / (shown * maxPerMatch)
-    const shownTotal = lp > 0 ? shown + 1 : shown;
+    const shownTotal = _fLA ? shown + 1 : shown;
     const heatPct = Math.round((sum5 / (shownTotal * maxPerMatch)) * 100);
 
     return `<div class="forma-card" style="--fcolor:${color}">
@@ -2256,7 +2257,7 @@ function renderForma(prog, cutIdx) {
           <div class="forma-color-dot" style="background:${color}"></div>
           <span class="forma-name">${escapeHtml(name)}</span>
         </div>
-        <div class="forma-meta">#${stand.pos ?? "—"} · <span class="bebas" style="color:${color};font-size:.95rem">${lp > 0 ? (stand.total || 0) + lp : (stand.total ?? 0)}</span> pts${lp > 0 ? " <span class='prov-tag'>prov.</span>" : " total"}</div>
+        <div class="forma-meta">#${stand.pos ?? "—"} · <span class="bebas" style="color:${color};font-size:.95rem">${_fLA ? (stand.total || 0) + lp : (stand.total ?? 0)}</span> pts${_fLA ? " <span class='prov-tag'>prov.</span>" : " total"}</div>
       </div>
       <div class="forma-heat-wrap" title="Rendimiento: ${heatPct}% de puntos posibles en últimos ${shown}">
         <div class="forma-heat-bar" style="width:${heatPct}%;background:${color}"></div>
