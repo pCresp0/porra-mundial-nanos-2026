@@ -1,6 +1,6 @@
 {
   "Canadá-Catar": {
-    "home": 2,
+    "home": 3,
     "away": 0,
     "minute": "live",
     "scorers": [
@@ -14,6 +14,13 @@
       {
         "player": "Janatan Divid",
         "minute": "29'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Janatan Divid",
+        "minute": "45'+3'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
