@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "18/06/2026 22:26",
+    "generated": "18/06/2026 22:28",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -10,7 +10,10 @@
       "last_updated_date": "19/06/2026",
       "next_update_iso": "2026-06-19T00:30",
       "next_update_time": "00:30",
-      "next_update_date": "19/06/2026"
+      "next_update_date": "19/06/2026",
+      "last_checked_iso": "2026-06-19T00:28",
+      "last_checked_time": "00:28",
+      "last_checked_date": "19/06/2026"
     },
     "players": [
       "JUANCHO",
@@ -228,6 +231,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-19T00:28:40+02:00",
+        "date": "19/06/2026",
+        "time": "00:28:40",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-19T00:12:43+02:00",
         "date": "19/06/2026",
@@ -4362,14 +4373,6 @@
         "time": "19:36:26",
         "updated": false,
         "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-17T19:34:27+02:00",
-        "date": "17/06/2026",
-        "time": "19:34:27",
-        "updated": false,
-        "trigger": "schedule",
         "changes": []
       }
     ]
@@ -9220,15 +9223,7 @@
       "live_scorers": [],
       "goals_l": 1,
       "goals_v": 1,
-      "scorers": [
-        {
-          "player": "‫mikhal Sadilk",
-          "minute": "6'",
-          "own_goal": false,
-          "penalty": false,
-          "team": "home"
-        }
-      ],
+      "scorers": [],
       "predictions": {
         "JUANCHO": {
           "pred": {
