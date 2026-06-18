@@ -3574,6 +3574,10 @@ function renderStats() {
     return { name, exact, diff, sign, miss, hits, total, pct, avg, best, last4pts, streak: liveStreak, maxStreak: streak };
   });
 
+  // Ordenar según clasificación general
+  const standOrder = D.standings.map(s => s.name);
+  perPlayer.sort((a, b) => standOrder.indexOf(a.name) - standOrder.indexOf(b.name));
+
   // ── HERO numbers ───────────────────────────────────────────────────────
   const heroEl = document.getElementById("stats-hero");
   const totalExacts = perPlayer.reduce((s, p) => s + p.exact, 0);
