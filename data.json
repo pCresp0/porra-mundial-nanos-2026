@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "18/06/2026 20:48",
+    "generated": "18/06/2026 20:51",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-18T20:28",
       "last_updated_time": "20:28",
       "last_updated_date": "18/06/2026",
-      "next_update_iso": "2026-06-18T22:50",
-      "next_update_time": "22:50",
+      "next_update_iso": "2026-06-18T22:55",
+      "next_update_time": "22:55",
       "next_update_date": "18/06/2026",
-      "last_checked_iso": "2026-06-18T22:48",
-      "last_checked_time": "22:48",
+      "last_checked_iso": "2026-06-18T22:51",
+      "last_checked_time": "22:51",
       "last_checked_date": "18/06/2026"
     },
     "players": [
@@ -237,6 +237,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-18T22:51:25+02:00",
+        "date": "18/06/2026",
+        "time": "22:51:25",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-18T22:48:48+02:00",
         "date": "18/06/2026",
@@ -4315,14 +4323,6 @@
         "ts_iso": "2026-06-17T18:40:45+02:00",
         "date": "17/06/2026",
         "time": "18:40:45",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-17T18:38:28+02:00",
-        "date": "17/06/2026",
-        "time": "18:38:28",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -8977,7 +8977,7 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 2,
+      "live_goals_l": 3,
       "live_goals_v": 0,
       "live_scorers": [
         {
@@ -8990,6 +8990,13 @@
         {
           "player": "Rvbn Vargas",
           "minute": "84'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Jvhan Mnzambi",
+          "minute": "90'",
           "own_goal": false,
           "penalty": false,
           "team": "home"

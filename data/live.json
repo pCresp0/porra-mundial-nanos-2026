@@ -1,6 +1,6 @@
 {
   "Suiza-Bosnia y Herzegovina": {
-    "home": 2,
+    "home": 3,
     "away": 0,
     "minute": "live",
     "scorers": [
@@ -14,6 +14,13 @@
       {
         "player": "Rvbn Vargas",
         "minute": "84'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Jvhan Mnzambi",
+        "minute": "90'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
