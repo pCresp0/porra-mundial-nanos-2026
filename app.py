@@ -1338,16 +1338,81 @@ def build_data():
             "phase_detail": phase_detail,
             "color":    PLAYER_COLORS[i % len(PLAYER_COLORS)],
             "played":   played_count.get(name, 0),
+            "_excel_total": fv("total"),  # total del Excel (jornada anterior)
+            "_orig_idx": i,               # orden original para desempate
         })
 
-    standings_raw.sort(key=lambda x: x["total"], reverse=True)
+    # Desempate: si dos jugadores tienen los mismos puntos, el que tenía más
+    # puntos en la clasificación previa (Excel) se mantiene por encima.
+    # Si aún empatan, se conserva el orden original (índice en all_players).
+    standings_raw.sort(
+        key=lambda x: (x["total"], x.get("_excel_total", 0), -x.get("_orig_idx", 0)),
+        reverse=True,
+    )
+
+    # ── Posiciones previas para flechas de cambio ────────────────────────────
+    # Se lee data/prev_standings.json que contiene las posiciones del último
+    # build en el que los puntos eran DISTINTOS a los actuales. Así las flechas
+    # se muestran mientras los puntos no cambien de nuevo.
+    prev_standings_path = os.path.join(BASE, "data", "prev_standings.json")
+    prev_pos_map = {}
+    try:
+        if os.path.isfile(prev_standings_path):
+            with open(prev_standings_path, encoding="utf-8") as f:
+                prev_data = json.load(f)
+            prev_pos_map = prev_data.get("positions", {})
+    except (OSError, ValueError):
+        pass
+
+    # Determinar posiciones actuales y ver si hubo cambio de puntos
+    current_positions = {}
+    current_totals = {}
+    for i, s in enumerate(standings_raw):
+        current_positions[s["name"]] = i + 1
+        current_totals[s["name"]] = s["total"]
+
+    # Si los puntos cambiaron respecto al prev guardado, actualizamos prev
+    prev_totals = {}
+    try:
+        if os.path.isfile(prev_standings_path):
+            with open(prev_standings_path, encoding="utf-8") as f:
+                prev_data = json.load(f)
+            prev_totals = prev_data.get("totals", {})
+    except (OSError, ValueError):
+        pass
+
+    if current_totals != prev_totals and prev_totals:
+        # Los puntos han cambiado → las posiciones anteriores son las guardadas
+        # Guardamos las NUEVAS posiciones+totales para el próximo cambio
+        try:
+            with open(prev_standings_path, "w", encoding="utf-8") as f:
+                json.dump({"positions": current_positions, "totals": current_totals},
+                         f, ensure_ascii=False, indent=2)
+        except OSError:
+            pass
+    elif not prev_totals:
+        # Primera vez (no hay prev) → guardar estado actual, sin flechas
+        prev_pos_map = current_positions
+        try:
+            with open(prev_standings_path, "w", encoding="utf-8") as f:
+                json.dump({"positions": current_positions, "totals": current_totals},
+                         f, ensure_ascii=False, indent=2)
+        except OSError:
+            pass
+
     standings = []
     for i, s in enumerate(standings_raw):
         s["pos"] = i + 1
+        prev_p = prev_pos_map.get(s["name"], i + 1)
+        s["pos_change"] = prev_p - s["pos"]  # positivo = subió, negativo = bajó
+        # Eliminar campos auxiliares de desempate
+        s.pop("_excel_total", None)
+        s.pop("_orig_idx", None)
         standings.append(s)
 
     # Posición provisional (incluye puntos de partidos en curso)
-    live_order = sorted(standings, key=lambda x: x["total_live"], reverse=True)
+    # Desempate: si empatan en total_live, el que tiene mejor posición oficial gana
+    live_order = sorted(standings, key=lambda x: (x["total_live"], -x["pos"]), reverse=True)
     for i, s in enumerate(live_order):
         s["live_pos"] = i + 1
 

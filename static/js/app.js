@@ -1069,12 +1069,13 @@ function renderPodium() {
   _renderLiveStandingsBanner();
   const liveActive = _liveStandingsActive();
   const ranked = liveActive
-    ? [...D.standings].sort((a, b) => (b.total_live || 0) - (a.total_live || 0))
+    ? [...D.standings].sort((a, b) => (b.total_live || 0) - (a.total_live || 0) || (a.pos || 0) - (b.pos || 0))
     : D.standings;
   const totOf = p => liveActive ? (p.total_live != null ? p.total_live : p.total) : p.total;
   const provTag = p => (liveActive && p.live_points > 0)
     ? `<div class="podium-prov">+${_fmtPts(p.live_points)} en juego</div>` : "";
   const top3 = ranked.slice(0, 3);
+  const anyChange = ranked.some(p => (p.pos_change || 0) !== 0);
   const order  = [{ idx: 1, cls: "podium-2nd", medal: "🥈" },
                   { idx: 0, cls: "podium-1st", medal: "🥇" },
                   { idx: 2, cls: "podium-3rd", medal: "🥉" }];
@@ -1083,11 +1084,17 @@ function renderPodium() {
     const p = top3[idx];
     if (!p) return "";
     const rankLbl = idx === 0 ? "1º" : idx === 1 ? "2º" : "3º";
+    const chg = p.pos_change || 0;
+    const chgHtml = chg > 0
+      ? `<span class="st-pos-up" style="font-size:.85rem">▲${chg}</span>`
+      : chg < 0
+        ? `<span class="st-pos-down" style="font-size:.85rem">▼${Math.abs(chg)}</span>`
+        : anyChange ? `<span class="st-pos-eq" style="font-size:1rem">=</span>` : "";
     return `
       <div class="podium-col ${cls}${liveActive ? " podium-prov-col" : ""}">
         <div class="podium-player">
           <div class="text-3xl mb-1">${medal}</div>
-          <div class="bebas text-2xl tracking-wide" style="color:${p.color}">${p.name}</div>
+          <div class="bebas text-2xl tracking-wide" style="color:${p.color}">${p.name} ${chgHtml}</div>
           <div class="podium-score bebas" style="color:${p.color};font-size:1.1rem;opacity:.85">${_fmtPts(totOf(p))} pts${liveActive ? " <span class='prov-tag'>prov.</span>" : ""}</div>
           ${provTag(p)}
         </div>
@@ -1096,15 +1103,23 @@ function renderPodium() {
   }).join("");
 
   const rest = ranked.slice(3);
-  restEl.innerHTML = rest.map((p, i) => `
+  restEl.innerHTML = rest.map((p, i) => {
+    const chg = p.pos_change || 0;
+    const chgHtml = chg > 0
+      ? `<span class="st-pos-up" title="Subió ${chg}">▲${chg}</span>`
+      : chg < 0
+        ? `<span class="st-pos-down" title="Bajó ${Math.abs(chg)}">▼${Math.abs(chg)}</span>`
+        : anyChange ? `<span class="st-pos-eq" title="Se mantuvo">=</span>` : "";
+    return `
     <div class="card p-3 flex items-center justify-between" style="border-left:3px solid ${p.color}">
       <div>
         <span class="text-xs text-gray-500 font-bold">#${liveActive ? (i + 4) : p.pos}</span>
-        <span class="font-bold text-white ml-2">${p.name}</span>
+        <span class="font-bold text-white ml-2">${p.name}</span>${chgHtml}
         ${(liveActive && p.live_points > 0) ? `<span class="rest-prov">+${_fmtPts(p.live_points)} en juego</span>` : ""}
       </div>
       <span class="bebas text-xl rest-pts-block" style="color:${p.color}">${_fmtPts(totOf(p))} <span style="font-size:.75em;opacity:.7">PTS</span>${liveActive ? " <span class='prov-tag'>prov.</span>" : ""}</span>
-    </div>`).join("");
+    </div>`;
+  }).join("");
 }
 
 /* ¿Hay clasificación provisional activa (algún partido en curso con puntos)? */
@@ -1452,13 +1467,20 @@ function renderStandingsTable() {
   });
   const fmt = v => Number.isInteger(v) ? v : (+v).toFixed(2).replace(/\.?0+$/, "");
   const liveActive = _liveStandingsActive();
+  const anyTblChange = rows.some(r => (r.pos_change || 0) !== 0);
   tbody.innerHTML = rows.map(r => {
     const medal = r.pos <= 3 ? MEDAL[r.pos - 1] + " " : "";
     const provBadge = (liveActive && r.live_points > 0)
       ? ` <span class="prov-tag">prov.</span>` : "";
+    const chg = r.pos_change;
+    const chgHtml = chg > 0
+      ? `<span class="st-pos-up" title="Subió ${chg}">▲${chg}</span>`
+      : chg < 0
+        ? `<span class="st-pos-down" title="Bajó ${Math.abs(chg)}">▼${Math.abs(chg)}</span>`
+        : anyTblChange ? `<span class="st-pos-eq" title="Se mantuvo">=</span>` : "";
     return `<tr${liveActive ? ' class="st-prov-row"' : ""}>
       <td class="font-bold" style="color:${r.color}">${r.pos}</td>
-      <td class="text-left font-semibold text-white">${medal}${r.name}</td>
+      <td class="text-left font-semibold text-white">${medal}${r.name} ${chgHtml}</td>
       <td class="font-extrabold text-lg" style="color:${r.color}">${fmt(r.total)}${provBadge}</td>
       <td>${fmt(r.groups)}</td>
       <td>${fmt(r.s1x2)}</td>
@@ -1544,6 +1566,7 @@ function _standingsRows() {
       positions: +p.positions || 0,
       s1x2, sdiff, sexact,
       live_points: lp,
+      pos_change: p.pos_change || 0,
     };
   });
 }
@@ -1971,6 +1994,50 @@ function renderProgression() {
     fill: false,
   }));
 
+  // ── Live banner for progression ──
+  const liveActive = _liveStandingsActive();
+  const progLiveBanner = document.getElementById("prog-live-banner");
+  if (progLiveBanner) {
+    if (liveActive) {
+      const liveMs = (D.matches || []).filter(m => !m.played && m.live);
+      const liveLinks = liveMs.map(m => {
+        const safeDate = escapeHtml(m.date || "");
+        const safeName = escapeHtml((m.name || "").replace(/'/g, "\\'"));
+        const label = `${m.flag_home || ""} ${m.home || ""} - ${m.away || ""} ${m.flag_away || ""}`.trim();
+        return `<button class="upd-live-match-btn" onclick="goToMatchesDay('${safeDate}','${safeName}')" title="Ir al partido" style="font-size:.78rem">${label}</button>`;
+      });
+      const matchWord = liveMs.length !== 1 ? "partidos" : "partido";
+      progLiveBanner.innerHTML = `<span class="standings-prov-badge">🔴 PROVISIONAL</span> Hay ${liveMs.length} ${matchWord} en juego (${liveLinks.join(", ")}). Los datos incluyen puntos provisionales.`;
+      progLiveBanner.classList.remove("hidden");
+    } else {
+      progLiveBanner.innerHTML = "";
+      progLiveBanner.classList.add("hidden");
+    }
+  }
+
+  // If live, add a provisional point at the end of each dataset
+  if (liveActive) {
+    const provLabel = "🔴 En juego";
+    labels.push(provLabel);
+    datasets.forEach(ds => {
+      const lastVal = ds.data.length > 0 ? ds.data[ds.data.length - 1] : 0;
+      const player = D.standings.find(s => s.name === ds.label);
+      const lp = player ? (+player.live_points || 0) : 0;
+      ds.data.push(lastVal + lp);
+    });
+    // Style provisional segment with dashes
+    datasets.forEach(ds => {
+      const origLen = ds.data.length - 1;
+      ds.segment = {
+        borderDash: ctx => ctx.p1DataIndex >= origLen - 1 ? [5, 4] : ds.borderDash,
+      };
+      // Make last point distinctive
+      ds.pointBackgroundColor = ds.data.map((_, i) =>
+        i === ds.data.length - 1 ? (ds.borderColor + "88") : ds.borderColor
+      );
+    });
+  }
+
   if (progressionChart) progressionChart.destroy();
   const ctx = document.getElementById("progressionChart").getContext("2d");
   progressionChart = new Chart(ctx, {
@@ -2044,6 +2111,10 @@ function renderProgression() {
     const matchesPl = p.played || 0;
     const avg = matchesPl > 0 ? (p.groups / matchesPl).toFixed(1) : "—";
     const deltaCls = v => v > 0 ? "color:var(--green)" : "color:#64748B";
+    const lp = liveActive ? (+p.live_points || 0) : 0;
+    const liveLine = lp > 0
+      ? `<div class="text-xs font-bold" style="color:#FCA5A5">+${_fmtPts(lp)} en juego <span class="prov-tag">prov.</span></div>`
+      : "";
     return `
       <div class="card p-4" style="border-color:${p.color}44">
         <div class="pstat-head mb-3">
@@ -2054,11 +2125,12 @@ function renderProgression() {
           </div>
         </div>
         <div class="text-center">
-          <div class="bebas text-3xl" style="color:${p.color}">${last}</div>
-          <div class="text-xs text-gray-500 mb-1">acumulado</div>
+          <div class="bebas text-3xl" style="color:${p.color}">${liveActive ? last + lp : last}</div>
+          <div class="text-xs text-gray-500 mb-1">${liveActive ? "acumulado (prov.)" : "acumulado"}</div>
           <div class="prog-deltas mb-2">
             <div class="text-xs font-bold" style="${deltaCls(matchDelta)}">+${matchDelta} último partido</div>
             <div class="text-xs font-bold" style="${deltaCls(dayDelta)}">+${dayFmt} último día</div>
+            ${liveLine}
           </div>
           <div class="score-bar-wrap mb-2">
             <div class="score-bar" style="background:${p.color};width:${pct}%"></div>
@@ -2140,11 +2212,13 @@ function renderForma(prog, cutIdx) {
     const stand   = standings.find(s => s.name === name) || {};
     const allPts  = (allDayPts[name] || []).slice(0, cutIdx + 1);
     const last5   = allPts.slice(startIdx);
-    const sum5    = last5.reduce((a, b) => a + b, 0);
-    const forma   = _formaInfo(last5);
-    const spark   = _sparkSvg(last5, color);
+    const lp      = _liveStandingsActive() ? (+stand.live_points || 0) : 0;
+    const sum5    = last5.reduce((a, b) => a + b, 0) + lp;
+    const formaArr = lp > 0 ? [...last5, lp] : last5;
+    const forma   = _formaInfo(formaArr);
+    const spark   = _sparkSvg(formaArr, color);
 
-    const dotsHtml = last5.map((pts, i) => {
+    let dotsHtml = last5.map((pts, i) => {
       const dc    = _dotStyle(pts);
       const title = escapeHtml(last5Titles[i] || "");
       const lbl   = escapeHtml(last5Labels[i] || "");
@@ -2155,8 +2229,19 @@ function renderForma(prog, cutIdx) {
       </div>`;
     }).join("");
 
+    // Dot provisional si hay partido en curso
+    if (lp > 0) {
+      const dc = _dotStyle(lp);
+      const ptsStr = lp % 1 === 0 ? String(lp) : lp.toFixed(1);
+      dotsHtml += `<div class="forma-dot-wrap" title="En juego (provisional)">
+        <div class="forma-dot forma-dot-prov" style="background:${dc.bg};border-color:${dc.border};color:${dc.text}">${ptsStr}</div>
+        <div class="forma-dot-lbl" style="color:#FCA5A5">🔴</div>
+      </div>`;
+    }
+
     // heat bar: sum5 / (shown * maxPerMatch)
-    const heatPct = Math.round((sum5 / (shown * maxPerMatch)) * 100);
+    const shownTotal = lp > 0 ? shown + 1 : shown;
+    const heatPct = Math.round((sum5 / (shownTotal * maxPerMatch)) * 100);
 
     return `<div class="forma-card" style="--fcolor:${color}">
       <div class="forma-card-head">
@@ -2164,7 +2249,7 @@ function renderForma(prog, cutIdx) {
           <div class="forma-color-dot" style="background:${color}"></div>
           <span class="forma-name">${escapeHtml(name)}</span>
         </div>
-        <div class="forma-meta">#${stand.pos ?? "—"} · <span class="bebas" style="color:${color};font-size:.95rem">${stand.total ?? 0}</span> pts total</div>
+        <div class="forma-meta">#${stand.pos ?? "—"} · <span class="bebas" style="color:${color};font-size:.95rem">${lp > 0 ? (stand.total || 0) + lp : (stand.total ?? 0)}</span> pts${lp > 0 ? " <span class='prov-tag'>prov.</span>" : " total"}</div>
       </div>
       <div class="forma-heat-wrap" title="Rendimiento: ${heatPct}% de puntos posibles en últimos ${shown}">
         <div class="forma-heat-bar" style="width:${heatPct}%;background:${color}"></div>
@@ -2178,11 +2263,25 @@ function renderForma(prog, cutIdx) {
     </div>`;
   }).join("");
 
+  const formaLiveActive = _liveStandingsActive();
+  let formaLiveBanner = "";
+  if (formaLiveActive) {
+    const fLiveMs = (D.matches || []).filter(m => !m.played && m.live);
+    const fLiveLinks = fLiveMs.map(m => {
+      const safeDate = escapeHtml(m.date || "");
+      const safeName = escapeHtml((m.name || "").replace(/'/g, "\\'"));
+      const label = `${m.flag_home || ""} ${m.home || ""} - ${m.away || ""} ${m.flag_away || ""}`.trim();
+      return `<button class="upd-live-match-btn" onclick="goToMatchesDay('${safeDate}','${safeName}')" title="Ir al partido" style="font-size:.78rem">${label}</button>`;
+    });
+    formaLiveBanner = `<div class="live-standings-banner mb-3" style="font-size:.78rem;padding:.35rem .7rem"><span class="standings-prov-badge">🔴 PROVISIONAL</span> Incluye puntos del partido en juego (${fLiveLinks.join(", ")})</div>`;
+  }
+
   el.innerHTML = `
     <div class="flex items-center gap-3 mb-1 flex-wrap">
       <h3 class="font-bold text-white text-lg">🌡️ Termómetro de forma</h3>
       <span class="text-xs text-gray-500 font-semibold uppercase tracking-wide">Últimos ${shown} partido${shown !== 1 ? 's' : ''}</span>
     </div>
+    ${formaLiveBanner}
     <p class="text-sm text-gray-400 mb-4">
       Rendimiento reciente de cada jugador partido a partido.
       <span class="forma-legend-item" style="color:#F5C518">⬤ exacto (${maxPerMatch}p)</span>
@@ -2590,7 +2689,7 @@ function renderMatchCard(m, players, colors) {
   const isNextMatch = !m.played && !isLiveMatch && _nextMatchId && (m.id === _nextMatchId || m.name === _nextMatchId);
 
   const playerCards = players.map(name => {
-    const pd = m.predictions[name];
+    const pd = m.predictions?.[name];
     if (!pd || !pd.pred) {
       return `<div class="player-pred-card opacity-40 pp-trigger" data-player="${(name||"").replace(/"/g,"&quot;")}">
         <div class="pname" style="color:${colors[name]}">${name}</div>
@@ -3439,7 +3538,7 @@ function renderStats() {
   const perPlayer = players.map(name => {
     let exact = 0, diff = 0, sign = 0, miss = 0, best = 0, streak = 0, curStreak = 0, bestDay = 0;
     groupMatches.forEach(m => {
-      const pd = m.predictions[name];
+      const pd = m.predictions?.[name];
       const sc = pd?.score ?? 0;
       if (sc > best) best = sc;
       const reasons = pd?.breakdown?.reasons || [];
@@ -3972,7 +4071,7 @@ function initCountdown() {
 /* ═══════════════════════════════════════════════════════════════
    CALENDAR TAB
 ═══════════════════════════════════════════════════════════════ */
-let calView = "week"; // "day" | "week" | "month" — por defecto la semana en curso
+let calView = "day"; // "day" | "week" | "month" — por defecto el día de hoy
 let calOffset = 0;     // desplazamiento (en días/semanas/meses) respecto al periodo base
 
 const MESES_CAL = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
@@ -4516,7 +4615,7 @@ function renderScenarios() {
   const players = D.meta?.players || [];
   const colors  = D.meta?.colors  || {};
 
-  const standings = [...D.standings].sort((a, b) => b.total - a.total);
+  const standings = [...D.standings].sort((a, b) => b.total - a.total || (a.pos || 0) - (b.pos || 0));
   const leader    = standings[0];
   const maxPerMatch = +(D.scoring_rules?.max_per_group_match || 6);
 
@@ -6077,7 +6176,7 @@ function goToMatchesDay(isoDate, matchName) {
   if (delta < 0) matchesDaysBefore = Math.max(matchesDaysBefore, -delta + 1);
 
   // 3. Show all weeks and re-render
-  currentWeek = null;
+  currentWeek = "all";
   renderMatches(currentPhase, currentWeek);
 
   // 4. Scroll to day header and ensure accordion is open
@@ -7642,7 +7741,7 @@ function goToMatchFromAdmin(isoDate, matchName) {
 }
 function _copyAdminSummary(btn) {
   const data = D || {};
-  const st = (data.standings || []).slice().sort((a, b) => (b.total || 0) - (a.total || 0));
+  const st = (data.standings || []).slice().sort((a, b) => (b.total || 0) - (a.total || 0) || (a.pos || 0) - (b.pos || 0));
   const leader = st[0];
   const last = st.length > 1 ? st[st.length - 1] : null;
   const playedMs = (data.matches || []).filter(m => m.played);
@@ -8566,8 +8665,8 @@ function resetAppMode() {
     mode = "guest"; _setStoredMode("guest"); urlSetMode = true;
   }
 
-  // 2) Sin enlace especial y sin elección previa → público por defecto.
-  if (!mode) { mode = "guest"; _setStoredMode("guest"); }
+  // 2) Sin enlace especial y sin elección previa → porra por defecto.
+  if (!mode) { mode = "porra"; _setStoredMode("porra"); }
 
   applyAppMode(mode);
 

@@ -29,24 +29,41 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 HIGHLIGHTS_JSON = os.path.join(BASE, "data", "highlights.json")
 DATA_JSON       = os.path.join(BASE, "data.json")
 
-DAZN_CHANNEL_ID = "UCK-mxP4hLap1t3dp4bPbSBg"
+# Canales DAZN en YouTube (ES y Fútbol)
+DAZN_CHANNELS = [
+    "UCK-mxP4hLap1t3dp4bPbSBg",  # DAZN ES
+    "UCz9FiMLz6SOgR_4VEFvjeIA",  # DAZN Fútbol
+]
 YT_SEARCH_URL   = "https://www.googleapis.com/youtube/v3/search"
 
 # Intervalo mínimo entre búsquedas del mismo partido sin resultado (30 min).
-# Esto limita el consumo de cuota de la API de YouTube cuando se lanza frecuentemente.
 HL_SEARCH_INTERVAL = timedelta(minutes=30)
 
 
-def _norm(s: str) -> str:
+def _norm(s):
     import unicodedata
 
     s = unicodedata.normalize("NFD", (s or "").lower().strip())
     return "".join(c for c in s if unicodedata.category(c) != "Mn")
 
 
-_ES_TO_EN: dict[str, set[str]] = {}
+_ES_TO_EN = {}
 for en_name, es_name in EN_TO_ES.items():
     _ES_TO_EN.setdefault(_norm(es_name), set()).add(_norm(en_name))
+
+# Alias adicionales en español que DAZN usa en sus títulos
+_EXTRA_ES_ALIASES = {
+    "republica checa": ["chequia"],
+    "estados unidos": ["usa", "eeuu"],
+    "paises bajos": ["holanda"],
+    "costa de marfil": ["cote divoire"],
+    "corea del sur": ["corea"],
+    "bosnia y herzegovina": ["bosnia"],
+    "arabia saudita": ["arabia saudi"],
+    "rd congo": ["congo", "rep. dem. congo", "dr congo"],
+}
+for es_norm, aliases in _EXTRA_ES_ALIASES.items():
+    _ES_TO_EN.setdefault(es_norm, set()).update(aliases)
 
 
 def _team_terms(name: str) -> list[str]:
@@ -88,8 +105,7 @@ def _save_json(path: str, data) -> None:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 
-def _search_highlight(api_key: str, match_name: str, home: str, away: str,
-                      match_date: str) -> str | None:
+def _search_highlight(api_key, match_name, home, away, match_date):
     """
     Busca el resumen del partido en DAZN ES.
     Devuelve el video_id si lo encuentra, None si no.
@@ -110,41 +126,76 @@ def _search_highlight(api_key: str, match_name: str, home: str, away: str,
     else:
         published_after = None
 
-    params = {
+    base_params = {
         "part": "snippet",
-        "channelId": DAZN_CHANNEL_ID,
         "type": "video",
         "order": "date",
+        "maxResults": 10,
         "key": api_key,
     }
     if published_after:
-        params["publishedAfter"] = published_after
+        base_params["publishedAfter"] = published_after
 
-    for query in _candidate_queries(home, away):
-        params["q"] = query
-        params["maxResults"] = 10
-        url = YT_SEARCH_URL + "?" + urllib.parse.urlencode(params)
-        try:
-            req = urllib.request.Request(url, headers={"User-Agent": "PorraLosNanos/1.0"})
-            with urllib.request.urlopen(req, timeout=15) as resp:
-                data = json.load(resp)
-        except Exception as e:
-            print(f"  ⚠️  Error buscando highlights para {match_name}: {e}")
-            return None
+    # Estrategia escalonada para ahorrar cuota (100 unidades/búsqueda):
+    # 1. Búsqueda principal en DAZN ES (1 query)
+    # 2. Si no, DAZN Fútbol (1 query)
+    # 3. Si no, queries variantes en ambos canales
+    # 4. Si no, búsqueda sin canal como último recurso (1 query)
+    queries = _candidate_queries(home, away)
+    primary_query = queries[0] if queries else f"{home} {away} Resumen"
+    alt_queries = queries[1:] if len(queries) > 1 else []
 
-        items = data.get("items", [])
-        for item in items:
-            title_raw = item.get("snippet", {}).get("title", "")
-            title = _norm(title_raw)
-            video_id = item.get("id", {}).get("videoId", "")
-            has_keyword = any(word in title for word in ("resumen", "highlight", "highlights", "goles"))
-            has_home = any(term in title for term in _team_terms(home))
-            has_away = any(term in title for term in _team_terms(away))
-            if video_id and has_keyword and has_home and has_away:
-                print(f"  ✅  Encontrado: [{video_id}] {title_raw[:70]}")
-                return video_id
+    # Nivel 1: query principal en canales DAZN
+    for channel_id in DAZN_CHANNELS:
+        result = _try_search(api_key, base_params, channel_id, primary_query,
+                             home, away, match_name)
+        if result:
+            return result
+
+    # Nivel 2: queries alternativas en canales DAZN
+    for channel_id in DAZN_CHANNELS:
+        for query in alt_queries:
+            result = _try_search(api_key, base_params, channel_id, query,
+                                 home, away, match_name)
+            if result:
+                return result
+
+    # Nivel 3: búsqueda abierta (sin canal) — solo el query principal
+    result = _try_search(api_key, base_params, None, primary_query,
+                         home, away, match_name)
+    if result:
+        return result
 
     print(f"  ℹ️  Sin resumen disponible aún para {match_name}")
+    return None
+
+
+def _try_search(api_key, base_params, channel_id, query, home, away, match_name):
+    """Ejecuta una búsqueda y devuelve video_id si hay match, None si no."""
+    params = dict(base_params)
+    if channel_id:
+        params["channelId"] = channel_id
+    params["q"] = query
+    url = YT_SEARCH_URL + "?" + urllib.parse.urlencode(params)
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "PorraLosNanos/1.0"})
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            data = json.load(resp)
+    except Exception as e:
+        print(f"  ⚠️  Error buscando highlights para {match_name}: {e}")
+        return None
+
+    items = data.get("items", [])
+    for item in items:
+        title_raw = item.get("snippet", {}).get("title", "")
+        title = _norm(title_raw)
+        video_id = item.get("id", {}).get("videoId", "")
+        has_keyword = any(word in title for word in ("resumen", "highlight", "highlights", "goles"))
+        has_home = any(term in title for term in _team_terms(home))
+        has_away = any(term in title for term in _team_terms(away))
+        if video_id and has_keyword and has_home and has_away:
+            print(f"  ✅  Encontrado: [{video_id}] {title_raw[:70]}")
+            return video_id
     return None
 
 
@@ -169,7 +220,7 @@ def main():
     print(f"🎬 Buscando resúmenes DAZN para {len(played)} partidos jugados…")
 
     # Timestamps de la última búsqueda por partido (para partidos sin resultado aún)
-    last_searched: dict = highlights.get("_last_searched", {})
+    last_searched = highlights.get("_last_searched", {})
     now_utc = datetime.now(timezone.utc)
 
     for m in played:

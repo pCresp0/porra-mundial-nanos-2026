@@ -719,6 +719,27 @@
     .podium-prov { font-size: .68rem; font-weight: 700; color: #FCA5A5; margin-top: .15rem; }
     .rest-prov { font-size: .68rem; font-weight: 700; color: #FCA5A5; margin-left: .5rem; }
     .st-prov-row td { background: rgba(239,68,68,.04); }
+
+    /* Flechas de cambio de posición */
+    .st-pos-up {
+      font-size: .75rem;
+      font-weight: 700;
+      color: #22C55E;
+      margin-left: .25rem;
+    }
+    .st-pos-down {
+      font-size: .75rem;
+      font-weight: 700;
+      color: #EF4444;
+      margin-left: .25rem;
+    }
+    .st-pos-eq {
+      font-size: .85rem;
+      font-weight: 700;
+      color: #9CA3AF;
+      margin-left: .25rem;
+    }
+
     .standings-prov-badge {
       font-size: .65rem;
       font-weight: 800;
@@ -4098,6 +4119,10 @@
   flex-shrink: 0;
 }
 .forma-dot-wrap:hover .forma-dot { transform: scale(1.15); }
+.forma-dot-prov {
+  border-style: dashed;
+  animation: liveDotPulse 1.5s ease-in-out infinite;
+}
 .forma-dot-lbl {
   font-size: .52rem;
   color: #475569;
