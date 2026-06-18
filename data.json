@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "18/06/2026 23:54",
+    "generated": "18/06/2026 23:56",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-19T00:36",
       "last_updated_time": "00:36",
       "last_updated_date": "19/06/2026",
-      "next_update_iso": "2026-06-19T01:55",
-      "next_update_time": "01:55",
+      "next_update_iso": "2026-06-19T02:00",
+      "next_update_time": "02:00",
       "next_update_date": "19/06/2026",
-      "last_checked_iso": "2026-06-19T01:54",
-      "last_checked_time": "01:54",
+      "last_checked_iso": "2026-06-19T01:56",
+      "last_checked_time": "01:56",
       "last_checked_date": "19/06/2026"
     },
     "players": [
@@ -241,6 +241,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-19T01:56:34+02:00",
+        "date": "19/06/2026",
+        "time": "01:56:34",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-19T01:54:37+02:00",
         "date": "19/06/2026",
@@ -4358,32 +4366,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-17T20:58:36+02:00",
-        "date": "17/06/2026",
-        "time": "20:58:36",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇵🇹Portugal 1-1 RD Congo🇨🇩",
-            "name": "Portugal-RD Congo",
-            "date": "2026-06-17",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "0-0",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "1-1",
-              "jugado": "sí"
-            }
-          }
-        ]
       }
     ]
   },
@@ -9225,7 +9207,7 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 5,
+      "live_goals_l": 6,
       "live_goals_v": 0,
       "live_scorers": [
         {
@@ -9259,6 +9241,13 @@
         {
           "player": "Mohamed Almnai",
           "minute": "75'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "J. David",
+          "minute": "90'+2'",
           "own_goal": false,
           "penalty": false,
           "team": "home"

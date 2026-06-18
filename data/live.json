@@ -1,6 +1,6 @@
 {
   "Canadá-Catar": {
-    "home": 5,
+    "home": 6,
     "away": 0,
     "minute": "live",
     "scorers": [
@@ -35,6 +35,13 @@
       {
         "player": "Mohamed Almnai",
         "minute": "75'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Jonathan David",
+        "minute": "90'+2'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
