@@ -1075,7 +1075,11 @@ function renderPodium() {
   const provTag = p => (liveActive && p.live_points > 0)
     ? `<div class="podium-prov">+${_fmtPts(p.live_points)} en juego</div>` : "";
   const top3 = ranked.slice(0, 3);
-  const anyChange = ranked.some(p => (p.pos_change || 0) !== 0);
+  const _posChg = p => {
+    if (liveActive) return (p.pos || 0) - (p.live_pos || p.pos || 0);
+    return p.pos_change || 0;
+  };
+  const anyChange = ranked.some(p => _posChg(p) !== 0);
   const order  = [{ idx: 1, cls: "podium-2nd", medal: "🥈" },
                   { idx: 0, cls: "podium-1st", medal: "🥇" },
                   { idx: 2, cls: "podium-3rd", medal: "🥉" }];
@@ -1084,7 +1088,7 @@ function renderPodium() {
     const p = top3[idx];
     if (!p) return "";
     const rankLbl = idx === 0 ? "1º" : idx === 1 ? "2º" : "3º";
-    const chg = p.pos_change || 0;
+    const chg = _posChg(p);
     const chgHtml = chg > 0
       ? `<span class="st-pos-up" style="font-size:.85rem">▲${chg}</span>`
       : chg < 0
@@ -1104,7 +1108,7 @@ function renderPodium() {
 
   const rest = ranked.slice(3);
   restEl.innerHTML = rest.map((p, i) => {
-    const chg = p.pos_change || 0;
+    const chg = _posChg(p);
     const chgHtml = chg > 0
       ? `<span class="st-pos-up" title="Subió ${chg}">▲${chg}</span>`
       : chg < 0
@@ -1566,7 +1570,7 @@ function _standingsRows() {
       positions: +p.positions || 0,
       s1x2, sdiff, sexact,
       live_points: lp,
-      pos_change: p.pos_change || 0,
+      pos_change: liveActive ? ((+p.pos || 0) - (+p.live_pos || +p.pos || 0)) : (p.pos_change || 0),
     };
   });
 }
