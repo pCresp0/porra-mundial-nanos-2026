@@ -1,16 +1,1 @@
-{
-  "Ghana-Panamá": {
-    "home": 1,
-    "away": 0,
-    "minute": "live",
-    "scorers": [
-      {
-        "player": "Kalb Iirnki",
-        "minute": "90'+5'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "home"
-      }
-    ]
-  }
-}
+{}

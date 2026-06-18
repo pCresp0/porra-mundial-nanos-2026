@@ -523,5 +523,14 @@
       "penalty": false,
       "team": "away"
     }
+  ],
+  "Ghana-Panamá": [
+    {
+      "player": "Kalb Iirnki",
+      "minute": "90'+5'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
   ]
 }

@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "18/06/2026 01:04",
+    "generated": "18/06/2026 01:06",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-18T02:47",
-      "last_updated_time": "02:47",
+      "last_updated_iso": "2026-06-18T03:06",
+      "last_updated_time": "03:06",
       "last_updated_date": "18/06/2026",
-      "next_update_iso": "2026-06-18T03:05",
-      "next_update_time": "03:05",
+      "next_update_iso": "2026-06-18T03:10",
+      "next_update_time": "03:10",
       "next_update_date": "18/06/2026",
-      "last_checked_iso": "2026-06-18T03:04",
-      "last_checked_time": "03:04",
+      "last_checked_iso": "2026-06-18T03:06",
+      "last_checked_time": "03:06",
       "last_checked_date": "18/06/2026"
     },
     "players": [
@@ -24,11 +24,9 @@
       "CRESPO"
     ],
     "live": {
-      "active": true,
-      "count": 1,
-      "matches": [
-        "Ghana-Panamá"
-      ]
+      "active": false,
+      "count": 0,
+      "matches": []
     },
     "colors": {
       "JUANCHO": "#F5C518",
@@ -217,6 +215,32 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-18T03:06:31+02:00",
+        "date": "18/06/2026",
+        "time": "03:06:31",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇬🇭Ghana 1-0 Panamá🇵🇦",
+            "name": "Ghana-Panamá",
+            "date": "2026-06-18",
+            "fields": [
+              "marcador",
+              "jugado"
+            ],
+            "old": {
+              "marcador": "0-0",
+              "jugado": "no"
+            },
+            "new": {
+              "marcador": "1-0",
+              "jugado": "sí"
+            }
+          }
+        ]
+      },
       {
         "ts_iso": "2026-06-18T03:04:46+02:00",
         "date": "18/06/2026",
@@ -4298,24 +4322,16 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-16T23:58:20+02:00",
-        "date": "16/06/2026",
-        "time": "23:58:20",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
   "standings": [
     {
       "name": "CRESPO",
-      "total": 38.0,
-      "live_points": 3.0,
+      "total": 41.0,
+      "live_points": 0.0,
       "total_live": 41.0,
-      "groups": 38.0,
+      "groups": 41.0,
       "positions": 0.0,
       "q16": 0.0,
       "r16": 0.0,
@@ -4329,20 +4345,20 @@
           "key": "groups",
           "label": "Fase de Grupos",
           "desc": "Partidos + marcadores",
-          "pts": 38.0
+          "pts": 41.0
         }
       ],
       "color": "#EF4444",
-      "played": 22,
+      "played": 23,
       "pos": 1,
       "live_pos": 1
     },
     {
       "name": "LUIS/VIR",
-      "total": 35.0,
-      "live_points": 2.0,
+      "total": 37.0,
+      "live_points": 0.0,
       "total_live": 37.0,
-      "groups": 35.0,
+      "groups": 37.0,
       "positions": 0.0,
       "q16": 0.0,
       "r16": 0.0,
@@ -4356,20 +4372,20 @@
           "key": "groups",
           "label": "Fase de Grupos",
           "desc": "Partidos + marcadores",
-          "pts": 35.0
+          "pts": 37.0
         }
       ],
       "color": "#10B981",
-      "played": 22,
+      "played": 23,
       "pos": 2,
       "live_pos": 2
     },
     {
       "name": "MEDINA",
-      "total": 33.0,
-      "live_points": 3.0,
+      "total": 36.0,
+      "live_points": 0.0,
       "total_live": 36.0,
-      "groups": 33.0,
+      "groups": 36.0,
       "positions": 0.0,
       "q16": 0.0,
       "r16": 0.0,
@@ -4383,20 +4399,20 @@
           "key": "groups",
           "label": "Fase de Grupos",
           "desc": "Partidos + marcadores",
-          "pts": 33.0
+          "pts": 36.0
         }
       ],
       "color": "#F97316",
-      "played": 22,
+      "played": 23,
       "pos": 3,
       "live_pos": 3
     },
     {
       "name": "VÍCTOR",
-      "total": 30.0,
-      "live_points": 6.0,
+      "total": 36.0,
+      "live_points": 0.0,
       "total_live": 36.0,
-      "groups": 30.0,
+      "groups": 36.0,
       "positions": 0.0,
       "q16": 0.0,
       "r16": 0.0,
@@ -4410,11 +4426,11 @@
           "key": "groups",
           "label": "Fase de Grupos",
           "desc": "Partidos + marcadores",
-          "pts": 30.0
+          "pts": 36.0
         }
       ],
       "color": "#A855F7",
-      "played": 22,
+      "played": 23,
       "pos": 4,
       "live_pos": 4
     },
@@ -4441,16 +4457,16 @@
         }
       ],
       "color": "#F5C518",
-      "played": 22,
+      "played": 23,
       "pos": 5,
       "live_pos": 5
     },
     {
       "name": "LARRY",
-      "total": 21.0,
-      "live_points": 2.0,
+      "total": 23.0,
+      "live_points": 0.0,
       "total_live": 23.0,
-      "groups": 21.0,
+      "groups": 23.0,
       "positions": 0.0,
       "q16": 0.0,
       "r16": 0.0,
@@ -4464,11 +4480,11 @@
           "key": "groups",
           "label": "Fase de Grupos",
           "desc": "Partidos + marcadores",
-          "pts": 21.0
+          "pts": 23.0
         }
       ],
       "color": "#3B82F6",
-      "played": 22,
+      "played": 23,
       "pos": 6,
       "live_pos": 6
     }
@@ -8451,13 +8467,19 @@
       "day_label": "Jueves 18 junio",
       "datetime_es": "2026-06-18T01:00:00",
       "phase": "groups",
-      "result": null,
-      "played": false,
-      "live": true,
-      "live_minute": "live",
-      "live_goals_l": 1,
-      "live_goals_v": 0,
-      "live_scorers": [
+      "result": {
+        "sign": "1",
+        "score": "1-0"
+      },
+      "played": true,
+      "live": false,
+      "live_minute": "",
+      "live_goals_l": null,
+      "live_goals_v": null,
+      "live_scorers": [],
+      "goals_l": 1,
+      "goals_v": 0,
+      "scorers": [
         {
           "player": "Kalb Iirnki",
           "minute": "90'+5'",
@@ -8466,9 +8488,6 @@
           "team": "home"
         }
       ],
-      "goals_l": 0,
-      "goals_v": 0,
-      "scorers": [],
       "predictions": {
         "JUANCHO": {
           "pred": {
@@ -8476,8 +8495,7 @@
             "score": "1-1"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -8486,16 +8504,16 @@
               "1X2 incorrecto — 0 pts"
             ]
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "LARRY": {
           "pred": {
             "sign": "1",
             "score": "3-0"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 2.0,
+          "breakdown": {
             "sign": 2.0,
             "diff": 0.0,
             "exact": 0,
@@ -8505,16 +8523,16 @@
               "Diferencia de goles no acertada"
             ]
           },
-          "live_score": 2.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "LUIS/VIR": {
           "pred": {
             "sign": "1",
             "score": "3-0"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 2.0,
+          "breakdown": {
             "sign": 2.0,
             "diff": 0.0,
             "exact": 0,
@@ -8524,16 +8542,16 @@
               "Diferencia de goles no acertada"
             ]
           },
-          "live_score": 2.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "MEDINA": {
           "pred": {
             "sign": "1",
             "score": "2-1"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 3.0,
+          "breakdown": {
             "sign": 2.0,
             "diff": 1.0,
             "exact": 0,
@@ -8543,16 +8561,16 @@
               "Diferencia de goles (+1)"
             ]
           },
-          "live_score": 3.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "VÍCTOR": {
           "pred": {
             "sign": "1",
             "score": "1-0"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 6.0,
+          "breakdown": {
             "sign": 2.0,
             "diff": 1.0,
             "exact": 3.0,
@@ -8563,16 +8581,16 @@
               "Resultado exacto (+3.0)"
             ]
           },
-          "live_score": 6.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "CRESPO": {
           "pred": {
             "sign": "1",
             "score": "2-1"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 3.0,
+          "breakdown": {
             "sign": 2.0,
             "diff": 1.0,
             "exact": 0,
@@ -8582,7 +8600,8 @@
               "Diferencia de goles (+1)"
             ]
           },
-          "live_score": 3.0
+          "live_breakdown": null,
+          "live_score": null
         }
       }
     },
@@ -27752,7 +27771,8 @@
       "ARG-ARG",
       "AUS-JOR",
       "POR-RDC",
-      "ING-CRO"
+      "ING-CRO",
+      "GHA-PAN"
     ],
     "flag_labels": [
       "🇲🇽🇿🇦",
@@ -27776,7 +27796,8 @@
       "🇦🇷🇩🇿",
       "🇦🇹🇯🇴",
       "🇵🇹🇨🇩",
-      "🏴󠁧󠁢󠁥󠁮󠁧󠁿🇭🇷"
+      "🏴󠁧󠁢󠁥󠁮󠁧󠁿🇭🇷",
+      "🇬🇭🇵🇦"
     ],
     "dates": [
       "2026-06-11",
@@ -27800,7 +27821,8 @@
       "2026-06-17",
       "2026-06-17",
       "2026-06-17",
-      "2026-06-17"
+      "2026-06-17",
+      "2026-06-18"
     ],
     "titles": [
       "México 2-0 Sudáfrica · 11 jun",
@@ -27824,7 +27846,8 @@
       "Argentina 3-0 Argelia · 17 jun",
       "Austria 3-1 Jordania · 17 jun",
       "Portugal 1-1 RD Congo · 17 jun",
-      "Inglaterra 4-2 Croacia · 17 jun"
+      "Inglaterra 4-2 Croacia · 17 jun",
+      "Ghana 1-0 Panamá · 18 jun"
     ],
     "players": {
       "JUANCHO": [
@@ -27847,6 +27870,7 @@
         19.0,
         21.0,
         23.0,
+        26.0,
         26.0,
         26.0,
         26.0
@@ -27873,7 +27897,8 @@
         16.0,
         18.0,
         18.0,
-        21.0
+        21.0,
+        23.0
       ],
       "LUIS/VIR": [
         2.0,
@@ -27897,7 +27922,8 @@
         33.0,
         35.0,
         35.0,
-        35.0
+        35.0,
+        37.0
       ],
       "MEDINA": [
         2.0,
@@ -27921,7 +27947,8 @@
         28.0,
         30.0,
         30.0,
-        33.0
+        33.0,
+        36.0
       ],
       "VÍCTOR": [
         6.0,
@@ -27945,7 +27972,8 @@
         26.0,
         28.0,
         28.0,
-        30.0
+        30.0,
+        36.0
       ],
       "CRESPO": [
         3.0,
@@ -27969,7 +27997,8 @@
         32.0,
         38.0,
         38.0,
-        38.0
+        38.0,
+        41.0
       ]
     },
     "day_points": {
@@ -27995,6 +28024,7 @@
         2.0,
         3.0,
         0.0,
+        0.0,
         0.0
       ],
       "LARRY": [
@@ -28019,7 +28049,8 @@
         2.0,
         2.0,
         0.0,
-        3.0
+        3.0,
+        2.0
       ],
       "LUIS/VIR": [
         2.0,
@@ -28043,7 +28074,8 @@
         0.0,
         2.0,
         0.0,
-        0.0
+        0.0,
+        2.0
       ],
       "MEDINA": [
         2.0,
@@ -28067,6 +28099,7 @@
         2.0,
         2.0,
         0.0,
+        3.0,
         3.0
       ],
       "VÍCTOR": [
@@ -28091,7 +28124,8 @@
         6.0,
         2.0,
         0.0,
-        2.0
+        2.0,
+        6.0
       ],
       "CRESPO": [
         3.0,
@@ -28115,7 +28149,8 @@
         2.0,
         6.0,
         0.0,
-        0.0
+        0.0,
+        3.0
       ]
     }
   },
@@ -29098,22 +29133,22 @@
         "name": "CRESPO",
         "color": "#EF4444",
         "pos": 1,
-        "matches_played": 22,
+        "matches_played": 23,
         "stats": {
-          "hits_1x2": 13,
-          "pts_1x2": 26.0,
-          "hits_diff": 6,
-          "pts_diff": 6.0,
+          "hits_1x2": 14,
+          "pts_1x2": 28.0,
+          "hits_diff": 7,
+          "pts_diff": 7.0,
           "hits_exact": 2,
           "pts_exact": 6.0,
           "goals_home": 7,
           "goals_away": 9,
-          "hit_rate": 59,
-          "avg_match": 1.73
+          "hit_rate": 61,
+          "avg_match": 1.78
         },
         "ranks": {
           "hits_exact": 3,
-          "hits_diff": 2,
+          "hits_diff": 1,
           "hits_1x2": 2,
           "goals_home": 2,
           "goals_away": 3,
@@ -29126,35 +29161,39 @@
         },
         "top_skills": [
           {
+            "key": "hits_diff",
+            "label": "Diferencia de goles",
+            "icon": "📐",
+            "rank": 1,
+            "display": "7 aciertos · 7 pts"
+          },
+          {
             "key": "avg_match",
             "label": "Media pts/partido",
             "icon": "⚡",
             "rank": 1,
-            "display": "1.73 pts/partido"
+            "display": "1.78 pts/partido"
           },
           {
             "key": "hit_rate",
             "label": "Tasa de acierto",
             "icon": "✅",
             "rank": 2,
-            "display": "59% (13/22)"
+            "display": "61% (14/23)"
           },
           {
             "key": "hits_1x2",
             "label": "Signo 1X2",
             "icon": "1️⃣",
             "rank": 2,
-            "display": "13 aciertos · 26 pts"
-          },
-          {
-            "key": "goals_home",
-            "label": "Goles local exactos",
-            "icon": "🏠",
-            "rank": 2,
-            "display": "7 aciertos"
+            "display": "14 aciertos · 28 pts"
           }
         ],
         "badges": [
+          {
+            "icon": "📐",
+            "label": "Ojo clínico (dif.)"
+          },
           {
             "icon": "⚡",
             "label": "Rendimiento puro"
@@ -29162,34 +29201,34 @@
         ],
         "best_phase": {
           "label": "Fase de grupos",
-          "pts": 38.0
+          "pts": 41.0
         }
       },
       {
         "name": "LUIS/VIR",
         "color": "#10B981",
         "pos": 2,
-        "matches_played": 22,
+        "matches_played": 23,
         "stats": {
-          "hits_1x2": 10,
-          "pts_1x2": 20.0,
+          "hits_1x2": 11,
+          "pts_1x2": 22.0,
           "hits_diff": 6,
           "pts_diff": 6.0,
           "hits_exact": 3,
           "pts_exact": 9.0,
           "goals_home": 8,
-          "goals_away": 7,
-          "hit_rate": 45,
-          "avg_match": 1.59
+          "goals_away": 8,
+          "hit_rate": 48,
+          "avg_match": 1.61
         },
         "ranks": {
           "hits_exact": 1,
-          "hits_diff": 1,
-          "hits_1x2": 4,
+          "hits_diff": 2,
+          "hits_1x2": 3,
           "goals_home": 1,
           "goals_away": 4,
           "avg_match": 2,
-          "hit_rate": 4,
+          "hit_rate": 3,
           "phase_positions": 3,
           "phase_q16": 3,
           "phase_ko": 3,
@@ -29204,13 +29243,6 @@
             "display": "8 aciertos"
           },
           {
-            "key": "hits_diff",
-            "label": "Diferencia de goles",
-            "icon": "📐",
-            "rank": 1,
-            "display": "6 aciertos · 6 pts"
-          },
-          {
             "key": "hits_exact",
             "label": "Resultados exactos",
             "icon": "🎯",
@@ -29218,11 +29250,18 @@
             "display": "3 aciertos · 9 pts"
           },
           {
+            "key": "hits_diff",
+            "label": "Diferencia de goles",
+            "icon": "📐",
+            "rank": 2,
+            "display": "6 aciertos · 6 pts"
+          },
+          {
             "key": "avg_match",
             "label": "Media pts/partido",
             "icon": "⚡",
             "rank": 2,
-            "display": "1.59 pts/partido"
+            "display": "1.61 pts/partido"
           }
         ],
         "badges": [
@@ -29231,37 +29270,37 @@
             "label": "Goles local"
           },
           {
-            "icon": "📐",
-            "label": "Ojo clínico (dif.)"
+            "icon": "🎯",
+            "label": "Francotirador"
           }
         ],
         "best_phase": {
           "label": "Fase de grupos",
-          "pts": 35.0
+          "pts": 37.0
         }
       },
       {
         "name": "MEDINA",
         "color": "#F97316",
         "pos": 3,
-        "matches_played": 22,
+        "matches_played": 23,
         "stats": {
-          "hits_1x2": 13,
-          "pts_1x2": 26.0,
-          "hits_diff": 4,
-          "pts_diff": 4.0,
+          "hits_1x2": 14,
+          "pts_1x2": 28.0,
+          "hits_diff": 5,
+          "pts_diff": 5.0,
           "hits_exact": 1,
           "pts_exact": 3.0,
           "goals_home": 5,
           "goals_away": 9,
-          "hit_rate": 59,
-          "avg_match": 1.5
+          "hit_rate": 61,
+          "avg_match": 1.57
         },
         "ranks": {
           "hits_exact": 5,
           "hits_diff": 3,
           "hits_1x2": 1,
-          "goals_home": 3,
+          "goals_home": 5,
           "goals_away": 2,
           "avg_match": 3,
           "hit_rate": 1,
@@ -29276,14 +29315,14 @@
             "label": "Tasa de acierto",
             "icon": "✅",
             "rank": 1,
-            "display": "59% (13/22)"
+            "display": "61% (14/23)"
           },
           {
             "key": "hits_1x2",
             "label": "Signo 1X2",
             "icon": "1️⃣",
             "rank": 1,
-            "display": "13 aciertos · 26 pts"
+            "display": "14 aciertos · 28 pts"
           },
           {
             "key": "goals_away",
@@ -29293,11 +29332,11 @@
             "display": "9 aciertos"
           },
           {
-            "key": "goals_home",
-            "label": "Goles local exactos",
-            "icon": "🏠",
+            "key": "hits_diff",
+            "label": "Diferencia de goles",
+            "icon": "📐",
             "rank": 3,
-            "display": "5 aciertos"
+            "display": "5 aciertos · 5 pts"
           }
         ],
         "badges": [
@@ -29312,34 +29351,34 @@
         ],
         "best_phase": {
           "label": "Fase de grupos",
-          "pts": 33.0
+          "pts": 36.0
         }
       },
       {
         "name": "VÍCTOR",
         "color": "#A855F7",
         "pos": 4,
-        "matches_played": 22,
+        "matches_played": 23,
         "stats": {
-          "hits_1x2": 10,
-          "pts_1x2": 20.0,
-          "hits_diff": 4,
-          "pts_diff": 4.0,
-          "hits_exact": 2,
-          "pts_exact": 6.0,
-          "goals_home": 5,
-          "goals_away": 7,
-          "hit_rate": 45,
-          "avg_match": 1.36
+          "hits_1x2": 11,
+          "pts_1x2": 22.0,
+          "hits_diff": 5,
+          "pts_diff": 5.0,
+          "hits_exact": 3,
+          "pts_exact": 9.0,
+          "goals_home": 6,
+          "goals_away": 8,
+          "hit_rate": 48,
+          "avg_match": 1.57
         },
         "ranks": {
           "hits_exact": 2,
           "hits_diff": 4,
-          "hits_1x2": 5,
-          "goals_home": 4,
+          "hits_1x2": 4,
+          "goals_home": 3,
           "goals_away": 5,
           "avg_match": 4,
-          "hit_rate": 5,
+          "hit_rate": 4,
           "phase_positions": 5,
           "phase_q16": 5,
           "phase_ko": 5,
@@ -29351,41 +29390,41 @@
             "label": "Resultados exactos",
             "icon": "🎯",
             "rank": 2,
-            "display": "2 aciertos · 6 pts"
+            "display": "3 aciertos · 9 pts"
           },
           {
             "key": "goals_home",
             "label": "Goles local exactos",
             "icon": "🏠",
-            "rank": 4,
-            "display": "5 aciertos"
+            "rank": 3,
+            "display": "6 aciertos"
           },
           {
-            "key": "hits_diff",
-            "label": "Diferencia de goles",
-            "icon": "📐",
+            "key": "hit_rate",
+            "label": "Tasa de acierto",
+            "icon": "✅",
             "rank": 4,
-            "display": "4 aciertos · 4 pts"
+            "display": "48% (11/23)"
           },
           {
-            "key": "avg_match",
-            "label": "Media pts/partido",
-            "icon": "⚡",
+            "key": "hits_1x2",
+            "label": "Signo 1X2",
+            "icon": "1️⃣",
             "rank": 4,
-            "display": "1.36 pts/partido"
+            "display": "11 aciertos · 22 pts"
           }
         ],
         "badges": [],
         "best_phase": {
           "label": "Fase de grupos",
-          "pts": 30.0
+          "pts": 36.0
         }
       },
       {
         "name": "JUANCHO",
         "color": "#F5C518",
         "pos": 5,
-        "matches_played": 22,
+        "matches_played": 23,
         "stats": {
           "hits_1x2": 10,
           "pts_1x2": 20.0,
@@ -29393,19 +29432,19 @@
           "pts_diff": 3.0,
           "hits_exact": 1,
           "pts_exact": 3.0,
-          "goals_home": 4,
+          "goals_home": 5,
           "goals_away": 9,
-          "hit_rate": 45,
-          "avg_match": 1.18
+          "hit_rate": 43,
+          "avg_match": 1.13
         },
         "ranks": {
           "hits_exact": 4,
           "hits_diff": 5,
-          "hits_1x2": 3,
-          "goals_home": 5,
+          "hits_1x2": 5,
+          "goals_home": 4,
           "goals_away": 1,
           "avg_match": 5,
-          "hit_rate": 3,
+          "hit_rate": 5,
           "phase_positions": 1,
           "phase_q16": 1,
           "phase_ko": 1,
@@ -29435,18 +29474,18 @@
         "name": "LARRY",
         "color": "#3B82F6",
         "pos": 6,
-        "matches_played": 22,
+        "matches_played": 23,
         "stats": {
-          "hits_1x2": 9,
-          "pts_1x2": 18.0,
+          "hits_1x2": 10,
+          "pts_1x2": 20.0,
           "hits_diff": 3,
           "pts_diff": 3.0,
           "hits_exact": 0,
           "pts_exact": 0.0,
           "goals_home": 3,
-          "goals_away": 6,
-          "hit_rate": 41,
-          "avg_match": 0.95
+          "goals_away": 7,
+          "hit_rate": 43,
+          "avg_match": 1.0
         },
         "ranks": {
           "hits_exact": 6,
@@ -29474,13 +29513,13 @@
             "label": "Tasa de acierto",
             "icon": "✅",
             "rank": 6,
-            "display": "41% (9/22)"
+            "display": "43% (10/23)"
           }
         ],
         "badges": [],
         "best_phase": {
           "label": "Fase de grupos",
-          "pts": 21.0
+          "pts": 23.0
         }
       }
     ],
@@ -29497,8 +29536,8 @@
           "rank": 2,
           "name": "VÍCTOR",
           "color": "#A855F7",
-          "display": "2 aciertos · 6 pts",
-          "value": 2
+          "display": "3 aciertos · 9 pts",
+          "value": 3
         },
         {
           "rank": 3,
@@ -29532,15 +29571,15 @@
       "hits_diff": [
         {
           "rank": 1,
-          "name": "LUIS/VIR",
-          "color": "#10B981",
-          "display": "6 aciertos · 6 pts",
-          "value": 6
+          "name": "CRESPO",
+          "color": "#EF4444",
+          "display": "7 aciertos · 7 pts",
+          "value": 7
         },
         {
           "rank": 2,
-          "name": "CRESPO",
-          "color": "#EF4444",
+          "name": "LUIS/VIR",
+          "color": "#10B981",
           "display": "6 aciertos · 6 pts",
           "value": 6
         },
@@ -29548,15 +29587,15 @@
           "rank": 3,
           "name": "MEDINA",
           "color": "#F97316",
-          "display": "4 aciertos · 4 pts",
-          "value": 4
+          "display": "5 aciertos · 5 pts",
+          "value": 5
         },
         {
           "rank": 4,
           "name": "VÍCTOR",
           "color": "#A855F7",
-          "display": "4 aciertos · 4 pts",
-          "value": 4
+          "display": "5 aciertos · 5 pts",
+          "value": 5
         },
         {
           "rank": 5,
@@ -29578,34 +29617,34 @@
           "rank": 1,
           "name": "MEDINA",
           "color": "#F97316",
-          "display": "13 aciertos · 26 pts",
-          "value": 13
+          "display": "14 aciertos · 28 pts",
+          "value": 14
         },
         {
           "rank": 2,
           "name": "CRESPO",
           "color": "#EF4444",
-          "display": "13 aciertos · 26 pts",
-          "value": 13
+          "display": "14 aciertos · 28 pts",
+          "value": 14
         },
         {
           "rank": 3,
-          "name": "JUANCHO",
-          "color": "#F5C518",
-          "display": "10 aciertos · 20 pts",
-          "value": 10
+          "name": "LUIS/VIR",
+          "color": "#10B981",
+          "display": "11 aciertos · 22 pts",
+          "value": 11
         },
         {
           "rank": 4,
-          "name": "LUIS/VIR",
-          "color": "#10B981",
-          "display": "10 aciertos · 20 pts",
-          "value": 10
+          "name": "VÍCTOR",
+          "color": "#A855F7",
+          "display": "11 aciertos · 22 pts",
+          "value": 11
         },
         {
           "rank": 5,
-          "name": "VÍCTOR",
-          "color": "#A855F7",
+          "name": "JUANCHO",
+          "color": "#F5C518",
           "display": "10 aciertos · 20 pts",
           "value": 10
         },
@@ -29613,8 +29652,8 @@
           "rank": 6,
           "name": "LARRY",
           "color": "#3B82F6",
-          "display": "9 aciertos · 18 pts",
-          "value": 9
+          "display": "10 aciertos · 20 pts",
+          "value": 10
         }
       ],
       "goals_home": [
@@ -29634,24 +29673,24 @@
         },
         {
           "rank": 3,
-          "name": "MEDINA",
-          "color": "#F97316",
-          "display": "5 aciertos",
-          "value": 5
+          "name": "VÍCTOR",
+          "color": "#A855F7",
+          "display": "6 aciertos",
+          "value": 6
         },
         {
           "rank": 4,
-          "name": "VÍCTOR",
-          "color": "#A855F7",
+          "name": "JUANCHO",
+          "color": "#F5C518",
           "display": "5 aciertos",
           "value": 5
         },
         {
           "rank": 5,
-          "name": "JUANCHO",
-          "color": "#F5C518",
-          "display": "4 aciertos",
-          "value": 4
+          "name": "MEDINA",
+          "color": "#F97316",
+          "display": "5 aciertos",
+          "value": 5
         },
         {
           "rank": 6,
@@ -29687,22 +29726,22 @@
           "rank": 4,
           "name": "LUIS/VIR",
           "color": "#10B981",
-          "display": "7 aciertos",
-          "value": 7
+          "display": "8 aciertos",
+          "value": 8
         },
         {
           "rank": 5,
           "name": "VÍCTOR",
           "color": "#A855F7",
-          "display": "7 aciertos",
-          "value": 7
+          "display": "8 aciertos",
+          "value": 8
         },
         {
           "rank": 6,
           "name": "LARRY",
           "color": "#3B82F6",
-          "display": "6 aciertos",
-          "value": 6
+          "display": "7 aciertos",
+          "value": 7
         }
       ],
       "avg_match": [
@@ -29710,43 +29749,43 @@
           "rank": 1,
           "name": "CRESPO",
           "color": "#EF4444",
-          "display": "1.73 pts/partido",
-          "value": 1.73
+          "display": "1.78 pts/partido",
+          "value": 1.78
         },
         {
           "rank": 2,
           "name": "LUIS/VIR",
           "color": "#10B981",
-          "display": "1.59 pts/partido",
-          "value": 1.59
+          "display": "1.61 pts/partido",
+          "value": 1.61
         },
         {
           "rank": 3,
           "name": "MEDINA",
           "color": "#F97316",
-          "display": "1.50 pts/partido",
-          "value": 1.5
+          "display": "1.57 pts/partido",
+          "value": 1.57
         },
         {
           "rank": 4,
           "name": "VÍCTOR",
           "color": "#A855F7",
-          "display": "1.36 pts/partido",
-          "value": 1.36
+          "display": "1.57 pts/partido",
+          "value": 1.57
         },
         {
           "rank": 5,
           "name": "JUANCHO",
           "color": "#F5C518",
-          "display": "1.18 pts/partido",
-          "value": 1.18
+          "display": "1.13 pts/partido",
+          "value": 1.13
         },
         {
           "rank": 6,
           "name": "LARRY",
           "color": "#3B82F6",
-          "display": "0.95 pts/partido",
-          "value": 0.95
+          "display": "1.00 pts/partido",
+          "value": 1.0
         }
       ],
       "hit_rate": [
@@ -29754,43 +29793,43 @@
           "rank": 1,
           "name": "MEDINA",
           "color": "#F97316",
-          "display": "59% (13/22)",
-          "value": 59
+          "display": "61% (14/23)",
+          "value": 61
         },
         {
           "rank": 2,
           "name": "CRESPO",
           "color": "#EF4444",
-          "display": "59% (13/22)",
-          "value": 59
+          "display": "61% (14/23)",
+          "value": 61
         },
         {
           "rank": 3,
-          "name": "JUANCHO",
-          "color": "#F5C518",
-          "display": "45% (10/22)",
-          "value": 45
+          "name": "LUIS/VIR",
+          "color": "#10B981",
+          "display": "48% (11/23)",
+          "value": 48
         },
         {
           "rank": 4,
-          "name": "LUIS/VIR",
-          "color": "#10B981",
-          "display": "45% (10/22)",
-          "value": 45
+          "name": "VÍCTOR",
+          "color": "#A855F7",
+          "display": "48% (11/23)",
+          "value": 48
         },
         {
           "rank": 5,
-          "name": "VÍCTOR",
-          "color": "#A855F7",
-          "display": "45% (10/22)",
-          "value": 45
+          "name": "JUANCHO",
+          "color": "#F5C518",
+          "display": "43% (10/23)",
+          "value": 43
         },
         {
           "rank": 6,
           "name": "LARRY",
           "color": "#3B82F6",
-          "display": "41% (9/22)",
-          "value": 41
+          "display": "43% (10/23)",
+          "value": 43
         }
       ],
       "phase_positions": [
