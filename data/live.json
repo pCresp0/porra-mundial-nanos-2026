@@ -1,6 +1,6 @@
 {
   "Canadá-Catar": {
-    "home": 3,
+    "home": 4,
     "away": 0,
     "minute": "live",
     "scorers": [
@@ -21,6 +21,13 @@
       {
         "player": "Jonathan David",
         "minute": "45'+3'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Nathan Saliba",
+        "minute": "64'",
         "own_goal": false,
         "penalty": false,
         "team": "home"

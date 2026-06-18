@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "18/06/2026 23:26",
+    "generated": "18/06/2026 23:28",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-06-19T01:30",
       "next_update_time": "01:30",
       "next_update_date": "19/06/2026",
-      "last_checked_iso": "2026-06-19T01:26",
-      "last_checked_time": "01:26",
+      "last_checked_iso": "2026-06-19T01:28",
+      "last_checked_time": "01:28",
       "last_checked_date": "19/06/2026"
     },
     "players": [
@@ -241,6 +241,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-19T01:28:35+02:00",
+        "date": "19/06/2026",
+        "time": "01:28:35",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-19T01:26:38+02:00",
         "date": "19/06/2026",
@@ -4373,14 +4381,6 @@
         "ts_iso": "2026-06-17T20:33:00+02:00",
         "date": "17/06/2026",
         "time": "20:33:00",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-17T20:31:01+02:00",
-        "date": "17/06/2026",
-        "time": "20:31:01",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -9225,7 +9225,7 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 3,
+      "live_goals_l": 4,
       "live_goals_v": 0,
       "live_scorers": [
         {
@@ -9245,6 +9245,13 @@
         {
           "player": "J. David",
           "minute": "45'+3'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Nathan Saliba",
+          "minute": "64'",
           "own_goal": false,
           "penalty": false,
           "team": "home"
