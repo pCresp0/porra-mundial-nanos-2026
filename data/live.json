@@ -1,7 +1,7 @@
 {
   "Uzbekistán-Colombia": {
     "home": 1,
-    "away": 2,
+    "away": 3,
     "minute": "live",
     "scorers": [
       {
@@ -21,6 +21,13 @@
       {
         "player": "Lviiz Diaz",
         "minute": "65'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Khamintvn Kampaz",
+        "minute": "90'+9'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
