@@ -1,6 +1,6 @@
 {
   "Canadá-Catar": {
-    "home": 4,
+    "home": 5,
     "away": 0,
     "minute": "live",
     "scorers": [
@@ -28,6 +28,13 @@
       {
         "player": "Nathan Saliba",
         "minute": "64'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Mohamed Almnai",
+        "minute": "75'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
