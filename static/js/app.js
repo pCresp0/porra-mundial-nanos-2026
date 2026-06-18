@@ -1093,10 +1093,10 @@ function renderPodium() {
     const rankLbl = idx === 0 ? "1º" : idx === 1 ? "2º" : "3º";
     const chg = _posChg(p);
     const chgHtml = chg > 0
-      ? `<span class="st-pos-up" style="font-size:.85rem">▲${chg}</span>`
+      ? `<span class="st-pos-up" style="font-size:1.1rem">▲${chg}</span>`
       : chg < 0
-        ? `<span class="st-pos-down" style="font-size:.85rem">▼${Math.abs(chg)}</span>`
-        : anyChange ? `<span class="st-pos-eq" style="font-size:1rem">=</span>` : "";
+        ? `<span class="st-pos-down" style="font-size:1.1rem">▼${Math.abs(chg)}</span>`
+        : anyChange ? `<span class="st-pos-eq" style="font-size:1.2rem">=</span>` : "";
     return `
       <div class="podium-col ${cls}${liveActive ? " podium-prov-col" : ""}">
         <div class="podium-player">

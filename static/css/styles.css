@@ -722,22 +722,22 @@
 
     /* Flechas de cambio de posición */
     .st-pos-up {
-      font-size: .75rem;
+      font-size: .95rem;
       font-weight: 700;
       color: #22C55E;
-      margin-left: .25rem;
+      margin-left: .3rem;
     }
     .st-pos-down {
-      font-size: .75rem;
+      font-size: .95rem;
       font-weight: 700;
       color: #EF4444;
-      margin-left: .25rem;
+      margin-left: .3rem;
     }
     .st-pos-eq {
-      font-size: .85rem;
+      font-size: 1.05rem;
       font-weight: 700;
       color: #9CA3AF;
-      margin-left: .25rem;
+      margin-left: .3rem;
     }
 
     .standings-prov-badge {
