@@ -137,10 +137,10 @@ def _search_highlight(api_key, match_name, home, away, match_date):
         base_params["publishedAfter"] = published_after
 
     # Estrategia escalonada para ahorrar cuota (100 unidades/búsqueda):
-    # 1. Búsqueda principal en DAZN ES (1 query)
-    # 2. Si no, DAZN Fútbol (1 query)
-    # 3. Si no, queries variantes en ambos canales
-    # 4. Si no, búsqueda sin canal como último recurso (1 query)
+    # 1. Query principal en DAZN ES (1 query)
+    # 2. Query principal en DAZN Fútbol (1 query)
+    # 3. Queries alternativas en ambos canales DAZN
+    # 4. No hacer búsqueda sin canal — solo DAZN
     queries = _candidate_queries(home, away)
     primary_query = queries[0] if queries else f"{home} {away} Resumen"
     alt_queries = queries[1:] if len(queries) > 1 else []
@@ -160,18 +160,18 @@ def _search_highlight(api_key, match_name, home, away, match_date):
             if result:
                 return result
 
-    # Nivel 3: búsqueda abierta (sin canal) — solo el query principal
-    result = _try_search(api_key, base_params, None, primary_query,
-                         home, away, match_name)
-    if result:
-        return result
-
     print(f"  ℹ️  Sin resumen disponible aún para {match_name}")
     return None
 
 
 def _try_search(api_key, base_params, channel_id, query, home, away, match_name):
-    """Ejecuta una búsqueda y devuelve video_id si hay match, None si no."""
+    """
+    Ejecuta una búsqueda en YouTube y devuelve video_id si hay match, None si no.
+    
+    Si channel_id está especificado, busca en ese canal DAZN.
+    Si channel_id es None, busca en todo YouTube pero verifica que el resultado
+    sea de un canal DAZN (para evitar videos de canales no oficiales).
+    """
     params = dict(base_params)
     if channel_id:
         params["channelId"] = channel_id
@@ -190,9 +190,18 @@ def _try_search(api_key, base_params, channel_id, query, home, away, match_name)
         title_raw = item.get("snippet", {}).get("title", "")
         title = _norm(title_raw)
         video_id = item.get("id", {}).get("videoId", "")
+        result_channel_id = item.get("snippet", {}).get("channelId", "")
+        
         has_keyword = any(word in title for word in ("resumen", "highlight", "highlights", "goles"))
         has_home = any(term in title for term in _team_terms(home))
         has_away = any(term in title for term in _team_terms(away))
+        
+        # Verificar que el video es de DAZN (excepto si buscamos sin canal)
+        is_dazn = result_channel_id in DAZN_CHANNELS
+        if channel_id is None and not is_dazn:
+            # Búsqueda sin canal: solo aceptar si es de DAZN
+            continue
+        
         if video_id and has_keyword and has_home and has_away:
             print(f"  ✅  Encontrado: [{video_id}] {title_raw[:70]}")
             return video_id
