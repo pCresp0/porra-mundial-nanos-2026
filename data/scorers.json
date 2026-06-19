@@ -563,6 +563,15 @@
       "team": "home"
     }
   ],
+  "México-Corea del Sur": [
+    {
+      "player": "Luis Romo",
+      "minute": "50'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
   "Suiza-Bosnia y Herzegovina": [
     {
       "player": "Jvhan Mnzambi",
