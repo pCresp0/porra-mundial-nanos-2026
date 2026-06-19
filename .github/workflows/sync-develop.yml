@@ -1,8 +1,10 @@
 name: Sincronizar develop con main
 
 on:
-  push:
-    branches: [main]
+  schedule:
+    # 23:50 hora España (CEST = UTC+2)
+    - cron: "50 21 * * *"
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -15,7 +17,16 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Comprobar commits de hoy en main
+        id: check
+        run: |
+          DATE=$(TZ="Europe/Madrid" date +%Y-%m-%d)
+          COUNT=$(git log --oneline --after="${DATE}T00:00:00+02:00" --before="${DATE}T23:59:59+02:00" origin/main | wc -l | tr -d ' ')
+          echo "count=${COUNT}" >> "$GITHUB_OUTPUT"
+          echo "📊 Commits en main hoy (${DATE}): ${COUNT}"
+
       - name: Merge main → develop
+        if: steps.check.outputs.count != '0'
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -34,3 +45,7 @@ jobs:
           git push origin develop
 
           echo "✅ develop sincronizado con main"
+
+      - name: Sin commits hoy
+        if: steps.check.outputs.count == '0'
+        run: echo "⏭️ No hubo commits en main hoy — sync omitido"
