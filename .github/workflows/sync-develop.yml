@@ -1,0 +1,36 @@
+name: Sincronizar develop con main
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          fetch-depth: 0
+
+      - name: Merge main → develop
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Crear develop si no existe
+          if git ls-remote --exit-code origin develop >/dev/null 2>&1; then
+            git checkout develop
+            git pull origin develop
+          else
+            git checkout -b develop
+            echo "🆕 Rama develop creada desde main"
+          fi
+
+          # Merge main en develop (fast-forward si es posible, merge commit si no)
+          git merge origin/main --no-edit -m "chore: sync develop ← main ($(date -u +%Y-%m-%dT%H:%MZ))"
+          git push origin develop
+
+          echo "✅ develop sincronizado con main"
