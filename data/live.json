@@ -1,12 +1,19 @@
 {
   "Estados Unidos-Australia": {
-    "home": 1,
+    "home": 2,
     "away": 0,
     "minute": "live",
     "scorers": [
       {
         "player": "Kamrvn Bargs",
         "minute": "11'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Alex Freeman",
+        "minute": "43'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
