@@ -654,5 +654,21 @@
       "penalty": false,
       "team": "home"
     }
+  ],
+  "Estados Unidos-Australia": [
+    {
+      "player": "Kamrvn Bargs",
+      "minute": "11'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Alex Freeman",
+      "minute": "43'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
   ]
 }
