@@ -1343,27 +1343,33 @@ def build_data():
         })
 
     # ── Posiciones previas para desempate y flechas de cambio ────────────────
-    # Se lee data/prev_standings.json que contiene las posiciones del último
-    # build en el que los puntos eran DISTINTOS a los actuales.
+    # prev_standings.json almacena 3 campos:
+    #   display_positions — posiciones de ANTES del último cambio (para flechas ▲▼=)
+    #   current_positions — posiciones tras el último cambio (tiebreak + futuro display)
+    #   totals            — totales tras el último cambio (detectar nuevo cambio)
     prev_standings_path = os.path.join(BASE, "data", "prev_standings.json")
-    prev_pos_map = {}
+    display_pos_map = {}   # para mostrar flechas
+    tiebreak_pos_map = {}  # para desempate en sort
     prev_totals = {}
     try:
         if os.path.isfile(prev_standings_path):
             with open(prev_standings_path, encoding="utf-8") as f:
                 prev_data = json.load(f)
-            prev_pos_map = prev_data.get("positions", {})
+            display_pos_map = prev_data.get("display_positions",
+                                            prev_data.get("positions", {}))
+            tiebreak_pos_map = prev_data.get("current_positions",
+                                             prev_data.get("positions", {}))
             prev_totals = prev_data.get("totals", {})
     except (OSError, ValueError):
         pass
 
     # Desempate: si dos jugadores tienen los mismos puntos, el que tenía
     # mejor posición previa (pos más baja) se mantiene por encima.
-    # Si no hay prev, se usa _excel_total y luego _orig_idx.
+    # Usa current_positions (las más recientes confirmadas) para tiebreak.
     standings_raw.sort(
         key=lambda x: (
             x["total"],
-            -prev_pos_map.get(x["name"], 99),   # menor pos previa = mejor
+            -tiebreak_pos_map.get(x["name"], 99),   # menor pos previa = mejor
             x.get("_excel_total", 0),
             -x.get("_orig_idx", 0),
         ),
@@ -1379,28 +1385,37 @@ def build_data():
 
     # Si los puntos cambiaron respecto al prev guardado, actualizamos prev
     if current_totals != prev_totals and prev_totals:
-        # Los puntos han cambiado → las posiciones anteriores son las guardadas
-        # Guardamos las NUEVAS posiciones+totales para el próximo cambio
+        # Los puntos han cambiado:
+        #   display_positions ← las posiciones que había JUSTO ANTES (current del fichero)
+        #   current_positions ← las posiciones NUEVAS tras el cambio
+        #   totals ← los totales nuevos
         try:
             with open(prev_standings_path, "w", encoding="utf-8") as f:
-                json.dump({"positions": current_positions, "totals": current_totals},
-                         f, ensure_ascii=False, indent=2)
+                json.dump({
+                    "display_positions": tiebreak_pos_map,
+                    "current_positions": current_positions,
+                    "totals": current_totals,
+                }, f, ensure_ascii=False, indent=2)
         except OSError:
             pass
+        display_pos_map = tiebreak_pos_map  # flechas comparan contra el estado anterior
     elif not prev_totals:
         # Primera vez (no hay prev) → guardar estado actual, sin flechas
-        prev_pos_map = current_positions
+        display_pos_map = current_positions
         try:
             with open(prev_standings_path, "w", encoding="utf-8") as f:
-                json.dump({"positions": current_positions, "totals": current_totals},
-                         f, ensure_ascii=False, indent=2)
+                json.dump({
+                    "display_positions": current_positions,
+                    "current_positions": current_positions,
+                    "totals": current_totals,
+                }, f, ensure_ascii=False, indent=2)
         except OSError:
             pass
 
     standings = []
     for i, s in enumerate(standings_raw):
         s["pos"] = i + 1
-        prev_p = prev_pos_map.get(s["name"], i + 1)
+        prev_p = display_pos_map.get(s["name"], i + 1)
         s["pos_change"] = prev_p - s["pos"]  # positivo = subió, negativo = bajó
         # Eliminar campos auxiliares de desempate
         s.pop("_excel_total", None)

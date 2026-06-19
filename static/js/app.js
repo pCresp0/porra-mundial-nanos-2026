@@ -1082,7 +1082,7 @@ function renderPodium() {
     if (liveActive) return (p.pos || 0) - (p.live_pos || p.pos || 0);
     return p.pos_change || 0;
   };
-  const anyChange = liveActive || ranked.some(p => _posChg(p) !== 0);
+  const anyChange = true;  // siempre mostrar indicadores ▲▼=
   const order  = [{ idx: 1, cls: "podium-2nd", medal: "🥈" },
                   { idx: 0, cls: "podium-1st", medal: "🥇" },
                   { idx: 2, cls: "podium-3rd", medal: "🥉" }];
@@ -1474,7 +1474,7 @@ function renderStandingsTable() {
   });
   const fmt = v => Number.isInteger(v) ? v : (+v).toFixed(2).replace(/\.?0+$/, "");
   const liveActive = _liveStandingsActive();
-  const anyTblChange = liveActive || rows.some(r => (r.pos_change || 0) !== 0);
+  const anyTblChange = true;  // siempre mostrar indicadores ▲▼=
   tbody.innerHTML = rows.map(r => {
     const medal = r.pos <= 3 ? MEDAL[r.pos - 1] + " " : "";
     const provBadge = (liveActive && r.live_points > 0)

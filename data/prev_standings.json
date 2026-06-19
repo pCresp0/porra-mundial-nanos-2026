@@ -1,5 +1,13 @@
 {
-  "positions": {
+  "display_positions": {
+    "CRESPO": 1,
+    "VÍCTOR": 2,
+    "MEDINA": 3,
+    "LUIS/VIR": 4,
+    "JUANCHO": 5,
+    "LARRY": 6
+  },
+  "current_positions": {
     "CRESPO": 1,
     "VÍCTOR": 2,
     "MEDINA": 3,
