@@ -593,6 +593,50 @@
       "team": "away"
     }
   ],
+  "Canadá-Catar": [
+    {
+      "player": "Kail Larin",
+      "minute": "16'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Jonathan David",
+      "minute": "29'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Jonathan David",
+      "minute": "45'+3'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Nathan Saliba",
+      "minute": "64'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Mohamed Almnai",
+      "minute": "75'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Jonathan David",
+      "minute": "90'+2'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
   "República Checa-Sudáfrica": [
     {
       "player": "‫mikhal Sadilk",

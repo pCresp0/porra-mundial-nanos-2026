@@ -1,18 +1,18 @@
 {
   "positions": {
-    "CRESPO": 1,
-    "VÍCTOR": 2,
+    "VÍCTOR": 1,
+    "CRESPO": 2,
     "MEDINA": 3,
     "LUIS/VIR": 4,
     "JUANCHO": 5,
     "LARRY": 6
   },
   "totals": {
+    "VÍCTOR": 43.0,
     "CRESPO": 43.0,
-    "VÍCTOR": 41.0,
-    "MEDINA": 40.0,
-    "LUIS/VIR": 40.0,
-    "JUANCHO": 37.0,
-    "LARRY": 28.0
+    "MEDINA": 42.0,
+    "LUIS/VIR": 42.0,
+    "JUANCHO": 39.0,
+    "LARRY": 30.0
   }
 }
