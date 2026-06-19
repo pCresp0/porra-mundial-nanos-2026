@@ -1342,27 +1342,33 @@ def build_data():
             "_orig_idx": i,               # orden original para desempate
         })
 
-    # Desempate: si dos jugadores tienen los mismos puntos, el que tenía más
-    # puntos en la clasificación previa (Excel) se mantiene por encima.
-    # Si aún empatan, se conserva el orden original (índice en all_players).
-    standings_raw.sort(
-        key=lambda x: (x["total"], x.get("_excel_total", 0), -x.get("_orig_idx", 0)),
-        reverse=True,
-    )
-
-    # ── Posiciones previas para flechas de cambio ────────────────────────────
+    # ── Posiciones previas para desempate y flechas de cambio ────────────────
     # Se lee data/prev_standings.json que contiene las posiciones del último
-    # build en el que los puntos eran DISTINTOS a los actuales. Así las flechas
-    # se muestran mientras los puntos no cambien de nuevo.
+    # build en el que los puntos eran DISTINTOS a los actuales.
     prev_standings_path = os.path.join(BASE, "data", "prev_standings.json")
     prev_pos_map = {}
+    prev_totals = {}
     try:
         if os.path.isfile(prev_standings_path):
             with open(prev_standings_path, encoding="utf-8") as f:
                 prev_data = json.load(f)
             prev_pos_map = prev_data.get("positions", {})
+            prev_totals = prev_data.get("totals", {})
     except (OSError, ValueError):
         pass
+
+    # Desempate: si dos jugadores tienen los mismos puntos, el que tenía
+    # mejor posición previa (pos más baja) se mantiene por encima.
+    # Si no hay prev, se usa _excel_total y luego _orig_idx.
+    standings_raw.sort(
+        key=lambda x: (
+            x["total"],
+            -prev_pos_map.get(x["name"], 99),   # menor pos previa = mejor
+            x.get("_excel_total", 0),
+            -x.get("_orig_idx", 0),
+        ),
+        reverse=True,
+    )
 
     # Determinar posiciones actuales y ver si hubo cambio de puntos
     current_positions = {}
@@ -1372,15 +1378,6 @@ def build_data():
         current_totals[s["name"]] = s["total"]
 
     # Si los puntos cambiaron respecto al prev guardado, actualizamos prev
-    prev_totals = {}
-    try:
-        if os.path.isfile(prev_standings_path):
-            with open(prev_standings_path, encoding="utf-8") as f:
-                prev_data = json.load(f)
-            prev_totals = prev_data.get("totals", {})
-    except (OSError, ValueError):
-        pass
-
     if current_totals != prev_totals and prev_totals:
         # Los puntos han cambiado → las posiciones anteriores son las guardadas
         # Guardamos las NUEVAS posiciones+totales para el próximo cambio

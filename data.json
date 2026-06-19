@@ -1,15 +1,15 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "19/06/2026 00:24",
+    "generated": "19/06/2026 02:25",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-19T02:24",
-      "last_updated_time": "02:24",
+      "last_updated_iso": "2026-06-19T02:25",
+      "last_updated_time": "02:25",
       "last_updated_date": "19/06/2026",
-      "next_update_iso": "2026-06-19T02:25",
-      "next_update_time": "02:25",
+      "next_update_iso": "2026-06-19T02:30",
+      "next_update_time": "02:30",
       "next_update_date": "19/06/2026"
     },
     "players": [
@@ -4384,34 +4384,6 @@
   },
   "standings": [
     {
-      "name": "VÍCTOR",
-      "total": 43.0,
-      "live_points": 0.0,
-      "total_live": 43.0,
-      "groups": 43.0,
-      "positions": 0.0,
-      "q16": 0.0,
-      "r16": 0.0,
-      "r8": 0.0,
-      "r4": 0.0,
-      "r2": 0.0,
-      "r34_final": 0.0,
-      "honor": 0.0,
-      "phase_detail": [
-        {
-          "key": "groups",
-          "label": "Fase de Grupos",
-          "desc": "Partidos + marcadores",
-          "pts": 43.0
-        }
-      ],
-      "color": "#A855F7",
-      "played": 27,
-      "pos": 1,
-      "pos_change": 0,
-      "live_pos": 1
-    },
-    {
       "name": "CRESPO",
       "total": 43.0,
       "live_points": 0.0,
@@ -4434,6 +4406,34 @@
         }
       ],
       "color": "#EF4444",
+      "played": 27,
+      "pos": 1,
+      "pos_change": 0,
+      "live_pos": 1
+    },
+    {
+      "name": "VÍCTOR",
+      "total": 43.0,
+      "live_points": 0.0,
+      "total_live": 43.0,
+      "groups": 43.0,
+      "positions": 0.0,
+      "q16": 0.0,
+      "r16": 0.0,
+      "r8": 0.0,
+      "r4": 0.0,
+      "r2": 0.0,
+      "r34_final": 0.0,
+      "honor": 0.0,
+      "phase_detail": [
+        {
+          "key": "groups",
+          "label": "Fase de Grupos",
+          "desc": "Partidos + marcadores",
+          "pts": 43.0
+        }
+      ],
+      "color": "#A855F7",
       "played": 27,
       "pos": 2,
       "pos_change": 0,
@@ -29589,9 +29589,75 @@
   "player_strengths": {
     "players": [
       {
+        "name": "CRESPO",
+        "color": "#EF4444",
+        "pos": 1,
+        "matches_played": 27,
+        "stats": {
+          "hits_1x2": 15,
+          "pts_1x2": 30.0,
+          "hits_diff": 7,
+          "pts_diff": 7.0,
+          "hits_exact": 2,
+          "pts_exact": 6.0,
+          "goals_home": 8,
+          "goals_away": 11,
+          "hit_rate": 56,
+          "avg_match": 1.59
+        },
+        "ranks": {
+          "hits_exact": 4,
+          "hits_diff": 2,
+          "hits_1x2": 2,
+          "goals_home": 2,
+          "goals_away": 2,
+          "avg_match": 2,
+          "hit_rate": 2,
+          "phase_positions": 6,
+          "phase_q16": 6,
+          "phase_ko": 6,
+          "phase_honor": 6
+        },
+        "top_skills": [
+          {
+            "key": "hit_rate",
+            "label": "Tasa de acierto",
+            "icon": "✅",
+            "rank": 2,
+            "display": "56% (15/27)"
+          },
+          {
+            "key": "hits_1x2",
+            "label": "Signo 1X2",
+            "icon": "1️⃣",
+            "rank": 2,
+            "display": "15 aciertos · 30 pts"
+          },
+          {
+            "key": "goals_away",
+            "label": "Goles visitante exactos",
+            "icon": "✈️",
+            "rank": 2,
+            "display": "11 aciertos"
+          },
+          {
+            "key": "goals_home",
+            "label": "Goles local exactos",
+            "icon": "🏠",
+            "rank": 2,
+            "display": "8 aciertos"
+          }
+        ],
+        "badges": [],
+        "best_phase": {
+          "label": "Fase de grupos",
+          "pts": 43.0
+        }
+      },
+      {
         "name": "VÍCTOR",
         "color": "#A855F7",
-        "pos": 1,
+        "pos": 2,
         "matches_played": 27,
         "stats": {
           "hits_1x2": 14,
@@ -29654,72 +29720,6 @@
             "label": "Rendimiento puro"
           }
         ],
-        "best_phase": {
-          "label": "Fase de grupos",
-          "pts": 43.0
-        }
-      },
-      {
-        "name": "CRESPO",
-        "color": "#EF4444",
-        "pos": 2,
-        "matches_played": 27,
-        "stats": {
-          "hits_1x2": 15,
-          "pts_1x2": 30.0,
-          "hits_diff": 7,
-          "pts_diff": 7.0,
-          "hits_exact": 2,
-          "pts_exact": 6.0,
-          "goals_home": 8,
-          "goals_away": 11,
-          "hit_rate": 56,
-          "avg_match": 1.59
-        },
-        "ranks": {
-          "hits_exact": 4,
-          "hits_diff": 2,
-          "hits_1x2": 2,
-          "goals_home": 2,
-          "goals_away": 2,
-          "avg_match": 2,
-          "hit_rate": 2,
-          "phase_positions": 6,
-          "phase_q16": 6,
-          "phase_ko": 6,
-          "phase_honor": 6
-        },
-        "top_skills": [
-          {
-            "key": "hit_rate",
-            "label": "Tasa de acierto",
-            "icon": "✅",
-            "rank": 2,
-            "display": "56% (15/27)"
-          },
-          {
-            "key": "hits_1x2",
-            "label": "Signo 1X2",
-            "icon": "1️⃣",
-            "rank": 2,
-            "display": "15 aciertos · 30 pts"
-          },
-          {
-            "key": "goals_away",
-            "label": "Goles visitante exactos",
-            "icon": "✈️",
-            "rank": 2,
-            "display": "11 aciertos"
-          },
-          {
-            "key": "goals_home",
-            "label": "Goles local exactos",
-            "icon": "🏠",
-            "rank": 2,
-            "display": "8 aciertos"
-          }
-        ],
-        "badges": [],
         "best_phase": {
           "label": "Fase de grupos",
           "pts": 43.0
