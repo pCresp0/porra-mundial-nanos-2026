@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "19/06/2026 22:01",
+    "generated": "19/06/2026 22:02",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-06-20T00:05",
       "next_update_time": "00:05",
       "next_update_date": "20/06/2026",
-      "last_checked_iso": "2026-06-20T00:01",
-      "last_checked_time": "00:01",
+      "last_checked_iso": "2026-06-20T00:02",
+      "last_checked_time": "00:02",
       "last_checked_date": "20/06/2026"
     },
     "players": [
@@ -24,9 +24,11 @@
       "CRESPO"
     ],
     "live": {
-      "active": false,
-      "count": 0,
-      "matches": []
+      "active": true,
+      "count": 1,
+      "matches": [
+        "Escocia-Marruecos"
+      ]
     },
     "colors": {
       "JUANCHO": "#F5C518",
@@ -263,6 +265,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-20T00:02:35+02:00",
+        "date": "20/06/2026",
+        "time": "00:02:35",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-20T00:01:06+02:00",
         "date": "20/06/2026",
@@ -4380,32 +4390,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-18T06:04:44+02:00",
-        "date": "18/06/2026",
-        "time": "06:04:44",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇺🇿Uzbekistán 1-3 Colombia🇨🇴",
-            "name": "Uzbekistán-Colombia",
-            "date": "2026-06-18",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "0-0",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "1-3",
-              "jugado": "sí"
-            }
-          }
-        ]
       }
     ]
   },
@@ -4436,13 +4420,13 @@
       "played": 29,
       "pos": 1,
       "pos_change": 0,
-      "live_pos": 1
+      "live_pos": 3
     },
     {
       "name": "VÍCTOR",
       "total": 45.0,
-      "live_points": 0.0,
-      "total_live": 45.0,
+      "live_points": 3.0,
+      "total_live": 48.0,
       "groups": 45.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -4464,13 +4448,13 @@
       "played": 29,
       "pos": 2,
       "pos_change": 0,
-      "live_pos": 2
+      "live_pos": 1
     },
     {
       "name": "MEDINA",
       "total": 44.0,
-      "live_points": 0.0,
-      "total_live": 44.0,
+      "live_points": 3.0,
+      "total_live": 47.0,
       "groups": 44.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -4492,7 +4476,7 @@
       "played": 29,
       "pos": 3,
       "pos_change": 0,
-      "live_pos": 3
+      "live_pos": 2
     },
     {
       "name": "LUIS/VIR",
@@ -9506,10 +9490,10 @@
       "phase": "groups",
       "result": null,
       "played": false,
-      "live": false,
-      "live_minute": "",
-      "live_goals_l": null,
-      "live_goals_v": null,
+      "live": true,
+      "live_minute": "live",
+      "live_goals_l": 0,
+      "live_goals_v": 0,
       "live_scorers": [],
       "goals_l": 0,
       "goals_v": 0,
@@ -9522,8 +9506,16 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ]
+          },
+          "live_score": 0.0
         },
         "LARRY": {
           "pred": {
@@ -9532,8 +9524,16 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ]
+          },
+          "live_score": 0.0
         },
         "LUIS/VIR": {
           "pred": {
@@ -9542,8 +9542,16 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ]
+          },
+          "live_score": 0.0
         },
         "MEDINA": {
           "pred": {
@@ -9552,8 +9560,17 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 2.0,
+            "diff": 1.0,
+            "exact": 0,
+            "total": 3.0,
+            "reasons": [
+              "1X2 correcto (+2.0)",
+              "Diferencia de goles (+1)"
+            ]
+          },
+          "live_score": 3.0
         },
         "VÍCTOR": {
           "pred": {
@@ -9562,8 +9579,17 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 2.0,
+            "diff": 1.0,
+            "exact": 0,
+            "total": 3.0,
+            "reasons": [
+              "1X2 correcto (+2.0)",
+              "Diferencia de goles (+1)"
+            ]
+          },
+          "live_score": 3.0
         },
         "CRESPO": {
           "pred": {
@@ -9572,8 +9598,16 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ]
+          },
+          "live_score": 0.0
         }
       }
     },
