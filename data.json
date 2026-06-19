@@ -1,12 +1,12 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "19/06/2026 07:20",
+    "generated": "19/06/2026 07:24",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-19T09:20",
-      "last_updated_time": "09:20",
+      "last_updated_iso": "2026-06-19T09:24",
+      "last_updated_time": "09:24",
       "last_updated_date": "19/06/2026",
       "next_update_iso": "2026-06-19T09:25",
       "next_update_time": "09:25",
@@ -8919,7 +8919,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "highlights_video_id": "A8QRhE2IGd0"
     },
     {
       "row": 31,
@@ -9260,7 +9261,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "highlights_video_id": "Q55T2-vsmp4"
     },
     {
       "row": 33,
@@ -9456,7 +9458,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "highlights_video_id": "NJNRaaHLjRo"
     },
     {
       "row": 34,
