@@ -24,6 +24,13 @@
         "own_goal": false,
         "penalty": false,
         "team": "home"
+      },
+      {
+        "player": "Kvdi Khakpv",
+        "minute": "54'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
       }
     ]
   }
