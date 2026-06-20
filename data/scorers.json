@@ -655,6 +655,15 @@
       "team": "home"
     }
   ],
+  "Escocia-Marruecos": [
+    {
+      "player": "Asmaail Saibari",
+      "minute": "2'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "Estados Unidos-Australia": [
     {
       "player": "Kamrvn Bargs",

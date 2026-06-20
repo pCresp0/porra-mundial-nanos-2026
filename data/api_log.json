@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-14T22:28:27+02:00",
-    "date": "14/06/2026",
-    "time": "22:28:27",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-14T22:30:56+02:00",
     "date": "14/06/2026",
     "time": "22:30:56",
@@ -16402,5 +16394,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-20T02:01:08+02:00",
+    "date": "20/06/2026",
+    "time": "02:01:08",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🏴󠁧󠁢󠁳󠁣󠁴󠁿Escocia 0-1 Marruecos🇲🇦",
+        "name": "Escocia-Marruecos",
+        "date": "2026-06-20",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "0-0",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "0-1",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]

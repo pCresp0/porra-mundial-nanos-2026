@@ -1,16 +1,1 @@
-{
-  "Escocia-Marruecos": {
-    "home": 0,
-    "away": 1,
-    "minute": "live",
-    "scorers": [
-      {
-        "player": "Asmaail Saibari",
-        "minute": "2'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "away"
-      }
-    ]
-  }
-}
+{}
