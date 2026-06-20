@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "20/06/2026 21:32",
+    "generated": "20/06/2026 21:34",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-06-20T23:35",
       "next_update_time": "23:35",
       "next_update_date": "20/06/2026",
-      "last_checked_iso": "2026-06-20T23:32",
-      "last_checked_time": "23:32",
+      "last_checked_iso": "2026-06-20T23:34",
+      "last_checked_time": "23:34",
       "last_checked_date": "20/06/2026"
     },
     "players": [
@@ -297,6 +297,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-20T23:34:41+02:00",
+        "date": "20/06/2026",
+        "time": "23:34:41",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-20T23:32:35+02:00",
         "date": "20/06/2026",
@@ -4378,14 +4386,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-19T20:01:10+02:00",
-        "date": "19/06/2026",
-        "time": "20:01:10",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4416,13 +4416,13 @@
       "played": 33,
       "pos": 1,
       "pos_change": 0,
-      "live_pos": 1
+      "live_pos": 2
     },
     {
       "name": "LUIS/VIR",
       "total": 50.0,
-      "live_points": 0.0,
-      "total_live": 50.0,
+      "live_points": 3.0,
+      "total_live": 53.0,
       "groups": 50.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -4444,7 +4444,7 @@
       "played": 33,
       "pos": 2,
       "pos_change": 1,
-      "live_pos": 2
+      "live_pos": 1
     },
     {
       "name": "CRESPO",
@@ -4528,13 +4528,13 @@
       "played": 33,
       "pos": 5,
       "pos_change": 0,
-      "live_pos": 5
+      "live_pos": 6
     },
     {
       "name": "LARRY",
       "total": 41.0,
-      "live_points": 0.0,
-      "total_live": 41.0,
+      "live_points": 6.0,
+      "total_live": 47.0,
       "groups": 41.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -4556,7 +4556,7 @@
       "played": 33,
       "pos": 6,
       "pos_change": 0,
-      "live_pos": 6
+      "live_pos": 5
     }
   ],
   "matches": [
@@ -10148,9 +10148,16 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 0,
+      "live_goals_l": 1,
       "live_goals_v": 1,
       "live_scorers": [
+        {
+          "player": "Dniz Avndav",
+          "minute": "68'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
         {
           "player": "F. Kessié",
           "minute": "30'",
@@ -10189,15 +10196,17 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 0.0,
-            "diff": 0.0,
-            "exact": 0,
-            "total": 0.0,
+            "sign": 2.0,
+            "diff": 1.0,
+            "exact": 3.0,
+            "total": 6.0,
             "reasons": [
-              "1X2 incorrecto — 0 pts"
+              "1X2 correcto (+2.0)",
+              "Diferencia de goles (+1.0)",
+              "Resultado exacto (+3.0)"
             ]
           },
-          "live_score": 0.0
+          "live_score": 6.0
         },
         "LUIS/VIR": {
           "pred": {
@@ -10207,15 +10216,16 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 0.0,
-            "diff": 0.0,
+            "sign": 2.0,
+            "diff": 1.0,
             "exact": 0,
-            "total": 0.0,
+            "total": 3.0,
             "reasons": [
-              "1X2 incorrecto — 0 pts"
+              "1X2 correcto (+2.0)",
+              "Diferencia de goles (+1)"
             ]
           },
-          "live_score": 0.0
+          "live_score": 3.0
         },
         "MEDINA": {
           "pred": {

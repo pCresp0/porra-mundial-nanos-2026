@@ -1,9 +1,16 @@
 {
   "Alemania-Costa de Marfil": {
-    "home": 0,
+    "home": 1,
     "away": 1,
     "minute": "live",
     "scorers": [
+      {
+        "player": "Dniz Avndav",
+        "minute": "68'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
       {
         "player": "Franck Kessié",
         "minute": "30'",
