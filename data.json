@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "20/06/2026 04:28",
+    "generated": "20/06/2026 04:30",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-20T04:34",
       "last_updated_time": "04:34",
       "last_updated_date": "20/06/2026",
-      "next_update_iso": "2026-06-20T06:30",
-      "next_update_time": "06:30",
+      "next_update_iso": "2026-06-20T06:35",
+      "next_update_time": "06:35",
       "next_update_date": "20/06/2026",
-      "last_checked_iso": "2026-06-20T06:28",
-      "last_checked_time": "06:28",
+      "last_checked_iso": "2026-06-20T06:30",
+      "last_checked_time": "06:30",
       "last_checked_date": "20/06/2026"
     },
     "players": [
@@ -269,6 +269,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-20T06:30:57+02:00",
+        "date": "20/06/2026",
+        "time": "06:30:57",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-20T06:28:39+02:00",
         "date": "20/06/2026",
@@ -4386,32 +4394,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-18T22:59:51+02:00",
-        "date": "18/06/2026",
-        "time": "22:59:51",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇨🇭Suiza 4-1 Bosnia y Herzegovina🇧🇦",
-            "name": "Suiza-Bosnia y Herzegovina",
-            "date": "2026-06-18",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "0-0",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "4-1",
-              "jugado": "sí"
-            }
-          }
-        ]
       }
     ]
   },
