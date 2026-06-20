@@ -1,6 +1,6 @@
 {
   "Brasil-Haití": {
-    "home": 2,
+    "home": 3,
     "away": 0,
     "minute": "live",
     "scorers": [
@@ -14,6 +14,13 @@
       {
         "player": "Matheus Cunha",
         "minute": "36'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Vinícius Júnior",
+        "minute": "45'+3'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
