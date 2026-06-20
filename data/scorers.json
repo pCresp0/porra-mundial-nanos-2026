@@ -702,5 +702,14 @@
       "penalty": false,
       "team": "home"
     }
+  ],
+  "Turquía-Paraguay": [
+    {
+      "player": "Matías Galarza",
+      "minute": "2'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
   ]
 }
