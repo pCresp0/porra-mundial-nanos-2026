@@ -1,12 +1,19 @@
 {
   "Países Bajos-Suecia": {
-    "home": 1,
+    "home": 2,
     "away": 0,
     "minute": "live",
     "scorers": [
       {
         "player": "Brian Brobbey",
         "minute": "5'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Brian Brobbey",
+        "minute": "17'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
