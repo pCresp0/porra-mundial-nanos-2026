@@ -712,6 +712,29 @@
       "team": "away"
     }
   ],
+  "Alemania-Costa de Marfil": [
+    {
+      "player": "Dniz Avndav",
+      "minute": "68'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Dniz Avndav",
+      "minute": "90'+4'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Franck Kessié",
+      "minute": "30'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "Países Bajos-Suecia": [
     {
       "player": "Brian Brobbey",
