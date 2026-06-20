@@ -655,6 +655,29 @@
       "team": "home"
     }
   ],
+  "Brasil-Haití": [
+    {
+      "player": "Matheus Cunha",
+      "minute": "23'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Matheus Cunha",
+      "minute": "36'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Vinícius Júnior",
+      "minute": "45'+3'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
   "Escocia-Marruecos": [
     {
       "player": "Asmaail Saibari",
