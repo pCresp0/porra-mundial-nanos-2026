@@ -1,6 +1,6 @@
 {
   "Países Bajos-Suecia": {
-    "home": 4,
+    "home": 5,
     "away": 1,
     "minute": "live",
     "scorers": [
@@ -28,6 +28,13 @@
       {
         "player": "Kvdi Khakpv",
         "minute": "54'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Krisnsiv Svmrvil",
+        "minute": "89'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
