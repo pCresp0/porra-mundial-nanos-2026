@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-15T07:36:24+02:00",
-    "date": "15/06/2026",
-    "time": "07:36:24",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-15T07:38:26+02:00",
     "date": "15/06/2026",
     "time": "07:38:26",
@@ -16402,5 +16394,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-20T21:04:33+02:00",
+    "date": "20/06/2026",
+    "time": "21:04:33",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇳🇱Países Bajos 5-1 Suecia🇸🇪",
+        "name": "Países Bajos-Suecia",
+        "date": "2026-06-20",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "0-0",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "5-1",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]
