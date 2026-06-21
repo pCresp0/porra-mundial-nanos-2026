@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-15T18:51:00+02:00",
-    "date": "15/06/2026",
-    "time": "18:51:00",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-15T18:52:35+02:00",
     "date": "15/06/2026",
     "time": "18:52:35",
@@ -16438,5 +16430,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-21T03:58:34+02:00",
+    "date": "21/06/2026",
+    "time": "03:58:34",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇪🇨Ecuador 0-0 Curazao🇨🇼",
+        "name": "Ecuador-Curazao",
+        "date": "2026-06-21",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "0-0",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "0-0",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]
