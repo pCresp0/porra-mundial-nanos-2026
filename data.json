@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "21/06/2026 01:40",
+    "generated": "21/06/2026 01:42",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-06-21T03:45",
       "next_update_time": "03:45",
       "next_update_date": "21/06/2026",
-      "last_checked_iso": "2026-06-21T03:40",
-      "last_checked_time": "03:40",
+      "last_checked_iso": "2026-06-21T03:42",
+      "last_checked_time": "03:42",
       "last_checked_date": "21/06/2026"
     },
     "players": [
@@ -305,6 +305,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-21T03:42:38+02:00",
+        "date": "21/06/2026",
+        "time": "03:42:38",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-21T03:40:42+02:00",
         "date": "21/06/2026",
@@ -4386,32 +4394,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-19T23:06:47+02:00",
-        "date": "19/06/2026",
-        "time": "23:06:47",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇺🇸Estados Unidos 2-0 Australia🇦🇺",
-            "name": "Estados Unidos-Australia",
-            "date": "2026-06-19",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "0-0",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "2-0",
-              "jugado": "sí"
-            }
-          }
-        ]
       }
     ]
   },
