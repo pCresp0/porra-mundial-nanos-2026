@@ -1,7 +1,7 @@
 {
   "Uruguay-Cabo Verde": {
     "home": 2,
-    "away": 1,
+    "away": 2,
     "minute": "live",
     "scorers": [
       {
@@ -21,6 +21,13 @@
       {
         "player": "Kevin Pina",
         "minute": "21'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Hliv Varla",
+        "minute": "61'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
