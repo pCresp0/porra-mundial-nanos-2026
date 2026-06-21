@@ -40,6 +40,11 @@ LOG_JSON = os.path.join(BASE, "data", "api_log.json")
 # externo dispara cada ~2 min, la cadencia efectiva es de 2 min.
 WINDOW_START = timedelta(minutes=-30)
 ACTIVE_END = timedelta(minutes=190)
+# Tras el pitido final la API a veces tarda horas en marcar finished=TRUE.
+# Seguimos consultando cada pasada mientras el partido lleve ≥95 min sin
+# resultado en Excel (90'+margen) y no hayan pasado más de 8 h.
+RESULT_PENDING_START = timedelta(minutes=95)
+RESULT_PENDING_MAX = timedelta(hours=8)
 # Fuera de la ventana de partido NO actualizamos en cada pasada: solo si han
 # pasado al menos 15 min desde la última llamada registrada. Así se captan
 # resultados o cambios que la API publique con retraso sin llamar cada 2 min.
@@ -82,21 +87,26 @@ def main() -> None:
         print("Sin data.json legible → actualizar por seguridad", file=sys.stderr)
         return
 
-    # 1) ¿Hay algún partido ACTIVO ahora mismo? → actualizar en cada pasada (2 min).
-    for m in data.get("matches", []):
-        if m.get("played"):
-            continue  # resultado ya capturado
+    def _kickoff(m):
         date = (m.get("date") or "")[:10]
         t = m.get("time_es") or ""
         if len(date) < 10 or ":" not in t:
-            continue
+            return None
         try:
             y, mo, dd = map(int, date.split("-"))
             hh, mm = map(int, t.split(":"))
         except ValueError:
+            return None
+        return (datetime(y, mo, dd, hh, mm, tzinfo=TZ) if TZ
+                else datetime(y, mo, dd, hh, mm))
+
+    # 1) ¿Hay algún partido ACTIVO ahora mismo? → actualizar en cada pasada (2 min).
+    for m in data.get("matches", []):
+        if m.get("played"):
+            continue  # resultado ya capturado
+        kickoff = _kickoff(m)
+        if kickoff is None:
             continue
-        kickoff = (datetime(y, mo, dd, hh, mm, tzinfo=TZ) if TZ
-                   else datetime(y, mo, dd, hh, mm))
         elapsed = now - kickoff
         if WINDOW_START <= elapsed <= ACTIVE_END:
             mins = int(elapsed.total_seconds() // 60)
@@ -106,7 +116,24 @@ def main() -> None:
                   file=sys.stderr)
             return
 
-    # 2) Sin partido activo → comprobación periódica cada 15 min.
+    # 2) ¿Partido que ya debería haber acabado pero sigue sin resultado en Excel?
+    #    (p. ej. España-Arabia 4-0: la API publicó finished=TRUE con horas de retraso)
+    for m in data.get("matches", []):
+        if m.get("played"):
+            continue
+        kickoff = _kickoff(m)
+        if kickoff is None:
+            continue
+        elapsed = now - kickoff
+        if RESULT_PENDING_START <= elapsed <= RESULT_PENDING_MAX:
+            mins = int(elapsed.total_seconds() // 60)
+            print("run=yes")
+            print(f"Resultado pendiente: {m.get('name')} "
+                  f"(inicio hace {mins} min, sin jugado en Excel) → actualizar",
+                  file=sys.stderr)
+            return
+
+    # 3) Sin partido activo ni pendiente → comprobación periódica cada 15 min.
     last = _last_api_call(now)
     if last is None:
         print("run=yes")

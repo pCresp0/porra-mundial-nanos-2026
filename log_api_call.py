@@ -63,6 +63,9 @@ def _result_signature(data: dict) -> dict:
             "gv": m.get("goals_v"),
             "result": m.get("result"),
             "played": bool(m.get("played")),
+            "live": bool(m.get("live")),
+            "live_gl": m.get("live_goals_l"),
+            "live_gv": m.get("live_goals_v"),
             "home": m.get("home", ""),
             "away": m.get("away", ""),
             "flag_home": m.get("flag_home", ""),
@@ -104,7 +107,11 @@ def _diff_results(old: dict | None, new: dict) -> list:
             continue
         score_changed = (ns["gl"], ns["gv"], ns["result"]) != (os_["gl"], os_["gv"], os_["result"])
         played_changed = ns["played"] != os_["played"]
-        if not (score_changed or played_changed):
+        live_changed = (
+            (ns["live"], ns["live_gl"], ns["live_gv"])
+            != (os_["live"], os_["live_gl"], os_["live_gv"])
+        )
+        if not (score_changed or played_changed or live_changed):
             continue
 
         def _fmt_score(sig: dict) -> str:

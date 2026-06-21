@@ -37,7 +37,7 @@ def _load_config():
     return defaults
 
 
-def _fetch_games(url: str, retries: int = 8, backoff: float = 3.0) -> list:
+def _fetch_games(url: str, retries: int = 12, backoff: float = 3.0) -> list:
     """Fetch games from the API with retries (the server is flaky)."""
     import time as _time
 

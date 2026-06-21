@@ -53,7 +53,6 @@ jobs:
       - name: Sincronizar resultados → Excel (API)
         if: steps.guard.outputs.run == 'yes'
         run: python fetch_results.py
-        continue-on-error: true
 
       - name: Regenerar data.json
         if: steps.guard.outputs.run == 'yes'

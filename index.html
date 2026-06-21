@@ -663,6 +663,20 @@
 
       <div class="cl-version">
         <div class="cl-ver-head">
+          <span class="cl-ver-badge">v2.1</span>
+          <span class="cl-ver-date">21 Jun 2026</span>
+          <span class="cl-ver-title">Sincronización en directo más fiable</span>
+        </div>
+        <ul class="cl-items">
+          <li><span class="cl-tag fix">fix</span> <strong>Auto-refresh en el navegador:</strong> la web recarga <code>data.json</code> sola durante todo el partido (45 min antes → 3,5 h después) y cada 5 min si quedan partidos hoy sin cerrar — ya no hace falta tener la pestaña abierta justo 20 min antes del pitido</li>
+          <li><span class="cl-tag fix">fix</span> <strong>Resultados con retraso de la API:</strong> el bot sigue consultando hasta 8 h después del inicio si un partido no aparece como jugado (p. ej. España 4-0 Arabia cuando la API tarda en publicar <code>finished=TRUE</code>)</li>
+          <li><span class="cl-tag fix">fix</span> <strong>Errores de API visibles:</strong> si <code>fetch_results.py</code> falla al descargar, la GitHub Action ya no lo oculta con <code>continue-on-error</code></li>
+          <li><span class="cl-tag data">data</span> <strong>Más reintentos API:</strong> hasta 12 intentos con backoff ante cortes de <code>worldcup26.ir</code></li>
+        </ul>
+      </div>
+
+      <div class="cl-version">
+        <div class="cl-ver-head">
           <span class="cl-ver-badge">v2.0</span>
           <span class="cl-ver-date">16 Jun 2026</span>
           <span class="cl-ver-title">Mejoras de navegación y actualización</span>

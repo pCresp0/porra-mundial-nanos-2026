@@ -957,31 +957,65 @@ function startCountdown() {
   _countdownTimer = setInterval(tickBanner, 30000);
 }
 
-/* ── Auto-poll: refresca datos silenciosamente cuando hay partido en juego
-   o uno arranca en menos de 20 min. Fuera de esa ventana no hace nada. ── */
+/* ── Auto-poll: refresca data.json sin recargar la página.
+   Antes solo se activaba 20 min antes del partido o con live=true en caché;
+   si abrías la web por la mañana no se enteraba de nada. Ahora cubre toda la
+   ventana del partido y sigue consultando hasta que llegue el resultado final. ── */
 let _livePollTimer = null;
-const LIVE_POLL_MS = 60_000; // 60 s cuando hay partido activo
+const LIVE_POLL_MS = 60_000;       // 60 s: en directo o resultado pendiente
+const MATCHDAY_POLL_MS = 5 * 60_000; // 5 min: hay partidos hoy sin cerrar
+const MATCH_POLL_BEFORE_MS = 45 * 60_000;  // 45 min antes del pitido
+const MATCH_POLL_AFTER_MS  = 210 * 60_000; // 3,5 h después (API lenta)
+const RESULT_PENDING_MS    = 95 * 60_000;  // tras ~90'+margen, esperar resultado
 
-function _isMatchImminent() {
+function _matchKickoffMs(m) {
+  if (!m?.date || !m?.time_es) return null;
+  try {
+    return new Date(`${m.date}T${m.time_es}:00`).getTime();
+  } catch { return null; }
+}
+
+function _isInMatchPollWindow() {
   if (!D) return false;
   const nowMs = Date.now();
   return (D.matches || []).some(m => {
-    if (m.played || m.live) return false;
-    // date = "YYYY-MM-DD", time_es = "HH:MM"
-    if (!m.date || !m.time_es) return false;
-    try {
-      const kickoff = new Date(`${m.date}T${m.time_es}:00`).getTime();
-      const diff = kickoff - nowMs;
-      return diff > 0 && diff < 20 * 60_000; // dentro de los próximos 20 min
-    } catch { return false; }
+    if (m.played) return false;
+    const ko = _matchKickoffMs(m);
+    if (ko == null) return false;
+    const elapsed = nowMs - ko;
+    return elapsed >= -MATCH_POLL_BEFORE_MS && elapsed <= MATCH_POLL_AFTER_MS;
   });
+}
+
+function _hasPendingResult() {
+  if (!D) return false;
+  const nowMs = Date.now();
+  return (D.matches || []).some(m => {
+    if (m.played) return false;
+    const ko = _matchKickoffMs(m);
+    if (ko == null) return false;
+    const elapsed = nowMs - ko;
+    return elapsed >= RESULT_PENDING_MS && elapsed <= 8 * 60 * 60_000;
+  });
+}
+
+function _hasUnfinishedMatchToday() {
+  if (!D) return false;
+  const today = todaySpainISO();
+  return (D.matches || []).some(m => m.date === today && !m.played);
 }
 
 function _shouldPollNow() {
   if (!D) return false;
   const hasLive = D.meta?.live?.active === true ||
                   (D.matches || []).some(m => m.live && !m.played);
-  return hasLive || _isMatchImminent();
+  return hasLive || _isInMatchPollWindow() || _hasPendingResult();
+}
+
+function _pollIntervalMs() {
+  if (_shouldPollNow()) return LIVE_POLL_MS;
+  if (_hasUnfinishedMatchToday()) return MATCHDAY_POLL_MS;
+  return 0;
 }
 
 function _updateLiveBadge(active) {
@@ -1018,22 +1052,28 @@ async function _manualRefresh() {
 }
 
 function startLivePoll() {
-  // Limpia timer anterior si existe
   if (_livePollTimer) { clearInterval(_livePollTimer); _livePollTimer = null; }
 
-  if (!_shouldPollNow()) { _updateLiveBadge(false); return; }
+  const interval = _pollIntervalMs();
+  if (!interval) { _updateLiveBadge(false); return; }
 
-  _updateLiveBadge(true);
+  _updateLiveBadge(_shouldPollNow());
 
   _livePollTimer = setInterval(async () => {
-    await loadData(true); // silent reload: no spinner, no scroll
-    tickBanner();         // actualiza el banner en directo inmediatamente
-    if (!_shouldPollNow()) {
+    await loadData(true);
+    tickBanner();
+    const next = _pollIntervalMs();
+    if (!next) {
       clearInterval(_livePollTimer);
       _livePollTimer = null;
       _updateLiveBadge(false);
+      return;
     }
-  }, LIVE_POLL_MS);
+    if (next !== interval) {
+      // Cambia de 60 s (directo) a 5 min (día de partido) o viceversa
+      startLivePoll();
+    }
+  }, interval);
 }
 
 function renderMeta() {
