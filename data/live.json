@@ -1,12 +1,19 @@
 {
   "Túnez-Japón": {
     "home": 0,
-    "away": 1,
+    "away": 2,
     "minute": "live",
     "scorers": [
       {
         "player": "Daichi Kamada",
         "minute": "4'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Aiash Ivida",
+        "minute": "31'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
