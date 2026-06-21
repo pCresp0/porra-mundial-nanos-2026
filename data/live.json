@@ -1,9 +1,16 @@
 {
   "Uruguay-Cabo Verde": {
-    "home": 0,
+    "home": 1,
     "away": 1,
     "minute": "live",
     "scorers": [
+      {
+        "player": "Maximiliano Araújo",
+        "minute": "44'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
       {
         "player": "Kevin Pina",
         "minute": "21'",
