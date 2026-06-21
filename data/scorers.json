@@ -778,5 +778,35 @@
       "penalty": false,
       "team": "away"
     }
+  ],
+  "Túnez-Japón": [
+    {
+      "player": "Daichi Kamada",
+      "minute": "4'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Aiash Ivida",
+      "minute": "31'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Junya Itō",
+      "minute": "69'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Aiash Ivida",
+      "minute": "83'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
   ]
 }
