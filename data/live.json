@@ -1,7 +1,7 @@
 {
   "Túnez-Japón": {
     "home": 0,
-    "away": 2,
+    "away": 3,
     "minute": "live",
     "scorers": [
       {
@@ -14,6 +14,13 @@
       {
         "player": "Aiash Ivida",
         "minute": "31'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Junya Itō",
+        "minute": "69'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
