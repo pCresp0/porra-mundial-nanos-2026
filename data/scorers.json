@@ -808,5 +808,35 @@
       "penalty": false,
       "team": "away"
     }
+  ],
+  "España-Arabia Saudita": [
+    {
+      "player": "Lamine Yamal",
+      "minute": "10'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Mikel Oyarzabal",
+      "minute": "21'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Mikel Oyarzabal",
+      "minute": "24'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Hassan Mohamed Altmbkti",
+      "minute": "49'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
   ]
 }
