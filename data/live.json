@@ -1,7 +1,7 @@
 {
   "Nueva Zelanda-Egipto": {
     "home": 1,
-    "away": 2,
+    "away": 3,
     "minute": "live",
     "scorers": [
       {
@@ -21,6 +21,13 @@
       {
         "player": "Mohamed Salah",
         "minute": "67'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Mahmoud Hassan Trezeguet",
+        "minute": "82'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
