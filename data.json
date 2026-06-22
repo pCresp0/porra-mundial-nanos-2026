@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "22/06/2026 21:44",
+    "generated": "22/06/2026 21:46",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-22T23:16",
       "last_updated_time": "23:16",
       "last_updated_date": "22/06/2026",
-      "next_update_iso": "2026-06-22T23:45",
-      "next_update_time": "23:45",
+      "next_update_iso": "2026-06-22T23:50",
+      "next_update_time": "23:50",
       "next_update_date": "22/06/2026",
-      "last_checked_iso": "2026-06-22T23:44",
-      "last_checked_time": "23:44",
+      "last_checked_iso": "2026-06-22T23:46",
+      "last_checked_time": "23:46",
       "last_checked_date": "22/06/2026"
     },
     "players": [
@@ -353,6 +353,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-22T23:46:28+02:00",
+        "date": "22/06/2026",
+        "time": "23:46:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-22T23:44:22+02:00",
         "date": "22/06/2026",
@@ -4569,32 +4577,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-21T07:58:44+02:00",
-        "date": "21/06/2026",
-        "time": "07:58:44",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇹🇳Túnez 0-4 Japón🇯🇵",
-            "name": "Túnez-Japón",
-            "date": "2026-06-21",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "0-0",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "0-4",
-              "jugado": "sí"
-            }
-          }
-        ]
       }
     ]
   },
