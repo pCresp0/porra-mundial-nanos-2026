@@ -9,18 +9,18 @@
   },
   "current_positions": {
     "MEDINA": 1,
-    "JUANCHO": 2,
-    "CRESPO": 3,
+    "CRESPO": 2,
+    "JUANCHO": 3,
     "LUIS/VIR": 4,
     "VÍCTOR": 5,
     "LARRY": 6
   },
   "totals": {
-    "MEDINA": 65.0,
-    "JUANCHO": 59.0,
-    "CRESPO": 58.0,
-    "LUIS/VIR": 56.0,
-    "VÍCTOR": 55.0,
+    "MEDINA": 67.0,
+    "CRESPO": 64.0,
+    "JUANCHO": 61.0,
+    "LUIS/VIR": 58.0,
+    "VÍCTOR": 57.0,
     "LARRY": 52.0
   }
 }
