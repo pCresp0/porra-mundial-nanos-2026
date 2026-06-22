@@ -668,10 +668,10 @@
           <span class="cl-ver-title">Sincronización en directo más fiable</span>
         </div>
         <ul class="cl-items">
-          <li><span class="cl-tag fix">fix</span> <strong>Auto-refresh en el navegador:</strong> la web recarga <code>data.json</code> sola durante todo el partido (45 min antes → 3,5 h después) y cada 5 min si quedan partidos hoy sin cerrar — ya no hace falta tener la pestaña abierta justo 20 min antes del pitido</li>
-          <li><span class="cl-tag fix">fix</span> <strong>Resultados con retraso de la API:</strong> el bot sigue consultando hasta 8 h después del inicio si un partido no aparece como jugado (p. ej. España 4-0 Arabia cuando la API tarda en publicar <code>finished=TRUE</code>)</li>
-          <li><span class="cl-tag fix">fix</span> <strong>Errores de API visibles:</strong> si <code>fetch_results.py</code> falla al descargar, la GitHub Action ya no lo oculta con <code>continue-on-error</code></li>
-          <li><span class="cl-tag data">data</span> <strong>Más reintentos API:</strong> hasta 12 intentos con backoff ante cortes de <code>worldcup26.ir</code></li>
+          <li><span class="cl-tag fix">fix</span><span> <strong>Auto-refresh en el navegador:</strong> la web recarga <code>data.json</code> sola durante todo el partido (45 min antes → 3,5 h después) y cada 5 min si quedan partidos hoy sin cerrar — ya no hace falta tener la pestaña abierta justo 20 min antes del pitido</span></li>
+          <li><span class="cl-tag fix">fix</span><span> <strong>Resultados con retraso de la API:</strong> el bot sigue consultando hasta 8 h después del inicio si un partido no aparece como jugado (p. ej. España 4-0 Arabia cuando la API tarda en publicar <code>finished=TRUE</code>)</span></li>
+          <li><span class="cl-tag fix">fix</span><span> <strong>Errores de API visibles:</strong> si <code>fetch_results.py</code> falla al descargar, la GitHub Action ya no lo oculta con <code>continue-on-error</code></span></li>
+          <li><span class="cl-tag data">data</span><span> <strong>Más reintentos API:</strong> hasta 12 intentos con backoff ante cortes de <code>worldcup26.ir</code></span></li>
         </ul>
       </div>
 
@@ -682,13 +682,13 @@
           <span class="cl-ver-title">Mejoras de navegación y actualización</span>
         </div>
         <ul class="cl-items">
-          <li><span class="cl-tag ux">ux</span> <strong>Nav escritorio:</strong> «Clasif. Mundial» ahora aparece directamente en la barra principal, sin necesidad de abrir el menú «Más»</li>
-          <li><span class="cl-tag ux">ux</span> <strong>Toast de actualización:</strong> al pulsar «🔄 Actualizar» o al detectar datos nuevos, el aviso aparece arriba (bajo el banner) con animación slide-down, bien visible sin tener que bajar la vista</li>
-          <li><span class="cl-tag fix">fix</span> <strong>Botón Actualizar:</strong> ahora fuerza siempre el re-render completo aunque los datos no hayan cambiado, garantizando que la página queda al día</li>
-          <li><span class="cl-tag data">data</span> <strong>Diccionario árabe/persa:</strong> los goleadores de Egipto, Arabia Saudí, Irán, Marruecos, Túnez e Iraq se muestran ahora en caracteres latinos (~120 entradas)</li>
-          <li><span class="cl-tag ux">ux</span> <strong>Partidos en directo:</strong> el marcador muestra 0-0 desde el primer minuto aunque la API aún no haya enviado datos de goles</li>
-          <li><span class="cl-tag ux">ux</span> <strong>Modal de equipo:</strong> más ancho (860 px) y con la plantilla ordenada por posición (POR/DEF/MED/DEL) con columnas de internacionales y goles ordenables</li>
-          <li><span class="cl-tag ux">ux</span> <strong>Clasificación General Mundial:</strong> nueva columna de ranking FIFA y columna de rendimiento (🔥▲↑≈↓▼💔) comparando posición en el Mundial con ranking FIFA previo</li>
+          <li><span class="cl-tag ux">ux</span><span> <strong>Nav escritorio:</strong> «Clasif. Mundial» ahora aparece directamente en la barra principal, sin necesidad de abrir el menú «Más»</span></li>
+          <li><span class="cl-tag ux">ux</span><span> <strong>Toast de actualización:</strong> al pulsar «🔄 Actualizar» o al detectar datos nuevos, el aviso aparece arriba (bajo el banner) con animación slide-down, bien visible sin tener que bajar la vista</span></li>
+          <li><span class="cl-tag fix">fix</span><span> <strong>Botón Actualizar:</strong> ahora fuerza siempre el re-render completo aunque los datos no hayan cambiado, garantizando que la página queda al día</span></li>
+          <li><span class="cl-tag data">data</span><span> <strong>Diccionario árabe/persa:</strong> los goleadores de Egipto, Arabia Saudí, Irán, Marruecos, Túnez e Iraq se muestran ahora en caracteres latinos (~120 entradas)</span></li>
+          <li><span class="cl-tag ux">ux</span><span> <strong>Partidos en directo:</strong> el marcador muestra 0-0 desde el primer minuto aunque la API aún no haya enviado datos de goles</span></li>
+          <li><span class="cl-tag ux">ux</span><span> <strong>Modal de equipo:</strong> más ancho (860 px) y con la plantilla ordenada por posición (POR/DEF/MED/DEL) con columnas de internacionales y goles ordenables</span></li>
+          <li><span class="cl-tag ux">ux</span><span> <strong>Clasificación General Mundial:</strong> nueva columna de ranking FIFA y columna de rendimiento (🔥▲↑≈↓▼💔) comparando posición en el Mundial con ranking FIFA previo</span></li>
         </ul>
       </div>
 
@@ -699,12 +699,12 @@
           <span class="cl-ver-title">Calendario mejorado y Progresión renovada</span>
         </div>
         <ul class="cl-items">
-          <li><span class="cl-tag ux">ux</span> <strong>Calendario · Añadir al calendario:</strong> nuevo botón «📅 Añadir» en cada partido para añadirlo directamente a Google Calendar o a Apple/Outlook (ICS). También hay un botón para exportar todos los partidos pendientes de golpe</li>
-          <li><span class="cl-tag fix">fix</span> <strong>Calendario · Alineación:</strong> la hora, los equipos y el «vs» / marcador ahora están siempre perfectamente centrados en todas las filas, aunque unos partidos emitan por DAZN+TVE y otros solo por DAZN</li>
-          <li><span class="cl-tag ux">ux</span> <strong>Calendario · Móvil:</strong> los iconos de canal (DAZN, TVE) son más pequeños en móvil para que los nombres de los equipos tengan más espacio y se trunquen menos</li>
-          <li><span class="cl-tag ux">ux</span> <strong>Progresión · Tarjetas renovadas:</strong> cada tarjeta de jugador ahora muestra la barra de color y el nombre en grande, igual que la ficha de Estadísticas, para que sea más fácil identificar a cada participante de un vistazo</li>
-          <li><span class="cl-tag ux">ux</span> <strong>Progresión · Posición:</strong> debajo del nombre de cada jugador aparece su posición actual en la clasificación general (#1, #2…)</li>
-          <li><span class="cl-tag data">data</span> <strong>Actualización más frecuente:</strong> durante los partidos, los datos se refrescan cada 2 minutos (antes cada 15 min), para que los puntos en vivo se vean casi al instante</li>
+          <li><span class="cl-tag ux">ux</span><span> <strong>Calendario · Añadir al calendario:</strong> nuevo botón «📅 Añadir» en cada partido para añadirlo directamente a Google Calendar o a Apple/Outlook (ICS). También hay un botón para exportar todos los partidos pendientes de golpe</span></li>
+          <li><span class="cl-tag fix">fix</span><span> <strong>Calendario · Alineación:</strong> la hora, los equipos y el «vs» / marcador ahora están siempre perfectamente centrados en todas las filas, aunque unos partidos emitan por DAZN+TVE y otros solo por DAZN</span></li>
+          <li><span class="cl-tag ux">ux</span><span> <strong>Calendario · Móvil:</strong> los iconos de canal (DAZN, TVE) son más pequeños en móvil para que los nombres de los equipos tengan más espacio y se trunquen menos</span></li>
+          <li><span class="cl-tag ux">ux</span><span> <strong>Progresión · Tarjetas renovadas:</strong> cada tarjeta de jugador ahora muestra la barra de color y el nombre en grande, igual que la ficha de Estadísticas, para que sea más fácil identificar a cada participante de un vistazo</span></li>
+          <li><span class="cl-tag ux">ux</span><span> <strong>Progresión · Posición:</strong> debajo del nombre de cada jugador aparece su posición actual en la clasificación general (#1, #2…)</span></li>
+          <li><span class="cl-tag data">data</span><span> <strong>Actualización más frecuente:</strong> durante los partidos, los datos se refrescan cada 2 minutos (antes cada 15 min), para que los puntos en vivo se vean casi al instante</span></li>
         </ul>
       </div>
 
@@ -715,11 +715,11 @@
           <span class="cl-ver-title">Dos enlaces: porra y público</span>
         </div>
         <ul class="cl-items">
-          <li><span class="cl-tag feat">feat</span> Ahora hay <strong>dos enlaces</strong>: el de la porra (con todos los pronósticos, puntos y clasificaciones) y el público (solo resultados y clasificaciones del Mundial, sin datos de la porra). Tu elección se recuerda en el navegador</li>
-          <li><span class="cl-tag feat">feat</span> En el modo público, accesos directos en el menú a <strong>Grupos</strong>, <strong>Goleadores</strong>, <strong>Clasificación general</strong>, <strong>Terceros</strong> y <strong>Fase Final</strong>, sin submenús</li>
-          <li><span class="cl-tag ux">ux</span> El título de la cabecera se adapta: «MUNDIAL FIFA 2026» en el enlace público y «PORRA Los Nanos» en el de la porra</li>
-          <li><span class="cl-tag fix">fix</span> Corregido el salto del scroll al cambiar de pestaña en el modo público (la página ya no baja sola)</li>
-          <li><span class="cl-tag fix">fix</span> Las clasificaciones y goleadores se refrescan también cuando se corrige un goleador aunque no cambie el marcador</li>
+          <li><span class="cl-tag feat">feat</span><span> Ahora hay <strong>dos enlaces</strong>: el de la porra (con todos los pronósticos, puntos y clasificaciones) y el público (solo resultados y clasificaciones del Mundial, sin datos de la porra). Tu elección se recuerda en el navegador</span></li>
+          <li><span class="cl-tag feat">feat</span><span> En el modo público, accesos directos en el menú a <strong>Grupos</strong>, <strong>Goleadores</strong>, <strong>Clasificación general</strong>, <strong>Terceros</strong> y <strong>Fase Final</strong>, sin submenús</span></li>
+          <li><span class="cl-tag ux">ux</span><span> El título de la cabecera se adapta: «MUNDIAL FIFA 2026» en el enlace público y «PORRA Los Nanos» en el de la porra</span></li>
+          <li><span class="cl-tag fix">fix</span><span> Corregido el salto del scroll al cambiar de pestaña en el modo público (la página ya no baja sola)</span></li>
+          <li><span class="cl-tag fix">fix</span><span> Las clasificaciones y goleadores se refrescan también cuando se corrige un goleador aunque no cambie el marcador</span></li>
         </ul>
       </div>
 
@@ -730,7 +730,7 @@
           <span class="cl-ver-title">Sugerencias y reporte de fallos</span>
         </div>
         <ul class="cl-items">
-          <li><span class="cl-tag feat">feat</span> Nuevo botón «💬 Sugerencias / reportar un fallo» en el pie de página: abre un formulario sencillo (tu nombre, si es una mejora o un fallo, y tu mensaje) que llega directamente a Pablo. Al enviar se confirma con un aviso de «enviado correctamente» — sin crear cuentas ni salir de la web</li>
+          <li><span class="cl-tag feat">feat</span><span> Nuevo botón «💬 Sugerencias / reportar un fallo» en el pie de página: abre un formulario sencillo (tu nombre, si es una mejora o un fallo, y tu mensaje) que llega directamente a Pablo. Al enviar se confirma con un aviso de «enviado correctamente» — sin crear cuentas ni salir de la web</span></li>
         </ul>
       </div>
 
@@ -741,10 +741,10 @@
           <span class="cl-ver-title">Calendario y búsqueda en móvil</span>
         </div>
         <ul class="cl-items">
-          <li><span class="cl-tag feat">feat</span> Calendario: vistas rápidas «Hoy», «Mañana», «Esta semana» y «Este mes». La semana se ve como rejilla tipo calendario en ordenador y como listado con horas y canal (DAZN/TVE) en móvil</li>
-          <li><span class="cl-tag ux">ux</span> Partidos en móvil: una lupa «Buscar equipo» arriba a la derecha abre el buscador, con un punto dorado que avisa si tienes un filtro activo</li>
-          <li><span class="cl-tag ux">ux</span> El banner superior y la Clasificación muestran el último partido jugado, con banderas y código de 3 letras (p. ej. USA 4-1 PAR)</li>
-          <li><span class="cl-tag ux">ux</span> Clasificación: las fortalezas de cada jugador muestran el top 4, y la leyenda del desglose de puntos es más clara</li>
+          <li><span class="cl-tag feat">feat</span><span> Calendario: vistas rápidas «Hoy», «Mañana», «Esta semana» y «Este mes». La semana se ve como rejilla tipo calendario en ordenador y como listado con horas y canal (DAZN/TVE) en móvil</span></li>
+          <li><span class="cl-tag ux">ux</span><span> Partidos en móvil: una lupa «Buscar equipo» arriba a la derecha abre el buscador, con un punto dorado que avisa si tienes un filtro activo</span></li>
+          <li><span class="cl-tag ux">ux</span><span> El banner superior y la Clasificación muestran el último partido jugado, con banderas y código de 3 letras (p. ej. USA 4-1 PAR)</span></li>
+          <li><span class="cl-tag ux">ux</span><span> Clasificación: las fortalezas de cada jugador muestran el top 4, y la leyenda del desglose de puntos es más clara</span></li>
         </ul>
       </div>
 
@@ -755,9 +755,9 @@
           <span class="cl-ver-title">Actualización automática y Clasificación detallada</span>
         </div>
         <ul class="cl-items">
-          <li><span class="cl-tag data">data</span> Los resultados se actualizan solos en cuanto termina cada partido, sin esperas ni recargas que cambien de pestaña</li>
-          <li><span class="cl-tag feat">feat</span> Clasificación: tabla completa ordenable (pulsa el título de cualquier columna) y desglose de los puntos de grupos por motivo: acierto 1X2, diferencia de goles y resultado exacto</li>
-          <li><span class="cl-tag ux">ux</span> Estadísticas: las barras de «últimos partidos» usan 4 colores según los puntos (5+, 3-4, 1-2, 0), iguales para todos</li>
+          <li><span class="cl-tag data">data</span><span> Los resultados se actualizan solos en cuanto termina cada partido, sin esperas ni recargas que cambien de pestaña</span></li>
+          <li><span class="cl-tag feat">feat</span><span> Clasificación: tabla completa ordenable (pulsa el título de cualquier columna) y desglose de los puntos de grupos por motivo: acierto 1X2, diferencia de goles y resultado exacto</span></li>
+          <li><span class="cl-tag ux">ux</span><span> Estadísticas: las barras de «últimos partidos» usan 4 colores según los puntos (5+, 3-4, 1-2, 0), iguales para todos</span></li>
         </ul>
       </div>
 
@@ -768,8 +768,8 @@
           <span class="cl-ver-title">Modo invitado y participante</span>
         </div>
         <ul class="cl-items">
-          <li><span class="cl-tag feat">feat</span> Al entrar por primera vez la web pregunta «¿Eres de la porra?»: como participante ves los pronósticos, los puntos y todas las pestañas; como invitado ves solo los partidos y resultados</li>
-          <li><span class="cl-tag feat">feat</span> Botón en la cabecera para cambiar de modo cuando quieras; tu elección se recuerda en el navegador</li>
+          <li><span class="cl-tag feat">feat</span><span> Al entrar por primera vez la web pregunta «¿Eres de la porra?»: como participante ves los pronósticos, los puntos y todas las pestañas; como invitado ves solo los partidos y resultados</span></li>
+          <li><span class="cl-tag feat">feat</span><span> Botón en la cabecera para cambiar de modo cuando quieras; tu elección se recuerda en el navegador</span></li>
         </ul>
       </div>
 
@@ -780,13 +780,13 @@
           <span class="cl-ver-title">Lanzamiento de la porra online</span>
         </div>
         <ul class="cl-items">
-          <li><span class="cl-tag feat">feat</span> <strong>Partidos:</strong> resultados en vivo de los 104 partidos, con los pronósticos y puntos de cada jugador (1X2, diferencia y resultado exacto), buscador de equipos y filtros por semana y fase</li>
-          <li><span class="cl-tag feat">feat</span> <strong>Sedes:</strong> al pulsar la ciudad de un partido se abre su estadio con foto, mapa, aforo y un dato curioso; chips DAZN y TVE que abren el directo</li>
-          <li><span class="cl-tag feat">feat</span> <strong>Clasificación y Progresión:</strong> tabla de puntos y gráfico de evolución de cada jugador a lo largo del campeonato</li>
-          <li><span class="cl-tag feat">feat</span> <strong>Estadísticas y Cuadro de Honor:</strong> aciertos, rachas, podio, máximos goleadores acertados y balones</li>
-          <li><span class="cl-tag feat">feat</span> <strong>Sistema de puntuación e info:</strong> guía con las reglas, fechas límite e historia del grupo</li>
-          <li><span class="cl-tag ux">ux</span> Reproductor de música (🎵), contador de visitas y este historial de versiones</li>
-          <li><span class="cl-tag data">data</span> Web pública en GitHub Pages, diseño adaptado a móvil y datos del Mundial conectados por API</li>
+          <li><span class="cl-tag feat">feat</span><span> <strong>Partidos:</strong> resultados en vivo de los 104 partidos, con los pronósticos y puntos de cada jugador (1X2, diferencia y resultado exacto), buscador de equipos y filtros por semana y fase</span></li>
+          <li><span class="cl-tag feat">feat</span><span> <strong>Sedes:</strong> al pulsar la ciudad de un partido se abre su estadio con foto, mapa, aforo y un dato curioso; chips DAZN y TVE que abren el directo</span></li>
+          <li><span class="cl-tag feat">feat</span><span> <strong>Clasificación y Progresión:</strong> tabla de puntos y gráfico de evolución de cada jugador a lo largo del campeonato</span></li>
+          <li><span class="cl-tag feat">feat</span><span> <strong>Estadísticas y Cuadro de Honor:</strong> aciertos, rachas, podio, máximos goleadores acertados y balones</span></li>
+          <li><span class="cl-tag feat">feat</span><span> <strong>Sistema de puntuación e info:</strong> guía con las reglas, fechas límite e historia del grupo</span></li>
+          <li><span class="cl-tag ux">ux</span><span> Reproductor de música (🎵), contador de visitas y este historial de versiones</span></li>
+          <li><span class="cl-tag data">data</span><span> Web pública en GitHub Pages, diseño adaptado a móvil y datos del Mundial conectados por API</span></li>
         </ul>
       </div>
 
