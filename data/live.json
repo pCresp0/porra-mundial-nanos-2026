@@ -3,6 +3,14 @@
     "home": 0,
     "away": 0,
     "minute": "live",
-    "scorers": []
+    "scorers": [
+      {
+        "player": "Kylian Mbappé",
+        "minute": "14'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      }
+    ]
   }
 }
