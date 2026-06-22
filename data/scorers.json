@@ -809,6 +809,36 @@
       "team": "away"
     }
   ],
+  "Nueva Zelanda-Egipto": [
+    {
+      "player": "Fin Svrman",
+      "minute": "15'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Mostafa Ziko",
+      "minute": "58'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Mohamed Salah",
+      "minute": "67'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Mahmoud Hassan Trezeguet",
+      "minute": "82'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "España-Arabia Saudita": [
     {
       "player": "Lamine Yamal",
