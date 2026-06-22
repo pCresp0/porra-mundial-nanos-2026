@@ -1,12 +1,19 @@
 {
   "Argentina-Austria": {
-    "home": 1,
+    "home": 2,
     "away": 0,
     "minute": "live",
     "scorers": [
       {
         "player": "Lionel Messi",
         "minute": "38'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Lionel Messi",
+        "minute": "90'+5'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
