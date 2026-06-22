@@ -1,8 +1,16 @@
 {
   "Nueva Zelanda-Egipto": {
-    "home": 0,
+    "home": 1,
     "away": 0,
     "minute": "live",
-    "scorers": []
+    "scorers": [
+      {
+        "player": "Fin Svrman",
+        "minute": "15'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      }
+    ]
   }
 }
