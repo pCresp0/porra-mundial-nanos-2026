@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "22/06/2026 02:18",
+    "generated": "22/06/2026 02:20",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-22T03:18",
-      "last_updated_time": "03:18",
+      "last_updated_iso": "2026-06-22T04:20",
+      "last_updated_time": "04:20",
       "last_updated_date": "22/06/2026",
-      "next_update_iso": "2026-06-22T04:20",
-      "next_update_time": "04:20",
+      "next_update_iso": "2026-06-22T04:25",
+      "next_update_time": "04:25",
       "next_update_date": "22/06/2026",
-      "last_checked_iso": "2026-06-22T04:18",
-      "last_checked_time": "04:18",
+      "last_checked_iso": "2026-06-22T04:20",
+      "last_checked_time": "04:20",
       "last_checked_date": "22/06/2026"
     },
     "players": [
@@ -337,6 +337,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-22T04:20:44+02:00",
+        "date": "22/06/2026",
+        "time": "04:20:44",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇳🇿Nueva Zelanda 0-0 Egipto🇪🇬",
+            "name": "Nueva Zelanda-Egipto",
+            "date": "2026-06-22",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-06-22T04:18:33+02:00",
         "date": "22/06/2026",
@@ -4496,14 +4513,6 @@
         "ts_iso": "2026-06-20T23:30:59+02:00",
         "date": "20/06/2026",
         "time": "23:30:59",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-20T23:28:43+02:00",
-        "date": "20/06/2026",
-        "time": "23:28:43",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -11120,7 +11129,7 @@
       "live": true,
       "live_minute": "live",
       "live_goals_l": 1,
-      "live_goals_v": 0,
+      "live_goals_v": 1,
       "live_scorers": [
         {
           "player": "Fin Svrman",
@@ -11128,6 +11137,13 @@
           "own_goal": false,
           "penalty": false,
           "team": "home"
+        },
+        {
+          "player": "Mostafa Ziko",
+          "minute": "58'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
         }
       ],
       "goals_l": 0,
