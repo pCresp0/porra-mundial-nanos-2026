@@ -922,6 +922,43 @@
       "team": "home"
     }
   ],
+  "Noruega-Senegal": [
+    {
+      "player": "Markvs Hlmgrn Pdrsn",
+      "minute": "43'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Erling Haaland",
+      "minute": "48'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Erling Haaland",
+      "minute": "58'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Ismaïla Sarr",
+      "minute": "53'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Ismaïla Sarr",
+      "minute": "90'+3'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "Argentina-Austria": [
     {
       "player": "Lionel Messi",
