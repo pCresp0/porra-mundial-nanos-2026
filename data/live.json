@@ -1,7 +1,7 @@
 {
   "Jordania-Argelia": {
     "home": 1,
-    "away": 0,
+    "away": 1,
     "minute": "live",
     "scorers": [
       {
@@ -10,6 +10,13 @@
         "own_goal": false,
         "penalty": false,
         "team": "home"
+      },
+      {
+        "player": "Nzir Bnbvali",
+        "minute": "69'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
       }
     ]
   }
