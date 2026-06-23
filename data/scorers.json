@@ -997,5 +997,42 @@
       "penalty": false,
       "team": "away"
     }
+  ],
+  "Portugal-Uzbekistán": [
+    {
+      "player": "Cristiano Ronaldo",
+      "minute": "6'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Nvnv Mndz",
+      "minute": "17'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Cristiano Ronaldo",
+      "minute": "39'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Abdalvhid Namtvf",
+      "minute": "60'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Rafael Leão",
+      "minute": "87'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
   ]
 }
