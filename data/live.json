@@ -1,32 +1,4 @@
 {
-  "Francia-Irak": {
-    "home": 3,
-    "away": 0,
-    "minute": "live",
-    "scorers": [
-      {
-        "player": "Kylian Mbappé",
-        "minute": "14'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "home"
-      },
-      {
-        "player": "Kylian Mbappé",
-        "minute": "54'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "home"
-      },
-      {
-        "player": "Ousmane Dembélé",
-        "minute": "66'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "home"
-      }
-    ]
-  },
   "Noruega-Senegal": {
     "home": 1,
     "away": 0,

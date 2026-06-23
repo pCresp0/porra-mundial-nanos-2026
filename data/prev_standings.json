@@ -1,8 +1,8 @@
 {
   "display_positions": {
     "MEDINA": 1,
-    "JUANCHO": 2,
-    "CRESPO": 3,
+    "CRESPO": 2,
+    "JUANCHO": 3,
     "LUIS/VIR": 4,
     "VÍCTOR": 5,
     "LARRY": 6
@@ -11,16 +11,16 @@
     "MEDINA": 1,
     "CRESPO": 2,
     "JUANCHO": 3,
-    "LUIS/VIR": 4,
-    "VÍCTOR": 5,
+    "VÍCTOR": 4,
+    "LUIS/VIR": 5,
     "LARRY": 6
   },
   "totals": {
-    "MEDINA": 67.0,
-    "CRESPO": 64.0,
-    "JUANCHO": 61.0,
-    "LUIS/VIR": 58.0,
-    "VÍCTOR": 57.0,
-    "LARRY": 52.0
+    "MEDINA": 73.0,
+    "CRESPO": 70.0,
+    "JUANCHO": 63.0,
+    "VÍCTOR": 63.0,
+    "LUIS/VIR": 60.0,
+    "LARRY": 54.0
   }
 }

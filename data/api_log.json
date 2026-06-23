@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-17T12:20:49+02:00",
-    "date": "17/06/2026",
-    "time": "12:20:49",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-17T12:36:43+02:00",
     "date": "17/06/2026",
     "time": "12:36:43",
@@ -16591,5 +16583,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-23T02:52:26+02:00",
+    "date": "23/06/2026",
+    "time": "02:52:26",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇫🇷Francia 3-0 Irak🇮🇶",
+        "name": "Francia-Irak",
+        "date": "2026-06-22",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "0-0",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "3-0",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]
