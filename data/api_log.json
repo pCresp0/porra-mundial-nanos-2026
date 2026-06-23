@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-17T18:44:29+02:00",
-    "date": "17/06/2026",
-    "time": "18:44:29",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-17T18:46:31+02:00",
     "date": "17/06/2026",
     "time": "18:46:31",
@@ -16636,5 +16628,22 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-23T03:54:27+02:00",
+    "date": "23/06/2026",
+    "time": "03:54:27",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇳🇴Noruega 0-0 Senegal🇸🇳",
+        "name": "Noruega-Senegal",
+        "date": "2026-06-23",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]

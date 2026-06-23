@@ -1,7 +1,7 @@
 {
   "Noruega-Senegal": {
     "home": 3,
-    "away": 1,
+    "away": 2,
     "minute": "live",
     "scorers": [
       {
@@ -28,6 +28,13 @@
       {
         "player": "Ismaïla Sarr",
         "minute": "53'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Ismaïla Sarr",
+        "minute": "90'+3'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
