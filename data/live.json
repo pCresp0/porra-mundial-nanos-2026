@@ -19,6 +19,13 @@
         "team": "home"
       },
       {
+        "player": "Erling Haaland",
+        "minute": "58'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
         "player": "Ismaïla Sarr",
         "minute": "53'",
         "own_goal": false,
