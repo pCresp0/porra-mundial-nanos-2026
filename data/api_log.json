@@ -1,31 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-17T20:58:36+02:00",
-    "date": "17/06/2026",
-    "time": "20:58:36",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇵🇹Portugal 1-1 RD Congo🇨🇩",
-        "name": "Portugal-RD Congo",
-        "date": "2026-06-17",
-        "fields": [
-          "marcador",
-          "jugado"
-        ],
-        "old": {
-          "marcador": "0-0",
-          "jugado": "no"
-        },
-        "new": {
-          "marcador": "1-1",
-          "jugado": "sí"
-        }
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-17T21:14:41+02:00",
     "date": "17/06/2026",
     "time": "21:14:41",
@@ -16678,6 +16652,14 @@
     "ts_iso": "2026-06-23T06:28:26+02:00",
     "date": "23/06/2026",
     "time": "06:28:26",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-06-23T06:30:39+02:00",
+    "date": "23/06/2026",
+    "time": "06:30:39",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
