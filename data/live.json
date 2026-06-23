@@ -28,9 +28,17 @@
     ]
   },
   "Noruega-Senegal": {
-    "home": 0,
+    "home": 1,
     "away": 0,
     "minute": "live",
-    "scorers": []
+    "scorers": [
+      {
+        "player": "Markvs Hlmgrn Pdrsn",
+        "minute": "43'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      }
+    ]
   }
 }
