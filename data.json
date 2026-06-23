@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "23/06/2026 23:12",
+    "generated": "23/06/2026 23:14",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-06-24T01:15",
       "next_update_time": "01:15",
       "next_update_date": "24/06/2026",
-      "last_checked_iso": "2026-06-24T01:12",
-      "last_checked_time": "01:12",
+      "last_checked_iso": "2026-06-24T01:14",
+      "last_checked_time": "01:14",
       "last_checked_date": "24/06/2026"
     },
     "players": [
@@ -357,6 +357,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-24T01:14:23+02:00",
+        "date": "24/06/2026",
+        "time": "01:14:23",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-24T01:12:26+02:00",
         "date": "24/06/2026",
@@ -4681,23 +4689,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-22T19:41:03+02:00",
-        "date": "22/06/2026",
-        "time": "19:41:03",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇦🇷Argentina 0-0 Austria🇦🇹",
-            "name": "Argentina-Austria",
-            "date": "2026-06-22",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
