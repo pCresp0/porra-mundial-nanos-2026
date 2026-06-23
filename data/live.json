@@ -1,7 +1,7 @@
 {
   "Portugal-Uzbekistán": {
     "home": 2,
-    "away": 0,
+    "away": 1,
     "minute": "live",
     "scorers": [
       {
@@ -17,6 +17,13 @@
         "own_goal": false,
         "penalty": false,
         "team": "home"
+      },
+      {
+        "player": "Aziz Jan Ganivf",
+        "minute": "29'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
       }
     ]
   }
