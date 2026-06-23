@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "23/06/2026 03:56",
+    "generated": "23/06/2026 03:58",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-06-23T06:00",
       "next_update_time": "06:00",
       "next_update_date": "23/06/2026",
-      "last_checked_iso": "2026-06-23T05:56",
-      "last_checked_time": "05:56",
+      "last_checked_iso": "2026-06-23T05:58",
+      "last_checked_time": "05:58",
       "last_checked_date": "23/06/2026"
     },
     "players": [
@@ -357,6 +357,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-23T05:58:24+02:00",
+        "date": "23/06/2026",
+        "time": "05:58:24",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-23T05:56:26+02:00",
         "date": "23/06/2026",
@@ -4681,32 +4689,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-21T22:26:42+02:00",
-        "date": "21/06/2026",
-        "time": "22:26:42",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇪🇸España 4-0 Arabia Saudita🇸🇦",
-            "name": "España-Arabia Saudita",
-            "date": "2026-06-21",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "0-0",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "4-0",
-              "jugado": "sí"
-            }
-          }
-        ]
       }
     ]
   },
