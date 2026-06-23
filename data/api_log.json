@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-18T05:52:33+02:00",
-    "date": "18/06/2026",
-    "time": "05:52:33",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-18T05:54:48+02:00",
     "date": "18/06/2026",
     "time": "05:54:48",
@@ -16780,5 +16772,22 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-24T01:04:30+02:00",
+    "date": "24/06/2026",
+    "time": "01:04:30",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇵🇦Panamá 0-0 Croacia🇭🇷",
+        "name": "Panamá-Croacia",
+        "date": "2026-06-24",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]
