@@ -1,12 +1,19 @@
 {
   "Portugal-Uzbekistán": {
-    "home": 1,
+    "home": 2,
     "away": 0,
     "minute": "live",
     "scorers": [
       {
         "player": "Cristiano Ronaldo",
         "minute": "6'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Nvnv Mndz",
+        "minute": "17'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
