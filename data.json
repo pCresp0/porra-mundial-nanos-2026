@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "23/06/2026 07:10",
+    "generated": "23/06/2026 07:12",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -10,7 +10,10 @@
       "last_updated_date": "23/06/2026",
       "next_update_iso": "2026-06-23T09:15",
       "next_update_time": "09:15",
-      "next_update_date": "23/06/2026"
+      "next_update_date": "23/06/2026",
+      "last_checked_iso": "2026-06-23T09:12",
+      "last_checked_time": "09:12",
+      "last_checked_date": "23/06/2026"
     },
     "players": [
       "JUANCHO",
@@ -356,6 +359,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-23T09:12:25+02:00",
+        "date": "23/06/2026",
+        "time": "09:12:25",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-23T08:56:35+02:00",
         "date": "23/06/2026",
@@ -4680,23 +4691,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-22T00:24:36+02:00",
-        "date": "22/06/2026",
-        "time": "00:24:36",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇺🇾Uruguay 0-0 Cabo Verde🇨🇻",
-            "name": "Uruguay-Cabo Verde",
-            "date": "2026-06-22",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
