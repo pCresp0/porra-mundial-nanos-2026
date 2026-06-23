@@ -17,6 +17,13 @@
         "own_goal": false,
         "penalty": false,
         "team": "home"
+      },
+      {
+        "player": "Ousmane Dembélé",
+        "minute": "66'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
       }
     ]
   },

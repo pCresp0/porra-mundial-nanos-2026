@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-17T09:02:34+02:00",
-    "date": "17/06/2026",
-    "time": "09:02:34",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-17T09:18:42+02:00",
     "date": "17/06/2026",
     "time": "09:18:42",
@@ -16573,5 +16565,22 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-23T02:26:23+02:00",
+    "date": "23/06/2026",
+    "time": "02:26:23",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇫🇷Francia 0-0 Irak🇮🇶",
+        "name": "Francia-Irak",
+        "date": "2026-06-22",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]
