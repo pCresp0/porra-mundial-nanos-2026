@@ -974,5 +974,28 @@
       "penalty": false,
       "team": "home"
     }
+  ],
+  "Jordania-Argelia": [
+    {
+      "player": "Al Rashdan",
+      "minute": "36'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Nzir Bnbvali",
+      "minute": "69'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Amine Gouiri",
+      "minute": "82'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
   ]
 }
