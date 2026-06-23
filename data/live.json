@@ -1,6 +1,6 @@
 {
   "Portugal-Uzbekistán": {
-    "home": 4,
+    "home": 5,
     "away": 0,
     "minute": "live",
     "scorers": [
@@ -28,6 +28,13 @@
       {
         "player": "Abdalvhid Namtvf",
         "minute": "60'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Rafael Leão",
+        "minute": "87'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
