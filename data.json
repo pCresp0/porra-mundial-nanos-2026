@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "24/06/2026 22:12",
+    "generated": "24/06/2026 22:14",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-25T00:10",
-      "last_updated_time": "00:10",
+      "last_updated_iso": "2026-06-25T00:14",
+      "last_updated_time": "00:14",
       "last_updated_date": "25/06/2026",
       "next_update_iso": "2026-06-25T00:15",
       "next_update_time": "00:15",
       "next_update_date": "25/06/2026",
-      "last_checked_iso": "2026-06-25T00:12",
-      "last_checked_time": "00:12",
+      "last_checked_iso": "2026-06-25T00:14",
+      "last_checked_time": "00:14",
       "last_checked_date": "25/06/2026"
     },
     "players": [
@@ -354,6 +354,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-25T00:14:25+02:00",
+        "date": "25/06/2026",
+        "time": "00:14:25",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇲🇦Marruecos 0-0 Haití🇭🇹",
+            "name": "Marruecos-Haití",
+            "date": "2026-06-25",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-06-25T00:12:21+02:00",
         "date": "25/06/2026",
@@ -4673,14 +4690,6 @@
         "ts_iso": "2026-06-23T08:24:35+02:00",
         "date": "23/06/2026",
         "time": "08:24:35",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-23T08:08:22+02:00",
-        "date": "23/06/2026",
-        "time": "08:08:22",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -13921,8 +13930,16 @@
       "live": true,
       "live_minute": "live",
       "live_goals_l": 0,
-      "live_goals_v": 0,
-      "live_scorers": [],
+      "live_goals_v": 1,
+      "live_scorers": [
+        {
+          "player": "Lni Jvzf",
+          "minute": "10'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        }
+      ],
       "goals_l": 0,
       "goals_v": 0,
       "scorers": [],
