@@ -1,9 +1,16 @@
 {
   "Marruecos-Haití": {
-    "home": 0,
+    "home": 1,
     "away": 1,
     "minute": "live",
     "scorers": [
+      {
+        "player": "Achraf Hakimi",
+        "minute": "39'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
       {
         "player": "Yassine Bounou",
         "minute": "10'",

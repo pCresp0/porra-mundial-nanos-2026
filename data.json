@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "24/06/2026 22:40",
+    "generated": "24/06/2026 22:42",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-25T00:28",
-      "last_updated_time": "00:28",
+      "last_updated_iso": "2026-06-25T00:42",
+      "last_updated_time": "00:42",
       "last_updated_date": "25/06/2026",
       "next_update_iso": "2026-06-25T00:45",
       "next_update_time": "00:45",
       "next_update_date": "25/06/2026",
-      "last_checked_iso": "2026-06-25T00:40",
-      "last_checked_time": "00:40",
+      "last_checked_iso": "2026-06-25T00:42",
+      "last_checked_time": "00:42",
       "last_checked_date": "25/06/2026"
     },
     "players": [
@@ -354,6 +354,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-25T00:42:26+02:00",
+        "date": "25/06/2026",
+        "time": "00:42:26",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇲🇦Marruecos 0-0 Haití🇭🇹",
+            "name": "Marruecos-Haití",
+            "date": "2026-06-25",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-06-25T00:40:28+02:00",
         "date": "25/06/2026",
@@ -4700,14 +4717,6 @@
         "ts_iso": "2026-06-23T12:08:28+02:00",
         "date": "23/06/2026",
         "time": "12:08:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-23T11:52:25+02:00",
-        "date": "23/06/2026",
-        "time": "11:52:25",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -13947,9 +13956,16 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 0,
+      "live_goals_l": 1,
       "live_goals_v": 1,
       "live_scorers": [
+        {
+          "player": "A. Hakimi",
+          "minute": "39'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
         {
           "player": "Yassine Bounou",
           "minute": "10'",
