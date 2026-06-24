@@ -15,12 +15,19 @@
   },
   "Escocia-Brasil": {
     "home": 0,
-    "away": 1,
+    "away": 2,
     "minute": "live",
     "scorers": [
       {
         "player": "Vinícius Júnior",
         "minute": "7'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Vinícius Júnior",
+        "minute": "22'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
