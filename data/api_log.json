@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-19T02:46:31+02:00",
-    "date": "19/06/2026",
-    "time": "02:46:31",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-19T02:48:34+02:00",
     "date": "19/06/2026",
     "time": "02:48:34",
@@ -16860,5 +16852,30 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-25T00:04:25+02:00",
+    "date": "25/06/2026",
+    "time": "00:04:25",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🏴󠁧󠁢󠁳󠁣󠁴󠁿Escocia 0-0 Brasil🇧🇷",
+        "name": "Escocia-Brasil",
+        "date": "2026-06-25",
+        "fields": [],
+        "old": {},
+        "new": {}
+      },
+      {
+        "label": "🇲🇦Marruecos 0-0 Haití🇭🇹",
+        "name": "Marruecos-Haití",
+        "date": "2026-06-25",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]
