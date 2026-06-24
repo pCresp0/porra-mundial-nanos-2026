@@ -348,8 +348,25 @@
         </div>
       </div>
 
-      <!-- desglose de aciertos -->
+      <!-- veces líder en solitario -->
       <div class="card p-5">
+        <div class="info-wrap mb-4">
+          <h3 class="font-bold text-white">Líder en solitario <span id="sl-count" class="text-sm font-normal text-gray-400"></span></h3>
+          <span class="info-btn">i</span>
+          <div class="info-tip">
+            <strong>¿Qué muestra esta gráfica?</strong><br>
+            Tras cada partido de grupos jugado, se mira quién encabezaba la clasificación.
+            Solo cuenta si <strong>un único jugador</strong> lideraba (sin empatar a puntos con nadie más).
+            El % es sobre el total de partidos de grupos ya disputados.
+          </div>
+        </div>
+        <div style="height:260px;position:relative">
+          <canvas id="soloLeaderChart"></canvas>
+        </div>
+      </div>
+
+      <!-- desglose de aciertos -->
+      <div class="card p-5 md:col-span-2">
         <div class="info-wrap mb-4">
           <h3 class="font-bold text-white">Desglose de aciertos (fase de grupos)</h3>
           <span class="info-btn">i</span>
@@ -672,6 +689,7 @@
           <li><span class="cl-tag fix">fix</span><span> <strong>Resultados con retraso de la API:</strong> el bot sigue consultando hasta 8 h después del inicio si un partido no aparece como jugado (p. ej. España 4-0 Arabia cuando la API tarda en publicar <code>finished=TRUE</code>)</span></li>
           <li><span class="cl-tag fix">fix</span><span> <strong>Errores de API visibles:</strong> si <code>fetch_results.py</code> falla al descargar, la GitHub Action ya no lo oculta con <code>continue-on-error</code></span></li>
           <li><span class="cl-tag data">data</span><span> <strong>Más reintentos API:</strong> hasta 12 intentos con backoff ante cortes de <code>worldcup26.ir</code></span></li>
+          <li><span class="cl-tag ux">ux</span><span> <strong>Estadísticas · Líder en solitario:</strong> nuevo gráfico de barras con cuántas veces cada jugador ha sido 1.º en la clasificación al acabar un partido, sin empatar a puntos</span></li>
         </ul>
       </div>
 

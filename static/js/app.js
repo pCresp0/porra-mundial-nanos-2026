@@ -13,6 +13,7 @@ const VISITOR_PATH = "/porra-mundial-nanos-2026";
 const FEEDBACK_API = "https://script.google.com/macros/s/AKfycbwoXHBr6i2H7Klp4KBPS2KCBUtIiuX2DAimFk1e-mkRKzNeWLtZRlfKZikyvltcRPLd/exec";
 let progressionChart = null;
 let hitRateChart = null;
+let soloLeaderChart = null;
 let _progWindow = 10; // last N matches to show in progression chart (0 = all)
 let breakdownChart = null;
 let currentPhase = "all";
@@ -3569,6 +3570,31 @@ function loadMoreMatchRows(containerId) {
 }
 
 /* ─── STATS ─── */
+/** Veces que cada jugador ha sido 1.º en solitario tras un partido de grupos. */
+function computeSoloLeaderStats(players, prog) {
+  const counts = Object.fromEntries(players.map(n => [n, 0]));
+  const nMatches = (prog?.labels || []).length;
+  if (!nMatches) {
+    return players.map(name => ({ name, solo: 0, total: 0, pct: 0 }));
+  }
+  for (let i = 0; i < nMatches; i++) {
+    const rows = players.map(name => {
+      const raw = (prog.players?.[name] || [])[i];
+      const pts = typeof raw === "number" ? raw : parseFloat(raw) || 0;
+      return { name, pts };
+    });
+    const max = Math.max(...rows.map(r => r.pts));
+    const leaders = rows.filter(r => r.pts === max);
+    if (leaders.length === 1) counts[leaders[0].name]++;
+  }
+  return players.map(name => ({
+    name,
+    solo: counts[name],
+    total: nMatches,
+    pct: Math.round(counts[name] / nMatches * 100),
+  }));
+}
+
 function renderStats() {
   const players = D.meta.players;
   const colors  = D.meta.colors;
@@ -3706,6 +3732,82 @@ function renderStats() {
       layout: { padding: { top: 24 } },
     }
   });
+
+  // ── Líder en solitario (ordenado de mayor a menor) ─────────────────────
+  if (soloLeaderChart) soloLeaderChart.destroy();
+  const soloStats = computeSoloLeaderStats(players, D.progression);
+  const sortedSL = [...soloStats].sort((a, b) => b.solo - a.solo || b.pct - a.pct);
+  const slCount = document.getElementById("sl-count");
+  if (slCount) {
+    const n = groupMatches.length;
+    slCount.textContent = `(${n} partido${n !== 1 ? "s" : ""})`;
+  }
+  const soloCanvas = document.getElementById("soloLeaderChart");
+  if (soloCanvas) {
+    soloLeaderChart = new Chart(soloCanvas.getContext("2d"), {
+      type: "bar",
+      data: {
+        labels: sortedSL.map(s => s.name),
+        datasets: [{
+          label: "Veces líder único",
+          data: sortedSL.map(s => s.pct),
+          backgroundColor: sortedSL.map(s => colors[s.name] + "99"),
+          borderColor: sortedSL.map(s => colors[s.name]),
+          borderWidth: 2, borderRadius: 6,
+        }],
+      },
+      plugins: [{
+        id: "soloLeaderLabels",
+        afterDatasetsDraw(chart) {
+          const { ctx, data } = chart;
+          chart.getDatasetMeta(0).data.forEach((bar, i) => {
+            const val = data.datasets[0].data[i];
+            if (val == null) return;
+            const sl = sortedSL[i];
+            ctx.save();
+            ctx.fillStyle = "#CBD5E1";
+            ctx.font = "bold 11px sans-serif";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "bottom";
+            ctx.fillText(val + "%", bar.x, bar.y - 4);
+            ctx.restore();
+            if (sl && bar.base - bar.y > 36) {
+              ctx.save();
+              ctx.fillStyle = "#FFFFFF";
+              ctx.font = "bold 12px sans-serif";
+              ctx.textAlign = "center";
+              ctx.textBaseline = "top";
+              ctx.fillText(`${sl.solo}/${sl.total}`, bar.x, bar.y + 20);
+              ctx.restore();
+            }
+          });
+        },
+      }],
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: i => {
+                const sl = sortedSL[i.dataIndex];
+                return ` ${sl.solo} vez${sl.solo !== 1 ? "es" : ""} (${sl.pct}% de ${sl.total} partidos)`;
+              },
+            },
+          },
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            suggestedMax: Math.max(...sortedSL.map(s => s.pct), 1) + 8,
+            display: false,
+          },
+          x: { grid: { display: false }, ticks: { color: "#94A3B8", font: { weight: "bold" } } },
+        },
+        layout: { padding: { top: 24 } },
+      },
+    });
+  }
 
   // ── Desglose de aciertos ───────────────────────────────────────────────
   if (breakdownChart) breakdownChart.destroy();
