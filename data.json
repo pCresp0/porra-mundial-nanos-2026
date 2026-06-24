@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "24/06/2026 19:36",
+    "generated": "24/06/2026 19:38",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-24T21:32",
-      "last_updated_time": "21:32",
+      "last_updated_iso": "2026-06-24T21:38",
+      "last_updated_time": "21:38",
       "last_updated_date": "24/06/2026",
       "next_update_iso": "2026-06-24T21:40",
       "next_update_time": "21:40",
       "next_update_date": "24/06/2026",
-      "last_checked_iso": "2026-06-24T21:36",
-      "last_checked_time": "21:36",
+      "last_checked_iso": "2026-06-24T21:38",
+      "last_checked_time": "21:38",
       "last_checked_date": "24/06/2026"
     },
     "players": [
@@ -358,6 +358,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-24T21:38:23+02:00",
+        "date": "24/06/2026",
+        "time": "21:38:23",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇧🇦Bosnia y Herzegovina 0-0 Catar🇶🇦",
+            "name": "Bosnia y Herzegovina-Catar",
+            "date": "2026-06-24",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-06-24T21:36:29+02:00",
         "date": "24/06/2026",
@@ -4619,14 +4636,6 @@
             "new": {}
           }
         ]
-      },
-      {
-        "ts_iso": "2026-06-23T05:02:26+02:00",
-        "date": "23/06/2026",
-        "time": "05:02:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4713,13 +4722,13 @@
       "played": 48,
       "pos": 3,
       "pos_change": 0,
-      "live_pos": 4
+      "live_pos": 5
     },
     {
       "name": "VÍCTOR",
       "total": 75.0,
-      "live_points": 2.0,
-      "total_live": 77.0,
+      "live_points": 6.0,
+      "total_live": 81.0,
       "groups": 75.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -4741,7 +4750,7 @@
       "played": 48,
       "pos": 4,
       "pos_change": 0,
-      "live_pos": 5
+      "live_pos": 3
     },
     {
       "name": "LUIS/VIR",
@@ -4769,7 +4778,7 @@
       "played": 48,
       "pos": 5,
       "pos_change": 0,
-      "live_pos": 3
+      "live_pos": 4
     },
     {
       "name": "LARRY",
@@ -13500,12 +13509,19 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 1,
+      "live_goals_l": 2,
       "live_goals_v": 0,
       "live_scorers": [
         {
           "player": "Karim Alaibgvvich",
           "minute": "29'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Hsin Sltan Albrik",
+          "minute": "34'",
           "own_goal": false,
           "penalty": false,
           "team": "home"
@@ -13597,15 +13613,16 @@
           "breakdown": null,
           "live_breakdown": {
             "sign": 2.0,
-            "diff": 0.0,
-            "exact": 0,
-            "total": 2.0,
+            "diff": 1.0,
+            "exact": 3.0,
+            "total": 6.0,
             "reasons": [
               "1X2 correcto (+2.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles (+1.0)",
+              "Resultado exacto (+3.0)"
             ]
           },
-          "live_score": 2.0
+          "live_score": 6.0
         },
         "CRESPO": {
           "pred": {

@@ -1,12 +1,19 @@
 {
   "Bosnia y Herzegovina-Catar": {
-    "home": 1,
+    "home": 2,
     "away": 0,
     "minute": "live",
     "scorers": [
       {
         "player": "Karim Alaibgvvich",
         "minute": "29'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Hsin Sltan Albrik",
+        "minute": "34'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
