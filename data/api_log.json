@@ -1,31 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-19T00:12:43+02:00",
-    "date": "19/06/2026",
-    "time": "00:12:43",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇨🇦Canadá 1-1 Catar🇶🇦",
-        "name": "Canadá-Catar",
-        "date": "2026-06-19",
-        "fields": [
-          "marcador",
-          "jugado"
-        ],
-        "old": {
-          "marcador": "0-0",
-          "jugado": "no"
-        },
-        "new": {
-          "marcador": "1-1",
-          "jugado": "sí"
-        }
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-19T00:28:40+02:00",
     "date": "19/06/2026",
     "time": "00:28:40",
@@ -16813,6 +16787,14 @@
     "ts_iso": "2026-06-24T21:40:37+02:00",
     "date": "24/06/2026",
     "time": "21:40:37",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-06-24T21:42:43+02:00",
+    "date": "24/06/2026",
+    "time": "21:42:43",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
