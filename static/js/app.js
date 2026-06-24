@@ -4035,17 +4035,25 @@ function renderStats() {
     if (changes.length === 0) {
       leadershipBody.innerHTML = `<tr><td colspan="5" class="text-center text-gray-500 py-4 italic">No ha habido cambios de liderato aún</td></tr>`;
     } else {
-      leadershipBody.innerHTML = changes.map((c, i) => {
+      // Mostrar más reciente primero
+      const reversed = [...changes].reverse();
+      const PREVIEW = 5;
+      let expanded = false;
+
+      const renderRows = (list) => list.map((c, i) => {
         const evenBg = i % 2 === 1 ? "background:rgba(255,255,255,.02)" : "";
         const colorNew = colors[c.newLeader] || "#94A3B8";
         const colorPrev = c.prevLeader ? (colors[c.prevLeader] || "#94A3B8") : null;
-        const crownEmoji = i === changes.length - 1 ? " 👑" : "";
+        // Corona al más reciente (primer elemento del array reversed)
+        const crownEmoji = i === 0 ? " 👑" : "";
         const prevHtml = c.prevLeader
           ? `<span class="font-semibold" style="color:${colorPrev}">${escapeHtml(c.prevLeader)}</span>`
           : `<span class="text-gray-500 italic">— (inicio)</span>`;
+        // Número de cambio (orden cronológico original)
+        const changeNum = changes.length - i;
         return `
           <tr style="${evenBg}">
-            <td class="text-center font-bold px-3 py-2 text-gray-400">${i + 1}</td>
+            <td class="text-center font-bold px-3 py-2 text-gray-400">${changeNum}</td>
             <td class="px-3 py-2">
               <div class="text-gray-200 font-semibold text-xs truncate max-w-[220px]" title="${escapeHtml(c.title)}">${escapeHtml(c.title)}</div>
             </td>
@@ -4057,6 +4065,24 @@ function renderStats() {
           </tr>
         `;
       }).join("");
+
+      leadershipBody.innerHTML = renderRows(reversed.slice(0, PREVIEW));
+
+      // Botón expandir solo si hay más de PREVIEW cambios
+      const toggleBtn = document.getElementById("leadership-toggle-btn");
+      if (toggleBtn) {
+        if (reversed.length <= PREVIEW) {
+          toggleBtn.style.display = "none";
+        } else {
+          toggleBtn.style.display = "";
+          toggleBtn.textContent = `Ver todos (${reversed.length})`;
+          toggleBtn.onclick = () => {
+            expanded = !expanded;
+            leadershipBody.innerHTML = renderRows(expanded ? reversed : reversed.slice(0, PREVIEW));
+            toggleBtn.textContent = expanded ? "Ver menos" : `Ver todos (${reversed.length})`;
+          };
+        }
+      }
     }
   }
 
