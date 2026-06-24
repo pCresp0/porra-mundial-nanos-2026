@@ -36,7 +36,7 @@
   },
   "Escocia-Brasil": {
     "home": 0,
-    "away": 2,
+    "away": 3,
     "minute": "live",
     "scorers": [
       {
@@ -49,6 +49,13 @@
       {
         "player": "Vinícius Júnior",
         "minute": "45'+3'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Matheus Cunha",
+        "minute": "60'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
