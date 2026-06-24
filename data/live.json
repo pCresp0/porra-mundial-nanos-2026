@@ -28,13 +28,20 @@
     ]
   },
   "Suiza-Canadá": {
-    "home": 1,
+    "home": 2,
     "away": 0,
     "minute": "live",
     "scorers": [
       {
         "player": "Rubén Vargas",
         "minute": "46'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Breel Embolo",
+        "minute": "57'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
