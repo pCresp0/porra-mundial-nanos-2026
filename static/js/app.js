@@ -3871,7 +3871,9 @@ function renderStats() {
         title: prog.titles[k] || `Partido ${k+1}`,
         diff: parseFloat(diff.toFixed(1)),
         p1: p1.name,
+        p1Score: p1.pts,
         p2: p2.name,
+        p2Score: p2.pts,
         firsts,
         seconds
       });
@@ -3893,14 +3895,15 @@ function renderStats() {
         let playersHtml = "";
         if (d.firsts.length > 1) {
           const namesStr = d.firsts.map(name => `<span style="color:${colors[name]}">${escapeHtml(name)}</span>`).join(" = ");
-          playersHtml = `<div class="flex items-center gap-1.5 flex-wrap"><span class="text-xs text-gray-500">Empate 1º:</span> ${namesStr}</div>`;
+          playersHtml = `<div class="flex items-center gap-1.5 flex-wrap"><span class="text-xs text-gray-500">Empate 1º (${d.p1Score} pts):</span> ${namesStr}</div>`;
         } else {
-          const leaderName = `<span class="font-bold" style="color:${c1}">${escapeHtml(d.p1)}</span>`;
+          const leaderName = `<span class="font-bold" style="color:${c1}">${escapeHtml(d.p1)} (${d.p1Score} pts)</span>`;
           let secondsStr = "";
           if (d.seconds.length > 1) {
-            secondsStr = d.seconds.map(name => `<span style="color:${colors[name]}">${escapeHtml(name)}</span>`).join("/");
+            const secNames = d.seconds.map(name => `<span style="color:${colors[name]}">${escapeHtml(name)}</span>`).join("/");
+            secondsStr = `${secNames} (${d.p2Score} pts)`;
           } else {
-            secondsStr = `<span style="color:${c2}">${escapeHtml(d.p2)}</span>`;
+            secondsStr = `<span style="color:${c2}">${escapeHtml(d.p2)} (${d.p2Score} pts)</span>`;
           }
           playersHtml = `<div class="truncate">${leaderName} <span class="text-gray-500">vs</span> ${secondsStr}</div>`;
         }
