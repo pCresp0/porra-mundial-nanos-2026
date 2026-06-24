@@ -1,16 +1,1 @@
-{
-  "Panamá-Croacia": {
-    "home": 0,
-    "away": 1,
-    "minute": "live",
-    "scorers": [
-      {
-        "player": "Ante Budimir",
-        "minute": "54'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "away"
-      }
-    ]
-  }
-}
+{}
