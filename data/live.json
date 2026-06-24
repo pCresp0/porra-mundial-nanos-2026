@@ -1,7 +1,7 @@
 {
   "Marruecos-Haití": {
     "home": 1,
-    "away": 1,
+    "away": 2,
     "minute": "live",
     "scorers": [
       {
@@ -14,6 +14,13 @@
       {
         "player": "Yassine Bounou",
         "minute": "10'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Wilson Isidor",
+        "minute": "43'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
