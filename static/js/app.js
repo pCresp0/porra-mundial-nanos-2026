@@ -3841,6 +3841,84 @@ function renderStats() {
     }
   });
 
+  // ── 5 mayores diferencias (1º vs 2º) ───────────────────────────────────
+  const topDiffsBody = document.getElementById("top-diffs-table-body");
+  if (topDiffsBody) {
+    const prog = D.progression;
+    const playersList = D.meta.players;
+    const colors = D.meta.colors;
+    const nMatches = (prog?.labels || []).length;
+    
+    const diffs = [];
+    for (let k = 0; k < nMatches; k++) {
+      const scores = playersList.map(name => {
+        const raw = (prog.players?.[name] || [])[k];
+        const pts = typeof raw === "number" ? raw : parseFloat(raw) || 0;
+        return { name, pts };
+      });
+      // Ordenar por puntos desc
+      scores.sort((a, b) => b.pts - a.pts);
+      
+      const p1 = scores[0];
+      const p2 = scores[1];
+      const diff = p1.pts - p2.pts;
+      
+      const firsts = scores.filter(x => x.pts === p1.pts).map(x => x.name);
+      const seconds = scores.filter(x => x.pts === p2.pts).map(x => x.name);
+      
+      diffs.push({
+        matchIdx: k,
+        title: prog.titles[k] || `Partido ${k+1}`,
+        diff: parseFloat(diff.toFixed(1)),
+        p1: p1.name,
+        p2: p2.name,
+        firsts,
+        seconds
+      });
+    }
+    
+    // Ordenar por diferencia desc, y si empatan, por partido más reciente (matchIdx desc)
+    const sortedDiffs = [...diffs].sort((a, b) => b.diff - a.diff || b.matchIdx - a.matchIdx);
+    
+    const top5 = sortedDiffs.slice(0, 5);
+    
+    if (top5.length === 0) {
+      topDiffsBody.innerHTML = `<tr><td colspan="3" class="text-center text-gray-500 py-4 italic">No hay datos disponibles</td></tr>`;
+    } else {
+      topDiffsBody.innerHTML = top5.map((d, i) => {
+        const diffStr = `<span class="font-bold text-yellow-400">+${d.diff}</span>`;
+        const c1 = colors[d.p1] || "#94A3B8";
+        const c2 = colors[d.p2] || "#94A3B8";
+        
+        let playersHtml = "";
+        if (d.firsts.length > 1) {
+          const namesStr = d.firsts.map(name => `<span style="color:${colors[name]}">${escapeHtml(name)}</span>`).join(" = ");
+          playersHtml = `<div class="flex items-center gap-1.5 flex-wrap"><span class="text-xs text-gray-500">Empate 1º:</span> ${namesStr}</div>`;
+        } else {
+          const leaderName = `<span class="font-bold" style="color:${c1}">${escapeHtml(d.p1)}</span>`;
+          let secondsStr = "";
+          if (d.seconds.length > 1) {
+            secondsStr = d.seconds.map(name => `<span style="color:${colors[name]}">${escapeHtml(name)}</span>`).join("/");
+          } else {
+            secondsStr = `<span style="color:${c2}">${escapeHtml(d.p2)}</span>`;
+          }
+          playersHtml = `<div class="truncate">${leaderName} <span class="text-gray-500">vs</span> ${secondsStr}</div>`;
+        }
+        
+        const evenBg = i % 2 === 1 ? "background:rgba(255,255,255,.02)" : "";
+        return `
+          <tr style="${evenBg}">
+            <td class="text-center font-bold px-3 py-2">${diffStr}</td>
+            <td class="px-3 py-2">
+              <div class="text-gray-200 font-semibold text-xs truncate max-w-[200px]" title="${escapeHtml(d.title)}">${escapeHtml(d.title)}</div>
+            </td>
+            <td class="px-3 py-2 text-xs">${playersHtml}</td>
+          </tr>
+        `;
+      }).join("");
+    }
+  }
+
   // ── Ficha por jugador (clara, todo en una tarjeta) ─────────────────────
   const playersInfoEl = document.getElementById("stats-players-info");
   if (playersInfoEl) {
