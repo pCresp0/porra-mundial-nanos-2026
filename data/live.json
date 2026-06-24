@@ -1,6 +1,6 @@
 {
   "Marruecos-Haití": {
-    "home": 2,
+    "home": 3,
     "away": 2,
     "minute": "live",
     "scorers": [
@@ -14,6 +14,13 @@
       {
         "player": "Asmaail Saibari",
         "minute": "45'+1'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Svfian Rhimi",
+        "minute": "78'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
