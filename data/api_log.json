@@ -1,31 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-18T20:01:31+02:00",
-    "date": "18/06/2026",
-    "time": "20:01:31",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇨🇿República Checa 1-1 Sudáfrica🇿🇦",
-        "name": "República Checa-Sudáfrica",
-        "date": "2026-06-18",
-        "fields": [
-          "marcador",
-          "jugado"
-        ],
-        "old": {
-          "marcador": "0-0",
-          "jugado": "no"
-        },
-        "new": {
-          "marcador": "1-1",
-          "jugado": "sí"
-        }
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-18T20:18:46+02:00",
     "date": "18/06/2026",
     "time": "20:18:46",
@@ -16807,5 +16781,22 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-24T05:40:31+02:00",
+    "date": "24/06/2026",
+    "time": "05:40:31",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇨🇴Colombia 0-0 RD Congo🇨🇩",
+        "name": "Colombia-RD Congo",
+        "date": "2026-06-24",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]
