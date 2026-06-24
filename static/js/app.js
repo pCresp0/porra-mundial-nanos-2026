@@ -3998,6 +3998,68 @@ function renderStats() {
     }
   }
 
+  // ── Cambios de liderato ────────────────────────────────────────────────
+  const leadershipBody = document.getElementById("leadership-changes-table-body");
+  if (leadershipBody) {
+    const prog = D.progression;
+    const playersList = D.meta.players;
+    const colors = D.meta.colors;
+    const nMatches = (prog?.labels || []).length;
+
+    let currentLeader = null;
+    const changes = [];
+
+    for (let k = 0; k < nMatches; k++) {
+      const scores = playersList.map(name => {
+        const raw = (prog.players?.[name] || [])[k];
+        const pts = typeof raw === "number" ? raw : parseFloat(raw) || 0;
+        return { name, pts };
+      });
+      scores.sort((a, b) => b.pts - a.pts);
+      const topPts = scores[0].pts;
+      const soloLeaders = scores.filter(x => x.pts === topPts);
+      const newLeader = soloLeaders.length === 1 ? soloLeaders[0].name : null;
+
+      if (newLeader && newLeader !== currentLeader) {
+        changes.push({
+          matchIdx: k,
+          title: prog.titles[k] || `Partido ${k + 1}`,
+          newLeader,
+          prevLeader: currentLeader,
+          pts: topPts
+        });
+        currentLeader = newLeader;
+      }
+    }
+
+    if (changes.length === 0) {
+      leadershipBody.innerHTML = `<tr><td colspan="5" class="text-center text-gray-500 py-4 italic">No ha habido cambios de liderato aún</td></tr>`;
+    } else {
+      leadershipBody.innerHTML = changes.map((c, i) => {
+        const evenBg = i % 2 === 1 ? "background:rgba(255,255,255,.02)" : "";
+        const colorNew = colors[c.newLeader] || "#94A3B8";
+        const colorPrev = c.prevLeader ? (colors[c.prevLeader] || "#94A3B8") : null;
+        const crownEmoji = i === changes.length - 1 ? " 👑" : "";
+        const prevHtml = c.prevLeader
+          ? `<span class="font-semibold" style="color:${colorPrev}">${escapeHtml(c.prevLeader)}</span>`
+          : `<span class="text-gray-500 italic">— (inicio)</span>`;
+        return `
+          <tr style="${evenBg}">
+            <td class="text-center font-bold px-3 py-2 text-gray-400">${i + 1}</td>
+            <td class="px-3 py-2">
+              <div class="text-gray-200 font-semibold text-xs truncate max-w-[220px]" title="${escapeHtml(c.title)}">${escapeHtml(c.title)}</div>
+            </td>
+            <td class="px-3 py-2 text-xs">
+              <span class="font-bold" style="color:${colorNew}">${escapeHtml(c.newLeader)}${crownEmoji}</span>
+            </td>
+            <td class="px-3 py-2 text-xs">${prevHtml}</td>
+            <td class="text-center px-3 py-2 text-xs font-bold text-yellow-400">${c.pts} pts</td>
+          </tr>
+        `;
+      }).join("");
+    }
+  }
+
   // ── Ficha por jugador (clara, todo en una tarjeta) ─────────────────────
   const playersInfoEl = document.getElementById("stats-players-info");
   if (playersInfoEl) {

@@ -435,6 +435,34 @@
         </div>
       </div>
 
+      <!-- cambios de liderato -->
+      <div class="card p-5 md:col-span-2">
+        <div class="info-wrap mb-4">
+          <h3 class="font-bold text-white">Cambios de liderato 👑</h3>
+          <span class="info-btn">i</span>
+          <div class="info-tip">
+            <strong>¿Qué muestra esta tabla?</strong><br>
+            Cada vez que el líder de la porra ha cambiado durante la fase de grupos. Solo se registra cuando un único jugador se coloca por primera vez en cabeza, desbancando al anterior líder en solitario.
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="pred-table w-full">
+            <thead>
+              <tr>
+                <th class="text-center">#</th>
+                <th class="text-left">Partido</th>
+                <th class="text-left">Nuevo líder</th>
+                <th class="text-left">Líder anterior</th>
+                <th class="text-center">Pts al tomar el mando</th>
+              </tr>
+            </thead>
+            <tbody id="leadership-changes-table-body">
+              <!-- filled by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
 
     <!-- ficha por jugador -->
