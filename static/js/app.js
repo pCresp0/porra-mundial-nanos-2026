@@ -3922,6 +3922,82 @@ function renderStats() {
     }
   }
 
+  // ── 3 mayores diferencias (1º vs último) ───────────────────────────────
+  const topLastDiffsBody = document.getElementById("top-last-diffs-table-body");
+  if (topLastDiffsBody) {
+    const prog = D.progression;
+    const playersList = D.meta.players;
+    const colors = D.meta.colors;
+    const nMatches = (prog?.labels || []).length;
+    
+    const lastDiffs = [];
+    for (let k = 0; k < nMatches; k++) {
+      const scores = playersList.map(name => {
+        const raw = (prog.players?.[name] || [])[k];
+        const pts = typeof raw === "number" ? raw : parseFloat(raw) || 0;
+        return { name, pts };
+      });
+      // Ordenar por puntos desc
+      scores.sort((a, b) => b.pts - a.pts);
+      
+      const p1 = scores[0];
+      const pLast = scores[scores.length - 1];
+      const diff = p1.pts - pLast.pts;
+      
+      const firsts = scores.filter(x => x.pts === p1.pts).map(x => x.name);
+      const lasts = scores.filter(x => x.pts === pLast.pts).map(x => x.name);
+      
+      lastDiffs.push({
+        matchIdx: k,
+        title: prog.titles[k] || `Partido ${k+1}`,
+        diff: parseFloat(diff.toFixed(1)),
+        p1: p1.name,
+        p1Score: p1.pts,
+        pLast: pLast.name,
+        pLastScore: pLast.pts,
+        firsts,
+        lasts
+      });
+    }
+    
+    // Ordenar por diferencia desc, y si empatan, por partido más reciente (matchIdx desc)
+    const sortedLastDiffs = [...lastDiffs].sort((a, b) => b.diff - a.diff || b.matchIdx - a.matchIdx);
+    
+    const top3 = sortedLastDiffs.slice(0, 3);
+    
+    if (top3.length === 0) {
+      topLastDiffsBody.innerHTML = `<tr><td colspan="3" class="text-center text-gray-500 py-4 italic">No hay datos disponibles</td></tr>`;
+    } else {
+      topLastDiffsBody.innerHTML = top3.map((d, i) => {
+        const diffStr = `<span class="font-bold text-yellow-400">+${d.diff}</span>`;
+        const c1 = colors[d.p1] || "#94A3B8";
+        const cLast = colors[d.pLast] || "#94A3B8";
+        
+        let playersHtml = "";
+        const leaderName = d.firsts.length > 1 
+          ? d.firsts.map(name => `<span style="color:${colors[name]}">${escapeHtml(name)}</span>`).join("=") 
+          : `<span class="font-bold" style="color:${c1}">${escapeHtml(d.p1)}</span>`;
+        
+        const lastNames = d.lasts.length > 1
+          ? d.lasts.map(name => `<span style="color:${colors[name]}">${escapeHtml(name)}</span>`).join("/")
+          : `<span style="color:${cLast}">${escapeHtml(d.pLast)}</span>`;
+          
+        playersHtml = `<div class="truncate">${leaderName} (${d.p1Score} pts) <span class="text-gray-500">vs</span> ${lastNames} (${d.pLastScore} pts)</div>`;
+        
+        const evenBg = i % 2 === 1 ? "background:rgba(255,255,255,.02)" : "";
+        return `
+          <tr style="${evenBg}">
+            <td class="text-center font-bold px-3 py-2">${diffStr}</td>
+            <td class="px-3 py-2">
+              <div class="text-gray-200 font-semibold text-xs truncate max-w-[200px]" title="${escapeHtml(d.title)}">${escapeHtml(d.title)}</div>
+            </td>
+            <td class="px-3 py-2 text-xs">${playersHtml}</td>
+          </tr>
+        `;
+      }).join("");
+    }
+  }
+
   // ── Ficha por jugador (clara, todo en una tarjeta) ─────────────────────
   const playersInfoEl = document.getElementById("stats-players-info");
   if (playersInfoEl) {

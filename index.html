@@ -409,6 +409,32 @@
         </div>
       </div>
 
+      <!-- 3 mayores diferencias (1º vs último) -->
+      <div class="card p-5">
+        <div class="info-wrap mb-4">
+          <h3 class="font-bold text-white">Mayores diferencias (1º vs último)</h3>
+          <span class="info-btn">i</span>
+          <div class="info-tip">
+            <strong>¿Qué muestra esta tabla?</strong><br>
+            Las 3 mayores diferencias de puntos entre el primer clasificado (1º) y el último clasificado después de cualquier partido disputado en la fase de grupos.
+          </div>
+        </div>
+        <div class="overflow-x-auto" style="max-height: 260px; overflow-y: auto;">
+          <table class="pred-table w-full">
+            <thead>
+              <tr>
+                <th class="text-center">Dif</th>
+                <th class="text-left">Partido</th>
+                <th class="text-left">Jugadores (1º vs último)</th>
+              </tr>
+            </thead>
+            <tbody id="top-last-diffs-table-body">
+              <!-- filled by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
 
     <!-- ficha por jugador -->
