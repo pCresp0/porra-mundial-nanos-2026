@@ -12,7 +12,7 @@
         "team": "home"
       },
       {
-        "player": "Hsin Sltan Albrik",
+        "player": "Abvnad",
         "minute": "34'",
         "own_goal": false,
         "penalty": false,
@@ -29,7 +29,7 @@
   },
   "Suiza-Canadá": {
     "home": 2,
-    "away": 0,
+    "away": 1,
     "minute": "live",
     "scorers": [
       {
@@ -45,6 +45,13 @@
         "own_goal": false,
         "penalty": false,
         "team": "home"
+      },
+      {
+        "player": "Prvmis Divid",
+        "minute": "76'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
       }
     ]
   }
