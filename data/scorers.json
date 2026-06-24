@@ -1043,5 +1043,14 @@
       "penalty": false,
       "team": "away"
     }
+  ],
+  "Colombia-RD Congo": [
+    {
+      "player": "Dnil Mvnvz",
+      "minute": "76'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
   ]
 }

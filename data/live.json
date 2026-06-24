@@ -1,16 +1,1 @@
-{
-  "Colombia-RD Congo": {
-    "home": 1,
-    "away": 0,
-    "minute": "live",
-    "scorers": [
-      {
-        "player": "Dnil Mvnvz",
-        "minute": "76'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "home"
-      }
-    ]
-  }
-}
+{}
