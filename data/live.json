@@ -1,12 +1,19 @@
 {
   "Marruecos-Haití": {
-    "home": 1,
+    "home": 2,
     "away": 2,
     "minute": "live",
     "scorers": [
       {
         "player": "Achraf Hakimi",
         "minute": "39'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Asmaail Saibari",
+        "minute": "45'+1'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
