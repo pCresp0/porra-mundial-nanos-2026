@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "24/06/2026 20:18",
+    "generated": "24/06/2026 20:20",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-24T22:18",
       "last_updated_time": "22:18",
       "last_updated_date": "24/06/2026",
-      "next_update_iso": "2026-06-24T22:20",
-      "next_update_time": "22:20",
+      "next_update_iso": "2026-06-24T22:25",
+      "next_update_time": "22:25",
       "next_update_date": "24/06/2026",
-      "last_checked_iso": "2026-06-24T22:18",
-      "last_checked_time": "22:18",
+      "last_checked_iso": "2026-06-24T22:20",
+      "last_checked_time": "22:20",
       "last_checked_date": "24/06/2026"
     },
     "players": [
@@ -354,6 +354,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-24T22:20:32+02:00",
+        "date": "24/06/2026",
+        "time": "22:20:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-24T22:18:24+02:00",
         "date": "24/06/2026",
@@ -4630,14 +4638,6 @@
         "ts_iso": "2026-06-23T05:46:19+02:00",
         "date": "23/06/2026",
         "time": "05:46:19",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-23T05:44:26+02:00",
-        "date": "23/06/2026",
-        "time": "05:44:26",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -13376,7 +13376,7 @@
           "team": "home"
         },
         {
-          "player": "Breel Embolo",
+          "player": "Jvhan Mnzambi",
           "minute": "57'",
           "own_goal": false,
           "penalty": false,
