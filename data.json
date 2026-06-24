@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "24/06/2026 22:28",
+    "generated": "24/06/2026 22:30",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-25T00:28",
       "last_updated_time": "00:28",
       "last_updated_date": "25/06/2026",
-      "next_update_iso": "2026-06-25T00:30",
-      "next_update_time": "00:30",
+      "next_update_iso": "2026-06-25T00:35",
+      "next_update_time": "00:35",
       "next_update_date": "25/06/2026",
-      "last_checked_iso": "2026-06-25T00:28",
-      "last_checked_time": "00:28",
+      "last_checked_iso": "2026-06-25T00:30",
+      "last_checked_time": "00:30",
       "last_checked_date": "25/06/2026"
     },
     "players": [
@@ -354,6 +354,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-25T00:30:42+02:00",
+        "date": "25/06/2026",
+        "time": "00:30:42",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-25T00:28:25+02:00",
         "date": "25/06/2026",
@@ -4700,14 +4708,6 @@
         "ts_iso": "2026-06-23T10:32:45+02:00",
         "date": "23/06/2026",
         "time": "10:32:45",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-23T10:16:28+02:00",
-        "date": "23/06/2026",
-        "time": "10:16:28",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -13951,7 +13951,7 @@
       "live_goals_v": 1,
       "live_scorers": [
         {
-          "player": "Lni Jvzf",
+          "player": "Yassine Bounou",
           "minute": "10'",
           "own_goal": false,
           "penalty": false,
