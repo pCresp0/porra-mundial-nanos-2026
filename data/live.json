@@ -1,6 +1,6 @@
 {
   "Marruecos-Haití": {
-    "home": 3,
+    "home": 4,
     "away": 2,
     "minute": "live",
     "scorers": [
@@ -21,6 +21,13 @@
       {
         "player": "Svfian Rhimi",
         "minute": "78'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Gessime Yassine",
+        "minute": "89'",
         "own_goal": false,
         "penalty": false,
         "team": "home"

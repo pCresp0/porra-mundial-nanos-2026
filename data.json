@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "24/06/2026 23:52",
+    "generated": "24/06/2026 23:54",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-25T01:44",
-      "last_updated_time": "01:44",
+      "last_updated_iso": "2026-06-25T01:54",
+      "last_updated_time": "01:54",
       "last_updated_date": "25/06/2026",
       "next_update_iso": "2026-06-25T01:55",
       "next_update_time": "01:55",
       "next_update_date": "25/06/2026",
-      "last_checked_iso": "2026-06-25T01:52",
-      "last_checked_time": "01:52",
+      "last_checked_iso": "2026-06-25T01:54",
+      "last_checked_time": "01:54",
       "last_checked_date": "25/06/2026"
     },
     "players": [
@@ -358,6 +358,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-25T01:54:22+02:00",
+        "date": "25/06/2026",
+        "time": "01:54:22",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇲🇦Marruecos 0-0 Haití🇭🇹",
+            "name": "Marruecos-Haití",
+            "date": "2026-06-25",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-06-25T01:52:43+02:00",
         "date": "25/06/2026",
@@ -4761,14 +4778,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-23T18:54:26+02:00",
-        "date": "23/06/2026",
-        "time": "18:54:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4776,8 +4785,8 @@
     {
       "name": "MEDINA",
       "total": 89.0,
-      "live_points": 4.0,
-      "total_live": 93.0,
+      "live_points": 5.0,
+      "total_live": 94.0,
       "groups": 89.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -4860,8 +4869,8 @@
     {
       "name": "JUANCHO",
       "total": 76.0,
-      "live_points": 4.0,
-      "total_live": 80.0,
+      "live_points": 5.0,
+      "total_live": 81.0,
       "groups": 76.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -4888,8 +4897,8 @@
     {
       "name": "LUIS/VIR",
       "total": 74.0,
-      "live_points": 5.0,
-      "total_live": 79.0,
+      "live_points": 4.0,
+      "total_live": 78.0,
       "groups": 74.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -14019,7 +14028,7 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 3,
+      "live_goals_l": 4,
       "live_goals_v": 2,
       "live_scorers": [
         {
@@ -14039,6 +14048,13 @@
         {
           "player": "Svfian Rhimi",
           "minute": "78'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Gessime Yassine",
+          "minute": "89'",
           "own_goal": false,
           "penalty": false,
           "team": "home"
@@ -14071,15 +14087,15 @@
           "breakdown": null,
           "live_breakdown": {
             "sign": 2.0,
-            "diff": 0.0,
+            "diff": 1.0,
             "exact": 0,
-            "total": 2.0,
+            "total": 3.0,
             "reasons": [
               "1X2 correcto (+2.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles (+1)"
             ]
           },
-          "live_score": 2.0
+          "live_score": 3.0
         },
         "LARRY": {
           "pred": {
@@ -14109,15 +14125,15 @@
           "breakdown": null,
           "live_breakdown": {
             "sign": 2.0,
-            "diff": 1.0,
+            "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 2.0,
             "reasons": [
               "1X2 correcto (+2.0)",
-              "Diferencia de goles (+1)"
+              "Diferencia de goles no acertada"
             ]
           },
-          "live_score": 3.0
+          "live_score": 2.0
         },
         "MEDINA": {
           "pred": {
@@ -14128,15 +14144,15 @@
           "breakdown": null,
           "live_breakdown": {
             "sign": 2.0,
-            "diff": 0.0,
+            "diff": 1.0,
             "exact": 0,
-            "total": 2.0,
+            "total": 3.0,
             "reasons": [
               "1X2 correcto (+2.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles (+1)"
             ]
           },
-          "live_score": 2.0
+          "live_score": 3.0
         },
         "VÍCTOR": {
           "pred": {
