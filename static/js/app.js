@@ -3963,12 +3963,12 @@ function renderStats() {
     // Ordenar por diferencia desc, y si empatan, por partido más reciente (matchIdx desc)
     const sortedLastDiffs = [...lastDiffs].sort((a, b) => b.diff - a.diff || b.matchIdx - a.matchIdx);
     
-    const top3 = sortedLastDiffs.slice(0, 3);
+    const top5 = sortedLastDiffs.slice(0, 5);
     
-    if (top3.length === 0) {
+    if (top5.length === 0) {
       topLastDiffsBody.innerHTML = `<tr><td colspan="3" class="text-center text-gray-500 py-4 italic">No hay datos disponibles</td></tr>`;
     } else {
-      topLastDiffsBody.innerHTML = top3.map((d, i) => {
+      topLastDiffsBody.innerHTML = top5.map((d, i) => {
         const diffStr = `<span class="font-bold text-yellow-400">+${d.diff}</span>`;
         const c1 = colors[d.p1] || "#94A3B8";
         const cLast = colors[d.pLast] || "#94A3B8";
