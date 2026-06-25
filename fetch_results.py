@@ -198,15 +198,9 @@ def write_live_json(games: list) -> int:
     return len(live)
 
 
-def _patch_worldcup_scores(path: str, updates: dict) -> list:
-    """Surgically set AC/AD score cells in the WORLDCUP sheet XML.
-
-    Writing with openpyxl rewrites the whole sheet and DROPS the cached values
-    of every formula cell (team names, dates, flags are formulas), which breaks
-    the next read by both this script and build_data. Patching the raw XML keeps
-    every other cell — including formula caches — untouched.
-
-    updates: {row:int -> (gl:int, gv:int)}
+def _patch_excel_cells(path: str, sheet_name: str, updates: dict) -> list:
+    """Surgically set cell values in the sheet XML.
+    updates: {cell_ref: str -> value} (e.g. {"AC101": 3, "AA101": "España"})
     """
     import tempfile
     import zipfile
@@ -218,10 +212,10 @@ def _patch_worldcup_scores(path: str, updates: dict) -> list:
 
     wbxml = contents["xl/workbook.xml"].decode("utf-8")
     rels = contents["xl/_rels/workbook.xml.rels"].decode("utf-8")
-    m = (re.search(r'<sheet[^>]*name="WORLDCUP"[^>]*?r:id="(rId\d+)"', wbxml)
-         or re.search(r'<sheet[^>]*?r:id="(rId\d+)"[^>]*name="WORLDCUP"', wbxml))
+    m = (re.search(r'<sheet[^>]*name="' + re.escape(sheet_name) + r'"[^>]*?r:id="(rId\d+)"', wbxml)
+         or re.search(r'<sheet[^>]*?r:id="(rId\d+)"[^>]*name="' + re.escape(sheet_name) + r'"', wbxml))
     if not m:
-        raise ValueError("Pestaña WORLDCUP no encontrada en workbook.xml")
+        raise ValueError(f"Pestaña {sheet_name} no encontrada en workbook.xml")
     rid = m.group(1)
     t = re.search(r'Id="' + rid + r'"[^>]*Target="([^"]+)"', rels)
     sheetpath = "xl/" + t.group(1).lstrip("/")
@@ -231,18 +225,22 @@ def _patch_worldcup_scores(path: str, updates: dict) -> list:
         pat = re.compile(r'<c r="' + re.escape(ref) + r'"([^>]*?)(/>|>.*?</c>)', re.DOTALL)
 
         def repl(mm):
-            attrs = re.sub(r'\s+t="[^"]*"', "", mm.group(1))
-            return f'<c r="{ref}"{attrs}><v>{value}</v></c>'
+            if isinstance(value, str):
+                return f'<c r="{ref}" t="str"><v>{value}</v></c>'
+            else:
+                attrs = re.sub(r'\s+t="[^"]*"', "", mm.group(1))
+                return f'<c r="{ref}"{attrs}><v>{value}</v></c>'
 
         return pat.subn(repl, xml_str, count=1)
 
     missing = []
-    for row, (gl, gv) in updates.items():
-        for col, val in (("AC", gl), ("AD", gv)):
-            ref = f"{col}{row}"
-            xml, n = set_cell(xml, ref, val)
-            if n == 0:
-                missing.append(ref)
+    for ref, val in updates.items():
+        if val is None:
+            continue
+        xml, n = set_cell(xml, ref, val)
+        if n == 0:
+            missing.append(ref)
+            
     contents[sheetpath] = xml.encode("utf-8")
 
     fd, tmp = tempfile.mkstemp(suffix=".xlsx", dir=os.path.dirname(path) or ".")
@@ -252,6 +250,24 @@ def _patch_worldcup_scores(path: str, updates: dict) -> list:
             zout.writestr(info, contents[info.filename])
     os.replace(tmp, path)
     return missing
+
+
+def _patch_worldcup_cells(path: str, updates: dict) -> list:
+    """Surgically set cell values in the WORLDCUP sheet XML.
+    updates: {cell_ref: str -> value} (e.g. {"AC101": 3, "AA101": "España"})
+    """
+    return _patch_excel_cells(path, "WORLDCUP", updates)
+
+
+def _patch_worldcup_scores(path: str, updates: dict) -> list:
+    """Surgically set AC/AD score cells in the WORLDCUP sheet XML.
+    updates: {row:int -> (gl:int, gv:int)}
+    """
+    cell_updates = {}
+    for row, (gl, gv) in updates.items():
+        cell_updates[f"AC{row}"] = gl
+        cell_updates[f"AD{row}"] = gv
+    return _patch_worldcup_cells(path, cell_updates)
 
 
 def update_excel(games: list, path: str, label: str = "") -> int:
@@ -319,6 +335,477 @@ def update_excel(games: list, path: str, label: str = "") -> int:
     return len(updates)
 
 
+TEAM_FLAGS = {
+     "Argelia": "🇩🇿", "Angola": "🇦🇴", "Argentina": "🇦🇷", "Australia": "🇦🇺",
+     "Austria": "🇦🇹", "Bélgica": "🇧🇪", "Bolivia": "🇧🇴", "Brasil": "🇧🇷",
+     "Camerún": "🇨🇲", "Canadá": "🇨🇦", "Chile": "🇨🇱", "China": "🇨🇳",
+     "Colombia": "🇨🇴", "Costa Rica": "🇨🇷", "Croacia": "🇭🇷", "República Checa": "🇨🇿",
+     "Dinamarca": "🇩🇰", "Ecuador": "🇪🇨", "Egipto": "🇪🇬", "Inglaterra": "🏴\u200d󠁧󠁢󠁥󠁮\u200d󠁿",
+     "Francia": "🇫🇷", "Alemania": "🇩🇪", "Ghana": "🇬🇭", "Grecia": "🇬🇷",
+     "Honduras": "🇭🇳", "Hungría": "🇭🇺", "Indonesia": "🇮🇩", "Irán": "🇮🇷",
+     "Irak": "🇮🇶", "Israel": "🇮🇱", "Italia": "🇮🇹", "Costa de Marfil": "🇨🇮",
+     "Bosnia y Herzegovina": "🇧🇦",
+     "Jamaica": "🇯🇲", "Japón": "🇯🇵", "México": "🇲🇽", "Marruecos": "🇲🇦",
+     "Países Bajos": "🇳🇱", "Nueva Zelanda": "🇳🇿", "Nigeria": "🇳🇬", "Noruega": "🇳🇴",
+     "Panamá": "🇵🇦", "Paraguay": "🇵🇾", "Perú": "🇵🇪", "Polonia": "🇵🇱",
+     "Portugal": "🇵🇹", "Catar": "🇶🇦", "Rumanía": "🇷🇴", "Arabia Saudita": "🇸🇦",
+     "Escocia": "🏴\u200d󠁧󠁢󠁳󠁣󠁴\u200d󠁿", "Senegal": "🇸🇳", "Serbia": "🇷🇸", "Eslovaquia": "🇸🇰",
+     "Eslovenia": "🇸🇮", "Sudáfrica": "🇿🇦", "Corea del Sur": "🇰🇷", "España": "🇪🇸",
+     "Suecia": "🇸🇪", "Suiza": "🇨🇭", "Túnez": "🇹🇳", "Turquía": "🇹🇷",
+     "Ucrania": "🇺🇦", "Estados Unidos": "🇺🇸", "Uruguay": "🇺🇾", "Uzbekistán": "🇺🇿",
+     "Venezuela": "🇻🇪", "Gales": "🏴\u200d󠁧󠁢󠁷󠁡\u200d󠁿", "Kenia": "🇰🇪", "Tanzania": "🇹🇿",
+     "Congo RD": "🇨🇩", "RD Congo": "🇨🇩", "Emiratos Árabes Unidos": "🇦🇪"
+}
+
+def fetch_bbc_knockout_matchups() -> list:
+    """Fetch knockout stage matchups from BBC World Cup schedule."""
+    import urllib.request
+    import re
+    import json
+    import codecs
+
+    url = "https://www.bbc.com/sport/football/world-cup/schedule"
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"})
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            html = resp.read().decode("utf-8")
+    except Exception as e:
+        print(f"  ❌ Error al descargar el calendario de la BBC: {e}")
+        return []
+
+    m = re.search(r'window\.__INITIAL_DATA__\s*=\s*"(.*?)"\s*;', html)
+    if not m:
+        m = re.search(r'window\.__INITIAL_DATA__\s*=\s*"(.*?)"', html)
+
+    if not m:
+        print("  ❌ No se pudo encontrar window.__INITIAL_DATA__ en la web de la BBC")
+        return []
+
+    try:
+        raw_val = m.group(1)
+        unescaped = codecs.escape_decode(raw_val.encode('utf-8'))[0].decode('utf-8')
+        data = json.loads(unescaped)
+        nested_data = data.get("data", {})
+        
+        wc_key = None
+        for k in nested_data.keys():
+            if "tournament=world-cup" in k:
+                wc_key = k
+                break
+        
+        if not wc_key:
+            return []
+            
+        wc_data = nested_data[wc_key]
+        wc_stage = wc_data.get("data", {}).get("knockoutStage", {})
+        
+        rounds = []
+        for r in wc_stage.get("preFinalRounds", []):
+            rname = r.get("roundName")
+            matches = []
+            for m_item in r.get("matches", []):
+                ev = m_item.get("event", {})
+                teams = ev.get("teams", [])
+                t_list = []
+                for t in teams:
+                    name = t.get("name", {}).get("fullName", "")
+                    placeholder = t.get("knockoutGroupPlaceholder", "")
+                    t_list.append({"name": name, "placeholder": placeholder})
+                matches.append({
+                    "id": ev.get("id"),
+                    "date": ev.get("date", {}).get("isoDate"),
+                    "teams": t_list
+                })
+            rounds.append({"name": rname, "matches": matches})
+        
+        third = wc_stage.get("thirdPlacePlayoff", {})
+        if third:
+            rname = third.get("roundName")
+            m_item = third.get("match", {})
+            if m_item:
+                ev = m_item.get("event", {})
+                teams = ev.get("teams", [])
+                t_list = []
+                for t in teams:
+                    name = t.get("name", {}).get("fullName", "")
+                    placeholder = t.get("knockoutGroupPlaceholder", "")
+                    t_list.append({"name": name, "placeholder": placeholder})
+                rounds.append({
+                    "name": rname,
+                    "matches": [{
+                        "id": ev.get("id"),
+                        "date": ev.get("date", {}).get("isoDate"),
+                        "teams": t_list
+                    }]
+                })
+        
+        fin = wc_stage.get("final", {})
+        if fin:
+            rname = fin.get("roundName")
+            m_item = fin.get("match", {})
+            if m_item:
+                ev = m_item.get("event", {})
+                teams = ev.get("teams", [])
+                t_list = []
+                for t in teams:
+                    name = t.get("name", {}).get("fullName", "")
+                    placeholder = t.get("knockoutGroupPlaceholder", "")
+                    t_list.append({"name": name, "placeholder": placeholder})
+                rounds.append({
+                    "name": rname,
+                    "matches": [{
+                        "id": ev.get("id"),
+                        "date": ev.get("date", {}).get("isoDate"),
+                        "teams": t_list
+                    }]
+                })
+        return rounds
+    except Exception as e:
+        print(f"  ❌ Error al parsear JSON de la BBC: {e}")
+        return []
+
+
+def update_excel_knockout_matchups(path: str, rounds: list) -> int:
+    """Read the Excel file's WORLDCUP sheet, match BBC rounds, and surgically update AA/AF and AB/AE in the visual row."""
+    wb_ro = openpyxl.load_workbook(path, data_only=True)
+    if "WORLDCUP" not in wb_ro.sheetnames:
+        return 0
+    ws = wb_ro["WORLDCUP"]
+
+    def norm_ph(p: str) -> str:
+        if not p: return ""
+        p = str(p).strip().upper()
+        if p[-1].isdigit():
+            return p[-1] + p[:-1]
+        return p
+
+    def wc_row_to_admin_row(wc_row: int) -> int:
+        if 101 <= wc_row <= 116:
+            return wc_row + 63
+        if 120 <= wc_row <= 127:
+            return wc_row + 80
+        if 131 <= wc_row <= 134:
+            return wc_row + 89
+        if 138 <= wc_row <= 139:
+            return wc_row + 94
+        if wc_row == 143:
+            return 244
+        if wc_row == 147:
+            return 247
+        return wc_row
+
+    ws_admin = wb_ro["ADMIN"] if "ADMIN" in wb_ro.sheetnames else None
+
+    excel_matches = {}
+    row_current_values = {}
+    for r in range(101, 148):
+        mid = ws.cell(row=r, column=10).value # J
+        home = ws.cell(row=r, column=1).value # A (original placeholder)
+        away = ws.cell(row=r, column=2).value # B (original placeholder)
+        ah = ws.cell(row=r, column=34).value # AH (visual MatchNo)
+        
+        actual_home = ws.cell(row=r, column=27).value # AA (current home name)
+        actual_away = ws.cell(row=r, column=32).value # AF (current away name)
+        
+        admin_row = wc_row_to_admin_row(r)
+        admin_k = ws_admin.cell(row=admin_row, column=11).value if ws_admin else None # K (concatenate name)
+        
+        row_current_values[r] = {
+            "home": str(actual_home).strip() if actual_home else "",
+            "away": str(actual_away).strip() if actual_away else "",
+            "admin_k": str(admin_k).strip() if admin_k else ""
+        }
+        
+        if mid or home or away:
+            excel_matches[r] = {
+                "id": str(mid).strip() if mid else "",
+                "home_ph": norm_ph(home),
+                "away_ph": norm_ph(away),
+                "ah": str(ah).strip() if ah else ""
+            }
+
+    def find_visual_row(mid: str) -> int:
+        for r, info in excel_matches.items():
+            if info["ah"] == mid:
+                return r
+        return None
+
+    bbc_last_32 = []
+    bbc_last_16 = []
+    bbc_qf = []
+    bbc_sf = []
+    bbc_third = []
+    bbc_final = []
+
+    for rd in rounds:
+        rname = rd["name"].lower()
+        if "32" in rname:
+            bbc_last_32 = rd["matches"]
+        elif "16" in rname:
+            bbc_last_16 = rd["matches"]
+        elif "quarter" in rname:
+            bbc_qf = rd["matches"]
+        elif "semi" in rname:
+            bbc_sf = rd["matches"]
+        elif "3rd" in rname:
+            bbc_third = rd["matches"]
+        elif "final" in rname:
+            bbc_final = rd["matches"]
+
+    last_32_mapping = {}
+    excel_last_32_rows = list(range(101, 117))
+    
+    for bbc_idx, bm in enumerate(bbc_last_32):
+        if len(bm["teams"]) != 2:
+            continue
+        t1_ph = norm_ph(bm["teams"][0]["placeholder"])
+        t2_ph = norm_ph(bm["teams"][1]["placeholder"])
+        bm_set = {t1_ph, t2_ph}
+        
+        matched_row = None
+        for r in excel_last_32_rows:
+            ex_info = excel_matches[r]
+            ex_set = {ex_info["home_ph"], ex_info["away_ph"]}
+            if bm_set == ex_set:
+                matched_row = r
+                break
+        if matched_row:
+            last_32_mapping[bbc_idx + 1] = matched_row
+            bm["excel_row"] = matched_row
+            bm["excel_id"] = excel_matches[matched_row]["id"]
+
+    last_16_mapping = {}
+    excel_last_16_rows = list(range(120, 128))
+    
+    for bbc_idx, bm in enumerate(bbc_last_16):
+        if len(bm["teams"]) != 2:
+            continue
+        
+        def translate_placeholder(p: str) -> str:
+            p = p.strip()
+            m_match = re.match(r'^([WL])-32-(\d+)$', p, re.IGNORECASE)
+            if m_match:
+                side = m_match.group(1).upper()
+                idx = int(m_match.group(2))
+                ex_row = last_32_mapping.get(idx)
+                if ex_row:
+                    ex_id = excel_matches[ex_row]["id"]
+                    return f"{side}{ex_id}"
+            return p
+
+        t1_ph = translate_placeholder(bm["teams"][0]["placeholder"])
+        t2_ph = translate_placeholder(bm["teams"][1]["placeholder"])
+        bm_set = {t1_ph, t2_ph}
+        
+        matched_row = None
+        for r in excel_last_16_rows:
+            ex_info = excel_matches[r]
+            ex_set = {ex_info["home_ph"], ex_info["away_ph"]}
+            if bm_set == ex_set:
+                matched_row = r
+                break
+        if matched_row:
+            last_16_mapping[bbc_idx + 1] = matched_row
+            bm["excel_row"] = matched_row
+            bm["excel_id"] = excel_matches[matched_row]["id"]
+
+    qf_mapping = {}
+    excel_qf_rows = list(range(131, 135))
+    
+    for bbc_idx, bm in enumerate(bbc_qf):
+        if len(bm["teams"]) != 2:
+            continue
+        
+        def translate_placeholder(p: str) -> str:
+            p = p.strip()
+            m_match = re.match(r'^([WL])-16-(\d+)$', p, re.IGNORECASE)
+            if m_match:
+                side = m_match.group(1).upper()
+                idx = int(m_match.group(2))
+                ex_row = last_16_mapping.get(idx)
+                if ex_row:
+                    ex_id = excel_matches[ex_row]["id"]
+                    return f"{side}{ex_id}"
+            return p
+
+        t1_ph = translate_placeholder(bm["teams"][0]["placeholder"])
+        t2_ph = translate_placeholder(bm["teams"][1]["placeholder"])
+        bm_set = {t1_ph, t2_ph}
+        
+        matched_row = None
+        for r in excel_qf_rows:
+            ex_info = excel_matches[r]
+            ex_set = {ex_info["home_ph"], ex_info["away_ph"]}
+            if bm_set == ex_set:
+                matched_row = r
+                break
+        if matched_row:
+            qf_mapping[bbc_idx + 1] = matched_row
+            bm["excel_row"] = matched_row
+            bm["excel_id"] = excel_matches[matched_row]["id"]
+
+    sf_mapping = {}
+    excel_sf_rows = list(range(138, 140))
+    
+    for bbc_idx, bm in enumerate(bbc_sf):
+        if len(bm["teams"]) != 2:
+            continue
+        
+        def translate_placeholder(p: str) -> str:
+            p = p.strip().upper()
+            m_match = re.match(r'^([WL])-QF(\d+)$', p)
+            if m_match:
+                side = m_match.group(1)
+                idx = int(m_match.group(2))
+                ex_row = qf_mapping.get(idx)
+                if ex_row:
+                    ex_id = excel_matches[ex_row]["id"]
+                    return f"{side}{ex_id}"
+            return p
+
+        t1_ph = translate_placeholder(bm["teams"][0]["placeholder"])
+        t2_ph = translate_placeholder(bm["teams"][1]["placeholder"])
+        bm_set = {t1_ph, t2_ph}
+        
+        matched_row = None
+        for r in excel_sf_rows:
+            ex_info = excel_matches[r]
+            ex_set = {ex_info["home_ph"], ex_info["away_ph"]}
+            if bm_set == ex_set:
+                matched_row = r
+                break
+        if matched_row:
+            sf_mapping[bbc_idx + 1] = matched_row
+            bm["excel_row"] = matched_row
+            bm["excel_id"] = excel_matches[matched_row]["id"]
+
+    excel_third_row = 143
+    if bbc_third and len(bbc_third[0]["teams"]) == 2:
+        bm = bbc_third[0]
+        def translate_placeholder(p: str) -> str:
+            p = p.strip().upper()
+            m_match = re.match(r'^([WL])-SF(\d+)$', p)
+            if m_match:
+                side = m_match.group(1)
+                idx = int(m_match.group(2))
+                ex_row = sf_mapping.get(idx)
+                if ex_row:
+                    ex_id = excel_matches[ex_row]["id"]
+                    return f"{side}{ex_id}"
+            return p
+        t1_ph = translate_placeholder(bm["teams"][0]["placeholder"])
+        t2_ph = translate_placeholder(bm["teams"][1]["placeholder"])
+        bm["excel_row"] = excel_third_row
+        bm["excel_id"] = excel_matches[excel_third_row]["id"]
+
+    excel_final_row = 147
+    if bbc_final and len(bbc_final[0]["teams"]) == 2:
+        bm = bbc_final[0]
+        def translate_placeholder(p: str) -> str:
+            p = p.strip().upper()
+            m_match = re.match(r'^([WL])-SF(\d+)$', p)
+            if m_match:
+                side = m_match.group(1)
+                idx = int(m_match.group(2))
+                ex_row = sf_mapping.get(idx)
+                if ex_row:
+                    ex_id = excel_matches[ex_row]["id"]
+                    return f"{side}{ex_id}"
+            return p
+        t1_ph = translate_placeholder(bm["teams"][0]["placeholder"])
+        t2_ph = translate_placeholder(bm["teams"][1]["placeholder"])
+        bm["excel_row"] = excel_final_row
+        bm["excel_id"] = excel_matches[excel_final_row]["id"]
+
+    def is_ph(name: str) -> bool:
+        n = name.strip()
+        if not n: return True
+        n_up = n.upper()
+        if re.match(r'^[WL]-(?:32|16|QF|SF|F)-?\d*$', n_up):
+            return True
+        if re.match(r'^[WL]\d+$', n_up):
+            return True
+        if re.match(r'^[1-4]?[A-L]+[1-4]?$', n_up):
+            return True
+        if len(n_up) <= 6 and any(c.isdigit() for c in n_up):
+            return True
+        return False
+
+    cell_updates = {}
+    admin_updates = {}
+    updates_count = 0
+
+    all_bbc_matches = bbc_last_32 + bbc_last_16 + bbc_qf + bbc_sf + bbc_third + bbc_final
+    for bm in all_bbc_matches:
+        r_physical = bm.get("excel_row")
+        if not r_physical:
+            continue
+        mid = bm.get("excel_id")
+        r_visual = find_visual_row(mid)
+        if not r_visual:
+            print(f"  ⚠️ Warning: No visual row found for Match ID {mid}")
+            continue
+
+        t1_name = bm["teams"][0]["name"]
+        t2_name = bm["teams"][1]["name"]
+        
+        if not is_ph(t1_name) and not is_ph(t2_name):
+            t1_es = to_spanish(t1_name)
+            t2_es = to_spanish(t2_name)
+            t1_flag = TEAM_FLAGS.get(t1_es, "")
+            t2_flag = TEAM_FLAGS.get(t2_es, "")
+            
+            ex_home = row_current_values[r_visual]["home"]
+            ex_away = row_current_values[r_visual]["away"]
+            ex_admin_k = row_current_values[r_visual]["admin_k"]
+            
+            bm_t1_ph = norm_ph(bm["teams"][0]["placeholder"])
+            ex_home_ph = excel_matches[r_physical]["home_ph"]
+            
+            if bm_t1_ph == ex_home_ph:
+                home_es, away_es = t1_es, t2_es
+                home_flag, away_flag = t1_flag, t2_flag
+            else:
+                home_es, away_es = t2_es, t1_es
+                home_flag, away_flag = t2_flag, t1_flag
+                
+            expected_admin_k = f"{home_es}-{away_es}"
+            
+            needs_wc = ex_home != home_es or ex_away != away_es
+            needs_admin = ex_admin_k != expected_admin_k
+            
+            if needs_wc or needs_admin:
+                if needs_wc:
+                    cell_updates[f"AA{r_visual}"] = home_es
+                    cell_updates[f"AF{r_visual}"] = away_es
+                    if home_flag: cell_updates[f"AB{r_visual}"] = home_flag
+                    if away_flag: cell_updates[f"AE{r_visual}"] = away_flag
+                if needs_admin:
+                    admin_row = wc_row_to_admin_row(r_visual)
+                    admin_updates[f"K{admin_row}"] = expected_admin_k
+                
+                print(f"  ✓ cruce visual {r_visual} (Partido {mid}): {home_es} {home_flag} vs {away_es} {away_flag}")
+                updates_count += 1
+
+    if cell_updates or admin_updates:
+        if cell_updates:
+            missing_wc = _patch_excel_cells(path, "WORLDCUP", cell_updates)
+            if missing_wc:
+                print(f"  ⚠ Celdas no encontradas en WORLDCUP XML: {', '.join(missing_wc)}")
+        
+        if admin_updates:
+            missing_admin = _patch_excel_cells(path, "ADMIN", admin_updates)
+            if missing_admin:
+                print(f"  ⚠ Celdas no encontradas en ADMIN XML: {', '.join(missing_admin)}")
+            
+        print(f"💾 Excel guardado ({updates_count} cruce(s) de eliminatorias actualizado(s))")
+        print(f"   → {path}")
+    else:
+        print("ℹ️  Cruces de eliminatorias: sin cambios")
+        
+    return updates_count
+
+
 def main():
     cfg = _load_config()
     if not cfg.get("fetch_live_results", True):
@@ -352,6 +839,20 @@ def main():
     write_scorers_json(games)
     # Save in-progress live scores (provisional overlay)
     write_live_json(games)
+
+    # Update knockout matchups from BBC
+    print("🌐 Sincronizando cruces de eliminatorias desde BBC…")
+    try:
+        rounds = fetch_bbc_knockout_matchups()
+        if rounds:
+            update_excel_knockout_matchups(file1, rounds)
+            if file2 and os.path.isfile(file2):
+                update_excel_knockout_matchups(file2, rounds)
+        else:
+            print("  ⚠️ No se pudieron descargar los cruces de eliminatorias desde BBC")
+    except Exception as e:
+        print(f"  ❌ Error al sincronizar cruces desde BBC: {e}")
+        
     return 0
 
 

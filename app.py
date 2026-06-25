@@ -168,11 +168,13 @@ def _phase_for_row(row: int) -> str:
     if 80 <= row <= 127:  return "positions"
     if 130 <= row <= 161: return "q16"
     if 163 <= row <= 179: return "r16"
-    if 181 <= row <= 199: return "r8"
-    if 200 <= row <= 209: return "r4"
-    if 210 <= row <= 225: return "r2"
-    if 226 <= row <= 238: return "r34"
-    if 239 <= row <= 261: return "final"
+    if 181 <= row <= 209: return "r8"
+    if 210 <= row <= 225: return "r4"
+    if 226 <= row <= 235: return "r2"
+    if 236 <= row <= 238: return "r34"
+    if 239 <= row <= 242: return "final"
+    if 243 <= row <= 245: return "r34"
+    if 246 <= row <= 248: return "final"
     return "honor"
 
 

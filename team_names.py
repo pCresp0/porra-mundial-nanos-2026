@@ -19,6 +19,7 @@ EN_TO_ES = {
     "canada": "Canadá",
     "bosnia and herzegovina": "Bosnia y Herzegovina",
     "bosnia & herzegovina": "Bosnia y Herzegovina",
+    "bosnia-herzegovina": "Bosnia y Herzegovina",
     "qatar": "Catar",
     "switzerland": "Suiza",
     "brazil": "Brasil",
