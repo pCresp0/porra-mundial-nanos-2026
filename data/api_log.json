@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-19T08:26:35+02:00",
-    "date": "19/06/2026",
-    "time": "08:26:35",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-19T08:42:30+02:00",
     "date": "19/06/2026",
     "time": "08:42:30",
@@ -16993,5 +16985,30 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-25T03:04:22+02:00",
+    "date": "25/06/2026",
+    "time": "03:04:22",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇨🇿República Checa 0-0 México🇲🇽",
+        "name": "República Checa-México",
+        "date": "2026-06-25",
+        "fields": [],
+        "old": {},
+        "new": {}
+      },
+      {
+        "label": "🇿🇦Sudáfrica 0-0 Corea del Sur🇰🇷",
+        "name": "Sudáfrica-Corea del Sur",
+        "date": "2026-06-25",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]
