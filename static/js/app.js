@@ -2344,7 +2344,13 @@ function renderForma(prog, cutIdx) {
 /* ─── MATCHES ─── */
 function renderMatches(phase, week) {
   const list = document.getElementById("matches-list");
-  let filtered = phase === "all" ? D.matches : D.matches.filter(m => m.phase === phase);
+  
+  // Solo mostrar fases que representen partidos reales de fútbol (excluyendo predicciones de posiciones/clasificados)
+  const isRealMatch = m => m.phase !== "positions" && m.phase !== "q16";
+  
+  let filtered = phase === "all" 
+    ? D.matches.filter(isRealMatch) 
+    : D.matches.filter(m => m.phase === phase && isRealMatch(m));
 
   // week filter (only applies when date_es is set)
   if (week && week !== "all") {
