@@ -14,10 +14,17 @@
     ]
   },
   "Ecuador-Alemania": {
-    "home": 0,
+    "home": 1,
     "away": 1,
     "minute": "live",
     "scorers": [
+      {
+        "player": "Nilsvn Angvlv",
+        "minute": "9'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
       {
         "player": "Leroy Sané",
         "minute": "2'",
