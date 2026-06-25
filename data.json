@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "25/06/2026 02:56",
+    "generated": "25/06/2026 02:58",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-25T04:26",
-      "last_updated_time": "04:26",
+      "last_updated_iso": "2026-06-25T04:58",
+      "last_updated_time": "04:58",
       "last_updated_date": "25/06/2026",
       "next_update_iso": "2026-06-25T05:00",
       "next_update_time": "05:00",
       "next_update_date": "25/06/2026",
-      "last_checked_iso": "2026-06-25T04:56",
-      "last_checked_time": "04:56",
+      "last_checked_iso": "2026-06-25T04:58",
+      "last_checked_time": "04:58",
       "last_checked_date": "25/06/2026"
     },
     "players": [
@@ -358,6 +358,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-25T04:58:21+02:00",
+        "date": "25/06/2026",
+        "time": "04:58:21",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇨🇿República Checa 0-0 México🇲🇽",
+            "name": "República Checa-México",
+            "date": "2026-06-25",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-06-25T04:56:40+02:00",
         "date": "25/06/2026",
@@ -4750,23 +4767,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-23T22:02:28+02:00",
-        "date": "23/06/2026",
-        "time": "22:02:28",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🏴󠁧󠁢󠁥󠁮󠁧󠁿Inglaterra 0-0 Ghana🇬🇭",
-            "name": "Inglaterra-Ghana",
-            "date": "2026-06-23",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
@@ -13298,7 +13298,7 @@
       "live": true,
       "live_minute": "live",
       "live_goals_l": 0,
-      "live_goals_v": 2,
+      "live_goals_v": 3,
       "live_scorers": [
         {
           "player": "Mateo Chávez",
@@ -13310,6 +13310,13 @@
         {
           "player": "Jvlian Kviinvnz",
           "minute": "61'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        },
+        {
+          "player": "Álvaro Fidalgo",
+          "minute": "90'+4'",
           "own_goal": false,
           "penalty": false,
           "team": "away"
