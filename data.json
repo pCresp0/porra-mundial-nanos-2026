@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "25/06/2026 00:00",
+    "generated": "25/06/2026 00:02",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-06-25T02:05",
       "next_update_time": "02:05",
       "next_update_date": "25/06/2026",
-      "last_checked_iso": "2026-06-25T02:00",
-      "last_checked_time": "02:00",
+      "last_checked_iso": "2026-06-25T02:02",
+      "last_checked_time": "02:02",
       "last_checked_date": "25/06/2026"
     },
     "players": [
@@ -358,6 +358,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-25T02:02:26+02:00",
+        "date": "25/06/2026",
+        "time": "02:02:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-25T02:00:53+02:00",
         "date": "25/06/2026",
@@ -4761,23 +4769,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-23T19:02:25+02:00",
-        "date": "23/06/2026",
-        "time": "19:02:25",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇵🇹Portugal 0-0 Uzbekistán🇺🇿",
-            "name": "Portugal-Uzbekistán",
-            "date": "2026-06-23",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
