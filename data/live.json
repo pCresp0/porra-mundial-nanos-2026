@@ -1,8 +1,22 @@
 {
-  "Túnez-Países Bajos": {
+  "Japón-Suecia": {
     "home": 0,
     "away": 0,
     "minute": "live",
     "scorers": []
+  },
+  "Túnez-Países Bajos": {
+    "home": 0,
+    "away": 1,
+    "minute": "live",
+    "scorers": [
+      {
+        "player": "Alis Skhiri",
+        "minute": "3'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      }
+    ]
   }
 }
