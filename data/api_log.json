@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-19T23:48:34+02:00",
-    "date": "19/06/2026",
-    "time": "23:48:34",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-19T23:49:38+02:00",
     "date": "19/06/2026",
     "time": "23:49:38",
@@ -17063,5 +17055,22 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-25T22:02:26+02:00",
+    "date": "25/06/2026",
+    "time": "22:02:26",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇪🇨Ecuador 0-0 Alemania🇩🇪",
+        "name": "Ecuador-Alemania",
+        "date": "2026-06-25",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]
