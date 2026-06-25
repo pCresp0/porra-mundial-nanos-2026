@@ -1,12 +1,19 @@
 {
   "Curazao-Costa de Marfil": {
     "home": 0,
-    "away": 1,
+    "away": 2,
     "minute": "live",
     "scorers": [
       {
         "player": "Nikvlas Ph Ph",
         "minute": "7'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Nikvlas Ph Ph",
+        "minute": "64'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
