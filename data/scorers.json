@@ -326,6 +326,29 @@
       "team": "away"
     }
   ],
+  "República Checa-México": [
+    {
+      "player": "Mateo Chávez",
+      "minute": "55'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Jvlian Kviinvnz",
+      "minute": "61'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Álvaro Fidalgo",
+      "minute": "90'+4'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "Corea del Sur-República Checa": [
     {
       "player": "I.B. Hwang",
@@ -511,6 +534,15 @@
       "own_goal": false,
       "penalty": false,
       "team": "away"
+    }
+  ],
+  "Sudáfrica-Corea del Sur": [
+    {
+      "player": "Taplv Maskv",
+      "minute": "63'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
     }
   ],
   "Costa de Marfil-Ecuador": [
