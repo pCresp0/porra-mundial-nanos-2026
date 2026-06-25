@@ -1275,8 +1275,14 @@ function matchTeamsHtml(m) {
   const rankA = FIFA_RANK[away] ? `FIFA #${FIFA_RANK[away]}` : "";
   const badgeH = rankH ? `<div class="match-rank-inner home"><span class="match-fifa-rank">${rankH}</span></div>` : "";
   const badgeA = rankA ? `<div class="match-rank-inner away"><span class="match-fifa-rank">${rankA}</span></div>` : "";
+
+  const isPlaceholderTeam = v => !v || /^\d|^Win|^Los|^[A-Z]\d|^[A-Z]{1,2}\d/.test(v) || v.includes("FINAL") || v.includes("puesto");
+  const isProv = isPlaceholderTeam(m.home) || isPlaceholderTeam(m.away);
+  const provHtml = isProv && !m.played ? `<div class="text-xs font-bold text-orange-500 mb-1 flex items-center justify-center gap-1" style="letter-spacing: 0.05em;"><span style="font-size:14px">⚠️</span> PARTIDO PROVISIONAL</div>` : "";
+
   return `
     <div class="match-header-center">
+      ${provHtml}
       <div class="match-teams-block">
         <div class="match-side-home">
           <div class="match-name-row">
@@ -2346,7 +2352,7 @@ function renderMatches(phase, week) {
   const list = document.getElementById("matches-list");
   
   // Solo mostrar fases que representen partidos reales de fútbol (excluyendo predicciones de posiciones/clasificados)
-  const isRealMatch = m => m.phase !== "positions" && m.phase !== "q16";
+  const isRealMatch = m => m.phase !== "positions" && m.phase !== "q16" && m.date && m.date.startsWith("2026-");
   
   let filtered = phase === "all" 
     ? D.matches.filter(isRealMatch) 
@@ -2551,7 +2557,10 @@ function _icsEvent(m) {
   const away = m.away || "Visitante";
   const phase = PHASE_LABELS[m.phase] || m.phase || "Mundial 2026";
   const uid = `match-${(m.id || m.name || date).replace(/[^a-z0-9]/gi, "-")}@porra-nanos-2026`;
-  const summary = `${(m.flag_home || "")}${home} vs ${(m.flag_away || "")}${away}`;
+  const isPlaceholderTeam = v => !v || /^\d|^Win|^Los|^[A-Z]\d|^[A-Z]{1,2}\d/.test(v) || v.includes("FINAL") || v.includes("puesto");
+  const isProv = isPlaceholderTeam(m.home) || isPlaceholderTeam(m.away);
+  const provText = isProv ? " (PROVISIONAL)" : "";
+  const summary = `${(m.flag_home || "")}${home} vs ${(m.flag_away || "")}${away}${provText}`;
   const desc = `Mundial FIFA 2026 · ${phase}\\nHora España: ${time}h\\nPorra «Los Nanos»`;
   return [
     "BEGIN:VEVENT",
@@ -2629,7 +2638,7 @@ function addMatchToCalendar(matchName) {
 
 // Todos los partidos pendientes
 function addAllMatchesToCalendar() {
-  const pending = (D.matches || []).filter(m => !m.played && m.date && m.time_es);
+  const pending = (D.matches || []).filter(m => !m.played && m.date && m.date.startsWith("2026-") && m.time_es);
   if (!pending.length) { alert("No hay partidos pendientes."); return; }
   _downloadIcs(_generateIcs(pending), "mundial-2026-pendientes.ics");
 }
@@ -2727,12 +2736,10 @@ function _showCalPickerForMatch(matchName, btnEl) {
 }
 
 function _showCalPickerForAll(btnEl) {
-  const isPlaceholder = v => !v || /^\d|^Win|^Los|^[A-Z]\d|^[A-Z]{1,2}\d/.test(v);
   const pending = (D.matches || []).filter(m =>
-    !m.played && m.date && m.time_es &&
-    !isPlaceholder(m.home) && !isPlaceholder(m.away)
+    !m.played && m.date && m.date.startsWith("2026-") && m.time_es
   );
-  if (!pending.length) { alert("No hay partidos pendientes con equipos definidos."); return; }
+  if (!pending.length) { alert("No hay partidos pendientes con fecha definida."); return; }
   _showCalPicker(pending, "mundial-2026-pendientes.ics", btnEl);
 }
 
