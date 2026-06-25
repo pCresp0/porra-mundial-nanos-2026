@@ -4569,7 +4569,8 @@ function _calFmtDay(iso) {
 
 // Una fila de partido con hora para las vistas Hoy / Esta semana
 function _calRow(m, iso) {
-  const looksPlaceholder = v => !v || /^\d|^Win|^Los|^[A-Z]\d|^[A-Z]{1,2}\d/.test(v);
+  const looksPlaceholder = v => !v || /^\d|^Win|^Los|^[A-Z]\d|^[A-Z]{1,2}\d/.test(v) || v.includes("FINAL") || v.includes("puesto");
+  const isProv = looksPlaceholder(m.home) || looksPlaceholder(m.away);
   const fh = (m.flag_home && !looksPlaceholder(m.home)) ? m.flag_home : "🏳";
   const fa = (m.flag_away && !looksPlaceholder(m.away)) ? m.flag_away : "🏳";
   const home = m.home || "—";
@@ -4579,6 +4580,13 @@ function _calRow(m, iso) {
     ? `<span class="cal-row-score">${(m.result && m.result.score) || (`${m.goals_l ?? ""}-${m.goals_v ?? ""}`)}</span>`
     : `<span class="cal-row-vs">vs</span>`;
   const nm = (m.name || "").replace(/'/g, "\\'").replace(/"/g, "&quot;");
+  
+  let phaseBadge = "";
+  if (isProv && m.phase !== "groups") {
+    const lbl = PHASE_LABELS[m.phase] || m.phase || "";
+    phaseBadge = `<span class="text-[10px] font-bold text-orange-500 bg-orange-500/10 px-1.5 py-0.5 rounded ml-2 whitespace-nowrap" title="Partido Provisional">⚠️ ${lbl}</span>`;
+  }
+  
   const tv = tvBadgesHtml(m);
   const calBtn = (!m.played && m.date && m.time_es) ? (() => {
     const safeName = (m.name || m.id || "").replace(/'/g, "\\'");
@@ -4588,7 +4596,7 @@ function _calRow(m, iso) {
       <span class="cal-row-time">${time}</span>
       <span class="cal-row-home">${fh} ${home}</span>
       ${mid}
-      <span class="cal-row-away">${away} ${fa}</span>
+      <span class="cal-row-away">${away} ${fa} ${phaseBadge}</span>
       <span class="cal-row-actions" onclick="event.stopPropagation()">${tv}${calBtn}</span>
     </div>`;
 }
@@ -6344,8 +6352,8 @@ function renderCalendar() {
 
   // Index matches by ISO date
   const byDate = {};
-  (D.matches || []).forEach(m => {
-    if (!m.date || m.date.length < 10) return;
+  const isRealMatch = m => m.phase !== "positions" && m.phase !== "q16" && m.date && m.date.startsWith("2026-");
+  (D.matches || []).filter(isRealMatch).forEach(m => {
     const d = m.date.slice(0, 10);
     if (!byDate[d]) byDate[d] = [];
     byDate[d].push(m);
