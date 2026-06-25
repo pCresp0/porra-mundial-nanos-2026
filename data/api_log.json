@@ -1,31 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-19T23:06:47+02:00",
-    "date": "19/06/2026",
-    "time": "23:06:47",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇺🇸Estados Unidos 2-0 Australia🇦🇺",
-        "name": "Estados Unidos-Australia",
-        "date": "2026-06-19",
-        "fields": [
-          "marcador",
-          "jugado"
-        ],
-        "old": {
-          "marcador": "0-0",
-          "jugado": "no"
-        },
-        "new": {
-          "marcador": "2-0",
-          "jugado": "sí"
-        }
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-19T23:22:35+02:00",
     "date": "19/06/2026",
     "time": "23:22:35",
@@ -17078,6 +17052,14 @@
     "ts_iso": "2026-06-25T21:38:36+02:00",
     "date": "25/06/2026",
     "time": "21:38:36",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-06-25T21:40:50+02:00",
+    "date": "25/06/2026",
+    "time": "21:40:50",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
