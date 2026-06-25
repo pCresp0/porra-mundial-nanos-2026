@@ -1,12 +1,19 @@
 {
   "República Checa-México": {
     "home": 0,
-    "away": 1,
+    "away": 2,
     "minute": "live",
     "scorers": [
       {
         "player": "Mateo Chávez",
         "minute": "55'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Jvlian Kviinvnz",
+        "minute": "61'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
