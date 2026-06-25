@@ -21,13 +21,20 @@
     ]
   },
   "Ecuador-Alemania": {
-    "home": 1,
+    "home": 2,
     "away": 1,
     "minute": "live",
     "scorers": [
       {
         "player": "Nilsvn Angvlv",
         "minute": "9'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Gvnzalv Plata",
+        "minute": "77'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
