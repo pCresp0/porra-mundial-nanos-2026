@@ -21,9 +21,17 @@
     ]
   },
   "Sudáfrica-Corea del Sur": {
-    "home": 0,
+    "home": 1,
     "away": 0,
     "minute": "live",
-    "scorers": []
+    "scorers": [
+      {
+        "player": "Taplv Maskv",
+        "minute": "63'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      }
+    ]
   }
 }
