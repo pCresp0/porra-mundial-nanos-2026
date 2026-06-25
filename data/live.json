@@ -16,6 +16,13 @@
         "own_goal": false,
         "penalty": false,
         "team": "away"
+      },
+      {
+        "player": "Brian Brobbey",
+        "minute": "7'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
       }
     ]
   }
