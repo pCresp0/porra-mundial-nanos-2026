@@ -1,8 +1,22 @@
 {
-  "Ecuador-Alemania": {
+  "Curazao-Costa de Marfil": {
     "home": 0,
     "away": 0,
     "minute": "live",
     "scorers": []
+  },
+  "Ecuador-Alemania": {
+    "home": 0,
+    "away": 0,
+    "minute": "live",
+    "scorers": [
+      {
+        "player": "Leroy Sané",
+        "minute": "2'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      }
+    ]
   }
 }
