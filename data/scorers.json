@@ -469,6 +469,50 @@
       "team": "away"
     }
   ],
+  "Marruecos-Haití": [
+    {
+      "player": "Achraf Hakimi",
+      "minute": "39'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Asmaail Saibari",
+      "minute": "45'+1'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Svfian Rhimi",
+      "minute": "78'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Gessime Yassine",
+      "minute": "89'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Yassine Bounou",
+      "minute": "10'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Wilson Isidor",
+      "minute": "43'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "Costa de Marfil-Ecuador": [
     {
       "player": "A. Diallo",
@@ -665,6 +709,29 @@
       "own_goal": false,
       "penalty": false,
       "team": "home"
+    }
+  ],
+  "Escocia-Brasil": [
+    {
+      "player": "Vinícius Júnior",
+      "minute": "7'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Vinícius Júnior",
+      "minute": "45'+3'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Matheus Cunha",
+      "minute": "60'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
     }
   ],
   "Bosnia y Herzegovina-Catar": [
