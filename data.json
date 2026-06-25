@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "25/06/2026 23:02",
+    "generated": "25/06/2026 23:04",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-26T00:28",
-      "last_updated_time": "00:28",
+      "last_updated_iso": "2026-06-26T01:04",
+      "last_updated_time": "01:04",
       "last_updated_date": "26/06/2026",
       "next_update_iso": "2026-06-26T01:05",
       "next_update_time": "01:05",
       "next_update_date": "26/06/2026",
-      "last_checked_iso": "2026-06-26T01:02",
-      "last_checked_time": "01:02",
+      "last_checked_iso": "2026-06-26T01:04",
+      "last_checked_time": "01:04",
       "last_checked_date": "26/06/2026"
     },
     "players": [
@@ -24,9 +24,11 @@
       "CRESPO"
     ],
     "live": {
-      "active": false,
-      "count": 0,
-      "matches": []
+      "active": true,
+      "count": 1,
+      "matches": [
+        "Túnez-Países Bajos"
+      ]
     },
     "colors": {
       "JUANCHO": "#F5C518",
@@ -363,6 +365,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-26T01:04:35+02:00",
+        "date": "26/06/2026",
+        "time": "01:04:35",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇹🇳Túnez 0-0 Países Bajos🇳🇱",
+            "name": "Túnez-Países Bajos",
+            "date": "2026-06-26",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-06-26T01:02:21+02:00",
         "date": "26/06/2026",
@@ -4833,23 +4852,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-24T04:04:32+02:00",
-        "date": "24/06/2026",
-        "time": "04:04:32",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇨🇴Colombia 0-0 RD Congo🇨🇩",
-            "name": "Colombia-RD Congo",
-            "date": "2026-06-24",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
@@ -15067,10 +15069,10 @@
       "phase": "groups",
       "result": null,
       "played": false,
-      "live": false,
-      "live_minute": "",
-      "live_goals_l": null,
-      "live_goals_v": null,
+      "live": true,
+      "live_minute": "live",
+      "live_goals_l": 0,
+      "live_goals_v": 0,
       "live_scorers": [],
       "goals_l": 0,
       "goals_v": 0,
@@ -15083,8 +15085,16 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ]
+          },
+          "live_score": 0.0
         },
         "LARRY": {
           "pred": {
@@ -15093,8 +15103,16 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ]
+          },
+          "live_score": 0.0
         },
         "LUIS/VIR": {
           "pred": {
@@ -15103,8 +15121,16 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ]
+          },
+          "live_score": 0.0
         },
         "MEDINA": {
           "pred": {
@@ -15113,8 +15139,16 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ]
+          },
+          "live_score": 0.0
         },
         "VÍCTOR": {
           "pred": {
@@ -15123,8 +15157,16 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ]
+          },
+          "live_score": 0.0
         },
         "CRESPO": {
           "pred": {
@@ -15133,8 +15175,16 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ]
+          },
+          "live_score": 0.0
         }
       }
     },
