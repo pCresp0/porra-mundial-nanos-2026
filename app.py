@@ -453,16 +453,59 @@ def _lookup_live(live, match_name):
     return None
 
 
-def _build_wc_scores(wb):
+def _build_wc_scores(filepath):
     """Goals from WORLDCUP AC/AD keyed by 'Local-Visitante' (Spanish team names)."""
+    wb = openpyxl.load_workbook(filepath, data_only=False)
     wc = wb["WORLDCUP"]
+
+    # Build team maps from Idiomas and Equipos sheets to resolve formulas
+    team_map = {}
+    if "Idiomas" in wb.sheetnames:
+        ws_idiomas = wb["Idiomas"]
+        for r in range(212, 260):
+            num = ws_idiomas.cell(r, 3).value
+            name = ws_idiomas.cell(r, 15).value
+            if num is not None and name is not None:
+                team_map[int(num)] = str(name).strip()
+
+    equipos_map = {}
+    if "Equipos" in wb.sheetnames:
+        ws_equipos = wb["Equipos"]
+        for r in range(2, 50):
+            num = ws_equipos.cell(r, 1).value
+            if num is not None:
+                equipos_map[r] = team_map.get(int(num))
+
+    def get_resolved_val(sheet, r, c):
+        val = sheet.cell(r, c).value
+        if val is None:
+            return None
+        val_str = str(val).strip()
+        if not val_str.startswith('='):
+            return val_str
+        formula = val_str[1:].lstrip('+').strip()
+        m_eq = re.match(r'^(?:Equipos!)?B(\d+)$', formula)
+        if m_eq:
+            return equipos_map.get(int(m_eq.group(1)))
+        m_a = re.match(r'^A(\d+)$', formula)
+        if m_a:
+            return get_resolved_val(sheet, int(m_a.group(1)), 1)
+        if 'INDEX(' in formula and 'MATCH(' in formula and sheet.title == 'Equipos':
+            num = sheet.cell(r, 1).value
+            if num is not None:
+                return team_map.get(int(num))
+        return val_str
+
     scores = {}
+    wb_val = openpyxl.load_workbook(filepath, data_only=True)
+    wc_val = wb_val["WORLDCUP"]
+
     for r in range(4, 148):
-        home = _val(wc, r, 27)
-        away = _val(wc, r, 32)
-        gl   = _val(wc, r, 29)
-        gv   = _val(wc, r, 30)
-        if not home or not away:
+        home = get_resolved_val(wc, r, 27)
+        away = get_resolved_val(wc, r, 32)
+        gl   = wc_val.cell(r, 29).value
+        gv   = wc_val.cell(r, 30).value
+        if not home or not away or str(home).startswith("=") or str(away).startswith("="):
             continue
         if gl is None or gv is None or str(gl).strip() == "" or str(gv).strip() == "":
             continue
@@ -473,6 +516,9 @@ def _build_wc_scores(wb):
         key = f"{str(home).strip()}-{str(away).strip()}"
         scores[key] = (gl, gv)
         scores[key.replace(" ", "")] = (gl, gv)
+
+    wb.close()
+    wb_val.close()
     return scores
 
 
@@ -1121,7 +1167,7 @@ def build_data():
 
     spain_times = _build_spain_times(wb1_raw)
     wc_meta     = _build_wc_match_meta(wb1_raw)
-    wc_scores   = _build_wc_scores(wb1_raw)
+    wc_scores   = _build_wc_scores(FILE1)
     wc_scorers  = _load_scorers()
     wc_live     = _load_live()
     pts_sign  = float(_val(ws1, 8,  4) or 2)
@@ -1298,6 +1344,103 @@ def build_data():
             "predictions": predictions,
         })
 
+    # ── Recalcular puntos de posiciones de grupo y clasificados a 16avos ──
+    # Para evitar depender de la caché de fórmulas de Excel, que no se actualiza
+    # al escribir datos programáticamente.
+    actual_standings = {}
+    group_matches_count = {}
+    for m in matches:
+        if m["phase"] == "groups" and m["id"]:
+            grp = m["id"][0]
+            group_matches_count[grp] = group_matches_count.get(grp, 0) + (1 if m["played"] else 0)
+
+    # Calcular clasificaciones de grupos en base a partidos
+    group_teams = {}
+    for m in matches:
+        if m["phase"] == "groups" and m["id"]:
+            grp = m["id"][0]
+            if grp not in group_teams:
+                group_teams[grp] = {}
+            for t in (m["home"], m["away"]):
+                if t and t not in group_teams[grp]:
+                    group_teams[grp][t] = {"pts": 0, "gd": 0, "gf": 0, "gc": 0, "name": t}
+            if m["played"] and m["goals_l"] is not None and m["goals_v"] is not None:
+                h, a = m["home"], m["away"]
+                gl, gv = m["goals_l"], m["goals_v"]
+                group_teams[grp][h]["gf"] += gl
+                group_teams[grp][h]["gc"] = group_teams[grp][h].get("gc", 0) + gv
+                group_teams[grp][a]["gf"] += gv
+                group_teams[grp][a]["gc"] = group_teams[grp][a].get("gc", 0) + gl
+                if gl > gv:
+                    group_teams[grp][h]["pts"] += 3
+                elif gl < gv:
+                    group_teams[grp][a]["pts"] += 3
+                else:
+                    group_teams[grp][h]["pts"] += 1
+                    group_teams[grp][a]["pts"] += 1
+
+    for grp, teams in group_teams.items():
+        for t in teams.values():
+            t["gd"] = t["gf"] - t["gc"]
+        sorted_teams = sorted(teams.values(), key=lambda x: (x["pts"], x["gd"], x["gf"]), reverse=True)
+        actual_standings[grp] = [t["name"] for t in sorted_teams]
+
+    actual_positions_map = {}
+    pts_pos_rules = {
+        0: float(_val(ws1, 11, 4) or 4.0), # 1º
+        1: float(_val(ws1, 12, 4) or 3.0), # 2º
+        2: float(_val(ws1, 13, 4) or 2.0), # 3º
+        3: float(_val(ws1, 14, 4) or 1.0)  # 4º
+    }
+
+    for r in range(80, 128):
+        grp = _val(ws1, r, 10)
+        if not grp:
+            k_val = str(_val(ws1, r, 11))
+            m_g = re.search(r'GRUPO\s+([A-L])', k_val)
+            grp = m_g.group(1) if m_g else None
+        pos_idx = (r - 80) % 4
+        if grp and group_matches_count.get(grp, 0) == 6:
+            actual_positions_map[r] = actual_standings[grp][pos_idx]
+        else:
+            actual_positions_map[r] = f"{pos_idx+1}{grp}"
+
+    actual_q16_qualifiers = set()
+    ws_wc = wb1_raw["WORLDCUP"]
+    for r in range(101, 117):
+        t1 = ws_wc.cell(r, 27).value # AA
+        t2 = ws_wc.cell(r, 32).value # AF
+        def is_real_team(t):
+            if not t: return False
+            t_str = str(t).strip()
+            if not t_str or t_str.startswith("1") or t_str.startswith("2") or t_str.startswith("3") or t_str.startswith("W") or t_str.startswith("L") or "-" in t_str:
+                return False
+            return True
+        if is_real_team(t1): actual_q16_qualifiers.add(str(t1).strip())
+        if is_real_team(t2): actual_q16_qualifiers.add(str(t2).strip())
+
+    pts_q16_team = float(_val(ws1, 15, 4) or 2.0)
+
+    player_positions_pts = {}
+    player_q16_pts = {}
+
+    for p, ws in zip(all_players, all_ws):
+        name = p["name"]
+        pos_pts = 0.0
+        for r in range(80, 128):
+            actual = actual_positions_map.get(r)
+            pred = _val(ws, r, p["pred_col"])
+            if actual and pred and str(actual).strip() == str(pred).strip():
+                pos_pts += pts_pos_rules[(r - 80) % 4]
+        player_positions_pts[name] = pos_pts
+
+        q16_pts = 0.0
+        for r in range(130, 162):
+            pred = _val(ws, r, p["pred_col"])
+            if pred and str(pred).strip() in actual_q16_qualifiers:
+                q16_pts += pts_q16_team
+        player_q16_pts[name] = q16_pts
+
     # ── standings ────────────────────────────────────────────────────────────
     standings_raw = []
     for i, p in enumerate(all_players):
@@ -1309,17 +1452,28 @@ def build_data():
             try: return float(v) if v else 0.0
             except: return 0.0
 
-        # 'groups' y 'total' recalculados en Python a partir de los puntos de
-        # fase de grupos (group_points), de modo que la actualización automática
-        # no dependa de la caché de fórmulas del Excel (que no se recalcula).
         groups_calc = round(group_points.get(name, 0.0), 2)
         groups_excel = fv("groups")
-        total = round(fv("total") - groups_excel + groups_calc, 2)
+        
+        positions_calc = player_positions_pts.get(name, 0.0)
+        positions_excel = fv("positions")
+        
+        q16_calc = player_q16_pts.get(name, 0.0)
+        q16_excel = fv("q16")
+        
+        total = round(fv("total") - groups_excel + groups_calc - positions_excel + positions_calc - q16_excel + q16_calc, 2)
         lp = round(live_points.get(name, 0.0), 2)
         total_live = round(total + lp, 2)
         phase_detail = []
         for key, label, desc in STANDINGS_PHASES:
-            pts = groups_calc if key == "groups" else fv(key)
+            if key == "groups":
+                pts = groups_calc
+            elif key == "positions":
+                pts = positions_calc
+            elif key == "q16":
+                pts = q16_calc
+            else:
+                pts = fv(key)
             if pts > 0:
                 phase_detail.append({"key": key, "label": label, "desc": desc, "pts": pts})
 
@@ -1329,8 +1483,8 @@ def build_data():
             "live_points": lp,
             "total_live":  total_live,
             "groups":   groups_calc,
-            "positions":fv("positions"),
-            "q16":      fv("q16"),
+            "positions": positions_calc,
+            "q16":      q16_calc,
             "r16":      fv("r16"),
             "r8":       fv("r8"),
             "r4":       fv("r4"),

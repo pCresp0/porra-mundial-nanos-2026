@@ -217,8 +217,10 @@ def _patch_excel_cells(path: str, sheet_name: str, updates: dict) -> list:
     if not m:
         raise ValueError(f"Pestaña {sheet_name} no encontrada en workbook.xml")
     rid = m.group(1)
-    t = re.search(r'Id="' + rid + r'"[^>]*Target="([^"]+)"', rels)
-    sheetpath = "xl/" + t.group(1).lstrip("/")
+    t = (re.search(r'Id="' + rid + r'"[^>]*Target="([^"]+)"', rels)
+         or re.search(r'Target="([^"]+)"[^>]*Id="' + rid + r'"', rels))
+    sp = t.group(1).lstrip("/")
+    sheetpath = sp if sp.startswith("xl/") else "xl/" + sp
     xml = contents[sheetpath].decode("utf-8")
 
     def set_cell(xml_str, ref, value):
@@ -272,17 +274,55 @@ def _patch_worldcup_scores(path: str, updates: dict) -> list:
 
 def update_excel(games: list, path: str, label: str = "") -> int:
     """Write finished match scores into WORLDCUP columns AC (29) and AD (30)."""
-    wb_ro = openpyxl.load_workbook(path, data_only=True)
+    wb_ro = openpyxl.load_workbook(path, data_only=False)
     if "WORLDCUP" not in wb_ro.sheetnames:
         print(f"  ⚠ {label or path}: sin pestaña WORLDCUP, omitido")
         return 0
     wc_ro = wb_ro["WORLDCUP"]
 
+    # Build team maps from Idiomas and Equipos sheets to resolve formulas
+    team_map = {}
+    if "Idiomas" in wb_ro.sheetnames:
+        ws_idiomas = wb_ro["Idiomas"]
+        for r in range(212, 260):
+            num = ws_idiomas.cell(r, 3).value
+            name = ws_idiomas.cell(r, 15).value
+            if num is not None and name is not None:
+                team_map[int(num)] = str(name).strip()
+
+    equipos_map = {}
+    if "Equipos" in wb_ro.sheetnames:
+        ws_equipos = wb_ro["Equipos"]
+        for r in range(2, 50):
+            num = ws_equipos.cell(r, 1).value
+            if num is not None:
+                equipos_map[r] = team_map.get(int(num))
+
+    def get_resolved_val(sheet, r, c):
+        val = sheet.cell(r, c).value
+        if val is None:
+            return None
+        val_str = str(val).strip()
+        if not val_str.startswith('='):
+            return val_str
+        formula = val_str[1:].lstrip('+').strip()
+        m_eq = re.match(r'^(?:Equipos!)?B(\d+)$', formula)
+        if m_eq:
+            return equipos_map.get(int(m_eq.group(1)))
+        m_a = re.match(r'^A(\d+)$', formula)
+        if m_a:
+            return get_resolved_val(sheet, int(m_a.group(1)), 1)
+        if 'INDEX(' in formula and 'MATCH(' in formula and sheet.title == 'Equipos':
+            num = sheet.cell(r, 1).value
+            if num is not None:
+                return team_map.get(int(num))
+        return val_str
+
     row_index = {}
     for r in range(4, 148):
-        home = wc_ro.cell(r, 27).value
-        away = wc_ro.cell(r, 32).value
-        if not home or not away:
+        home = get_resolved_val(wc_ro, r, 27)
+        away = get_resolved_val(wc_ro, r, 32)
+        if not home or not away or str(home).startswith("=") or str(away).startswith("="):
             continue
         key = _match_key(str(home), str(away))
         row_index[_norm_key(key)] = r
