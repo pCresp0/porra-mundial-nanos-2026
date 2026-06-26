@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-20T19:10:46+02:00",
-    "date": "20/06/2026",
-    "time": "19:10:46",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-20T19:12:37+02:00",
     "date": "20/06/2026",
     "time": "19:12:37",
@@ -17378,5 +17370,30 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-26T21:04:27+02:00",
+    "date": "26/06/2026",
+    "time": "21:04:27",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇳🇴Noruega 0-0 Francia🇫🇷",
+        "name": "Noruega-Francia",
+        "date": "2026-06-26",
+        "fields": [],
+        "old": {},
+        "new": {}
+      },
+      {
+        "label": "🇸🇳Senegal 0-0 Irak🇮🇶",
+        "name": "Senegal-Irak",
+        "date": "2026-06-26",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]
