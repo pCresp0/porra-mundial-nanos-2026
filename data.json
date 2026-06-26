@@ -1,16 +1,19 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "26/06/2026 17:04",
+    "generated": "26/06/2026 17:06",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-26T19:04",
       "last_updated_time": "19:04",
       "last_updated_date": "26/06/2026",
-      "next_update_iso": "2026-06-26T19:05",
-      "next_update_time": "19:05",
-      "next_update_date": "26/06/2026"
+      "next_update_iso": "2026-06-26T19:10",
+      "next_update_time": "19:10",
+      "next_update_date": "26/06/2026",
+      "last_checked_iso": "2026-06-26T19:06",
+      "last_checked_time": "19:06",
+      "last_checked_date": "26/06/2026"
     },
     "players": [
       "JUANCHO",
@@ -382,6 +385,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-26T19:06:27+02:00",
+        "date": "26/06/2026",
+        "time": "19:06:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-26T18:50:41+02:00",
         "date": "26/06/2026",
@@ -4981,49 +4992,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-24T23:00:57+02:00",
-        "date": "24/06/2026",
-        "time": "23:00:57",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇨🇭Suiza 2-1 Canadá🇨🇦",
-            "name": "Suiza-Canadá",
-            "date": "2026-06-24",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "0-0",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "2-1",
-              "jugado": "sí"
-            }
-          },
-          {
-            "label": "🇧🇦Bosnia y Herzegovina 3-1 Catar🇶🇦",
-            "name": "Bosnia y Herzegovina-Catar",
-            "date": "2026-06-24",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "0-0",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "3-1",
-              "jugado": "sí"
-            }
-          }
-        ]
       }
     ]
   },
