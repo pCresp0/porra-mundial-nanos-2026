@@ -10,7 +10,10 @@
       "last_updated_date": "26/06/2026",
       "next_update_iso": "2026-06-26T13:25",
       "next_update_time": "13:25",
-      "next_update_date": "26/06/2026"
+      "next_update_date": "26/06/2026",
+      "last_checked_iso": "2026-06-26T13:24",
+      "last_checked_time": "13:24",
+      "last_checked_date": "26/06/2026"
     },
     "players": [
       "JUANCHO",
@@ -82,6 +85,14 @@
       "currency": "€"
     },
     "api_log": [
+      {
+        "ts_iso": "2026-06-26T13:24:28+02:00",
+        "date": "26/06/2026",
+        "time": "13:24:28",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-26T13:16:28+02:00",
         "date": "26/06/2026",
@@ -4734,23 +4745,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-24T22:18:24+02:00",
-        "date": "24/06/2026",
-        "time": "22:18:24",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇨🇭Suiza 0-0 Canadá🇨🇦",
-            "name": "Suiza-Canadá",
-            "date": "2026-06-24",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
