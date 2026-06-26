@@ -10,7 +10,10 @@
       "last_updated_date": "26/06/2026",
       "next_update_iso": "2026-06-26T13:05",
       "next_update_time": "13:05",
-      "next_update_date": "26/06/2026"
+      "next_update_date": "26/06/2026",
+      "last_checked_iso": "2026-06-26T13:00",
+      "last_checked_time": "13:00",
+      "last_checked_date": "26/06/2026"
     },
     "players": [
       "JUANCHO",
@@ -82,6 +85,14 @@
       "currency": "€"
     },
     "api_log": [
+      {
+        "ts_iso": "2026-06-26T13:00:53+02:00",
+        "date": "26/06/2026",
+        "time": "13:00:53",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-26T12:50:27+02:00",
         "date": "26/06/2026",
@@ -4740,14 +4751,6 @@
         "ts_iso": "2026-06-24T22:16:27+02:00",
         "date": "24/06/2026",
         "time": "22:16:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-24T22:14:41+02:00",
-        "date": "24/06/2026",
-        "time": "22:14:41",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
