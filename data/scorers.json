@@ -395,6 +395,43 @@
       "team": "away"
     }
   ],
+  "Senegal-Irak": [
+    {
+      "player": "Habib Diarra",
+      "minute": "4'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Ismaïla Sarr",
+      "minute": "56'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Paph Gviih",
+      "minute": "59'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Paph Gviih",
+      "minute": "71'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Ailman Andiaih",
+      "minute": "82'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
   "Corea del Sur-República Checa": [
     {
       "player": "I.B. Hwang",
