@@ -1,12 +1,19 @@
 {
   "Turquía-Estados Unidos": {
-    "home": 1,
+    "home": 2,
     "away": 1,
     "minute": "live",
     "scorers": [
       {
         "player": "Arda Güler",
         "minute": "10'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Avrkan Kvkv",
+        "minute": "31'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
