@@ -1,9 +1,17 @@
 {
   "Japón-Suecia": {
-    "home": 0,
+    "home": 1,
     "away": 0,
     "minute": "live",
-    "scorers": []
+    "scorers": [
+      {
+        "player": "Daizen Maeda",
+        "minute": "56'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      }
+    ]
   },
   "Túnez-Países Bajos": {
     "home": 1,
