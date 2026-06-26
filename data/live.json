@@ -1,1 +1,14 @@
-{}
+{
+  "Turquía-Estados Unidos": {
+    "home": 0,
+    "away": 0,
+    "minute": "live",
+    "scorers": []
+  },
+  "Paraguay-Australia": {
+    "home": 0,
+    "away": 0,
+    "minute": "live",
+    "scorers": []
+  }
+}
