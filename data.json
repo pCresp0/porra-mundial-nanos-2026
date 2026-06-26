@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "26/06/2026 19:22",
+    "generated": "26/06/2026 19:23",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-26T21:10",
-      "last_updated_time": "21:10",
+      "last_updated_iso": "2026-06-26T21:23",
+      "last_updated_time": "21:23",
       "last_updated_date": "26/06/2026",
       "next_update_iso": "2026-06-26T21:25",
       "next_update_time": "21:25",
       "next_update_date": "26/06/2026",
-      "last_checked_iso": "2026-06-26T21:22",
-      "last_checked_time": "21:22",
+      "last_checked_iso": "2026-06-26T21:23",
+      "last_checked_time": "21:23",
       "last_checked_date": "26/06/2026"
     },
     "players": [
@@ -388,6 +388,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-26T21:23:45+02:00",
+        "date": "26/06/2026",
+        "time": "21:23:45",
+        "updated": true,
+        "trigger": "schedule",
+        "changes": [
+          {
+            "label": "🇳🇴Noruega 0-0 Francia🇫🇷",
+            "name": "Noruega-Francia",
+            "date": "2026-06-26",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-06-26T21:22:30+02:00",
         "date": "26/06/2026",
@@ -4969,23 +4986,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-25T00:28:25+02:00",
-        "date": "25/06/2026",
-        "time": "00:28:25",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🏴󠁧󠁢󠁳󠁣󠁴󠁿Escocia 0-0 Brasil🇧🇷",
-            "name": "Escocia-Brasil",
-            "date": "2026-06-25",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
@@ -4993,8 +4993,8 @@
     {
       "name": "MEDINA",
       "total": 111.0,
-      "live_points": 5.0,
-      "total_live": 116.0,
+      "live_points": 4.0,
+      "total_live": 115.0,
       "groups": 111.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -5105,8 +5105,8 @@
     {
       "name": "LUIS/VIR",
       "total": 93.0,
-      "live_points": 5.0,
-      "total_live": 98.0,
+      "live_points": 4.0,
+      "total_live": 97.0,
       "groups": 93.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -5133,8 +5133,8 @@
     {
       "name": "LARRY",
       "total": 91.0,
-      "live_points": 5.0,
-      "total_live": 96.0,
+      "live_points": 4.0,
+      "total_live": 95.0,
       "groups": 91.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -15998,11 +15998,18 @@
       "live": true,
       "live_minute": "live",
       "live_goals_l": 0,
-      "live_goals_v": 1,
+      "live_goals_v": 2,
       "live_scorers": [
         {
           "player": "Ousmane Dembélé",
           "minute": "7'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        },
+        {
+          "player": "Ousmane Dembélé",
+          "minute": "20'",
           "own_goal": false,
           "penalty": false,
           "team": "away"
@@ -16039,15 +16046,15 @@
           "breakdown": null,
           "live_breakdown": {
             "sign": 2.0,
-            "diff": 1.0,
+            "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 2.0,
             "reasons": [
               "1X2 correcto (+2.0)",
-              "Diferencia de goles (+1)"
+              "Diferencia de goles no acertada"
             ]
           },
-          "live_score": 3.0
+          "live_score": 2.0
         },
         "LUIS/VIR": {
           "pred": {
@@ -16058,15 +16065,15 @@
           "breakdown": null,
           "live_breakdown": {
             "sign": 2.0,
-            "diff": 1.0,
+            "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 2.0,
             "reasons": [
               "1X2 correcto (+2.0)",
-              "Diferencia de goles (+1)"
+              "Diferencia de goles no acertada"
             ]
           },
-          "live_score": 3.0
+          "live_score": 2.0
         },
         "MEDINA": {
           "pred": {
@@ -16077,15 +16084,15 @@
           "breakdown": null,
           "live_breakdown": {
             "sign": 2.0,
-            "diff": 1.0,
+            "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 2.0,
             "reasons": [
               "1X2 correcto (+2.0)",
-              "Diferencia de goles (+1)"
+              "Diferencia de goles no acertada"
             ]
           },
-          "live_score": 3.0
+          "live_score": 2.0
         },
         "VÍCTOR": {
           "pred": {

@@ -15,12 +15,19 @@
   },
   "Noruega-Francia": {
     "home": 0,
-    "away": 1,
+    "away": 2,
     "minute": "live",
     "scorers": [
       {
         "player": "Ousmane Dembélé",
         "minute": "7'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Ousmane Dembélé",
+        "minute": "20'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
