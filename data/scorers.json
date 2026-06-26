@@ -879,6 +879,43 @@
       "team": "away"
     }
   ],
+  "Noruega-Francia": [
+    {
+      "player": "Thelo Aasgaard",
+      "minute": "21'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Ousmane Dembélé",
+      "minute": "7'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Ousmane Dembélé",
+      "minute": "20'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Ousmane Dembélé",
+      "minute": "32'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Désiré Doué",
+      "minute": "90'+4'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "México-Sudáfrica": [
     {
       "player": "J. Quiñones",
