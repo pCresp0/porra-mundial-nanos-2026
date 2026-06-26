@@ -1,7 +1,7 @@
 {
   "Turquía-Estados Unidos": {
     "home": 2,
-    "away": 1,
+    "away": 2,
     "minute": "live",
     "scorers": [
       {
@@ -21,6 +21,13 @@
       {
         "player": "Auston Trusty",
         "minute": "3'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Sebastian Berhalter",
+        "minute": "49'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
