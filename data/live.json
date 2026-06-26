@@ -1,7 +1,7 @@
 {
   "Japón-Suecia": {
     "home": 1,
-    "away": 0,
+    "away": 1,
     "minute": "live",
     "scorers": [
       {
@@ -10,12 +10,19 @@
         "own_goal": false,
         "penalty": false,
         "team": "home"
+      },
+      {
+        "player": "Anthony Elanga",
+        "minute": "62'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
       }
     ]
   },
   "Túnez-Países Bajos": {
     "home": 1,
-    "away": 2,
+    "away": 3,
     "minute": "live",
     "scorers": [
       {
@@ -35,6 +42,13 @@
       {
         "player": "Brian Brobbey",
         "minute": "7'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Ian Fn Hkh",
+        "minute": "62'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
