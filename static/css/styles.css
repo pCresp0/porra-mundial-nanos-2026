@@ -4902,26 +4902,4 @@ body.mode-guest .tms-sub-tabs { display: none !important; }
   .tpt-filt-count { min-width: .95rem; height: .95rem; font-size: .58rem; }
 }
 
-/* ── Ajustes responsive específicos para tablas de estadísticas ── */
-@media (max-width: 640px) {
-  #tab-stats .pred-table {
-    display: table;
-    table-layout: auto;
-    width: 100%;
-  }
-  #tab-stats .pred-table th,
-  #tab-stats .pred-table td {
-    white-space: normal !important;
-    word-break: break-word !important;
-    font-size: 0.68rem !important;
-    padding: 0.35rem 0.25rem !important;
-  }
-  #tab-stats .pred-table td:first-child {
-    white-space: nowrap !important;
-  }
-  #tab-stats .pred-table td div.truncate {
-    white-space: normal !important;
-    overflow: visible !important;
-    text-overflow: clip !important;
-  }
-}
+

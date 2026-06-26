@@ -4027,17 +4027,17 @@ function renderStats() {
           } else {
             secondsStr = `<span style="color:${c2}">${escapeHtml(d.p2)} (${d.p2Score} pts)</span>`;
           }
-          playersHtml = `<div class="truncate">${leaderName} <span class="text-gray-500">vs</span> ${secondsStr}</div>`;
+          playersHtml = `<div class="whitespace-nowrap">${leaderName} <span class="text-gray-500">vs</span> ${secondsStr}</div>`;
         }
         
         const evenBg = i % 2 === 1 ? "background:rgba(255,255,255,.02)" : "";
         return `
           <tr style="${evenBg}">
-            <td class="text-center font-bold px-3 py-2">${diffStr}</td>
+            <td class="text-center font-bold px-3 py-2 whitespace-nowrap">${diffStr}</td>
             <td class="px-3 py-2">
               <div class="text-gray-200 font-semibold text-xs truncate max-w-[200px]" title="${escapeHtml(d.title)}">${escapeHtml(d.title)}</div>
             </td>
-            <td class="px-3 py-2 text-xs">${playersHtml}</td>
+            <td class="px-3 py-2 text-xs whitespace-nowrap">${playersHtml}</td>
           </tr>
         `;
       }).join("");
@@ -4104,16 +4104,16 @@ function renderStats() {
           ? d.lasts.map(name => `<span style="color:${colors[name]}">${escapeHtml(name)}</span>`).join("/")
           : `<span style="color:${cLast}">${escapeHtml(d.pLast)}</span>`;
           
-        playersHtml = `<div class="truncate">${leaderName} (${d.p1Score} pts) <span class="text-gray-500">vs</span> ${lastNames} (${d.pLastScore} pts)</div>`;
+        playersHtml = `<div class="whitespace-nowrap">${leaderName} (${d.p1Score} pts) <span class="text-gray-500">vs</span> ${lastNames} (${d.pLastScore} pts)</div>`;
         
         const evenBg = i % 2 === 1 ? "background:rgba(255,255,255,.02)" : "";
         return `
           <tr style="${evenBg}">
-            <td class="text-center font-bold px-3 py-2">${diffStr}</td>
+            <td class="text-center font-bold px-3 py-2 whitespace-nowrap">${diffStr}</td>
             <td class="px-3 py-2">
               <div class="text-gray-200 font-semibold text-xs truncate max-w-[200px]" title="${escapeHtml(d.title)}">${escapeHtml(d.title)}</div>
             </td>
-            <td class="px-3 py-2 text-xs">${playersHtml}</td>
+            <td class="px-3 py-2 text-xs whitespace-nowrap">${playersHtml}</td>
           </tr>
         `;
       }).join("");
