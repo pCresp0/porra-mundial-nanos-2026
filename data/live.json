@@ -19,40 +19,5 @@
         "team": "away"
       }
     ]
-  },
-  "Túnez-Países Bajos": {
-    "home": 1,
-    "away": 3,
-    "minute": "live",
-    "scorers": [
-      {
-        "player": "Hazm Mstvri",
-        "minute": "54'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "home"
-      },
-      {
-        "player": "Alis Skhiri",
-        "minute": "3'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "away"
-      },
-      {
-        "player": "Brian Brobbey",
-        "minute": "7'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "away"
-      },
-      {
-        "player": "Ian Fn Hkh",
-        "minute": "62'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "away"
-      }
-    ]
   }
 }
