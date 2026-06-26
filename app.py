@@ -1437,11 +1437,8 @@ def build_data():
                 pos_pts += pts_pos_rules[(r - 80) % 4]
         player_positions_pts[name] = pos_pts
 
+        # Clasificados Dieciseisavos (q16) no se puntúan
         q16_pts = 0.0
-        for r in range(130, 162):
-            pred = _val(ws, r, p["pred_col"])
-            if pred and str(pred).strip() in actual_q16_qualifiers:
-                q16_pts += pts_q16_team
         player_q16_pts[name] = q16_pts
 
     # ── standings ────────────────────────────────────────────────────────────
