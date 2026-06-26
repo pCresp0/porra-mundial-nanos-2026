@@ -1,12 +1,19 @@
 {
   "Senegal-Irak": {
-    "home": 1,
+    "home": 2,
     "away": 0,
     "minute": "live",
     "scorers": [
       {
         "player": "Habib Diarra",
         "minute": "4'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Ismaïla Sarr",
+        "minute": "56'",
         "own_goal": false,
         "penalty": false,
         "team": "home"

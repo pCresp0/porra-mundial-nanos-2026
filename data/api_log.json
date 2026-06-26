@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-20T20:34:41+02:00",
-    "date": "20/06/2026",
-    "time": "20:34:41",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-20T20:36:35+02:00",
     "date": "20/06/2026",
     "time": "20:36:35",
@@ -17440,5 +17432,22 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-26T22:26:31+02:00",
+    "date": "26/06/2026",
+    "time": "22:26:31",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇸🇳Senegal 0-0 Irak🇮🇶",
+        "name": "Senegal-Irak",
+        "date": "2026-06-26",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]
