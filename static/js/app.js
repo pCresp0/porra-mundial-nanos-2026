@@ -6164,7 +6164,13 @@ function renderBracket(overrideEl) {
   const finalMatch = finalAll.find(m => m.name && m.name.startsWith("W")) || null;
   const thirdMatch = finalAll.find(m => m.name && m.name.startsWith("L")) || null;
 
+  const playedGroupCount = (D.matches || []).filter(m => m.phase === "groups" && m.played).length;
+  const allGroupsFinished = (playedGroupCount === 72);
+
   function isPlaceholder(name) {
+    if (!allGroupsFinished) {
+      return true;
+    }
     return !name || /^(W|L)\d|^\d+[A-Z]|^[A-Z]\d|^Por def/i.test(name) || name.trim() === "";
   }
 
