@@ -1458,10 +1458,9 @@ def build_data():
         positions_calc = player_positions_pts.get(name, 0.0)
         positions_excel = fv("positions")
         
-        q16_calc = player_q16_pts.get(name, 0.0)
-        q16_excel = fv("q16")
+        q16_calc = 0.0
         
-        total = round(fv("total") - groups_excel + groups_calc - positions_excel + positions_calc - q16_excel + q16_calc, 2)
+        total = round(groups_calc + positions_calc, 2)
         lp = round(live_points.get(name, 0.0), 2)
         total_live = round(total + lp, 2)
         phase_detail = []
@@ -1485,12 +1484,12 @@ def build_data():
             "groups":   groups_calc,
             "positions": positions_calc,
             "q16":      q16_calc,
-            "r16":      fv("r16"),
-            "r8":       fv("r8"),
-            "r4":       fv("r4"),
-            "r2":       fv("r2"),
-            "r34_final":fv("r34_final"),
-            "honor":    fv("honor"),
+            "r16":      0.0,
+            "r8":       0.0,
+            "r4":       0.0,
+            "r2":       0.0,
+            "r34_final":0.0,
+            "honor":    0.0,
             "phase_detail": phase_detail,
             "color":    PLAYER_COLORS[i % len(PLAYER_COLORS)],
             "played":   played_count.get(name, 0),
