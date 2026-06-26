@@ -392,6 +392,14 @@
     ],
     "api_log": [
       {
+        "ts_iso": "2026-06-26T23:01:52+02:00",
+        "date": "26/06/2026",
+        "time": "23:01:52",
+        "updated": false,
+        "trigger": "schedule",
+        "changes": []
+      },
+      {
         "ts_iso": "2026-06-26T23:01:11+02:00",
         "date": "26/06/2026",
         "time": "23:01:11",
@@ -4952,14 +4960,6 @@
         "ts_iso": "2026-06-25T02:30:47+02:00",
         "date": "25/06/2026",
         "time": "02:30:47",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-25T02:20:31+02:00",
-        "date": "25/06/2026",
-        "time": "02:20:31",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
