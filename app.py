@@ -563,9 +563,13 @@ def _build_wc_match_meta(wb):
                 continue
             if len(s) > 2 and not s.replace(".", "").replace(" ", "").isdigit():
                 scorers.append({"team": str(team).strip(), "player": s})
+        ph_h = _val(wc, r, 1)  # A
+        ph_a = _val(wc, r, 2)  # B
         meta[key] = {
             "home":      str(home).strip(),
             "away":      str(away).strip(),
+            "home_placeholder": str(ph_h).strip() if ph_h else "",
+            "away_placeholder": str(ph_a).strip() if ph_a else "",
             "flag_home": str(fh).strip() if fh else "",
             "flag_away": str(fa).strip() if fa else "",
             "scorers":   scorers,
@@ -1326,6 +1330,8 @@ def build_data():
             "name":      str(match_name).strip(),
             "home":      wc.get("home", ""),
             "away":      wc.get("away", ""),
+            "home_placeholder": wc.get("home_placeholder", ""),
+            "away_placeholder": wc.get("away_placeholder", ""),
             "flag_home": wc.get("flag_home", ""),
             "flag_away": wc.get("flag_away", ""),
             "city":       fix.get("city", ""),
@@ -1732,6 +1738,7 @@ def build_data():
                 "exact": pts_exact,
             },
             "prizes": {"first": 40, "second": 20, "currency": "€"},
+            "group_progress": {grp: count for grp, count in group_matches_count.items()},
         },
         "standings":   standings,
         "matches":     matches,

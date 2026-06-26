@@ -6167,11 +6167,23 @@ function renderBracket(overrideEl) {
   const playedGroupCount = (D.matches || []).filter(m => m.phase === "groups" && m.played).length;
   const allGroupsFinished = (playedGroupCount === 72);
 
-  function isPlaceholder(name) {
-    if (!allGroupsFinished) {
-      return true;
+  function isPlaceholder(name, placeholder) {
+    if (!name || name.trim() === "" || /^Por def/i.test(name)) return true;
+    if (/^(W|L)\d|^\d+[A-Z]|^[A-Z]\d/i.test(name)) return true;
+    if (allGroupsFinished) {
+      return false;
     }
-    return !name || /^(W|L)\d|^\d+[A-Z]|^[A-Z]\d|^Por def/i.test(name) || name.trim() === "";
+    if (placeholder) {
+      const m1 = placeholder.match(/^([12])([A-L])$/);
+      if (m1) {
+        const grp = m1[2];
+        const progress = D.meta.group_progress?.[grp] || 0;
+        if (progress === 6) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   // Resolver slot provisional (ej "1A"→1º gA, "2B"→2º gB, "3ABCD"→mejor 3º de esos grupos)
@@ -6215,7 +6227,7 @@ function renderBracket(overrideEl) {
     const midHtml = played
       ? `<div class="bkt-mid bkt-score${gh === ga ? " bkt-draw" : ""}">${gh}–${ga}</div>`
       : `<div class="bkt-mid bkt-time">${timeStr}<span class="bkt-dt">${dateStr}</span></div>`;
-    const ph_h = isPlaceholder(m.home), ph_a = isPlaceholder(m.away);
+    const ph_h = isPlaceholder(m.home, m.home_placeholder), ph_a = isPlaceholder(m.away, m.away_placeholder);
     // Solo resolver equipos provisionalmente para slots de fase de grupos.
     // En eliminatorias (r16, r4, r2, r34, final) solo se muestran equipos confirmados por BBC.
     const isKnockoutPhase = m.phase && m.phase !== "groups";
