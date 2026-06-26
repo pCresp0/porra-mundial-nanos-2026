@@ -1393,6 +1393,9 @@ def build_data():
         3: float(_val(ws1, 14, 4) or 1.0)  # 4º
     }
 
+    total_group_matches_played = sum(1 for m in matches if m["phase"] == "groups" and m["played"])
+    all_groups_finished = (total_group_matches_played == 72)
+
     for r in range(80, 128):
         grp = _val(ws1, r, 10)
         if not grp:
@@ -1400,7 +1403,7 @@ def build_data():
             m_g = re.search(r'GRUPO\s+([A-L])', k_val)
             grp = m_g.group(1) if m_g else None
         pos_idx = (r - 80) % 4
-        if grp and group_matches_count.get(grp, 0) == 6:
+        if grp and all_groups_finished:
             actual_positions_map[r] = actual_standings[grp][pos_idx]
         else:
             actual_positions_map[r] = f"{pos_idx+1}{grp}"

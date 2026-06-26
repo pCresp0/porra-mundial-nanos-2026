@@ -254,11 +254,18 @@
               <th class="st-sortable" data-key="pos">Pos</th>
               <th class="st-sortable text-left" data-key="name">Jugador</th>
               <th class="st-sortable" data-key="total">Total</th>
-              <th class="st-sortable" data-key="groups" title="Puntos totales de la fase de grupos">F.Grupos</th>
-              <th class="st-sortable" data-key="s1x2" title="Puntos por acertar el 1X2 (signo del partido)">1X2</th>
-              <th class="st-sortable" data-key="sdiff" title="Puntos por acertar la diferencia de goles">Diferencia</th>
-              <th class="st-sortable" data-key="sexact" title="Puntos por acertar el resultado exacto">Exacto</th>
+              <th class="st-sortable" data-key="groups" title="Puntos totales de la fase de grupos (Partidos)">F.Grupos</th>
+              <th class="st-sortable" data-key="s1x2" title="Puntos por acertar el 1X2 en grupos">1X2</th>
+              <th class="st-sortable" data-key="sdiff" title="Puntos por acertar la diferencia de goles en grupos">Diferencia</th>
+              <th class="st-sortable" data-key="sexact" title="Puntos por acertar el resultado exacto en grupos">Exacto</th>
               <th class="st-sortable" data-key="positions" title="Puntos por las posiciones finales de cada grupo (1º, 2º, 3º, 4º)">Pos.Grupos</th>
+              <th class="st-sortable" data-key="q16" title="Puntos por clasificados a dieciseisavos">Clas.16</th>
+              <th class="st-sortable" data-key="r16" title="Puntos por partidos de dieciseisavos">Part.16</th>
+              <th class="st-sortable" data-key="r8" title="Puntos por partidos de octavos">Octavos</th>
+              <th class="st-sortable" data-key="r4" title="Puntos por partidos de cuartos">Cuartos</th>
+              <th class="st-sortable" data-key="r2" title="Puntos por partidos de semis">Semis</th>
+              <th class="st-sortable" data-key="r34_final" title="Puntos por partidos de final y 3º puesto">Finales</th>
+              <th class="st-sortable" data-key="honor" title="Puntos por el Cuadro de Honor">C.Honor</th>
             </tr>
           </thead>
           <tbody id="standings-table"></tbody>
@@ -367,15 +374,21 @@
 
       <!-- desglose de aciertos -->
       <div class="card p-5">
-        <div class="info-wrap mb-4">
-          <h3 class="font-bold text-white">Desglose de aciertos (fase de grupos)</h3>
-          <span class="info-btn">i</span>
-          <div class="info-tip">
-            <strong>Tipos de acierto por partido:</strong><br>
-            🟢 <strong>Exacto</strong> — signo + dif. + resultado exacto (máx. 6 pts)<br>
-            🔵 <strong>1X2 + Dif.</strong> — signo correcto y diferencia de goles<br>
-            🟠 <strong>Solo 1X2</strong> — solo acertó el signo (1/X/2)<br>
-            ⚪ <strong>0 pts</strong> — sin ningún acierto en ese partido
+        <div class="flex items-center justify-between mb-4">
+          <div class="info-wrap">
+            <h3 class="font-bold text-white">Desglose de aciertos (fase de grupos)</h3>
+            <span class="info-btn">i</span>
+            <div class="info-tip">
+              <strong>Tipos de acierto por partido:</strong><br>
+              🟢 <strong>Exacto</strong> — signo + dif. + resultado exacto (máx. 6 pts)<br>
+              🔵 <strong>1X2 + Dif.</strong> — signo correcto y diferencia de goles<br>
+              🟠 <strong>Solo 1X2</strong> — solo acertó el signo (1/X/2)<br>
+              ⚪ <strong>0 pts</strong> — sin ningún acierto en ese partido
+            </div>
+          </div>
+          <div class="flex bg-slate-800 rounded-lg p-0.5 border border-slate-700 text-xs font-semibold">
+            <button id="btn-breakdown-matches" class="px-2.5 py-1 rounded-md text-white bg-blue-600 transition-all duration-200" style="outline: none;">Partidos</button>
+            <button id="btn-breakdown-points" class="px-2.5 py-1 rounded-md text-slate-400 hover:text-white transition-all duration-200" style="outline: none;">Puntos</button>
           </div>
         </div>
         <div style="height:260px;position:relative">

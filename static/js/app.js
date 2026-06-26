@@ -16,6 +16,7 @@ let hitRateChart = null;
 let soloLeaderChart = null;
 let _progWindow = 10; // last N matches to show in progression chart (0 = all)
 let breakdownChart = null;
+let breakdownViewMode = "matches"; // matches or points
 let currentPhase = "all";
 let currentWeek  = "all";
 let scrollMatchesToToday = true;
@@ -1541,6 +1542,13 @@ function renderStandingsTable() {
       <td>${fmt(r.sdiff)}</td>
       <td>${fmt(r.sexact)}</td>
       <td>${fmt(r.positions)}</td>
+      <td>${fmt(r.q16)}</td>
+      <td>${fmt(r.r16)}</td>
+      <td>${fmt(r.r8)}</td>
+      <td>${fmt(r.r4)}</td>
+      <td>${fmt(r.r2)}</td>
+      <td>${fmt(r.r34_final)}</td>
+      <td>${fmt(r.honor)}</td>
     </tr>`;
   }).join("");
   _syncStandingsSortIndicators();
@@ -1619,6 +1627,13 @@ function _standingsRows() {
       groups: (+p.groups || 0) + (liveActive ? lp : 0),
       positions: +p.positions || 0,
       s1x2, sdiff, sexact,
+      q16: +p.q16 || 0,
+      r16: +p.r16 || 0,
+      r8: +p.r8 || 0,
+      r4: +p.r4 || 0,
+      r2: +p.r2 || 0,
+      r34_final: +p.r34_final || 0,
+      honor: +p.honor || 0,
       live_points: lp,
       pos_change: liveActive ? ((+p.pos || 0) - (+p.live_pos || +p.pos || 0)) : (p.pos_change || 0),
     };
@@ -3823,16 +3838,52 @@ function renderStats() {
   }
 
   // ── Desglose de aciertos ───────────────────────────────────────────────
+  // Setup breakdown toggle listeners
+  const btnMatches = document.getElementById("btn-breakdown-matches");
+  const btnPoints = document.getElementById("btn-breakdown-points");
+  if (btnMatches && btnPoints && !btnMatches.dataset.listener) {
+    btnMatches.dataset.listener = "true";
+    btnMatches.addEventListener("click", () => {
+      breakdownViewMode = "matches";
+      btnMatches.classList.add("bg-blue-600", "text-white");
+      btnMatches.classList.remove("text-slate-400");
+      btnPoints.classList.remove("bg-blue-600", "text-white");
+      btnPoints.classList.add("text-slate-400");
+      renderStats();
+    });
+    btnPoints.addEventListener("click", () => {
+      breakdownViewMode = "points";
+      btnPoints.classList.add("bg-blue-600", "text-white");
+      btnPoints.classList.remove("text-slate-400");
+      btnMatches.classList.remove("bg-blue-600", "text-white");
+      btnMatches.classList.add("text-slate-400");
+      renderStats();
+    });
+  }
+
+  // Get points for each type of hit in groups from scoring rules
+  const sr = D.scoring_rules;
+  const groupsMatchSection = sr?.sections?.find(s => s.key === "groups_match");
+  const pts1X2 = groupsMatchSection?.items?.[0]?.pts ?? 2;
+  const ptsDiff = groupsMatchSection?.items?.[1]?.pts ?? 1;
+  const ptsExact = groupsMatchSection?.items?.[2]?.pts ?? 3;
+  
+  const ptsExactTotal = pts1X2 + ptsDiff + ptsExact; // 6
+  const ptsDiffTotal = pts1X2 + ptsDiff; // 3
+  const ptsSignTotal = pts1X2; // 2
+
+  const isPts = breakdownViewMode === "points";
+
   if (breakdownChart) breakdownChart.destroy();
   breakdownChart = new Chart(document.getElementById("breakdownChart").getContext("2d"), {
     type: "bar",
     data: {
       labels: perPlayer.map(p => p.name),
       datasets: [
-        { label: "Exacto",     data: perPlayer.map(p => p.exact), backgroundColor: "rgba(34,197,94,.75)",   borderColor: "#22C55E", borderWidth: 1.5, borderRadius: 4 },
-        { label: "1X2 + Dif.", data: perPlayer.map(p => p.diff),  backgroundColor: "rgba(59,130,246,.65)",  borderColor: "#3B82F6", borderWidth: 1.5, borderRadius: 4 },
-        { label: "Solo 1X2",   data: perPlayer.map(p => p.sign),  backgroundColor: "rgba(249,115,22,.65)",  borderColor: "#F97316", borderWidth: 1.5, borderRadius: 4 },
-        { label: "0 pts",      data: perPlayer.map(p => p.miss),  backgroundColor: "rgba(100,116,139,.45)", borderColor: "#64748B", borderWidth: 1.5, borderRadius: 4 },
+        { label: "Exacto",     data: perPlayer.map(p => isPts ? p.exact * ptsExactTotal : p.exact), backgroundColor: "rgba(34,197,94,.75)",   borderColor: "#22C55E", borderWidth: 1.5, borderRadius: 4 },
+        { label: "1X2 + Dif.", data: perPlayer.map(p => isPts ? p.diff * ptsDiffTotal : p.diff),  backgroundColor: "rgba(59,130,246,.65)",  borderColor: "#3B82F6", borderWidth: 1.5, borderRadius: 4 },
+        { label: "Solo 1X2",   data: perPlayer.map(p => isPts ? p.sign * ptsSignTotal : p.sign),  backgroundColor: "rgba(249,115,22,.65)",  borderColor: "#F97316", borderWidth: 1.5, borderRadius: 4 },
+        { label: "0 pts",      data: perPlayer.map(p => isPts ? p.miss * 0 : p.miss),  backgroundColor: "rgba(100,116,139,.45)", borderColor: "#64748B", borderWidth: 1.5, borderRadius: 4 },
       ]
     },
     options: {
@@ -3843,13 +3894,31 @@ function renderStats() {
           mode: "index",
           callbacks: {
             title: items => `${items[0].label} — ${groupMatches.length} partidos`,
-            label: i => ` ${i.dataset.label}: ${i.parsed.y} partidos`
+            label: i => {
+              const val = i.parsed.y;
+              if (isPts) {
+                let matchCount = 0;
+                if (i.datasetIndex === 0) matchCount = perPlayer[i.dataIndex].exact;
+                else if (i.datasetIndex === 1) matchCount = perPlayer[i.dataIndex].diff;
+                else if (i.datasetIndex === 2) matchCount = perPlayer[i.dataIndex].sign;
+                else matchCount = perPlayer[i.dataIndex].miss;
+                
+                return ` ${i.dataset.label}: ${val} pts (${matchCount} partido${matchCount !== 1 ? "s" : ""})`;
+              } else {
+                let pts = 0;
+                if (i.datasetIndex === 0) pts = val * ptsExactTotal;
+                else if (i.datasetIndex === 1) pts = val * ptsDiffTotal;
+                else if (i.datasetIndex === 2) pts = val * ptsSignTotal;
+                
+                return ` ${i.dataset.label}: ${val} partido${val !== 1 ? "s" : ""} (${pts} pts)`;
+              }
+            }
           }
         }
       },
       scales: {
         x: { stacked: true, grid: { display: false }, ticks: { color: "#94A3B8", font: { weight: "bold" } } },
-        y: { stacked: true, grid: { color: "rgba(255,255,255,.05)" }, ticks: { color: "#475569", stepSize: 1 } }
+        y: { stacked: true, grid: { color: "rgba(255,255,255,.05)" }, ticks: { color: "#475569", stepSize: isPts ? undefined : 1 } }
       }
     }
   });
