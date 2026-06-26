@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "26/06/2026 03:42",
+    "generated": "26/06/2026 03:44",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-06-26T05:45",
       "next_update_time": "05:45",
       "next_update_date": "26/06/2026",
-      "last_checked_iso": "2026-06-26T05:42",
-      "last_checked_time": "05:42",
+      "last_checked_iso": "2026-06-26T05:44",
+      "last_checked_time": "05:44",
       "last_checked_date": "26/06/2026"
     },
     "players": [
@@ -366,6 +366,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-26T05:44:27+02:00",
+        "date": "26/06/2026",
+        "time": "05:44:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-26T05:42:23+02:00",
         "date": "26/06/2026",
@@ -4953,23 +4961,6 @@
           {
             "label": "🇨🇭Suiza 0-0 Canadá🇨🇦",
             "name": "Suiza-Canadá",
-            "date": "2026-06-24",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
-      },
-      {
-        "ts_iso": "2026-06-24T21:02:23+02:00",
-        "date": "24/06/2026",
-        "time": "21:02:23",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇧🇦Bosnia y Herzegovina 0-0 Catar🇶🇦",
-            "name": "Bosnia y Herzegovina-Catar",
             "date": "2026-06-24",
             "fields": [],
             "old": {},
