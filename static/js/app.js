@@ -4571,10 +4571,12 @@ function _calFmtDay(iso) {
 function _calRow(m, iso) {
   const looksPlaceholder = v => !v || /^\d|^Win|^Los|^[A-Z]\d|^[A-Z]{1,2}\d/.test(v) || v.includes("FINAL") || v.includes("puesto");
   const isProv = looksPlaceholder(m.home) || looksPlaceholder(m.away);
+  const isKnockout = m.phase && m.phase !== "groups";
   const fh = (m.flag_home && !looksPlaceholder(m.home)) ? m.flag_home : "🏳";
   const fa = (m.flag_away && !looksPlaceholder(m.away)) ? m.flag_away : "🏳";
-  const home = m.home || "—";
-  const away = m.away || "—";
+  // En eliminatorias, si el nombre es un placeholder, mostrar "Por definir"
+  const home = isKnockout && looksPlaceholder(m.home) ? "Por definir" : (m.home || "—");
+  const away = isKnockout && looksPlaceholder(m.away) ? "Por definir" : (m.away || "—");
   const time = m.time_es || "--:--";
   const mid = m.played
     ? `<span class="cal-row-score">${(m.result && m.result.score) || (`${m.goals_l ?? ""}-${m.goals_v ?? ""}`)}</span>`
@@ -6099,8 +6101,10 @@ function renderBracket(overrideEl) {
       ? `<div class="bkt-mid bkt-score${gh === ga ? " bkt-draw" : ""}">${gh}–${ga}</div>`
       : `<div class="bkt-mid bkt-time">${timeStr}<span class="bkt-dt">${dateStr}</span></div>`;
     const ph_h = isPlaceholder(m.home), ph_a = isPlaceholder(m.away);
-    // Intentar resolver slots de grupo (1A, 2B, 3ABCD) provisionalmente
-    const isGroupSlot = s => s && /^[123][A-L]/.test(s);
+    // Solo resolver equipos provisionalmente para slots de fase de grupos.
+    // En eliminatorias (r16, r4, r2, r34, final) solo se muestran equipos confirmados por BBC.
+    const isKnockoutPhase = m.phase && m.phase !== "groups";
+    const isGroupSlot = s => !isKnockoutPhase && s && /^[123][A-L]/.test(s);
     const provH = ph_h && isGroupSlot(m.home) ? _resolveSlot(m.home) : null;
     const provA = ph_a && isGroupSlot(m.away) ? _resolveSlot(m.away) : null;
     const da = m.date ? `data-date="${m.date}" data-match="${(m.name || "").replace(/"/g, "&quot;")}"` : "";
