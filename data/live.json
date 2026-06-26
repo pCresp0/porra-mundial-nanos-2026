@@ -5,7 +5,7 @@
     "minute": "live",
     "scorers": [
       {
-        "player": "Abdallh Sk",
+        "player": "Habib Diarra",
         "minute": "4'",
         "own_goal": false,
         "penalty": false,
@@ -15,8 +15,16 @@
   },
   "Noruega-Francia": {
     "home": 0,
-    "away": 0,
+    "away": 1,
     "minute": "live",
-    "scorers": []
+    "scorers": [
+      {
+        "player": "Ousmane Dembélé",
+        "minute": "7'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      }
+    ]
   }
 }
