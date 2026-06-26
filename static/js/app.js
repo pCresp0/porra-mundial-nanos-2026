@@ -3313,7 +3313,18 @@ function renderScoring() {
 
   el.innerHTML = `
     <div class="card p-5 mb-5">
-      <h2 class="text-lg font-bold text-white mb-2">Sistema de puntuación — Los Nanos</h2>
+      <div class="flex items-center justify-between mb-2">
+        <h2 class="text-lg font-bold text-white">Sistema de puntuación — Los Nanos</h2>
+        <div class="info-wrap tip-below tip-right relative">
+          <span class="info-btn" style="cursor:pointer">i</span>
+          <div class="info-tip">
+            <strong>¿Cómo se puntúa en eliminatorias (Fase 2)?</strong><br>
+            • Si <strong>no aciertas ninguno</strong> de los dos equipos que juegan el cruce real: te llevas <strong>0 pts</strong>.<br>
+            • Si <strong>aciertas solo 1 equipo</strong>: puedes puntuar por signo (1X2), diferencia o exacto, pero <em>solo si el equipo que acertaste gana</em> (o empata) de acuerdo a tu signo pronosticado.<br>
+            • Si <strong>aciertas ambos equipos</strong>: optas a la puntuación completa del partido.
+          </div>
+        </div>
+      </div>
       <p class="text-sm text-gray-400 mb-3">
         Valores configurados en nuestro Excel. Basado en el sistema
         <a href="https://matejero.es/puntuaciones-excel-mundial-2026/" target="_blank" rel="noopener"
