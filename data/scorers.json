@@ -842,6 +842,43 @@
       "team": "away"
     }
   ],
+  "Turquía-Estados Unidos": [
+    {
+      "player": "Arda Güler",
+      "minute": "10'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Baris Alpr Ailmaz",
+      "minute": "31'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Kan Aihan",
+      "minute": "90'+8'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Auston Trusty",
+      "minute": "3'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Sebastian Berhalter",
+      "minute": "49'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "México-Sudáfrica": [
     {
       "player": "J. Quiñones",
