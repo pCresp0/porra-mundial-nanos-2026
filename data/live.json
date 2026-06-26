@@ -1,9 +1,16 @@
 {
   "Turquía-Estados Unidos": {
-    "home": 0,
+    "home": 1,
     "away": 1,
     "minute": "live",
     "scorers": [
+      {
+        "player": "Arda Güler",
+        "minute": "10'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
       {
         "player": "Auston Trusty",
         "minute": "3'",
