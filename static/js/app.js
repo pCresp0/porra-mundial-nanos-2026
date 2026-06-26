@@ -3283,6 +3283,24 @@ function renderScoring() {
     r34_team: "Vuestro tercer puesto del Cuadro de Honor se traslada a las casillas correspondientes.",
   };
 
+  const sectionTooltips = {
+    groups_match: "<strong>Fase de Grupos — Partidos:</strong><br>• 2 pts por signo 1X2.<br>• +1 pt por diferencia de goles.<br>• +3 pts por resultado exacto.<br>Máximo: 6 pts por partido.",
+    groups_pos: "<strong>Fase de Grupos — Posiciones:</strong><br>• Se otorgan por la posición exacta final en cada grupo.<br>• 1º (4 pts), 2º (3 pts), 3º (2 pts), 4º (1 pt).<br>• Se darán al finalizar la fase de grupos al completo.",
+    q16_team: "<strong>Clasificados Dieciseisavos:</strong><br>• En la práctica <strong>no se puntúa (0 pts)</strong>, ya que para la Fase 2 todos los jugadores reciben el cuadro con los equipos reales.",
+    r16: "<strong>Dieciseisavos de Final:</strong><br>• Máx. 9 pts (3 signo, +2 diferencia, +4 exacto).<br>• Si no aciertas ninguno de los equipos del cruce real: 0 pts.<br>• Si aciertas 1: puntúas si gana según tu signo pronosticado.",
+    r8_team: "<strong>Clasificados Octavos:</strong><br>• Sumas 3 pts por cada equipo real clasificado para Octavos que coincida con tus predicciones.",
+    r8: "<strong>Octavos de Final:</strong><br>• Máx. 12 pts (4 signo, +3 diferencia, +5 exacto).<br>• Si no aciertas ninguno de los equipos del cruce real: 0 pts.<br>• Si aciertas 1: puntúas si gana según tu signo pronosticado.",
+    r4_team: "<strong>Clasificados Cuartos:</strong><br>• Sumas 5 pts por cada equipo real clasificado para Cuartos que coincida con tus predicciones.",
+    r4: "<strong>Cuartos de Final:</strong><br>• Máx. 15 pts (5 signo, +4 diferencia, +6 exacto).<br>• Si no aciertas ninguno de los equipos del cruce real: 0 pts.<br>• Si aciertas 1: puntúas si gana según tu signo pronosticado.",
+    r2_team: "<strong>Clasificados Semifinales:</strong><br>• Sumas 8 pts por cada equipo real clasificado para Semifinales que coincida con tus predicciones.",
+    r2: "<strong>Semifinales:</strong><br>• Máx. 19 pts (6 signo, +5 diferencia, +8 exacto).<br>• Si no aciertas ninguno de los equipos del cruce real: 0 pts.<br>• Si aciertas 1: puntúas si gana según tu signo pronosticado.",
+    r34_team: "<strong>Clasificados 3º y 4º Puesto:</strong><br>• Sumas 8 pts por cada equipo real clasificado para el 3º y 4º puesto que coincida con tus predicciones.",
+    final_team: "<strong>Clasificados Final:</strong><br>• Sumas 12 pts por cada equipo real clasificado para la Final que coincida con tus predicciones.",
+    r34: "<strong>3º y 4º Puesto:</strong><br>• Máx. 19 pts (6 signo, +5 diferencia, +8 exacto).<br>• Si no aciertas ninguno de los equipos del cruce real: 0 pts.<br>• Si aciertas 1: puntúas si gana según tu signo pronosticado.",
+    final: "<strong>Final:</strong><br>• Máx. 26 pts (8 signo, +6 diferencia, +12 exacto).<br>• Si no aciertas ninguno de los equipos del cruce real: 0 pts.<br>• Si aciertas 1: puntúas si gana según tu signo pronosticado.",
+    honor: "<strong>Cuadro de Honor:</strong><br>• Puntos asignados al finalizar el torneo por acertar Campeón, Subcampeón, 3º puesto, máximos goleadores o mejores jugadores."
+  };
+
   const sectionsHtml = sr.sections.map(sec => {
     const rows = sec.items.map(item => {
       const shortLabel = item.label
@@ -3301,9 +3319,20 @@ function renderScoring() {
     const maxInSection = sec.items.reduce((s, i) => s + i.pts, 0);
     const note = sectionNotes[sec.key]
       ? `<p class="scoring-callout mt-3 mb-0">${sectionNotes[sec.key]}</p>` : "";
+    
+    const tooltipText = sectionTooltips[sec.key] || "";
+    const tooltipHtml = tooltipText ? `
+      <div class="info-wrap tip-below tip-right relative ml-2">
+        <span class="info-btn" style="cursor:pointer">i</span>
+        <div class="info-tip">${tooltipText}</div>
+      </div>` : "";
+
     return `<div class="card p-5">
       <div class="flex items-center justify-between mb-3">
-        <h3 class="font-bold text-white">${sec.title}</h3>
+        <div class="flex items-center">
+          <h3 class="font-bold text-white">${sec.title}</h3>
+          ${tooltipHtml}
+        </div>
         ${sec.items.length > 1 ? `<span class="text-xs text-gray-500">máx. ${maxInSection} pts</span>` : ""}
       </div>
       ${rows}
