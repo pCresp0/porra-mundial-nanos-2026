@@ -1022,12 +1022,12 @@ def _abbr_team(name):
     return "".join(letters[:3]).upper() if letters else "?"
 
 
-def _build_daily_progression(matches, player_names):
+def _build_daily_progression(matches, player_names, player_positions_pts=None, all_groups_finished=False):
     """Puntos acumulados tras cada partido jugado (orden cronológico)."""
     group = [m for m in matches
              if m["phase"] == "groups" and m.get("played") and m.get("date")]
     if not group:
-        return {"labels": [], "dates": [], "titles": [],
+        return {"labels": [], "flag_labels": [], "dates": [], "titles": [],
                 "players": {n: [] for n in player_names},
                 "day_points": {n: [] for n in player_names}}
 
@@ -1067,6 +1067,19 @@ def _build_daily_progression(matches, player_names):
             except ValueError:
                 pass
         titles.append(title + dt_part)
+
+    # Si la fase de grupos ha terminado, añadimos un paso final para los puntos de posiciones de grupo
+    if all_groups_finished and player_positions_pts:
+        labels.append("Pos. Grupos")
+        flag_labels.append("🏆")
+        last_date = dates[-1] if dates else datetime.now().strftime("%Y-%m-%d")
+        dates.append(last_date)
+        titles.append("Posiciones de Fase de Grupos")
+        for n in player_names:
+            pos_earned = player_positions_pts.get(n, 0.0)
+            cumulative[n] = round(cumulative[n] + pos_earned, 1)
+            players_out[n].append(cumulative[n])
+            day_points[n].append(round(pos_earned, 1))
 
     return {
         "labels":      labels,
@@ -1695,7 +1708,7 @@ def build_data():
     }
 
     weeks = _week_ranges_from_dates(spain_dates)
-    progression = _build_daily_progression(matches, player_names)
+    progression = _build_daily_progression(matches, player_names, player_positions_pts, all_groups_finished)
     player_strengths = _build_player_strengths(matches, standings, player_names)
 
     from update_schedule import build_update_meta
