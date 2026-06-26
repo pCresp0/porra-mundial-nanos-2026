@@ -1,6 +1,6 @@
 {
   "Senegal-Irak": {
-    "home": 4,
+    "home": 5,
     "away": 0,
     "minute": "live",
     "scorers": [
@@ -28,6 +28,13 @@
       {
         "player": "Paph Gviih",
         "minute": "71'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Ailman Andiaih",
+        "minute": "82'",
         "own_goal": false,
         "penalty": false,
         "team": "home"

@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "26/06/2026 20:50",
+    "generated": "26/06/2026 20:52",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-26T22:42",
-      "last_updated_time": "22:42",
+      "last_updated_iso": "2026-06-26T22:52",
+      "last_updated_time": "22:52",
       "last_updated_date": "26/06/2026",
       "next_update_iso": "2026-06-26T22:55",
       "next_update_time": "22:55",
       "next_update_date": "26/06/2026",
-      "last_checked_iso": "2026-06-26T22:50",
-      "last_checked_time": "22:50",
+      "last_checked_iso": "2026-06-26T22:52",
+      "last_checked_time": "22:52",
       "last_checked_date": "26/06/2026"
     },
     "players": [
@@ -392,6 +392,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-26T22:52:28+02:00",
+        "date": "26/06/2026",
+        "time": "22:52:28",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇸🇳Senegal 0-0 Irak🇮🇶",
+            "name": "Senegal-Irak",
+            "date": "2026-06-26",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-06-26T22:50:37+02:00",
         "date": "26/06/2026",
@@ -4961,14 +4978,6 @@
         "ts_iso": "2026-06-25T01:58:24+02:00",
         "date": "25/06/2026",
         "time": "01:58:24",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-25T01:56:23+02:00",
-        "date": "25/06/2026",
-        "time": "01:56:23",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -16162,7 +16171,7 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 4,
+      "live_goals_l": 5,
       "live_goals_v": 0,
       "live_scorers": [
         {
@@ -16189,6 +16198,13 @@
         {
           "player": "Paph Gviih",
           "minute": "71'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Ailman Andiaih",
+          "minute": "82'",
           "own_goal": false,
           "penalty": false,
           "team": "home"
