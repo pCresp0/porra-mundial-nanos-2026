@@ -1,9 +1,17 @@
 {
   "Senegal-Irak": {
-    "home": 0,
+    "home": 1,
     "away": 0,
     "minute": "live",
-    "scorers": []
+    "scorers": [
+      {
+        "player": "Abdallh Sk",
+        "minute": "4'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      }
+    ]
   },
   "Noruega-Francia": {
     "home": 0,
