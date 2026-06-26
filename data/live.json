@@ -14,10 +14,17 @@
     ]
   },
   "Noruega-Francia": {
-    "home": 0,
+    "home": 1,
     "away": 2,
     "minute": "live",
     "scorers": [
+      {
+        "player": "Thelo Aasgaard",
+        "minute": "21'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
       {
         "player": "Ousmane Dembélé",
         "minute": "7'",
