@@ -458,22 +458,20 @@
             Cada vez que el líder de la porra ha cambiado durante la fase de grupos. Solo se registra cuando un único jugador se coloca por primera vez en cabeza, desbancando al anterior líder en solitario.
           </div>
         </div>
-        <div class="overflow-x-auto">
-          <table class="pred-table w-full">
-            <thead>
-              <tr>
-                <th class="text-center whitespace-nowrap">#</th>
-                <th class="text-left">Partido</th>
-                <th class="text-left whitespace-nowrap">Nuevo líder</th>
-                <th class="text-left whitespace-nowrap">Líder anterior</th>
-                <th class="text-center whitespace-nowrap">Puntos</th>
-              </tr>
-            </thead>
-            <tbody id="leadership-changes-table-body">
-              <!-- filled by JS -->
-            </tbody>
-          </table>
-        </div>
+        <table class="pred-table w-full">
+          <thead>
+            <tr>
+              <th class="text-center" style="width:2rem">#</th>
+              <th class="text-left">Partido</th>
+              <th class="text-left" style="width:6rem">Nuevo líder</th>
+              <th class="text-left" style="width:6rem">Anterior</th>
+              <th class="text-center" style="width:3.5rem">Pts</th>
+            </tr>
+          </thead>
+          <tbody id="leadership-changes-table-body">
+            <!-- filled by JS -->
+          </tbody>
+        </table>
         <div class="mt-3 text-center">
           <button id="leadership-toggle-btn" style="display:none" class="text-xs text-indigo-400 hover:text-indigo-200 transition-colors font-semibold px-4 py-1.5 rounded-full border border-indigo-500/30 hover:border-indigo-400/60 hover:bg-indigo-500/10">Ver todos</button>
         </div>

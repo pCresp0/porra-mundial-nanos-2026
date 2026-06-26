@@ -2107,6 +2107,14 @@ function renderProgression() {
     });
   }
 
+  // Dynamic Y-axis: compute min/max from visible data ± 10 pts margin
+  const _yAllVals = datasets.flatMap(ds => ds.data.filter(v => v != null && !isNaN(v)));
+  const _Y_MARGIN = 10;
+  const _yRawMin = _yAllVals.length > 0 ? Math.min(..._yAllVals) : 0;
+  const _yRawMax = _yAllVals.length > 0 ? Math.max(..._yAllVals) : 10;
+  const _yMin = Math.max(0, Math.floor(_yRawMin - _Y_MARGIN));
+  const _yMax = Math.ceil(_yRawMax + _Y_MARGIN);
+
   if (progressionChart) progressionChart.destroy();
   const ctx = document.getElementById("progressionChart").getContext("2d");
   progressionChart = new Chart(ctx, {
@@ -2143,7 +2151,8 @@ function renderProgression() {
         },
         y: {
           title: { display: true, text: "Puntos acumulados", color: "#64748B", font: { size: 11 } },
-          beginAtZero: true,
+          min: _yMin,
+          max: _yMax,
           grid: { color: "rgba(255,255,255,.05)" },
           ticks: { color: "#475569", font: { size: 11 } }
         }
@@ -4162,31 +4171,67 @@ function renderStats() {
       const PREVIEW = 5;
       let expanded = false;
 
-      const renderRows = (list) => list.map((c, i) => {
-        const evenBg = i % 2 === 1 ? "background:rgba(255,255,255,.02)" : "";
-        const colorNew = colors[c.newLeader] || "#94A3B8";
-        const colorPrev = c.prevLeader ? (colors[c.prevLeader] || "#94A3B8") : null;
-        // Corona al más reciente (primer elemento del array reversed)
-        const crownEmoji = i === 0 ? " 👑" : "";
-        const prevHtml = c.prevLeader
-          ? `<span class="font-semibold" style="color:${colorPrev}">${escapeHtml(c.prevLeader)}</span>`
-          : `<span class="text-gray-500 italic">— (inicio)</span>`;
-        // Número de cambio (orden cronológico original)
-        const changeNum = changes.length - i;
-        return `
-          <tr style="${evenBg}">
-            <td class="text-center font-bold px-3 py-2 text-gray-400 whitespace-nowrap">${changeNum}</td>
-            <td class="px-3 py-2">
-              <div class="text-gray-200 font-semibold text-xs truncate max-w-[220px]" title="${escapeHtml(c.title)}">${escapeHtml(c.title)}</div>
-            </td>
-            <td class="px-3 py-2 text-xs whitespace-nowrap">
-              <span class="font-bold" style="color:${colorNew}">${escapeHtml(c.newLeader)}${crownEmoji}</span>
-            </td>
-            <td class="px-3 py-2 text-xs whitespace-nowrap">${prevHtml}</td>
-            <td class="text-center px-3 py-2 text-xs font-bold text-yellow-400 whitespace-nowrap">${c.pts} pts</td>
-          </tr>
-        `;
-      }).join("");
+      const isMobStats = window.matchMedia("(max-width: 640px)").matches;
+      const renderRows = (list) => {
+        if (isMobStats) {
+          // Vista móvil: tarjetas apiladas, sin tabla, sin scroll horizontal
+          return list.map((c, i) => {
+            const colorNew = colors[c.newLeader] || "#94A3B8";
+            const colorPrev = c.prevLeader ? (colors[c.prevLeader] || "#94A3B8") : null;
+            const crownEmoji = i === 0 ? " 👑" : "";
+            const changeNum = changes.length - i;
+            const prevHtml = c.prevLeader
+              ? `<span class="ldr-card-val" style="color:${colorPrev}">${escapeHtml(c.prevLeader)}</span>`
+              : `<span class="ldr-card-val ldr-card-inicio">— (inicio)</span>`;
+            return `
+              <tr class="ldr-mob-row">
+                <td colspan="5" class="ldr-mob-cell">
+                  <div class="ldr-card">
+                    <div class="ldr-card-num">#${changeNum}</div>
+                    <div class="ldr-card-match">${escapeHtml(c.title)}</div>
+                    <div class="ldr-card-row">
+                      <div class="ldr-card-item">
+                        <span class="ldr-card-lbl">Nuevo líder</span>
+                        <span class="ldr-card-val ldr-card-crown" style="color:${colorNew}">${escapeHtml(c.newLeader)}${crownEmoji}</span>
+                      </div>
+                      <div class="ldr-card-sep">→</div>
+                      <div class="ldr-card-item">
+                        <span class="ldr-card-lbl">Anterior</span>
+                        ${prevHtml}
+                      </div>
+                      <div class="ldr-card-pts">${c.pts} <span>pts</span></div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            `;
+          }).join("");
+        }
+        // Vista escritorio: tabla normal
+        return list.map((c, i) => {
+          const evenBg = i % 2 === 1 ? "background:rgba(255,255,255,.02)" : "";
+          const colorNew = colors[c.newLeader] || "#94A3B8";
+          const colorPrev = c.prevLeader ? (colors[c.prevLeader] || "#94A3B8") : null;
+          const crownEmoji = i === 0 ? " 👑" : "";
+          const prevHtml = c.prevLeader
+            ? `<span class="font-semibold" style="color:${colorPrev}">${escapeHtml(c.prevLeader)}</span>`
+            : `<span class="text-gray-500 italic">— (inicio)</span>`;
+          const changeNum = changes.length - i;
+          return `
+            <tr style="${evenBg}">
+              <td class="text-center font-bold px-2 py-2 text-gray-400">${changeNum}</td>
+              <td class="px-3 py-2" style="max-width:0;min-width:0">
+                <div class="text-gray-200 font-semibold text-xs truncate" title="${escapeHtml(c.title)}">${escapeHtml(c.title)}</div>
+              </td>
+              <td class="px-2 py-2 text-xs">
+                <span class="font-bold" style="color:${colorNew}">${escapeHtml(c.newLeader)}${crownEmoji}</span>
+              </td>
+              <td class="px-2 py-2 text-xs">${prevHtml}</td>
+              <td class="text-center px-2 py-2 text-xs font-bold text-yellow-400">${c.pts}</td>
+            </tr>
+          `;
+        }).join("");
+      };
 
       leadershipBody.innerHTML = renderRows(reversed.slice(0, PREVIEW));
 
