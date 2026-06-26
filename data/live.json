@@ -1,9 +1,17 @@
 {
   "Turquía-Estados Unidos": {
     "home": 0,
-    "away": 0,
+    "away": 1,
     "minute": "live",
-    "scorers": []
+    "scorers": [
+      {
+        "player": "Auston Trusty",
+        "minute": "3'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      }
+    ]
   },
   "Paraguay-Australia": {
     "home": 0,
