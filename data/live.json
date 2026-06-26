@@ -6,10 +6,17 @@
     "scorers": []
   },
   "Túnez-Países Bajos": {
-    "home": 0,
+    "home": 1,
     "away": 2,
     "minute": "live",
     "scorers": [
+      {
+        "player": "Hazm Mstvri",
+        "minute": "54'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
       {
         "player": "Alis Skhiri",
         "minute": "3'",
