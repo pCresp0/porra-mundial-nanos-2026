@@ -19,6 +19,13 @@
         "team": "home"
       },
       {
+        "player": "Kan Aihan",
+        "minute": "90'+9'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
         "player": "Auston Trusty",
         "minute": "3'",
         "own_goal": false,
@@ -33,11 +40,5 @@
         "team": "away"
       }
     ]
-  },
-  "Paraguay-Australia": {
-    "home": 0,
-    "away": 0,
-    "minute": "live",
-    "scorers": []
   }
 }
