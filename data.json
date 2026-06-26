@@ -1,16 +1,19 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "26/06/2026 14:54",
+    "generated": "26/06/2026 14:56",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-26T16:54",
       "last_updated_time": "16:54",
       "last_updated_date": "26/06/2026",
-      "next_update_iso": "2026-06-26T16:55",
-      "next_update_time": "16:55",
-      "next_update_date": "26/06/2026"
+      "next_update_iso": "2026-06-26T17:00",
+      "next_update_time": "17:00",
+      "next_update_date": "26/06/2026",
+      "last_checked_iso": "2026-06-26T16:56",
+      "last_checked_time": "16:56",
+      "last_checked_date": "26/06/2026"
     },
     "players": [
       "JUANCHO",
@@ -364,6 +367,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-26T16:56:34+02:00",
+        "date": "26/06/2026",
+        "time": "16:56:34",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-26T16:40:36+02:00",
         "date": "26/06/2026",
@@ -4998,23 +5009,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-24T22:44:21+02:00",
-        "date": "24/06/2026",
-        "time": "22:44:21",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇧🇦Bosnia y Herzegovina 0-0 Catar🇶🇦",
-            "name": "Bosnia y Herzegovina-Catar",
-            "date": "2026-06-24",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
