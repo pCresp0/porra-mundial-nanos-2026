@@ -4175,15 +4175,15 @@ function renderStats() {
         const changeNum = changes.length - i;
         return `
           <tr style="${evenBg}">
-            <td class="text-center font-bold px-3 py-2 text-gray-400">${changeNum}</td>
+            <td class="text-center font-bold px-3 py-2 text-gray-400 whitespace-nowrap">${changeNum}</td>
             <td class="px-3 py-2">
               <div class="text-gray-200 font-semibold text-xs truncate max-w-[220px]" title="${escapeHtml(c.title)}">${escapeHtml(c.title)}</div>
             </td>
-            <td class="px-3 py-2 text-xs">
+            <td class="px-3 py-2 text-xs whitespace-nowrap">
               <span class="font-bold" style="color:${colorNew}">${escapeHtml(c.newLeader)}${crownEmoji}</span>
             </td>
-            <td class="px-3 py-2 text-xs">${prevHtml}</td>
-            <td class="text-center px-3 py-2 text-xs font-bold text-yellow-400">${c.pts} pts</td>
+            <td class="px-3 py-2 text-xs whitespace-nowrap">${prevHtml}</td>
+            <td class="text-center px-3 py-2 text-xs font-bold text-yellow-400 whitespace-nowrap">${c.pts} pts</td>
           </tr>
         `;
       }).join("");
