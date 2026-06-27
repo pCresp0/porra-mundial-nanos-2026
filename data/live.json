@@ -1,12 +1,19 @@
 {
   "Panamá-Inglaterra": {
     "home": 0,
-    "away": 1,
+    "away": 2,
     "minute": "live",
     "scorers": [
       {
         "player": "Jvd Blingham",
         "minute": "62'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Hri Kin",
+        "minute": "67'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
