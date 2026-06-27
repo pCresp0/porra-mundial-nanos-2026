@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-21T03:44:33+02:00",
-    "date": "21/06/2026",
-    "time": "03:44:33",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-21T03:46:33+02:00",
     "date": "21/06/2026",
     "time": "03:46:33",
@@ -17589,6 +17581,23 @@
     "ts_iso": "2026-06-27T06:48:31+02:00",
     "date": "27/06/2026",
     "time": "06:48:31",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇳🇿Nueva Zelanda 0-0 Bélgica🇧🇪",
+        "name": "Nueva Zelanda-Bélgica",
+        "date": "2026-06-27",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
+  },
+  {
+    "ts_iso": "2026-06-27T06:50:41+02:00",
+    "date": "27/06/2026",
+    "time": "06:50:41",
     "updated": true,
     "trigger": "workflow_dispatch",
     "changes": [

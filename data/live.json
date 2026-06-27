@@ -22,7 +22,7 @@
   },
   "Nueva Zelanda-Bélgica": {
     "home": 1,
-    "away": 3,
+    "away": 4,
     "minute": "live",
     "scorers": [
       {
@@ -49,6 +49,13 @@
       {
         "player": "Kevin De Bruyne",
         "minute": "66'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Romelu Lukaku",
+        "minute": "86'",
         "own_goal": false,
         "penalty": false,
         "team": "away"

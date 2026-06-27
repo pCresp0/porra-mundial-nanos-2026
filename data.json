@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "27/06/2026 04:48",
+    "generated": "27/06/2026 04:50",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-27T06:48",
-      "last_updated_time": "06:48",
+      "last_updated_iso": "2026-06-27T06:50",
+      "last_updated_time": "06:50",
       "last_updated_date": "27/06/2026",
-      "next_update_iso": "2026-06-27T06:50",
-      "next_update_time": "06:50",
+      "next_update_iso": "2026-06-27T06:55",
+      "next_update_time": "06:55",
       "next_update_date": "27/06/2026",
-      "last_checked_iso": "2026-06-27T06:48",
-      "last_checked_time": "06:48",
+      "last_checked_iso": "2026-06-27T06:50",
+      "last_checked_time": "06:50",
       "last_checked_date": "27/06/2026"
     },
     "players": [
@@ -392,6 +392,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-27T06:50:41+02:00",
+        "date": "27/06/2026",
+        "time": "06:50:41",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇳🇿Nueva Zelanda 0-0 Bélgica🇧🇪",
+            "name": "Nueva Zelanda-Bélgica",
+            "date": "2026-06-27",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-06-27T06:48:31+02:00",
         "date": "27/06/2026",
@@ -5011,14 +5028,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-25T21:42:31+02:00",
-        "date": "25/06/2026",
-        "time": "21:42:31",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -5026,8 +5035,8 @@
     {
       "name": "MEDINA",
       "total": 118.0,
-      "live_points": 2.0,
-      "total_live": 120.0,
+      "live_points": 3.0,
+      "total_live": 121.0,
       "groups": 118.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -5054,8 +5063,8 @@
     {
       "name": "VÍCTOR",
       "total": 112.0,
-      "live_points": 8.0,
-      "total_live": 120.0,
+      "live_points": 9.0,
+      "total_live": 121.0,
       "groups": 112.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -5166,8 +5175,8 @@
     {
       "name": "LARRY",
       "total": 97.0,
-      "live_points": 2.0,
-      "total_live": 99.0,
+      "live_points": 3.0,
+      "total_live": 100.0,
       "groups": 97.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -15799,7 +15808,7 @@
       "live": true,
       "live_minute": "live",
       "live_goals_l": 1,
-      "live_goals_v": 3,
+      "live_goals_v": 4,
       "live_scorers": [
         {
           "player": "Ali Jast",
@@ -15825,6 +15834,13 @@
         {
           "player": "K. De Bruyne",
           "minute": "66'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        },
+        {
+          "player": "R. Lukaku",
+          "minute": "86'",
           "own_goal": false,
           "penalty": false,
           "team": "away"
@@ -15862,15 +15878,15 @@
           "breakdown": null,
           "live_breakdown": {
             "sign": 2.0,
-            "diff": 0.0,
+            "diff": 1.0,
             "exact": 0,
-            "total": 2.0,
+            "total": 3.0,
             "reasons": [
               "1X2 correcto (+2.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles (+1)"
             ]
           },
-          "live_score": 2.0
+          "live_score": 3.0
         },
         "LUIS/VIR": {
           "pred": {
@@ -15899,15 +15915,15 @@
           "breakdown": null,
           "live_breakdown": {
             "sign": 2.0,
-            "diff": 0.0,
+            "diff": 1.0,
             "exact": 0,
-            "total": 2.0,
+            "total": 3.0,
             "reasons": [
               "1X2 correcto (+2.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles (+1)"
             ]
           },
-          "live_score": 2.0
+          "live_score": 3.0
         },
         "VÍCTOR": {
           "pred": {
@@ -15918,15 +15934,15 @@
           "breakdown": null,
           "live_breakdown": {
             "sign": 2.0,
-            "diff": 0.0,
+            "diff": 1.0,
             "exact": 0,
-            "total": 2.0,
+            "total": 3.0,
             "reasons": [
               "1X2 correcto (+2.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles (+1)"
             ]
           },
-          "live_score": 2.0
+          "live_score": 3.0
         },
         "CRESPO": {
           "pred": {
@@ -26439,12 +26455,12 @@
     {
       "row": 172,
       "id": "",
-      "name": "Bélgica-Corea del Sur",
-      "home": "Bélgica",
+      "name": "Egipto-Corea del Sur",
+      "home": "Egipto",
       "away": "Corea del Sur",
       "home_placeholder": "1D",
       "away_placeholder": "3BEFIJ",
-      "flag_home": "🇧🇪",
+      "flag_home": "🇪🇬",
       "flag_away": "🇰🇷",
       "city": "Seattle",
       "country": "EE.UU.",
@@ -26934,13 +26950,13 @@
     {
       "row": 177,
       "id": "",
-      "name": "Australia-Egipto",
+      "name": "Australia-Bélgica",
       "home": "Australia",
-      "away": "Egipto",
+      "away": "Bélgica",
       "home_placeholder": "1J",
       "away_placeholder": "2H",
       "flag_home": "🇦🇺",
-      "flag_away": "🇪🇬",
+      "flag_away": "🇧🇪",
       "city": "Dallas",
       "country": "EE.UU.",
       "tv": "dazn",
