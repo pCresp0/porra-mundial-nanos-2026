@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "27/06/2026 00:10",
+    "generated": "27/06/2026 00:12",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-06-27T02:15",
       "next_update_time": "02:15",
       "next_update_date": "27/06/2026",
-      "last_checked_iso": "2026-06-27T02:10",
-      "last_checked_time": "02:10",
+      "last_checked_iso": "2026-06-27T02:12",
+      "last_checked_time": "02:12",
       "last_checked_date": "27/06/2026"
     },
     "players": [
@@ -392,6 +392,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-27T02:12:58+02:00",
+        "date": "27/06/2026",
+        "time": "02:12:58",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-27T02:10:35+02:00",
         "date": "27/06/2026",
@@ -4971,14 +4979,6 @@
         "ts_iso": "2026-06-25T03:32:21+02:00",
         "date": "25/06/2026",
         "time": "03:32:21",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-25T03:30:40+02:00",
-        "date": "25/06/2026",
-        "time": "03:30:40",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -26040,9 +26040,9 @@
     {
       "row": 170,
       "id": "",
-      "name": "México-Cabo Verde",
+      "name": "México-Ecuador",
       "home": "México",
-      "away": "Cabo Verde",
+      "away": "Ecuador",
       "home_placeholder": "1A",
       "away_placeholder": "3CEFHI",
       "flag_home": "🇲🇽",
@@ -26634,13 +26634,13 @@
     {
       "row": 176,
       "id": "",
-      "name": "Suiza-Ecuador",
+      "name": "Suiza-Argelia",
       "home": "Suiza",
-      "away": "Ecuador",
+      "away": "Argelia",
       "home_placeholder": "1B",
       "away_placeholder": "3EFGIJ",
       "flag_home": "🇨🇭",
-      "flag_away": "🇪🇨",
+      "flag_away": "🇩🇿",
       "city": "Vancouver",
       "country": "Canadá",
       "tv": "dazn",
