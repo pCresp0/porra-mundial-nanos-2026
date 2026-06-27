@@ -1,7 +1,7 @@
 {
   "display_positions": {
-    "MEDINA": 1,
-    "VÍCTOR": 2,
+    "VÍCTOR": 1,
+    "MEDINA": 2,
     "JUANCHO": 3,
     "CRESPO": 4,
     "LARRY": 5,
@@ -10,16 +10,16 @@
   "current_positions": {
     "VÍCTOR": 1,
     "MEDINA": 2,
-    "JUANCHO": 3,
-    "CRESPO": 4,
+    "CRESPO": 3,
+    "JUANCHO": 4,
     "LARRY": 5,
     "LUIS/VIR": 6
   },
   "totals": {
-    "VÍCTOR": 126.0,
+    "VÍCTOR": 132.0,
     "MEDINA": 125.0,
-    "JUANCHO": 111.0,
-    "CRESPO": 110.0,
+    "CRESPO": 116.0,
+    "JUANCHO": 113.0,
     "LARRY": 101.0,
     "LUIS/VIR": 97.0
   }
