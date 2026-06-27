@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "27/06/2026 21:04",
+    "generated": "27/06/2026 21:06",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-27T23:04",
       "last_updated_time": "23:04",
       "last_updated_date": "27/06/2026",
-      "next_update_iso": "2026-06-27T23:05",
-      "next_update_time": "23:05",
+      "next_update_iso": "2026-06-27T23:10",
+      "next_update_time": "23:10",
       "next_update_date": "27/06/2026",
-      "last_checked_iso": "2026-06-27T23:04",
-      "last_checked_time": "23:04",
+      "last_checked_iso": "2026-06-27T23:06",
+      "last_checked_time": "23:06",
       "last_checked_date": "27/06/2026"
     },
     "players": [
@@ -408,6 +408,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-27T23:06:34+02:00",
+        "date": "27/06/2026",
+        "time": "23:06:34",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-27T23:04:32+02:00",
         "date": "27/06/2026",
@@ -4850,23 +4858,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-26T04:32:25+02:00",
-        "date": "26/06/2026",
-        "time": "04:32:25",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇹🇷Turquía 0-0 Estados Unidos🇺🇸",
-            "name": "Turquía-Estados Unidos",
-            "date": "2026-06-26",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
