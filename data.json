@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "27/06/2026 08:14",
+    "generated": "27/06/2026 08:16",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-27T07:06",
       "last_updated_time": "07:06",
       "last_updated_date": "27/06/2026",
-      "next_update_iso": "2026-06-27T10:15",
-      "next_update_time": "10:15",
+      "next_update_iso": "2026-06-27T10:20",
+      "next_update_time": "10:20",
       "next_update_date": "27/06/2026",
-      "last_checked_iso": "2026-06-27T10:14",
-      "last_checked_time": "10:14",
+      "last_checked_iso": "2026-06-27T10:16",
+      "last_checked_time": "10:16",
       "last_checked_date": "27/06/2026"
     },
     "players": [
@@ -393,6 +393,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-27T10:16:34+02:00",
+        "date": "27/06/2026",
+        "time": "10:16:34",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-27T10:14:46+02:00",
         "date": "27/06/2026",
@@ -4933,23 +4941,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-26T01:08:22+02:00",
-        "date": "26/06/2026",
-        "time": "01:08:22",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇹🇳Túnez 0-0 Países Bajos🇳🇱",
-            "name": "Túnez-Países Bajos",
-            "date": "2026-06-26",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
