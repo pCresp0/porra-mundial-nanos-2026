@@ -22,7 +22,7 @@
   },
   "Croacia-Ghana": {
     "home": 1,
-    "away": 0,
+    "away": 1,
     "minute": "live",
     "scorers": [
       {
@@ -31,6 +31,13 @@
         "own_goal": false,
         "penalty": false,
         "team": "home"
+      },
+      {
+        "player": "Drik Lvkasn",
+        "minute": "73'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
       }
     ]
   }
