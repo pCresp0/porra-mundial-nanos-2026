@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-21T01:50:43+02:00",
-    "date": "21/06/2026",
-    "time": "01:50:43",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-21T01:52:37+02:00",
     "date": "21/06/2026",
     "time": "01:52:37",
@@ -17516,6 +17508,32 @@
         },
         "new": {
           "marcador": "0-0",
+          "jugado": "sí"
+        }
+      }
+    ]
+  },
+  {
+    "ts_iso": "2026-06-27T04:04:27+02:00",
+    "date": "27/06/2026",
+    "time": "04:04:27",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇺🇾Uruguay 0-1 España🇪🇸",
+        "name": "Uruguay-España",
+        "date": "2026-06-27",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "0-0",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "0-1",
           "jugado": "sí"
         }
       }

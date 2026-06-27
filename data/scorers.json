@@ -953,6 +953,15 @@
       "team": "away"
     }
   ],
+  "Uruguay-España": [
+    {
+      "player": "Álex Baena",
+      "minute": "42'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "México-Sudáfrica": [
     {
       "player": "J. Quiñones",

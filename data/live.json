@@ -1,16 +1,1 @@
-{
-  "Uruguay-España": {
-    "home": 0,
-    "away": 1,
-    "minute": "live",
-    "scorers": [
-      {
-        "player": "Álex Baena",
-        "minute": "42'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "away"
-      }
-    ]
-  }
-}
+{}
