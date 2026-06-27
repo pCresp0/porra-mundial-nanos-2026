@@ -22,12 +22,26 @@
   },
   "Nueva Zelanda-Bélgica": {
     "home": 0,
-    "away": 1,
+    "away": 3,
     "minute": "live",
     "scorers": [
       {
         "player": "Leandro Trossard",
         "minute": "28'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Leandro Trossard",
+        "minute": "50'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Kevin De Bruyne",
+        "minute": "66'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
