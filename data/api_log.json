@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-21T22:10:43+02:00",
-    "date": "21/06/2026",
-    "time": "22:10:43",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-21T22:12:31+02:00",
     "date": "21/06/2026",
     "time": "22:12:31",
@@ -17716,5 +17708,30 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-28T01:34:29+02:00",
+    "date": "28/06/2026",
+    "time": "01:34:29",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇨🇴Colombia 0-0 Portugal🇵🇹",
+        "name": "Colombia-Portugal",
+        "date": "2026-06-28",
+        "fields": [],
+        "old": {},
+        "new": {}
+      },
+      {
+        "label": "🇨🇩RD Congo 0-0 Uzbekistán🇺🇿",
+        "name": "RD Congo-Uzbekistán",
+        "date": "2026-06-28",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]
