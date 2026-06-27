@@ -1,7 +1,7 @@
 {
   "Egipto-Irán": {
     "home": 1,
-    "away": 1,
+    "away": 2,
     "minute": "live",
     "scorers": [
       {
@@ -17,45 +17,10 @@
         "own_goal": false,
         "penalty": false,
         "team": "away"
-      }
-    ]
-  },
-  "Nueva Zelanda-Bélgica": {
-    "home": 1,
-    "away": 4,
-    "minute": "live",
-    "scorers": [
-      {
-        "player": "Ali Jast",
-        "minute": "84'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "home"
       },
       {
-        "player": "Leandro Trossard",
-        "minute": "28'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "away"
-      },
-      {
-        "player": "Leandro Trossard",
-        "minute": "50'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "away"
-      },
-      {
-        "player": "Kevin De Bruyne",
-        "minute": "66'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "away"
-      },
-      {
-        "player": "Romelu Lukaku",
-        "minute": "86'",
+        "player": "Shojae Khalilzadeh",
+        "minute": "90'+3'",
         "own_goal": false,
         "penalty": false,
         "team": "away"

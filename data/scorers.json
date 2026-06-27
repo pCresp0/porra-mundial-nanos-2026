@@ -1409,5 +1409,49 @@
       "penalty": false,
       "team": "away"
     }
+  ],
+  "Nueva Zelanda-Bélgica": [
+    {
+      "player": "Ali Jast",
+      "minute": "84'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Leandro Trossard",
+      "minute": "28'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Leandro Trossard",
+      "minute": "50'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Kevin De Bruyne",
+      "minute": "66'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Romelu Lukaku",
+      "minute": "86'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Alexis Saelemaekers",
+      "minute": "90'+4'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
   ]
 }
