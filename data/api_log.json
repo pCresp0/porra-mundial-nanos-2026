@@ -1,31 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-21T00:09:33+02:00",
-    "date": "21/06/2026",
-    "time": "00:09:33",
-    "updated": true,
-    "trigger": "schedule",
-    "changes": [
-      {
-        "label": "🇩🇪Alemania 2-1 Costa de Marfil🇨🇮",
-        "name": "Alemania-Costa de Marfil",
-        "date": "2026-06-20",
-        "fields": [
-          "marcador",
-          "jugado"
-        ],
-        "old": {
-          "marcador": "0-0",
-          "jugado": "no"
-        },
-        "new": {
-          "marcador": "2-1",
-          "jugado": "sí"
-        }
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-21T00:26:34+02:00",
     "date": "21/06/2026",
     "time": "00:26:34",
@@ -17519,6 +17493,14 @@
     "time": "03:30:44",
     "updated": false,
     "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-06-27T03:32:26+02:00",
+    "date": "27/06/2026",
+    "time": "03:32:26",
+    "updated": false,
+    "trigger": "schedule",
     "changes": []
   }
 ]
