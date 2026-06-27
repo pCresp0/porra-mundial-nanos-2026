@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "27/06/2026 04:50",
+    "generated": "27/06/2026 04:52",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-06-27T06:55",
       "next_update_time": "06:55",
       "next_update_date": "27/06/2026",
-      "last_checked_iso": "2026-06-27T06:50",
-      "last_checked_time": "06:50",
+      "last_checked_iso": "2026-06-27T06:52",
+      "last_checked_time": "06:52",
       "last_checked_date": "27/06/2026"
     },
     "players": [
@@ -392,6 +392,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-27T06:52:27+02:00",
+        "date": "27/06/2026",
+        "time": "06:52:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-27T06:50:41+02:00",
         "date": "27/06/2026",
@@ -5017,14 +5025,6 @@
         "ts_iso": "2026-06-25T21:46:24+02:00",
         "date": "25/06/2026",
         "time": "21:46:24",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-25T21:44:23+02:00",
-        "date": "25/06/2026",
-        "time": "21:44:23",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -26455,12 +26455,12 @@
     {
       "row": 172,
       "id": "",
-      "name": "Egipto-Corea del Sur",
-      "home": "Egipto",
+      "name": "Bélgica-Corea del Sur",
+      "home": "Bélgica",
       "away": "Corea del Sur",
       "home_placeholder": "1D",
       "away_placeholder": "3BEFIJ",
-      "flag_home": "🇪🇬",
+      "flag_home": "🇧🇪",
       "flag_away": "🇰🇷",
       "city": "Seattle",
       "country": "EE.UU.",
@@ -26950,13 +26950,13 @@
     {
       "row": 177,
       "id": "",
-      "name": "Australia-Bélgica",
+      "name": "Australia-Egipto",
       "home": "Australia",
-      "away": "Bélgica",
+      "away": "Egipto",
       "home_placeholder": "1J",
       "away_placeholder": "2H",
       "flag_home": "🇦🇺",
-      "flag_away": "🇧🇪",
+      "flag_away": "🇪🇬",
       "city": "Dallas",
       "country": "EE.UU.",
       "tv": "dazn",
