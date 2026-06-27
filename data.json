@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "27/06/2026 01:42",
+    "generated": "27/06/2026 01:44",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-06-27T03:45",
       "next_update_time": "03:45",
       "next_update_date": "27/06/2026",
-      "last_checked_iso": "2026-06-27T03:42",
-      "last_checked_time": "03:42",
+      "last_checked_iso": "2026-06-27T03:44",
+      "last_checked_time": "03:44",
       "last_checked_date": "27/06/2026"
     },
     "players": [
@@ -392,6 +392,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-27T03:44:27+02:00",
+        "date": "27/06/2026",
+        "time": "03:44:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-27T03:42:24+02:00",
         "date": "27/06/2026",
@@ -4912,49 +4920,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-25T05:00:52+02:00",
-        "date": "25/06/2026",
-        "time": "05:00:52",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇨🇿República Checa 0-3 México🇲🇽",
-            "name": "República Checa-México",
-            "date": "2026-06-25",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "0-0",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "0-3",
-              "jugado": "sí"
-            }
-          },
-          {
-            "label": "🇿🇦Sudáfrica 1-0 Corea del Sur🇰🇷",
-            "name": "Sudáfrica-Corea del Sur",
-            "date": "2026-06-25",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "0-0",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "1-0",
-              "jugado": "sí"
-            }
-          }
-        ]
       }
     ]
   },
