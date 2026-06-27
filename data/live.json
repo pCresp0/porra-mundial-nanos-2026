@@ -22,8 +22,16 @@
   },
   "Nueva Zelanda-Bélgica": {
     "home": 0,
-    "away": 0,
+    "away": 1,
     "minute": "live",
-    "scorers": []
+    "scorers": [
+      {
+        "player": "Leandro Trossard",
+        "minute": "28'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      }
+    ]
   }
 }
