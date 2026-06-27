@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "27/06/2026 23:24",
+    "generated": "27/06/2026 23:26",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-28T01:00",
       "last_updated_time": "01:00",
       "last_updated_date": "28/06/2026",
-      "next_update_iso": "2026-06-28T01:25",
-      "next_update_time": "01:25",
+      "next_update_iso": "2026-06-28T01:30",
+      "next_update_time": "01:30",
       "next_update_date": "28/06/2026",
-      "last_checked_iso": "2026-06-28T01:24",
-      "last_checked_time": "01:24",
+      "last_checked_iso": "2026-06-28T01:26",
+      "last_checked_time": "01:26",
       "last_checked_date": "28/06/2026"
     },
     "players": [
@@ -405,6 +405,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-28T01:26:25+02:00",
+        "date": "28/06/2026",
+        "time": "01:26:25",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-28T01:24:25+02:00",
         "date": "28/06/2026",
@@ -4806,83 +4814,6 @@
         "updated": false,
         "trigger": "push",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-26T12:50:27+02:00",
-        "date": "26/06/2026",
-        "time": "12:50:27",
-        "updated": true,
-        "trigger": "push",
-        "changes": [
-          {
-            "label": "🇹🇷Turquía 3-2 Estados Unidos🇺🇸",
-            "name": "Turquía-Estados Unidos",
-            "date": "2026-06-26",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "0-0",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "3-2",
-              "jugado": "sí"
-            }
-          },
-          {
-            "label": "🇵🇾Paraguay 0-0 Australia🇦🇺",
-            "name": "Paraguay-Australia",
-            "date": "2026-06-26",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "0-0",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "0-0",
-              "jugado": "sí"
-            }
-          },
-          {
-            "label": "🇯🇵Japón 1-1 Suecia🇸🇪",
-            "name": "Japón-Suecia",
-            "date": "2026-06-26",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "0-0",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "1-1",
-              "jugado": "sí"
-            }
-          },
-          {
-            "label": "🇹🇳Túnez 1-3 Países Bajos🇳🇱",
-            "name": "Túnez-Países Bajos",
-            "date": "2026-06-26",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "0-0",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "1-3",
-              "jugado": "sí"
-            }
-          }
-        ]
       }
     ]
   },
