@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "27/06/2026 03:18",
+    "generated": "27/06/2026 03:20",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-27T05:16",
       "last_updated_time": "05:16",
       "last_updated_date": "27/06/2026",
-      "next_update_iso": "2026-06-27T05:20",
-      "next_update_time": "05:20",
+      "next_update_iso": "2026-06-27T05:25",
+      "next_update_time": "05:25",
       "next_update_date": "27/06/2026",
-      "last_checked_iso": "2026-06-27T05:18",
-      "last_checked_time": "05:18",
+      "last_checked_iso": "2026-06-27T05:20",
+      "last_checked_time": "05:20",
       "last_checked_date": "27/06/2026"
     },
     "players": [
@@ -392,6 +392,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-27T05:20:40+02:00",
+        "date": "27/06/2026",
+        "time": "05:20:40",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-27T05:18:31+02:00",
         "date": "27/06/2026",
@@ -4981,14 +4989,6 @@
         "ts_iso": "2026-06-25T15:08:23+02:00",
         "date": "25/06/2026",
         "time": "15:08:23",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-25T14:52:23+02:00",
-        "date": "25/06/2026",
-        "time": "14:52:23",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -26776,13 +26776,13 @@
     {
       "row": 176,
       "id": "",
-      "name": "Suiza-Argelia",
+      "name": "Suiza-Bélgica",
       "home": "Suiza",
-      "away": "Argelia",
+      "away": "Bélgica",
       "home_placeholder": "1B",
       "away_placeholder": "3EFGIJ",
       "flag_home": "🇨🇭",
-      "flag_away": "🇩🇿",
+      "flag_away": "🇧🇪",
       "city": "Vancouver",
       "country": "Canadá",
       "tv": "dazn",
@@ -26875,13 +26875,13 @@
     {
       "row": 177,
       "id": "",
-      "name": "Australia-Bélgica",
+      "name": "Australia-Irán",
       "home": "Australia",
-      "away": "Bélgica",
+      "away": "Irán",
       "home_placeholder": "1J",
       "away_placeholder": "2H",
       "flag_home": "🇦🇺",
-      "flag_away": "🇧🇪",
+      "flag_away": "🇮🇷",
       "city": "Dallas",
       "country": "EE.UU.",
       "tv": "dazn",
