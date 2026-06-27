@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-20T22:24:39+02:00",
-    "date": "20/06/2026",
-    "time": "22:24:39",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-20T22:26:38+02:00",
     "date": "20/06/2026",
     "time": "22:26:38",
@@ -17494,5 +17486,30 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-27T02:04:26+02:00",
+    "date": "27/06/2026",
+    "time": "02:04:26",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇨🇻Cabo Verde 0-0 Arabia Saudita🇸🇦",
+        "name": "Cabo Verde-Arabia Saudita",
+        "date": "2026-06-27",
+        "fields": [],
+        "old": {},
+        "new": {}
+      },
+      {
+        "label": "🇺🇾Uruguay 0-0 España🇪🇸",
+        "name": "Uruguay-España",
+        "date": "2026-06-27",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]
