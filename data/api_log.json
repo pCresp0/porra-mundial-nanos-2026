@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-21T02:28:32+02:00",
-    "date": "21/06/2026",
-    "time": "02:28:32",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-21T02:30:48+02:00",
     "date": "21/06/2026",
     "time": "02:30:48",
@@ -17541,6 +17533,23 @@
       {
         "label": "🇪🇬Egipto 0-0 Irán🇮🇷",
         "name": "Egipto-Irán",
+        "date": "2026-06-27",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
+  },
+  {
+    "ts_iso": "2026-06-27T05:04:27+02:00",
+    "date": "27/06/2026",
+    "time": "05:04:27",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇳🇿Nueva Zelanda 0-0 Bélgica🇧🇪",
+        "name": "Nueva Zelanda-Bélgica",
         "date": "2026-06-27",
         "fields": [],
         "old": {},
