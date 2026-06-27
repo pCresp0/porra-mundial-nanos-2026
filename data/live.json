@@ -21,10 +21,17 @@
     ]
   },
   "Nueva Zelanda-Bélgica": {
-    "home": 0,
+    "home": 1,
     "away": 3,
     "minute": "live",
     "scorers": [
+      {
+        "player": "Ali Jast",
+        "minute": "84'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
       {
         "player": "Leandro Trossard",
         "minute": "28'",
