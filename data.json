@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "27/06/2026 00:58",
+    "generated": "27/06/2026 01:00",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-27T02:46",
       "last_updated_time": "02:46",
       "last_updated_date": "27/06/2026",
-      "next_update_iso": "2026-06-27T03:00",
-      "next_update_time": "03:00",
+      "next_update_iso": "2026-06-27T03:05",
+      "next_update_time": "03:05",
       "next_update_date": "27/06/2026",
-      "last_checked_iso": "2026-06-27T02:58",
-      "last_checked_time": "02:58",
+      "last_checked_iso": "2026-06-27T03:00",
+      "last_checked_time": "03:00",
       "last_checked_date": "27/06/2026"
     },
     "players": [
@@ -392,6 +392,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-27T03:00:56+02:00",
+        "date": "27/06/2026",
+        "time": "03:00:56",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-27T02:58:31+02:00",
         "date": "27/06/2026",
@@ -4983,14 +4991,6 @@
             "new": {}
           }
         ]
-      },
-      {
-        "ts_iso": "2026-06-25T04:16:21+02:00",
-        "date": "25/06/2026",
-        "time": "04:16:21",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -26061,9 +26061,9 @@
     {
       "row": 170,
       "id": "",
-      "name": "México-Cabo Verde",
+      "name": "México-Ecuador",
       "home": "México",
-      "away": "Cabo Verde",
+      "away": "Ecuador",
       "home_placeholder": "1A",
       "away_placeholder": "3CEFHI",
       "flag_home": "🇲🇽",
@@ -26655,13 +26655,13 @@
     {
       "row": 176,
       "id": "",
-      "name": "Suiza-Ecuador",
+      "name": "Suiza-Argelia",
       "home": "Suiza",
-      "away": "Ecuador",
+      "away": "Argelia",
       "home_placeholder": "1B",
       "away_placeholder": "3EFGIJ",
       "flag_home": "🇨🇭",
-      "flag_away": "🇪🇨",
+      "flag_away": "🇩🇿",
       "city": "Vancouver",
       "country": "Canadá",
       "tv": "dazn",
@@ -26853,9 +26853,9 @@
     {
       "row": 178,
       "id": "",
-      "name": "Argentina-Uruguay",
+      "name": "Argentina-Cabo Verde",
       "home": "Argentina",
-      "away": "Uruguay",
+      "away": "Cabo Verde",
       "home_placeholder": "1K",
       "away_placeholder": "3DEIJL",
       "flag_home": "🇦🇷",
