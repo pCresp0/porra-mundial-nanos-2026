@@ -953,6 +953,22 @@
       "team": "away"
     }
   ],
+  "Egipto-Irán": [
+    {
+      "player": "Mahmoud Saber",
+      "minute": "5'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Ramin Rezaeian",
+      "minute": "14'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "Uruguay-España": [
     {
       "player": "Álex Baena",
