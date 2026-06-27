@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "27/06/2026 11:36",
+    "generated": "27/06/2026 11:38",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -10,7 +10,10 @@
       "last_updated_date": "27/06/2026",
       "next_update_iso": "2026-06-27T13:40",
       "next_update_time": "13:40",
-      "next_update_date": "27/06/2026"
+      "next_update_date": "27/06/2026",
+      "last_checked_iso": "2026-06-27T13:38",
+      "last_checked_time": "13:38",
+      "last_checked_date": "27/06/2026"
     },
     "players": [
       "JUANCHO",
@@ -394,6 +397,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-27T13:38:25+02:00",
+        "date": "27/06/2026",
+        "time": "13:38:25",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-27T13:22:58+02:00",
         "date": "27/06/2026",
@@ -4899,31 +4910,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-26T02:24:28+02:00",
-        "date": "26/06/2026",
-        "time": "02:24:28",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇯🇵Japón 0-0 Suecia🇸🇪",
-            "name": "Japón-Suecia",
-            "date": "2026-06-26",
-            "fields": [],
-            "old": {},
-            "new": {}
-          },
-          {
-            "label": "🇹🇳Túnez 0-0 Países Bajos🇳🇱",
-            "name": "Túnez-Países Bajos",
-            "date": "2026-06-26",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
