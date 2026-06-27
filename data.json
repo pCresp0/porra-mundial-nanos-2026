@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "27/06/2026 03:32",
+    "generated": "27/06/2026 03:34",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-06-27T05:35",
       "next_update_time": "05:35",
       "next_update_date": "27/06/2026",
-      "last_checked_iso": "2026-06-27T05:32",
-      "last_checked_time": "05:32",
+      "last_checked_iso": "2026-06-27T05:34",
+      "last_checked_time": "05:34",
       "last_checked_date": "27/06/2026"
     },
     "players": [
@@ -392,6 +392,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-27T05:34:30+02:00",
+        "date": "27/06/2026",
+        "time": "05:34:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-27T05:32:37+02:00",
         "date": "27/06/2026",
@@ -4990,14 +4998,6 @@
         "ts_iso": "2026-06-25T17:20:35+02:00",
         "date": "25/06/2026",
         "time": "17:20:35",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-25T17:03:36+02:00",
-        "date": "25/06/2026",
-        "time": "17:03:36",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -26796,13 +26796,13 @@
     {
       "row": 176,
       "id": "",
-      "name": "Suiza-Argelia",
+      "name": "Suiza-Irán",
       "home": "Suiza",
-      "away": "Argelia",
+      "away": "Irán",
       "home_placeholder": "1B",
       "away_placeholder": "3EFGIJ",
       "flag_home": "🇨🇭",
-      "flag_away": "🇩🇿",
+      "flag_away": "🇮🇷",
       "city": "Vancouver",
       "country": "Canadá",
       "tv": "dazn",
