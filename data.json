@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "27/06/2026 16:26",
+    "generated": "27/06/2026 16:28",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -10,7 +10,10 @@
       "last_updated_date": "27/06/2026",
       "next_update_iso": "2026-06-27T18:30",
       "next_update_time": "18:30",
-      "next_update_date": "27/06/2026"
+      "next_update_date": "27/06/2026",
+      "last_checked_iso": "2026-06-27T18:28",
+      "last_checked_time": "18:28",
+      "last_checked_date": "27/06/2026"
     },
     "players": [
       "JUANCHO",
@@ -398,6 +401,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-27T18:28:27+02:00",
+        "date": "27/06/2026",
+        "time": "18:28:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-27T18:12:26+02:00",
         "date": "27/06/2026",
@@ -4867,32 +4878,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-26T03:00:48+02:00",
-        "date": "26/06/2026",
-        "time": "03:00:48",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇯🇵Japón 1-1 Suecia🇸🇪",
-            "name": "Japón-Suecia",
-            "date": "2026-06-26",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "0-0",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "1-1",
-              "jugado": "sí"
-            }
-          }
-        ]
       }
     ]
   },
