@@ -455,54 +455,13 @@ def _lookup_live(live, match_name):
 
 def _build_wc_scores(filepath):
     """Goals from WORLDCUP AC/AD keyed by 'Local-Visitante' (Spanish team names)."""
-    wb = openpyxl.load_workbook(filepath, data_only=False)
-    wc = wb["WORLDCUP"]
-
-    # Build team maps from Idiomas and Equipos sheets to resolve formulas
-    team_map = {}
-    if "Idiomas" in wb.sheetnames:
-        ws_idiomas = wb["Idiomas"]
-        for r in range(212, 260):
-            num = ws_idiomas.cell(r, 3).value
-            name = ws_idiomas.cell(r, 15).value
-            if num is not None and name is not None:
-                team_map[int(num)] = str(name).strip()
-
-    equipos_map = {}
-    if "Equipos" in wb.sheetnames:
-        ws_equipos = wb["Equipos"]
-        for r in range(2, 50):
-            num = ws_equipos.cell(r, 1).value
-            if num is not None:
-                equipos_map[r] = team_map.get(int(num))
-
-    def get_resolved_val(sheet, r, c):
-        val = sheet.cell(r, c).value
-        if val is None:
-            return None
-        val_str = str(val).strip()
-        if not val_str.startswith('='):
-            return val_str
-        formula = val_str[1:].lstrip('+').strip()
-        m_eq = re.match(r'^(?:Equipos!)?B(\d+)$', formula)
-        if m_eq:
-            return equipos_map.get(int(m_eq.group(1)))
-        m_a = re.match(r'^A(\d+)$', formula)
-        if m_a:
-            return get_resolved_val(sheet, int(m_a.group(1)), 1)
-        if 'INDEX(' in formula and 'MATCH(' in formula and sheet.title == 'Equipos':
-            num = sheet.cell(r, 1).value
-            if num is not None:
-                return team_map.get(int(num))
-        return val_str
-
-    scores = {}
     wb_val = openpyxl.load_workbook(filepath, data_only=True)
     wc_val = wb_val["WORLDCUP"]
 
+    scores = {}
     for r in range(4, 148):
-        home = get_resolved_val(wc, r, 27)
-        away = get_resolved_val(wc, r, 32)
+        home = wc_val.cell(r, 27).value
+        away = wc_val.cell(r, 32).value
         gl   = wc_val.cell(r, 29).value
         gv   = wc_val.cell(r, 30).value
         if not home or not away or str(home).startswith("=") or str(away).startswith("="):
@@ -517,7 +476,6 @@ def _build_wc_scores(filepath):
         scores[key] = (gl, gv)
         scores[key.replace(" ", "")] = (gl, gv)
 
-    wb.close()
     wb_val.close()
     return scores
 
