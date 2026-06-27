@@ -21,13 +21,20 @@
     ]
   },
   "Croacia-Ghana": {
-    "home": 1,
+    "home": 2,
     "away": 1,
     "minute": "live",
     "scorers": [
       {
         "player": "Petar Sučić",
         "minute": "31'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Nikola Vlašić",
+        "minute": "83'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
