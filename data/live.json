@@ -1,16 +1,9 @@
 {
   "RD Congo-Uzbekistán": {
-    "home": 1,
+    "home": 0,
     "away": 1,
     "minute": "live",
     "scorers": [
-      {
-        "player": "Natanaiil Ambvkv",
-        "minute": "17'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "home"
-      },
       {
         "player": "Aldvr Shvmvrvdvf",
         "minute": "10'",

@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-21T22:28:37+02:00",
-    "date": "21/06/2026",
-    "time": "22:28:37",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-21T22:30:53+02:00",
     "date": "21/06/2026",
     "time": "22:30:53",
@@ -17721,6 +17713,23 @@
     "ts_iso": "2026-06-28T01:50:36+02:00",
     "date": "28/06/2026",
     "time": "01:50:36",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇨🇩RD Congo 0-0 Uzbekistán🇺🇿",
+        "name": "RD Congo-Uzbekistán",
+        "date": "2026-06-28",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
+  },
+  {
+    "ts_iso": "2026-06-28T01:52:26+02:00",
+    "date": "28/06/2026",
+    "time": "01:52:26",
     "updated": true,
     "trigger": "workflow_dispatch",
     "changes": [
