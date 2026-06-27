@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-21T19:25:04+02:00",
-    "date": "21/06/2026",
-    "time": "19:25:04",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-21T19:28:58+02:00",
     "date": "21/06/2026",
     "time": "19:28:58",
@@ -17618,5 +17610,30 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-27T23:04:32+02:00",
+    "date": "27/06/2026",
+    "time": "23:04:32",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇵🇦Panamá 0-0 Inglaterra🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+        "name": "Panamá-Inglaterra",
+        "date": "2026-06-27",
+        "fields": [],
+        "old": {},
+        "new": {}
+      },
+      {
+        "label": "🇭🇷Croacia 0-0 Ghana🇬🇭",
+        "name": "Croacia-Ghana",
+        "date": "2026-06-27",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]

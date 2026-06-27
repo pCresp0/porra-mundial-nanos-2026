@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "27/06/2026 21:02",
+    "generated": "27/06/2026 21:04",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-27T22:28",
-      "last_updated_time": "22:28",
+      "last_updated_iso": "2026-06-27T23:04",
+      "last_updated_time": "23:04",
       "last_updated_date": "27/06/2026",
       "next_update_iso": "2026-06-27T23:05",
       "next_update_time": "23:05",
       "next_update_date": "27/06/2026",
-      "last_checked_iso": "2026-06-27T23:02",
-      "last_checked_time": "23:02",
+      "last_checked_iso": "2026-06-27T23:04",
+      "last_checked_time": "23:04",
       "last_checked_date": "27/06/2026"
     },
     "players": [
@@ -24,9 +24,12 @@
       "CRESPO"
     ],
     "live": {
-      "active": false,
-      "count": 0,
-      "matches": []
+      "active": true,
+      "count": 2,
+      "matches": [
+        "Panamá-Inglaterra",
+        "Croacia-Ghana"
+      ]
     },
     "colors": {
       "JUANCHO": "#F5C518",
@@ -405,6 +408,31 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-27T23:04:32+02:00",
+        "date": "27/06/2026",
+        "time": "23:04:32",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇵🇦Panamá 0-0 Inglaterra🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+            "name": "Panamá-Inglaterra",
+            "date": "2026-06-27",
+            "fields": [],
+            "old": {},
+            "new": {}
+          },
+          {
+            "label": "🇭🇷Croacia 0-0 Ghana🇬🇭",
+            "name": "Croacia-Ghana",
+            "date": "2026-06-27",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-06-27T23:02:36+02:00",
         "date": "27/06/2026",
@@ -4839,14 +4867,6 @@
             "new": {}
           }
         ]
-      },
-      {
-        "ts_iso": "2026-06-26T04:30:42+02:00",
-        "date": "26/06/2026",
-        "time": "04:30:42",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4854,8 +4874,8 @@
     {
       "name": "MEDINA",
       "total": 123.0,
-      "live_points": 0.0,
-      "total_live": 123.0,
+      "live_points": 3.0,
+      "total_live": 126.0,
       "groups": 123.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -4966,8 +4986,8 @@
     {
       "name": "LARRY",
       "total": 99.0,
-      "live_points": 0.0,
-      "total_live": 99.0,
+      "live_points": 3.0,
+      "total_live": 102.0,
       "groups": 99.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -4989,13 +5009,13 @@
       "played": 66,
       "pos": 5,
       "pos_change": 0,
-      "live_pos": 5
+      "live_pos": 6
     },
     {
       "name": "LUIS/VIR",
       "total": 97.0,
-      "live_points": 0.0,
-      "total_live": 97.0,
+      "live_points": 9.0,
+      "total_live": 106.0,
       "groups": 97.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -5017,7 +5037,7 @@
       "played": 66,
       "pos": 6,
       "pos_change": 0,
-      "live_pos": 6
+      "live_pos": 5
     }
   ],
   "matches": [
@@ -17049,10 +17069,10 @@
       "phase": "groups",
       "result": null,
       "played": false,
-      "live": false,
-      "live_minute": "",
-      "live_goals_l": null,
-      "live_goals_v": null,
+      "live": true,
+      "live_minute": "live",
+      "live_goals_l": 0,
+      "live_goals_v": 0,
       "live_scorers": [],
       "goals_l": 0,
       "goals_v": 0,
@@ -17065,8 +17085,16 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ]
+          },
+          "live_score": 0.0
         },
         "LARRY": {
           "pred": {
@@ -17075,8 +17103,16 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ]
+          },
+          "live_score": 0.0
         },
         "LUIS/VIR": {
           "pred": {
@@ -17085,8 +17121,17 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 2.0,
+            "diff": 1.0,
+            "exact": 0,
+            "total": 3.0,
+            "reasons": [
+              "1X2 correcto (+2.0)",
+              "Diferencia de goles (+1)"
+            ]
+          },
+          "live_score": 3.0
         },
         "MEDINA": {
           "pred": {
@@ -17095,8 +17140,16 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ]
+          },
+          "live_score": 0.0
         },
         "VÍCTOR": {
           "pred": {
@@ -17105,8 +17158,16 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ]
+          },
+          "live_score": 0.0
         },
         "CRESPO": {
           "pred": {
@@ -17115,8 +17176,16 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ]
+          },
+          "live_score": 0.0
         }
       }
     },
@@ -17148,10 +17217,10 @@
       "phase": "groups",
       "result": null,
       "played": false,
-      "live": false,
-      "live_minute": "",
-      "live_goals_l": null,
-      "live_goals_v": null,
+      "live": true,
+      "live_minute": "live",
+      "live_goals_l": 0,
+      "live_goals_v": 0,
       "live_scorers": [],
       "goals_l": 0,
       "goals_v": 0,
@@ -17164,8 +17233,16 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ]
+          },
+          "live_score": 0.0
         },
         "LARRY": {
           "pred": {
@@ -17174,8 +17251,17 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 2.0,
+            "diff": 1.0,
+            "exact": 0,
+            "total": 3.0,
+            "reasons": [
+              "1X2 correcto (+2.0)",
+              "Diferencia de goles (+1)"
+            ]
+          },
+          "live_score": 3.0
         },
         "LUIS/VIR": {
           "pred": {
@@ -17184,8 +17270,18 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 2.0,
+            "diff": 1.0,
+            "exact": 3.0,
+            "total": 6.0,
+            "reasons": [
+              "1X2 correcto (+2.0)",
+              "Diferencia de goles (+1.0)",
+              "Resultado exacto (+3.0)"
+            ]
+          },
+          "live_score": 6.0
         },
         "MEDINA": {
           "pred": {
@@ -17194,8 +17290,17 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 2.0,
+            "diff": 1.0,
+            "exact": 0,
+            "total": 3.0,
+            "reasons": [
+              "1X2 correcto (+2.0)",
+              "Diferencia de goles (+1)"
+            ]
+          },
+          "live_score": 3.0
         },
         "VÍCTOR": {
           "pred": {
@@ -17204,8 +17309,16 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ]
+          },
+          "live_score": 0.0
         },
         "CRESPO": {
           "pred": {
@@ -17214,8 +17327,16 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ]
+          },
+          "live_score": 0.0
         }
       }
     },
