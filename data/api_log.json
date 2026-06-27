@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-21T01:48:34+02:00",
-    "date": "21/06/2026",
-    "time": "01:48:34",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-21T01:50:43+02:00",
     "date": "21/06/2026",
     "time": "01:50:43",
@@ -17502,5 +17494,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-27T04:02:27+02:00",
+    "date": "27/06/2026",
+    "time": "04:02:27",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇨🇻Cabo Verde 0-0 Arabia Saudita🇸🇦",
+        "name": "Cabo Verde-Arabia Saudita",
+        "date": "2026-06-27",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "0-0",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "0-0",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]
