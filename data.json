@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "27/06/2026 07:34",
+    "generated": "27/06/2026 07:36",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-27T07:06",
       "last_updated_time": "07:06",
       "last_updated_date": "27/06/2026",
-      "next_update_iso": "2026-06-27T09:35",
-      "next_update_time": "09:35",
+      "next_update_iso": "2026-06-27T09:40",
+      "next_update_time": "09:40",
       "next_update_date": "27/06/2026",
-      "last_checked_iso": "2026-06-27T09:34",
-      "last_checked_time": "09:34",
+      "last_checked_iso": "2026-06-27T09:36",
+      "last_checked_time": "09:36",
       "last_checked_date": "27/06/2026"
     },
     "players": [
@@ -393,6 +393,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-27T09:36:36+02:00",
+        "date": "27/06/2026",
+        "time": "09:36:36",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-27T09:34:32+02:00",
         "date": "27/06/2026",
@@ -4968,49 +4976,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-26T00:00:57+02:00",
-        "date": "26/06/2026",
-        "time": "00:00:57",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇨🇼Curazao 0-2 Costa de Marfil🇨🇮",
-            "name": "Curazao-Costa de Marfil",
-            "date": "2026-06-25",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "0-0",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "0-2",
-              "jugado": "sí"
-            }
-          },
-          {
-            "label": "🇪🇨Ecuador 2-1 Alemania🇩🇪",
-            "name": "Ecuador-Alemania",
-            "date": "2026-06-25",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "0-0",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "2-1",
-              "jugado": "sí"
-            }
-          }
-        ]
       }
     ]
   },
