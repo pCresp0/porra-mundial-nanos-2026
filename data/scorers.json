@@ -432,6 +432,22 @@
       "team": "home"
     }
   ],
+  "Panamá-Inglaterra": [
+    {
+      "player": "Jvd Blingham",
+      "minute": "62'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Hri Kin",
+      "minute": "67'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "Corea del Sur-República Checa": [
     {
       "player": "I.B. Hwang",
