@@ -1,7 +1,7 @@
 {
   "Egipto-Irán": {
     "home": 1,
-    "away": 2,
+    "away": 1,
     "minute": "live",
     "scorers": [
       {
@@ -14,13 +14,6 @@
       {
         "player": "Ramin Rezaeian",
         "minute": "14'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "away"
-      },
-      {
-        "player": "Shojae Khalilzadeh",
-        "minute": "90'+3'",
         "own_goal": false,
         "penalty": false,
         "team": "away"

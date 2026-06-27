@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "27/06/2026 05:00",
+    "generated": "27/06/2026 05:02",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-27T07:00",
-      "last_updated_time": "07:00",
+      "last_updated_iso": "2026-06-27T07:02",
+      "last_updated_time": "07:02",
       "last_updated_date": "27/06/2026",
       "next_update_iso": "2026-06-27T07:05",
       "next_update_time": "07:05",
       "next_update_date": "27/06/2026",
-      "last_checked_iso": "2026-06-27T07:00",
-      "last_checked_time": "07:00",
+      "last_checked_iso": "2026-06-27T07:02",
+      "last_checked_time": "07:02",
       "last_checked_date": "27/06/2026"
     },
     "players": [
@@ -395,6 +395,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-27T07:02:32+02:00",
+        "date": "27/06/2026",
+        "time": "07:02:32",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇪🇬Egipto 0-0 Irán🇮🇷",
+            "name": "Egipto-Irán",
+            "date": "2026-06-27",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-06-27T07:00:58+02:00",
         "date": "27/06/2026",
@@ -5049,14 +5066,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-25T21:54:21+02:00",
-        "date": "25/06/2026",
-        "time": "21:54:21",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -5092,8 +5101,8 @@
     {
       "name": "VÍCTOR",
       "total": 114.0,
-      "live_points": 0.0,
-      "total_live": 114.0,
+      "live_points": 6.0,
+      "total_live": 120.0,
       "groups": 114.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -15673,7 +15682,7 @@
       "live": true,
       "live_minute": "live",
       "live_goals_l": 1,
-      "live_goals_v": 2,
+      "live_goals_v": 1,
       "live_scorers": [
         {
           "player": "Mahmoud Saber",
@@ -15685,13 +15694,6 @@
         {
           "player": "Ramin Rezaeian",
           "minute": "14'",
-          "own_goal": false,
-          "penalty": false,
-          "team": "away"
-        },
-        {
-          "player": "Shojae Khalilzadeh",
-          "minute": "90'+3'",
           "own_goal": false,
           "penalty": false,
           "team": "away"
@@ -15781,15 +15783,17 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 0.0,
-            "diff": 0.0,
-            "exact": 0,
-            "total": 0.0,
+            "sign": 2.0,
+            "diff": 1.0,
+            "exact": 3.0,
+            "total": 6.0,
             "reasons": [
-              "1X2 incorrecto — 0 pts"
+              "1X2 correcto (+2.0)",
+              "Diferencia de goles (+1.0)",
+              "Resultado exacto (+3.0)"
             ]
           },
-          "live_score": 0.0
+          "live_score": 6.0
         },
         "CRESPO": {
           "pred": {
@@ -26895,13 +26899,13 @@
     {
       "row": 176,
       "id": "",
-      "name": "Suiza-Irán",
+      "name": "Suiza-Egipto",
       "home": "Suiza",
-      "away": "Irán",
+      "away": "Egipto",
       "home_placeholder": "1B",
       "away_placeholder": "3EFGIJ",
       "flag_home": "🇨🇭",
-      "flag_away": "🇮🇷",
+      "flag_away": "🇪🇬",
       "city": "Vancouver",
       "country": "Canadá",
       "tv": "dazn",
@@ -26994,13 +26998,13 @@
     {
       "row": 177,
       "id": "",
-      "name": "Australia-Egipto",
+      "name": "Australia-Irán",
       "home": "Australia",
-      "away": "Egipto",
+      "away": "Irán",
       "home_placeholder": "1J",
       "away_placeholder": "2H",
       "flag_home": "🇦🇺",
-      "flag_away": "🇪🇬",
+      "flag_away": "🇮🇷",
       "city": "Dallas",
       "country": "EE.UU.",
       "tv": "dazn",
