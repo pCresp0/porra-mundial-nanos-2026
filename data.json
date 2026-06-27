@@ -1,19 +1,16 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "27/06/2026 17:32",
+    "generated": "27/06/2026 17:34",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-27T19:30",
-      "last_updated_time": "19:30",
+      "last_updated_iso": "2026-06-27T19:34",
+      "last_updated_time": "19:34",
       "last_updated_date": "27/06/2026",
       "next_update_iso": "2026-06-27T19:35",
       "next_update_time": "19:35",
-      "next_update_date": "27/06/2026",
-      "last_checked_iso": "2026-06-27T19:32",
-      "last_checked_time": "19:32",
-      "last_checked_date": "27/06/2026"
+      "next_update_date": "27/06/2026"
     },
     "players": [
       "JUANCHO",
