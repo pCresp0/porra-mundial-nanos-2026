@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "27/06/2026 04:56",
+    "generated": "27/06/2026 04:58",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-06-27T07:00",
       "next_update_time": "07:00",
       "next_update_date": "27/06/2026",
-      "last_checked_iso": "2026-06-27T06:56",
-      "last_checked_time": "06:56",
+      "last_checked_iso": "2026-06-27T06:58",
+      "last_checked_time": "06:58",
       "last_checked_date": "27/06/2026"
     },
     "players": [
@@ -392,6 +392,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-27T06:58:31+02:00",
+        "date": "27/06/2026",
+        "time": "06:58:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-27T06:56:25+02:00",
         "date": "27/06/2026",
@@ -5017,14 +5025,6 @@
         "ts_iso": "2026-06-25T21:52:23+02:00",
         "date": "25/06/2026",
         "time": "21:52:23",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-25T21:50:35+02:00",
-        "date": "25/06/2026",
-        "time": "21:50:35",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -26851,13 +26851,13 @@
     {
       "row": 176,
       "id": "",
-      "name": "Suiza-Irán",
+      "name": "Suiza-Egipto",
       "home": "Suiza",
-      "away": "Irán",
+      "away": "Egipto",
       "home_placeholder": "1B",
       "away_placeholder": "3EFGIJ",
       "flag_home": "🇨🇭",
-      "flag_away": "🇮🇷",
+      "flag_away": "🇪🇬",
       "city": "Vancouver",
       "country": "Canadá",
       "tv": "dazn",
@@ -26950,13 +26950,13 @@
     {
       "row": 177,
       "id": "",
-      "name": "Australia-Egipto",
+      "name": "Australia-Irán",
       "home": "Australia",
-      "away": "Egipto",
+      "away": "Irán",
       "home_placeholder": "1J",
       "away_placeholder": "2H",
       "flag_home": "🇦🇺",
-      "flag_away": "🇪🇬",
+      "flag_away": "🇮🇷",
       "city": "Dallas",
       "country": "EE.UU.",
       "tv": "dazn",
