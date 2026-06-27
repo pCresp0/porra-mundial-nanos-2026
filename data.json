@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "27/06/2026 22:40",
+    "generated": "27/06/2026 22:42",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-06-28T00:45",
       "next_update_time": "00:45",
       "next_update_date": "28/06/2026",
-      "last_checked_iso": "2026-06-28T00:40",
-      "last_checked_time": "00:40",
+      "last_checked_iso": "2026-06-28T00:42",
+      "last_checked_time": "00:42",
       "last_checked_date": "28/06/2026"
     },
     "players": [
@@ -408,6 +408,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-28T00:42:30+02:00",
+        "date": "28/06/2026",
+        "time": "00:42:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-28T00:40:38+02:00",
         "date": "28/06/2026",
@@ -4830,14 +4838,6 @@
         "ts_iso": "2026-06-26T06:52:21+02:00",
         "date": "26/06/2026",
         "time": "06:52:21",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-26T06:36:26+02:00",
-        "date": "26/06/2026",
-        "time": "06:36:26",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -26848,13 +26848,13 @@
     {
       "row": 175,
       "id": "",
-      "name": "Portugal-Croacia",
+      "name": "Portugal-Ghana",
       "home": "Portugal",
-      "away": "Croacia",
+      "away": "Ghana",
       "home_placeholder": "1H",
       "away_placeholder": "2J",
       "flag_home": "🇵🇹",
-      "flag_away": "🇭🇷",
+      "flag_away": "🇬🇭",
       "city": "Toronto",
       "country": "Canadá",
       "tv": "dazn",
@@ -27244,13 +27244,13 @@
     {
       "row": 179,
       "id": "",
-      "name": "Colombia-Ghana",
+      "name": "Colombia-Croacia",
       "home": "Colombia",
-      "away": "Ghana",
+      "away": "Croacia",
       "home_placeholder": "2D",
       "away_placeholder": "2G",
       "flag_home": "🇨🇴",
-      "flag_away": "🇬🇭",
+      "flag_away": "🇭🇷",
       "city": "Kansas City",
       "country": "EE.UU.",
       "tv": "dazn",
