@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-21T02:32:35+02:00",
-    "date": "21/06/2026",
-    "time": "02:32:35",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-21T02:34:30+02:00",
     "date": "21/06/2026",
     "time": "02:34:30",
@@ -17556,5 +17548,22 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-27T05:08:34+02:00",
+    "date": "27/06/2026",
+    "time": "05:08:34",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇪🇬Egipto 0-0 Irán🇮🇷",
+        "name": "Egipto-Irán",
+        "date": "2026-06-27",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]
