@@ -194,10 +194,32 @@ def _parse_pred(pred_val):
     if not pred_val or str(pred_val).strip().startswith("Pegar"):
         return None
     s = str(pred_val).strip()
+    # Knockout format: "EquipoLocal-EquipoVisitante·sign|score"
+    # The middle dot (·) separates the team matchup from the score prediction
+    pred_home = None
+    pred_away = None
+    if "·" in s:
+        teams_part, score_part = s.split("·", 1)
+        # Parse the team names (format: "TeamA-TeamB")
+        if "-" in teams_part:
+            # Need to handle team names with hyphens (e.g., "RD Congo", "Bosnia y Herzegovina")
+            # We assume it's split at the first "-" that separates two team names
+            # Use a best-effort split: try known compound names
+            teams_split = teams_part.split("-", 1)
+            if len(teams_split) == 2:
+                pred_home = teams_split[0].strip()
+                pred_away = teams_split[1].strip()
+        s = score_part.strip()
     if "|" in s:
         sign, score = s.split("|", 1)
-        return {"sign": sign.strip(), "score": score.strip()}
-    return {"sign": s, "score": s}
+        result = {"sign": sign.strip(), "score": score.strip()}
+    else:
+        result = {"sign": s, "score": s}
+    if pred_home:
+        result["pred_home"] = pred_home
+    if pred_away:
+        result["pred_away"] = pred_away
+    return result
 
 
 def _parse_score_parts(score_str):
@@ -1252,6 +1274,7 @@ def build_data():
                     }
                     live_match_names.append(str(match_name).strip())
 
+        wc = _lookup_wc_meta(wc_meta, match_name) or {}  # needed before player loop for team matching
         for p, ws in zip(all_players, all_ws):
             pred_raw  = _val(ws, row, p["pred_col"])
             score_raw = _val(ws, row, p["score_col"])
@@ -1274,14 +1297,40 @@ def build_data():
                 group_points[p["name"]] += breakdown["total"]
             elif played and phase in KO_PHASE_PTS and pred and "|" in str(pred_raw or ""):
                 # Fases de eliminación: puntos calculados en Python igual que grupos.
+                # Primero verificamos si el jugador prediøjo los equipos correctos.
                 gl = int(goals_l) if goals_l is not None else None
                 gv = int(goals_v) if goals_v is not None else None
+                actual_home = wc.get("home", "")
+                actual_away = wc.get("away", "")
+                ph = pred.get("pred_home", "")
+                pa = pred.get("pred_away", "")
+                home_ok = bool(ph and actual_home and ph.strip() == actual_home.strip())
+                away_ok = bool(pa and actual_away and pa.strip() == actual_away.strip())
+                # team_match: 'both', 'home', 'away', 'none', or None if no team pred
+                if ph and pa:
+                    if home_ok and away_ok:
+                        team_match = "both"
+                    elif home_ok:
+                        team_match = "home"
+                    elif away_ok:
+                        team_match = "away"
+                    else:
+                        team_match = "none"
+                else:
+                    team_match = None
                 ko_cfg = KO_PHASE_PTS[phase]
                 breakdown = _score_breakdown(
                     pred, result, gl, gv,
                     ko_cfg["sign"], ko_cfg["diff"], ko_cfg["exact"],
                     diff_factor, multiplier,
                 )
+                # Si el jugador puso equipos equivocados en AMBOS, sus puntos son 0
+                if team_match == "none":
+                    breakdown = {**breakdown, "total": 0.0, "sign": 0.0, "diff": 0.0, "exact": 0.0,
+                                 "reasons": ["Equipos incorrectos (0 pts)"]}
+                breakdown["team_match"] = team_match
+                breakdown["pred_home"] = ph
+                breakdown["pred_away"] = pa
                 score = breakdown["total"]
                 ko_points[phase][p["name"]] += breakdown["total"]
             elif live_info and phase == "groups" and pred and "|" in str(pred_raw or ""):
@@ -1295,6 +1344,16 @@ def build_data():
                 live_points[p["name"]] += live_breakdown["total"]
             elif live_info and phase in KO_PHASE_PTS and pred and "|" in str(pred_raw or ""):
                 # Puntos provisionales EN CURSO para fases KO.
+                actual_home = wc.get("home", "")
+                actual_away = wc.get("away", "")
+                ph = pred.get("pred_home", "")
+                pa = pred.get("pred_away", "")
+                home_ok = bool(ph and actual_home and ph.strip() == actual_home.strip())
+                away_ok = bool(pa and actual_away and pa.strip() == actual_away.strip())
+                if ph and pa:
+                    team_match = "both" if (home_ok and away_ok) else ("home" if home_ok else ("away" if away_ok else "none"))
+                else:
+                    team_match = None
                 ko_cfg = KO_PHASE_PTS[phase]
                 live_breakdown = _score_breakdown(
                     pred, live_info["result"],
@@ -1302,6 +1361,12 @@ def build_data():
                     ko_cfg["sign"], ko_cfg["diff"], ko_cfg["exact"],
                     diff_factor, multiplier,
                 )
+                if team_match == "none":
+                    live_breakdown = {**live_breakdown, "total": 0.0, "sign": 0.0, "diff": 0.0, "exact": 0.0,
+                                      "reasons": ["Equipos incorrectos (0 pts)"]}
+                live_breakdown["team_match"] = team_match
+                live_breakdown["pred_home"] = ph
+                live_breakdown["pred_away"] = pa
                 live_points[p["name"]] += live_breakdown["total"]
 
             predictions[p["name"]] = {
@@ -1316,7 +1381,6 @@ def build_data():
             for name in player_names:
                 played_count[name] += 1
 
-        wc = _lookup_wc_meta(wc_meta, match_name) or {}
         fix = lookup_fixture(row)
         matches.append({
             "row":       row,

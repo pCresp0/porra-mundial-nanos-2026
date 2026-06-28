@@ -2811,12 +2811,29 @@ function renderMatchCard(m, players, colors) {
     let brkHtml = "";
     if (m.played && pd.breakdown) {
       const b = pd.breakdown;
-      const chips = [
+      const tm = b.team_match;  // 'both', 'home', 'away', 'none', or null
+      let teamHtml = "";
+      if (tm !== null && tm !== undefined) {
+        // Show team prediction result
+        const ph = b.pred_home || "?";
+        const pa = b.pred_away || "?";
+        if (tm === "both") {
+          teamHtml = `<span class="brk-chip ok" title="Predijiste los equipos correctos">⚽ ${ph} vs ${pa} ✓</span>`;
+        } else if (tm === "home") {
+          teamHtml = `<span class="brk-chip pending" title="Sólo acertaste el equipo local">⚽ ${ph} ✓ vs ${pa} ✗</span>`;
+        } else if (tm === "away") {
+          teamHtml = `<span class="brk-chip pending" title="Sólo acertaste el equipo visitante">⚽ ${ph} ✗ vs ${pa} ✓</span>`;
+        } else {
+          teamHtml = `<span class="brk-chip miss" title="Fallaste ambos equipos: ${ph} vs ${pa}">⚽ ${ph} ✗ vs ${pa} ✗</span>`;
+        }
+      }
+      const chips = tm === "none" ? [] : [
         { label: "1X2",       ok: b.sign  > 0, pts: fmt(b.sign)  },
         { label: "Dif. goles", ok: b.diff  > 0, pts: fmt(b.diff)  },
         { label: "Exacto",    ok: b.exact > 0, pts: fmt(b.exact) },
       ];
       brkHtml = `<div class="mt-1 flex flex-wrap justify-center gap-0.5">
+        ${teamHtml}
         ${chips.map(c =>
           `<span class="brk-chip ${c.ok ? "ok" : "miss"}">${c.label} ${c.ok ? "✓" : "✗"}${c.ok ? ` (+${c.pts})` : ""}</span>`
         ).join("")}
@@ -2828,12 +2845,28 @@ function renderMatchCard(m, players, colors) {
         <span class="brk-chip miss">Exacto ✗</span>
       </div>`;
     } else if (lb) {
-      const chips = [
+      const tm = lb.team_match;
+      let teamHtml = "";
+      if (tm !== null && tm !== undefined) {
+        const ph = lb.pred_home || "?";
+        const pa = lb.pred_away || "?";
+        if (tm === "both") {
+          teamHtml = `<span class="brk-chip ok">⚽ ${ph} vs ${pa} ✓</span>`;
+        } else if (tm === "home") {
+          teamHtml = `<span class="brk-chip pending">⚽ ${ph} ✓ vs ${pa} ✗</span>`;
+        } else if (tm === "away") {
+          teamHtml = `<span class="brk-chip pending">⚽ ${ph} ✗ vs ${pa} ✓</span>`;
+        } else {
+          teamHtml = `<span class="brk-chip miss">⚽ ${ph} ✗ vs ${pa} ✗</span>`;
+        }
+      }
+      const chips = tm === "none" ? [] : [
         { label: "1X2",       ok: lb.sign  > 0, pts: fmt(lb.sign)  },
         { label: "Dif. goles", ok: lb.diff  > 0, pts: fmt(lb.diff)  },
         { label: "Exacto",    ok: lb.exact > 0, pts: fmt(lb.exact) },
       ];
       brkHtml = `<div class="mt-1 flex flex-wrap justify-center gap-0.5 brk-prov">
+        ${teamHtml}
         ${chips.map(c =>
           `<span class="brk-chip ${c.ok ? "ok" : "miss"}">${c.label} ${c.ok ? "✓" : "✗"}${c.ok ? ` (+${c.pts})` : ""}</span>`
         ).join("")}
@@ -2841,8 +2874,20 @@ function renderMatchCard(m, players, colors) {
     } else if (!m.played && m.phase_pts && pd.pred) {
       // Partido KO no jugado: mostrar puntos potenciales si hay predicción
       const pp = m.phase_pts;
-      const maxPts = pp.sign + pp.diff + pp.exact;
+      const predH = pd.pred.pred_home;
+      const predA = pd.pred.pred_away;
+      const teamsHtml = (predH && predA && m.home && m.away)
+        ? (() => {
+            const hOk = predH.trim() === m.home.trim();
+            const aOk = predA.trim() === m.away.trim();
+            if (hOk && aOk) return `<span class="brk-chip ok" title="Equipos correctos">⚽ ${predH} vs ${predA} ✓</span>`;
+            if (hOk) return `<span class="brk-chip pending" title="Local ✓, Visitante ✗">⚽ ${predH} ✓ vs ${predA} ✗</span>`;
+            if (aOk) return `<span class="brk-chip pending" title="Local ✗, Visitante ✓">⚽ ${predH} ✗ vs ${predA} ✓</span>`;
+            return `<span class="brk-chip miss" title="Equipos incorrectos">⚽ ${predH} ✗ vs ${predA} ✗</span>`;
+          })()
+        : "";
       brkHtml = `<div class="mt-1 flex flex-wrap justify-center gap-0.5">
+        ${teamsHtml}
         <span class="brk-chip pending" title="Puntos si aciertas el 1X2">1X2 +${fmt(pp.sign)}</span>
         <span class="brk-chip pending" title="Puntos si aciertas la diferencia de goles">Dif. +${fmt(pp.diff)}</span>
         <span class="brk-chip pending" title="Puntos si aciertas el resultado exacto">Exacto +${fmt(pp.exact)}</span>
