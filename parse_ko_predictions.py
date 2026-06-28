@@ -60,7 +60,12 @@ def extract_player_predictions(xlsx_path):
                     if len(parts) == 4:
                         # parts: Local, Resultado, Visitante, Ganador
                         match_key = f"{parts[0]}-{parts[2]}"
-                        winners[match_key] = parts[3].replace("**", "")
+                        winner_str = parts[3].replace("**", "").strip()
+                        res_str = parts[1]
+                        if "(" in res_str and ")" in res_str:
+                            penalties = res_str[res_str.find("("):res_str.find(")")+1]
+                            winner_str += f" {penalties}"
+                        winners[match_key] = winner_str
 
     # Extract Cuadro de Honor predictions
     honor = {}

@@ -1,19 +1,16 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "28/06/2026 18:07",
+    "generated": "28/06/2026 20:08",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-28T20:06",
-      "last_updated_time": "20:06",
+      "last_updated_iso": "2026-06-28T20:08",
+      "last_updated_time": "20:08",
       "last_updated_date": "28/06/2026",
       "next_update_iso": "2026-06-28T20:10",
       "next_update_time": "20:10",
-      "next_update_date": "28/06/2026",
-      "last_checked_iso": "2026-06-28T20:07",
-      "last_checked_time": "20:07",
-      "last_checked_date": "28/06/2026"
+      "next_update_date": "28/06/2026"
     },
     "players": [
       "JUANCHO",
@@ -17866,7 +17863,7 @@
           "pred": {
             "sign": "X",
             "score": "1-1",
-            "winner": "Canadá"
+            "winner": "Canadá (3-4 pen.)"
           },
           "score": 0.0,
           "breakdown": null,
@@ -17965,7 +17962,7 @@
           "pred": {
             "sign": "X",
             "score": "2-2",
-            "winner": "Japón"
+            "winner": "Japón (3-4 p.)"
           },
           "score": 0.0,
           "breakdown": null,
@@ -18185,7 +18182,7 @@
           "pred": {
             "sign": "X",
             "score": "1-1",
-            "winner": "Países Bajos"
+            "winner": "Países Bajos (4-2 p.)"
           },
           "score": 0.0,
           "breakdown": null,
@@ -18735,7 +18732,7 @@
           "pred": {
             "sign": "X",
             "score": "1-1",
-            "winner": "Senegal"
+            "winner": "Senegal (2-3 p.)"
           },
           "score": 0.0,
           "breakdown": null,
@@ -18856,7 +18853,7 @@
           "pred": {
             "sign": "X",
             "score": "2-2",
-            "winner": "Estados Unidos"
+            "winner": "Estados Unidos (4-3 pen.)"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19054,7 +19051,7 @@
           "pred": {
             "sign": "X",
             "score": "1-1",
-            "winner": "Portugal"
+            "winner": "Portugal (4-3 p.)"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19065,7 +19062,7 @@
           "pred": {
             "sign": "X",
             "score": "0-0",
-            "winner": "Croacia"
+            "winner": "Croacia (4-5 p.)"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19274,7 +19271,7 @@
           "pred": {
             "sign": "X",
             "score": "2-2",
-            "winner": "Egipto"
+            "winner": "Egipto (3-4 p.)"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19307,7 +19304,7 @@
           "pred": {
             "sign": "X",
             "score": "1-1",
-            "winner": "Egipto"
+            "winner": "Egipto (3-4 pen.)"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19318,7 +19315,7 @@
           "pred": {
             "sign": "X",
             "score": "1-1",
-            "winner": "Egipto"
+            "winner": "Egipto (2-3 p.)"
           },
           "score": 0.0,
           "breakdown": null,
