@@ -22,7 +22,7 @@
   },
   "Argelia-Austria": {
     "home": 1,
-    "away": 1,
+    "away": 2,
     "minute": "live",
     "scorers": [
       {
@@ -35,6 +35,13 @@
       {
         "player": "Marko Arnautović",
         "minute": "28'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Marcel Sabitzer",
+        "minute": "55'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
