@@ -2879,9 +2879,14 @@ function renderMatchCard(m, players, colors) {
       const pp = m.phase_pts;
       const predH = pd.pred.pred_home;
       const predA = pd.pred.pred_away;
+      const isPlaceholder = v => !v || /^\d|^Win|^Los|^[A-Z]\d|^[A-Z]{1,2}\d/.test(v) || v.includes("FINAL") || v.includes("puesto");
+      const isProv = isPlaceholder(m.home) || isPlaceholder(m.away);
       let bothWrong = false;
       const teamsHtml = (m.phase !== "r16" && predH && predA && m.home && m.away) // Ignore team match for r16
         ? (() => {
+            if (isProv) {
+                return `<span class="brk-chip" style="background:var(--bg); border:1px dashed var(--border); color:var(--text-muted);" title="Partido estimado por el jugador">⚽ ${predH} vs ${predA} (estimado)</span>`;
+            }
             const hOk = predH.trim() === m.home.trim();
             const aOk = predA.trim() === m.away.trim();
             if (hOk && aOk) return `<span class="brk-chip ok" title="Equipos correctos">⚽ ${predH} vs ${predA} ✓</span>`;

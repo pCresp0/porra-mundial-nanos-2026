@@ -1309,9 +1309,6 @@ def build_data():
                 score_raw = _val(ws, row, p["score_col"])
             
             pred  = _parse_pred(pred_raw)
-            # Si es fase eliminatoria y los equipos reales aún no están definidos, ocultamos la predicción
-            if phase in KO_PHASE_PTS and not (actual_home_set and actual_away_set):
-                pred = None
             score = float(score_raw) if score_raw is not None else 0
 
             breakdown = None
