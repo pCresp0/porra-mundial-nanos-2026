@@ -3880,7 +3880,7 @@ function renderStats() {
   const sortedSL = [...soloStats].sort((a, b) => b.solo - a.solo || b.pct - a.pct);
   const slCount = document.getElementById("sl-count");
   if (slCount) {
-    const n = groupMatches.length;
+    const n = playedAll.length;
     slCount.textContent = `(${n} partido${n !== 1 ? "s" : ""})`;
   }
   const soloCanvas = document.getElementById("soloLeaderChart");
@@ -4006,7 +4006,7 @@ function renderStats() {
         tooltip: {
           mode: "index",
           callbacks: {
-            title: items => `${items[0].label} — ${groupMatches.length} partidos`,
+            title: items => `${items[0].label} — ${playedAll.length} partidos`,
             label: i => {
               const val = i.parsed.y;
               if (isPts) {
@@ -4336,9 +4336,8 @@ function renderStats() {
   const playersEl = document.getElementById("stats-players");
   playersEl.innerHTML = D.standings.map(p => {
     const pp = perPlayer.find(x => x.name === p.name) || {};
-    const last10 = groupMatches.slice(-16);
-    // En grupos solo existen 4 resultados: 0 (falló 1X2), 2 (acertó 1X2),
-    // 3 (1X2 + diferencia) y 6 (exacto). Un color distinto por estado real.
+    const last10 = playedAll.slice(-16);
+    // Un color distinto por estado real.
     const scoreColor = (sc) => sc >= 6 ? "#22C55E"   // exacto
                              : sc >= 3 ? "#FACC15"   // 1X2 + diferencia
                              : sc >= 2 ? "#F97316"   // solo 1X2
