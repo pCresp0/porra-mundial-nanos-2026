@@ -1,22 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-22T00:52:39+02:00",
-    "date": "22/06/2026",
-    "time": "00:52:39",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇺🇾Uruguay 0-0 Cabo Verde🇨🇻",
-        "name": "Uruguay-Cabo Verde",
-        "date": "2026-06-22",
-        "fields": [],
-        "old": {},
-        "new": {}
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-22T00:54:38+02:00",
     "date": "22/06/2026",
     "time": "00:54:38",
@@ -17757,6 +17740,14 @@
     "ts_iso": "2026-06-28T03:38:26+02:00",
     "date": "28/06/2026",
     "time": "03:38:26",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-06-28T03:40:47+02:00",
+    "date": "28/06/2026",
+    "time": "03:40:47",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
