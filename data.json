@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "28/06/2026 19:12",
+    "generated": "28/06/2026 19:14",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-06-28T21:15",
       "next_update_time": "21:15",
       "next_update_date": "28/06/2026",
-      "last_checked_iso": "2026-06-28T21:12",
-      "last_checked_time": "21:12",
+      "last_checked_iso": "2026-06-28T21:14",
+      "last_checked_time": "21:14",
       "last_checked_date": "28/06/2026"
     },
     "players": [
@@ -415,6 +415,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-28T21:14:27+02:00",
+        "date": "28/06/2026",
+        "time": "21:14:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-28T21:12:27+02:00",
         "date": "28/06/2026",
@@ -4824,23 +4832,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-27T05:30:45+02:00",
-        "date": "27/06/2026",
-        "time": "05:30:45",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇳🇿Nueva Zelanda 0-0 Bélgica🇧🇪",
-            "name": "Nueva Zelanda-Bélgica",
-            "date": "2026-06-27",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
