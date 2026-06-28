@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "28/06/2026 01:10",
+    "generated": "28/06/2026 01:12",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-06-28T03:15",
       "next_update_time": "03:15",
       "next_update_date": "28/06/2026",
-      "last_checked_iso": "2026-06-28T03:10",
-      "last_checked_time": "03:10",
+      "last_checked_iso": "2026-06-28T03:12",
+      "last_checked_time": "03:12",
       "last_checked_date": "28/06/2026"
     },
     "players": [
@@ -408,6 +408,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-28T03:12:30+02:00",
+        "date": "28/06/2026",
+        "time": "03:12:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-28T03:10:37+02:00",
         "date": "28/06/2026",
@@ -4824,14 +4832,6 @@
         "ts_iso": "2026-06-26T21:22:30+02:00",
         "date": "26/06/2026",
         "time": "21:22:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-26T21:20:40+02:00",
-        "date": "26/06/2026",
-        "time": "21:20:40",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -26570,13 +26570,13 @@
     {
       "row": 171,
       "id": "",
-      "name": "Inglaterra-Senegal",
+      "name": "Inglaterra-RD Congo",
       "home": "Inglaterra",
-      "away": "Senegal",
+      "away": "RD Congo",
       "home_placeholder": "1L",
       "away_placeholder": "3EHIJK",
       "flag_home": "🏴‍󠁧󠁢󠁥󠁮‍󠁿",
-      "flag_away": "🇸🇳",
+      "flag_away": "🇨🇩",
       "city": "Atlanta",
       "country": "EE.UU.",
       "tv": "dazn",
@@ -26669,13 +26669,13 @@
     {
       "row": 172,
       "id": "",
-      "name": "Bélgica-Corea del Sur",
+      "name": "Bélgica-Senegal",
       "home": "Bélgica",
-      "away": "Corea del Sur",
+      "away": "Senegal",
       "home_placeholder": "1D",
       "away_placeholder": "3BEFIJ",
       "flag_home": "🇧🇪",
-      "flag_away": "🇰🇷",
+      "flag_away": "🇸🇳",
       "city": "Seattle",
       "country": "EE.UU.",
       "tv": "dazn",
