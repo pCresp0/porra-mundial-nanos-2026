@@ -3753,14 +3753,14 @@ function renderStats() {
   const colors  = D.meta.colors;
 
   const playedAll = D.matches
-    .filter(m => m.played)
+    .filter(m => ["groups", "r16", "r8", "r4", "r2", "r34", "final"].includes(m.phase) && m.played)
     .sort((a, b) => {
       const da = `${a.date||""}T${(a.time_es||"00:00")}`;
       const db = `${b.date||""}T${(b.time_es||"00:00")}`;
       return da < db ? -1 : da > db ? 1 : 0;
     });
 
-  // ── per-player breakdown (all matches) ──────────────────────────────────────
+  // ── per-player breakdown (all actual matches) ──────────────────────────────────────
   const perPlayer = players.map(name => {
     let exact = 0, diff = 0, sign = 0, miss = 0, best = 0, streak = 0, curStreak = 0, bestDay = 0;
     playedAll.forEach(m => {
@@ -3807,8 +3807,8 @@ function renderStats() {
   const topExact    = [...perPlayer].sort((a,b) => b.exact - a.exact)[0];
   const bestSub     = bestPlayers.length > 1 ? bestPlayers.map(p => p.name).join(" · ") + " (empate)" : (bestPlayer?.name || "");
   heroEl.innerHTML = [
-    { icon: "⚽", val: playedAll.length, label: "Partidos jugados (total)", sub: (() => { const tot = D.matches.length; const pct = tot > 0 ? Math.round(playedAll.length / tot * 100) : 0; return `de ${tot} totales · ${pct}% completado`; })(),
-      info: "Número de partidos totales de todo el Mundial que ya se han jugado y puntuado." },
+    { icon: "⚽", val: playedAll.length, label: "Partidos jugados (total)", sub: (() => { const tot = D.matches.filter(m => ["groups", "r16", "r8", "r4", "r2", "r34", "final"].includes(m.phase)).length; const pct = tot > 0 ? Math.round(playedAll.length / tot * 100) : 0; return `de ${tot} reales · ${pct}% completado`; })(),
+      info: "Número de partidos reales de fútbol de todo el Mundial (sobre el terreno de juego) que ya se han jugado y puntuado." },
     { icon: "🎯", val: totalExacts, label: "Marcadores exactos clavados", sub: `${perPlayer.reduce((s,p)=>s+p.miss,0)} predicciones falladas (0 pts) · suma de los ${players.length} jugadores`,
       info: "Número total de <strong>marcadores exactos clavados</strong> entre todos los jugadores en todo el Mundial." },
     { icon: "📈", val: bestPlayer ? `${bestPlayer.pct}%` : "—", label: "Mayor tasa de acierto", sub: bestSub,
