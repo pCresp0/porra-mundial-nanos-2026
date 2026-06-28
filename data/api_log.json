@@ -1,22 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-22T19:04:52+02:00",
-    "date": "22/06/2026",
-    "time": "19:04:52",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇦🇷Argentina 0-0 Austria🇦🇹",
-        "name": "Argentina-Austria",
-        "date": "2026-06-22",
-        "fields": [],
-        "old": {},
-        "new": {}
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-22T19:06:59+02:00",
     "date": "22/06/2026",
     "time": "19:06:59",
@@ -17800,6 +17783,14 @@
     "ts_iso": "2026-06-28T22:02:28+02:00",
     "date": "28/06/2026",
     "time": "22:02:28",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-06-28T22:04:50+02:00",
+    "date": "28/06/2026",
+    "time": "22:04:50",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
