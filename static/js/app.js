@@ -6301,9 +6301,8 @@ function renderBracket(overrideEl) {
 
   const byPhase = {};
   ROUNDS.forEach(r => { byPhase[r.phase] = getRealMatches(r.phase); });
-  const finalAll = getRealMatches("final").sort((a, b) => a.date.localeCompare(b.date));
-  const finalMatch = finalAll.find(m => m.name && m.name.startsWith("W")) || null;
-  const thirdMatch = finalAll.find(m => m.name && m.name.startsWith("L")) || null;
+  const finalMatch = getRealMatches("final").find(m => m.name && m.name.startsWith("W")) || null;
+  const thirdMatch = getRealMatches("r34").find(m => m.name && m.name.startsWith("L")) || null;
 
   const playedGroupCount = (D.matches || []).filter(m => m.phase === "groups" && m.played).length;
   const allGroupsFinished = (playedGroupCount === 72);
@@ -6394,8 +6393,8 @@ function renderBracket(overrideEl) {
 
     ROUNDS.forEach(({ phase, label, sub }, roundIdx) => {
       const ms = byPhase[phase];
-      const count = { r16: 16, r4: 8, r2: 4, r34: 2 }[phase];
-      const sf = { r16: 1, r4: 2, r2: 4, r34: 8 }[phase]; // slot factor
+      const count = { r16: 16, r8: 8, r4: 4, r2: 2 }[phase];
+      const sf = { r16: 1, r8: 2, r4: 4, r2: 8 }[phase]; // slot factor
 
       html += `<div class="bkt-col bkt-col-${phase}" style="--sf:${sf}">
         <div class="bkt-col-hd">${label}<span>${sub}</span></div>
@@ -6442,7 +6441,7 @@ function renderBracket(overrideEl) {
     // Generar contenido de cada ronda
     function roundContent(phase) {
       if (phase === "r34_final") {
-        const semis = byPhase["r34"];
+        const semis = byPhase["r2"] || [];
         let html = `<div class="bkt-mob-lbl">Semifinales</div>`;
         html += `<div class="bkt-mob-pair">
           <div class="bkt-mob-pair-matches">
@@ -6461,7 +6460,7 @@ function renderBracket(overrideEl) {
         return html;
       }
       const ms = byPhase[phase];
-      const count = { r16: 16, r4: 8, r2: 4, r34: 2 }[phase];
+      const count = { r16: 16, r8: 8, r4: 4, r2: 2 }[phase];
       let html = "";
       for (let i = 0; i < count; i += 2) {
         html += `
@@ -6481,12 +6480,12 @@ function renderBracket(overrideEl) {
     // Progreso por ronda
     function prog(phase) {
       if (phase === "r34_final") {
-        const s = byPhase["r34"].filter(m => m.played).length;
+        const s = byPhase["r2"].filter(m => m.played).length;
         const f = (finalMatch?.played ? 1 : 0) + (thirdMatch?.played ? 1 : 0);
         return `${s + f}/4`;
       }
       const ms = byPhase[phase];
-      const count = { r16: 16, r4: 8, r2: 4, r34: 2 }[phase];
+      const count = { r16: 16, r8: 8, r4: 4, r2: 2 }[phase];
       return `${ms.filter(m => m.played).length}/${count}`;
     }
 
@@ -6538,7 +6537,7 @@ function renderBracket(overrideEl) {
       { phase: "r16", label: "16avos", count: 16 },
       { phase: "r4", label: "Octavos", count: 8 },
       { phase: "r2", label: "Cuartos", count: 4 },
-      { phase: "r34", label: "Semis", count: 2 },
+      { phase: "r2", label: "Semis", count: 2 },
       { phase: "r34_final", label: "Final", count: 2 },
     ];
     let currentIdx = 0;
@@ -6551,7 +6550,7 @@ function renderBracket(overrideEl) {
       const phase = r.phase;
       if (phase === "r34_final") {
         let html = `<div class="bkt-mob-lbl">Semifinales</div>`;
-        const semis = byPhase["r34"];
+        const semis = byPhase["r2"];
         html += `<div class="bkt-mob-pair">
           <div class="bkt-mob-pair-matches">
             ${matchCard(semis[0] || null, "bkt-mob-card")}
@@ -6569,7 +6568,7 @@ function renderBracket(overrideEl) {
         bodyEl.innerHTML = html;
       } else {
         const ms = byPhase[phase];
-        const count = { r16: 16, r4: 8, r2: 4, r34: 2 }[phase];
+        const count = { r16: 16, r8: 8, r4: 4, r2: 2 }[phase];
         let html = "";
         for (let i = 0; i < count; i += 2) {
           html += `
@@ -6763,7 +6762,7 @@ function renderTopTable() {
 
   const PHASE_LABEL = {
     groups: "Grupos", r16: "16avos", r4: "Octavos", r2: "Cuartos",
-    r34: "Semifinales", r34_final: "Final / 3.º-4.º"
+    r2: "Semifinales", r34_final: "Final / 3.º-4.º"
   };
 
   function buildRows(list) {
