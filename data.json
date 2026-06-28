@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "28/06/2026 19:01",
+    "generated": "28/06/2026 19:02",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-28T20:28",
-      "last_updated_time": "20:28",
+      "last_updated_iso": "2026-06-28T21:02",
+      "last_updated_time": "21:02",
       "last_updated_date": "28/06/2026",
       "next_update_iso": "2026-06-28T21:05",
       "next_update_time": "21:05",
       "next_update_date": "28/06/2026",
-      "last_checked_iso": "2026-06-28T21:01",
-      "last_checked_time": "21:01",
+      "last_checked_iso": "2026-06-28T21:02",
+      "last_checked_time": "21:02",
       "last_checked_date": "28/06/2026"
     },
     "players": [
@@ -24,9 +24,11 @@
       "CRESPO"
     ],
     "live": {
-      "active": false,
-      "count": 0,
-      "matches": []
+      "active": true,
+      "count": 1,
+      "matches": [
+        "Sudáfrica-Canadá"
+      ]
     },
     "colors": {
       "JUANCHO": "#F5C518",
@@ -413,6 +415,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-28T21:02:29+02:00",
+        "date": "28/06/2026",
+        "time": "21:02:29",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇿🇦Sudáfrica ?-? Canadá🇨🇦",
+            "name": "Sudáfrica-Canadá",
+            "date": "2026-06-28",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-06-28T21:01:31+02:00",
         "date": "28/06/2026",
@@ -4822,23 +4841,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-27T05:16:38+02:00",
-        "date": "27/06/2026",
-        "time": "05:16:38",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇪🇬Egipto 0-0 Irán🇮🇷",
-            "name": "Egipto-Irán",
-            "date": "2026-06-27",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
@@ -4982,8 +4984,8 @@
     {
       "name": "LUIS/VIR",
       "total": 181.0,
-      "live_points": 0.0,
-      "total_live": 181.0,
+      "live_points": 5.0,
+      "total_live": 186.0,
       "groups": 104.0,
       "positions": 77.0,
       "q16": 0.0,
@@ -17807,10 +17809,10 @@
       "phase": "r16",
       "result": null,
       "played": false,
-      "live": false,
-      "live_minute": "",
-      "live_goals_l": null,
-      "live_goals_v": null,
+      "live": true,
+      "live_minute": "live",
+      "live_goals_l": 0,
+      "live_goals_v": 0,
       "live_scorers": [],
       "goals_l": null,
       "goals_v": null,
@@ -17829,8 +17831,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ],
+            "team_match": null,
+            "pred_home": "",
+            "pred_away": ""
+          },
+          "live_score": 0.0
         },
         "LARRY": {
           "pred": {
@@ -17840,8 +17853,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ],
+            "team_match": null,
+            "pred_home": "",
+            "pred_away": ""
+          },
+          "live_score": 0.0
         },
         "LUIS/VIR": {
           "pred": {
@@ -17851,8 +17875,20 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 3.0,
+            "diff": 2.0,
+            "exact": 0,
+            "total": 5.0,
+            "reasons": [
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles (+2)"
+            ],
+            "team_match": null,
+            "pred_home": "",
+            "pred_away": ""
+          },
+          "live_score": 5.0
         },
         "MEDINA": {
           "pred": {
@@ -17862,8 +17898,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ],
+            "team_match": null,
+            "pred_home": "",
+            "pred_away": ""
+          },
+          "live_score": 0.0
         },
         "VÍCTOR": {
           "pred": {
@@ -17873,8 +17920,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ],
+            "team_match": null,
+            "pred_home": "",
+            "pred_away": ""
+          },
+          "live_score": 0.0
         },
         "CRESPO": {
           "pred": {
@@ -17884,8 +17942,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ],
+            "team_match": null,
+            "pred_home": "",
+            "pred_away": ""
+          },
+          "live_score": 0.0
         }
       }
     },
