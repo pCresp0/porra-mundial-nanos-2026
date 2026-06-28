@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "28/06/2026 18:52",
+    "generated": "28/06/2026 18:54",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-06-28T20:55",
       "next_update_time": "20:55",
       "next_update_date": "28/06/2026",
-      "last_checked_iso": "2026-06-28T20:52",
-      "last_checked_time": "20:52",
+      "last_checked_iso": "2026-06-28T20:54",
+      "last_checked_time": "20:54",
       "last_checked_date": "28/06/2026"
     },
     "players": [
@@ -413,6 +413,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-28T20:54:33+02:00",
+        "date": "28/06/2026",
+        "time": "20:54:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-28T20:52:25+02:00",
         "date": "28/06/2026",
@@ -4831,23 +4839,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-27T05:08:34+02:00",
-        "date": "27/06/2026",
-        "time": "05:08:34",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇪🇬Egipto 0-0 Irán🇮🇷",
-            "name": "Egipto-Irán",
-            "date": "2026-06-27",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
