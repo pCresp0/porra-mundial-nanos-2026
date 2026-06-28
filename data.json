@@ -1,16 +1,19 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "28/06/2026 16:54",
+    "generated": "28/06/2026 16:56",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-28T18:54",
       "last_updated_time": "18:54",
       "last_updated_date": "28/06/2026",
-      "next_update_iso": "2026-06-28T18:55",
-      "next_update_time": "18:55",
-      "next_update_date": "28/06/2026"
+      "next_update_iso": "2026-06-28T19:00",
+      "next_update_time": "19:00",
+      "next_update_date": "28/06/2026",
+      "last_checked_iso": "2026-06-28T18:56",
+      "last_checked_time": "18:56",
+      "last_checked_date": "28/06/2026"
     },
     "players": [
       "JUANCHO",
@@ -410,6 +413,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-28T18:56:48+02:00",
+        "date": "28/06/2026",
+        "time": "18:56:48",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-28T18:40:40+02:00",
         "date": "28/06/2026",
@@ -4869,32 +4880,6 @@
             },
             "new": {
               "marcador": "0-1",
-              "jugado": "sí"
-            }
-          }
-        ]
-      },
-      {
-        "ts_iso": "2026-06-27T04:02:27+02:00",
-        "date": "27/06/2026",
-        "time": "04:02:27",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇨🇻Cabo Verde 0-0 Arabia Saudita🇸🇦",
-            "name": "Cabo Verde-Arabia Saudita",
-            "date": "2026-06-27",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "0-0",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "0-0",
               "jugado": "sí"
             }
           }
