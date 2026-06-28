@@ -1033,6 +1033,13 @@
       "team": "away"
     },
     {
+      "player": "Lautaro Martínez",
+      "minute": "31'",
+      "own_goal": false,
+      "penalty": true,
+      "team": "away"
+    },
+    {
       "player": "Lionel Messi",
       "minute": "80'",
       "own_goal": false,
