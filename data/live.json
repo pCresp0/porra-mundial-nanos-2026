@@ -1,9 +1,16 @@
 {
   "RD Congo-Uzbekistán": {
-    "home": 1,
+    "home": 2,
     "away": 1,
     "minute": "live",
     "scorers": [
+      {
+        "player": "Fistvn Mail",
+        "minute": "78'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
       {
         "player": "Aldvr Shvmvrvdvf",
         "minute": "10'",
