@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "28/06/2026 02:48",
+    "generated": "28/06/2026 02:50",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-28T04:48",
       "last_updated_time": "04:48",
       "last_updated_date": "28/06/2026",
-      "next_update_iso": "2026-06-28T04:50",
-      "next_update_time": "04:50",
+      "next_update_iso": "2026-06-28T04:55",
+      "next_update_time": "04:55",
       "next_update_date": "28/06/2026",
-      "last_checked_iso": "2026-06-28T04:48",
-      "last_checked_time": "04:48",
+      "last_checked_iso": "2026-06-28T04:50",
+      "last_checked_time": "04:50",
       "last_checked_date": "28/06/2026"
     },
     "players": [
@@ -408,6 +408,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-28T04:50:36+02:00",
+        "date": "28/06/2026",
+        "time": "04:50:36",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-28T04:48:28+02:00",
         "date": "28/06/2026",
@@ -4868,14 +4876,6 @@
         "ts_iso": "2026-06-26T22:58:32+02:00",
         "date": "26/06/2026",
         "time": "22:58:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-26T22:56:30+02:00",
-        "date": "26/06/2026",
-        "time": "22:56:30",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -27256,13 +27256,13 @@
     {
       "row": 176,
       "id": "",
-      "name": "Suiza-Irán",
+      "name": "Suiza-Argelia",
       "home": "Suiza",
-      "away": "Irán",
+      "away": "Argelia",
       "home_placeholder": "1B",
       "away_placeholder": "3EFGIJ",
       "flag_home": "🇨🇭",
-      "flag_away": "🇮🇷",
+      "flag_away": "🇩🇿",
       "city": "Vancouver",
       "country": "Canadá",
       "tv": "dazn",
