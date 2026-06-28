@@ -1,9 +1,17 @@
 {
   "Jordania-Argentina": {
     "home": 0,
-    "away": 0,
+    "away": 1,
     "minute": "live",
-    "scorers": []
+    "scorers": [
+      {
+        "player": "Jivani Lv Slsv",
+        "minute": "19'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      }
+    ]
   },
   "Argelia-Austria": {
     "home": 0,
