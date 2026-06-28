@@ -1,12 +1,12 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "28/06/2026 10:46",
+    "generated": "28/06/2026 12:48",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-28T12:46",
-      "last_updated_time": "12:46",
+      "last_updated_iso": "2026-06-28T12:48",
+      "last_updated_time": "12:48",
       "last_updated_date": "28/06/2026",
       "next_update_iso": "2026-06-28T12:50",
       "next_update_time": "12:50",
@@ -27167,8 +27167,8 @@
       "flag_away": "🇦🇹",
       "city": "Los Ángeles",
       "country": "EE.UU.",
-      "tv": "dazn",
-      "tv_label": "DAZN",
+      "tv": "both",
+      "tv_label": "DAZN + TVE La 1",
       "stadium": "SoFi Stadium",
       "lat": 33.9535,
       "lon": -118.3392,

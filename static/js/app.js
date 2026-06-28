@@ -1538,17 +1538,12 @@ function renderStandingsTable() {
       <td class="text-left font-semibold text-white">${medal}${r.name} ${chgHtml}</td>
       <td class="font-extrabold text-lg" style="color:${r.color}">${fmt(r.total)}${provBadge}</td>
       <td>${fmt(r.groups)}</td>
-      <td>${fmt(r.s1x2)}</td>
-      <td>${fmt(r.sdiff)}</td>
-      <td>${fmt(r.sexact)}</td>
       <td>${fmt(r.positions)}</td>
-      <td>${fmt(r.q16)}</td>
       <td>${fmt(r.r16)}</td>
       <td>${fmt(r.r8)}</td>
       <td>${fmt(r.r4)}</td>
       <td>${fmt(r.r2)}</td>
       <td>${fmt(r.r34_final)}</td>
-      <td>${fmt(r.honor)}</td>
     </tr>`;
   }).join("");
   _syncStandingsSortIndicators();
