@@ -4816,9 +4816,13 @@ function _calRow(m, iso) {
   const nm = (m.name || "").replace(/'/g, "\\'").replace(/"/g, "&quot;");
   
   let phaseBadge = "";
-  if (isProv && m.phase !== "groups") {
+  if (m.phase && m.phase !== "groups") {
     const lbl = PHASE_LABELS[m.phase] || m.phase || "";
-    phaseBadge = `<span class="text-[10px] font-bold text-orange-500 bg-orange-500/10 px-1.5 py-0.5 rounded ml-2 whitespace-nowrap" title="Partido Provisional">⚠️ ${lbl}</span>`;
+    if (isProv) {
+      phaseBadge = `<span class="text-[10px] font-bold text-orange-500 bg-orange-500/10 px-1.5 py-0.5 rounded ml-2 whitespace-nowrap" title="Partido Provisional">⚠️ ${lbl}</span>`;
+    } else {
+      phaseBadge = `<span class="text-[10px] font-bold text-blue-500 bg-blue-500/20 px-1.5 py-0.5 rounded ml-2 whitespace-nowrap" title="Fase Final">${lbl}</span>`;
+    }
   }
   
   const tv = tvBadgesHtml(m);
@@ -6278,9 +6282,9 @@ function renderBracket(overrideEl) {
   // ── Definición de rondas (fases reales con fechas válidas) ──
   const ROUNDS = [
     { phase: "r16", label: "16avos",    sub: "16 partidos" },
-    { phase: "r4",  label: "Octavos",   sub: "8 partidos"  },
-    { phase: "r2",  label: "Cuartos",   sub: "4 partidos"  },
-    { phase: "r34", label: "Semis",     sub: "2 partidos"  },
+    { phase: "r8",  label: "Octavos",   sub: "8 partidos"  },
+    { phase: "r4",  label: "Cuartos",   sub: "4 partidos"  },
+    { phase: "r2",  label: "Semis",     sub: "2 partidos"  },
   ];
   const MONTH_SHORT = ["","ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
 
@@ -6424,9 +6428,9 @@ function renderBracket(overrideEl) {
   function buildMobileBracket() {
     const MOB_ROUNDS = [
       { phase: "r16",      label: "16avos",  count: 16 },
-      { phase: "r4",       label: "Octavos", count: 8  },
-      { phase: "r2",       label: "Cuartos", count: 4  },
-      { phase: "r34",      label: "Semis",   count: 2  },
+      { phase: "r8",       label: "Octavos", count: 8  },
+      { phase: "r4",       label: "Cuartos", count: 4  },
+      { phase: "r2",       label: "Semis",   count: 2  },
       { phase: "r34_final",label: "Final",   count: 2  },
     ];
 
