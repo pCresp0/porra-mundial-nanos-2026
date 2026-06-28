@@ -1324,14 +1324,17 @@ def build_data():
                         team_match = "none"
                 else:
                     team_match = None
+                if phase == "r16":
+                    # En 16avos no hay penalización por equipos incorrectos
+                    team_match = None
                 ko_cfg = KO_PHASE_PTS[phase]
                 breakdown = _score_breakdown(
                     pred, result, gl, gv,
                     ko_cfg["sign"], ko_cfg["diff"], ko_cfg["exact"],
                     diff_factor, multiplier,
                 )
-                # Si el jugador puso equipos equivocados en AMBOS, sus puntos son 0
-                if team_match == "none":
+                # Si el jugador puso equipos equivocados en AMBOS (solo a partir de Octavos), sus puntos son 0
+                if phase != "r16" and team_match == "none":
                     breakdown = {**breakdown, "total": 0.0, "sign": 0.0, "diff": 0.0, "exact": 0.0,
                                  "reasons": ["Equipos incorrectos (0 pts)"]}
                 breakdown["team_match"] = team_match
@@ -1360,6 +1363,8 @@ def build_data():
                     team_match = "both" if (home_ok and away_ok) else ("home" if home_ok else ("away" if away_ok else "none"))
                 else:
                     team_match = None
+                if phase == "r16":
+                    team_match = None
                 ko_cfg = KO_PHASE_PTS[phase]
                 live_breakdown = _score_breakdown(
                     pred, live_info["result"],
@@ -1367,7 +1372,7 @@ def build_data():
                     ko_cfg["sign"], ko_cfg["diff"], ko_cfg["exact"],
                     diff_factor, multiplier,
                 )
-                if team_match == "none":
+                if phase != "r16" and team_match == "none":
                     live_breakdown = {**live_breakdown, "total": 0.0, "sign": 0.0, "diff": 0.0, "exact": 0.0,
                                       "reasons": ["Equipos incorrectos (0 pts)"]}
                 live_breakdown["team_match"] = team_match

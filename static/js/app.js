@@ -2811,7 +2811,7 @@ function renderMatchCard(m, players, colors) {
     let brkHtml = "";
     if (m.played && pd.breakdown) {
       const b = pd.breakdown;
-      const tm = b.team_match;  // 'both', 'home', 'away', 'none', or null
+      const tm = m.phase === "r16" ? null : b.team_match;  // Ignore team match for r16
       let teamHtml = "";
       if (tm !== null && tm !== undefined) {
         // Show team prediction result
@@ -2845,7 +2845,7 @@ function renderMatchCard(m, players, colors) {
         <span class="brk-chip miss">Exacto ✗</span>
       </div>`;
     } else if (lb) {
-      const tm = lb.team_match;
+      const tm = m.phase === "r16" ? null : lb.team_match; // Ignore team match for r16
       let teamHtml = "";
       if (tm !== null && tm !== undefined) {
         const ph = lb.pred_home || "?";
@@ -2877,7 +2877,7 @@ function renderMatchCard(m, players, colors) {
       const predH = pd.pred.pred_home;
       const predA = pd.pred.pred_away;
       let bothWrong = false;
-      const teamsHtml = (predH && predA && m.home && m.away)
+      const teamsHtml = (m.phase !== "r16" && predH && predA && m.home && m.away) // Ignore team match for r16
         ? (() => {
             const hOk = predH.trim() === m.home.trim();
             const aOk = predA.trim() === m.away.trim();
