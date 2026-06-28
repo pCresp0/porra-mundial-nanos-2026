@@ -234,22 +234,22 @@ FIXTURE_BY_ROW = {
     76: {"city": "Nueva York",       "tv": "dazn"},
     77: {"city": "Filadelfia",       "tv": "dazn"},
     # ── Dieciseisavos ──
-    164: {"city": "Los Ángeles",      "tv": "dazn"},
-    165: {"city": "Houston",          "tv": "dazn"},
-    166: {"city": "Boston",           "tv": "dazn"},
-    167: {"city": "Monterrey",        "tv": "dazn"},
-    168: {"city": "Dallas",           "tv": "dazn"},
-    169: {"city": "Nueva York",       "tv": "dazn"},
-    170: {"city": "Ciudad de México", "tv": "both"},
-    171: {"city": "Atlanta",          "tv": "dazn"},
-    172: {"city": "Seattle",          "tv": "dazn"},
-    173: {"city": "San Francisco",    "tv": "dazn"},
-    174: {"city": "Los Ángeles",      "tv": "dazn"},
-    175: {"city": "Toronto",          "tv": "dazn"},
-    176: {"city": "Vancouver",        "tv": "dazn"},
-    177: {"city": "Dallas",           "tv": "dazn"},
-    178: {"city": "Miami",            "tv": "dazn"},
-    179: {"city": "Kansas City",      "tv": "dazn"},
+    164: {"city": "Los Ángeles",      "tv": "dazn"},  # Sudáfrica-Canadá
+    165: {"city": "Houston",          "tv": "dazn"},  # Brasil-Japón
+    166: {"city": "Boston",           "tv": "dazn"},  # Alemania-Paraguay
+    167: {"city": "Monterrey",        "tv": "dazn"},  # Países Bajos-Marruecos
+    168: {"city": "Dallas",           "tv": "dazn"},  # Costa de Marfil-Noruega
+    169: {"city": "Nueva York",       "tv": "both"},  # Francia-Suecia (La 1 de RTVE y DAZN)
+    170: {"city": "Ciudad de México", "tv": "dazn"},  # México-Ecuador
+    171: {"city": "Atlanta",          "tv": "dazn"},  # Inglaterra-RD Congo
+    172: {"city": "Seattle",          "tv": "dazn"},  # Bélgica-Senegal
+    173: {"city": "San Francisco",    "tv": "dazn"},  # Estados Unidos-Bosnia y Herzegovina
+    174: {"city": "Los Ángeles",      "tv": "both"},  # España-Austria (La 1 de RTVE y DAZN)
+    175: {"city": "Toronto",          "tv": "dazn"},  # Portugal-Croacia
+    176: {"city": "Vancouver",        "tv": "dazn"},  # Suiza-Argelia
+    177: {"city": "Dallas",           "tv": "dazn"},  # Australia-Egipto
+    178: {"city": "Miami",            "tv": "dazn"},  # Argentina-Cabo Verde
+    179: {"city": "Kansas City",      "tv": "dazn"},  # Colombia-Ghana
     # ── Octavos ──
     200: {"city": "Filadelfia",       "tv": "dazn"},
     201: {"city": "Houston",          "tv": "dazn"},
