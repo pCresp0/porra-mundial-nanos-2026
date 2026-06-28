@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "28/06/2026 02:18",
+    "generated": "28/06/2026 02:20",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-28T04:04",
       "last_updated_time": "04:04",
       "last_updated_date": "28/06/2026",
-      "next_update_iso": "2026-06-28T04:20",
-      "next_update_time": "04:20",
+      "next_update_iso": "2026-06-28T04:25",
+      "next_update_time": "04:25",
       "next_update_date": "28/06/2026",
-      "last_checked_iso": "2026-06-28T04:18",
-      "last_checked_time": "04:18",
+      "last_checked_iso": "2026-06-28T04:20",
+      "last_checked_time": "04:20",
       "last_checked_date": "28/06/2026"
     },
     "players": [
@@ -408,6 +408,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-28T04:20:35+02:00",
+        "date": "28/06/2026",
+        "time": "04:20:35",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-28T04:18:26+02:00",
         "date": "28/06/2026",
@@ -4850,23 +4858,6 @@
         "ts_iso": "2026-06-26T22:28:30+02:00",
         "date": "26/06/2026",
         "time": "22:28:30",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇸🇳Senegal 0-0 Irak🇮🇶",
-            "name": "Senegal-Irak",
-            "date": "2026-06-26",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
-      },
-      {
-        "ts_iso": "2026-06-26T22:26:31+02:00",
-        "date": "26/06/2026",
-        "time": "22:26:31",
         "updated": true,
         "trigger": "workflow_dispatch",
         "changes": [
