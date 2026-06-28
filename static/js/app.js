@@ -3741,19 +3741,18 @@ function renderStats() {
   const players = D.meta.players;
   const colors  = D.meta.colors;
 
-  const groupMatches = D.matches
-    .filter(m => m.phase === "groups" && m.played)
+  const playedAll = D.matches
+    .filter(m => m.played)
     .sort((a, b) => {
       const da = `${a.date||""}T${(a.time_es||"00:00")}`;
       const db = `${b.date||""}T${(b.time_es||"00:00")}`;
       return da < db ? -1 : da > db ? 1 : 0;
     });
-  const playedAll    = D.matches.filter(m => m.played);
 
-  // ── per-player breakdown (groups) ──────────────────────────────────────
+  // ── per-player breakdown (all matches) ──────────────────────────────────────
   const perPlayer = players.map(name => {
     let exact = 0, diff = 0, sign = 0, miss = 0, best = 0, streak = 0, curStreak = 0, bestDay = 0;
-    groupMatches.forEach(m => {
+    playedAll.forEach(m => {
       const pd = m.predictions?.[name];
       const sc = pd?.score ?? 0;
       if (sc > best) best = sc;
@@ -3770,15 +3769,15 @@ function renderStats() {
     });
     // current (active) streak from the end
     let liveStreak = 0;
-    for (let i = groupMatches.length - 1; i >= 0; i--) {
-      const sc = groupMatches[i].predictions[name]?.score ?? 0;
+    for (let i = playedAll.length - 1; i >= 0; i--) {
+      const sc = playedAll[i].predictions[name]?.score ?? 0;
       if (sc > 0) liveStreak++; else break;
     }
     const hits = exact + diff + sign;
-    const total = groupMatches.length;
+    const total = playedAll.length;
     const pct   = total > 0 ? Math.round(hits / total * 100) : 0;
-    const avg   = total > 0 ? (((D.standings.find(s => s.name === name)?.groups) || 0) / total).toFixed(2) : "—";
-    const last4pts = groupMatches.slice(-4).reduce((s, m) => s + (m.predictions[name]?.score ?? 0), 0);
+    const avg   = total > 0 ? (((D.standings.find(s => s.name === name)?.total) || 0) / total).toFixed(2) : "—";
+    const last4pts = playedAll.slice(-4).reduce((s, m) => s + (m.predictions[name]?.score ?? 0), 0);
     return { name, exact, diff, sign, miss, hits, total, pct, avg, best, last4pts, streak: liveStreak, maxStreak: streak };
   });
 
@@ -3797,14 +3796,14 @@ function renderStats() {
   const topExact    = [...perPlayer].sort((a,b) => b.exact - a.exact)[0];
   const bestSub     = bestPlayers.length > 1 ? bestPlayers.map(p => p.name).join(" · ") + " (empate)" : (bestPlayer?.name || "");
   heroEl.innerHTML = [
-    { icon: "⚽", val: groupMatches.length, label: "Partidos jugados (grupos)", sub: (() => { const tot = D.matches.filter(m=>m.phase==="groups").length; const pct = tot > 0 ? Math.round(groupMatches.length / tot * 100) : 0; return `de ${tot} totales · ${pct}% completado`; })(),
-      info: "Número de partidos de la <strong>fase de grupos</strong> que ya se han jugado y puntuado, sobre el total de partidos de grupos del Mundial." },
+    { icon: "⚽", val: playedAll.length, label: "Partidos jugados (total)", sub: (() => { const tot = D.matches.length; const pct = tot > 0 ? Math.round(playedAll.length / tot * 100) : 0; return `de ${tot} totales · ${pct}% completado`; })(),
+      info: "Número de partidos totales de todo el Mundial que ya se han jugado y puntuado." },
     { icon: "🎯", val: totalExacts, label: "Marcadores exactos clavados", sub: `${perPlayer.reduce((s,p)=>s+p.miss,0)} predicciones falladas (0 pts) · suma de los ${players.length} jugadores`,
-      info: "Número total de <strong>marcadores exactos clavados</strong> (resultado idéntico = 6 pts) entre todos los jugadores en la fase de grupos. Cada partido cuenta una vez por jugador, así que este número suma los aciertos de todos los participantes. Debajo: cuántas predicciones se quedaron a <strong>0 puntos</strong> (ni 1X2, ni diferencia, ni exacto), también sumando a todos los jugadores." },
+      info: "Número total de <strong>marcadores exactos clavados</strong> entre todos los jugadores en todo el Mundial." },
     { icon: "📈", val: bestPlayer ? `${bestPlayer.pct}%` : "—", label: "Mayor tasa de acierto", sub: bestSub,
-      info: "Jugador con mayor <strong>tasa de acierto</strong>: porcentaje de partidos de grupos en los que ha sumado al menos 1 punto (acertó el 1X2, la diferencia o el resultado exacto)." },
+      info: "Jugador con mayor <strong>tasa de acierto</strong>: porcentaje de partidos totales en los que ha sumado al menos 1 punto." },
     { icon: streakKing?.streak > 0 ? "🔥" : "🤦", val: streakKing ? `${streakKing.streak}` : "—", label: "Racha activa más larga", sub: streakKing?.streak > 0 ? `${streakKings.map(p=>p.name).join(" · ")} · ${streakKing.streak} en racha${streakKings.length > 1 ? " (empate)" : ""}` : "Nadie acertó en el último partido",
-      info: "<strong>Racha activa</strong>: partidos seguidos puntuando (≥1 pt) contando desde el último partido hacia atrás. Se muestra quién tiene la racha viva más larga ahora mismo." },
+      info: "<strong>Racha activa</strong>: partidos seguidos puntuando (≥1 pt) contando desde el último partido hacia atrás." },
   ].map(h => `
     <div class="card p-4 text-center" style="position:relative;isolation:isolate">
       <div class="stat-info-corner">${infoTip(h.info, "right")}</div>
@@ -3819,7 +3818,7 @@ function renderStats() {
   const sortedHR = [...perPlayer].sort((a, b) => b.pct - a.pct);
   // Actualizar el contador de partidos en el título
   const hrCount = document.getElementById("hr-count");
-  if (hrCount) hrCount.textContent = `(${groupMatches.length} partido${groupMatches.length !== 1 ? "s" : ""})`;
+  if (hrCount) hrCount.textContent = `(${playedAll.length} partido${playedAll.length !== 1 ? "s" : ""})`;
   hitRateChart = new Chart(document.getElementById("hitRateChart").getContext("2d"), {
     type: "bar",
     data: {
