@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-22T00:44:40+02:00",
-    "date": "22/06/2026",
-    "time": "00:44:40",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-22T00:46:34+02:00",
     "date": "22/06/2026",
     "time": "00:46:34",
@@ -17733,5 +17725,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-28T03:32:34+02:00",
+    "date": "28/06/2026",
+    "time": "03:32:34",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇨🇴Colombia 0-0 Portugal🇵🇹",
+        "name": "Colombia-Portugal",
+        "date": "2026-06-28",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "0-0",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "0-0",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]
