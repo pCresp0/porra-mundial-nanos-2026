@@ -4475,11 +4475,12 @@ function renderStats() {
         let common = 0, sameExact = 0, sameSign = 0;
         withPred.forEach(m => {
           const pa = m.predictions?.[a]?.pred, pb = m.predictions?.[b]?.pred;
-          const scA = pa?.score, scB = pb?.score;
+          if (!pa || !pb) return;
+          const scA = pa.score, scB = pb.score;
           if (!scA || !scB) return;
           common++;
           if (scA === scB) { sameExact++; sameSign++; return; }
-          const sa = _signFromScore(scA), sb = _signFromScore(scB);
+          const sa = pa.sign, sb = pb.sign;
           if (sa && sb && sa === sb) sameSign++;
         });
         if (common === 0) continue;
@@ -5272,23 +5273,32 @@ function renderScenarios() {
   const leader    = standings[0];
   const maxPerMatch = +(D.scoring_rules?.max_per_group_match || 6);
 
-  const remainingGroups = D.matches
-    .filter(m => m.phase === "groups" && !m.played)
+  const remainingMatches = D.matches
+    .filter(m => !m.played)
     .sort((a, b) => {
       const da = `${a.date || ""}T${a.time_es || "00:00"}`;
       const db = `${b.date || ""}T${b.time_es || "00:00"}`;
       return da < db ? -1 : da > db ? 1 : 0;
     });
 
-  const totalRem         = remainingGroups.length;
-  const maxGroupPtsTotal = totalRem * maxPerMatch;
+  const totalRem = remainingMatches.length;
+  let maxPtsTotal = 0;
+  remainingMatches.forEach(m => {
+    if (m.phase === "groups") maxPtsTotal += maxPerMatch;
+    else if (m.phase_pts) maxPtsTotal += (m.phase_pts.sign || 0) + (m.phase_pts.diff || 0) + (m.phase_pts.exact || 0);
+  });
 
   const pData = standings.map(p => {
-    const remWithPred = remainingGroups.filter(m => {
+    let remWithPred = 0;
+    let maxReachable = p.total;
+    remainingMatches.forEach(m => {
       const pred = m.predictions?.[p.name]?.pred;
-      return pred && (pred.score || pred.sign);
-    }).length;
-    const maxReachable = p.total + remWithPred * maxPerMatch;
+      if (pred && (pred.score || pred.sign)) {
+        remWithPred++;
+        if (m.phase === "groups") maxReachable += maxPerMatch;
+        else if (m.phase_pts) maxReachable += (m.phase_pts.sign || 0) + (m.phase_pts.diff || 0) + (m.phase_pts.exact || 0);
+      }
+    });
     const gap          = leader.total - p.total;
     const isLeader     = p.name === leader.name;
     let diffLabel, diffColor;
@@ -5298,7 +5308,7 @@ function renderScenarios() {
       diffLabel = second ? `+${lead} sobre el 2º` : "Sin rival";
       diffColor = "var(--gold)";
     } else if (maxReachable < leader.total) {
-      diffLabel = "Imposible (grupos)";
+      diffLabel = "Imposible alcanzar";
       diffColor = "#EF4444";
     } else {
       const ptsNeed = totalRem > 0 ? gap / totalRem : Infinity;
@@ -5317,9 +5327,9 @@ function renderScenarios() {
         <h2 class="font-bold text-white text-xl">¿Qué necesito para ganar?</h2>
       </div>
       <p class="text-sm text-gray-400 mb-4">
-        Análisis de escenarios en la <strong class="text-gray-300">fase de grupos</strong>.
+        Análisis de escenarios.
         Quedan <strong class="text-gray-300">${totalRem} partidos</strong> con hasta
-        <strong class="text-gray-300">${maxGroupPtsTotal} pts</strong> en juego.
+        <strong class="text-gray-300">${maxPtsTotal} pts</strong> en juego.
       </p>
       <div class="sce-hero-stats">
         <div class="sce-hero-stat">

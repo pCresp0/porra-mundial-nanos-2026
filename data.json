@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "28/06/2026 18:06",
+    "generated": "28/06/2026 20:06",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -22320,33 +22320,33 @@
       "resolved": false,
       "predictions": {
         "JUANCHO": {
-          "pred": "WF",
-          "score": 0,
+          "pred": "Francia",
+          "score": 0.0,
           "correct": false
         },
         "LARRY": {
           "pred": "España",
-          "score": 0,
+          "score": 0.0,
           "correct": false
         },
         "LUIS/VIR": {
-          "pred": "WF",
-          "score": 0,
+          "pred": "Francia",
+          "score": 0.0,
           "correct": false
         },
         "MEDINA": {
-          "pred": "WF",
-          "score": 0,
+          "pred": "Francia",
+          "score": 0.0,
           "correct": false
         },
         "VÍCTOR": {
-          "pred": "WF",
-          "score": 0,
+          "pred": "Francia",
+          "score": 0.0,
           "correct": false
         },
         "CRESPO": {
           "pred": "España",
-          "score": 0,
+          "score": 0.0,
           "correct": false
         }
       },
@@ -22354,47 +22354,47 @@
         {
           "name": "CRESPO",
           "pred": "España",
-          "score": 0,
+          "score": 0.0,
           "correct": false,
           "color": "#EF4444"
         },
         {
           "name": "JUANCHO",
-          "pred": "WF",
-          "score": 0,
+          "pred": "Francia",
+          "score": 0.0,
           "correct": false,
           "color": "#F5C518"
         },
         {
           "name": "LARRY",
           "pred": "España",
-          "score": 0,
+          "score": 0.0,
           "correct": false,
           "color": "#3B82F6"
         },
         {
           "name": "LUIS/VIR",
-          "pred": "WF",
-          "score": 0,
+          "pred": "Francia",
+          "score": 0.0,
           "correct": false,
           "color": "#10B981"
         },
         {
           "name": "MEDINA",
-          "pred": "WF",
-          "score": 0,
+          "pred": "Francia",
+          "score": 0.0,
           "correct": false,
           "color": "#F97316"
         },
         {
           "name": "VÍCTOR",
-          "pred": "WF",
-          "score": 0,
+          "pred": "Francia",
+          "score": 0.0,
           "correct": false,
           "color": "#A855F7"
         }
       ],
-      "consensus": "WF",
+      "consensus": "Francia",
       "consensus_count": 4,
       "filled_count": 6
     },
@@ -22407,82 +22407,82 @@
       "resolved": false,
       "predictions": {
         "JUANCHO": {
-          "pred": "LF",
-          "score": 0,
+          "pred": "Inglaterra",
+          "score": 0.0,
           "correct": false
         },
         "LARRY": {
-          "pred": "Alemania",
-          "score": 0,
+          "pred": "Inglaterra",
+          "score": 0.0,
           "correct": false
         },
         "LUIS/VIR": {
-          "pred": "LF",
-          "score": 0,
+          "pred": "Argentina",
+          "score": 0.0,
           "correct": false
         },
         "MEDINA": {
-          "pred": "LF",
-          "score": 0,
+          "pred": "Argentina",
+          "score": 0.0,
           "correct": false
         },
         "VÍCTOR": {
-          "pred": "LF",
-          "score": 0,
+          "pred": "Inglaterra",
+          "score": 0.0,
           "correct": false
         },
         "CRESPO": {
-          "pred": "Portugal",
-          "score": 0,
+          "pred": "Argentina",
+          "score": 0.0,
           "correct": false
         }
       },
       "predictions_list": [
         {
           "name": "CRESPO",
-          "pred": "Portugal",
-          "score": 0,
+          "pred": "Argentina",
+          "score": 0.0,
           "correct": false,
           "color": "#EF4444"
         },
         {
           "name": "JUANCHO",
-          "pred": "LF",
-          "score": 0,
+          "pred": "Inglaterra",
+          "score": 0.0,
           "correct": false,
           "color": "#F5C518"
         },
         {
           "name": "LARRY",
-          "pred": "Alemania",
-          "score": 0,
+          "pred": "Inglaterra",
+          "score": 0.0,
           "correct": false,
           "color": "#3B82F6"
         },
         {
           "name": "LUIS/VIR",
-          "pred": "LF",
-          "score": 0,
+          "pred": "Argentina",
+          "score": 0.0,
           "correct": false,
           "color": "#10B981"
         },
         {
           "name": "MEDINA",
-          "pred": "LF",
-          "score": 0,
+          "pred": "Argentina",
+          "score": 0.0,
           "correct": false,
           "color": "#F97316"
         },
         {
           "name": "VÍCTOR",
-          "pred": "LF",
-          "score": 0,
+          "pred": "Inglaterra",
+          "score": 0.0,
           "correct": false,
           "color": "#A855F7"
         }
       ],
-      "consensus": "LF",
-      "consensus_count": 4,
+      "consensus": "Argentina",
+      "consensus_count": 3,
       "filled_count": 6
     },
     {
@@ -22494,33 +22494,33 @@
       "resolved": false,
       "predictions": {
         "JUANCHO": {
-          "pred": "W34",
-          "score": 0,
+          "pred": "España",
+          "score": 0.0,
           "correct": false
         },
         "LARRY": {
-          "pred": "Portugal",
-          "score": 0,
+          "pred": "Alemania",
+          "score": 0.0,
           "correct": false
         },
         "LUIS/VIR": {
-          "pred": "W34",
-          "score": 0,
+          "pred": "España",
+          "score": 0.0,
           "correct": false
         },
         "MEDINA": {
-          "pred": "W34",
-          "score": 0,
+          "pred": "España",
+          "score": 0.0,
           "correct": false
         },
         "VÍCTOR": {
-          "pred": "W34",
-          "score": 0,
+          "pred": "España",
+          "score": 0.0,
           "correct": false
         },
         "CRESPO": {
           "pred": "Francia",
-          "score": 0,
+          "score": 0.0,
           "correct": false
         }
       },
@@ -22528,47 +22528,47 @@
         {
           "name": "CRESPO",
           "pred": "Francia",
-          "score": 0,
+          "score": 0.0,
           "correct": false,
           "color": "#EF4444"
         },
         {
           "name": "JUANCHO",
-          "pred": "W34",
-          "score": 0,
+          "pred": "España",
+          "score": 0.0,
           "correct": false,
           "color": "#F5C518"
         },
         {
           "name": "LARRY",
-          "pred": "Portugal",
-          "score": 0,
+          "pred": "Alemania",
+          "score": 0.0,
           "correct": false,
           "color": "#3B82F6"
         },
         {
           "name": "LUIS/VIR",
-          "pred": "W34",
-          "score": 0,
+          "pred": "España",
+          "score": 0.0,
           "correct": false,
           "color": "#10B981"
         },
         {
           "name": "MEDINA",
-          "pred": "W34",
-          "score": 0,
+          "pred": "España",
+          "score": 0.0,
           "correct": false,
           "color": "#F97316"
         },
         {
           "name": "VÍCTOR",
-          "pred": "W34",
-          "score": 0,
+          "pred": "España",
+          "score": 0.0,
           "correct": false,
           "color": "#A855F7"
         }
       ],
-      "consensus": "W34",
+      "consensus": "España",
       "consensus_count": 4,
       "filled_count": 6
     },
@@ -22581,83 +22581,40 @@
       "resolved": false,
       "predictions": {
         "JUANCHO": {
-          "pred": "Mbappé",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "LARRY": {
-          "pred": "Mbappé",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "LUIS/VIR": {
-          "pred": "Harry Kane",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "MEDINA": {
-          "pred": "Mbappé",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "VÍCTOR": {
-          "pred": "Mbappé",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "CRESPO": {
-          "pred": "Mbappé",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         }
       },
-      "predictions_list": [
-        {
-          "name": "CRESPO",
-          "pred": "Mbappé",
-          "score": 0,
-          "correct": false,
-          "color": "#EF4444"
-        },
-        {
-          "name": "JUANCHO",
-          "pred": "Mbappé",
-          "score": 0,
-          "correct": false,
-          "color": "#F5C518"
-        },
-        {
-          "name": "LARRY",
-          "pred": "Mbappé",
-          "score": 0,
-          "correct": false,
-          "color": "#3B82F6"
-        },
-        {
-          "name": "LUIS/VIR",
-          "pred": "Harry Kane",
-          "score": 0,
-          "correct": false,
-          "color": "#10B981"
-        },
-        {
-          "name": "MEDINA",
-          "pred": "Mbappé",
-          "score": 0,
-          "correct": false,
-          "color": "#F97316"
-        },
-        {
-          "name": "VÍCTOR",
-          "pred": "Mbappé",
-          "score": 0,
-          "correct": false,
-          "color": "#A855F7"
-        }
-      ],
-      "consensus": "Mbappé",
-      "consensus_count": 5,
-      "filled_count": 6
+      "predictions_list": [],
+      "consensus": null,
+      "consensus_count": 0,
+      "filled_count": 0
     },
     {
       "title": "🥈 Bota de Plata",
@@ -22668,83 +22625,40 @@
       "resolved": false,
       "predictions": {
         "JUANCHO": {
-          "pred": "Cristiano Ronaldo",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "LARRY": {
-          "pred": "Oyarzabal",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "LUIS/VIR": {
-          "pred": "Mbappé",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "MEDINA": {
-          "pred": "Harry Kane",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "VÍCTOR": {
-          "pred": "Harry Kane",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "CRESPO": {
-          "pred": "Haaland",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         }
       },
-      "predictions_list": [
-        {
-          "name": "CRESPO",
-          "pred": "Haaland",
-          "score": 0,
-          "correct": false,
-          "color": "#EF4444"
-        },
-        {
-          "name": "JUANCHO",
-          "pred": "Cristiano Ronaldo",
-          "score": 0,
-          "correct": false,
-          "color": "#F5C518"
-        },
-        {
-          "name": "LARRY",
-          "pred": "Oyarzabal",
-          "score": 0,
-          "correct": false,
-          "color": "#3B82F6"
-        },
-        {
-          "name": "LUIS/VIR",
-          "pred": "Mbappé",
-          "score": 0,
-          "correct": false,
-          "color": "#10B981"
-        },
-        {
-          "name": "MEDINA",
-          "pred": "Harry Kane",
-          "score": 0,
-          "correct": false,
-          "color": "#F97316"
-        },
-        {
-          "name": "VÍCTOR",
-          "pred": "Harry Kane",
-          "score": 0,
-          "correct": false,
-          "color": "#A855F7"
-        }
-      ],
-      "consensus": "Harry Kane",
-      "consensus_count": 2,
-      "filled_count": 6
+      "predictions_list": [],
+      "consensus": null,
+      "consensus_count": 0,
+      "filled_count": 0
     },
     {
       "title": "🥉 Bota de Bronce",
@@ -22755,83 +22669,40 @@
       "resolved": false,
       "predictions": {
         "JUANCHO": {
-          "pred": "Vinicius Jr.",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "LARRY": {
-          "pred": "Harry Kane",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "LUIS/VIR": {
-          "pred": "Haaland",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "MEDINA": {
-          "pred": "Haaland",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "VÍCTOR": {
-          "pred": "Oyarzabal",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "CRESPO": {
-          "pred": "Lamine Yamal",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         }
       },
-      "predictions_list": [
-        {
-          "name": "CRESPO",
-          "pred": "Lamine Yamal",
-          "score": 0,
-          "correct": false,
-          "color": "#EF4444"
-        },
-        {
-          "name": "JUANCHO",
-          "pred": "Vinicius Jr.",
-          "score": 0,
-          "correct": false,
-          "color": "#F5C518"
-        },
-        {
-          "name": "LARRY",
-          "pred": "Harry Kane",
-          "score": 0,
-          "correct": false,
-          "color": "#3B82F6"
-        },
-        {
-          "name": "LUIS/VIR",
-          "pred": "Haaland",
-          "score": 0,
-          "correct": false,
-          "color": "#10B981"
-        },
-        {
-          "name": "MEDINA",
-          "pred": "Haaland",
-          "score": 0,
-          "correct": false,
-          "color": "#F97316"
-        },
-        {
-          "name": "VÍCTOR",
-          "pred": "Oyarzabal",
-          "score": 0,
-          "correct": false,
-          "color": "#A855F7"
-        }
-      ],
-      "consensus": "Haaland",
-      "consensus_count": 2,
-      "filled_count": 6
+      "predictions_list": [],
+      "consensus": null,
+      "consensus_count": 0,
+      "filled_count": 0
     },
     {
       "title": "🏆 Balón de Oro",
@@ -22842,83 +22713,40 @@
       "resolved": false,
       "predictions": {
         "JUANCHO": {
-          "pred": "Pedri",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "LARRY": {
-          "pred": "Lamine Yamal",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "LUIS/VIR": {
-          "pred": "Lamine Yamal",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "MEDINA": {
-          "pred": "Lamine Yamal",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "VÍCTOR": {
-          "pred": "Mbappé",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "CRESPO": {
-          "pred": "Lamine Yamal",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         }
       },
-      "predictions_list": [
-        {
-          "name": "CRESPO",
-          "pred": "Lamine Yamal",
-          "score": 0,
-          "correct": false,
-          "color": "#EF4444"
-        },
-        {
-          "name": "JUANCHO",
-          "pred": "Pedri",
-          "score": 0,
-          "correct": false,
-          "color": "#F5C518"
-        },
-        {
-          "name": "LARRY",
-          "pred": "Lamine Yamal",
-          "score": 0,
-          "correct": false,
-          "color": "#3B82F6"
-        },
-        {
-          "name": "LUIS/VIR",
-          "pred": "Lamine Yamal",
-          "score": 0,
-          "correct": false,
-          "color": "#10B981"
-        },
-        {
-          "name": "MEDINA",
-          "pred": "Lamine Yamal",
-          "score": 0,
-          "correct": false,
-          "color": "#F97316"
-        },
-        {
-          "name": "VÍCTOR",
-          "pred": "Mbappé",
-          "score": 0,
-          "correct": false,
-          "color": "#A855F7"
-        }
-      ],
-      "consensus": "Lamine Yamal",
-      "consensus_count": 4,
-      "filled_count": 6
+      "predictions_list": [],
+      "consensus": null,
+      "consensus_count": 0,
+      "filled_count": 0
     },
     {
       "title": "🥈 Balón de Plata",
@@ -22929,83 +22757,40 @@
       "resolved": false,
       "predictions": {
         "JUANCHO": {
-          "pred": "Vitinha",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "LARRY": {
-          "pred": "Pedri",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "LUIS/VIR": {
-          "pred": "Mbappé",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "MEDINA": {
-          "pred": "Harry Kane",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "VÍCTOR": {
-          "pred": "Lamine Yamal",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "CRESPO": {
-          "pred": "Vitinha",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         }
       },
-      "predictions_list": [
-        {
-          "name": "CRESPO",
-          "pred": "Vitinha",
-          "score": 0,
-          "correct": false,
-          "color": "#EF4444"
-        },
-        {
-          "name": "JUANCHO",
-          "pred": "Vitinha",
-          "score": 0,
-          "correct": false,
-          "color": "#F5C518"
-        },
-        {
-          "name": "LARRY",
-          "pred": "Pedri",
-          "score": 0,
-          "correct": false,
-          "color": "#3B82F6"
-        },
-        {
-          "name": "LUIS/VIR",
-          "pred": "Mbappé",
-          "score": 0,
-          "correct": false,
-          "color": "#10B981"
-        },
-        {
-          "name": "MEDINA",
-          "pred": "Harry Kane",
-          "score": 0,
-          "correct": false,
-          "color": "#F97316"
-        },
-        {
-          "name": "VÍCTOR",
-          "pred": "Lamine Yamal",
-          "score": 0,
-          "correct": false,
-          "color": "#A855F7"
-        }
-      ],
-      "consensus": "Vitinha",
-      "consensus_count": 2,
-      "filled_count": 6
+      "predictions_list": [],
+      "consensus": null,
+      "consensus_count": 0,
+      "filled_count": 0
     },
     {
       "title": "🥉 Balón de Bronce",
@@ -23016,83 +22801,40 @@
       "resolved": false,
       "predictions": {
         "JUANCHO": {
-          "pred": "Courtois",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "LARRY": {
-          "pred": "Musiala",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "LUIS/VIR": {
-          "pred": "Bellingham",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "MEDINA": {
-          "pred": "Mbappé",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "VÍCTOR": {
-          "pred": "Harry Kane",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         },
         "CRESPO": {
-          "pred": "Pedri",
-          "score": 0,
+          "pred": null,
+          "score": 0.0,
           "correct": false
         }
       },
-      "predictions_list": [
-        {
-          "name": "CRESPO",
-          "pred": "Pedri",
-          "score": 0,
-          "correct": false,
-          "color": "#EF4444"
-        },
-        {
-          "name": "JUANCHO",
-          "pred": "Courtois",
-          "score": 0,
-          "correct": false,
-          "color": "#F5C518"
-        },
-        {
-          "name": "LARRY",
-          "pred": "Musiala",
-          "score": 0,
-          "correct": false,
-          "color": "#3B82F6"
-        },
-        {
-          "name": "LUIS/VIR",
-          "pred": "Bellingham",
-          "score": 0,
-          "correct": false,
-          "color": "#10B981"
-        },
-        {
-          "name": "MEDINA",
-          "pred": "Mbappé",
-          "score": 0,
-          "correct": false,
-          "color": "#F97316"
-        },
-        {
-          "name": "VÍCTOR",
-          "pred": "Harry Kane",
-          "score": 0,
-          "correct": false,
-          "color": "#A855F7"
-        }
-      ],
-      "consensus": "Pedri",
-      "consensus_count": 1,
-      "filled_count": 6
+      "predictions_list": [],
+      "consensus": null,
+      "consensus_count": 0,
+      "filled_count": 0
     }
   ],
   "honor_summary": {
@@ -23105,42 +22847,42 @@
         "name": "CRESPO",
         "honor_pts": 0.0,
         "correct": 0,
-        "filled": 9,
+        "filled": 3,
         "color": "#EF4444"
       },
       {
         "name": "JUANCHO",
         "honor_pts": 0.0,
         "correct": 0,
-        "filled": 9,
+        "filled": 3,
         "color": "#F5C518"
       },
       {
         "name": "LARRY",
         "honor_pts": 0.0,
         "correct": 0,
-        "filled": 9,
+        "filled": 3,
         "color": "#3B82F6"
       },
       {
         "name": "LUIS/VIR",
         "honor_pts": 0.0,
         "correct": 0,
-        "filled": 9,
+        "filled": 3,
         "color": "#10B981"
       },
       {
         "name": "MEDINA",
         "honor_pts": 0.0,
         "correct": 0,
-        "filled": 9,
+        "filled": 3,
         "color": "#F97316"
       },
       {
         "name": "VÍCTOR",
         "honor_pts": 0.0,
         "correct": 0,
-        "filled": 9,
+        "filled": 3,
         "color": "#A855F7"
       }
     ]

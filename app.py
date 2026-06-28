@@ -1749,12 +1749,12 @@ def build_data():
         preds = {}
         preds_list = []
         for p, ws in zip(all_players, all_ws):
-            pv = _val(ws, row, p["pred_col"])
-            sv = _val(ws, row, p["score_col"])
+            pv_dict = _ko_preds.get(p["name"], {}).get("_honor", {})
+            pv = pv_dict.get(str(row))
             pred_raw = str(pv).strip() if pv and not str(pv).startswith("Pegar") else None
             pred = _normalize_honor_name(pred_raw) if pred_raw else None
-            score = float(sv) if sv else 0
             correct = bool(actual and pred and pred == actual)
+            score = float(max_pts) if correct and max_pts is not None else 0.0
             if pred:
                 honor_filled[p["name"]] += 1
             if correct:

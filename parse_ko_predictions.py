@@ -62,6 +62,15 @@ def extract_player_predictions(xlsx_path):
                         match_key = f"{parts[0]}-{parts[2]}"
                         winners[match_key] = parts[3].replace("**", "")
 
+    # Extract Cuadro de Honor predictions
+    honor = {}
+    for r in range(250, 259):
+        raw = ws.cell(r, 3).value
+        if raw and str(raw).strip() and str(raw).strip() != "No rellenar":
+            honor[str(r)] = str(raw).strip()
+    if honor:
+        preds["_honor"] = honor
+
     for r in PRED_ROWS:
         raw = ws.cell(r, 3).value
         parsed = parse_pred_cell(str(raw) if raw else "")
