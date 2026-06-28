@@ -2876,6 +2876,7 @@ function renderMatchCard(m, players, colors) {
       const pp = m.phase_pts;
       const predH = pd.pred.pred_home;
       const predA = pd.pred.pred_away;
+      let bothWrong = false;
       const teamsHtml = (predH && predA && m.home && m.away)
         ? (() => {
             const hOk = predH.trim() === m.home.trim();
@@ -2883,15 +2884,25 @@ function renderMatchCard(m, players, colors) {
             if (hOk && aOk) return `<span class="brk-chip ok" title="Equipos correctos">⚽ ${predH} vs ${predA} ✓</span>`;
             if (hOk) return `<span class="brk-chip pending" title="Local ✓, Visitante ✗">⚽ ${predH} ✓ vs ${predA} ✗</span>`;
             if (aOk) return `<span class="brk-chip pending" title="Local ✗, Visitante ✓">⚽ ${predH} ✗ vs ${predA} ✓</span>`;
+            bothWrong = true;
             return `<span class="brk-chip miss" title="Equipos incorrectos">⚽ ${predH} ✗ vs ${predA} ✗</span>`;
           })()
         : "";
-      brkHtml = `<div class="mt-1 flex flex-wrap justify-center gap-0.5">
-        ${teamsHtml}
-        <span class="brk-chip pending" title="Puntos si aciertas el 1X2">1X2 +${fmt(pp.sign)}</span>
-        <span class="brk-chip pending" title="Puntos si aciertas la diferencia de goles">Dif. +${fmt(pp.diff)}</span>
-        <span class="brk-chip pending" title="Puntos si aciertas el resultado exacto">Exacto +${fmt(pp.exact)}</span>
-      </div>`;
+      if (bothWrong) {
+        brkHtml = `<div class="mt-1 flex flex-wrap justify-center gap-0.5">
+          ${teamsHtml}
+          <span class="brk-chip miss" title="Equipos incorrectos: te llevas 0 puntos">1X2 +0</span>
+          <span class="brk-chip miss" title="Equipos incorrectos: te llevas 0 puntos">Dif. +0</span>
+          <span class="brk-chip miss" title="Equipos incorrectos: te llevas 0 puntos">Exacto +0</span>
+        </div>`;
+      } else {
+        brkHtml = `<div class="mt-1 flex flex-wrap justify-center gap-0.5">
+          ${teamsHtml}
+          <span class="brk-chip pending" title="Puntos si aciertas el 1X2">1X2 +${fmt(pp.sign)}</span>
+          <span class="brk-chip pending" title="Puntos si aciertas la diferencia de goles">Dif. +${fmt(pp.diff)}</span>
+          <span class="brk-chip pending" title="Puntos si aciertas el resultado exacto">Exacto +${fmt(pp.exact)}</span>
+        </div>`;
+      }
     }
 
     let scoreHtml = "";
