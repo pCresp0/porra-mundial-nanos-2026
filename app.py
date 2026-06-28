@@ -1275,10 +1275,16 @@ def build_data():
                     live_match_names.append(str(match_name).strip())
 
         wc = _lookup_wc_meta(wc_meta, match_name) or {}  # needed before player loop for team matching
+        actual_home_set = bool(wc.get("home") and str(wc.get("home")).strip() and not str(wc.get("home")).startswith("1") and not str(wc.get("home")).startswith("2") and not str(wc.get("home")).startswith("W") and not str(wc.get("home")).startswith("L"))
+        actual_away_set = bool(wc.get("away") and str(wc.get("away")).strip() and not str(wc.get("away")).startswith("1") and not str(wc.get("away")).startswith("2") and not str(wc.get("away")).startswith("W") and not str(wc.get("away")).startswith("L"))
+        
         for p, ws in zip(all_players, all_ws):
             pred_raw  = _val(ws, row, p["pred_col"])
             score_raw = _val(ws, row, p["score_col"])
             pred  = _parse_pred(pred_raw)
+            # Si es fase eliminatoria y los equipos reales aún no están definidos, ocultamos la predicción
+            if phase in KO_PHASE_PTS and not (actual_home_set and actual_away_set):
+                pred = None
             score = float(score_raw) if score_raw is not None else 0
 
             breakdown = None

@@ -1,12 +1,12 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "28/06/2026 11:18",
+    "generated": "28/06/2026 13:19",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-28T13:18",
-      "last_updated_time": "13:18",
+      "last_updated_iso": "2026-06-28T13:19",
+      "last_updated_time": "13:19",
       "last_updated_date": "28/06/2026",
       "next_update_iso": "2026-06-28T13:20",
       "next_update_time": "13:20",
@@ -28394,60 +28394,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "W73",
-            "score": "W73"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "Bosnia y Herzegovina",
-            "score": "Bosnia y Herzegovina"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "W73",
-            "score": "W73"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "W73",
-            "score": "W73"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "W73",
-            "score": "W73"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "República Checa",
-            "score": "República Checa"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -28498,60 +28480,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "W74",
-            "score": "W74"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "Ecuador",
-            "score": "Ecuador"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "W74",
-            "score": "W74"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "W74",
-            "score": "W74"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "W74",
-            "score": "W74"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "Alemania",
-            "score": "Alemania"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -29330,60 +29294,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "W77",
-            "score": "W77"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "Francia",
-            "score": "Francia"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "W77",
-            "score": "W77"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "W77",
-            "score": "W77"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "W77",
-            "score": "W77"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "Francia",
-            "score": "Francia"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -29434,60 +29380,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "W78",
-            "score": "W78"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "Alemania",
-            "score": "Alemania"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "W78",
-            "score": "W78"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "W78",
-            "score": "W78"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "W78",
-            "score": "W78"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "Noruega",
-            "score": "Noruega"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -29538,60 +29466,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "W80",
-            "score": "W80"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "Inglaterra",
-            "score": "Inglaterra"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "W80",
-            "score": "W80"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "W80",
-            "score": "W80"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "W80",
-            "score": "W80"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "Inglaterra",
-            "score": "Inglaterra"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -29642,60 +29552,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "W84",
-            "score": "W84"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "España",
-            "score": "España"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "W84",
-            "score": "W84"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "W84",
-            "score": "W84"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "W84",
-            "score": "W84"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "España",
-            "score": "España"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -29746,60 +29638,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "W82",
-            "score": "W82"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "Bélgica",
-            "score": "Bélgica"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "W82",
-            "score": "W82"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "W82",
-            "score": "W82"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "W82",
-            "score": "W82"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "Bélgica",
-            "score": "Bélgica"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -29850,60 +29724,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "W88",
-            "score": "W88"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "Egipto",
-            "score": "Egipto"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "W88",
-            "score": "W88"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "W88",
-            "score": "W88"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "W88",
-            "score": "W88"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "Egipto",
-            "score": "Egipto"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -29954,60 +29810,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "W87",
-            "score": "W87"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "Portugal",
-            "score": "Portugal"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "W87",
-            "score": "W87"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "W87",
-            "score": "W87"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "W87",
-            "score": "W87"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "Portugal",
-            "score": "Portugal"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -30230,72 +30068,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W73",
-            "pred_away": "W75"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "X",
-            "score": "1-1",
-            "pred_home": "Bosnia y Herzegovina",
-            "pred_away": "Países Bajos"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W73",
-            "pred_away": "W75"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W73",
-            "pred_away": "W75"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W73",
-            "pred_away": "W75"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "2",
-            "score": "0-2",
-            "pred_home": "República Checa",
-            "pred_away": "Marruecos"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -30346,72 +30154,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W74",
-            "pred_away": "W77"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "X",
-            "score": "2-2",
-            "pred_home": "Ecuador",
-            "pred_away": "Francia"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W74",
-            "pred_away": "W77"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W74",
-            "pred_away": "W77"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W74",
-            "pred_away": "W77"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "2",
-            "score": "1-2",
-            "pred_home": "Alemania",
-            "pred_away": "Francia"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -30462,72 +30240,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W76",
-            "pred_away": "W78"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "2",
-            "score": "1-2",
-            "pred_home": "Brasil",
-            "pred_away": "Alemania"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W76",
-            "pred_away": "W78"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W76",
-            "pred_away": "W78"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W76",
-            "pred_away": "W78"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "1",
-            "score": "2-1",
-            "pred_home": "Brasil",
-            "pred_away": "Noruega"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -30578,72 +30326,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W79",
-            "pred_away": "W80"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "2",
-            "score": "0-2",
-            "pred_home": "México",
-            "pred_away": "Inglaterra"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W79",
-            "pred_away": "W80"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W79",
-            "pred_away": "W80"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W79",
-            "pred_away": "W80"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "2",
-            "score": "1-2",
-            "pred_home": "México",
-            "pred_away": "Inglaterra"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -30694,72 +30412,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W83",
-            "pred_away": "W84"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "2",
-            "score": "0-3",
-            "pred_home": "Colombia",
-            "pred_away": "España"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W83",
-            "pred_away": "W84"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W83",
-            "pred_away": "W84"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W83",
-            "pred_away": "W84"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "2",
-            "score": "0-2",
-            "pred_home": "Croacia",
-            "pred_away": "España"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -30810,72 +30498,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W81",
-            "pred_away": "W82"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "1",
-            "score": "2-1",
-            "pred_home": "Turquía",
-            "pred_away": "Bélgica"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W81",
-            "pred_away": "W82"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W81",
-            "pred_away": "W82"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W81",
-            "pred_away": "W82"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "1",
-            "score": "1-0",
-            "pred_home": "Estados Unidos",
-            "pred_away": "Bélgica"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -30926,72 +30584,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W86",
-            "pred_away": "W88"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "X",
-            "score": "0-0",
-            "pred_home": "Austria",
-            "pred_away": "Egipto"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W86",
-            "pred_away": "W88"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W86",
-            "pred_away": "W88"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W86",
-            "pred_away": "W88"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "1",
-            "score": "2-0",
-            "pred_home": "Argentina",
-            "pred_away": "Egipto"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -31042,72 +30670,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W85",
-            "pred_away": "W87"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "2",
-            "score": "1-2",
-            "pred_home": "Suiza",
-            "pred_away": "Portugal"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W85",
-            "pred_away": "W87"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W85",
-            "pred_away": "W87"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W85",
-            "pred_away": "W87"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "2",
-            "score": "0-2",
-            "pred_home": "Suiza",
-            "pred_away": "Portugal"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -31330,60 +30928,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "W89",
-            "score": "W89"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "Ecuador",
-            "score": "Ecuador"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "W89",
-            "score": "W89"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "W89",
-            "score": "W89"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "W89",
-            "score": "W89"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "Francia",
-            "score": "Francia"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -31434,60 +31014,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "W93",
-            "score": "W93"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "España",
-            "score": "España"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "W93",
-            "score": "W93"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "W93",
-            "score": "W93"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "W93",
-            "score": "W93"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "España",
-            "score": "España"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -32334,72 +31896,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W89",
-            "pred_away": "W90"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "2",
-            "score": "0-1",
-            "pred_home": "Ecuador",
-            "pred_away": "Países Bajos"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W89",
-            "pred_away": "W90"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W89",
-            "pred_away": "W90"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W89",
-            "pred_away": "W90"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "1",
-            "score": "2-1",
-            "pred_home": "Francia",
-            "pred_away": "Marruecos"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -32450,72 +31982,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W93",
-            "pred_away": "W94"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "1",
-            "score": "3-1",
-            "pred_home": "España",
-            "pred_away": "Turquía"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W93",
-            "pred_away": "W94"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W93",
-            "pred_away": "W94"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W93",
-            "pred_away": "W94"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "1",
-            "score": "2-0",
-            "pred_home": "España",
-            "pred_away": "Estados Unidos"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -32566,72 +32068,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W91",
-            "pred_away": "W92"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "1",
-            "score": "2-1",
-            "pred_home": "Alemania",
-            "pred_away": "Inglaterra"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W91",
-            "pred_away": "W92"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W91",
-            "pred_away": "W92"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W91",
-            "pred_away": "W92"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "2",
-            "score": "1-3",
-            "pred_home": "Brasil",
-            "pred_away": "Inglaterra"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -32682,72 +32154,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W95",
-            "pred_away": "W96"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "2",
-            "score": "0-2",
-            "pred_home": "Austria",
-            "pred_away": "Portugal"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W95",
-            "pred_away": "W96"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W95",
-            "pred_away": "W96"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W95",
-            "pred_away": "W96"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "2",
-            "score": "1-2",
-            "pred_home": "Argentina",
-            "pred_away": "Portugal"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -32970,60 +32412,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "W97",
-            "score": "W97"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "Países Bajos",
-            "score": "Países Bajos"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "W97",
-            "score": "W97"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "W97",
-            "score": "W97"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "W97",
-            "score": "W97"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "Francia",
-            "score": "Francia"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -33074,60 +32498,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "W99",
-            "score": "W99"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "Alemania",
-            "score": "Alemania"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "W99",
-            "score": "W99"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "W99",
-            "score": "W99"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "W99",
-            "score": "W99"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "Inglaterra",
-            "score": "Inglaterra"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -33558,72 +32964,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W97",
-            "pred_away": "W98"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "2",
-            "score": "1-2",
-            "pred_home": "Países Bajos",
-            "pred_away": "España"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W97",
-            "pred_away": "W98"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W97",
-            "pred_away": "W98"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W97",
-            "pred_away": "W98"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "X",
-            "score": "2-2",
-            "pred_home": "Francia",
-            "pred_away": "España"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -33674,72 +33050,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W99",
-            "pred_away": "W100"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "X",
-            "score": "1-1",
-            "pred_home": "Alemania",
-            "pred_away": "Portugal"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W99",
-            "pred_away": "W100"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W99",
-            "pred_away": "W100"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W99",
-            "pred_away": "W100"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "2",
-            "score": "1-2",
-            "pred_home": "Inglaterra",
-            "pred_away": "Portugal"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -33962,60 +33308,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "L101",
-            "score": "L101"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "Países Bajos",
-            "score": "Países Bajos"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "L101",
-            "score": "L101"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "L101",
-            "score": "L101"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "L101",
-            "score": "L101"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "Francia",
-            "score": "Francia"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -34066,60 +33394,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "L102",
-            "score": "L102"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "Portugal",
-            "score": "Portugal"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "L102",
-            "score": "L102"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "L102",
-            "score": "L102"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "L102",
-            "score": "L102"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "Inglaterra",
-            "score": "Inglaterra"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -34342,60 +33652,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "W101",
-            "score": "W101"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "España",
-            "score": "España"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "W101",
-            "score": "W101"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "W101",
-            "score": "W101"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "W101",
-            "score": "W101"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "España",
-            "score": "España"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -34446,60 +33738,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "W102",
-            "score": "W102"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "Alemania",
-            "score": "Alemania"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "W102",
-            "score": "W102"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "W102",
-            "score": "W102"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "W102",
-            "score": "W102"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "Portugal",
-            "score": "Portugal"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -34722,72 +33996,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "L101",
-            "pred_away": "L102"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "2",
-            "score": "1-2",
-            "pred_home": "Países Bajos",
-            "pred_away": "Portugal"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "L101",
-            "pred_away": "L102"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "L101",
-            "pred_away": "L102"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "L101",
-            "pred_away": "L102"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "1",
-            "score": "2-1",
-            "pred_home": "Francia",
-            "pred_away": "Inglaterra"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -35010,72 +34254,42 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W101",
-            "pred_away": "W102"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": {
-            "sign": "1",
-            "score": "3-0",
-            "pred_home": "España",
-            "pred_away": "Alemania"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W101",
-            "pred_away": "W102"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W101",
-            "pred_away": "W102"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": {
-            "sign": "0",
-            "score": "-",
-            "pred_home": "W101",
-            "pred_away": "W102"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": {
-            "sign": "1",
-            "score": "3-1",
-            "pred_home": "España",
-            "pred_away": "Portugal"
-          },
+          "pred": null,
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
