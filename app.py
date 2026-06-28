@@ -1315,8 +1315,8 @@ def build_data():
             "live_goals_l": live_info["goals_l"] if live_info else None,
             "live_goals_v": live_info["goals_v"] if live_info else None,
             "live_scorers": live_info["scorers"] if live_info else [],
-            "goals_l":   int(goals_l) if goals_l is not None else None,
-            "goals_v":   int(goals_v) if goals_v is not None else None,
+            "goals_l":   int(goals_l) if (played and goals_l is not None) else None,
+            "goals_v":   int(goals_v) if (played and goals_v is not None) else None,
             "scorers":   _lookup_scorers(wc_scorers, match_name) if played else [],
             "predictions": predictions,
         })
