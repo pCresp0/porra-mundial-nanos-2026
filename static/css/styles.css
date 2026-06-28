@@ -955,6 +955,7 @@
     }
     .brk-chip.ok  { background: rgba(34,197,94,.15); color: #4ADE80; }
     .brk-chip.miss { background: rgba(239,68,68,.1); color: #FCA5A5; }
+    .brk-chip.pending { background: rgba(245,158,11,.1); color: #FCD34D; border: 1px solid rgba(245,158,11,.25); }
 
     /* ── day header ── */
     .day-header {

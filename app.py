@@ -1150,6 +1150,18 @@ def build_data():
     pts_exact = float(_val(ws1, 10, 4) or 3)
     diff_factor = float(_val(ws1, 50, 4) or 1)
 
+    # ── Puntos de fases de eliminación (leídos del Excel, filas 16-38) ──
+    KO_PHASE_PTS = {
+        "r16":   {"sign": float(_val(ws1, 16, 4) or 3), "diff": float(_val(ws1, 17, 4) or 2), "exact": float(_val(ws1, 18, 4) or 4)},
+        "r8":    {"sign": float(_val(ws1, 20, 4) or 4), "diff": float(_val(ws1, 21, 4) or 3), "exact": float(_val(ws1, 22, 4) or 5)},
+        "r4":    {"sign": float(_val(ws1, 24, 4) or 5), "diff": float(_val(ws1, 25, 4) or 4), "exact": float(_val(ws1, 26, 4) or 6)},
+        "r2":    {"sign": float(_val(ws1, 28, 4) or 6), "diff": float(_val(ws1, 29, 4) or 5), "exact": float(_val(ws1, 30, 4) or 8)},
+        "r34":   {"sign": float(_val(ws1, 33, 4) or 6), "diff": float(_val(ws1, 34, 4) or 5), "exact": float(_val(ws1, 35, 4) or 8)},
+        "final": {"sign": float(_val(ws1, 36, 4) or 8), "diff": float(_val(ws1, 37, 4) or 6), "exact": float(_val(ws1, 38, 4) or 12)},
+    }
+    # Mapeamos las fases del Excel (r34 y final) a las claves de standings (r34_final)
+    _KO_STANDINGS_KEY = {"r16": "r16", "r8": "r8", "r4": "r4", "r2": "r2", "r34": "r34_final", "final": "r34_final"}
+
     all_players = players1 + [player2]
     all_ws      = [ws1] * len(players1) + [ws2]
     all_clas    = {**clas1, **clas2}
@@ -1163,6 +1175,8 @@ def build_data():
     # de fórmulas del Excel, que NO se recalcula al escribir marcadores por la
     # API). Así la actualización automática refleja siempre los puntos correctos.
     group_points = {p["name"]: 0.0 for p in all_players}
+    # Puntos de fases de eliminación también calculados en Python.
+    ko_points    = {ph: {p["name"]: 0.0 for p in all_players} for ph in KO_PHASE_PTS}
     # Puntos provisionales de partidos EN CURSO (overlay no oficial). No se
     # suman a group_points; alimentan la clasificación provisional de la web.
     live_points  = {p["name"]: 0.0 for p in all_players}
@@ -1258,12 +1272,34 @@ def build_data():
                 # (que puede estar desactualizada tras una actualización automática).
                 score = breakdown["total"]
                 group_points[p["name"]] += breakdown["total"]
+            elif played and phase in KO_PHASE_PTS and pred and "|" in str(pred_raw or ""):
+                # Fases de eliminación: puntos calculados en Python igual que grupos.
+                gl = int(goals_l) if goals_l is not None else None
+                gv = int(goals_v) if goals_v is not None else None
+                ko_cfg = KO_PHASE_PTS[phase]
+                breakdown = _score_breakdown(
+                    pred, result, gl, gv,
+                    ko_cfg["sign"], ko_cfg["diff"], ko_cfg["exact"],
+                    diff_factor, multiplier,
+                )
+                score = breakdown["total"]
+                ko_points[phase][p["name"]] += breakdown["total"]
             elif live_info and phase == "groups" and pred and "|" in str(pred_raw or ""):
                 # Puntos provisionales del partido en curso (no oficiales).
                 live_breakdown = _score_breakdown(
                     pred, live_info["result"],
                     live_info["goals_l"], live_info["goals_v"],
                     pts_sign, pts_diff, pts_exact,
+                    diff_factor, multiplier,
+                )
+                live_points[p["name"]] += live_breakdown["total"]
+            elif live_info and phase in KO_PHASE_PTS and pred and "|" in str(pred_raw or ""):
+                # Puntos provisionales EN CURSO para fases KO.
+                ko_cfg = KO_PHASE_PTS[phase]
+                live_breakdown = _score_breakdown(
+                    pred, live_info["result"],
+                    live_info["goals_l"], live_info["goals_v"],
+                    ko_cfg["sign"], ko_cfg["diff"], ko_cfg["exact"],
                     diff_factor, multiplier,
                 )
                 live_points[p["name"]] += live_breakdown["total"]
@@ -1318,6 +1354,7 @@ def build_data():
             "goals_l":   int(goals_l) if (played and goals_l is not None) else None,
             "goals_v":   int(goals_v) if (played and goals_v is not None) else None,
             "scorers":   _lookup_scorers(wc_scorers, match_name) if played else [],
+            "phase_pts":  KO_PHASE_PTS.get(phase),  # puntos posibles por criterio para este partido
             "predictions": predictions,
         })
 
@@ -1435,11 +1472,14 @@ def build_data():
         positions_calc = player_positions_pts.get(name, 0.0)
         positions_excel = fv("positions")
         
-        # Force all phases from 16avos onwards to be 0.0 for now, as requested:
-        # "si tienes datos de 16avos en adelante, por ahora eliminalos. que no tienen que tener en ceutna"
-        q16_calc = 0.0
-        
-        total = round(groups_calc + positions_calc, 2)
+        q16_calc      = 0.0  # clasificados 16avos no puntúan según las reglas
+        r16_calc      = round(ko_points["r16"].get(name, 0.0), 2)
+        r8_calc       = round(ko_points["r8"].get(name, 0.0), 2)
+        r4_calc       = round(ko_points["r4"].get(name, 0.0), 2)
+        r2_calc       = round(ko_points["r2"].get(name, 0.0), 2)
+        r34_final_calc = round(ko_points["r34"].get(name, 0.0) + ko_points["final"].get(name, 0.0), 2)
+
+        total = round(groups_calc + positions_calc + r16_calc + r8_calc + r4_calc + r2_calc + r34_final_calc, 2)
         lp = round(live_points.get(name, 0.0), 2)
         total_live = round(total + lp, 2)
         phase_detail = []
@@ -1448,6 +1488,16 @@ def build_data():
                 pts = groups_calc
             elif key == "positions":
                 pts = positions_calc
+            elif key == "r16":
+                pts = r16_calc
+            elif key == "r8":
+                pts = r8_calc
+            elif key == "r4":
+                pts = r4_calc
+            elif key == "r2":
+                pts = r2_calc
+            elif key == "r34_final":
+                pts = r34_final_calc
             else:
                 pts = 0.0
             if pts > 0:
@@ -1461,11 +1511,11 @@ def build_data():
             "groups":   groups_calc,
             "positions": positions_calc,
             "q16":      q16_calc,
-            "r16":      0.0,
-            "r8":       0.0,
-            "r4":       0.0,
-            "r2":       0.0,
-            "r34_final":0.0,
+            "r16":      r16_calc,
+            "r8":       r8_calc,
+            "r4":       r4_calc,
+            "r2":       r2_calc,
+            "r34_final":r34_final_calc,
             "honor":    0.0,
             "phase_detail": phase_detail,
             "color":    PLAYER_COLORS[i % len(PLAYER_COLORS)],

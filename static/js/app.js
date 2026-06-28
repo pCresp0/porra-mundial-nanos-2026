@@ -2838,6 +2838,15 @@ function renderMatchCard(m, players, colors) {
           `<span class="brk-chip ${c.ok ? "ok" : "miss"}">${c.label} ${c.ok ? "✓" : "✗"}${c.ok ? ` (+${c.pts})` : ""}</span>`
         ).join("")}
       </div>`;
+    } else if (!m.played && m.phase_pts && pd.pred) {
+      // Partido KO no jugado: mostrar puntos potenciales si hay predicción
+      const pp = m.phase_pts;
+      const maxPts = pp.sign + pp.diff + pp.exact;
+      brkHtml = `<div class="mt-1 flex flex-wrap justify-center gap-0.5">
+        <span class="brk-chip pending" title="Puntos si aciertas el 1X2">1X2 +${fmt(pp.sign)}</span>
+        <span class="brk-chip pending" title="Puntos si aciertas la diferencia de goles">Dif. +${fmt(pp.diff)}</span>
+        <span class="brk-chip pending" title="Puntos si aciertas el resultado exacto">Exacto +${fmt(pp.exact)}</span>
+      </div>`;
     }
 
     let scoreHtml = "";
