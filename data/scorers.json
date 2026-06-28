@@ -1017,6 +1017,29 @@
       "team": "away"
     }
   ],
+  "Jordania-Argentina": [
+    {
+      "player": "Mvsi Altmari",
+      "minute": "55'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Jivani Lv Slsv",
+      "minute": "19'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Lionel Messi",
+      "minute": "80'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "México-Sudáfrica": [
     {
       "player": "J. Quiñones",
@@ -1444,6 +1467,50 @@
     {
       "player": "Drik Lvkasn",
       "minute": "73'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Argelia-Austria": [
+    {
+      "player": "Rafik Blghali",
+      "minute": "45'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Riyad Mahrez",
+      "minute": "60'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Riyad Mahrez",
+      "minute": "90'+3'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Marko Arnautović",
+      "minute": "28'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Marcel Sabitzer",
+      "minute": "55'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Saša Kalajdžić",
+      "minute": "90'+6'",
       "own_goal": false,
       "penalty": false,
       "team": "away"

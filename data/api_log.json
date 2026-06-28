@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-22T03:28:34+02:00",
-    "date": "22/06/2026",
-    "time": "03:28:34",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-22T03:30:50+02:00",
     "date": "22/06/2026",
     "time": "03:30:50",
@@ -17802,6 +17794,49 @@
         "fields": [],
         "old": {},
         "new": {}
+      }
+    ]
+  },
+  {
+    "ts_iso": "2026-06-28T06:01:00+02:00",
+    "date": "28/06/2026",
+    "time": "06:01:00",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇩🇿Argelia 3-3 Austria🇦🇹",
+        "name": "Argelia-Austria",
+        "date": "2026-06-28",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "0-0",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "3-3",
+          "jugado": "sí"
+        }
+      },
+      {
+        "label": "🇯🇴Jordania 1-3 Argentina🇦🇷",
+        "name": "Jordania-Argentina",
+        "date": "2026-06-28",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "0-0",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "1-3",
+          "jugado": "sí"
+        }
       }
     ]
   }
