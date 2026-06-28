@@ -1,0 +1,206 @@
+[
+  {
+    "name": "MEDINA",
+    "total": 219.0,
+    "live_points": 0.0,
+    "total_live": 219.0,
+    "groups": 130.0,
+    "positions": 89.0,
+    "q16": 0.0,
+    "r16": 0.0,
+    "r8": 0.0,
+    "r4": 0.0,
+    "r2": 0.0,
+    "r34_final": 0.0,
+    "honor": 0.0,
+    "phase_detail": [
+      {
+        "key": "groups",
+        "label": "Fase de Grupos",
+        "desc": "Partidos + marcadores",
+        "pts": 130.0
+      },
+      {
+        "key": "positions",
+        "label": "Posiciones Grupos",
+        "desc": "1º, 2º, 3º y 4º por grupo",
+        "pts": 89.0
+      }
+    ],
+    "color": "#F97316",
+    "played": 72,
+    "pos": 1,
+    "pos_change": 1,
+    "live_pos": 1
+  },
+  {
+    "name": "VÍCTOR",
+    "total": 209.0,
+    "live_points": 0.0,
+    "total_live": 209.0,
+    "groups": 134.0,
+    "positions": 75.0,
+    "q16": 0.0,
+    "r16": 0.0,
+    "r8": 0.0,
+    "r4": 0.0,
+    "r2": 0.0,
+    "r34_final": 0.0,
+    "honor": 0.0,
+    "phase_detail": [
+      {
+        "key": "groups",
+        "label": "Fase de Grupos",
+        "desc": "Partidos + marcadores",
+        "pts": 134.0
+      },
+      {
+        "key": "positions",
+        "label": "Posiciones Grupos",
+        "desc": "1º, 2º, 3º y 4º por grupo",
+        "pts": 75.0
+      }
+    ],
+    "color": "#A855F7",
+    "played": 72,
+    "pos": 2,
+    "pos_change": -1,
+    "live_pos": 2
+  },
+  {
+    "name": "JUANCHO",
+    "total": 203.0,
+    "live_points": 0.0,
+    "total_live": 203.0,
+    "groups": 118.0,
+    "positions": 85.0,
+    "q16": 0.0,
+    "r16": 0.0,
+    "r8": 0.0,
+    "r4": 0.0,
+    "r2": 0.0,
+    "r34_final": 0.0,
+    "honor": 0.0,
+    "phase_detail": [
+      {
+        "key": "groups",
+        "label": "Fase de Grupos",
+        "desc": "Partidos + marcadores",
+        "pts": 118.0
+      },
+      {
+        "key": "positions",
+        "label": "Posiciones Grupos",
+        "desc": "1º, 2º, 3º y 4º por grupo",
+        "pts": 85.0
+      }
+    ],
+    "color": "#F5C518",
+    "played": 72,
+    "pos": 3,
+    "pos_change": 1,
+    "live_pos": 3
+  },
+  {
+    "name": "CRESPO",
+    "total": 202.0,
+    "live_points": 0.0,
+    "total_live": 202.0,
+    "groups": 121.0,
+    "positions": 81.0,
+    "q16": 0.0,
+    "r16": 0.0,
+    "r8": 0.0,
+    "r4": 0.0,
+    "r2": 0.0,
+    "r34_final": 0.0,
+    "honor": 0.0,
+    "phase_detail": [
+      {
+        "key": "groups",
+        "label": "Fase de Grupos",
+        "desc": "Partidos + marcadores",
+        "pts": 121.0
+      },
+      {
+        "key": "positions",
+        "label": "Posiciones Grupos",
+        "desc": "1º, 2º, 3º y 4º por grupo",
+        "pts": 81.0
+      }
+    ],
+    "color": "#EF4444",
+    "played": 72,
+    "pos": 4,
+    "pos_change": -1,
+    "live_pos": 4
+  },
+  {
+    "name": "LUIS/VIR",
+    "total": 181.0,
+    "live_points": 0.0,
+    "total_live": 181.0,
+    "groups": 104.0,
+    "positions": 77.0,
+    "q16": 0.0,
+    "r16": 0.0,
+    "r8": 0.0,
+    "r4": 0.0,
+    "r2": 0.0,
+    "r34_final": 0.0,
+    "honor": 0.0,
+    "phase_detail": [
+      {
+        "key": "groups",
+        "label": "Fase de Grupos",
+        "desc": "Partidos + marcadores",
+        "pts": 104.0
+      },
+      {
+        "key": "positions",
+        "label": "Posiciones Grupos",
+        "desc": "1º, 2º, 3º y 4º por grupo",
+        "pts": 77.0
+      }
+    ],
+    "color": "#10B981",
+    "played": 72,
+    "pos": 5,
+    "pos_change": 1,
+    "live_pos": 5
+  },
+  {
+    "name": "LARRY",
+    "total": 172.0,
+    "live_points": 0.0,
+    "total_live": 172.0,
+    "groups": 105.0,
+    "positions": 67.0,
+    "q16": 0.0,
+    "r16": 0.0,
+    "r8": 0.0,
+    "r4": 0.0,
+    "r2": 0.0,
+    "r34_final": 0.0,
+    "honor": 0.0,
+    "phase_detail": [
+      {
+        "key": "groups",
+        "label": "Fase de Grupos",
+        "desc": "Partidos + marcadores",
+        "pts": 105.0
+      },
+      {
+        "key": "positions",
+        "label": "Posiciones Grupos",
+        "desc": "1º, 2º, 3º y 4º por grupo",
+        "pts": 67.0
+      }
+    ],
+    "color": "#3B82F6",
+    "played": 72,
+    "pos": 6,
+    "pos_change": -1,
+    "live_pos": 6
+  }
+]

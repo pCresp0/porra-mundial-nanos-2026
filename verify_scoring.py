@@ -31,7 +31,8 @@ prog = data["progression"]
 print(f"Progression labels length: {len(prog['labels'])}")
 for p in players:
     last_prog_score = prog["players"][p][-1] if prog["players"][p] else 0
-    print(f"  {p}: Last Progression Score={last_prog_score:.2f}, Matches Sum={calc_totals[p]:.2f}")
-    assert abs(last_prog_score - calc_totals[p]) < 0.01
+    standing_total = next(s["total"] for s in data["standings"] if s["name"] == p)
+    print(f"  {p}: Last Progression Score={last_prog_score:.2f}, Standing Total={standing_total:.2f}")
+    assert abs(last_prog_score - standing_total) < 0.01
 
 print("\n--- All Checks Passed ---")

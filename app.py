@@ -1435,6 +1435,8 @@ def build_data():
         positions_calc = player_positions_pts.get(name, 0.0)
         positions_excel = fv("positions")
         
+        # Force all phases from 16avos onwards to be 0.0 for now, as requested:
+        # "si tienes datos de 16avos en adelante, por ahora eliminalos. que no tienen que tener en ceutna"
         q16_calc = 0.0
         
         total = round(groups_calc + positions_calc, 2)
@@ -1446,10 +1448,8 @@ def build_data():
                 pts = groups_calc
             elif key == "positions":
                 pts = positions_calc
-            elif key == "q16":
-                pts = q16_calc
             else:
-                pts = fv(key)
+                pts = 0.0
             if pts > 0:
                 phase_detail.append({"key": key, "label": label, "desc": desc, "pts": pts})
 
