@@ -1523,6 +1523,22 @@ function renderStandingsTable() {
   const fmt = v => Number.isInteger(v) ? v : (+v).toFixed(2).replace(/\.?0+$/, "");
   const liveActive = _liveStandingsActive();
   const anyTblChange = true;  // siempre mostrar indicadores ▲▼=
+  const maxVals = {
+    groups: Math.max(...rows.map(r => r.groups || 0)),
+    positions: Math.max(...rows.map(r => r.positions || 0)),
+    r16: Math.max(...rows.map(r => r.r16 || 0)),
+    r8: Math.max(...rows.map(r => r.r8 || 0)),
+    r4: Math.max(...rows.map(r => r.r4 || 0)),
+    r2: Math.max(...rows.map(r => r.r2 || 0)),
+    r34_final: Math.max(...rows.map(r => r.r34_final || 0))
+  };
+
+  const cellHtml = (val, maxVal) => {
+    const isMax = val > 0 && val === maxVal;
+    const style = isMax ? ' style="background: rgba(74, 222, 128, 0.12); color: #4ADE80; font-weight: 700; border-radius: 4px;"' : '';
+    return `<td${style}>${fmt(val)}</td>`;
+  };
+
   tbody.innerHTML = rows.map(r => {
     const medal = r.pos <= 3 ? MEDAL[r.pos - 1] + " " : "";
     const provBadge = (liveActive && r.live_points > 0)
@@ -1537,13 +1553,13 @@ function renderStandingsTable() {
       <td class="font-bold" style="color:${r.color}">${r.pos}</td>
       <td class="text-left font-semibold text-white">${medal}${r.name} ${chgHtml}</td>
       <td class="font-extrabold text-lg" style="color:${r.color}">${fmt(r.total)}${provBadge}</td>
-      <td>${fmt(r.groups)}</td>
-      <td>${fmt(r.positions)}</td>
-      <td>${fmt(r.r16)}</td>
-      <td>${fmt(r.r8)}</td>
-      <td>${fmt(r.r4)}</td>
-      <td>${fmt(r.r2)}</td>
-      <td>${fmt(r.r34_final)}</td>
+      ${cellHtml(r.groups, maxVals.groups)}
+      ${cellHtml(r.positions, maxVals.positions)}
+      ${cellHtml(r.r16, maxVals.r16)}
+      ${cellHtml(r.r8, maxVals.r8)}
+      ${cellHtml(r.r4, maxVals.r4)}
+      ${cellHtml(r.r2, maxVals.r2)}
+      ${cellHtml(r.r34_final, maxVals.r34_final)}
     </tr>`;
   }).join("");
   _syncStandingsSortIndicators();
