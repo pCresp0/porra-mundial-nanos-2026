@@ -2805,7 +2805,10 @@ function renderMatchCard(m, players, colors) {
     } else if (lb) {
       badgeClass = lb.total > 0 ? (lb.exact > 0 ? "badge-exact" : "badge-sign") : "badge-miss";
     }
-    const predTxt = pd.pred.score || pd.pred.sign;
+    let predTxt = pd.pred.score || pd.pred.sign;
+    if (pd.pred.winner && (pd.pred.sign === "X" || pd.pred.sign === "Empate")) {
+      predTxt += `<span class="block text-[10px] leading-tight mt-0.5 opacity-90 font-sans tracking-wide" style="text-transform:none;">Pasa ${escapeHtml(pd.pred.winner)}</span>`;
+    }
     const fmt = v => Math.round(v * 10) / 10;  // 2.0→2, 1.0→1, 3.0→3
 
     let brkHtml = "";

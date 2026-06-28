@@ -48,12 +48,30 @@ def extract_player_predictions(xlsx_path):
     wb = openpyxl.load_workbook(xlsx_path, data_only=True)
     ws = wb["Pool"]
     preds = {}
+    
+    # Try to extract winners from the corresponding markdown file
+    md_path = xlsx_path.replace(".xlsx", ".md")
+    winners = {}
+    if os.path.exists(md_path):
+        with open(md_path, "r", encoding="utf-8") as f:
+            for line in f:
+                if line.startswith("|") and "Resultado" not in line and "---" not in line:
+                    parts = [p.strip() for p in line.split("|") if p.strip()]
+                    if len(parts) == 4:
+                        # parts: Local, Resultado, Visitante, Ganador
+                        match_key = f"{parts[0]}-{parts[2]}"
+                        winners[match_key] = parts[3].replace("**", "")
+
     for r in PRED_ROWS:
         raw = ws.cell(r, 3).value
         parsed = parse_pred_cell(str(raw) if raw else "")
         if parsed:
             mname, sign, gl, gv = parsed
-            preds[mname] = f"{sign}|{gl}-{gv}"
+            pred_str = f"{sign}|{gl}-{gv}"
+            winner = winners.get(mname)
+            if winner:
+                pred_str += f"|{winner}"
+            preds[mname] = pred_str
     return preds
 
 

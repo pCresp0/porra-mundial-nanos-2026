@@ -211,8 +211,10 @@ def _parse_pred(pred_val):
                 pred_away = teams_split[1].strip()
         s = score_part.strip()
     if "|" in s:
-        sign, score = s.split("|", 1)
-        result = {"sign": sign.strip(), "score": score.strip()}
+        parts = s.split("|")
+        result = {"sign": parts[0].strip(), "score": parts[1].strip()}
+        if len(parts) > 2:
+            result["winner"] = parts[2].strip()
     else:
         result = {"sign": s, "score": s}
     if pred_home:
