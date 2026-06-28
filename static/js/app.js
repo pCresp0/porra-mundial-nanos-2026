@@ -3753,7 +3753,7 @@ function renderStats() {
   const colors  = D.meta.colors;
 
   const playedAll = D.matches
-    .filter(m => ["groups", "r16", "r8", "r4", "r2", "r34", "final"].includes(m.phase) && m.played)
+    .filter(m => m.played)
     .sort((a, b) => {
       const da = `${a.date||""}T${(a.time_es||"00:00")}`;
       const db = `${b.date||""}T${(b.time_es||"00:00")}`;
@@ -3807,7 +3807,7 @@ function renderStats() {
   const topExact    = [...perPlayer].sort((a,b) => b.exact - a.exact)[0];
   const bestSub     = bestPlayers.length > 1 ? bestPlayers.map(p => p.name).join(" · ") + " (empate)" : (bestPlayer?.name || "");
   heroEl.innerHTML = [
-    { icon: "⚽", val: playedAll.length, label: "Partidos jugados (total)", sub: (() => { const tot = D.matches.filter(m => ["groups", "r16", "r8", "r4", "r2", "r34", "final"].includes(m.phase)).length; const pct = tot > 0 ? Math.round(playedAll.length / tot * 100) : 0; return `de ${tot} reales · ${pct}% completado`; })(),
+    { icon: "⚽", val: playedAll.length, label: "Partidos jugados (total)", sub: (() => { const tot = D.matches.length; const pct = tot > 0 ? Math.round(playedAll.length / tot * 100) : 0; return `de ${tot} reales · ${pct}% completado`; })(),
       info: "Número de partidos reales de fútbol de todo el Mundial (sobre el terreno de juego) que ya se han jugado y puntuado." },
     { icon: "🎯", val: totalExacts, label: "Marcadores exactos clavados", sub: `${perPlayer.reduce((s,p)=>s+p.miss,0)} predicciones falladas (0 pts) · suma de los ${players.length} jugadores`,
       info: "Número total de <strong>marcadores exactos clavados</strong> entre todos los jugadores en todo el Mundial." },

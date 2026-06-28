@@ -1211,6 +1211,15 @@ def build_data():
             continue
 
         phase = _phase_for_row(row)
+        # Excluir filas que son etiquetas de sección o filas de clasificación del Excel
+        name_str = str(match_name).strip()
+        if phase in ("positions", "q16", "honor"):
+            continue
+        if "ENFRENTAMIENTOS" in name_str or "CLASIFICADOS" in name_str or "Equipos" in name_str or "Partidos" in name_str or "Partido Final" in name_str or "Partido 3-4" in name_str:
+            continue
+        # Evitar filas de marcadores/nombres provisionales genéricos que no son cruces reales
+        if "Octavofinalista" in name_str or "Cuartofinalista" in name_str or "Semifinalista" in name_str or "Finalista" in name_str or "puesto-1" in name_str:
+            continue
         match_id = _val(ws1, row, 10)    # J
         result_raw = _val(ws1, row, 13)  # M
 
