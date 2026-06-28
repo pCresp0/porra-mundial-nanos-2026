@@ -21,13 +21,20 @@
     ]
   },
   "Argelia-Austria": {
-    "home": 1,
+    "home": 2,
     "away": 2,
     "minute": "live",
     "scorers": [
       {
         "player": "Rafik Blghali",
         "minute": "45'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Riyad Mahrez",
+        "minute": "60'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
