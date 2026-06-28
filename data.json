@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "28/06/2026 03:01",
+    "generated": "28/06/2026 03:02",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-06-28T05:05",
       "next_update_time": "05:05",
       "next_update_date": "28/06/2026",
-      "last_checked_iso": "2026-06-28T05:01",
-      "last_checked_time": "05:01",
+      "last_checked_iso": "2026-06-28T05:02",
+      "last_checked_time": "05:02",
       "last_checked_date": "28/06/2026"
     },
     "players": [
@@ -408,6 +408,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-28T05:02:29+02:00",
+        "date": "28/06/2026",
+        "time": "05:02:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-28T05:01:01+02:00",
         "date": "28/06/2026",
@@ -4835,32 +4843,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-26T23:36:54+02:00",
-        "date": "26/06/2026",
-        "time": "23:36:54",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇸🇳Senegal 5-0 Irak🇮🇶",
-            "name": "Senegal-Irak",
-            "date": "2026-06-26",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "0-0",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "5-0",
-              "jugado": "sí"
-            }
-          }
-        ]
       }
     ]
   },
