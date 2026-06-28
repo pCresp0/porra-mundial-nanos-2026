@@ -1,16 +1,1 @@
-{
-  "Sudáfrica-Canadá": {
-    "home": 0,
-    "away": 1,
-    "minute": "live",
-    "scorers": [
-      {
-        "player": "Astfan Avstakviv",
-        "minute": "90'+2'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "away"
-      }
-    ]
-  }
-}
+{}

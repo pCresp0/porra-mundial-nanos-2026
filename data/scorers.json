@@ -1261,6 +1261,15 @@
       "team": "home"
     }
   ],
+  "Sudáfrica-Canadá": [
+    {
+      "player": "Astfan Avstakviv",
+      "minute": "90'+2'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "Arabia Saudita-Uruguay": [
     {
       "player": "Abdulelah Al-Amri",

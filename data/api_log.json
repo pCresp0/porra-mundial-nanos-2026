@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-22T20:02:57+02:00",
-    "date": "22/06/2026",
-    "time": "20:02:57",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-22T20:05:24+02:00",
     "date": "22/06/2026",
     "time": "20:05:24",
@@ -17794,5 +17786,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-28T23:00:58+02:00",
+    "date": "28/06/2026",
+    "time": "23:00:58",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇿🇦Sudáfrica 0-1 Canadá🇨🇦",
+        "name": "Sudáfrica-Canadá",
+        "date": "2026-06-28",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "sin resultado",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "0-1",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]
