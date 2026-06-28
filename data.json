@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "28/06/2026 03:57",
+    "generated": "28/06/2026 03:58",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-28T05:44",
-      "last_updated_time": "05:44",
+      "last_updated_iso": "2026-06-28T05:58",
+      "last_updated_time": "05:58",
       "last_updated_date": "28/06/2026",
       "next_update_iso": "2026-06-28T06:00",
       "next_update_time": "06:00",
       "next_update_date": "28/06/2026",
-      "last_checked_iso": "2026-06-28T05:57",
-      "last_checked_time": "05:57",
+      "last_checked_iso": "2026-06-28T05:58",
+      "last_checked_time": "05:58",
       "last_checked_date": "28/06/2026"
     },
     "players": [
@@ -408,6 +408,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-28T05:58:32+02:00",
+        "date": "28/06/2026",
+        "time": "05:58:32",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇩🇿Argelia 0-0 Austria🇦🇹",
+            "name": "Argelia-Austria",
+            "date": "2026-06-28",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-06-28T05:57:09+02:00",
         "date": "28/06/2026",
@@ -4854,14 +4871,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-27T02:12:58+02:00",
-        "date": "27/06/2026",
-        "time": "02:12:58",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4897,8 +4906,8 @@
     {
       "name": "MEDINA",
       "total": 125.0,
-      "live_points": 5.0,
-      "total_live": 130.0,
+      "live_points": 2.0,
+      "total_live": 127.0,
       "groups": 125.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -4925,8 +4934,8 @@
     {
       "name": "CRESPO",
       "total": 116.0,
-      "live_points": 5.0,
-      "total_live": 121.0,
+      "live_points": 2.0,
+      "total_live": 118.0,
       "groups": 116.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -5009,8 +5018,8 @@
     {
       "name": "LUIS/VIR",
       "total": 99.0,
-      "live_points": 5.0,
-      "total_live": 104.0,
+      "live_points": 2.0,
+      "total_live": 101.0,
       "groups": 99.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -16670,7 +16679,7 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 2,
+      "live_goals_l": 3,
       "live_goals_v": 2,
       "live_scorers": [
         {
@@ -16683,6 +16692,13 @@
         {
           "player": "R. Mahrez",
           "minute": "60'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "R. Mahrez",
+          "minute": "90'+3'",
           "own_goal": false,
           "penalty": false,
           "team": "home"
@@ -16750,16 +16766,15 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 2.0,
-            "diff": 1.0,
+            "sign": 0.0,
+            "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 0.0,
             "reasons": [
-              "1X2 correcto (+2.0)",
-              "Diferencia de goles (+1)"
+              "1X2 incorrecto — 0 pts"
             ]
           },
-          "live_score": 3.0
+          "live_score": 0.0
         },
         "MEDINA": {
           "pred": {
@@ -16769,16 +16784,15 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 2.0,
-            "diff": 1.0,
+            "sign": 0.0,
+            "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 0.0,
             "reasons": [
-              "1X2 correcto (+2.0)",
-              "Diferencia de goles (+1)"
+              "1X2 incorrecto — 0 pts"
             ]
           },
-          "live_score": 3.0
+          "live_score": 0.0
         },
         "VÍCTOR": {
           "pred": {
@@ -16806,16 +16820,15 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 2.0,
-            "diff": 1.0,
+            "sign": 0.0,
+            "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 0.0,
             "reasons": [
-              "1X2 correcto (+2.0)",
-              "Diferencia de goles (+1)"
+              "1X2 incorrecto — 0 pts"
             ]
           },
-          "live_score": 3.0
+          "live_score": 0.0
         }
       }
     },
@@ -27066,13 +27079,13 @@
     {
       "row": 174,
       "id": "",
-      "name": "España-Austria",
+      "name": "España-Argelia",
       "home": "España",
-      "away": "Austria",
+      "away": "Argelia",
       "home_placeholder": "2K",
       "away_placeholder": "2L",
       "flag_home": "🇪🇸",
-      "flag_away": "🇦🇹",
+      "flag_away": "🇩🇿",
       "city": "Los Ángeles",
       "country": "EE.UU.",
       "tv": "dazn",
@@ -27264,13 +27277,13 @@
     {
       "row": 176,
       "id": "",
-      "name": "Suiza-Argelia",
+      "name": "Suiza-Irán",
       "home": "Suiza",
-      "away": "Argelia",
+      "away": "Irán",
       "home_placeholder": "1B",
       "away_placeholder": "3EFGIJ",
       "flag_home": "🇨🇭",
-      "flag_away": "🇩🇿",
+      "flag_away": "🇮🇷",
       "city": "Vancouver",
       "country": "Canadá",
       "tv": "dazn",

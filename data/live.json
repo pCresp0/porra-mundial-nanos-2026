@@ -28,7 +28,7 @@
     ]
   },
   "Argelia-Austria": {
-    "home": 2,
+    "home": 3,
     "away": 2,
     "minute": "live",
     "scorers": [
@@ -42,6 +42,13 @@
       {
         "player": "Riyad Mahrez",
         "minute": "60'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Riyad Mahrez",
+        "minute": "90'+3'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
