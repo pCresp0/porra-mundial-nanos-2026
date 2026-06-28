@@ -1,22 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-22T00:46:34+02:00",
-    "date": "22/06/2026",
-    "time": "00:46:34",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇺🇾Uruguay 0-0 Cabo Verde🇨🇻",
-        "name": "Uruguay-Cabo Verde",
-        "date": "2026-06-22",
-        "fields": [],
-        "old": {},
-        "new": {}
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-22T00:48:38+02:00",
     "date": "22/06/2026",
     "time": "00:48:38",
@@ -17747,6 +17730,32 @@
         },
         "new": {
           "marcador": "0-0",
+          "jugado": "sí"
+        }
+      }
+    ]
+  },
+  {
+    "ts_iso": "2026-06-28T03:34:29+02:00",
+    "date": "28/06/2026",
+    "time": "03:34:29",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇨🇩RD Congo 3-1 Uzbekistán🇺🇿",
+        "name": "RD Congo-Uzbekistán",
+        "date": "2026-06-28",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "0-0",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "3-1",
           "jugado": "sí"
         }
       }
