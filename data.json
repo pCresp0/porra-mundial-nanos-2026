@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "28/06/2026 20:52",
+    "generated": "28/06/2026 20:54",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-28T21:02",
-      "last_updated_time": "21:02",
+      "last_updated_iso": "2026-06-28T22:54",
+      "last_updated_time": "22:54",
       "last_updated_date": "28/06/2026",
       "next_update_iso": "2026-06-28T22:55",
       "next_update_time": "22:55",
       "next_update_date": "28/06/2026",
-      "last_checked_iso": "2026-06-28T22:52",
-      "last_checked_time": "22:52",
+      "last_checked_iso": "2026-06-28T22:54",
+      "last_checked_time": "22:54",
       "last_checked_date": "28/06/2026"
     },
     "players": [
@@ -419,6 +419,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-28T22:54:30+02:00",
+        "date": "28/06/2026",
+        "time": "22:54:30",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇿🇦Sudáfrica ?-? Canadá🇨🇦",
+            "name": "Sudáfrica-Canadá",
+            "date": "2026-06-28",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-06-28T22:52:32+02:00",
         "date": "28/06/2026",
@@ -4757,14 +4774,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-27T08:08:28+02:00",
-        "date": "27/06/2026",
-        "time": "08:08:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4772,8 +4781,8 @@
     {
       "name": "MEDINA",
       "total": 219.0,
-      "live_points": 0.0,
-      "total_live": 219.0,
+      "live_points": 3.0,
+      "total_live": 222.0,
       "groups": 130.0,
       "positions": 89.0,
       "q16": 0.0,
@@ -4806,8 +4815,8 @@
     {
       "name": "VÍCTOR",
       "total": 209.0,
-      "live_points": 0.0,
-      "total_live": 209.0,
+      "live_points": 5.0,
+      "total_live": 214.0,
       "groups": 134.0,
       "positions": 75.0,
       "q16": 0.0,
@@ -4840,8 +4849,8 @@
     {
       "name": "JUANCHO",
       "total": 203.0,
-      "live_points": 0.0,
-      "total_live": 203.0,
+      "live_points": 3.0,
+      "total_live": 206.0,
       "groups": 118.0,
       "positions": 85.0,
       "q16": 0.0,
@@ -4874,8 +4883,8 @@
     {
       "name": "CRESPO",
       "total": 202.0,
-      "live_points": 0.0,
-      "total_live": 202.0,
+      "live_points": 3.0,
+      "total_live": 205.0,
       "groups": 121.0,
       "positions": 81.0,
       "q16": 0.0,
@@ -4908,8 +4917,8 @@
     {
       "name": "LUIS/VIR",
       "total": 181.0,
-      "live_points": 5.0,
-      "total_live": 186.0,
+      "live_points": 0.0,
+      "total_live": 181.0,
       "groups": 104.0,
       "positions": 77.0,
       "q16": 0.0,
@@ -4942,8 +4951,8 @@
     {
       "name": "LARRY",
       "total": 172.0,
-      "live_points": 0.0,
-      "total_live": 172.0,
+      "live_points": 3.0,
+      "total_live": 175.0,
       "groups": 105.0,
       "positions": 67.0,
       "q16": 0.0,
@@ -17736,8 +17745,16 @@
       "live": true,
       "live_minute": "live",
       "live_goals_l": 0,
-      "live_goals_v": 0,
-      "live_scorers": [],
+      "live_goals_v": 1,
+      "live_scorers": [
+        {
+          "player": "Astfan Avstakviv",
+          "minute": "90'+2'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        }
+      ],
       "goals_l": null,
       "goals_v": null,
       "scorers": [],
@@ -17756,24 +17773,48 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 0.0,
+            "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 0.0,
+            "total": 3.0,
             "reasons": [
-              "1X2 incorrecto — 0 pts"
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles no acertada"
             ],
             "team_match": null,
             "pred_home": "",
             "pred_away": ""
           },
-          "live_score": 0.0
+          "live_score": 3.0
         },
         "LARRY": {
           "pred": {
             "sign": "2",
             "score": "0-2",
             "winner": "Canadá"
+          },
+          "score": 0.0,
+          "breakdown": null,
+          "live_breakdown": {
+            "sign": 3.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 3.0,
+            "reasons": [
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles no acertada"
+            ],
+            "team_match": null,
+            "pred_home": "",
+            "pred_away": ""
+          },
+          "live_score": 3.0
+        },
+        "LUIS/VIR": {
+          "pred": {
+            "sign": "X",
+            "score": "1-1",
+            "winner": "Canadá (3-4 pen.)"
           },
           "score": 0.0,
           "breakdown": null,
@@ -17791,11 +17832,34 @@
           },
           "live_score": 0.0
         },
-        "LUIS/VIR": {
+        "MEDINA": {
           "pred": {
-            "sign": "X",
-            "score": "1-1",
-            "winner": "Canadá (3-4 pen.)"
+            "sign": "2",
+            "score": "0-2",
+            "winner": "Canadá"
+          },
+          "score": 0.0,
+          "breakdown": null,
+          "live_breakdown": {
+            "sign": 3.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 3.0,
+            "reasons": [
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles no acertada"
+            ],
+            "team_match": null,
+            "pred_home": "",
+            "pred_away": ""
+          },
+          "live_score": 3.0
+        },
+        "VÍCTOR": {
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Canadá"
           },
           "score": 0.0,
           "breakdown": null,
@@ -17814,50 +17878,6 @@
           },
           "live_score": 5.0
         },
-        "MEDINA": {
-          "pred": {
-            "sign": "2",
-            "score": "0-2",
-            "winner": "Canadá"
-          },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
-            "sign": 0.0,
-            "diff": 0.0,
-            "exact": 0,
-            "total": 0.0,
-            "reasons": [
-              "1X2 incorrecto — 0 pts"
-            ],
-            "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
-          },
-          "live_score": 0.0
-        },
-        "VÍCTOR": {
-          "pred": {
-            "sign": "2",
-            "score": "1-2",
-            "winner": "Canadá"
-          },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
-            "sign": 0.0,
-            "diff": 0.0,
-            "exact": 0,
-            "total": 0.0,
-            "reasons": [
-              "1X2 incorrecto — 0 pts"
-            ],
-            "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
-          },
-          "live_score": 0.0
-        },
         "CRESPO": {
           "pred": {
             "sign": "2",
@@ -17867,18 +17887,19 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 0.0,
+            "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 0.0,
+            "total": 3.0,
             "reasons": [
-              "1X2 incorrecto — 0 pts"
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles no acertada"
             ],
             "team_match": null,
             "pred_home": "",
             "pred_away": ""
           },
-          "live_score": 0.0
+          "live_score": 3.0
         }
       }
     },
