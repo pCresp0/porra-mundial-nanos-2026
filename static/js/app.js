@@ -5436,7 +5436,7 @@ function renderScenarios() {
   const personalHtml = `<div id="sce-personal" class="mb-5"></div>`;
 
   // ── Próximas predicciones ──────────────────────────────────
-  const upcoming = remainingGroups.slice(0, 6);
+  const upcoming = remainingMatches.slice(0, 6);
   const upcomingHtml = upcoming.length === 0 ? "" : `
     <div class="flex items-center gap-2 mb-1 mt-6">
       <h3 class="font-bold text-white text-lg">⏭️ Próximas predicciones</h3>
@@ -5501,10 +5501,10 @@ function renderScenarios() {
   });
 
   // ── Render personal if selection exists ──────────────────
-  if (_sceSelectedPlayer) _renderScePersonal(standings, leader, maxPerMatch, remainingGroups, colors);
+  if (_sceSelectedPlayer) _renderScePersonal(standings, leader, maxPerMatch, remainingMatches, colors);
 }
 
-function _renderScePersonal(standings, leader, maxPerMatch, remainingGroups, colors) {
+function _renderScePersonal(standings, leader, maxPerMatch, remainingMatches, colors) {
   const el = document.getElementById("sce-personal");
   if (!el || !_sceSelectedPlayer) return;
 
@@ -5522,7 +5522,7 @@ function _renderScePersonal(standings, leader, maxPerMatch, remainingGroups, col
   // classify each remaining match
   const battles = [], neutrals = [], noPred = [];
 
-  for (const m of remainingGroups) {
+  for (const m of remainingMatches) {
     const myP  = m.predictions?.[me.name]?.pred;
     const rivP = rival ? m.predictions?.[rival.name]?.pred : null;
 
@@ -5708,7 +5708,7 @@ function _renderScePersonal(standings, leader, maxPerMatch, remainingGroups, col
   el.querySelectorAll(".sce-bfilt-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       _sceBattleFilter = btn.dataset.bfilt;
-      _renderScePersonal(standings, leader, maxPerMatch, remainingGroups, colors);
+      _renderScePersonal(standings, leader, maxPerMatch, remainingMatches, colors);
     });
   });
 }
