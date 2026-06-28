@@ -1,7 +1,7 @@
 {
   "Jordania-Argentina": {
     "home": 1,
-    "away": 2,
+    "away": 3,
     "minute": "live",
     "scorers": [
       {
@@ -14,6 +14,13 @@
       {
         "player": "Jivani Lv Slsv",
         "minute": "19'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Lionel Messi",
+        "minute": "80'",
         "own_goal": false,
         "penalty": false,
         "team": "away"

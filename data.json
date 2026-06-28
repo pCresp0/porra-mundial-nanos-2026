@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "28/06/2026 03:42",
+    "generated": "28/06/2026 03:44",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-28T05:24",
-      "last_updated_time": "05:24",
+      "last_updated_iso": "2026-06-28T05:44",
+      "last_updated_time": "05:44",
       "last_updated_date": "28/06/2026",
       "next_update_iso": "2026-06-28T05:45",
       "next_update_time": "05:45",
       "next_update_date": "28/06/2026",
-      "last_checked_iso": "2026-06-28T05:42",
-      "last_checked_time": "05:42",
+      "last_checked_iso": "2026-06-28T05:44",
+      "last_checked_time": "05:44",
       "last_checked_date": "28/06/2026"
     },
     "players": [
@@ -408,6 +408,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-28T05:44:25+02:00",
+        "date": "28/06/2026",
+        "time": "05:44:25",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇯🇴Jordania 0-0 Argentina🇦🇷",
+            "name": "Jordania-Argentina",
+            "date": "2026-06-28",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-06-28T05:42:37+02:00",
         "date": "28/06/2026",
@@ -4862,14 +4879,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-27T01:58:29+02:00",
-        "date": "27/06/2026",
-        "time": "01:58:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4933,8 +4942,8 @@
     {
       "name": "CRESPO",
       "total": 116.0,
-      "live_points": 6.0,
-      "total_live": 122.0,
+      "live_points": 5.0,
+      "total_live": 121.0,
       "groups": 116.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -5017,8 +5026,8 @@
     {
       "name": "LUIS/VIR",
       "total": 99.0,
-      "live_points": 6.0,
-      "total_live": 105.0,
+      "live_points": 5.0,
+      "total_live": 104.0,
       "groups": 99.0,
       "positions": 0.0,
       "q16": 0.0,
@@ -16858,7 +16867,7 @@
       "live": true,
       "live_minute": "live",
       "live_goals_l": 1,
-      "live_goals_v": 2,
+      "live_goals_v": 3,
       "live_scorers": [
         {
           "player": "Mvsi Altmari",
@@ -16870,6 +16879,13 @@
         {
           "player": "Jivani Lv Slsv",
           "minute": "19'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        },
+        {
+          "player": "L. Messi",
+          "minute": "80'",
           "own_goal": false,
           "penalty": false,
           "team": "away"
@@ -16926,15 +16942,15 @@
           "breakdown": null,
           "live_breakdown": {
             "sign": 2.0,
-            "diff": 1.0,
+            "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 2.0,
             "reasons": [
               "1X2 correcto (+2.0)",
-              "Diferencia de goles (+1)"
+              "Diferencia de goles no acertada"
             ]
           },
-          "live_score": 3.0
+          "live_score": 2.0
         },
         "MEDINA": {
           "pred": {
@@ -16983,15 +16999,15 @@
           "breakdown": null,
           "live_breakdown": {
             "sign": 2.0,
-            "diff": 1.0,
+            "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 2.0,
             "reasons": [
               "1X2 correcto (+2.0)",
-              "Diferencia de goles (+1)"
+              "Diferencia de goles no acertada"
             ]
           },
-          "live_score": 3.0
+          "live_score": 2.0
         }
       }
     },
