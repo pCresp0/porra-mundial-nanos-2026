@@ -6421,17 +6421,39 @@ function renderBracket(overrideEl) {
     function roundContent(phase) {
       if (phase === "r34_final") {
         const semis = byPhase["r34"];
-        return `
-          <div class="bkt-mob-lbl">Semifinales</div>
-          ${semis.map(m => matchCard(m, "bkt-mob-card")).join("")}
-          <div class="bkt-mob-lbl">3.er y 4.º puesto · 18 jul</div>
-          ${matchCard(thirdMatch, "bkt-mob-card")}
+        let html = `<div class="bkt-mob-lbl">Semifinales</div>`;
+        html += `<div class="bkt-mob-pair">
+          <div class="bkt-mob-pair-matches">
+            ${matchCard(semis[0] || null, "bkt-mob-card")}
+            ${matchCard(semis[1] || null, "bkt-mob-card")}
+          </div>
+        </div>`;
+        html += `<div class="bkt-mob-lbl">3.er y 4.º puesto · 18 jul</div>
+          <div class="bkt-mob-pair single-match">
+            <div class="bkt-mob-pair-matches">${matchCard(thirdMatch, "bkt-mob-card")}</div>
+          </div>
           <div class="bkt-mob-lbl">🏆 Final · 19 jul</div>
-          ${matchCard(finalMatch, "bkt-mob-card")}`;
+          <div class="bkt-mob-pair single-match">
+            <div class="bkt-mob-pair-matches">${matchCard(finalMatch, "bkt-mob-card")}</div>
+          </div>`;
+        return html;
       }
       const ms = byPhase[phase];
       const count = { r16: 16, r4: 8, r2: 4, r34: 2 }[phase];
-      return Array.from({ length: count }, (_, i) => matchCard(ms[i] || null, "bkt-mob-card")).join("");
+      let html = "";
+      for (let i = 0; i < count; i += 2) {
+        html += `
+        <div class="bkt-mob-pair">
+          <div class="bkt-mob-pair-matches">
+            ${matchCard(ms[i] || null, "bkt-mob-card")}
+            ${matchCard(ms[i+1] || null, "bkt-mob-card")}
+          </div>
+          <button class="bkt-mob-pair-nav bkt-mob-nav-next-btn" aria-label="Siguiente ronda">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>`;
+      }
+      return html;
     }
 
     // Progreso por ronda
@@ -6506,17 +6528,43 @@ function renderBracket(overrideEl) {
       tabsEl.querySelectorAll(".bkt-mob-tab").forEach(b => b.classList.toggle("active", b.dataset.bktRound === r.phase));
       const phase = r.phase;
       if (phase === "r34_final") {
-        bodyEl.innerHTML = `
-          <div class="bkt-mob-lbl">Semifinales</div>
-          ${byPhase["r34"].map(m => matchCard(m, "bkt-mob-card")).join("")}
-          <div class="bkt-mob-lbl">3.er y 4.º puesto · 18 jul</div>
-          ${matchCard(thirdMatch, "bkt-mob-card")}
+        let html = `<div class="bkt-mob-lbl">Semifinales</div>`;
+        const semis = byPhase["r34"];
+        html += `<div class="bkt-mob-pair">
+          <div class="bkt-mob-pair-matches">
+            ${matchCard(semis[0] || null, "bkt-mob-card")}
+            ${matchCard(semis[1] || null, "bkt-mob-card")}
+          </div>
+        </div>`;
+        html += `<div class="bkt-mob-lbl">3.er y 4.º puesto · 18 jul</div>
+          <div class="bkt-mob-pair single-match">
+            <div class="bkt-mob-pair-matches">${matchCard(thirdMatch, "bkt-mob-card")}</div>
+          </div>
           <div class="bkt-mob-lbl">🏆 Final · 19 jul</div>
-          ${matchCard(finalMatch, "bkt-mob-card")}`;
+          <div class="bkt-mob-pair single-match">
+            <div class="bkt-mob-pair-matches">${matchCard(finalMatch, "bkt-mob-card")}</div>
+          </div>`;
+        bodyEl.innerHTML = html;
       } else {
         const ms = byPhase[phase];
         const count = { r16: 16, r4: 8, r2: 4, r34: 2 }[phase];
-        bodyEl.innerHTML = Array.from({ length: count }, (_, i) => matchCard(ms[i] || null, "bkt-mob-card")).join("");
+        let html = "";
+        for (let i = 0; i < count; i += 2) {
+          html += `
+          <div class="bkt-mob-pair">
+            <div class="bkt-mob-pair-matches">
+              ${matchCard(ms[i] || null, "bkt-mob-card")}
+              ${matchCard(ms[i+1] || null, "bkt-mob-card")}
+            </div>
+            <button class="bkt-mob-pair-nav bkt-mob-nav-next-btn" aria-label="Siguiente ronda">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>`;
+        }
+        bodyEl.innerHTML = html;
+        bodyEl.querySelectorAll(".bkt-mob-nav-next-btn").forEach(btn => {
+          btn.addEventListener("click", () => switchMobRound(currentIdx + 1));
+        });
       }
       bodyEl.scrollTop = 0;
       // Update nav buttons
@@ -6544,6 +6592,9 @@ function renderBracket(overrideEl) {
     // Wire up initial nav buttons
     navWrap?.querySelector(".bkt-mob-nav-next")?.addEventListener("click", () => switchMobRound(currentIdx + 1));
     navWrap?.querySelector(".bkt-mob-nav-prev")?.addEventListener("click", () => switchMobRound(currentIdx - 1));
+    bodyEl?.querySelectorAll(".bkt-mob-nav-next-btn").forEach(btn => {
+      btn.addEventListener("click", () => switchMobRound(currentIdx + 1));
+    });
   }
 
   // Re-render al cruzar breakpoint (solo desde el bracket-container original)
