@@ -14,10 +14,17 @@
     ]
   },
   "Argelia-Austria": {
-    "home": 0,
+    "home": 1,
     "away": 1,
     "minute": "live",
     "scorers": [
+      {
+        "player": "Rafik Blghali",
+        "minute": "45'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
       {
         "player": "Marko Arnautović",
         "minute": "28'",
