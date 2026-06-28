@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-22T02:46:35+02:00",
-    "date": "22/06/2026",
-    "time": "02:46:35",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-22T02:48:26+02:00",
     "date": "22/06/2026",
     "time": "02:48:26",
@@ -17777,5 +17769,22 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-28T05:18:29+02:00",
+    "date": "28/06/2026",
+    "time": "05:18:29",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇯🇴Jordania 0-0 Argentina🇦🇷",
+        "name": "Jordania-Argentina",
+        "date": "2026-06-28",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]

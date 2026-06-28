@@ -1,9 +1,16 @@
 {
   "Jordania-Argentina": {
-    "home": 0,
+    "home": 1,
     "away": 2,
     "minute": "live",
     "scorers": [
+      {
+        "player": "Mvsi Altmari",
+        "minute": "55'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
       {
         "player": "Jivani Lv Slsv",
         "minute": "19'",
