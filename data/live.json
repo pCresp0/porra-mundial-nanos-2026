@@ -12,6 +12,13 @@
         "team": "home"
       },
       {
+        "player": "Yoane Wissa",
+        "minute": "90'+1'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
         "player": "Aldvr Shvmvrvdvf",
         "minute": "10'",
         "own_goal": false,
