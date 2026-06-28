@@ -1184,6 +1184,16 @@ def build_data():
     # Mapeamos las fases del Excel (r34 y final) a las claves de standings (r34_final)
     _KO_STANDINGS_KEY = {"r16": "r16", "r8": "r8", "r4": "r4", "r2": "r2", "r34": "r34_final", "final": "r34_final"}
 
+    # ── Cargar predicciones KO de los Excel individuales de cada jugador ──
+    _ko_pred_path = os.path.join(BASE, "data", "ko_predictions.json")
+    _ko_preds = {}
+    if os.path.exists(_ko_pred_path):
+        try:
+            with open(_ko_pred_path, encoding="utf-8") as _f:
+                _ko_preds = json.load(_f)
+        except Exception:
+            _ko_preds = {}
+
     all_players = players1 + [player2]
     all_ws      = [ws1] * len(players1) + [ws2]
     all_clas    = {**clas1, **clas2}
@@ -1288,8 +1298,14 @@ def build_data():
         actual_away_set = bool(wc.get("away") and str(wc.get("away")).strip() and not str(wc.get("away")).startswith("1") and not str(wc.get("away")).startswith("2") and not str(wc.get("away")).startswith("W") and not str(wc.get("away")).startswith("L"))
         
         for p, ws in zip(all_players, all_ws):
-            pred_raw  = _val(ws, row, p["pred_col"])
-            score_raw = _val(ws, row, p["score_col"])
+            if phase in KO_PHASE_PTS:
+                # For KO phases, read from the JSON file
+                pred_raw = _ko_preds.get(p["name"], {}).get(mkey)
+                score_raw = 0 # Score will be calculated below
+            else:
+                pred_raw  = _val(ws, row, p["pred_col"])
+                score_raw = _val(ws, row, p["score_col"])
+            
             pred  = _parse_pred(pred_raw)
             # Si es fase eliminatoria y los equipos reales aún no están definidos, ocultamos la predicción
             if phase in KO_PHASE_PTS and not (actual_home_set and actual_away_set):
