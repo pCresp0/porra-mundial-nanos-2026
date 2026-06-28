@@ -488,6 +488,23 @@ const HONOR_PLAYER_FLAGS = {
   "Salah":            "🇪🇬",
   "Neymar":           "🇧🇷",
   "De Bruyne":        "🇧🇪",
+  // Países (para el podio)
+  "España":           "🇪🇸",
+  "Francia":          "🇫🇷",
+  "Alemania":         "🇩🇪",
+  "Inglaterra":       "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+  "Argentina":        "🇦🇷",
+  "Brasil":           "🇧🇷",
+  "Portugal":         "🇵🇹",
+  "Países Bajos":     "🇳🇱",
+  "Italia":           "🇮🇹",
+  "Uruguay":          "🇺🇾",
+  "Croacia":          "🇭🇷",
+  "Bélgica":          "🇧🇪",
+  "Colombia":         "🇨🇴",
+  "Marruecos":        "🇲🇦",
+  "USA":              "🇺🇸",
+  "México":           "🇲🇽",
 };
 
 const MEDAL = ["🥇","🥈","🥉","4️⃣","5️⃣","6️⃣"];
