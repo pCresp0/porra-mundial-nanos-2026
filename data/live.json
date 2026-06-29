@@ -1,9 +1,16 @@
 {
   "Alemania-Paraguay": {
-    "home": 0,
+    "home": 1,
     "away": 1,
     "minute": "live",
     "scorers": [
+      {
+        "player": "Kai Havertz",
+        "minute": "54'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
       {
         "player": "Khvliv Ansisv",
         "minute": "42'",

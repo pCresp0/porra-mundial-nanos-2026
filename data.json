@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "29/06/2026 21:48",
+    "generated": "29/06/2026 21:50",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-29T23:14",
-      "last_updated_time": "23:14",
+      "last_updated_iso": "2026-06-29T23:50",
+      "last_updated_time": "23:50",
       "last_updated_date": "29/06/2026",
-      "next_update_iso": "2026-06-29T23:50",
-      "next_update_time": "23:50",
+      "next_update_iso": "2026-06-29T23:55",
+      "next_update_time": "23:55",
       "next_update_date": "29/06/2026",
-      "last_checked_iso": "2026-06-29T23:48",
-      "last_checked_time": "23:48",
+      "last_checked_iso": "2026-06-29T23:50",
+      "last_checked_time": "23:50",
       "last_checked_date": "29/06/2026"
     },
     "players": [
@@ -411,6 +411,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-29T23:50:40+02:00",
+        "date": "29/06/2026",
+        "time": "23:50:40",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇩🇪Alemania ?-? Paraguay🇵🇾",
+            "name": "Alemania-Paraguay",
+            "date": "2026-06-29",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-06-29T23:48:23+02:00",
         "date": "29/06/2026",
@@ -4747,14 +4764,6 @@
         "ts_iso": "2026-06-28T01:08:26+02:00",
         "date": "28/06/2026",
         "time": "01:08:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-28T01:06:28+02:00",
-        "date": "28/06/2026",
-        "time": "01:06:28",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -18164,9 +18173,16 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 0,
+      "live_goals_l": 1,
       "live_goals_v": 1,
       "live_scorers": [
+        {
+          "player": "Kai Havertz",
+          "minute": "54'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
         {
           "player": "Khvliv Ansisv",
           "minute": "42'",
