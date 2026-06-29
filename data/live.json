@@ -1,12 +1,19 @@
 {
   "Brasil-Japón": {
-    "home": 1,
+    "home": 2,
     "away": 1,
     "minute": "live",
     "scorers": [
       {
         "player": "Casemiro",
         "minute": "56'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Gabriel Martinelli",
+        "minute": "90'+5'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
