@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "29/06/2026 21:12",
+    "generated": "29/06/2026 21:14",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-29T22:34",
-      "last_updated_time": "22:34",
+      "last_updated_iso": "2026-06-29T23:14",
+      "last_updated_time": "23:14",
       "last_updated_date": "29/06/2026",
       "next_update_iso": "2026-06-29T23:15",
       "next_update_time": "23:15",
       "next_update_date": "29/06/2026",
-      "last_checked_iso": "2026-06-29T23:12",
-      "last_checked_time": "23:12",
+      "last_checked_iso": "2026-06-29T23:14",
+      "last_checked_time": "23:14",
       "last_checked_date": "29/06/2026"
     },
     "players": [
@@ -411,6 +411,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-29T23:14:31+02:00",
+        "date": "29/06/2026",
+        "time": "23:14:31",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇩🇪Alemania ?-? Paraguay🇵🇾",
+            "name": "Alemania-Paraguay",
+            "date": "2026-06-29",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-06-29T23:12:26+02:00",
         "date": "29/06/2026",
@@ -4792,14 +4809,6 @@
         "ts_iso": "2026-06-28T00:34:28+02:00",
         "date": "28/06/2026",
         "time": "00:34:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-28T00:32:30+02:00",
-        "date": "28/06/2026",
-        "time": "00:32:30",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -18210,8 +18219,16 @@
       "live": true,
       "live_minute": "live",
       "live_goals_l": 0,
-      "live_goals_v": 0,
-      "live_scorers": [],
+      "live_goals_v": 1,
+      "live_scorers": [
+        {
+          "player": "Khvliv Ansisv",
+          "minute": "42'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        }
+      ],
       "goals_l": null,
       "goals_v": null,
       "scorers": [],
