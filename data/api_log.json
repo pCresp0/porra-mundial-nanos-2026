@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-23T06:12:22+02:00",
-    "date": "23/06/2026",
-    "time": "06:12:22",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-23T06:14:27+02:00",
     "date": "23/06/2026",
     "time": "06:14:27",
@@ -17722,5 +17714,22 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-30T00:48:27+02:00",
+    "date": "30/06/2026",
+    "time": "00:48:27",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇩🇪Alemania ?-? Paraguay🇵🇾",
+        "name": "Alemania-Paraguay",
+        "date": "2026-06-29",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]
