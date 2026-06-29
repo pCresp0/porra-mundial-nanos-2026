@@ -1555,6 +1555,22 @@
       "team": "away"
     }
   ],
+  "Alemania-Paraguay": [
+    {
+      "player": "Kai Havertz",
+      "minute": "54'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Khvliv Ansisv",
+      "minute": "42'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "Bélgica-Egipto": [
     {
       "player": "Mohamed Hany",
