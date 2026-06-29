@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "29/06/2026 19:04",
+    "generated": "29/06/2026 19:06",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-29T21:01",
-      "last_updated_time": "21:01",
+      "last_updated_iso": "2026-06-29T21:06",
+      "last_updated_time": "21:06",
       "last_updated_date": "29/06/2026",
-      "next_update_iso": "2026-06-29T21:05",
-      "next_update_time": "21:05",
+      "next_update_iso": "2026-06-29T21:10",
+      "next_update_time": "21:10",
       "next_update_date": "29/06/2026",
-      "last_checked_iso": "2026-06-29T21:04",
-      "last_checked_time": "21:04",
+      "last_checked_iso": "2026-06-29T21:06",
+      "last_checked_time": "21:06",
       "last_checked_date": "29/06/2026"
     },
     "players": [
@@ -24,11 +24,9 @@
       "CRESPO"
     ],
     "live": {
-      "active": true,
-      "count": 1,
-      "matches": [
-        "Brasil-Japón"
-      ]
+      "active": false,
+      "count": 0,
+      "matches": []
     },
     "colors": {
       "JUANCHO": "#F5C518",
@@ -415,6 +413,32 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-29T21:06:58+02:00",
+        "date": "29/06/2026",
+        "time": "21:06:58",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇧🇷Brasil 2-1 Japón🇯🇵",
+            "name": "Brasil-Japón",
+            "date": "2026-06-29",
+            "fields": [
+              "marcador",
+              "jugado"
+            ],
+            "old": {
+              "marcador": "sin resultado",
+              "jugado": "no"
+            },
+            "new": {
+              "marcador": "2-1",
+              "jugado": "sí"
+            }
+          }
+        ]
+      },
       {
         "ts_iso": "2026-06-29T21:04:29+02:00",
         "date": "29/06/2026",
@@ -4799,27 +4823,19 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-27T23:08:25+02:00",
-        "date": "27/06/2026",
-        "time": "23:08:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
   "standings": [
     {
       "name": "MEDINA",
-      "total": 222.0,
-      "live_points": 3.0,
+      "total": 225.0,
+      "live_points": 0.0,
       "total_live": 225.0,
       "groups": 130.0,
       "positions": 89.0,
       "q16": 0.0,
-      "r16": 3.0,
+      "r16": 6.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4842,7 +4858,7 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 3.0
+          "pts": 6.0
         }
       ],
       "color": "#F97316",
@@ -4853,13 +4869,13 @@
     },
     {
       "name": "VÍCTOR",
-      "total": 214.0,
-      "live_points": 3.0,
+      "total": 217.0,
+      "live_points": 0.0,
       "total_live": 217.0,
       "groups": 134.0,
       "positions": 75.0,
       "q16": 0.0,
-      "r16": 5.0,
+      "r16": 8.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4882,7 +4898,7 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 5.0
+          "pts": 8.0
         }
       ],
       "color": "#A855F7",
@@ -4893,13 +4909,13 @@
     },
     {
       "name": "JUANCHO",
-      "total": 206.0,
-      "live_points": 9.0,
+      "total": 215.0,
+      "live_points": 0.0,
       "total_live": 215.0,
       "groups": 118.0,
       "positions": 85.0,
       "q16": 0.0,
-      "r16": 3.0,
+      "r16": 12.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4922,7 +4938,7 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 3.0
+          "pts": 12.0
         }
       ],
       "color": "#F5C518",
@@ -4933,13 +4949,13 @@
     },
     {
       "name": "CRESPO",
-      "total": 205.0,
-      "live_points": 3.0,
+      "total": 208.0,
+      "live_points": 0.0,
       "total_live": 208.0,
       "groups": 121.0,
       "positions": 81.0,
       "q16": 0.0,
-      "r16": 3.0,
+      "r16": 6.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4962,7 +4978,7 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 3.0
+          "pts": 6.0
         }
       ],
       "color": "#EF4444",
@@ -4973,13 +4989,13 @@
     },
     {
       "name": "LUIS/VIR",
-      "total": 181.0,
-      "live_points": 9.0,
+      "total": 190.0,
+      "live_points": 0.0,
       "total_live": 190.0,
       "groups": 104.0,
       "positions": 77.0,
       "q16": 0.0,
-      "r16": 0.0,
+      "r16": 9.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4997,6 +5013,12 @@
           "label": "Posiciones Grupos",
           "desc": "1º, 2º, 3º y 4º por grupo",
           "pts": 77.0
+        },
+        {
+          "key": "r16",
+          "label": "Dieciseisavos",
+          "desc": "Partidos de 16avos",
+          "pts": 9.0
         }
       ],
       "color": "#10B981",
@@ -17995,13 +18017,19 @@
       "day_label": "Lunes 29 junio",
       "datetime_es": "2026-06-29T19:00:00",
       "phase": "r16",
-      "result": null,
-      "played": false,
-      "live": true,
-      "live_minute": "live",
-      "live_goals_l": 2,
-      "live_goals_v": 1,
-      "live_scorers": [
+      "result": {
+        "sign": "1",
+        "score": "2-1"
+      },
+      "played": true,
+      "live": false,
+      "live_minute": "",
+      "live_goals_l": null,
+      "live_goals_v": null,
+      "live_scorers": [],
+      "goals_l": 2,
+      "goals_v": 1,
+      "scorers": [
         {
           "player": "Casemiro",
           "minute": "56'",
@@ -18024,9 +18052,6 @@
           "team": "away"
         }
       ],
-      "goals_l": null,
-      "goals_v": null,
-      "scorers": [],
       "phase_pts": {
         "sign": 3.0,
         "diff": 2.0,
@@ -18039,9 +18064,8 @@
             "score": "2-1",
             "winner": "Brasil"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 9.0,
+          "breakdown": {
             "sign": 3.0,
             "diff": 2.0,
             "exact": 4.0,
@@ -18055,7 +18079,8 @@
             "pred_home": "",
             "pred_away": ""
           },
-          "live_score": 9.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "LARRY": {
           "pred": {
@@ -18064,8 +18089,7 @@
             "winner": "Japón (3-4 p.)"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -18077,7 +18101,8 @@
             "pred_home": "",
             "pred_away": ""
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "LUIS/VIR": {
           "pred": {
@@ -18085,9 +18110,8 @@
             "score": "2-1",
             "winner": "Brasil"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 9.0,
+          "breakdown": {
             "sign": 3.0,
             "diff": 2.0,
             "exact": 4.0,
@@ -18101,7 +18125,8 @@
             "pred_home": "",
             "pred_away": ""
           },
-          "live_score": 9.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "MEDINA": {
           "pred": {
@@ -18109,9 +18134,8 @@
             "score": "2-0",
             "winner": "Brasil"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 3.0,
+          "breakdown": {
             "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
@@ -18124,7 +18148,8 @@
             "pred_home": "",
             "pred_away": ""
           },
-          "live_score": 3.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "VÍCTOR": {
           "pred": {
@@ -18132,9 +18157,8 @@
             "score": "2-0",
             "winner": "Brasil"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 3.0,
+          "breakdown": {
             "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
@@ -18147,7 +18171,8 @@
             "pred_home": "",
             "pred_away": ""
           },
-          "live_score": 3.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "CRESPO": {
           "pred": {
@@ -18155,9 +18180,8 @@
             "score": "3-1",
             "winner": "Brasil"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 3.0,
+          "breakdown": {
             "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
@@ -18170,7 +18194,8 @@
             "pred_home": "",
             "pred_away": ""
           },
-          "live_score": 3.0
+          "live_breakdown": null,
+          "live_score": null
         }
       }
     },
@@ -23417,7 +23442,7 @@
           "hit_rate": 2,
           "phase_positions": 5,
           "phase_q16": 5,
-          "phase_ko": 1,
+          "phase_ko": 3,
           "phase_honor": 5
         },
         "top_skills": [
@@ -23436,18 +23461,18 @@
             "display": "8 aciertos · 24 pts"
           },
           {
-            "key": "phase_ko",
-            "label": "Eliminatorias (KO)",
-            "icon": "⚔️",
-            "rank": 1,
-            "display": "5 pts"
-          },
-          {
             "key": "avg_match",
             "label": "Media pts/partido",
             "icon": "⚡",
             "rank": 1,
             "display": "1.86 pts/partido"
+          },
+          {
+            "key": "hit_rate",
+            "label": "Tasa de acierto",
+            "icon": "✅",
+            "rank": 2,
+            "display": "62% (45/72)"
           }
         ],
         "badges": [
@@ -23492,16 +23517,16 @@
           "hit_rate": 4,
           "phase_positions": 2,
           "phase_q16": 1,
-          "phase_ko": 2,
+          "phase_ko": 1,
           "phase_honor": 1
         },
         "top_skills": [
           {
-            "key": "phase_q16",
-            "label": "Clasificados 16avos",
-            "icon": "🏁",
+            "key": "phase_ko",
+            "label": "Eliminatorias (KO)",
+            "icon": "⚔️",
             "rank": 1,
-            "display": "0 pts"
+            "display": "12 pts"
           },
           {
             "key": "phase_positions",
@@ -23516,16 +23541,14 @@
             "icon": "📐",
             "rank": 2,
             "display": "19 aciertos · 19 pts"
-          },
-          {
-            "key": "phase_ko",
-            "label": "Eliminatorias (KO)",
-            "icon": "⚔️",
-            "rank": 2,
-            "display": "3 pts"
           }
         ],
-        "badges": [],
+        "badges": [
+          {
+            "icon": "⚔️",
+            "label": "Maestro KO"
+          }
+        ],
         "best_phase": {
           "label": "Fase de grupos",
           "pts": 118.0
@@ -23624,7 +23647,7 @@
           "hit_rate": 6,
           "phase_positions": 4,
           "phase_q16": 3,
-          "phase_ko": 6,
+          "phase_ko": 2,
           "phase_honor": 3
         },
         "top_skills": [
@@ -23636,18 +23659,18 @@
             "display": "21 aciertos"
           },
           {
+            "key": "phase_ko",
+            "label": "Eliminatorias (KO)",
+            "icon": "⚔️",
+            "rank": 2,
+            "display": "9 pts"
+          },
+          {
             "key": "hits_exact",
             "label": "Resultados exactos",
             "icon": "🎯",
             "rank": 3,
             "display": "6 aciertos · 18 pts"
-          },
-          {
-            "key": "phase_positions",
-            "label": "Posiciones de grupos",
-            "icon": "📊",
-            "rank": 4,
-            "display": "77 pts"
           }
         ],
         "badges": [],
@@ -23683,7 +23706,7 @@
           "hit_rate": 3,
           "phase_positions": 6,
           "phase_q16": 2,
-          "phase_ko": 3,
+          "phase_ko": 6,
           "phase_honor": 2
         },
         "top_skills": [
@@ -24121,45 +24144,45 @@
       "phase_ko": [
         {
           "rank": 1,
-          "name": "VÍCTOR",
-          "color": "#A855F7",
-          "display": "5 pts",
-          "value": 5.0
+          "name": "JUANCHO",
+          "color": "#F5C518",
+          "display": "12 pts",
+          "value": 12.0
         },
         {
           "rank": 2,
-          "name": "JUANCHO",
-          "color": "#F5C518",
-          "display": "3 pts",
-          "value": 3.0
+          "name": "LUIS/VIR",
+          "color": "#10B981",
+          "display": "9 pts",
+          "value": 9.0
         },
         {
           "rank": 3,
-          "name": "LARRY",
-          "color": "#3B82F6",
-          "display": "3 pts",
-          "value": 3.0
+          "name": "VÍCTOR",
+          "color": "#A855F7",
+          "display": "8 pts",
+          "value": 8.0
         },
         {
           "rank": 4,
           "name": "MEDINA",
           "color": "#F97316",
-          "display": "3 pts",
-          "value": 3.0
+          "display": "6 pts",
+          "value": 6.0
         },
         {
           "rank": 5,
           "name": "CRESPO",
           "color": "#EF4444",
-          "display": "3 pts",
-          "value": 3.0
+          "display": "6 pts",
+          "value": 6.0
         },
         {
           "rank": 6,
-          "name": "LUIS/VIR",
-          "color": "#10B981",
-          "display": "0 pts",
-          "value": 0.0
+          "name": "LARRY",
+          "color": "#3B82F6",
+          "display": "3 pts",
+          "value": 3.0
         }
       ],
       "phase_honor": [

@@ -1047,6 +1047,29 @@
       "team": "away"
     }
   ],
+  "Brasil-Japón": [
+    {
+      "player": "Casemiro",
+      "minute": "56'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Gabriel Martinelli",
+      "minute": "90'+5'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Kaishū Sano",
+      "minute": "29'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "México-Sudáfrica": [
     {
       "player": "J. Quiñones",
