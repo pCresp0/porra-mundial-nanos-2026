@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-23T06:18:27+02:00",
-    "date": "23/06/2026",
-    "time": "06:18:27",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-23T06:20:31+02:00",
     "date": "23/06/2026",
     "time": "06:20:31",
@@ -17740,5 +17732,13 @@
         "new": {}
       }
     ]
+  },
+  {
+    "ts_iso": "2026-06-30T00:54:26+02:00",
+    "date": "30/06/2026",
+    "time": "00:54:26",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
   }
 ]
