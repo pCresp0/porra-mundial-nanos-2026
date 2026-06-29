@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-23T02:04:23+02:00",
-    "date": "23/06/2026",
-    "time": "02:04:23",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-23T02:06:25+02:00",
     "date": "23/06/2026",
     "time": "02:06:25",
@@ -17776,5 +17768,22 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-29T20:20:41+02:00",
+    "date": "29/06/2026",
+    "time": "20:20:41",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇧🇷Brasil ?-? Japón🇯🇵",
+        "name": "Brasil-Japón",
+        "date": "2026-06-29",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]

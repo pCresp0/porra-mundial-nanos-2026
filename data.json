@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "29/06/2026 18:18",
+    "generated": "29/06/2026 18:20",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-29T19:30",
-      "last_updated_time": "19:30",
+      "last_updated_iso": "2026-06-29T20:20",
+      "last_updated_time": "20:20",
       "last_updated_date": "29/06/2026",
-      "next_update_iso": "2026-06-29T20:20",
-      "next_update_time": "20:20",
+      "next_update_iso": "2026-06-29T20:25",
+      "next_update_time": "20:25",
       "next_update_date": "29/06/2026",
-      "last_checked_iso": "2026-06-29T20:18",
-      "last_checked_time": "20:18",
+      "last_checked_iso": "2026-06-29T20:20",
+      "last_checked_time": "20:20",
       "last_checked_date": "29/06/2026"
     },
     "players": [
@@ -415,6 +415,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-29T20:20:41+02:00",
+        "date": "29/06/2026",
+        "time": "20:20:41",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇧🇷Brasil ?-? Japón🇯🇵",
+            "name": "Brasil-Japón",
+            "date": "2026-06-29",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-06-29T20:18:33+02:00",
         "date": "29/06/2026",
@@ -4798,14 +4815,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-27T21:24:25+02:00",
-        "date": "27/06/2026",
-        "time": "21:24:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -5007,8 +5016,8 @@
     {
       "name": "LARRY",
       "total": 175.0,
-      "live_points": 0.0,
-      "total_live": 175.0,
+      "live_points": 5.0,
+      "total_live": 180.0,
       "groups": 105.0,
       "positions": 67.0,
       "q16": 0.0,
@@ -17998,9 +18007,16 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 0,
+      "live_goals_l": 1,
       "live_goals_v": 1,
       "live_scorers": [
+        {
+          "player": "Casemiro",
+          "minute": "56'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
         {
           "player": "Kaishū Sano",
           "minute": "29'",
@@ -18049,18 +18065,19 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 0.0,
-            "diff": 0.0,
+            "sign": 3.0,
+            "diff": 2.0,
             "exact": 0,
-            "total": 0.0,
+            "total": 5.0,
             "reasons": [
-              "1X2 incorrecto — 0 pts"
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles (+2)"
             ],
             "team_match": null,
             "pred_home": "",
             "pred_away": ""
           },
-          "live_score": 0.0
+          "live_score": 5.0
         },
         "LUIS/VIR": {
           "pred": {

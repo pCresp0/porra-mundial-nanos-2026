@@ -1,9 +1,16 @@
 {
   "Brasil-Japón": {
-    "home": 0,
+    "home": 1,
     "away": 1,
     "minute": "live",
     "scorers": [
+      {
+        "player": "Casemiro",
+        "minute": "56'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
       {
         "player": "Kaishū Sano",
         "minute": "29'",
