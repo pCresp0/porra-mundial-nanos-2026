@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "29/06/2026 21:08",
+    "generated": "29/06/2026 21:10",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-06-29T22:34",
       "last_updated_time": "22:34",
       "last_updated_date": "29/06/2026",
-      "next_update_iso": "2026-06-29T23:10",
-      "next_update_time": "23:10",
+      "next_update_iso": "2026-06-29T23:15",
+      "next_update_time": "23:15",
       "next_update_date": "29/06/2026",
-      "last_checked_iso": "2026-06-29T23:08",
-      "last_checked_time": "23:08",
+      "last_checked_iso": "2026-06-29T23:10",
+      "last_checked_time": "23:10",
       "last_checked_date": "29/06/2026"
     },
     "players": [
@@ -411,6 +411,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-29T23:10:57+02:00",
+        "date": "29/06/2026",
+        "time": "23:10:57",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-06-29T23:08:29+02:00",
         "date": "29/06/2026",
@@ -4795,23 +4803,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-28T00:28:33+02:00",
-        "date": "28/06/2026",
-        "time": "00:28:33",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇵🇦Panamá 0-0 Inglaterra🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-            "name": "Panamá-Inglaterra",
-            "date": "2026-06-27",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
