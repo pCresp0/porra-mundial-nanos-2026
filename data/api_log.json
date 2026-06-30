@@ -1,31 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-24T00:02:29+02:00",
-    "date": "24/06/2026",
-    "time": "00:02:29",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🏴󠁧󠁢󠁥󠁮󠁧󠁿Inglaterra 0-0 Ghana🇬🇭",
-        "name": "Inglaterra-Ghana",
-        "date": "2026-06-23",
-        "fields": [
-          "marcador",
-          "jugado"
-        ],
-        "old": {
-          "marcador": "0-0",
-          "jugado": "no"
-        },
-        "new": {
-          "marcador": "0-0",
-          "jugado": "sí"
-        }
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-24T00:18:22+02:00",
     "date": "24/06/2026",
     "time": "00:18:22",
@@ -17683,6 +17657,14 @@
     "ts_iso": "2026-06-30T20:00:57+02:00",
     "date": "30/06/2026",
     "time": "20:00:57",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-06-30T20:02:27+02:00",
+    "date": "30/06/2026",
+    "time": "20:02:27",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
