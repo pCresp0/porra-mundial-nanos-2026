@@ -1293,6 +1293,29 @@
       "team": "away"
     }
   ],
+  "Francia-Suecia": [
+    {
+      "player": "Kylian Mbappé",
+      "minute": "45'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Bradley Barcola",
+      "minute": "53'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Kylian Mbappé",
+      "minute": "74'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
   "Arabia Saudita-Uruguay": [
     {
       "player": "Abdulelah Al-Amri",
