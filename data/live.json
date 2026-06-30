@@ -1,6 +1,6 @@
 {
   "Francia-Suecia": {
-    "home": 2,
+    "home": 3,
     "away": 0,
     "minute": "live",
     "scorers": [
@@ -14,6 +14,13 @@
       {
         "player": "Bradley Barcola",
         "minute": "53'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Kylian Mbappé",
+        "minute": "74'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
