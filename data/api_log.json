@@ -1,22 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-23T19:08:27+02:00",
-    "date": "23/06/2026",
-    "time": "19:08:27",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇵🇹Portugal 0-0 Uzbekistán🇺🇿",
-        "name": "Portugal-Uzbekistán",
-        "date": "2026-06-23",
-        "fields": [],
-        "old": {},
-        "new": {}
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-23T19:10:45+02:00",
     "date": "23/06/2026",
     "time": "19:10:45",
@@ -17719,6 +17702,14 @@
     "ts_iso": "2026-06-30T04:28:35+02:00",
     "date": "30/06/2026",
     "time": "04:28:35",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-06-30T04:30:45+02:00",
+    "date": "30/06/2026",
+    "time": "04:30:45",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
