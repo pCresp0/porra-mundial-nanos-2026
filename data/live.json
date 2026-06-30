@@ -1,8 +1,16 @@
 {
   "Países Bajos-Marruecos": {
-    "home": 0,
+    "home": 1,
     "away": 0,
     "minute": "live",
-    "scorers": []
+    "scorers": [
+      {
+        "player": "Kvdi Khakpv",
+        "minute": "72'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      }
+    ]
   }
 }
