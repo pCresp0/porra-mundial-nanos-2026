@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "30/06/2026 03:54",
+    "generated": "30/06/2026 03:56",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-06-30T04:54",
-      "last_updated_time": "04:54",
+      "last_updated_iso": "2026-06-30T05:56",
+      "last_updated_time": "05:56",
       "last_updated_date": "30/06/2026",
-      "next_update_iso": "2026-06-30T05:55",
-      "next_update_time": "05:55",
+      "next_update_iso": "2026-06-30T06:00",
+      "next_update_time": "06:00",
       "next_update_date": "30/06/2026",
-      "last_checked_iso": "2026-06-30T05:54",
-      "last_checked_time": "05:54",
+      "last_checked_iso": "2026-06-30T05:56",
+      "last_checked_time": "05:56",
       "last_checked_date": "30/06/2026"
     },
     "players": [
@@ -24,11 +24,9 @@
       "CRESPO"
     ],
     "live": {
-      "active": true,
-      "count": 1,
-      "matches": [
-        "Países Bajos-Marruecos"
-      ]
+      "active": false,
+      "count": 0,
+      "matches": []
     },
     "colors": {
       "JUANCHO": "#F5C518",
@@ -411,6 +409,32 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-06-30T05:56:36+02:00",
+        "date": "30/06/2026",
+        "time": "05:56:36",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇳🇱Países Bajos 1-1 Marruecos🇲🇦",
+            "name": "Países Bajos-Marruecos",
+            "date": "2026-06-30",
+            "fields": [
+              "marcador",
+              "jugado"
+            ],
+            "old": {
+              "marcador": "sin resultado",
+              "jugado": "no"
+            },
+            "new": {
+              "marcador": "1-1",
+              "jugado": "sí"
+            }
+          }
+        ]
+      },
       {
         "ts_iso": "2026-06-30T05:54:29+02:00",
         "date": "30/06/2026",
@@ -4582,14 +4606,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-28T09:28:30+02:00",
-        "date": "28/06/2026",
-        "time": "09:28:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4796,13 +4812,13 @@
     },
     {
       "name": "LARRY",
-      "total": 175.0,
-      "live_points": 9.0,
+      "total": 184.0,
+      "live_points": 0.0,
       "total_live": 184.0,
       "groups": 105.0,
       "positions": 67.0,
       "q16": 0.0,
-      "r16": 3.0,
+      "r16": 12.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4825,7 +4841,7 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 3.0
+          "pts": 12.0
         }
       ],
       "color": "#3B82F6",
@@ -18186,13 +18202,19 @@
       "day_label": "Martes 30 junio",
       "datetime_es": "2026-06-30T03:00:00",
       "phase": "r16",
-      "result": null,
-      "played": false,
-      "live": true,
-      "live_minute": "live",
-      "live_goals_l": 1,
-      "live_goals_v": 1,
-      "live_scorers": [
+      "result": {
+        "sign": "X",
+        "score": "1-1"
+      },
+      "played": true,
+      "live": false,
+      "live_minute": "",
+      "live_goals_l": null,
+      "live_goals_v": null,
+      "live_scorers": [],
+      "goals_l": 1,
+      "goals_v": 1,
+      "scorers": [
         {
           "player": "Kvdi Khakpv",
           "minute": "72'",
@@ -18208,9 +18230,6 @@
           "team": "away"
         }
       ],
-      "goals_l": null,
-      "goals_v": null,
-      "scorers": [],
       "phase_pts": {
         "sign": 3.0,
         "diff": 2.0,
@@ -18224,8 +18243,7 @@
             "winner": "Marruecos"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -18237,7 +18255,8 @@
             "pred_home": "",
             "pred_away": ""
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "LARRY": {
           "pred": {
@@ -18245,9 +18264,8 @@
             "score": "1-1",
             "winner": "Países Bajos (4-2 p.)"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 9.0,
+          "breakdown": {
             "sign": 3.0,
             "diff": 2.0,
             "exact": 4.0,
@@ -18261,7 +18279,8 @@
             "pred_home": "",
             "pred_away": ""
           },
-          "live_score": 9.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "LUIS/VIR": {
           "pred": {
@@ -18270,8 +18289,7 @@
             "winner": "Países Bajos"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -18283,7 +18301,8 @@
             "pred_home": "",
             "pred_away": ""
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "MEDINA": {
           "pred": {
@@ -18292,8 +18311,7 @@
             "winner": "Países Bajos"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -18305,7 +18323,8 @@
             "pred_home": "",
             "pred_away": ""
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "VÍCTOR": {
           "pred": {
@@ -18314,8 +18333,7 @@
             "winner": "Países Bajos"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -18327,7 +18345,8 @@
             "pred_home": "",
             "pred_away": ""
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "CRESPO": {
           "pred": {
@@ -18336,8 +18355,7 @@
             "winner": "Países Bajos"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -18349,7 +18367,8 @@
             "pred_home": "",
             "pred_away": ""
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         }
       }
     },
@@ -23301,7 +23320,7 @@
           "hit_rate": 1,
           "phase_positions": 1,
           "phase_q16": 4,
-          "phase_ko": 4,
+          "phase_ko": 5,
           "phase_honor": 4
         },
         "top_skills": [
@@ -23376,7 +23395,7 @@
           "hit_rate": 2,
           "phase_positions": 5,
           "phase_q16": 5,
-          "phase_ko": 3,
+          "phase_ko": 4,
           "phase_honor": 5
         },
         "top_skills": [
@@ -23515,7 +23534,7 @@
           "hit_rate": 5,
           "phase_positions": 3,
           "phase_q16": 6,
-          "phase_ko": 5,
+          "phase_ko": 6,
           "phase_honor": 6
         },
         "top_skills": [
@@ -23581,7 +23600,7 @@
           "hit_rate": 6,
           "phase_positions": 4,
           "phase_q16": 3,
-          "phase_ko": 2,
+          "phase_ko": 3,
           "phase_honor": 3
         },
         "top_skills": [
@@ -23596,7 +23615,7 @@
             "key": "phase_ko",
             "label": "Eliminatorias (KO)",
             "icon": "⚔️",
-            "rank": 2,
+            "rank": 3,
             "display": "9 pts"
           },
           {
@@ -23640,7 +23659,7 @@
           "hit_rate": 3,
           "phase_positions": 6,
           "phase_q16": 2,
-          "phase_ko": 6,
+          "phase_ko": 2,
           "phase_honor": 2
         },
         "top_skills": [
@@ -23652,18 +23671,18 @@
             "display": "31 aciertos"
           },
           {
+            "key": "phase_ko",
+            "label": "Eliminatorias (KO)",
+            "icon": "⚔️",
+            "rank": 2,
+            "display": "12 pts"
+          },
+          {
             "key": "hit_rate",
             "label": "Tasa de acierto",
             "icon": "✅",
             "rank": 3,
             "display": "60% (43/72)"
-          },
-          {
-            "key": "hits_1x2",
-            "label": "Signo 1X2",
-            "icon": "1️⃣",
-            "rank": 3,
-            "display": "43 aciertos · 86 pts"
           }
         ],
         "badges": [
@@ -24085,38 +24104,38 @@
         },
         {
           "rank": 2,
+          "name": "LARRY",
+          "color": "#3B82F6",
+          "display": "12 pts",
+          "value": 12.0
+        },
+        {
+          "rank": 3,
           "name": "LUIS/VIR",
           "color": "#10B981",
           "display": "9 pts",
           "value": 9.0
         },
         {
-          "rank": 3,
+          "rank": 4,
           "name": "VÍCTOR",
           "color": "#A855F7",
           "display": "8 pts",
           "value": 8.0
         },
         {
-          "rank": 4,
+          "rank": 5,
           "name": "MEDINA",
           "color": "#F97316",
           "display": "6 pts",
           "value": 6.0
         },
         {
-          "rank": 5,
+          "rank": 6,
           "name": "CRESPO",
           "color": "#EF4444",
           "display": "6 pts",
           "value": 6.0
-        },
-        {
-          "rank": 6,
-          "name": "LARRY",
-          "color": "#3B82F6",
-          "display": "3 pts",
-          "value": 3.0
         }
       ],
       "phase_honor": [

@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-23T20:34:28+02:00",
-    "date": "23/06/2026",
-    "time": "20:34:28",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-23T20:36:32+02:00",
     "date": "23/06/2026",
     "time": "20:36:32",
@@ -17686,5 +17678,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-06-30T05:56:36+02:00",
+    "date": "30/06/2026",
+    "time": "05:56:36",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇳🇱Países Bajos 1-1 Marruecos🇲🇦",
+        "name": "Países Bajos-Marruecos",
+        "date": "2026-06-30",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "sin resultado",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "1-1",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]
