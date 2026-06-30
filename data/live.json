@@ -1,8 +1,16 @@
 {
   "Costa de Marfil-Noruega": {
     "home": 0,
-    "away": 0,
+    "away": 1,
     "minute": "live",
-    "scorers": []
+    "scorers": [
+      {
+        "player": "Antonio Nusa",
+        "minute": "39'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      }
+    ]
   }
 }
