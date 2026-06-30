@@ -1,7 +1,7 @@
 {
   "Costa de Marfil-Noruega": {
     "home": 1,
-    "away": 1,
+    "away": 2,
     "minute": "live",
     "scorers": [
       {
@@ -14,6 +14,13 @@
       {
         "player": "Antonio Nusa",
         "minute": "39'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Erling Haaland",
+        "minute": "86'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
