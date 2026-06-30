@@ -1,9 +1,16 @@
 {
   "Costa de Marfil-Noruega": {
-    "home": 0,
+    "home": 1,
     "away": 1,
     "minute": "live",
     "scorers": [
+      {
+        "player": "Amad Diallo",
+        "minute": "74'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
       {
         "player": "Antonio Nusa",
         "minute": "39'",
