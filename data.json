@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "01/07/2026 07:24",
+    "generated": "01/07/2026 09:24",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -5067,6 +5067,7 @@
           "live_score": null
         }
       },
+      "actual_winner": "México",
       "highlights_video_id": "x83kn09PJKg"
     },
     {
@@ -5243,6 +5244,7 @@
           "live_score": null
         }
       },
+      "actual_winner": "Corea del Sur",
       "highlights_video_id": "9ojbKBxau9Q"
     },
     {
@@ -5415,6 +5417,7 @@
           "live_score": null
         }
       },
+      "actual_winner": null,
       "highlights_video_id": "wVK5fDnqdyY"
     },
     {
@@ -5583,6 +5586,7 @@
           "live_score": null
         }
       },
+      "actual_winner": null,
       "highlights_video_id": "izVd6GibW6g"
     },
     {
@@ -5755,6 +5759,7 @@
           "live_score": null
         }
       },
+      "actual_winner": null,
       "highlights_video_id": "dTo1wgNe3Qg"
     },
     {
@@ -5923,6 +5928,7 @@
           "live_score": null
         }
       },
+      "actual_winner": "Escocia",
       "highlights_video_id": "MIGfw5DdcYs"
     },
     {
@@ -6116,6 +6122,7 @@
           "live_score": null
         }
       },
+      "actual_winner": "Estados Unidos",
       "highlights_video_id": "nb_lwU9AN0g"
     },
     {
@@ -6284,6 +6291,7 @@
           "live_score": null
         }
       },
+      "actual_winner": "Australia",
       "highlights_video_id": "QrMHQu2PDHE"
     },
     {
@@ -6500,6 +6508,7 @@
           "live_score": null
         }
       },
+      "actual_winner": "Alemania",
       "highlights_video_id": "BjeaepHDZcM"
     },
     {
@@ -6665,6 +6674,7 @@
           "live_score": null
         }
       },
+      "actual_winner": "Costa de Marfil",
       "highlights_video_id": "MTCy-d68T34"
     },
     {
@@ -6850,6 +6860,7 @@
           "live_score": null
         }
       },
+      "actual_winner": null,
       "highlights_video_id": "rmit7fK16AQ"
     },
     {
@@ -7050,6 +7061,7 @@
           "live_score": null
         }
       },
+      "actual_winner": "Suecia",
       "highlights_video_id": "dWEZs97hXaw"
     },
     {
@@ -7218,6 +7230,7 @@
           "live_score": null
         }
       },
+      "actual_winner": null,
       "highlights_video_id": "8LTO1-E2DJg"
     },
     {
@@ -7402,6 +7415,7 @@
           "live_score": null
         }
       },
+      "actual_winner": null,
       "highlights_video_id": "PFKJiSSfGXM"
     },
     {
@@ -7556,6 +7570,7 @@
           "live_score": null
         }
       },
+      "actual_winner": null,
       "highlights_video_id": "4Zbqxb3g58U"
     },
     {
@@ -7724,6 +7739,7 @@
           "live_score": null
         }
       },
+      "actual_winner": null,
       "highlights_video_id": "NfOeo5KLvis"
     },
     {
@@ -7911,6 +7927,7 @@
           "live_score": null
         }
       },
+      "actual_winner": "Francia",
       "highlights_video_id": "J69zkLXjNVg"
     },
     {
@@ -8106,6 +8123,7 @@
           "live_score": null
         }
       },
+      "actual_winner": "Noruega",
       "highlights_video_id": "69vqW26k1xQ"
     },
     {
@@ -8287,6 +8305,7 @@
           "live_score": null
         }
       },
+      "actual_winner": "Argentina",
       "highlights_video_id": "Sg4kke5zSaI"
     },
     {
@@ -8469,6 +8488,7 @@
           "live_score": null
         }
       },
+      "actual_winner": "Austria",
       "highlights_video_id": "Aot82085daE"
     },
     {
@@ -8637,6 +8657,7 @@
           "live_score": null
         }
       },
+      "actual_winner": null,
       "highlights_video_id": "XF2JxCylSnI"
     },
     {
@@ -8824,6 +8845,7 @@
           "live_score": null
         }
       },
+      "actual_winner": "Colombia",
       "highlights_video_id": "umYT9KIoVww"
     },
     {
@@ -9023,6 +9045,7 @@
           "live_score": null
         }
       },
+      "actual_winner": "Inglaterra",
       "highlights_video_id": "KUlR2yCkl24"
     },
     {
@@ -9190,6 +9213,7 @@
           "live_score": null
         }
       },
+      "actual_winner": "Ghana",
       "highlights_video_id": "Wt_tf-MknPo"
     },
     {
@@ -9353,6 +9377,7 @@
           "live_score": null
         }
       },
+      "actual_winner": null,
       "highlights_video_id": "A8QRhE2IGd0"
     },
     {
@@ -9516,6 +9541,7 @@
           "live_score": null
         }
       },
+      "actual_winner": "México",
       "highlights_video_id": "3uOVk_n6q6U"
     },
     {
@@ -9703,6 +9729,7 @@
           "live_score": null
         }
       },
+      "actual_winner": "Suiza",
       "highlights_video_id": "Q55T2-vsmp4"
     },
     {
@@ -9904,6 +9931,7 @@
           "live_score": null
         }
       },
+      "actual_winner": "Canadá",
       "highlights_video_id": "NJNRaaHLjRo"
     },
     {
@@ -10068,7 +10096,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Marruecos"
     },
     {
       "row": 35,
@@ -10249,7 +10278,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Brasil"
     },
     {
       "row": 36,
@@ -10420,7 +10450,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Estados Unidos"
     },
     {
       "row": 37,
@@ -10580,7 +10611,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Paraguay"
     },
     {
       "row": 38,
@@ -10760,7 +10792,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Alemania"
     },
     {
       "row": 39,
@@ -10912,7 +10945,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 40,
@@ -11111,7 +11145,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Países Bajos"
     },
     {
       "row": 41,
@@ -11298,7 +11333,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Japón"
     },
     {
       "row": 42,
@@ -11450,7 +11486,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 43,
@@ -11638,7 +11675,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Egipto"
     },
     {
       "row": 44,
@@ -11825,7 +11863,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "España"
     },
     {
       "row": 45,
@@ -12006,7 +12045,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 46,
@@ -12189,7 +12229,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Francia"
     },
     {
       "row": 47,
@@ -12381,7 +12422,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Noruega"
     },
     {
       "row": 48,
@@ -12554,7 +12596,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Argentina"
     },
     {
       "row": 49,
@@ -12733,7 +12776,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Argelia"
     },
     {
       "row": 50,
@@ -12927,7 +12971,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Portugal"
     },
     {
       "row": 51,
@@ -13093,7 +13138,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Colombia"
     },
     {
       "row": 52,
@@ -13245,7 +13291,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 53,
@@ -13412,7 +13459,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Croacia"
     },
     {
       "row": 54,
@@ -13589,7 +13637,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "México"
     },
     {
       "row": 55,
@@ -13751,7 +13800,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Sudáfrica"
     },
     {
       "row": 56,
@@ -13929,7 +13979,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Suiza"
     },
     {
       "row": 57,
@@ -14112,7 +14163,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Bosnia y Herzegovina"
     },
     {
       "row": 58,
@@ -14292,7 +14344,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Brasil"
     },
     {
       "row": 59,
@@ -14493,7 +14546,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Marruecos"
     },
     {
       "row": 60,
@@ -14684,7 +14738,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Turquía"
     },
     {
       "row": 61,
@@ -14841,7 +14896,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 62,
@@ -15014,7 +15070,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Costa de Marfil"
     },
     {
       "row": 63,
@@ -15190,7 +15247,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Ecuador"
     },
     {
       "row": 64,
@@ -15365,7 +15423,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 65,
@@ -15556,7 +15615,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Países Bajos"
     },
     {
       "row": 66,
@@ -15725,7 +15785,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 67,
@@ -15924,7 +15985,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Bélgica"
     },
     {
       "row": 68,
@@ -16078,7 +16140,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 69,
@@ -16243,7 +16306,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "España"
     },
     {
       "row": 70,
@@ -16434,7 +16498,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Francia"
     },
     {
       "row": 71,
@@ -16628,7 +16693,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Senegal"
     },
     {
       "row": 72,
@@ -16826,7 +16892,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 73,
@@ -17013,7 +17080,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Argentina"
     },
     {
       "row": 74,
@@ -17166,7 +17234,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 75,
@@ -17342,7 +17411,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "RD Congo"
     },
     {
       "row": 76,
@@ -17515,7 +17585,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Inglaterra"
     },
     {
       "row": 77,
@@ -17694,7 +17765,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": "Croacia"
     },
     {
       "row": 164,
@@ -19251,7 +19323,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 172,
@@ -19362,7 +19435,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 173,
@@ -19473,7 +19547,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 174,
@@ -19584,7 +19659,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 175,
@@ -19695,7 +19771,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 176,
@@ -19806,7 +19883,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 177,
@@ -19917,7 +19995,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 178,
@@ -20028,7 +20107,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 179,
@@ -20139,7 +20219,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 200,
@@ -20226,7 +20307,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 201,
@@ -20272,7 +20354,11 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Brasil"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -20286,34 +20372,51 @@
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Brasil"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Brasil"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Brasil"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Brasil"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 202,
@@ -20400,7 +20503,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 203,
@@ -20487,7 +20591,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 204,
@@ -20574,7 +20679,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 205,
@@ -20661,7 +20767,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 206,
@@ -20748,7 +20855,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 207,
@@ -20835,7 +20943,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 220,
@@ -20922,7 +21031,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 221,
@@ -21009,7 +21119,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 222,
@@ -21096,7 +21207,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 223,
@@ -21183,7 +21295,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 232,
@@ -21270,7 +21383,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 233,
@@ -21357,7 +21471,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 243,
@@ -21444,7 +21559,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 244,
@@ -21531,7 +21647,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 246,
@@ -21618,7 +21735,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     },
     {
       "row": 247,
@@ -21705,7 +21823,8 @@
           "live_breakdown": null,
           "live_score": null
         }
-      }
+      },
+      "actual_winner": null
     }
   ],
   "progression": {

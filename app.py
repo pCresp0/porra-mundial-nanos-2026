@@ -1204,17 +1204,83 @@ def build_data():
 
     player_names = [p["name"] for p in all_players]
 
+    # ── Precalcular clasificados reales de cada fase para resolución de cruces ──
+    def is_real_team(t):
+        if not t: return False
+        t_str = str(t).strip()
+        if not t_str or t_str.startswith("1") or t_str.startswith("2") or t_str.startswith("3") or t_str.startswith("W") or t_str.startswith("L") or "-" in t_str:
+            return False
+        return True
+
+    ws_wc = wb1_raw["WORLDCUP"]
+
+    actual_q16_qualifiers = set()
+    for r in range(101, 117):
+        t1 = ws_wc.cell(r, 27).value
+        t2 = ws_wc.cell(r, 32).value
+        if is_real_team(t1): actual_q16_qualifiers.add(str(t1).strip())
+        if is_real_team(t2): actual_q16_qualifiers.add(str(t2).strip())
+
+    actual_r8_qualifiers = set()
+    for r in range(120, 128):
+        t1 = ws_wc.cell(r, 27).value
+        t2 = ws_wc.cell(r, 32).value
+        if is_real_team(t1): actual_r8_qualifiers.add(str(t1).strip())
+        if is_real_team(t2): actual_r8_qualifiers.add(str(t2).strip())
+
+    actual_r4_qualifiers = set()
+    for r in range(131, 135):
+        t1 = ws_wc.cell(r, 27).value
+        t2 = ws_wc.cell(r, 32).value
+        if is_real_team(t1): actual_r4_qualifiers.add(str(t1).strip())
+        if is_real_team(t2): actual_r4_qualifiers.add(str(t2).strip())
+
+    actual_r2_qualifiers = set()
+    for r in range(138, 140):
+        t1 = ws_wc.cell(r, 27).value
+        t2 = ws_wc.cell(r, 32).value
+        if is_real_team(t1): actual_r2_qualifiers.add(str(t1).strip())
+        if is_real_team(t2): actual_r2_qualifiers.add(str(t2).strip())
+
+    actual_r34_qualifiers = set()
+    t1 = ws_wc.cell(143, 27).value
+    t2 = ws_wc.cell(143, 32).value
+    if is_real_team(t1): actual_r34_qualifiers.add(str(t1).strip())
+    if is_real_team(t2): actual_r34_qualifiers.add(str(t2).strip())
+
+    actual_final_qualifiers = set()
+    t1 = ws_wc.cell(147, 27).value
+    t2 = ws_wc.cell(147, 32).value
+    if is_real_team(t1): actual_final_qualifiers.add(str(t1).strip())
+    if is_real_team(t2): actual_final_qualifiers.add(str(t2).strip())
+
+    # Reglas de puntos
+    pts_q16_team = float(_val(ws1, 15, 4) or 2.0)
+    pts_r8_team = float(_val(ws1, 19, 4) or 3.0)
+    pts_r4_team = float(_val(ws1, 23, 4) or 5.0)
+    pts_r2_team = float(_val(ws1, 27, 4) or 8.0)
+    pts_r34_team = float(_val(ws1, 31, 4) or 8.0)
+    pts_final_team = float(_val(ws1, 32, 4) or 12.0)
+    actual_3rd_place = str(_val(ws1, 252, 13) or "").strip()
+    actual_champion = str(_val(ws1, 250, 13) or "").strip()
+
+    # Mapeo de selecciones a banderas detectadas
+    team_to_flag = {}
+    for k, v in wc_meta.items():
+        h, a = v.get("home"), v.get("away")
+        if h and v.get("flag_home") and not h.startswith("W") and not h.startswith("L") and not h.startswith("1") and not h.startswith("2"):
+            team_to_flag[h] = v["flag_home"]
+        if a and v.get("flag_away") and not a.startswith("W") and not a.startswith("L") and not a.startswith("1") and not a.startswith("2"):
+            team_to_flag[a] = v["flag_away"]
+
+    winner_by_num = {}
+    match_by_num = {}
+
     # ── collect all matches / prediction rows ────────────────────────────────
     matches = []
     played_count = {p["name"]: 0 for p in all_players}
-    # Puntos de fase de grupos recalculados en Python (no dependen de la caché
-    # de fórmulas del Excel, que NO se recalcula al escribir marcadores por la
-    # API). Así la actualización automática refleja siempre los puntos correctos.
     group_points = {p["name"]: 0.0 for p in all_players}
-    # Puntos de fases de eliminación también calculados en Python.
     ko_points    = {ph: {p["name"]: 0.0 for p in all_players} for ph in KO_PHASE_PTS}
-    # Puntos provisionales de partidos EN CURSO (overlay no oficial). No se
-    # suman a group_points; alimentan la clasificación provisional de la web.
     live_points  = {p["name"]: 0.0 for p in all_players}
     live_match_names = []
     spain_dates  = []
@@ -1298,13 +1364,51 @@ def build_data():
                     live_match_names.append(str(match_name).strip())
 
         wc = _lookup_wc_meta(wc_meta, match_name) or {}  # needed before player loop for team matching
-        actual_home_set = bool(wc.get("home") and str(wc.get("home")).strip() and not str(wc.get("home")).startswith("1") and not str(wc.get("home")).startswith("2") and not str(wc.get("home")).startswith("W") and not str(wc.get("home")).startswith("L"))
-        actual_away_set = bool(wc.get("away") and str(wc.get("away")).strip() and not str(wc.get("away")).startswith("1") and not str(wc.get("away")).startswith("2") and not str(wc.get("away")).startswith("W") and not str(wc.get("away")).startswith("L"))
+        
+        home_raw = wc.get("home", "")
+        away_raw = wc.get("away", "")
+        
+        def resolve_team(ph):
+            if not ph: return ph, ""
+            ph_str = str(ph).strip()
+            if ph_str.startswith("W") and ph_str[1:].isdigit():
+                num = int(ph_str[1:])
+                w = winner_by_num.get(num)
+                if w: return w, team_to_flag.get(w, "")
+            if ph_str.startswith("L") and ph_str[1:].isdigit():
+                num = int(ph_str[1:])
+                w = winner_by_num.get(num)
+                m_orig = match_by_num.get(num)
+                if w and m_orig:
+                    h_orig = m_orig.get("home")
+                    a_orig = m_orig.get("away")
+                    if h_orig and a_orig and not h_orig.startswith("W") and not h_orig.startswith("L") and not a_orig.startswith("W") and not a_orig.startswith("L"):
+                        loser = a_orig if h_orig == w else h_orig
+                        return loser, team_to_flag.get(loser, "")
+            return ph_str, ""
+
+        home_resolved, flag_h = resolve_team(home_raw)
+        if not flag_h: flag_h = wc.get("flag_home", "")
+        away_resolved, flag_a = resolve_team(away_raw)
+        if not flag_a: flag_a = wc.get("flag_away", "")
+
+        wc["home"] = home_resolved
+        wc["flag_home"] = flag_h
+        wc["away"] = away_resolved
+        wc["flag_away"] = flag_a
+
+        actual_home_set = bool(home_resolved and not home_resolved.startswith("1") and not home_resolved.startswith("2") and not home_resolved.startswith("W") and not home_resolved.startswith("L"))
+        actual_away_set = bool(away_resolved and not away_resolved.startswith("1") and not away_resolved.startswith("2") and not away_resolved.startswith("W") and not away_resolved.startswith("L"))
         
         for p, ws in zip(all_players, all_ws):
             if phase in KO_PHASE_PTS:
-                # For KO phases, read from the JSON file
-                pred_raw = _ko_preds.get(p["name"], {}).get(mkey)
+                # For KO phases, read from the JSON file by resolved match name first
+                mkey_resolved = f"{home_resolved}-{away_resolved}"
+                mkey_resolved_rev = f"{away_resolved}-{home_resolved}"
+                pred_raw = _ko_preds.get(p["name"], {}).get(mkey_resolved) or _ko_preds.get(p["name"], {}).get(mkey_resolved_rev)
+                if not pred_raw:
+                    # fallback to the sheet's match name
+                    pred_raw = _ko_preds.get(p["name"], {}).get(mkey)
                 score_raw = 0 # Score will be calculated below
             else:
                 pred_raw  = _val(ws, row, p["pred_col"])
@@ -1460,6 +1564,34 @@ def build_data():
             "predictions": predictions,
         })
 
+        # Determine actual winner for this match on the fly
+        m_obj = matches[-1]
+        m_obj["actual_winner"] = None
+        if played and home_resolved and away_resolved:
+            gl = m_obj["goals_l"]
+            gv = m_obj["goals_v"]
+            if gl is not None and gv is not None:
+                if gl > gv: m_obj["actual_winner"] = home_resolved
+                elif gv > gl: m_obj["actual_winner"] = away_resolved
+                else:
+                    if phase == "r16" and home_resolved in actual_r8_qualifiers: m_obj["actual_winner"] = home_resolved
+                    elif phase == "r16" and away_resolved in actual_r8_qualifiers: m_obj["actual_winner"] = away_resolved
+                    elif phase == "r8" and home_resolved in actual_r4_qualifiers: m_obj["actual_winner"] = home_resolved
+                    elif phase == "r8" and away_resolved in actual_r4_qualifiers: m_obj["actual_winner"] = away_resolved
+                    elif phase == "r4" and home_resolved in actual_r2_qualifiers: m_obj["actual_winner"] = home_resolved
+                    elif phase == "r4" and away_resolved in actual_r2_qualifiers: m_obj["actual_winner"] = away_resolved
+                    elif phase == "r2" and home_resolved in actual_final_qualifiers: m_obj["actual_winner"] = home_resolved
+                    elif phase == "r2" and away_resolved in actual_final_qualifiers: m_obj["actual_winner"] = away_resolved
+                    elif phase == "r34" and actual_3rd_place in (home_resolved, away_resolved): m_obj["actual_winner"] = actual_3rd_place
+                    elif phase == "final" and actual_champion in (home_resolved, away_resolved): m_obj["actual_winner"] = actual_champion
+        
+        # Save to maps for Wxx / Lxx resolution in future rows
+        match_num = wc.get("match_num")
+        if match_num:
+            match_by_num[match_num] = {"home": home_resolved, "away": away_resolved}
+            if m_obj["actual_winner"]:
+                winner_by_num[match_num] = m_obj["actual_winner"]
+
     # ── Recalcular puntos de posiciones de grupo y clasificados a 16avos ──
     # Para evitar depender de la caché de fórmulas de Excel, que no se actualiza
     # al escribir datos programáticamente.
@@ -1523,148 +1655,6 @@ def build_data():
             actual_positions_map[r] = actual_standings[grp][pos_idx]
         else:
             actual_positions_map[r] = f"{pos_idx+1}{grp}"
-
-    def is_real_team(t):
-        if not t: return False
-        t_str = str(t).strip()
-        if not t_str or t_str.startswith("1") or t_str.startswith("2") or t_str.startswith("3") or t_str.startswith("W") or t_str.startswith("L") or "-" in t_str:
-            return False
-        return True
-
-    ws_wc = wb1_raw["WORLDCUP"]
-
-    # q16_team: rows 101-116 in WORLDCUP
-    actual_q16_qualifiers = set()
-    for r in range(101, 117):
-        t1 = ws_wc.cell(r, 27).value # AA
-        t2 = ws_wc.cell(r, 32).value # AF
-        if is_real_team(t1): actual_q16_qualifiers.add(str(t1).strip())
-        if is_real_team(t2): actual_q16_qualifiers.add(str(t2).strip())
-
-    # Octavos (r8_team): rows 120-127 in WORLDCUP
-    actual_r8_qualifiers = set()
-    for r in range(120, 128):
-        t1 = ws_wc.cell(r, 27).value # AA
-        t2 = ws_wc.cell(r, 32).value # AF
-        if is_real_team(t1): actual_r8_qualifiers.add(str(t1).strip())
-        if is_real_team(t2): actual_r8_qualifiers.add(str(t2).strip())
-
-    # Cuartos (r4_team): rows 131-134 in WORLDCUP
-    actual_r4_qualifiers = set()
-    for r in range(131, 135):
-        t1 = ws_wc.cell(r, 27).value # AA
-        t2 = ws_wc.cell(r, 32).value # AF
-        if is_real_team(t1): actual_r4_qualifiers.add(str(t1).strip())
-        if is_real_team(t2): actual_r4_qualifiers.add(str(t2).strip())
-
-    # Semifinales (r2_team): rows 138-139 in WORLDCUP
-    actual_r2_qualifiers = set()
-    for r in range(138, 140):
-        t1 = ws_wc.cell(r, 27).value # AA
-        t2 = ws_wc.cell(r, 32).value # AF
-        if is_real_team(t1): actual_r2_qualifiers.add(str(t1).strip())
-        if is_real_team(t2): actual_r2_qualifiers.add(str(t2).strip())
-
-    # 3º-4º puesto (r34_team): row 143 in WORLDCUP
-    actual_r34_qualifiers = set()
-    t1 = ws_wc.cell(143, 27).value # AA
-    t2 = ws_wc.cell(143, 32).value # AF
-    if is_real_team(t1): actual_r34_qualifiers.add(str(t1).strip())
-    if is_real_team(t2): actual_r34_qualifiers.add(str(t2).strip())
-
-    # Final (final_team): row 147 in WORLDCUP
-    actual_final_qualifiers = set()
-    t1 = ws_wc.cell(147, 27).value # AA
-    t2 = ws_wc.cell(147, 32).value # AF
-    if is_real_team(t1): actual_final_qualifiers.add(str(t1).strip())
-    if is_real_team(t2): actual_final_qualifiers.add(str(t2).strip())
-
-    pts_q16_team = float(_val(ws1, 15, 4) or 2.0)
-    pts_r8_team = float(_val(ws1, 19, 4) or 3.0)
-    pts_r4_team = float(_val(ws1, 23, 4) or 5.0)
-    pts_r2_team = float(_val(ws1, 27, 4) or 8.0)
-    pts_r34_team = float(_val(ws1, 31, 4) or 8.0)
-    pts_final_team = float(_val(ws1, 32, 4) or 12.0)
-
-    actual_3rd_place = str(_val(ws1, 252, 13) or "").strip()
-    actual_champion = str(_val(ws1, 250, 13) or "").strip()
-
-    for m in matches:
-        if m["phase"] != "groups" and m["played"]:
-            h, a = m["home"], m["away"]
-            m["actual_winner"] = None
-            if h and a:
-                gl, gv = m["goals_l"], m["goals_v"]
-                if gl is not None and gv is not None:
-                    if gl > gv:
-                        m["actual_winner"] = h
-                    elif gv > gl:
-                        m["actual_winner"] = a
-                    else:
-                        # Empate, clasifica el que avanzó
-                        if m["phase"] == "r16" and h in actual_r8_qualifiers: m["actual_winner"] = h
-                        elif m["phase"] == "r16" and a in actual_r8_qualifiers: m["actual_winner"] = a
-                        elif m["phase"] == "r8" and h in actual_r4_qualifiers: m["actual_winner"] = h
-                        elif m["phase"] == "r8" and a in actual_r4_qualifiers: m["actual_winner"] = a
-                        elif m["phase"] == "r4" and h in actual_r2_qualifiers: m["actual_winner"] = h
-                        elif m["phase"] == "r4" and a in actual_r2_qualifiers: m["actual_winner"] = a
-                        elif m["phase"] == "r2" and h in actual_final_qualifiers: m["actual_winner"] = h
-                        elif m["phase"] == "r2" and a in actual_final_qualifiers: m["actual_winner"] = a
-                        elif m["phase"] == "r34" and actual_3rd_place in (h, a): m["actual_winner"] = actual_3rd_place
-                        elif m["phase"] == "final" and actual_champion in (h, a): m["actual_winner"] = actual_champion
-
-    # Map team name to flag
-    team_to_flag = {}
-    for m in matches:
-        if m.get("home") and m.get("flag_home") and not m["home"].startswith("W") and not m["home"].startswith("L"):
-            team_to_flag[m["home"]] = m["flag_home"]
-        if m.get("away") and m.get("flag_away") and not m["away"].startswith("W") and not m["away"].startswith("L"):
-            team_to_flag[m["away"]] = m["flag_away"]
-
-    # Map match number to match object and winner
-    match_by_num = {}
-    winner_by_num = {}
-    for m in matches:
-        mnum = m.get("match_num")
-        if mnum:
-            match_by_num[mnum] = m
-            if m.get("actual_winner"):
-                winner_by_num[mnum] = m["actual_winner"]
-
-    # Helper to resolve placeholder (W73, L73)
-    def resolve_placeholder_team(ph):
-        if not ph:
-            return None, None
-        ph = str(ph).strip()
-        # Winner placeholder: e.g. W73
-        if ph.startswith("W") and ph[1:].isdigit():
-            num = int(ph[1:])
-            winner = winner_by_num.get(num)
-            if winner:
-                return winner, team_to_flag.get(winner, "")
-        # Loser placeholder: e.g. L73
-        if ph.startswith("L") and ph[1:].isdigit():
-            num = int(ph[1:])
-            winner = winner_by_num.get(num)
-            m_orig = match_by_num.get(num)
-            if winner and m_orig:
-                h, a = m_orig.get("home"), m_orig.get("away")
-                if h and a and not h.startswith("W") and not h.startswith("L") and not a.startswith("W") and not a.startswith("L"):
-                    loser = a if h == winner else h
-                    return loser, team_to_flag.get(loser, "")
-        return None, None
-
-    # Resolve placeholders for all matches home/away
-    for m in matches:
-        if m["phase"] != "groups":
-            resolved_h, flag_h = resolve_placeholder_team(m["home"])
-            if resolved_h:
-                m["home"] = resolved_h
-                m["flag_home"] = flag_h
-            resolved_a, flag_a = resolve_placeholder_team(m["away"])
-            if resolved_a:
-                m["away"] = resolved_a
-                m["flag_away"] = flag_a
 
     player_positions_pts = {}
     player_q16_pts = {}
