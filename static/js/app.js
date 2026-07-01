@@ -6295,8 +6295,28 @@ function renderBracket(overrideEl) {
       .sort((a, b) => (a.bracket_order || 0) - (b.bracket_order || 0));
   }
 
+  // Orden correcto de los partidos en cada fase para que los conectores del bracket coincidan
+  // con los cruces reales: r16[73,76]→r8[89], r16[75,78]→r8[90], etc.
+  const BRACKET_ORDER = {
+    r16: [73, 76, 75, 78, 81, 84, 83, 86, 74, 77, 79, 80, 82, 85, 88, 87],
+    r8:  [89, 90, 93, 94, 91, 92, 95, 96],
+    r4:  [97, 98, 99, 100],
+    r2:  [101, 102],
+  };
+
   const byPhase = {};
-  ROUNDS.forEach(r => { byPhase[r.phase] = getRealMatches(r.phase); });
+  ROUNDS.forEach(r => {
+    const ms = getRealMatches(r.phase);
+    const order = BRACKET_ORDER[r.phase];
+    if (order) {
+      ms.sort((a, b) => {
+        const ia = order.indexOf(a.match_num);
+        const ib = order.indexOf(b.match_num);
+        return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
+      });
+    }
+    byPhase[r.phase] = ms;
+  });
   const finalMatch = getRealMatches("final").find(m => m.name && m.name.startsWith("W")) || null;
   const thirdMatch = getRealMatches("r34").find(m => m.name && m.name.startsWith("L")) || null;
 
