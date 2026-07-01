@@ -1526,6 +1526,16 @@ def build_data():
                 played_count[name] += 1
 
         fix = lookup_fixture(row)
+        r16_order = [73, 75, 74, 77, 83, 84, 81, 82, 76, 78, 79, 80, 86, 88, 85, 87]
+        r8_order = [200, 201, 204, 205, 202, 203, 206, 207]
+        r4_order = [220, 221, 222, 223]
+        r2_order = [232, 233]
+        b_order = 0
+        if phase == "r16" and wc.get("match_num") in r16_order: b_order = r16_order.index(wc.get("match_num"))
+        elif phase == "r8" and row in r8_order: b_order = r8_order.index(row)
+        elif phase == "r4" and row in r4_order: b_order = r4_order.index(row)
+        elif phase == "r2" and row in r2_order: b_order = r2_order.index(row)
+
         matches.append({
             "row":       row,
             "id":        str(match_id) if match_id else "",
@@ -1537,6 +1547,7 @@ def build_data():
             "flag_home": wc.get("flag_home", ""),
             "flag_away": wc.get("flag_away", ""),
             "match_num": wc.get("match_num"),
+            "bracket_order": b_order,
             "city":       fix.get("city", ""),
             "country":    fix.get("country", ""),
             "tv":         "both" if (wc.get("home", "") == "España" or wc.get("away", "") == "España") else fix.get("tv", ""),

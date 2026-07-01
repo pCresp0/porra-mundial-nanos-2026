@@ -6288,7 +6288,7 @@ function renderBracket(overrideEl) {
   function getRealMatches(phase) {
     return (D.matches || [])
       .filter(m => m.phase === phase && m.date && m.date.startsWith("2026"))
-      .sort((a, b) => (a.date + (a.time_es || "")).localeCompare(b.date + (b.time_es || "")));
+      .sort((a, b) => (a.bracket_order || 0) - (b.bracket_order || 0));
   }
 
   const byPhase = {};
