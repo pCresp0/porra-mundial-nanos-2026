@@ -405,6 +405,23 @@
     ],
     "api_log": [
       {
+        "ts_iso": "2026-07-01T18:08:31+02:00",
+        "date": "01/07/2026",
+        "time": "18:08:31",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇬🇧Inglaterra ?-? RD Congo🇨🇩",
+            "name": "Inglaterra-RD Congo",
+            "date": "2026-07-01",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
+      {
         "ts_iso": "2026-07-01T18:06:29+02:00",
         "date": "01/07/2026",
         "time": "18:06:29",
@@ -4617,14 +4634,6 @@
         "ts_iso": "2026-06-30T01:20:33+02:00",
         "date": "30/06/2026",
         "time": "01:20:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T01:18:29+02:00",
-        "date": "30/06/2026",
-        "time": "01:18:29",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -19477,8 +19486,16 @@
       "live": true,
       "live_minute": "live",
       "live_goals_l": 0,
-      "live_goals_v": 0,
-      "live_scorers": [],
+      "live_goals_v": 1,
+      "live_scorers": [
+        {
+          "player": "Braian Sipnga",
+          "minute": "7'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        }
+      ],
       "goals_l": null,
       "goals_v": null,
       "scorers": [],
