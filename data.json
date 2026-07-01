@@ -1,16 +1,19 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "01/07/2026 18:09",
+    "generated": "01/07/2026 16:16",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-07-01T18:09",
       "last_updated_time": "18:09",
       "last_updated_date": "01/07/2026",
-      "next_update_iso": "2026-07-01T18:10",
-      "next_update_time": "18:10",
-      "next_update_date": "01/07/2026"
+      "next_update_iso": "2026-07-01T18:20",
+      "next_update_time": "18:20",
+      "next_update_date": "01/07/2026",
+      "last_checked_iso": "2026-07-01T18:16",
+      "last_checked_time": "18:16",
+      "last_checked_date": "01/07/2026"
     },
     "players": [
       "JUANCHO",
@@ -404,6 +407,46 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-01T18:16:27+02:00",
+        "date": "01/07/2026",
+        "time": "18:16:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T18:14:28+02:00",
+        "date": "01/07/2026",
+        "time": "18:14:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T18:12:31+02:00",
+        "date": "01/07/2026",
+        "time": "18:12:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T18:10:40+02:00",
+        "date": "01/07/2026",
+        "time": "18:10:40",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T18:09:57+02:00",
+        "date": "01/07/2026",
+        "time": "18:09:57",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
       {
         "ts_iso": "2026-07-01T18:08:31+02:00",
         "date": "01/07/2026",
@@ -4596,46 +4639,6 @@
         "time": "01:29:18",
         "updated": false,
         "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T01:28:29+02:00",
-        "date": "30/06/2026",
-        "time": "01:28:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T01:26:27+02:00",
-        "date": "30/06/2026",
-        "time": "01:26:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T01:24:35+02:00",
-        "date": "30/06/2026",
-        "time": "01:24:35",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T01:22:26+02:00",
-        "date": "30/06/2026",
-        "time": "01:22:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T01:20:33+02:00",
-        "date": "30/06/2026",
-        "time": "01:20:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
         "changes": []
       }
     ]
