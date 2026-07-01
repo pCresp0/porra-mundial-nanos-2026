@@ -1,12 +1,19 @@
 {
   "México-Ecuador": {
-    "home": 1,
+    "home": 2,
     "away": 0,
     "minute": "live",
     "scorers": [
       {
         "player": "Jvlian Kviinvnz",
         "minute": "22'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Raúl Jiménez",
+        "minute": "31'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
