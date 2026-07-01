@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "01/07/2026 00:54",
+    "generated": "01/07/2026 00:56",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-01T02:28",
-      "last_updated_time": "02:28",
+      "last_updated_iso": "2026-07-01T02:56",
+      "last_updated_time": "02:56",
       "last_updated_date": "01/07/2026",
-      "next_update_iso": "2026-07-01T02:55",
-      "next_update_time": "02:55",
+      "next_update_iso": "2026-07-01T03:00",
+      "next_update_time": "03:00",
       "next_update_date": "01/07/2026",
-      "last_checked_iso": "2026-07-01T02:54",
-      "last_checked_time": "02:54",
+      "last_checked_iso": "2026-07-01T02:56",
+      "last_checked_time": "02:56",
       "last_checked_date": "01/07/2026"
     },
     "players": [
@@ -24,9 +24,11 @@
       "CRESPO"
     ],
     "live": {
-      "active": false,
-      "count": 0,
-      "matches": []
+      "active": true,
+      "count": 1,
+      "matches": [
+        "México-Ecuador"
+      ]
     },
     "colors": {
       "JUANCHO": "#F5C518",
@@ -409,6 +411,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-01T02:56:29+02:00",
+        "date": "01/07/2026",
+        "time": "02:56:29",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇲🇽México ?-? Ecuador🇪🇨",
+            "name": "México-Ecuador",
+            "date": "2026-07-01",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-01T02:54:27+02:00",
         "date": "01/07/2026",
@@ -4658,14 +4677,6 @@
         "ts_iso": "2026-06-29T19:10:39+02:00",
         "date": "29/06/2026",
         "time": "19:10:39",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-29T19:08:32+02:00",
-        "date": "29/06/2026",
-        "time": "19:08:32",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -18882,10 +18893,10 @@
       "phase": "r16",
       "result": null,
       "played": false,
-      "live": false,
-      "live_minute": "",
-      "live_goals_l": null,
-      "live_goals_v": null,
+      "live": true,
+      "live_minute": "live",
+      "live_goals_l": 0,
+      "live_goals_v": 0,
       "live_scorers": [],
       "goals_l": null,
       "goals_v": null,
@@ -18904,8 +18915,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ],
+            "team_match": null,
+            "pred_home": "",
+            "pred_away": ""
+          },
+          "live_score": 0.0
         },
         "LARRY": {
           "pred": {
@@ -18915,8 +18937,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ],
+            "team_match": null,
+            "pred_home": "",
+            "pred_away": ""
+          },
+          "live_score": 0.0
         },
         "LUIS/VIR": {
           "pred": {
@@ -18926,8 +18959,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ],
+            "team_match": null,
+            "pred_home": "",
+            "pred_away": ""
+          },
+          "live_score": 0.0
         },
         "MEDINA": {
           "pred": {
@@ -18937,8 +18981,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ],
+            "team_match": null,
+            "pred_home": "",
+            "pred_away": ""
+          },
+          "live_score": 0.0
         },
         "VÍCTOR": {
           "pred": {
@@ -18948,8 +19003,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ],
+            "team_match": null,
+            "pred_home": "",
+            "pred_away": ""
+          },
+          "live_score": 0.0
         },
         "CRESPO": {
           "pred": {
@@ -18959,8 +19025,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ],
+            "team_match": null,
+            "pred_home": "",
+            "pred_away": ""
+          },
+          "live_score": 0.0
         }
       }
     },
