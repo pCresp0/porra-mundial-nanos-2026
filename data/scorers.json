@@ -1715,5 +1715,21 @@
       "penalty": false,
       "team": "away"
     }
+  ],
+  "México-Ecuador": [
+    {
+      "player": "Jvlian Kviinvnz",
+      "minute": "22'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Raúl Jiménez",
+      "minute": "31'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
   ]
 }
