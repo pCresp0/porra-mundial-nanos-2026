@@ -81,11 +81,12 @@ def extract_player_predictions(xlsx_path):
         parsed = parse_pred_cell(str(raw) if raw else "")
         if parsed:
             mname, sign, gl, gv = parsed
-            pred_str = f"{sign}|{gl}-{gv}"
+            pred_str = f"{mname}·{sign}|{gl}-{gv}"
             winner = winners.get(mname)
             if winner:
                 pred_str += f"|{winner}"
             preds[mname] = pred_str
+            preds[str(r)] = pred_str
     return preds
 
 

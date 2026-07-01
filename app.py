@@ -1402,10 +1402,13 @@ def build_data():
         
         for p, ws in zip(all_players, all_ws):
             if phase in KO_PHASE_PTS:
-                # For KO phases, read from the JSON file by resolved match name first
-                mkey_resolved = f"{home_resolved}-{away_resolved}"
-                mkey_resolved_rev = f"{away_resolved}-{home_resolved}"
-                pred_raw = _ko_preds.get(p["name"], {}).get(mkey_resolved) or _ko_preds.get(p["name"], {}).get(mkey_resolved_rev)
+                # For KO phases, read from the JSON file by row number first
+                pred_raw = _ko_preds.get(p["name"], {}).get(str(row))
+                if not pred_raw:
+                    # fallback to resolved match names
+                    mkey_resolved = f"{home_resolved}-{away_resolved}"
+                    mkey_resolved_rev = f"{away_resolved}-{home_resolved}"
+                    pred_raw = _ko_preds.get(p["name"], {}).get(mkey_resolved) or _ko_preds.get(p["name"], {}).get(mkey_resolved_rev)
                 if not pred_raw:
                     # fallback to the sheet's match name
                     pred_raw = _ko_preds.get(p["name"], {}).get(mkey)

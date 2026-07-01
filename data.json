@@ -1,12 +1,12 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "01/07/2026 07:26",
+    "generated": "01/07/2026 09:27",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-01T09:26",
-      "last_updated_time": "09:26",
+      "last_updated_iso": "2026-07-01T09:27",
+      "last_updated_time": "09:27",
       "last_updated_date": "01/07/2026",
       "next_update_iso": "2026-07-01T09:30",
       "next_update_time": "09:30",
@@ -17826,7 +17826,9 @@
           "pred": {
             "sign": "2",
             "score": "1-3",
-            "winner": "Canadá"
+            "winner": "Canadá",
+            "pred_home": "Sudáfrica",
+            "pred_away": "Canadá"
           },
           "score": 6.0,
           "breakdown": {
@@ -17840,8 +17842,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Sudáfrica",
+            "pred_away": "Canadá"
           },
           "live_breakdown": null,
           "live_score": null
@@ -17850,7 +17852,9 @@
           "pred": {
             "sign": "2",
             "score": "0-2",
-            "winner": "Canadá"
+            "winner": "Canadá",
+            "pred_home": "Sudáfrica",
+            "pred_away": "Canadá"
           },
           "score": 6.0,
           "breakdown": {
@@ -17864,8 +17868,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Sudáfrica",
+            "pred_away": "Canadá"
           },
           "live_breakdown": null,
           "live_score": null
@@ -17874,7 +17878,9 @@
           "pred": {
             "sign": "X",
             "score": "1-1",
-            "winner": "Canadá (3-4 pen.)"
+            "winner": "Canadá (3-4 pen.)",
+            "pred_home": "Sudáfrica",
+            "pred_away": "Canadá"
           },
           "score": 0.0,
           "breakdown": {
@@ -17886,8 +17892,8 @@
               "1X2 incorrecto — 0 pts"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Sudáfrica",
+            "pred_away": "Canadá"
           },
           "live_breakdown": null,
           "live_score": null
@@ -17896,7 +17902,9 @@
           "pred": {
             "sign": "2",
             "score": "0-2",
-            "winner": "Canadá"
+            "winner": "Canadá",
+            "pred_home": "Sudáfrica",
+            "pred_away": "Canadá"
           },
           "score": 6.0,
           "breakdown": {
@@ -17910,8 +17918,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Sudáfrica",
+            "pred_away": "Canadá"
           },
           "live_breakdown": null,
           "live_score": null
@@ -17920,7 +17928,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Canadá"
+            "winner": "Canadá",
+            "pred_home": "Sudáfrica",
+            "pred_away": "Canadá"
           },
           "score": 8.0,
           "breakdown": {
@@ -17934,8 +17944,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Sudáfrica",
+            "pred_away": "Canadá"
           },
           "live_breakdown": null,
           "live_score": null
@@ -17944,7 +17954,9 @@
           "pred": {
             "sign": "2",
             "score": "0-2",
-            "winner": "Canadá"
+            "winner": "Canadá",
+            "pred_home": "Sudáfrica",
+            "pred_away": "Canadá"
           },
           "score": 6.0,
           "breakdown": {
@@ -17958,8 +17970,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Sudáfrica",
+            "pred_away": "Canadá"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18039,7 +18051,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Brasil"
+            "winner": "Brasil",
+            "pred_home": "Brasil",
+            "pred_away": "Japón"
           },
           "score": 12.0,
           "breakdown": {
@@ -18054,8 +18068,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Brasil",
+            "pred_away": "Japón"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18064,7 +18078,9 @@
           "pred": {
             "sign": "X",
             "score": "2-2",
-            "winner": "Japón (3-4 p.)"
+            "winner": "Japón (3-4 p.)",
+            "pred_home": "Brasil",
+            "pred_away": "Japón"
           },
           "score": 0.0,
           "breakdown": {
@@ -18076,8 +18092,8 @@
               "1X2 incorrecto — 0 pts"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Brasil",
+            "pred_away": "Japón"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18086,7 +18102,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Brasil"
+            "winner": "Brasil",
+            "pred_home": "Brasil",
+            "pred_away": "Japón"
           },
           "score": 12.0,
           "breakdown": {
@@ -18101,8 +18119,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Brasil",
+            "pred_away": "Japón"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18111,7 +18129,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Brasil"
+            "winner": "Brasil",
+            "pred_home": "Brasil",
+            "pred_away": "Japón"
           },
           "score": 6.0,
           "breakdown": {
@@ -18125,8 +18145,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Brasil",
+            "pred_away": "Japón"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18135,7 +18155,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Brasil"
+            "winner": "Brasil",
+            "pred_home": "Brasil",
+            "pred_away": "Japón"
           },
           "score": 6.0,
           "breakdown": {
@@ -18149,8 +18171,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Brasil",
+            "pred_away": "Japón"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18159,7 +18181,9 @@
           "pred": {
             "sign": "1",
             "score": "3-1",
-            "winner": "Brasil"
+            "winner": "Brasil",
+            "pred_home": "Brasil",
+            "pred_away": "Japón"
           },
           "score": 6.0,
           "breakdown": {
@@ -18173,8 +18197,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Brasil",
+            "pred_away": "Japón"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18247,7 +18271,9 @@
           "pred": {
             "sign": "1",
             "score": "3-0",
-            "winner": "Alemania"
+            "winner": "Alemania",
+            "pred_home": "Alemania",
+            "pred_away": "Paraguay"
           },
           "score": 0.0,
           "breakdown": {
@@ -18259,8 +18285,8 @@
               "1X2 incorrecto — 0 pts"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Alemania",
+            "pred_away": "Paraguay"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18269,7 +18295,9 @@
           "pred": {
             "sign": "1",
             "score": "3-1",
-            "winner": "Alemania"
+            "winner": "Alemania",
+            "pred_home": "Alemania",
+            "pred_away": "Paraguay"
           },
           "score": 0.0,
           "breakdown": {
@@ -18281,8 +18309,8 @@
               "1X2 incorrecto — 0 pts"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Alemania",
+            "pred_away": "Paraguay"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18291,7 +18319,9 @@
           "pred": {
             "sign": "1",
             "score": "3-0",
-            "winner": "Alemania"
+            "winner": "Alemania",
+            "pred_home": "Alemania",
+            "pred_away": "Paraguay"
           },
           "score": 0.0,
           "breakdown": {
@@ -18303,8 +18333,8 @@
               "1X2 incorrecto — 0 pts"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Alemania",
+            "pred_away": "Paraguay"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18313,7 +18343,9 @@
           "pred": {
             "sign": "1",
             "score": "3-0",
-            "winner": "Alemania"
+            "winner": "Alemania",
+            "pred_home": "Alemania",
+            "pred_away": "Paraguay"
           },
           "score": 0.0,
           "breakdown": {
@@ -18325,8 +18357,8 @@
               "1X2 incorrecto — 0 pts"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Alemania",
+            "pred_away": "Paraguay"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18335,7 +18367,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Alemania"
+            "winner": "Alemania",
+            "pred_home": "Alemania",
+            "pred_away": "Paraguay"
           },
           "score": 0.0,
           "breakdown": {
@@ -18347,8 +18381,8 @@
               "1X2 incorrecto — 0 pts"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Alemania",
+            "pred_away": "Paraguay"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18357,7 +18391,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Alemania"
+            "winner": "Alemania",
+            "pred_home": "Alemania",
+            "pred_away": "Paraguay"
           },
           "score": 0.0,
           "breakdown": {
@@ -18369,8 +18405,8 @@
               "1X2 incorrecto — 0 pts"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Alemania",
+            "pred_away": "Paraguay"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18443,7 +18479,9 @@
           "pred": {
             "sign": "2",
             "score": "0-1",
-            "winner": "Marruecos"
+            "winner": "Marruecos",
+            "pred_home": "Países Bajos",
+            "pred_away": "Marruecos"
           },
           "score": 0.0,
           "breakdown": {
@@ -18455,8 +18493,8 @@
               "1X2 incorrecto — 0 pts"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Países Bajos",
+            "pred_away": "Marruecos"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18465,7 +18503,9 @@
           "pred": {
             "sign": "X",
             "score": "1-1",
-            "winner": "Países Bajos (4-2 p.)"
+            "winner": "Países Bajos (4-2 p.)",
+            "pred_home": "Países Bajos",
+            "pred_away": "Marruecos"
           },
           "score": 9.0,
           "breakdown": {
@@ -18479,8 +18519,8 @@
               "Resultado exacto (+4.0)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Países Bajos",
+            "pred_away": "Marruecos"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18489,7 +18529,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Países Bajos"
+            "winner": "Países Bajos",
+            "pred_home": "Países Bajos",
+            "pred_away": "Marruecos"
           },
           "score": 0.0,
           "breakdown": {
@@ -18501,8 +18543,8 @@
               "1X2 incorrecto — 0 pts"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Países Bajos",
+            "pred_away": "Marruecos"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18511,7 +18553,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Países Bajos"
+            "winner": "Países Bajos",
+            "pred_home": "Países Bajos",
+            "pred_away": "Marruecos"
           },
           "score": 0.0,
           "breakdown": {
@@ -18523,8 +18567,8 @@
               "1X2 incorrecto — 0 pts"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Países Bajos",
+            "pred_away": "Marruecos"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18533,7 +18577,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Países Bajos"
+            "winner": "Países Bajos",
+            "pred_home": "Países Bajos",
+            "pred_away": "Marruecos"
           },
           "score": 0.0,
           "breakdown": {
@@ -18545,8 +18591,8 @@
               "1X2 incorrecto — 0 pts"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Países Bajos",
+            "pred_away": "Marruecos"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18555,7 +18601,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Países Bajos"
+            "winner": "Países Bajos",
+            "pred_home": "Países Bajos",
+            "pred_away": "Marruecos"
           },
           "score": 0.0,
           "breakdown": {
@@ -18567,8 +18615,8 @@
               "1X2 incorrecto — 0 pts"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Países Bajos",
+            "pred_away": "Marruecos"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18648,7 +18696,9 @@
           "pred": {
             "sign": "2",
             "score": "0-1",
-            "winner": "Noruega"
+            "winner": "Noruega",
+            "pred_home": "Costa de Marfil",
+            "pred_away": "Noruega"
           },
           "score": 8.0,
           "breakdown": {
@@ -18662,8 +18712,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Costa de Marfil",
+            "pred_away": "Noruega"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18672,7 +18722,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Noruega"
+            "winner": "Noruega",
+            "pred_home": "Costa de Marfil",
+            "pred_away": "Noruega"
           },
           "score": 12.0,
           "breakdown": {
@@ -18687,8 +18739,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Costa de Marfil",
+            "pred_away": "Noruega"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18697,7 +18749,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Noruega"
+            "winner": "Noruega",
+            "pred_home": "Costa de Marfil",
+            "pred_away": "Noruega"
           },
           "score": 12.0,
           "breakdown": {
@@ -18712,8 +18766,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Costa de Marfil",
+            "pred_away": "Noruega"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18722,7 +18776,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Noruega"
+            "winner": "Noruega",
+            "pred_home": "Costa de Marfil",
+            "pred_away": "Noruega"
           },
           "score": 12.0,
           "breakdown": {
@@ -18737,8 +18793,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Costa de Marfil",
+            "pred_away": "Noruega"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18747,7 +18803,9 @@
           "pred": {
             "sign": "2",
             "score": "1-3",
-            "winner": "Noruega"
+            "winner": "Noruega",
+            "pred_home": "Costa de Marfil",
+            "pred_away": "Noruega"
           },
           "score": 6.0,
           "breakdown": {
@@ -18761,8 +18819,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Costa de Marfil",
+            "pred_away": "Noruega"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18771,7 +18829,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Noruega"
+            "winner": "Noruega",
+            "pred_home": "Costa de Marfil",
+            "pred_away": "Noruega"
           },
           "score": 12.0,
           "breakdown": {
@@ -18786,8 +18846,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Costa de Marfil",
+            "pred_away": "Noruega"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18867,7 +18927,9 @@
           "pred": {
             "sign": "1",
             "score": "3-1",
-            "winner": "Francia"
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "Suecia"
           },
           "score": 6.0,
           "breakdown": {
@@ -18881,8 +18943,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Francia",
+            "pred_away": "Suecia"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18891,7 +18953,9 @@
           "pred": {
             "sign": "1",
             "score": "3-1",
-            "winner": "Francia"
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "Suecia"
           },
           "score": 6.0,
           "breakdown": {
@@ -18905,8 +18969,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Francia",
+            "pred_away": "Suecia"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18915,7 +18979,9 @@
           "pred": {
             "sign": "1",
             "score": "3-1",
-            "winner": "Francia"
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "Suecia"
           },
           "score": 6.0,
           "breakdown": {
@@ -18929,8 +18995,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Francia",
+            "pred_away": "Suecia"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18939,7 +19005,9 @@
           "pred": {
             "sign": "1",
             "score": "3-0",
-            "winner": "Francia"
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "Suecia"
           },
           "score": 12.0,
           "breakdown": {
@@ -18954,8 +19022,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Francia",
+            "pred_away": "Suecia"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18964,7 +19032,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Francia"
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "Suecia"
           },
           "score": 6.0,
           "breakdown": {
@@ -18978,8 +19048,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Francia",
+            "pred_away": "Suecia"
           },
           "live_breakdown": null,
           "live_score": null
@@ -18988,7 +19058,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Francia"
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "Suecia"
           },
           "score": 6.0,
           "breakdown": {
@@ -19002,8 +19074,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "Francia",
+            "pred_away": "Suecia"
           },
           "live_breakdown": null,
           "live_score": null
@@ -19076,7 +19148,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "México"
+            "winner": "México",
+            "pred_home": "México",
+            "pred_away": "Ecuador"
           },
           "score": 6.0,
           "breakdown": {
@@ -19090,8 +19164,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "México",
+            "pred_away": "Ecuador"
           },
           "live_breakdown": null,
           "live_score": null
@@ -19100,7 +19174,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Ecuador"
+            "winner": "Ecuador",
+            "pred_home": "México",
+            "pred_away": "Ecuador"
           },
           "score": 0.0,
           "breakdown": {
@@ -19112,8 +19188,8 @@
               "1X2 incorrecto — 0 pts"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "México",
+            "pred_away": "Ecuador"
           },
           "live_breakdown": null,
           "live_score": null
@@ -19122,7 +19198,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "México"
+            "winner": "México",
+            "pred_home": "México",
+            "pred_away": "Ecuador"
           },
           "score": 12.0,
           "breakdown": {
@@ -19137,8 +19215,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "México",
+            "pred_away": "Ecuador"
           },
           "live_breakdown": null,
           "live_score": null
@@ -19147,7 +19225,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "México"
+            "winner": "México",
+            "pred_home": "México",
+            "pred_away": "Ecuador"
           },
           "score": 6.0,
           "breakdown": {
@@ -19161,8 +19241,8 @@
               "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "México",
+            "pred_away": "Ecuador"
           },
           "live_breakdown": null,
           "live_score": null
@@ -19171,7 +19251,9 @@
           "pred": {
             "sign": "2",
             "score": "0-1",
-            "winner": "Ecuador"
+            "winner": "Ecuador",
+            "pred_home": "México",
+            "pred_away": "Ecuador"
           },
           "score": 0.0,
           "breakdown": {
@@ -19183,8 +19265,8 @@
               "1X2 incorrecto — 0 pts"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "México",
+            "pred_away": "Ecuador"
           },
           "live_breakdown": null,
           "live_score": null
@@ -19193,7 +19275,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Ecuador"
+            "winner": "Ecuador",
+            "pred_home": "México",
+            "pred_away": "Ecuador"
           },
           "score": 0.0,
           "breakdown": {
@@ -19205,8 +19289,8 @@
               "1X2 incorrecto — 0 pts"
             ],
             "team_match": null,
-            "pred_home": "",
-            "pred_away": ""
+            "pred_home": "México",
+            "pred_away": "Ecuador"
           },
           "live_breakdown": null,
           "live_score": null
@@ -19261,7 +19345,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Inglaterra"
+            "winner": "Inglaterra",
+            "pred_home": "Inglaterra",
+            "pred_away": "RD Congo"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19272,7 +19358,9 @@
           "pred": {
             "sign": "1",
             "score": "3-1",
-            "winner": "Inglaterra"
+            "winner": "Inglaterra",
+            "pred_home": "Inglaterra",
+            "pred_away": "RD Congo"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19283,7 +19371,9 @@
           "pred": {
             "sign": "1",
             "score": "4-1",
-            "winner": "Inglaterra"
+            "winner": "Inglaterra",
+            "pred_home": "Inglaterra",
+            "pred_away": "RD Congo"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19294,7 +19384,9 @@
           "pred": {
             "sign": "1",
             "score": "3-0",
-            "winner": "Inglaterra"
+            "winner": "Inglaterra",
+            "pred_home": "Inglaterra",
+            "pred_away": "RD Congo"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19305,7 +19397,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Inglaterra"
+            "winner": "Inglaterra",
+            "pred_home": "Inglaterra",
+            "pred_away": "RD Congo"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19316,7 +19410,9 @@
           "pred": {
             "sign": "1",
             "score": "3-1",
-            "winner": "Inglaterra"
+            "winner": "Inglaterra",
+            "pred_home": "Inglaterra",
+            "pred_away": "RD Congo"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19373,7 +19469,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Bélgica"
+            "winner": "Bélgica",
+            "pred_home": "Bélgica",
+            "pred_away": "Senegal"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19384,7 +19482,9 @@
           "pred": {
             "sign": "X",
             "score": "1-1",
-            "winner": "Senegal (2-3 p.)"
+            "winner": "Senegal (2-3 p.)",
+            "pred_home": "Bélgica",
+            "pred_away": "Senegal"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19395,7 +19495,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Bélgica"
+            "winner": "Bélgica",
+            "pred_home": "Bélgica",
+            "pred_away": "Senegal"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19406,7 +19508,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Bélgica"
+            "winner": "Bélgica",
+            "pred_home": "Bélgica",
+            "pred_away": "Senegal"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19417,7 +19521,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Bélgica"
+            "winner": "Bélgica",
+            "pred_home": "Bélgica",
+            "pred_away": "Senegal"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19428,7 +19534,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Bélgica"
+            "winner": "Bélgica",
+            "pred_home": "Bélgica",
+            "pred_away": "Senegal"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19485,7 +19593,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Estados Unidos"
+            "winner": "Estados Unidos",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bosnia y Herzegovina"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19496,7 +19606,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Estados Unidos"
+            "winner": "Estados Unidos",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bosnia y Herzegovina"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19507,7 +19619,9 @@
           "pred": {
             "sign": "X",
             "score": "2-2",
-            "winner": "Estados Unidos (4-3 pen.)"
+            "winner": "Estados Unidos (4-3 pen.)",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bosnia y Herzegovina"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19518,7 +19632,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Estados Unidos"
+            "winner": "Estados Unidos",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bosnia y Herzegovina"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19529,7 +19645,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Estados Unidos"
+            "winner": "Estados Unidos",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bosnia y Herzegovina"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19540,7 +19658,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Estados Unidos"
+            "winner": "Estados Unidos",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bosnia y Herzegovina"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19597,7 +19717,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "España"
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Austria"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19608,7 +19730,9 @@
           "pred": {
             "sign": "1",
             "score": "3-0",
-            "winner": "España"
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Austria"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19619,7 +19743,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "España"
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Austria"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19630,7 +19756,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "España"
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Austria"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19641,7 +19769,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "España"
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Austria"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19652,7 +19782,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "España"
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Austria"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19709,7 +19841,9 @@
           "pred": {
             "sign": "X",
             "score": "1-1",
-            "winner": "Portugal (4-3 p.)"
+            "winner": "Portugal (4-3 p.)",
+            "pred_home": "Portugal",
+            "pred_away": "Croacia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19720,7 +19854,9 @@
           "pred": {
             "sign": "X",
             "score": "0-0",
-            "winner": "Croacia (4-5 p.)"
+            "winner": "Croacia (4-5 p.)",
+            "pred_home": "Portugal",
+            "pred_away": "Croacia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19731,7 +19867,9 @@
           "pred": {
             "sign": "1",
             "score": "3-2",
-            "winner": "Portugal"
+            "winner": "Portugal",
+            "pred_home": "Portugal",
+            "pred_away": "Croacia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19742,7 +19880,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Portugal"
+            "winner": "Portugal",
+            "pred_home": "Portugal",
+            "pred_away": "Croacia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19753,7 +19893,9 @@
           "pred": {
             "sign": "1",
             "score": "1-0",
-            "winner": "Portugal"
+            "winner": "Portugal",
+            "pred_home": "Portugal",
+            "pred_away": "Croacia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19764,7 +19906,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Portugal"
+            "winner": "Portugal",
+            "pred_home": "Portugal",
+            "pred_away": "Croacia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19821,7 +19965,9 @@
           "pred": {
             "sign": "1",
             "score": "1-0",
-            "winner": "Suiza"
+            "winner": "Suiza",
+            "pred_home": "Suiza",
+            "pred_away": "Argelia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19832,7 +19978,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Suiza"
+            "winner": "Suiza",
+            "pred_home": "Suiza",
+            "pred_away": "Argelia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19843,7 +19991,9 @@
           "pred": {
             "sign": "1",
             "score": "1-0",
-            "winner": "Suiza"
+            "winner": "Suiza",
+            "pred_home": "Suiza",
+            "pred_away": "Argelia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19854,7 +20004,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Suiza"
+            "winner": "Suiza",
+            "pred_home": "Suiza",
+            "pred_away": "Argelia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19865,7 +20017,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Suiza"
+            "winner": "Suiza",
+            "pred_home": "Suiza",
+            "pred_away": "Argelia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19876,7 +20030,9 @@
           "pred": {
             "sign": "1",
             "score": "1-0",
-            "winner": "Suiza"
+            "winner": "Suiza",
+            "pred_home": "Suiza",
+            "pred_away": "Argelia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19933,7 +20089,9 @@
           "pred": {
             "sign": "X",
             "score": "2-2",
-            "winner": "Egipto (3-4 p.)"
+            "winner": "Egipto (3-4 p.)",
+            "pred_home": "Australia",
+            "pred_away": "Egipto"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19944,7 +20102,9 @@
           "pred": {
             "sign": "2",
             "score": "0-1",
-            "winner": "Egipto"
+            "winner": "Egipto",
+            "pred_home": "Australia",
+            "pred_away": "Egipto"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19955,7 +20115,9 @@
           "pred": {
             "sign": "2",
             "score": "0-1",
-            "winner": "Egipto"
+            "winner": "Egipto",
+            "pred_home": "Australia",
+            "pred_away": "Egipto"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19966,7 +20128,9 @@
           "pred": {
             "sign": "X",
             "score": "1-1",
-            "winner": "Egipto (3-4 pen.)"
+            "winner": "Egipto (3-4 pen.)",
+            "pred_home": "Australia",
+            "pred_away": "Egipto"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19977,7 +20141,9 @@
           "pred": {
             "sign": "X",
             "score": "1-1",
-            "winner": "Egipto (2-3 p.)"
+            "winner": "Egipto (2-3 p.)",
+            "pred_home": "Australia",
+            "pred_away": "Egipto"
           },
           "score": 0.0,
           "breakdown": null,
@@ -19988,7 +20154,9 @@
           "pred": {
             "sign": "2",
             "score": "0-1",
-            "winner": "Egipto"
+            "winner": "Egipto",
+            "pred_home": "Australia",
+            "pred_away": "Egipto"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20045,7 +20213,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Argentina"
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Cabo Verde"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20056,7 +20226,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Argentina"
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Cabo Verde"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20067,7 +20239,9 @@
           "pred": {
             "sign": "1",
             "score": "4-0",
-            "winner": "Argentina"
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Cabo Verde"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20078,7 +20252,9 @@
           "pred": {
             "sign": "1",
             "score": "3-0",
-            "winner": "Argentina"
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Cabo Verde"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20089,7 +20265,9 @@
           "pred": {
             "sign": "1",
             "score": "3-0",
-            "winner": "Argentina"
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Cabo Verde"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20100,7 +20278,9 @@
           "pred": {
             "sign": "1",
             "score": "4-0",
-            "winner": "Argentina"
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Cabo Verde"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20157,7 +20337,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Colombia"
+            "winner": "Colombia",
+            "pred_home": "Colombia",
+            "pred_away": "Ghana"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20168,7 +20350,9 @@
           "pred": {
             "sign": "1",
             "score": "1-0",
-            "winner": "Colombia"
+            "winner": "Colombia",
+            "pred_home": "Colombia",
+            "pred_away": "Ghana"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20179,7 +20363,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Colombia"
+            "winner": "Colombia",
+            "pred_home": "Colombia",
+            "pred_away": "Ghana"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20190,7 +20376,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Colombia"
+            "winner": "Colombia",
+            "pred_home": "Colombia",
+            "pred_away": "Ghana"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20201,7 +20389,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Colombia"
+            "winner": "Colombia",
+            "pred_home": "Colombia",
+            "pred_away": "Ghana"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20212,7 +20402,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Colombia"
+            "winner": "Colombia",
+            "pred_home": "Colombia",
+            "pred_away": "Ghana"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20266,42 +20458,78 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Marruecos",
+            "pred_home": "Canadá",
+            "pred_away": "Marruecos"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Países Bajos",
+            "pred_home": "Canadá",
+            "pred_away": "Países Bajos"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "0-3",
+            "winner": "Países Bajos",
+            "pred_home": "Canadá",
+            "pred_away": "Países Bajos"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Países Bajos",
+            "pred_home": "Canadá",
+            "pred_away": "Países Bajos"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "0-1",
+            "winner": "Países Bajos",
+            "pred_home": "Canadá",
+            "pred_away": "Países Bajos"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "0-2",
+            "winner": "Países Bajos",
+            "pred_home": "Canadá",
+            "pred_away": "Países Bajos"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -20355,9 +20583,11 @@
       "predictions": {
         "JUANCHO": {
           "pred": {
-            "sign": "1",
-            "score": "2-1",
-            "winner": "Brasil"
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Francia",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20365,7 +20595,13 @@
           "live_score": null
         },
         "LARRY": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Alemania",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -20373,9 +20609,11 @@
         },
         "LUIS/VIR": {
           "pred": {
-            "sign": "1",
-            "score": "2-1",
-            "winner": "Brasil"
+            "sign": "X",
+            "score": "2-2",
+            "winner": "Francia (4-5 pen.)",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20384,9 +20622,11 @@
         },
         "MEDINA": {
           "pred": {
-            "sign": "1",
-            "score": "2-1",
-            "winner": "Brasil"
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Francia",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20395,9 +20635,11 @@
         },
         "VÍCTOR": {
           "pred": {
-            "sign": "1",
-            "score": "2-1",
-            "winner": "Brasil"
+            "sign": "2",
+            "score": "0-1",
+            "winner": "Francia",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20406,9 +20648,11 @@
         },
         "CRESPO": {
           "pred": {
-            "sign": "1",
-            "score": "2-1",
-            "winner": "Brasil"
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Francia",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20462,42 +20706,78 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Brasil",
+            "pred_home": "Brasil",
+            "pred_away": "Noruega"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": null,
+          "pred": {
+            "sign": "X",
+            "score": "2-2",
+            "winner": "Japón (5-4 p.)",
+            "pred_home": "Japón",
+            "pred_away": "Noruega"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Brasil",
+            "pred_home": "Brasil",
+            "pred_away": "Noruega"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Brasil",
+            "pred_home": "Brasil",
+            "pred_away": "Noruega"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Brasil",
+            "pred_home": "Brasil",
+            "pred_away": "Noruega"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Brasil",
+            "pred_home": "Brasil",
+            "pred_away": "Noruega"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -20550,42 +20830,78 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Inglaterra",
+            "pred_home": "México",
+            "pred_away": "Inglaterra"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "1-3",
+            "winner": "Inglaterra",
+            "pred_home": "Ecuador",
+            "pred_away": "Inglaterra"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": null,
+          "pred": {
+            "sign": "X",
+            "score": "2-2",
+            "winner": "Inglaterra (4-5 pen.)",
+            "pred_home": "México",
+            "pred_away": "Inglaterra"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Inglaterra",
+            "pred_home": "México",
+            "pred_away": "Inglaterra"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "0-1",
+            "winner": "Inglaterra",
+            "pred_home": "Ecuador",
+            "pred_away": "Inglaterra"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "0-2",
+            "winner": "Inglaterra",
+            "pred_home": "Ecuador",
+            "pred_away": "Inglaterra"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -20638,42 +20954,78 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "España",
+            "pred_home": "Portugal",
+            "pred_away": "España"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "0-1",
+            "winner": "España",
+            "pred_home": "Croacia",
+            "pred_away": "España"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "España",
+            "pred_home": "Portugal",
+            "pred_away": "España"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "España",
+            "pred_home": "Portugal",
+            "pred_away": "España"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": null,
+          "pred": {
+            "sign": "X",
+            "score": "1-1",
+            "winner": "España (2-3 p.)",
+            "pred_home": "Portugal",
+            "pred_away": "España"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "España",
+            "pred_home": "Portugal",
+            "pred_away": "España"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -20726,42 +21078,78 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Estados Unidos",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bélgica"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": null,
+          "pred": {
+            "sign": "X",
+            "score": "1-1",
+            "winner": "Estados Unidos (4-2 p.)",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Senegal"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "0-2",
+            "winner": "Bélgica",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bélgica"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Estados Unidos",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bélgica"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Bélgica",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bélgica"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Bélgica",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bélgica"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -20814,42 +21202,78 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-0",
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Egipto"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Egipto"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-0",
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Egipto"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-0",
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Egipto"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-0",
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Egipto"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-0",
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Egipto"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -20902,42 +21326,78 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "0-1",
+            "winner": "Colombia",
+            "pred_home": "Suiza",
+            "pred_away": "Colombia"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "1-0",
+            "winner": "Suiza",
+            "pred_home": "Suiza",
+            "pred_away": "Colombia"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Colombia",
+            "pred_home": "Suiza",
+            "pred_away": "Colombia"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Colombia",
+            "pred_home": "Suiza",
+            "pred_away": "Colombia"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Suiza",
+            "pred_home": "Suiza",
+            "pred_away": "Colombia"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Colombia",
+            "pred_home": "Suiza",
+            "pred_away": "Colombia"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -20990,42 +21450,78 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "3-1",
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "Marruecos"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "1-0",
+            "winner": "Alemania",
+            "pred_home": "Alemania",
+            "pred_away": "Países Bajos"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "3-2",
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "Países Bajos"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "Países Bajos"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "1-0",
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "Países Bajos"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-0",
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "Países Bajos"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -21078,42 +21574,78 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-0",
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Estados Unidos"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-0",
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Estados Unidos"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": null,
+          "pred": {
+            "sign": "X",
+            "score": "1-1",
+            "winner": "España (5-4 pen.)",
+            "pred_home": "España",
+            "pred_away": "Bélgica"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-0",
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Estados Unidos"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Bélgica"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "1-0",
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Bélgica"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -21166,42 +21698,78 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Inglaterra",
+            "pred_home": "Brasil",
+            "pred_away": "Inglaterra"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "0-2",
+            "winner": "Inglaterra",
+            "pred_home": "Japón",
+            "pred_away": "Inglaterra"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Brasil",
+            "pred_home": "Brasil",
+            "pred_away": "Inglaterra"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Inglaterra",
+            "pred_home": "Brasil",
+            "pred_away": "Inglaterra"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Inglaterra",
+            "pred_home": "Brasil",
+            "pred_away": "Inglaterra"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Inglaterra",
+            "pred_home": "Brasil",
+            "pred_away": "Inglaterra"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -21254,42 +21822,78 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Colombia",
+            "pred_home": "Argentina",
+            "pred_away": "Colombia"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "1-0",
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Suiza"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": null,
+          "pred": {
+            "sign": "X",
+            "score": "1-1",
+            "winner": "Argentina (4-2 pen.)",
+            "pred_home": "Argentina",
+            "pred_away": "Colombia"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Colombia"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Suiza"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-0",
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Colombia"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -21342,42 +21946,78 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "España"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "España",
+            "pred_home": "Alemania",
+            "pred_away": "España"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "3-2",
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "España"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "España"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "1-0",
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "España"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "0-1",
+            "winner": "España",
+            "pred_home": "Francia",
+            "pred_away": "España"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -21430,42 +22070,78 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Argentina",
+            "pred_home": "Inglaterra",
+            "pred_away": "Argentina"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "3-1",
+            "winner": "Inglaterra",
+            "pred_home": "Inglaterra",
+            "pred_away": "Argentina"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": null,
+          "pred": {
+            "sign": "X",
+            "score": "1-1",
+            "winner": "Argentina (4-5 pen.)",
+            "pred_home": "Brasil",
+            "pred_away": "Argentina"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Argentina",
+            "pred_home": "Inglaterra",
+            "pred_away": "Argentina"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Inglaterra",
+            "pred_home": "Inglaterra",
+            "pred_away": "Argentina"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": null,
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Argentina",
+            "pred_home": "Inglaterra",
+            "pred_away": "Argentina"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -21606,42 +22282,78 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Argentina"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Alemania",
+            "pred_home": "Alemania",
+            "pred_away": "Argentina"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Brasil"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Inglaterra"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Argentina"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "Inglaterra"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
@@ -21782,42 +22494,78 @@
       },
       "predictions": {
         "JUANCHO": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-0",
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "Inglaterra"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "3-2",
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Inglaterra"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "3-1",
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "Argentina"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "MEDINA": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "Argentina"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "VÍCTOR": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "1-0",
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "Inglaterra"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
           "live_score": null
         },
         "CRESPO": {
-          "pred": null,
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Argentina"
+          },
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": null,
