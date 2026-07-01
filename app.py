@@ -1677,14 +1677,14 @@ def build_data():
             _r8_flag_by_team.setdefault(_m["away"], _m.get("flag_away", ""))
 
     _R8_BRACKET_MAP = {
-        89: {"name": "W73-W76", "home_num": 73, "away_num": 76},
-        90: {"name": "W75-W78", "home_num": 75, "away_num": 78},
-        91: {"name": "W74-W77", "home_num": 74, "away_num": 77},
+        89: {"name": "W73-W75", "home_num": 73, "away_num": 75},
+        90: {"name": "W74-W77", "home_num": 74, "away_num": 77},
+        91: {"name": "W76-W78", "home_num": 76, "away_num": 78},
         92: {"name": "W79-W80", "home_num": 79, "away_num": 80},
         93: {"name": "W83-W84", "home_num": 83, "away_num": 84},
         94: {"name": "W81-W82", "home_num": 81, "away_num": 82},
-        95: {"name": "W87-W86", "home_num": 87, "away_num": 86},
-        96: {"name": "W85-W88", "home_num": 85, "away_num": 88},
+        95: {"name": "W86-W88", "home_num": 86, "away_num": 88},
+        96: {"name": "W85-W87", "home_num": 85, "away_num": 87},
     }
     for _m in matches:
         if _m.get("phase") == "r8" and _m.get("match_num") in _R8_BRACKET_MAP:
