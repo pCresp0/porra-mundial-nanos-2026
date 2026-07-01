@@ -1731,5 +1731,28 @@
       "penalty": false,
       "team": "home"
     }
+  ],
+  "Inglaterra-RD Congo": [
+    {
+      "player": "Hri Kin",
+      "minute": "75'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Hri Kin",
+      "minute": "86'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Braian Sipnga",
+      "minute": "7'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
   ]
 }

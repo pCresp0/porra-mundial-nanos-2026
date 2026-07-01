@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-25T01:40:34+02:00",
-    "date": "25/06/2026",
-    "time": "01:40:34",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-25T01:42:23+02:00",
     "date": "25/06/2026",
     "time": "01:42:23",
@@ -17553,5 +17545,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-07-01T20:04:28+02:00",
+    "date": "01/07/2026",
+    "time": "20:04:28",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇬🇧Inglaterra 2-1 RD Congo🇨🇩",
+        "name": "Inglaterra-RD Congo",
+        "date": "2026-07-01",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "sin resultado",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "2-1",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]

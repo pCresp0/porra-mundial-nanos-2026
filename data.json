@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "01/07/2026 18:02",
+    "generated": "01/07/2026 18:04",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-01T19:52",
-      "last_updated_time": "19:52",
+      "last_updated_iso": "2026-07-01T20:04",
+      "last_updated_time": "20:04",
       "last_updated_date": "01/07/2026",
       "next_update_iso": "2026-07-01T20:05",
       "next_update_time": "20:05",
       "next_update_date": "01/07/2026",
-      "last_checked_iso": "2026-07-01T20:02",
-      "last_checked_time": "20:02",
+      "last_checked_iso": "2026-07-01T20:04",
+      "last_checked_time": "20:04",
       "last_checked_date": "01/07/2026"
     },
     "players": [
@@ -24,11 +24,9 @@
       "CRESPO"
     ],
     "live": {
-      "active": true,
-      "count": 1,
-      "matches": [
-        "Inglaterra-RD Congo"
-      ]
+      "active": false,
+      "count": 0,
+      "matches": []
     },
     "colors": {
       "JUANCHO": "#F5C518",
@@ -407,6 +405,32 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-01T20:04:28+02:00",
+        "date": "01/07/2026",
+        "time": "20:04:28",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇬🇧Inglaterra 2-1 RD Congo🇨🇩",
+            "name": "Inglaterra-RD Congo",
+            "date": "2026-07-01",
+            "fields": [
+              "marcador",
+              "jugado"
+            ],
+            "old": {
+              "marcador": "sin resultado",
+              "jugado": "no"
+            },
+            "new": {
+              "marcador": "2-1",
+              "jugado": "sí"
+            }
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-01T20:02:38+02:00",
         "date": "01/07/2026",
@@ -4623,27 +4647,19 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:02:25+02:00",
-        "date": "30/06/2026",
-        "time": "04:02:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
   "standings": [
     {
       "name": "MEDINA",
-      "total": 298.0,
-      "live_points": 3.0,
+      "total": 301.0,
+      "live_points": 0.0,
       "total_live": 301.0,
       "groups": 130.0,
       "positions": 89.0,
       "q16": 52.0,
-      "r16": 79.0,
+      "r16": 82.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4666,24 +4682,24 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 79.0
+          "pts": 82.0
         }
       ],
       "color": "#F97316",
       "played": 72,
       "pos": 1,
-      "pos_change": 1,
+      "pos_change": 0,
       "live_pos": 1
     },
     {
       "name": "JUANCHO",
-      "total": 278.0,
-      "live_points": 3.0,
+      "total": 281.0,
+      "live_points": 0.0,
       "total_live": 281.0,
       "groups": 118.0,
       "positions": 85.0,
       "q16": 52.0,
-      "r16": 75.0,
+      "r16": 78.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4706,24 +4722,24 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 75.0
+          "pts": 78.0
         }
       ],
       "color": "#F5C518",
       "played": 72,
       "pos": 2,
-      "pos_change": 2,
+      "pos_change": 0,
       "live_pos": 2
     },
     {
       "name": "VÍCTOR",
-      "total": 273.0,
-      "live_points": 3.0,
+      "total": 276.0,
+      "live_points": 0.0,
       "total_live": 276.0,
       "groups": 134.0,
       "positions": 75.0,
       "q16": 50.0,
-      "r16": 64.0,
+      "r16": 67.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4746,24 +4762,24 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 64.0
+          "pts": 67.0
         }
       ],
       "color": "#A855F7",
       "played": 72,
       "pos": 3,
-      "pos_change": 3,
+      "pos_change": 0,
       "live_pos": 3
     },
     {
       "name": "CRESPO",
-      "total": 270.0,
-      "live_points": 3.0,
+      "total": 273.0,
+      "live_points": 0.0,
       "total_live": 273.0,
       "groups": 121.0,
       "positions": 81.0,
       "q16": 50.0,
-      "r16": 68.0,
+      "r16": 71.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4786,24 +4802,24 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 68.0
+          "pts": 71.0
         }
       ],
       "color": "#EF4444",
       "played": 72,
       "pos": 4,
-      "pos_change": 1,
+      "pos_change": 0,
       "live_pos": 4
     },
     {
       "name": "LUIS/VIR",
-      "total": 265.0,
-      "live_points": 3.0,
+      "total": 268.0,
+      "live_points": 0.0,
       "total_live": 268.0,
       "groups": 104.0,
       "positions": 77.0,
       "q16": 54.0,
-      "r16": 84.0,
+      "r16": 87.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4826,24 +4842,24 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 84.0
+          "pts": 87.0
         }
       ],
       "color": "#10B981",
       "played": 72,
       "pos": 5,
-      "pos_change": -4,
+      "pos_change": 0,
       "live_pos": 5
     },
     {
       "name": "LARRY",
-      "total": 250.0,
-      "live_points": 3.0,
+      "total": 253.0,
+      "live_points": 0.0,
       "total_live": 253.0,
       "groups": 105.0,
       "positions": 67.0,
       "q16": 54.0,
-      "r16": 78.0,
+      "r16": 81.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4866,13 +4882,13 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 78.0
+          "pts": 81.0
         }
       ],
       "color": "#3B82F6",
       "played": 72,
       "pos": 6,
-      "pos_change": -3,
+      "pos_change": 0,
       "live_pos": 6
     }
   ],
@@ -19475,13 +19491,19 @@
       "day_label": "Miércoles 01 julio",
       "datetime_es": "2026-07-01T18:00:00",
       "phase": "r16",
-      "result": null,
-      "played": false,
-      "live": true,
-      "live_minute": "live",
-      "live_goals_l": 2,
-      "live_goals_v": 1,
-      "live_scorers": [
+      "result": {
+        "sign": "1",
+        "score": "2-1"
+      },
+      "played": true,
+      "live": false,
+      "live_minute": "",
+      "live_goals_l": null,
+      "live_goals_v": null,
+      "live_scorers": [],
+      "goals_l": 2,
+      "goals_v": 1,
+      "scorers": [
         {
           "player": "Hri Kin",
           "minute": "75'",
@@ -19504,9 +19526,6 @@
           "team": "away"
         }
       ],
-      "goals_l": null,
-      "goals_v": null,
-      "scorers": [],
       "phase_pts": {
         "sign": 3.0,
         "diff": 2.0,
@@ -19521,22 +19540,23 @@
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 6.0,
+          "breakdown": {
             "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 6.0,
             "reasons": [
               "1X2 correcto (+3.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "live_score": 3.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "LARRY": {
           "pred": {
@@ -19546,22 +19566,23 @@
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 6.0,
+          "breakdown": {
             "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 6.0,
             "reasons": [
               "1X2 correcto (+3.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "live_score": 3.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "LUIS/VIR": {
           "pred": {
@@ -19571,22 +19592,23 @@
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 6.0,
+          "breakdown": {
             "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 6.0,
             "reasons": [
               "1X2 correcto (+3.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "live_score": 3.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "MEDINA": {
           "pred": {
@@ -19596,22 +19618,23 @@
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 6.0,
+          "breakdown": {
             "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 6.0,
             "reasons": [
               "1X2 correcto (+3.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "live_score": 3.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "VÍCTOR": {
           "pred": {
@@ -19621,22 +19644,23 @@
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 6.0,
+          "breakdown": {
             "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 6.0,
             "reasons": [
               "1X2 correcto (+3.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "live_score": 3.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "CRESPO": {
           "pred": {
@@ -19646,26 +19670,27 @@
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 6.0,
+          "breakdown": {
             "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 6.0,
             "reasons": [
               "1X2 correcto (+3.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "live_score": 3.0
+          "live_breakdown": null,
+          "live_score": null
         }
       },
       "penalties": null,
-      "actual_winner": null
+      "actual_winner": "Inglaterra"
     },
     {
       "row": 172,
@@ -21058,11 +21083,11 @@
       "id": "",
       "name": "W79-W80",
       "home": "México",
-      "away": "W80",
+      "away": "Inglaterra",
       "home_placeholder": "W79",
       "away_placeholder": "W80",
       "flag_home": "🇲🇽",
-      "flag_away": "",
+      "flag_away": "🇬🇧",
       "match_num": 92,
       "bracket_order": 5,
       "city": "Ciudad de México",
@@ -22953,7 +22978,8 @@
       "PAÍ-MAR",
       "COS-NOR",
       "FRA-SUE",
-      "MÉX-ECU"
+      "MÉX-ECU",
+      "ING-RDC"
     ],
     "flag_labels": [
       "🇲🇽🇿🇦",
@@ -23035,7 +23061,8 @@
       "🇳🇱🇲🇦",
       "🇨🇮🇳🇴",
       "🇫🇷🇸🇪",
-      "🇲🇽🇪🇨"
+      "🇲🇽🇪🇨",
+      "🇬🇧🇨🇩"
     ],
     "dates": [
       "2026-06-11",
@@ -23117,6 +23144,7 @@
       "2026-06-30",
       "2026-06-30",
       "2026-06-30",
+      "2026-07-01",
       "2026-07-01"
     ],
     "titles": [
@@ -23199,7 +23227,8 @@
       "Países Bajos 1-1 Marruecos · 30 jun",
       "Costa de Marfil 1-2 Noruega · 30 jun",
       "Francia 3-0 Suecia · 30 jun",
-      "México 2-0 Ecuador · 1 jul"
+      "México 2-0 Ecuador · 1 jul",
+      "Inglaterra 2-1 RD Congo · 1 jul"
     ],
     "players": {
       "JUANCHO": [
@@ -23282,7 +23311,8 @@
         224.0,
         232.0,
         238.0,
-        244.0
+        244.0,
+        250.0
       ],
       "LARRY": [
         2.0,
@@ -23364,7 +23394,8 @@
         187.0,
         199.0,
         205.0,
-        205.0
+        205.0,
+        211.0
       ],
       "LUIS/VIR": [
         2.0,
@@ -23446,7 +23477,8 @@
         196.0,
         208.0,
         214.0,
-        226.0
+        226.0,
+        232.0
       ],
       "MEDINA": [
         2.0,
@@ -23528,7 +23560,8 @@
         231.0,
         243.0,
         255.0,
-        261.0
+        261.0,
+        267.0
       ],
       "VÍCTOR": [
         6.0,
@@ -23610,7 +23643,8 @@
         223.0,
         229.0,
         235.0,
-        235.0
+        235.0,
+        241.0
       ],
       "CRESPO": [
         3.0,
@@ -23692,7 +23726,8 @@
         214.0,
         226.0,
         232.0,
-        232.0
+        232.0,
+        238.0
       ]
     },
     "day_points": {
@@ -23776,6 +23811,7 @@
         3.0,
         8.0,
         6.0,
+        6.0,
         6.0
       ],
       "LARRY": [
@@ -23858,7 +23894,8 @@
         9.0,
         12.0,
         6.0,
-        0.0
+        0.0,
+        6.0
       ],
       "LUIS/VIR": [
         2.0,
@@ -23940,7 +23977,8 @@
         0.0,
         12.0,
         6.0,
-        12.0
+        12.0,
+        6.0
       ],
       "MEDINA": [
         2.0,
@@ -24022,6 +24060,7 @@
         0.0,
         12.0,
         12.0,
+        6.0,
         6.0
       ],
       "VÍCTOR": [
@@ -24104,7 +24143,8 @@
         0.0,
         6.0,
         6.0,
-        0.0
+        0.0,
+        6.0
       ],
       "CRESPO": [
         3.0,
@@ -24186,7 +24226,8 @@
         0.0,
         12.0,
         6.0,
-        0.0
+        0.0,
+        6.0
       ]
     }
   },
@@ -25354,7 +25395,7 @@
             "label": "Eliminatorias (KO)",
             "icon": "⚔️",
             "rank": 1,
-            "display": "84 pts"
+            "display": "87 pts"
           },
           {
             "key": "phase_q16",
@@ -25439,7 +25480,7 @@
             "label": "Eliminatorias (KO)",
             "icon": "⚔️",
             "rank": 3,
-            "display": "78 pts"
+            "display": "81 pts"
           },
           {
             "key": "hit_rate",
@@ -25867,43 +25908,43 @@
           "rank": 1,
           "name": "LUIS/VIR",
           "color": "#10B981",
-          "display": "84 pts",
-          "value": 84.0
+          "display": "87 pts",
+          "value": 87.0
         },
         {
           "rank": 2,
           "name": "MEDINA",
           "color": "#F97316",
-          "display": "79 pts",
-          "value": 79.0
+          "display": "82 pts",
+          "value": 82.0
         },
         {
           "rank": 3,
           "name": "LARRY",
           "color": "#3B82F6",
-          "display": "78 pts",
-          "value": 78.0
+          "display": "81 pts",
+          "value": 81.0
         },
         {
           "rank": 4,
           "name": "JUANCHO",
           "color": "#F5C518",
-          "display": "75 pts",
-          "value": 75.0
+          "display": "78 pts",
+          "value": 78.0
         },
         {
           "rank": 5,
           "name": "CRESPO",
           "color": "#EF4444",
-          "display": "68 pts",
-          "value": 68.0
+          "display": "71 pts",
+          "value": 71.0
         },
         {
           "rank": 6,
           "name": "VÍCTOR",
           "color": "#A855F7",
-          "display": "64 pts",
-          "value": 64.0
+          "display": "67 pts",
+          "value": 67.0
         }
       ],
       "phase_honor": [
