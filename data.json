@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "01/07/2026 09:36",
+    "generated": "01/07/2026 09:39",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -10,7 +10,10 @@
       "last_updated_date": "01/07/2026",
       "next_update_iso": "2026-07-01T11:40",
       "next_update_time": "11:40",
-      "next_update_date": "01/07/2026"
+      "next_update_date": "01/07/2026",
+      "last_checked_iso": "2026-07-01T11:39",
+      "last_checked_time": "11:39",
+      "last_checked_date": "01/07/2026"
     },
     "players": [
       "JUANCHO",
@@ -406,6 +409,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-01T11:39:07+02:00",
+        "date": "01/07/2026",
+        "time": "11:39:07",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-07-01T11:22:33+02:00",
         "date": "01/07/2026",
@@ -4631,23 +4642,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-29T23:50:40+02:00",
-        "date": "29/06/2026",
-        "time": "23:50:40",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇩🇪Alemania ?-? Paraguay🇵🇾",
-            "name": "Alemania-Paraguay",
-            "date": "2026-06-29",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
