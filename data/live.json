@@ -1,9 +1,16 @@
 {
   "Bélgica-Senegal": {
-    "home": 0,
+    "home": 1,
     "away": 2,
     "minute": "live",
     "scorers": [
+      {
+        "player": "Romelu Lukaku",
+        "minute": "86'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
       {
         "player": "Habib Diarra",
         "minute": "25'",

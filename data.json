@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "01/07/2026 21:50",
+    "generated": "01/07/2026 21:52",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-01T23:16",
-      "last_updated_time": "23:16",
+      "last_updated_iso": "2026-07-01T23:52",
+      "last_updated_time": "23:52",
       "last_updated_date": "01/07/2026",
       "next_update_iso": "2026-07-01T23:55",
       "next_update_time": "23:55",
       "next_update_date": "01/07/2026",
-      "last_checked_iso": "2026-07-01T23:50",
-      "last_checked_time": "23:50",
+      "last_checked_iso": "2026-07-01T23:52",
+      "last_checked_time": "23:52",
       "last_checked_date": "01/07/2026"
     },
     "players": [
@@ -407,6 +407,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-01T23:52:29+02:00",
+        "date": "01/07/2026",
+        "time": "23:52:29",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇧🇪Bélgica ?-? Senegal🇸🇳",
+            "name": "Bélgica-Senegal",
+            "date": "2026-07-01",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-01T23:50:36+02:00",
         "date": "01/07/2026",
@@ -4629,14 +4646,6 @@
         "ts_iso": "2026-06-30T11:34:31+02:00",
         "date": "30/06/2026",
         "time": "11:34:31",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T11:18:32+02:00",
-        "date": "30/06/2026",
-        "time": "11:18:32",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -19717,9 +19726,16 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 0,
+      "live_goals_l": 1,
       "live_goals_v": 2,
       "live_scorers": [
+        {
+          "player": "R. Lukaku",
+          "minute": "86'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
         {
           "player": "Habib Diarra",
           "minute": "25'",

@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-25T04:34:21+02:00",
-    "date": "25/06/2026",
-    "time": "04:34:21",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-25T04:36:23+02:00",
     "date": "25/06/2026",
     "time": "04:36:23",
@@ -17501,5 +17493,22 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-07-01T23:52:29+02:00",
+    "date": "01/07/2026",
+    "time": "23:52:29",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇧🇪Bélgica ?-? Senegal🇸🇳",
+        "name": "Bélgica-Senegal",
+        "date": "2026-07-01",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]
