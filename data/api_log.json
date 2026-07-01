@@ -1,22 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-24T21:46:28+02:00",
-    "date": "24/06/2026",
-    "time": "21:46:28",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇧🇦Bosnia y Herzegovina 0-0 Catar🇶🇦",
-        "name": "Bosnia y Herzegovina-Catar",
-        "date": "2026-06-24",
-        "fields": [],
-        "old": {},
-        "new": {}
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-24T21:48:29+02:00",
     "date": "24/06/2026",
     "time": "21:48:29",
@@ -17692,6 +17675,14 @@
     "ts_iso": "2026-07-01T10:50:38+02:00",
     "date": "01/07/2026",
     "time": "10:50:38",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-01T11:07:13+02:00",
+    "date": "01/07/2026",
+    "time": "11:07:13",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
