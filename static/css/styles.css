@@ -1357,7 +1357,18 @@
     /* Apertura hacia abajo cuando no hay espacio arriba (cerca del nav fijo) */
     .info-wrap.tip-below .info-tip { bottom: auto; top: calc(100% + 8px); }
     @media (max-width: 560px) {
-      .info-wrap .info-tip { width: 72vw; max-width: 280px; }
+      .info-wrap .info-tip {
+        position: fixed !important;
+        left: 50% !important;
+        right: auto !important;
+        bottom: 20px !important;
+        top: auto !important;
+        transform: translateX(-50%) !important;
+        width: 90vw !important;
+        max-width: 320px !important;
+        z-index: 9999 !important;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      }
     }
     /* Icono de info anclado en la esquina superior derecha de una tarjeta. */
     .stat-info-corner { position: absolute; top: .55rem; right: .55rem; z-index: 2; }
