@@ -3432,7 +3432,7 @@ function renderScoring() {
     
     const tooltipText = sectionTooltips[sec.key] || "";
     const tooltipHtml = tooltipText ? `
-      <div class="info-wrap tip-below tip-right relative ml-2">
+      <div class="info-wrap tip-below relative ml-2">
         <span class="info-btn" style="cursor:pointer">i</span>
         <div class="info-tip">${tooltipText}</div>
       </div>` : "";
@@ -3454,7 +3454,7 @@ function renderScoring() {
     <div class="card p-5 mb-5">
       <div class="flex items-center justify-between mb-2">
         <h2 class="text-lg font-bold text-white">Sistema de puntuación — Los Nanos</h2>
-        <div class="info-wrap tip-below tip-right relative">
+        <div class="info-wrap tip-below relative">
           <span class="info-btn" style="cursor:pointer">i</span>
           <div class="info-tip">
             <strong>¿Cómo se puntúa en eliminatorias (Fase 2)?</strong><br>
@@ -3475,50 +3475,6 @@ function renderScoring() {
           <div class="bebas text-2xl text-yellow-400">${sr.max_per_group_match} pts</div>
           <div class="text-xs text-gray-500 mt-1">1X2 + Diferencia + Exacto</div>
         </div>
-      </div>
-    </div>
-
-    <div class="card p-5 mb-5">
-      <h3 class="font-bold text-white mb-3">📝 Cómo rellenar la porra (Excel)</h3>
-      <p class="text-sm text-gray-400 mb-3 leading-relaxed">
-        Todo se rellena en la pestaña <strong class="text-gray-200">WORLDCUP</strong> del Excel que os enviamos:
-        ahí van los pronósticos (resultados de cada partido). Antes de empezar, mirad el vídeo explicativo:
-        <a href="https://www.youtube.com/watch?v=Vh--XEkQDFg" target="_blank" rel="noopener"
-           class="text-blue-400 hover:text-yellow-400">📺 Tutorial en YouTube</a>.
-      </p>
-      <p class="text-sm text-gray-400 mb-4 leading-relaxed">
-        Para que nadie se quede sin opciones si fallan sus equipos en un cruce, la porra se entrega en
-        <strong class="text-gray-200">dos fases</strong>. Enviad cada fase respondiendo al correo de la porra.
-      </p>
-
-      <div class="scoring-phase">
-        <p class="text-sm font-bold text-white mb-1">Fase 1 — Grupos y Cuadro de Honor</p>
-        <p class="text-sm text-gray-400 leading-relaxed">
-          Rellenad todos los resultados de la fase de grupos (partidos hasta el grupo L, inclusive).
-          La fase de grupos en el torneo termina en la madrugada del <strong class="text-gray-200">domingo 28 de junio</strong>
-          con el último partido: <strong class="text-gray-200">Jordania vs. Argentina</strong> a las <strong class="text-gray-200">04:00</strong> (hora peninsular).
-        </p>
-        <p class="text-sm text-gray-400 mt-2 leading-relaxed">
-          <strong class="text-gray-200">Importante:</strong> en esta primera entrega también debéis rellenar el
-          <strong class="text-gray-200">Cuadro de Honor</strong> del final del Excel (campeón, podio, botas, balones…).
-        </p>
-      </div>
-
-      <div class="scoring-phase">
-        <p class="text-sm font-bold text-white mb-1">Fase 2 — Fase final (eliminatorias)</p>
-        <p class="text-sm text-gray-400 leading-relaxed">
-          Cuando acabe el último partido de grupos (madrugada del 28), rellenad y enviad de nuevo el Excel con la
-          fase final completa: desde <strong class="text-gray-200">dieciseisavos</strong> hasta la <strong class="text-gray-200">final</strong>.
-          El primer partido de dieciseisavos es ese mismo domingo <strong class="text-gray-200">28 de junio a las 21:00</strong>.
-        </p>
-      </div>
-
-      <div class="scoring-deadline mt-4">
-        <p class="text-sm font-bold text-yellow-400 mb-2">🚨 Fechas límite de entrega</p>
-        <ul class="text-sm text-gray-300 list-none pl-0">
-          <li><strong class="text-white">Fase 1:</strong> domingo <strong class="text-yellow-400">7 de junio</strong> a las <strong class="text-yellow-400">23:55</strong> — grupos + Cuadro de Honor.</li>
-          <li><strong class="text-white">Fase 2:</strong> domingo <strong class="text-yellow-400">28 de junio</strong> antes de las <strong class="text-yellow-400">19:00</strong> — eliminatorias completas.</li>
-        </ul>
       </div>
     </div>
 
