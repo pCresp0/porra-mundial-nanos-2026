@@ -3397,9 +3397,9 @@
     /* Track: flex row of columns */
     .bkt-track {
       display: flex; align-items: flex-start; gap: 0; min-width: max-content;
-      --bkt-unit: 88px;   /* altura de cada slot r16; las cartas miden ~80px, dejamos margen */
-      --bkt-col-w: 200px;
-      --bkt-gap: 44px;    /* espacio entre columnas (donde viven los conectores) */
+      --bkt-unit: 108px;  /* altura de cada slot r16; aumentado para acomodar badges trofeo/pk */
+      --bkt-col-w: 240px;
+      --bkt-gap: 56px;    /* espacio entre columnas (donde viven los conectores) */
     }
 
     /* Column */
@@ -3409,11 +3409,11 @@
     .bkt-root-embedded { width: 100%; }
     .bkt-root-embedded .bkt-scroll-wrap { width: 100%; }
     .bkt-root-embedded .bkt-scroll-wrap-inner { width: 100%; }
-    .bkt-root-embedded .bkt-col { width: 230px; }
-    .bkt-root-embedded .bkt-col + .bkt-col { margin-left: 52px; }
-    .bkt-root-embedded .bkt-pair:not(.bkt-pair-last)::before { right: calc(-52px + 4px); }
-    .bkt-root-embedded .bkt-pair:not(.bkt-pair-last)::after  { right: calc(-52px + 4px); width: calc(52px - 4px); }
-    .bkt-root-embedded .bkt-col:not(.bkt-col-r16) .bkt-slot::before { left: calc(-52px + 4px); width: calc(52px - 4px); }
+    .bkt-root-embedded .bkt-col { width: 260px; }
+    .bkt-root-embedded .bkt-col + .bkt-col { margin-left: 64px; }
+    .bkt-root-embedded .bkt-pair:not(.bkt-pair-last)::before { right: calc(-64px + 4px); }
+    .bkt-root-embedded .bkt-pair:not(.bkt-pair-last)::after  { right: calc(-64px + 4px); width: calc(64px - 4px); }
+    .bkt-root-embedded .bkt-col:not(.bkt-col-r16) .bkt-slot::before { left: calc(-64px + 4px); width: calc(64px - 4px); }
     .bkt-root-embedded .bkt-tn { font-size: .8rem; }
     .bkt-root-embedded .bkt-score { font-size: 1.2rem; }
 
@@ -3464,7 +3464,9 @@
     .bkt-slot {
       height: calc(var(--bkt-unit, 74px) * var(--sf, 1));
       display: flex; align-items: center;
+      padding: 6px 0;   /* padding vertical garantiza separación mínima entre tarjetas */
       position: relative; overflow: visible;
+      box-sizing: border-box;
     }
     /* Horizontal connector coming INTO this slot from the left (all rounds except r16) */
     .bkt-col:not(.bkt-col-r16) .bkt-slot::before {
@@ -3481,11 +3483,12 @@
     /* Match card */
     .bkt-card {
       width: 100%;
+      box-sizing: border-box;
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: .42rem .5rem;
-      display: flex; flex-direction: column; gap: .18rem;
+      padding: .4rem .42rem;
+      display: flex; flex-direction: column; gap: .16rem;
       transition: border-color .15s, background .15s;
     }
     .bkt-card.bkt-played { border-color: rgba(34,197,94,.2); }
@@ -3632,6 +3635,10 @@
     .bkt-root-embedded .bkt-root { padding-top: 0; }
 
     @media (max-width: 767px) {
+      .bkt-track {
+        --bkt-col-w: 180px;
+        --bkt-gap: 40px;
+      }
       .bkt-main-title { font-size: 1.3rem; }
     }
 
