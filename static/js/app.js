@@ -1258,7 +1258,11 @@ function matchTeamsHtml(m) {
     const playedTime = m.time_es
       ? `<div class="match-played-time" title="Hora de inicio (España peninsular)">🕒 ${m.time_es} h</div>`
       : "";
-    scoreHtml = `<div class="match-score-big">${m.result.score.replace("-", " - ")}</div>${playedTime}`;
+    let baseScore = m.result.score.replace("-", " - ");
+    if (m.penalties) {
+      baseScore += ` <span style="font-size:0.5em; vertical-align:middle; color:var(--gold);">(${m.penalties.home}-${m.penalties.away} p.)</span>`;
+    }
+    scoreHtml = `<div class="match-score-big">${baseScore}</div>${playedTime}`;
   } else if (hasLiveScore) {
     const minute = calcLiveMinute(m);
     const minLabel = minute ? liveMinuteLabel(minute) : "EN JUEGO";

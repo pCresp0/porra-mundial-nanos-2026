@@ -147,6 +147,32 @@ def write_scorers_json(games: list) -> int:
     return len(scorers)
 
 
+PENALTIES_JSON = os.path.join(BASE, "data", "penalties.json")
+
+def write_penalties_json(games: list) -> int:
+    """Write penalty shootout results keyed by 'Local-Visitante' to penalties.json."""
+    penalties = {}
+    for g in games:
+        if str(g.get("finished", "")).upper() != "TRUE":
+            continue
+        if "home_penalty_score" in g and "away_penalty_score" in g:
+            home_es = to_spanish(g.get("home_team_name_en", ""))
+            away_es = to_spanish(g.get("away_team_name_en", ""))
+            if not home_es or not away_es:
+                continue
+            try:
+                hl = int(g.get("home_penalty_score"))
+                hv = int(g.get("away_penalty_score"))
+                penalties[_match_key(home_es, away_es)] = {"home": hl, "away": hv}
+            except (TypeError, ValueError):
+                pass
+    os.makedirs(os.path.dirname(PENALTIES_JSON), exist_ok=True)
+    with open(PENALTIES_JSON, "w", encoding="utf-8") as f:
+        json.dump(penalties, f, ensure_ascii=False, indent=2)
+    print(f"🎯 Penaltis guardados: {len(penalties)} partido(s) → {PENALTIES_JSON}")
+    return len(penalties)
+
+
 def _is_live(g) -> bool:
     """A match is live when it has started but is not finished yet.
 
@@ -845,8 +871,9 @@ def main():
     else:
         print("ℹ️  Excel [2] no encontrado, omitido")
 
-    # Save goalscorers (with minute) for the website
+    # 3. Escribir goleadores de partidos finalizados y penaltis
     write_scorers_json(games)
+    write_penalties_json(games)
     # Save in-progress live scores (provisional overlay)
     write_live_json(games)
 

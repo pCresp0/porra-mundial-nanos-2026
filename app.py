@@ -406,6 +406,18 @@ def _load_scorers():
     return out
 
 
+
+def _load_penalties():
+    path = os.path.join(BASE, "data", "penalties.json")
+    if os.path.isfile(path):
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception as e:
+            pass
+    return {}
+
+
 def _lookup_scorers(scorers, match_name):
     if not match_name or not scorers:
         return []
@@ -1185,6 +1197,7 @@ def build_data():
     wc_meta     = _build_wc_match_meta(wb1_raw)
     wc_scores   = _build_wc_scores(FILE1)
     wc_scorers  = _load_scorers()
+    wc_penalties = _load_penalties()
     wc_live     = _load_live()
     pts_sign  = float(_val(ws1, 8,  4) or 2)
     pts_diff  = float(_val(ws1, 9,  4) or 1)
@@ -1595,6 +1608,7 @@ def build_data():
 
         # Determine actual winner for this match on the fly
         m_obj = matches[-1]
+        m_obj["penalties"] = wc_penalties.get(match_name)
         m_obj["actual_winner"] = None
         if played and home_resolved and away_resolved:
             gl = m_obj["goals_l"]
@@ -1603,16 +1617,22 @@ def build_data():
                 if gl > gv: m_obj["actual_winner"] = home_resolved
                 elif gv > gl: m_obj["actual_winner"] = away_resolved
                 else:
-                    if phase == "r16" and home_resolved in actual_r8_qualifiers: m_obj["actual_winner"] = home_resolved
-                    elif phase == "r16" and away_resolved in actual_r8_qualifiers: m_obj["actual_winner"] = away_resolved
-                    elif phase == "r8" and home_resolved in actual_r4_qualifiers: m_obj["actual_winner"] = home_resolved
-                    elif phase == "r8" and away_resolved in actual_r4_qualifiers: m_obj["actual_winner"] = away_resolved
-                    elif phase == "r4" and home_resolved in actual_r2_qualifiers: m_obj["actual_winner"] = home_resolved
-                    elif phase == "r4" and away_resolved in actual_r2_qualifiers: m_obj["actual_winner"] = away_resolved
-                    elif phase == "r2" and home_resolved in actual_final_qualifiers: m_obj["actual_winner"] = home_resolved
-                    elif phase == "r2" and away_resolved in actual_final_qualifiers: m_obj["actual_winner"] = away_resolved
-                    elif phase == "r34" and actual_3rd_place in (home_resolved, away_resolved): m_obj["actual_winner"] = actual_3rd_place
-                    elif phase == "final" and actual_champion in (home_resolved, away_resolved): m_obj["actual_winner"] = actual_champion
+                    p_info = wc_penalties.get(match_name)
+                    if p_info:
+                        if p_info["home"] > p_info["away"]: m_obj["actual_winner"] = home_resolved
+                        elif p_info["away"] > p_info["home"]: m_obj["actual_winner"] = away_resolved
+
+                    if not m_obj["actual_winner"]:
+                        if phase == "r16" and home_resolved in actual_r8_qualifiers: m_obj["actual_winner"] = home_resolved
+                        elif phase == "r16" and away_resolved in actual_r8_qualifiers: m_obj["actual_winner"] = away_resolved
+                        elif phase == "r8" and home_resolved in actual_r4_qualifiers: m_obj["actual_winner"] = home_resolved
+                        elif phase == "r8" and away_resolved in actual_r4_qualifiers: m_obj["actual_winner"] = away_resolved
+                        elif phase == "r4" and home_resolved in actual_r2_qualifiers: m_obj["actual_winner"] = home_resolved
+                        elif phase == "r4" and away_resolved in actual_r2_qualifiers: m_obj["actual_winner"] = away_resolved
+                        elif phase == "r2" and home_resolved in actual_final_qualifiers: m_obj["actual_winner"] = home_resolved
+                        elif phase == "r2" and away_resolved in actual_final_qualifiers: m_obj["actual_winner"] = away_resolved
+                        elif phase == "r34" and actual_3rd_place in (home_resolved, away_resolved): m_obj["actual_winner"] = actual_3rd_place
+                        elif phase == "final" and actual_champion in (home_resolved, away_resolved): m_obj["actual_winner"] = actual_champion
         
         # Save to maps for Wxx / Lxx resolution in future rows
         match_num = wc.get("match_num")
