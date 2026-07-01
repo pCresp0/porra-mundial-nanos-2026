@@ -6,6 +6,7 @@ warnings.filterwarnings("ignore")
 BASE = os.path.dirname(os.path.abspath(__file__))
 FASE_DIR = os.path.join(BASE, "data", "Fase final")
 OUT_PATH = os.path.join(BASE, "data", "ko_predictions.json")
+DATA_DIR = os.path.join(BASE, "data")
 
 PRED_ROWS = (
     list(range(164, 180)) +
@@ -24,6 +25,41 @@ PLAYER_MAP = {
     "VICTOR":   "VÍCTOR",
     "CRESPO":   "CRESPO",
 }
+
+
+def _load_match_num_to_winner_code() -> dict:
+    """Load match_num -> winner_code map from the ADMIN Excel WORLDCUP sheet.
+    This uses the ADMIN (template) Excel which has W73, W76, W90 etc. as
+    placeholder codes in column D — unlike player Excels which have resolved
+    team names in column D.
+    """
+    # Locate the ADMIN Excel (may have a suffix like ' [2]')
+    admin_candidates = [f for f in os.listdir(DATA_DIR) if f.startswith("ADMIN-Excel") and f.endswith(".xlsx")]
+    if not admin_candidates:
+        return {}
+    admin_path = os.path.join(DATA_DIR, sorted(admin_candidates)[-1])
+    try:
+        wb_admin = openpyxl.load_workbook(admin_path, data_only=True)
+        ws_admin = wb_admin["WORLDCUP"]
+    except Exception:
+        return {}
+    result: dict = {}
+    for r in range(101, 148):
+        j_val = ws_admin.cell(r, 10).value   # J = match_num
+        d_val = ws_admin.cell(r, 4).value    # D = winner code (e.g. 'W73', 'W90')
+        if j_val is not None and d_val:
+            code_str = str(d_val).strip()
+            # Only accept W/L codes, not resolved team names
+            if re.match(r'^[WwLl]\d+$', code_str):
+                try:
+                    result[int(j_val)] = code_str
+                except (ValueError, TypeError):
+                    pass
+    return result
+
+
+# Precomputed once at module import time
+MATCH_NUM_TO_WINNER_CODE: dict = _load_match_num_to_winner_code()
 
 
 def parse_pred_cell(raw):
@@ -98,20 +134,11 @@ def extract_player_predictions(xlsx_path):
 
     ws_wc = wb["WORLDCUP"]
 
-    # ── Build j_to_winner from R16 D column (column 4) ──────────────────────
-    # Column D at R16 WORLDCUP rows (101-116) contains the player's correctly
-    # computed predicted winner for each R16 match, indexed by J (match_num).
-    # We use this (not the formula-computed AA/AF via AH cross-reference) to
-    # derive the correct team pairings for R8+ bracket slots.
-    j_to_winner = {}
-    for wc_r in range(101, 148):  # R16 through Final WORLDCUP rows
-        j_val = ws_wc.cell(wc_r, 10).value   # J = match_num
-        d_val = ws_wc.cell(wc_r, 4).value    # D = predicted winner
-        if j_val is not None and d_val:
-            try:
-                j_to_winner[int(j_val)] = str(d_val).strip()
-            except (ValueError, TypeError):
-                pass
+    # ── j_to_winner: match_num -> team_name (winner of that match) ──────────
+    # Built incrementally from the player's own predictions as rows are processed.
+    # Starts empty — populated when R16 rows are parsed, then R8 rows, etc.
+    # This lets us correctly derive bracket slot keys for later phases.
+    j_to_winner: dict = {}
 
     # R16 pool rows (164-179): additionally populate j_to_winner from the
     # parsed R16 prediction winner fields (more reliable than D column cache).
@@ -133,6 +160,38 @@ def extract_player_predictions(xlsx_path):
                 # Strip penalty annotation from winner string
                 return w.split("(")[0].strip() if "(" in w else w
             return None
+
+    # Use the globally precomputed map (loaded from the ADMIN Excel which has
+    # proper W-codes in column D, unlike player Excels that have team names).
+    match_num_to_winner_code = MATCH_NUM_TO_WINNER_CODE
+
+    # ── Pre-pass: populate j_to_winner from the player's R16 predictions ─────
+    # We must do this BEFORE processing R8+ rows so that the reverse lookup
+    # (team_name -> match_num -> winner_code) works when computing slot keys.
+    for r in R16_POOL_ROWS:
+        raw = ws.cell(r, 3).value
+        parsed_r16 = parse_pred_cell(str(raw) if raw else "")
+        if not parsed_r16:
+            continue
+        mn_r16, sg_r16, gl_r16, gv_r16 = parsed_r16
+        match_num_r16 = ROW_TO_MATCH_NUM.get(r)
+        if match_num_r16 is None:
+            continue
+        # Derive winner from the prediction
+        parts_r16 = mn_r16.split("-", 1)
+        home_r16 = parts_r16[0].strip()
+        away_r16 = parts_r16[1].strip() if len(parts_r16) > 1 else ""
+        if sg_r16 == "1":
+            w_r16 = home_r16
+        elif sg_r16 == "2":
+            w_r16 = away_r16
+        else:
+            # Draw: look up in winners dict (penalty shootout)
+            w_r16 = winners.get(mn_r16)
+            if w_r16 and "(" in w_r16:
+                w_r16 = w_r16.split("(")[0].strip()
+        if w_r16:
+            j_to_winner[int(match_num_r16)] = w_r16
 
     for r in PRED_ROWS:
         raw = ws.cell(r, 3).value
@@ -164,8 +223,6 @@ def extract_player_predictions(xlsx_path):
                     return team_name  # already a real name, keep it
                 m = re.match(r'^[Ww](\d+)$', team_name.strip())
                 if m:
-                    # The WORLDCUP sheet assigns W-codes non-linearly.
-                    # Build a local code->match_num map from the WORLDCUP sheet.
                     code_num = int(m.group(1))
                     return j_to_winner.get(code_num)  # may be None
                 return None
@@ -194,21 +251,51 @@ def extract_player_predictions(xlsx_path):
         if winner:
             pred_str += f"|{winner}"
 
-        # Update j_to_winner so subsequent phases (R4, SF, Final) can use this winner.
-        # Key it by the player's predicted winner team: find which R16 match produced it.
+        # ── Compute slot_key from the TEAMS the player wrote ──────────────────
+        # We must NOT use the row-based WORLDCUP slot (ph_home/ph_away from
+        # wc_row), because the player may have filled octavos rows in a
+        # different order than the WORLDCUP sheet.
+        # Reverse-look up each team in j_to_winner to find which PREVIOUS-PHASE
+        # match produced it, then convert match_num -> winner_code (W73 etc).
+        # IMPORTANT: compute rev_winner BEFORE updating j_to_winner below so
+        # that the reverse map only sees the previous phase's winners (not the
+        # current match's winner which would create a duplicate and override the
+        # correct source match_num).
+        slot_key = None
+        if wc_row and r not in R16_POOL_ROWS:
+            parts_mname = mname.split("-", 1)
+            h_team = parts_mname[0].strip()
+            a_team = parts_mname[1].strip() if len(parts_mname) > 1 else ""
+            # Build reverse: team_name -> match_num.
+            # When a team appears as winner of multiple matches (can happen in
+            # dict comprehension if same team wins consecutive phases), prefer
+            # the match with the smallest match_num (i.e. the earliest phase).
+            rev_winner: dict = {}
+            for mn_k, mn_v in j_to_winner.items():
+                if isinstance(mn_v, str):
+                    if mn_v not in rev_winner or mn_k < rev_winner[mn_v]:
+                        rev_winner[mn_v] = mn_k
+            h_src = rev_winner.get(h_team)
+            a_src = rev_winner.get(a_team)
+            h_code = match_num_to_winner_code.get(h_src) if h_src is not None else None
+            a_code = match_num_to_winner_code.get(a_src) if a_src is not None else None
+            if h_code and a_code:
+                slot_key = f"{h_code}-{a_code}"
+            else:
+                # Fallback: use the row's WORLDCUP slot
+                ph_home_val = ws_wc.cell(wc_row, 1).value
+                ph_away_val = ws_wc.cell(wc_row, 2).value
+                if ph_home_val and ph_away_val:
+                    slot_key = f"{ph_home_val}-{ph_away_val}"
+
+        # Update j_to_winner so subsequent phases (R4, SF, Final) can chain
         if wc_row and r not in R16_POOL_ROWS:
             match_num = ROW_TO_MATCH_NUM.get(r)
             if match_num is not None:
                 if winner:
                     j_to_winner[int(match_num)] = winner
                 preds[str(match_num)] = pred_str
-
-            # Store under the WORLDCUP bracket-slot key (e.g. "W83-W84") so app.py
-            # can look up by match_name regardless of which row the player used.
-            ph_home_val = ws_wc.cell(wc_row, 1).value
-            ph_away_val = ws_wc.cell(wc_row, 2).value
-            if ph_home_val and ph_away_val:
-                slot_key = f"{ph_home_val}-{ph_away_val}"
+            if slot_key:
                 preds[slot_key] = pred_str
 
         elif wc_row and r in R16_POOL_ROWS:
@@ -223,6 +310,7 @@ def extract_player_predictions(xlsx_path):
         preds[str(r)] = pred_str
 
     return preds
+
 
 
 def main():

@@ -1,19 +1,16 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "01/07/2026 16:16",
+    "generated": "01/07/2026 18:33",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-01T18:09",
-      "last_updated_time": "18:09",
+      "last_updated_iso": "2026-07-01T18:33",
+      "last_updated_time": "18:33",
       "last_updated_date": "01/07/2026",
-      "next_update_iso": "2026-07-01T18:20",
-      "next_update_time": "18:20",
-      "next_update_date": "01/07/2026",
-      "last_checked_iso": "2026-07-01T18:16",
-      "last_checked_time": "18:16",
-      "last_checked_date": "01/07/2026"
+      "next_update_iso": "2026-07-01T18:35",
+      "next_update_time": "18:35",
+      "next_update_date": "01/07/2026"
     },
     "players": [
       "JUANCHO",
@@ -20712,132 +20709,6 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Francia",
-            "pred_home": "Alemania",
-            "pred_away": "Francia"
-          },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
-        },
-        "LARRY": {
-          "pred": {
-            "sign": "1",
-            "score": "2-1",
-            "winner": "Alemania",
-            "pred_home": "Alemania",
-            "pred_away": "Francia"
-          },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
-        },
-        "LUIS/VIR": {
-          "pred": {
-            "sign": "X",
-            "score": "2-2",
-            "winner": "Francia",
-            "pred_home": "Alemania",
-            "pred_away": "Francia"
-          },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
-        },
-        "MEDINA": {
-          "pred": {
-            "sign": "2",
-            "score": "1-2",
-            "winner": "Francia",
-            "pred_home": "Alemania",
-            "pred_away": "Francia"
-          },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
-        },
-        "VÍCTOR": {
-          "pred": {
-            "sign": "2",
-            "score": "0-1",
-            "winner": "Francia",
-            "pred_home": "Alemania",
-            "pred_away": "Francia"
-          },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
-        },
-        "CRESPO": {
-          "pred": {
-            "sign": "2",
-            "score": "1-2",
-            "winner": "Francia",
-            "pred_home": "Alemania",
-            "pred_away": "Francia"
-          },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
-        }
-      },
-      "penalties": null,
-      "actual_winner": null
-    },
-    {
-      "row": 201,
-      "id": "",
-      "name": "W74-W77",
-      "home": "Brasil",
-      "away": "Noruega",
-      "home_placeholder": "W73",
-      "away_placeholder": "W75",
-      "flag_home": "🇧🇷",
-      "flag_away": "🇳🇴",
-      "match_num": 90,
-      "bracket_order": 1,
-      "city": "Houston",
-      "country": "EE.UU.",
-      "tv": "dazn",
-      "tv_label": "DAZN",
-      "stadium": "NRG Stadium",
-      "lat": 29.6847,
-      "lon": -95.4107,
-      "capacity": 72220,
-      "city_pop": "7.3 M (área metro)",
-      "venue_fact": "Primer estadio del Super Bowl con techo retráctil.",
-      "wiki": "NRG_Stadium",
-      "date": "2026-07-04",
-      "time_es": "23:00",
-      "day_label": "Sábado 04 julio",
-      "datetime_es": "2026-07-04T23:00:00",
-      "phase": "r8",
-      "result": null,
-      "played": false,
-      "live": false,
-      "live_minute": "",
-      "live_goals_l": null,
-      "live_goals_v": null,
-      "live_scorers": [],
-      "goals_l": null,
-      "goals_v": null,
-      "scorers": [],
-      "phase_pts": {
-        "sign": 4.0,
-        "diff": 3.0,
-        "exact": 5.0
-      },
-      "predictions": {
-        "JUANCHO": {
-          "pred": {
-            "sign": "2",
-            "score": "1-2",
             "winner": "Marruecos",
             "pred_home": "Canadá",
             "pred_away": "Marruecos"
@@ -20906,6 +20777,132 @@
             "winner": "Países Bajos",
             "pred_home": "Canadá",
             "pred_away": "Países Bajos"
+          },
+          "score": 0.0,
+          "breakdown": null,
+          "live_breakdown": null,
+          "live_score": null
+        }
+      },
+      "penalties": null,
+      "actual_winner": null
+    },
+    {
+      "row": 201,
+      "id": "",
+      "name": "W74-W77",
+      "home": "Brasil",
+      "away": "Noruega",
+      "home_placeholder": "W73",
+      "away_placeholder": "W75",
+      "flag_home": "🇧🇷",
+      "flag_away": "🇳🇴",
+      "match_num": 90,
+      "bracket_order": 1,
+      "city": "Houston",
+      "country": "EE.UU.",
+      "tv": "dazn",
+      "tv_label": "DAZN",
+      "stadium": "NRG Stadium",
+      "lat": 29.6847,
+      "lon": -95.4107,
+      "capacity": 72220,
+      "city_pop": "7.3 M (área metro)",
+      "venue_fact": "Primer estadio del Super Bowl con techo retráctil.",
+      "wiki": "NRG_Stadium",
+      "date": "2026-07-04",
+      "time_es": "23:00",
+      "day_label": "Sábado 04 julio",
+      "datetime_es": "2026-07-04T23:00:00",
+      "phase": "r8",
+      "result": null,
+      "played": false,
+      "live": false,
+      "live_minute": "",
+      "live_goals_l": null,
+      "live_goals_v": null,
+      "live_scorers": [],
+      "goals_l": null,
+      "goals_v": null,
+      "scorers": [],
+      "phase_pts": {
+        "sign": 4.0,
+        "diff": 3.0,
+        "exact": 5.0
+      },
+      "predictions": {
+        "JUANCHO": {
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Francia",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
+          },
+          "score": 0.0,
+          "breakdown": null,
+          "live_breakdown": null,
+          "live_score": null
+        },
+        "LARRY": {
+          "pred": {
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Alemania",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
+          },
+          "score": 0.0,
+          "breakdown": null,
+          "live_breakdown": null,
+          "live_score": null
+        },
+        "LUIS/VIR": {
+          "pred": {
+            "sign": "X",
+            "score": "2-2",
+            "winner": "Francia",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
+          },
+          "score": 0.0,
+          "breakdown": null,
+          "live_breakdown": null,
+          "live_score": null
+        },
+        "MEDINA": {
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Francia",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
+          },
+          "score": 0.0,
+          "breakdown": null,
+          "live_breakdown": null,
+          "live_score": null
+        },
+        "VÍCTOR": {
+          "pred": {
+            "sign": "2",
+            "score": "0-1",
+            "winner": "Francia",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
+          },
+          "score": 0.0,
+          "breakdown": null,
+          "live_breakdown": null,
+          "live_score": null
+        },
+        "CRESPO": {
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Francia",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
           "score": 0.0,
           "breakdown": null,
