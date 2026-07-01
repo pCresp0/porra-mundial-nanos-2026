@@ -1,22 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-25T01:28:23+02:00",
-    "date": "25/06/2026",
-    "time": "01:28:23",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🏴󠁧󠁢󠁳󠁣󠁴󠁿Escocia 0-0 Brasil🇧🇷",
-        "name": "Escocia-Brasil",
-        "date": "2026-06-25",
-        "fields": [],
-        "old": {},
-        "new": {}
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-25T01:30:42+02:00",
     "date": "25/06/2026",
     "time": "01:30:42",
@@ -17553,5 +17536,22 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-07-01T19:52:30+02:00",
+    "date": "01/07/2026",
+    "time": "19:52:30",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇬🇧Inglaterra ?-? RD Congo🇨🇩",
+        "name": "Inglaterra-RD Congo",
+        "date": "2026-07-01",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]
