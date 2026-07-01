@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "01/07/2026 21:10",
+    "generated": "01/07/2026 21:12",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-01T23:15",
       "next_update_time": "23:15",
       "next_update_date": "01/07/2026",
-      "last_checked_iso": "2026-07-01T23:10",
-      "last_checked_time": "23:10",
+      "last_checked_iso": "2026-07-01T23:12",
+      "last_checked_time": "23:12",
       "last_checked_date": "01/07/2026"
     },
     "players": [
@@ -407,6 +407,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-01T23:12:27+02:00",
+        "date": "01/07/2026",
+        "time": "23:12:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-07-01T23:10:43+02:00",
         "date": "01/07/2026",
@@ -4623,32 +4631,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:56:36+02:00",
-        "date": "30/06/2026",
-        "time": "05:56:36",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇳🇱Países Bajos 1-1 Marruecos🇲🇦",
-            "name": "Países Bajos-Marruecos",
-            "date": "2026-06-30",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "sin resultado",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "1-1",
-              "jugado": "sí"
-            }
-          }
-        ]
       }
     ]
   },
