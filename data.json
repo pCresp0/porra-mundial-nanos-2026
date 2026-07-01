@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "01/07/2026 02:54",
+    "generated": "01/07/2026 02:56",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-07-01T04:34",
       "last_updated_time": "04:34",
       "last_updated_date": "01/07/2026",
-      "next_update_iso": "2026-07-01T04:55",
-      "next_update_time": "04:55",
+      "next_update_iso": "2026-07-01T05:00",
+      "next_update_time": "05:00",
       "next_update_date": "01/07/2026",
-      "last_checked_iso": "2026-07-01T04:54",
-      "last_checked_time": "04:54",
+      "last_checked_iso": "2026-07-01T04:56",
+      "last_checked_time": "04:56",
       "last_checked_date": "01/07/2026"
     },
     "players": [
@@ -411,6 +411,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-01T04:56:29+02:00",
+        "date": "01/07/2026",
+        "time": "04:56:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-07-01T04:54:47+02:00",
         "date": "01/07/2026",
@@ -4645,32 +4653,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-29T21:06:58+02:00",
-        "date": "29/06/2026",
-        "time": "21:06:58",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇧🇷Brasil 2-1 Japón🇯🇵",
-            "name": "Brasil-Japón",
-            "date": "2026-06-29",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "sin resultado",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "2-1",
-              "jugado": "sí"
-            }
-          }
-        ]
       }
     ]
   },
