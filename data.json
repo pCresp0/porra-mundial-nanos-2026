@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "01/07/2026 22:44",
+    "generated": "01/07/2026 22:46",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-01T23:54",
-      "last_updated_time": "23:54",
-      "last_updated_date": "01/07/2026",
-      "next_update_iso": "2026-07-02T00:45",
-      "next_update_time": "00:45",
+      "last_updated_iso": "2026-07-02T00:46",
+      "last_updated_time": "00:46",
+      "last_updated_date": "02/07/2026",
+      "next_update_iso": "2026-07-02T00:50",
+      "next_update_time": "00:50",
       "next_update_date": "02/07/2026",
-      "last_checked_iso": "2026-07-02T00:44",
-      "last_checked_time": "00:44",
+      "last_checked_iso": "2026-07-02T00:46",
+      "last_checked_time": "00:46",
       "last_checked_date": "02/07/2026"
     },
     "players": [
@@ -407,6 +407,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-02T00:46:31+02:00",
+        "date": "02/07/2026",
+        "time": "00:46:31",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇧🇪Bélgica ?-? Senegal🇸🇳",
+            "name": "Bélgica-Senegal",
+            "date": "2026-07-01",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-02T00:44:33+02:00",
         "date": "02/07/2026",
@@ -4650,14 +4667,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T18:30:51+02:00",
-        "date": "30/06/2026",
-        "time": "18:30:51",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4665,8 +4674,8 @@
     {
       "name": "MEDINA",
       "total": 301.0,
-      "live_points": 0.0,
-      "total_live": 301.0,
+      "live_points": 5.0,
+      "total_live": 306.0,
       "groups": 130.0,
       "positions": 89.0,
       "q16": 52.0,
@@ -4705,8 +4714,8 @@
     {
       "name": "JUANCHO",
       "total": 281.0,
-      "live_points": 0.0,
-      "total_live": 281.0,
+      "live_points": 5.0,
+      "total_live": 286.0,
       "groups": 118.0,
       "positions": 85.0,
       "q16": 52.0,
@@ -4745,8 +4754,8 @@
     {
       "name": "VÍCTOR",
       "total": 276.0,
-      "live_points": 0.0,
-      "total_live": 276.0,
+      "live_points": 5.0,
+      "total_live": 281.0,
       "groups": 134.0,
       "positions": 75.0,
       "q16": 50.0,
@@ -4785,8 +4794,8 @@
     {
       "name": "CRESPO",
       "total": 273.0,
-      "live_points": 0.0,
-      "total_live": 273.0,
+      "live_points": 5.0,
+      "total_live": 278.0,
       "groups": 121.0,
       "positions": 81.0,
       "q16": 50.0,
@@ -4825,8 +4834,8 @@
     {
       "name": "LUIS/VIR",
       "total": 268.0,
-      "live_points": 0.0,
-      "total_live": 268.0,
+      "live_points": 5.0,
+      "total_live": 273.0,
       "groups": 104.0,
       "positions": 77.0,
       "q16": 54.0,
@@ -4865,8 +4874,8 @@
     {
       "name": "LARRY",
       "total": 253.0,
-      "live_points": 5.0,
-      "total_live": 258.0,
+      "live_points": 0.0,
+      "total_live": 253.0,
       "groups": 105.0,
       "positions": 67.0,
       "q16": 54.0,
@@ -19735,7 +19744,7 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 2,
+      "live_goals_l": 3,
       "live_goals_v": 2,
       "live_scorers": [
         {
@@ -19787,6 +19796,31 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
+            "sign": 3.0,
+            "diff": 2.0,
+            "exact": 0,
+            "total": 5.0,
+            "reasons": [
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles (+2)"
+            ],
+            "team_match": null,
+            "pred_home": "Bélgica",
+            "pred_away": "Senegal"
+          },
+          "live_score": 5.0
+        },
+        "LARRY": {
+          "pred": {
+            "sign": "X",
+            "score": "1-1",
+            "winner": "Senegal",
+            "pred_home": "Bélgica",
+            "pred_away": "Senegal"
+          },
+          "score": 0.0,
+          "breakdown": null,
+          "live_breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -19800,11 +19834,11 @@
           },
           "live_score": 0.0
         },
-        "LARRY": {
+        "LUIS/VIR": {
           "pred": {
-            "sign": "X",
-            "score": "1-1",
-            "winner": "Senegal",
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Bélgica",
             "pred_home": "Bélgica",
             "pred_away": "Senegal"
           },
@@ -19825,30 +19859,6 @@
           },
           "live_score": 5.0
         },
-        "LUIS/VIR": {
-          "pred": {
-            "sign": "1",
-            "score": "2-1",
-            "winner": "Bélgica",
-            "pred_home": "Bélgica",
-            "pred_away": "Senegal"
-          },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
-            "sign": 0.0,
-            "diff": 0.0,
-            "exact": 0,
-            "total": 0.0,
-            "reasons": [
-              "1X2 incorrecto — 0 pts"
-            ],
-            "team_match": null,
-            "pred_home": "Bélgica",
-            "pred_away": "Senegal"
-          },
-          "live_score": 0.0
-        },
         "MEDINA": {
           "pred": {
             "sign": "1",
@@ -19860,18 +19870,19 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 0.0,
-            "diff": 0.0,
+            "sign": 3.0,
+            "diff": 2.0,
             "exact": 0,
-            "total": 0.0,
+            "total": 5.0,
             "reasons": [
-              "1X2 incorrecto — 0 pts"
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles (+2)"
             ],
             "team_match": null,
             "pred_home": "Bélgica",
             "pred_away": "Senegal"
           },
-          "live_score": 0.0
+          "live_score": 5.0
         },
         "VÍCTOR": {
           "pred": {
@@ -19884,18 +19895,19 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 0.0,
-            "diff": 0.0,
+            "sign": 3.0,
+            "diff": 2.0,
             "exact": 0,
-            "total": 0.0,
+            "total": 5.0,
             "reasons": [
-              "1X2 incorrecto — 0 pts"
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles (+2)"
             ],
             "team_match": null,
             "pred_home": "Bélgica",
             "pred_away": "Senegal"
           },
-          "live_score": 0.0
+          "live_score": 5.0
         },
         "CRESPO": {
           "pred": {
@@ -19908,18 +19920,19 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 0.0,
-            "diff": 0.0,
+            "sign": 3.0,
+            "diff": 2.0,
             "exact": 0,
-            "total": 0.0,
+            "total": 5.0,
             "reasons": [
-              "1X2 incorrecto — 0 pts"
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles (+2)"
             ],
             "team_match": null,
             "pred_home": "Bélgica",
             "pred_away": "Senegal"
           },
-          "live_score": 0.0
+          "live_score": 5.0
         }
       },
       "penalties": null,
