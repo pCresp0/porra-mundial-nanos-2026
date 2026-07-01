@@ -2829,6 +2829,24 @@ function renderMatchCard(m, players, colors) {
     const fmt = v => Math.round(v * 10) / 10;  // 2.0→2, 1.0→1, 3.0→3
 
     let brkHtml = "";
+    let qualHtml = "";
+    if (m.phase && m.phase !== "groups" && m.played && pd.pred && pd.pred.winner) {
+      const actualW = (m.actual_winner || "").trim().toLowerCase();
+      const predW = (pd.pred.winner || "").trim().toLowerCase();
+      const winnerOk = actualW && predW && (predW.includes(actualW) || actualW.includes(predW));
+      const getQualifierPts = (ph) => {
+        if (ph === "r16") return 3;
+        if (ph === "r8") return 5;
+        if (ph === "r4") return 8;
+        if (ph === "r2") return 12;
+        return 0;
+      };
+      const pts = getQualifierPts(m.phase);
+      if (pts > 0) {
+        qualHtml = `<span class="brk-chip ${winnerOk ? "ok" : "miss"}">Pasa: ${escapeHtml(pd.pred.winner)} ${winnerOk ? "✓" : "✗"}${winnerOk ? ` (+${pts})` : ""}</span>`;
+      }
+    }
+
     if (m.played && pd.breakdown) {
       const b = pd.breakdown;
       const tm = m.phase === "r16" ? null : b.team_match;  // Ignore team match for r16
@@ -2857,12 +2875,14 @@ function renderMatchCard(m, players, colors) {
         ${chips.map(c =>
           `<span class="brk-chip ${c.ok ? "ok" : "miss"}">${c.label} ${c.ok ? "✓" : "✗"}${c.ok ? ` (+${c.pts})` : ""}</span>`
         ).join("")}
+        ${qualHtml}
       </div>`;
     } else if (m.played && pd.score === 0) {
       brkHtml = `<div class="mt-1 flex flex-wrap justify-center gap-0.5">
         <span class="brk-chip miss">1X2 ✗</span>
         <span class="brk-chip miss">Dif. goles ✗</span>
         <span class="brk-chip miss">Exacto ✗</span>
+        ${qualHtml}
       </div>`;
     } else if (lb) {
       const tm = m.phase === "r16" ? null : lb.team_match; // Ignore team match for r16
@@ -2890,6 +2910,7 @@ function renderMatchCard(m, players, colors) {
         ${chips.map(c =>
           `<span class="brk-chip ${c.ok ? "ok" : "miss"}">${c.label} ${c.ok ? "✓" : "✗"}${c.ok ? ` (+${c.pts})` : ""}</span>`
         ).join("")}
+        ${qualHtml}
       </div>`;
     } else if (!m.played && m.phase_pts && pd.pred) {
       // Partido KO no jugado: mostrar puntos potenciales si hay predicción

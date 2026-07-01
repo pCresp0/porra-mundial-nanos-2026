@@ -1583,6 +1583,33 @@ def build_data():
     pts_r34_team = float(_val(ws1, 31, 4) or 8.0)
     pts_final_team = float(_val(ws1, 32, 4) or 12.0)
 
+    actual_3rd_place = str(_val(ws1, 252, 13) or "").strip()
+    actual_champion = str(_val(ws1, 250, 13) or "").strip()
+
+    for m in matches:
+        if m["phase"] != "groups" and m["played"]:
+            h, a = m["home"], m["away"]
+            m["actual_winner"] = None
+            if h and a:
+                gl, gv = m["goals_l"], m["goals_v"]
+                if gl is not None and gv is not None:
+                    if gl > gv:
+                        m["actual_winner"] = h
+                    elif gv > gl:
+                        m["actual_winner"] = a
+                    else:
+                        # Empate, clasifica el que avanzó
+                        if m["phase"] == "r16" and h in actual_r8_qualifiers: m["actual_winner"] = h
+                        elif m["phase"] == "r16" and a in actual_r8_qualifiers: m["actual_winner"] = a
+                        elif m["phase"] == "r8" and h in actual_r4_qualifiers: m["actual_winner"] = h
+                        elif m["phase"] == "r8" and a in actual_r4_qualifiers: m["actual_winner"] = a
+                        elif m["phase"] == "r4" and h in actual_r2_qualifiers: m["actual_winner"] = h
+                        elif m["phase"] == "r4" and a in actual_r2_qualifiers: m["actual_winner"] = a
+                        elif m["phase"] == "r2" and h in actual_final_qualifiers: m["actual_winner"] = h
+                        elif m["phase"] == "r2" and a in actual_final_qualifiers: m["actual_winner"] = a
+                        elif m["phase"] == "r34" and actual_3rd_place in (h, a): m["actual_winner"] = actual_3rd_place
+                        elif m["phase"] == "final" and actual_champion in (h, a): m["actual_winner"] = actual_champion
+
     player_positions_pts = {}
     player_q16_pts = {}
     player_r8_team_pts = {}
@@ -1648,6 +1675,44 @@ def build_data():
             if pred and str(pred).strip() in actual_final_qualifiers:
                 final_team_pts += pts_final_team
         player_final_team_pts[name] = final_team_pts
+
+    # ── Sumar puntos de clasificados a las predicciones individuales de cada partido ──
+    for m in matches:
+        phase = m["phase"]
+        if phase in ("r16", "r8", "r4", "r2", "r34", "final") and m["played"]:
+            actual_w = m["actual_winner"]
+            if not actual_w:
+                continue
+            qual_pts = 0.0
+            if phase == "r16": qual_pts = pts_r8_team
+            elif phase == "r8": qual_pts = pts_r4_team
+            elif phase == "r4": qual_pts = pts_r2_team
+            
+            for p in all_players:
+                name = p["name"]
+                pred_obj = m["predictions"].get(name)
+                if pred_obj and pred_obj.get("pred"):
+                    pred_w = pred_obj["pred"].get("winner")
+                    if pred_w and str(pred_w).strip().lower() == str(actual_w).strip().lower():
+                        this_pts = qual_pts
+                        if phase == "r2":
+                            player_ws = all_ws[player_names.index(name)]
+                            player_idx = player_names.index(name)
+                            pred_col = all_players[player_idx]["pred_col"]
+                            predicted_finalists = [str(_val(player_ws, r, pred_col) or "").strip().lower() for r in (240, 241)]
+                            if str(actual_w).strip().lower() in predicted_finalists:
+                                this_pts = pts_final_team
+                            else:
+                                this_pts = pts_r34_team
+                        elif phase == "r34":
+                            this_pts = pts_r34_team
+                        elif phase == "final":
+                            this_pts = pts_final_team
+                            
+                        pred_obj["score"] = (pred_obj.get("score") or 0.0) + this_pts
+                        if pred_obj.get("breakdown"):
+                            pred_obj["breakdown"]["total"] += this_pts
+                            pred_obj["breakdown"]["reasons"].append(f"Clasificado correcto (+{this_pts} pts)")
 
     # ── standings ────────────────────────────────────────────────────────────
     standings_raw = []
