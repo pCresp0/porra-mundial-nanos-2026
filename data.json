@@ -1,19 +1,16 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "01/07/2026 16:06",
+    "generated": "01/07/2026 18:09",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-01T18:04",
-      "last_updated_time": "18:04",
+      "last_updated_iso": "2026-07-01T18:09",
+      "last_updated_time": "18:09",
       "last_updated_date": "01/07/2026",
       "next_update_iso": "2026-07-01T18:10",
       "next_update_time": "18:10",
-      "next_update_date": "01/07/2026",
-      "last_checked_iso": "2026-07-01T18:06",
-      "last_checked_time": "18:06",
-      "last_checked_date": "01/07/2026"
+      "next_update_date": "01/07/2026"
     },
     "players": [
       "JUANCHO",
@@ -20695,132 +20692,6 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Marruecos",
-            "pred_home": "Canadá",
-            "pred_away": "Marruecos"
-          },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
-        },
-        "LARRY": {
-          "pred": {
-            "sign": "2",
-            "score": "1-2",
-            "winner": "Países Bajos",
-            "pred_home": "Canadá",
-            "pred_away": "Países Bajos"
-          },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
-        },
-        "LUIS/VIR": {
-          "pred": {
-            "sign": "2",
-            "score": "0-3",
-            "winner": "Países Bajos",
-            "pred_home": "Canadá",
-            "pred_away": "Países Bajos"
-          },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
-        },
-        "MEDINA": {
-          "pred": {
-            "sign": "2",
-            "score": "1-2",
-            "winner": "Países Bajos",
-            "pred_home": "Canadá",
-            "pred_away": "Países Bajos"
-          },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
-        },
-        "VÍCTOR": {
-          "pred": {
-            "sign": "2",
-            "score": "0-1",
-            "winner": "Países Bajos",
-            "pred_home": "Canadá",
-            "pred_away": "Países Bajos"
-          },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
-        },
-        "CRESPO": {
-          "pred": {
-            "sign": "2",
-            "score": "0-2",
-            "winner": "Países Bajos",
-            "pred_home": "Canadá",
-            "pred_away": "Países Bajos"
-          },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
-        }
-      },
-      "penalties": null,
-      "actual_winner": null
-    },
-    {
-      "row": 201,
-      "id": "",
-      "name": "W74-W77",
-      "home": "Brasil",
-      "away": "Noruega",
-      "home_placeholder": "W73",
-      "away_placeholder": "W75",
-      "flag_home": "🇧🇷",
-      "flag_away": "🇳🇴",
-      "match_num": 90,
-      "bracket_order": 1,
-      "city": "Houston",
-      "country": "EE.UU.",
-      "tv": "dazn",
-      "tv_label": "DAZN",
-      "stadium": "NRG Stadium",
-      "lat": 29.6847,
-      "lon": -95.4107,
-      "capacity": 72220,
-      "city_pop": "7.3 M (área metro)",
-      "venue_fact": "Primer estadio del Super Bowl con techo retráctil.",
-      "wiki": "NRG_Stadium",
-      "date": "2026-07-04",
-      "time_es": "23:00",
-      "day_label": "Sábado 04 julio",
-      "datetime_es": "2026-07-04T23:00:00",
-      "phase": "r8",
-      "result": null,
-      "played": false,
-      "live": false,
-      "live_minute": "",
-      "live_goals_l": null,
-      "live_goals_v": null,
-      "live_scorers": [],
-      "goals_l": null,
-      "goals_v": null,
-      "scorers": [],
-      "phase_pts": {
-        "sign": 4.0,
-        "diff": 3.0,
-        "exact": 5.0
-      },
-      "predictions": {
-        "JUANCHO": {
-          "pred": {
-            "sign": "2",
-            "score": "1-2",
             "winner": "Francia",
             "pred_home": "Alemania",
             "pred_away": "Francia"
@@ -20889,6 +20760,132 @@
             "winner": "Francia",
             "pred_home": "Alemania",
             "pred_away": "Francia"
+          },
+          "score": 0.0,
+          "breakdown": null,
+          "live_breakdown": null,
+          "live_score": null
+        }
+      },
+      "penalties": null,
+      "actual_winner": null
+    },
+    {
+      "row": 201,
+      "id": "",
+      "name": "W74-W77",
+      "home": "Brasil",
+      "away": "Noruega",
+      "home_placeholder": "W73",
+      "away_placeholder": "W75",
+      "flag_home": "🇧🇷",
+      "flag_away": "🇳🇴",
+      "match_num": 90,
+      "bracket_order": 1,
+      "city": "Houston",
+      "country": "EE.UU.",
+      "tv": "dazn",
+      "tv_label": "DAZN",
+      "stadium": "NRG Stadium",
+      "lat": 29.6847,
+      "lon": -95.4107,
+      "capacity": 72220,
+      "city_pop": "7.3 M (área metro)",
+      "venue_fact": "Primer estadio del Super Bowl con techo retráctil.",
+      "wiki": "NRG_Stadium",
+      "date": "2026-07-04",
+      "time_es": "23:00",
+      "day_label": "Sábado 04 julio",
+      "datetime_es": "2026-07-04T23:00:00",
+      "phase": "r8",
+      "result": null,
+      "played": false,
+      "live": false,
+      "live_minute": "",
+      "live_goals_l": null,
+      "live_goals_v": null,
+      "live_scorers": [],
+      "goals_l": null,
+      "goals_v": null,
+      "scorers": [],
+      "phase_pts": {
+        "sign": 4.0,
+        "diff": 3.0,
+        "exact": 5.0
+      },
+      "predictions": {
+        "JUANCHO": {
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Marruecos",
+            "pred_home": "Canadá",
+            "pred_away": "Marruecos"
+          },
+          "score": 0.0,
+          "breakdown": null,
+          "live_breakdown": null,
+          "live_score": null
+        },
+        "LARRY": {
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Países Bajos",
+            "pred_home": "Canadá",
+            "pred_away": "Países Bajos"
+          },
+          "score": 0.0,
+          "breakdown": null,
+          "live_breakdown": null,
+          "live_score": null
+        },
+        "LUIS/VIR": {
+          "pred": {
+            "sign": "2",
+            "score": "0-3",
+            "winner": "Países Bajos",
+            "pred_home": "Canadá",
+            "pred_away": "Países Bajos"
+          },
+          "score": 0.0,
+          "breakdown": null,
+          "live_breakdown": null,
+          "live_score": null
+        },
+        "MEDINA": {
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Países Bajos",
+            "pred_home": "Canadá",
+            "pred_away": "Países Bajos"
+          },
+          "score": 0.0,
+          "breakdown": null,
+          "live_breakdown": null,
+          "live_score": null
+        },
+        "VÍCTOR": {
+          "pred": {
+            "sign": "2",
+            "score": "0-1",
+            "winner": "Países Bajos",
+            "pred_home": "Canadá",
+            "pred_away": "Países Bajos"
+          },
+          "score": 0.0,
+          "breakdown": null,
+          "live_breakdown": null,
+          "live_score": null
+        },
+        "CRESPO": {
+          "pred": {
+            "sign": "2",
+            "score": "0-2",
+            "winner": "Países Bajos",
+            "pred_home": "Canadá",
+            "pred_away": "Países Bajos"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21199,9 +21196,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Portugal",
-            "pred_home": "España",
-            "pred_away": "Portugal"
+            "winner": "España",
+            "pred_home": "Portugal",
+            "pred_away": "España"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21212,9 +21209,9 @@
           "pred": {
             "sign": "2",
             "score": "0-1",
-            "winner": "Croacia",
-            "pred_home": "España",
-            "pred_away": "Croacia"
+            "winner": "España",
+            "pred_home": "Croacia",
+            "pred_away": "España"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21225,9 +21222,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Portugal",
-            "pred_home": "España",
-            "pred_away": "Portugal"
+            "winner": "España",
+            "pred_home": "Portugal",
+            "pred_away": "España"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21238,9 +21235,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Portugal",
-            "pred_home": "España",
-            "pred_away": "Portugal"
+            "winner": "España",
+            "pred_home": "Portugal",
+            "pred_away": "España"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21252,8 +21249,8 @@
             "sign": "X",
             "score": "1-1",
             "winner": "España",
-            "pred_home": "España",
-            "pred_away": "Portugal"
+            "pred_home": "Portugal",
+            "pred_away": "España"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21264,9 +21261,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Portugal",
-            "pred_home": "España",
-            "pred_away": "Portugal"
+            "winner": "España",
+            "pred_home": "Portugal",
+            "pred_away": "España"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21325,9 +21322,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Bélgica",
-            "pred_home": "Bélgica",
-            "pred_away": "Estados Unidos"
+            "winner": "Estados Unidos",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bélgica"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21339,8 +21336,8 @@
             "sign": "X",
             "score": "1-1",
             "winner": "Estados Unidos",
-            "pred_home": "Senegal",
-            "pred_away": "Estados Unidos"
+            "pred_home": "Estados Unidos",
+            "pred_away": "Senegal"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21351,9 +21348,9 @@
           "pred": {
             "sign": "2",
             "score": "0-2",
-            "winner": "Estados Unidos",
-            "pred_home": "Bélgica",
-            "pred_away": "Estados Unidos"
+            "winner": "Bélgica",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bélgica"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21364,9 +21361,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Bélgica",
-            "pred_home": "Bélgica",
-            "pred_away": "Estados Unidos"
+            "winner": "Estados Unidos",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bélgica"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21377,9 +21374,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Estados Unidos",
-            "pred_home": "Bélgica",
-            "pred_away": "Estados Unidos"
+            "winner": "Bélgica",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bélgica"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21390,9 +21387,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Estados Unidos",
-            "pred_home": "Bélgica",
-            "pred_away": "Estados Unidos"
+            "winner": "Bélgica",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bélgica"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21703,9 +21700,9 @@
           "pred": {
             "sign": "1",
             "score": "3-1",
-            "winner": "Marruecos",
-            "pred_home": "Marruecos",
-            "pred_away": "Francia"
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "Marruecos"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21716,9 +21713,9 @@
           "pred": {
             "sign": "1",
             "score": "1-0",
-            "winner": "Países Bajos",
-            "pred_home": "Países Bajos",
-            "pred_away": "Alemania"
+            "winner": "Alemania",
+            "pred_home": "Alemania",
+            "pred_away": "Países Bajos"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21729,9 +21726,9 @@
           "pred": {
             "sign": "1",
             "score": "3-2",
-            "winner": "Países Bajos",
-            "pred_home": "Países Bajos",
-            "pred_away": "Francia"
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "Países Bajos"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21742,9 +21739,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Países Bajos",
-            "pred_home": "Países Bajos",
-            "pred_away": "Francia"
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "Países Bajos"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21755,9 +21752,9 @@
           "pred": {
             "sign": "1",
             "score": "1-0",
-            "winner": "Países Bajos",
-            "pred_home": "Países Bajos",
-            "pred_away": "Francia"
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "Países Bajos"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21768,9 +21765,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Países Bajos",
-            "pred_home": "Países Bajos",
-            "pred_away": "Francia"
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "Países Bajos"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21829,9 +21826,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Portugal",
-            "pred_home": "Portugal",
-            "pred_away": "Bélgica"
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Estados Unidos"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21842,8 +21839,8 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Croacia",
-            "pred_home": "Croacia",
+            "winner": "España",
+            "pred_home": "España",
             "pred_away": "Estados Unidos"
           },
           "score": 0.0,
@@ -21855,8 +21852,9 @@
           "pred": {
             "sign": "X",
             "score": "1-1",
-            "pred_home": "Portugal",
-            "pred_away": "Estados Unidos"
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Bélgica"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21867,9 +21865,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Portugal",
-            "pred_home": "Portugal",
-            "pred_away": "Bélgica"
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Estados Unidos"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21882,7 +21880,7 @@
             "score": "2-1",
             "winner": "España",
             "pred_home": "España",
-            "pred_away": "Estados Unidos"
+            "pred_away": "Bélgica"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21893,9 +21891,9 @@
           "pred": {
             "sign": "1",
             "score": "1-0",
-            "winner": "Portugal",
-            "pred_home": "Portugal",
-            "pred_away": "Estados Unidos"
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Bélgica"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22206,9 +22204,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Marruecos",
-            "pred_home": "Marruecos",
-            "pred_away": "Portugal"
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "España"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22219,9 +22217,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Croacia",
-            "pred_home": "Países Bajos",
-            "pred_away": "Croacia"
+            "winner": "España",
+            "pred_home": "Alemania",
+            "pred_away": "España"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22232,8 +22230,8 @@
           "pred": {
             "sign": "1",
             "score": "3-2",
-            "winner": "Países Bajos",
-            "pred_home": "Países Bajos",
+            "winner": "Francia",
+            "pred_home": "Francia",
             "pred_away": "España"
           },
           "score": 0.0,
@@ -22245,9 +22243,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Países Bajos",
-            "pred_home": "Países Bajos",
-            "pred_away": "Portugal"
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "España"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22258,8 +22256,8 @@
           "pred": {
             "sign": "1",
             "score": "1-0",
-            "winner": "Países Bajos",
-            "pred_home": "Países Bajos",
+            "winner": "Francia",
+            "pred_home": "Francia",
             "pred_away": "España"
           },
           "score": 0.0,
@@ -22271,9 +22269,9 @@
           "pred": {
             "sign": "2",
             "score": "0-1",
-            "winner": "Portugal",
-            "pred_home": "Países Bajos",
-            "pred_away": "Portugal"
+            "winner": "España",
+            "pred_home": "Francia",
+            "pred_away": "España"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22548,9 +22546,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Marruecos",
-            "pred_home": "Marruecos",
-            "pred_away": "Inglaterra"
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Argentina"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22561,9 +22559,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Croacia",
-            "pred_home": "Croacia",
-            "pred_away": "Inglaterra"
+            "winner": "Alemania",
+            "pred_home": "Alemania",
+            "pred_away": "Argentina"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22574,9 +22572,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Países Bajos",
-            "pred_home": "Países Bajos",
-            "pred_away": "Argentina"
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Brasil"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22587,9 +22585,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Países Bajos",
-            "pred_home": "Países Bajos",
-            "pred_away": "Argentina"
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Inglaterra"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22600,9 +22598,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Países Bajos",
-            "pred_home": "Países Bajos",
-            "pred_away": "Inglaterra"
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Argentina"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22613,9 +22611,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Portugal",
-            "pred_home": "Portugal",
-            "pred_away": "Argentina"
+            "winner": "Francia",
+            "pred_home": "Francia",
+            "pred_away": "Inglaterra"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22764,8 +22762,8 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Marruecos",
-            "pred_home": "Marruecos",
+            "winner": "Francia",
+            "pred_home": "Francia",
             "pred_away": "Inglaterra"
           },
           "score": 0.0,
@@ -22777,8 +22775,8 @@
           "pred": {
             "sign": "1",
             "score": "3-2",
-            "winner": "Croacia",
-            "pred_home": "Croacia",
+            "winner": "España",
+            "pred_home": "España",
             "pred_away": "Inglaterra"
           },
           "score": 0.0,
@@ -22790,8 +22788,8 @@
           "pred": {
             "sign": "1",
             "score": "3-1",
-            "winner": "Países Bajos",
-            "pred_home": "Países Bajos",
+            "winner": "Francia",
+            "pred_home": "Francia",
             "pred_away": "Argentina"
           },
           "score": 0.0,
@@ -22803,8 +22801,8 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Países Bajos",
-            "pred_home": "Países Bajos",
+            "winner": "Francia",
+            "pred_home": "Francia",
             "pred_away": "Argentina"
           },
           "score": 0.0,
@@ -22816,8 +22814,8 @@
           "pred": {
             "sign": "1",
             "score": "1-0",
-            "winner": "Países Bajos",
-            "pred_home": "Países Bajos",
+            "winner": "Francia",
+            "pred_home": "Francia",
             "pred_away": "Inglaterra"
           },
           "score": 0.0,
@@ -22829,8 +22827,8 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Portugal",
-            "pred_home": "Portugal",
+            "winner": "España",
+            "pred_home": "España",
             "pred_away": "Argentina"
           },
           "score": 0.0,

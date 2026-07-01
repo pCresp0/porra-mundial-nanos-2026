@@ -140,48 +140,52 @@ def extract_player_predictions(xlsx_path):
         if not parsed:
             continue
 
-        mname_excel, sign, gl, gv = parsed  # mname_excel may have wrong teams for R8+
-        mname = mname_excel  # default; overridden below for R8+
+        mname_excel, sign, gl, gv = parsed
+        mname = mname_excel  # default; may be resolved below
 
         wc_row = POOL_TO_WORLDCUP_ROW.get(r)
 
-        # ── For R8+ matches, correct team names via j_to_winner ─────────────
+        # ── For R8+ matches: resolve bracket placeholders if needed ──────────
+        # Players usually write real team names (e.g. "Portugal-España") so we
+        # should trust those.  Only substitute teams that are still placeholders
+        # like "W73" or "W84" (which means the player left the Excel formula as-is).
         if wc_row is not None and r not in R16_POOL_ROWS:
-            match_num = ROW_TO_MATCH_NUM.get(r)
-            _R8_BRACKET_MAP = {
-                89: (73, 75),
-                90: (74, 77),
-                91: (76, 78),
-                92: (79, 80),
-                93: (83, 84),
-                94: (81, 82),
-                95: (86, 88),
-                96: (85, 87),
-            }
-            if match_num in _R8_BRACKET_MAP:
-                home_num, away_num = _R8_BRACKET_MAP[match_num]
-            else:
-                ph_home = ws_wc.cell(wc_row, 1).value  # A = ph_home (e.g. "W76")
-                ph_away = ws_wc.cell(wc_row, 2).value  # B = ph_away (e.g. "W78")
-                def _ph_to_num(ph):
-                    try:
-                        return int(str(ph).lstrip("WL"))
-                    except (ValueError, TypeError):
-                        return None
-                home_num = _ph_to_num(ph_home)
-                away_num = _ph_to_num(ph_away)
+            def _is_placeholder(name):
+                return not name or bool(re.match(r'^[WwLl]\d+$', name.strip()))
 
-            home_team = j_to_winner.get(home_num) if home_num is not None else None
-            away_team = j_to_winner.get(away_num) if away_num is not None else None
-            if home_team and away_team:
-                mname = f"{home_team}-{away_team}"
+            parts_excel = mname_excel.split("-", 1)
+            home_excel = parts_excel[0].strip() if len(parts_excel) > 0 else ""
+            away_excel = parts_excel[1].strip() if len(parts_excel) > 1 else ""
+
+            # Resolve only the placeholder parts using j_to_winner
+            def _resolve_placeholder(team_name):
+                """If team_name is a 'W73'-style placeholder, look up the winner."""
+                if not _is_placeholder(team_name):
+                    return team_name  # already a real name, keep it
+                m = re.match(r'^[Ww](\d+)$', team_name.strip())
+                if m:
+                    # The WORLDCUP sheet assigns W-codes non-linearly.
+                    # Build a local code->match_num map from the WORLDCUP sheet.
+                    code_num = int(m.group(1))
+                    return j_to_winner.get(code_num)  # may be None
+                return None
+
+            resolved_home = _resolve_placeholder(home_excel)
+            resolved_away = _resolve_placeholder(away_excel)
+
+            # Only update mname if both sides could be resolved
+            if resolved_home and resolved_away:
+                mname = f"{resolved_home}-{resolved_away}"
+            elif resolved_home and not _is_placeholder(away_excel):
+                mname = f"{resolved_home}-{away_excel}"
+            elif not _is_placeholder(home_excel) and resolved_away:
+                mname = f"{home_excel}-{resolved_away}"
+            # else: keep mname_excel as-is (real team names written by player)
 
         winner = _derive_winner(mname, sign, gl, gv, winners)
-        # Fallback: if corrected mname has no winner from sign (e.g. draw with
-        # penalty), try the original excel mname in the winners dict.
+        # Fallback for draws with penalty shootout
         if winner is None and mname != mname_excel:
             fallback_winner = _derive_winner(mname_excel, sign, gl, gv, winners)
-            # Only accept fallback winner if it matches one of the corrected teams
             if fallback_winner:
                 corrected_teams = {t.strip() for t in mname.split("-", 1)}
                 winner = fallback_winner if fallback_winner in corrected_teams else None
@@ -190,23 +194,29 @@ def extract_player_predictions(xlsx_path):
         if winner:
             pred_str += f"|{winner}"
 
-        # Update j_to_winner so subsequent phases (R4, SF, Final) can use this winner
-        if wc_row:
+        # Update j_to_winner so subsequent phases (R4, SF, Final) can use this winner.
+        # Key it by the player's predicted winner team: find which R16 match produced it.
+        if wc_row and r not in R16_POOL_ROWS:
             match_num = ROW_TO_MATCH_NUM.get(r)
             if match_num is not None:
                 if winner:
                     j_to_winner[int(match_num)] = winner
                 preds[str(match_num)] = pred_str
 
-            # For R8+ rows, also store under the bracket-slot key (e.g. "W74-W77")
-            # so that app.py can look up by match_name (which IS the slot) rather
-            # than by match_num (which may be swapped between player and main Excel).
-            if r not in R16_POOL_ROWS:
-                ph_home_val = ws_wc.cell(wc_row, 1).value
-                ph_away_val = ws_wc.cell(wc_row, 2).value
-                if ph_home_val and ph_away_val:
-                    slot_key = f"{ph_home_val}-{ph_away_val}"
-                    preds[slot_key] = pred_str
+            # Store under the WORLDCUP bracket-slot key (e.g. "W83-W84") so app.py
+            # can look up by match_name regardless of which row the player used.
+            ph_home_val = ws_wc.cell(wc_row, 1).value
+            ph_away_val = ws_wc.cell(wc_row, 2).value
+            if ph_home_val and ph_away_val:
+                slot_key = f"{ph_home_val}-{ph_away_val}"
+                preds[slot_key] = pred_str
+
+        elif wc_row and r in R16_POOL_ROWS:
+            match_num = ROW_TO_MATCH_NUM.get(r)
+            if match_num is not None:
+                if winner:
+                    j_to_winner[int(match_num)] = winner
+                preds[str(match_num)] = pred_str
 
         preds[mname] = pred_str
         # Keep row key as fallback
