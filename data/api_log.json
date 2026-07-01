@@ -1,22 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-24T22:38:20+02:00",
-    "date": "24/06/2026",
-    "time": "22:38:20",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇨🇭Suiza 0-0 Canadá🇨🇦",
-        "name": "Suiza-Canadá",
-        "date": "2026-06-24",
-        "fields": [],
-        "old": {},
-        "new": {}
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-24T22:40:29+02:00",
     "date": "24/06/2026",
     "time": "22:40:29",
@@ -17667,6 +17650,14 @@
     "time": "17:10:42",
     "updated": false,
     "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-01T17:13:38+02:00",
+    "date": "01/07/2026",
+    "time": "17:13:38",
+    "updated": false,
+    "trigger": "push",
     "changes": []
   }
 ]
