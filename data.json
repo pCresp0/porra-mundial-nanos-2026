@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "01/07/2026 21:52",
+    "generated": "01/07/2026 21:54",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-01T23:52",
-      "last_updated_time": "23:52",
+      "last_updated_iso": "2026-07-01T23:54",
+      "last_updated_time": "23:54",
       "last_updated_date": "01/07/2026",
       "next_update_iso": "2026-07-01T23:55",
       "next_update_time": "23:55",
       "next_update_date": "01/07/2026",
-      "last_checked_iso": "2026-07-01T23:52",
-      "last_checked_time": "23:52",
+      "last_checked_iso": "2026-07-01T23:54",
+      "last_checked_time": "23:54",
       "last_checked_date": "01/07/2026"
     },
     "players": [
@@ -407,6 +407,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-01T23:54:26+02:00",
+        "date": "01/07/2026",
+        "time": "23:54:26",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇧🇪Bélgica ?-? Senegal🇸🇳",
+            "name": "Bélgica-Senegal",
+            "date": "2026-07-01",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-01T23:52:29+02:00",
         "date": "01/07/2026",
@@ -4641,14 +4658,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T11:34:31+02:00",
-        "date": "30/06/2026",
-        "time": "11:34:31",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4856,8 +4865,8 @@
     {
       "name": "LARRY",
       "total": 253.0,
-      "live_points": 0.0,
-      "total_live": 253.0,
+      "live_points": 5.0,
+      "total_live": 258.0,
       "groups": 105.0,
       "positions": 67.0,
       "q16": 54.0,
@@ -19726,12 +19735,19 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 1,
+      "live_goals_l": 2,
       "live_goals_v": 2,
       "live_scorers": [
         {
           "player": "R. Lukaku",
           "minute": "86'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Youri Tielemans",
+          "minute": "89'",
           "own_goal": false,
           "penalty": false,
           "team": "home"
@@ -19795,18 +19811,19 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 0.0,
-            "diff": 0.0,
+            "sign": 3.0,
+            "diff": 2.0,
             "exact": 0,
-            "total": 0.0,
+            "total": 5.0,
             "reasons": [
-              "1X2 incorrecto — 0 pts"
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles (+2)"
             ],
             "team_match": null,
             "pred_home": "Bélgica",
             "pred_away": "Senegal"
           },
-          "live_score": 0.0
+          "live_score": 5.0
         },
         "LUIS/VIR": {
           "pred": {

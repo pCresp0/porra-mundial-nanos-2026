@@ -1,12 +1,19 @@
 {
   "Bélgica-Senegal": {
-    "home": 1,
+    "home": 2,
     "away": 2,
     "minute": "live",
     "scorers": [
       {
         "player": "Romelu Lukaku",
         "minute": "86'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Youri Tielemans",
+        "minute": "89'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
