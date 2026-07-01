@@ -1,11 +1,11 @@
 {
   "display_positions": {
-    "MEDINA": 1,
-    "JUANCHO": 2,
-    "VÍCTOR": 3,
-    "CRESPO": 4,
-    "LUIS/VIR": 5,
-    "LARRY": 6
+    "LUIS/VIR": 1,
+    "MEDINA": 2,
+    "LARRY": 3,
+    "JUANCHO": 4,
+    "CRESPO": 5,
+    "VÍCTOR": 6
   },
   "current_positions": {
     "MEDINA": 1,

@@ -3388,10 +3388,11 @@
     .bkt-sub { font-size: .72rem; color: #64748B; margin: .2rem 0 0; }
 
     /* Scroll wrapper */
-    .bkt-scroll-wrap { overflow-x: auto; overflow-y: visible; padding-bottom: 1.5rem; -webkit-overflow-scrolling: touch; }
-    .bkt-scroll-wrap::-webkit-scrollbar { height: 6px; }
-    .bkt-scroll-wrap::-webkit-scrollbar-track { background: var(--card); border-radius: 3px; }
-    .bkt-scroll-wrap::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    .bkt-scroll-wrap { overflow: visible; padding-bottom: 1.5rem; }
+    .bkt-scroll-wrap-inner { overflow-x: auto; overflow-y: visible; -webkit-overflow-scrolling: touch; }
+    .bkt-scroll-wrap-inner::-webkit-scrollbar { height: 6px; }
+    .bkt-scroll-wrap-inner::-webkit-scrollbar-track { background: var(--card); border-radius: 3px; }
+    .bkt-scroll-wrap-inner::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
 
     /* Track: flex row of columns */
     .bkt-track {
@@ -3407,6 +3408,7 @@
     /* En modo embebido (sub-tab Fase Final) columnas más anchas */
     .bkt-root-embedded { width: 100%; }
     .bkt-root-embedded .bkt-scroll-wrap { width: 100%; }
+    .bkt-root-embedded .bkt-scroll-wrap-inner { width: 100%; }
     .bkt-root-embedded .bkt-col { width: 230px; }
     .bkt-root-embedded .bkt-col + .bkt-col { margin-left: 52px; }
     .bkt-root-embedded .bkt-pair:not(.bkt-pair-last)::before { right: calc(-52px + 4px); }
@@ -3516,6 +3518,8 @@
     .bkt-mob-tabs {
       display: flex; gap: .4rem; overflow-x: auto; padding: .25rem 0 .6rem;
       scrollbar-width: none; -webkit-overflow-scrolling: touch;
+      position: sticky; top: 0; z-index: 20;
+      background: var(--surface); margin: 0 -1rem; padding-left: 1rem; padding-right: 1rem;
     }
     .bkt-mob-tabs::-webkit-scrollbar { display: none; }
 
@@ -3585,6 +3589,35 @@
     .bkt-mob-nav-btn[disabled] { opacity: 0; pointer-events: none; }
     .bkt-mob-nav-prev { text-align: left; }
     .bkt-mob-nav-next { text-align: right; }
+
+    /* Phase header nav (top of phase content) */
+    .bkt-phase-nav-top {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .5rem 0 .6rem; margin-bottom: .2rem;
+    }
+    .bkt-phase-nav-top-btn {
+      background: var(--card2); border: 1px solid var(--border); border-radius: 8px;
+      color: #CBD5E1; font-size: .72rem; font-weight: 700; font-family: inherit;
+      padding: .38rem .75rem; cursor: pointer; transition: all .15s; min-width: 80px;
+      display: flex; align-items: center; gap: .3rem;
+    }
+    .bkt-phase-nav-top-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .bkt-phase-nav-top-btn.nav-prev { justify-content: flex-start; }
+    .bkt-phase-nav-top-btn.nav-next { justify-content: flex-end; }
+    .bkt-phase-nav-top-btn.nav-hidden { opacity: 0; pointer-events: none; }
+    .bkt-phase-nav-top-label { font-size: .78rem; font-weight: 800; color: var(--gold); text-transform: uppercase; letter-spacing: .06em; }
+
+    /* Desktop phase nav tabs */
+    .bkt-desktop-phase-nav {
+      display: flex; gap: .5rem; padding: .5rem 0 .75rem; flex-wrap: wrap;
+    }
+    .bkt-desktop-phase-btn {
+      background: var(--card); border: 1px solid var(--border); border-radius: 20px;
+      color: #64748B; font-size: .75rem; font-weight: 700; font-family: inherit;
+      padding: .35rem .9rem; cursor: pointer; transition: all .15s; white-space: nowrap;
+    }
+    .bkt-desktop-phase-btn:hover { border-color: #475569; color: #CBD5E1; }
+    .bkt-desktop-phase-btn.active { background: rgba(245,197,24,.12); border-color: var(--gold); color: var(--gold); }
 
     .bkt-root-embedded .bkt-root { padding-top: 0; }
 

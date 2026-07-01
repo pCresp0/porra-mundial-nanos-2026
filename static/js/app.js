@@ -6385,6 +6385,15 @@ function renderBracket(overrideEl) {
 
   // ── Vista DESKTOP: bracket horizontal scrollable ──
   function buildDesktopBracket() {
+    // Phase navigation tabs for desktop
+    const ALL_PHASES_DESKTOP = [
+      ...ROUNDS.map(r => ({ id: r.phase, label: r.label })),
+      { id: "final", label: "Final" },
+    ];
+    const phaseNavHtml = `<div class="bkt-desktop-phase-nav">
+      ${ALL_PHASES_DESKTOP.map((p, i) => `<button class="bkt-desktop-phase-btn${i === 0 ? " active" : ""}" data-bkt-phase="${p.id}">${p.label}</button>`).join("")}
+    </div>`;
+
     let html = `<div class="bkt-track">`;
 
     ROUNDS.forEach(({ phase, label, sub }, roundIdx) => {
@@ -6392,7 +6401,7 @@ function renderBracket(overrideEl) {
       const count = { r16: 16, r8: 8, r4: 4, r2: 2 }[phase];
       const sf = { r16: 1, r8: 2, r4: 4, r2: 8 }[phase]; // slot factor
 
-      html += `<div class="bkt-col bkt-col-${phase}" style="--sf:${sf}">
+      html += `<div class="bkt-col bkt-col-${phase}" data-phase-col="${phase}" style="--sf:${sf}">
         <div class="bkt-col-hd">${label}<span>${sub}</span></div>
         <div class="bkt-col-body">`;
 
@@ -6408,7 +6417,7 @@ function renderBracket(overrideEl) {
     });
 
     // Columna final
-    html += `<div class="bkt-col bkt-col-final">
+    html += `<div class="bkt-col bkt-col-final" data-phase-col="final">
       <div class="bkt-col-hd">Final<span>2 partidos</span></div>
       <div class="bkt-col-body bkt-col-final-body">
         <div class="bkt-final-inner">
@@ -6421,10 +6430,8 @@ function renderBracket(overrideEl) {
     </div>`;
 
     html += `</div>`;
-    return html;
+    return phaseNavHtml + `<div class="bkt-scroll-wrap-inner">${html}</div>`;
   }
-
-  // ── Vista MÓVIL: acordeón vertical por ronda ──
   function buildMobileBracket() {
     const MOB_ROUNDS = [
       { phase: "r16",      label: "16avos",  count: 16 },
@@ -6435,10 +6442,29 @@ function renderBracket(overrideEl) {
     ];
 
     // Generar contenido de cada ronda
+    function phaseTopNav(phase) {
+      const idx = MOB_ROUNDS.findIndex(r => r.phase === phase);
+      if (idx < 0) return "";
+      const hasPrev = idx > 0;
+      const hasNext = idx < MOB_ROUNDS.length - 1;
+      const prevLabel = hasPrev ? MOB_ROUNDS[idx - 1].label : "";
+      const nextLabel = hasNext ? MOB_ROUNDS[idx + 1].label : "";
+      return `<div class="bkt-phase-nav-top">
+        <button class="bkt-phase-nav-top-btn nav-prev${hasPrev ? "" : " nav-hidden"}" data-phase-nav="-1">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>${hasPrev ? prevLabel : ""}
+        </button>
+        <span class="bkt-phase-nav-top-label">${MOB_ROUNDS[idx].label}</span>
+        <button class="bkt-phase-nav-top-btn nav-next${hasNext ? "" : " nav-hidden"}" data-phase-nav="1">
+          ${hasNext ? nextLabel : ""}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>`;
+    }
+
     function roundContent(phase) {
       if (phase === "r34_final") {
         const semis = byPhase["r2"] || [];
-        let html = `<div class="bkt-mob-lbl">Semifinales</div>`;
+        let html = phaseTopNav(phase);
+        html += `<div class="bkt-mob-lbl">Semifinales</div>`;
         html += `<div class="bkt-mob-pair">
           <div class="bkt-mob-pair-matches">
             ${matchCard(semis[0] || null, "bkt-mob-card")}
@@ -6457,7 +6483,7 @@ function renderBracket(overrideEl) {
       }
       const ms = byPhase[phase];
       const count = { r16: 16, r8: 8, r4: 4, r2: 2 }[phase];
-      let html = "";
+      let html = phaseTopNav(phase);
       for (let i = 0; i < count; i += 2) {
         html += `
         <div class="bkt-mob-pair">
@@ -6520,7 +6546,7 @@ function renderBracket(overrideEl) {
       ${isEmbedded ? "" : _worldProvBanner()}
       ${isMobile
         ? buildMobileBracket()
-        : `<div class="bkt-scroll-wrap">${buildDesktopBracket()}</div>`
+        : `<div class="bkt-scroll-wrap" id="bkt-desktop-wrap">${buildDesktopBracket()}</div>`
       }
     </div>`;
 
@@ -6538,6 +6564,22 @@ function renderBracket(overrideEl) {
     ];
     let currentIdx = 0;
 
+    function _phaseTopNav(idx) {
+      const hasPrev = idx > 0;
+      const hasNext = idx < MOB_ROUNDS_REF.length - 1;
+      const prevLabel = hasPrev ? MOB_ROUNDS_REF[idx - 1].label : "";
+      const nextLabel = hasNext ? MOB_ROUNDS_REF[idx + 1].label : "";
+      return `<div class="bkt-phase-nav-top">
+        <button class="bkt-phase-nav-top-btn nav-prev${hasPrev ? "" : " nav-hidden"}" data-phase-nav="-1">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>${hasPrev ? prevLabel : ""}
+        </button>
+        <span class="bkt-phase-nav-top-label">${MOB_ROUNDS_REF[idx].label}</span>
+        <button class="bkt-phase-nav-top-btn nav-next${hasNext ? "" : " nav-hidden"}" data-phase-nav="1">
+          ${hasNext ? nextLabel : ""}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>`;
+    }
+
     function switchMobRound(idx, targetMatchIdx = null) {
       if (idx < 0 || idx >= MOB_ROUNDS_REF.length) return;
       currentIdx = idx;
@@ -6545,7 +6587,8 @@ function renderBracket(overrideEl) {
       tabsEl.querySelectorAll(".bkt-mob-tab").forEach(b => b.classList.toggle("active", b.dataset.bktRound === r.phase));
       const phase = r.phase;
       if (phase === "r34_final") {
-        let html = `<div class="bkt-mob-lbl">Semifinales</div>`;
+        let html = _phaseTopNav(idx);
+        html += `<div class="bkt-mob-lbl">Semifinales</div>`;
         const semis = byPhase["r2"];
         html += `<div class="bkt-mob-pair">
           <div class="bkt-mob-pair-matches">
@@ -6565,7 +6608,7 @@ function renderBracket(overrideEl) {
       } else {
         const ms = byPhase[phase];
         const count = { r16: 16, r8: 8, r4: 4, r2: 2 }[phase];
-        let html = "";
+        let html = _phaseTopNav(idx);
         for (let i = 0; i < count; i += 2) {
           const pairIndex = i / 2;
           html += `
@@ -6587,6 +6630,11 @@ function renderBracket(overrideEl) {
           });
         });
       }
+      // Wire top phase nav buttons
+      bodyEl.querySelectorAll(".bkt-phase-nav-top-btn").forEach(btn => {
+        const dir = parseInt(btn.dataset.phaseNav, 10);
+        btn.addEventListener("click", () => switchMobRound(currentIdx + dir));
+      });
       if (targetMatchIdx !== null) {
         // Find the match card in the DOM
         const matchCards = bodyEl.querySelectorAll(".bkt-mob-card");
@@ -6633,6 +6681,43 @@ function renderBracket(overrideEl) {
     bodyEl?.querySelectorAll(".bkt-mob-nav-next-btn").forEach(btn => {
       btn.addEventListener("click", () => switchMobRound(currentIdx + 1));
     });
+    // Wire initial body top nav buttons
+    bodyEl?.querySelectorAll(".bkt-phase-nav-top-btn").forEach(btn => {
+      const dir = parseInt(btn.dataset.phaseNav, 10);
+      btn.addEventListener("click", () => switchMobRound(currentIdx + dir));
+    });
+  }
+
+  // ── Vista DESKTOP: phase nav tabs ──
+  if (!isMobile) {
+    const desktopWrap = container.querySelector("#bkt-desktop-wrap");
+    const phaseNavBtns = desktopWrap?.querySelectorAll(".bkt-desktop-phase-btn");
+    const scrollInner = desktopWrap?.querySelector(".bkt-scroll-wrap-inner");
+    if (phaseNavBtns && scrollInner) {
+      phaseNavBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const phase = btn.dataset.bktPhase;
+          // Activate button
+          phaseNavBtns.forEach(b => b.classList.toggle("active", b === btn));
+          // Scroll to phase column
+          const col = scrollInner.querySelector(`[data-phase-col="${phase}"]`);
+          if (col) col.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+        });
+      });
+      // Update active nav on scroll
+      const track = scrollInner.querySelector(".bkt-track");
+      if (track) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+              const phase = entry.target.dataset.phaseCol;
+              phaseNavBtns.forEach(b => b.classList.toggle("active", b.dataset.bktPhase === phase));
+            }
+          });
+        }, { root: scrollInner, threshold: 0.5 });
+        track.querySelectorAll("[data-phase-col]").forEach(col => observer.observe(col));
+      }
+    }
   }
 
   // Re-render al cruzar breakpoint (solo desde el bracket-container original)

@@ -1444,9 +1444,16 @@ def build_data():
         
         for p, ws in zip(all_players, all_ws):
             if phase in KO_PHASE_PTS:
-                # For KO phases, read from the JSON file by match_num first, then row number
-                m_num_str = str(wc.get("match_num")) if wc.get("match_num") is not None else ""
-                pred_raw = _ko_preds.get(p["name"], {}).get(m_num_str)
+                # For KO phases, look up by bracket-slot key first (e.g. "W74-W77"),
+                # which is the match_name from the ADMIN sheet.  This avoids the
+                # match_num swap that exists between some player Excels and the main
+                # Excel (e.g. the player assigns num=89 to slot W74-W77 while the main
+                # Excel assigns num=90 to the same slot).
+                slot_key = str(match_name).strip()
+                pred_raw = _ko_preds.get(p["name"], {}).get(slot_key)
+                if not pred_raw:
+                    m_num_str = str(wc.get("match_num")) if wc.get("match_num") is not None else ""
+                    pred_raw = _ko_preds.get(p["name"], {}).get(m_num_str)
                 if not pred_raw:
                     pred_raw = _ko_preds.get(p["name"], {}).get(str(row))
                 if not pred_raw:
@@ -1657,6 +1664,42 @@ def build_data():
             match_by_num[match_num] = {"home": home_resolved, "away": away_resolved}
             if m_obj["actual_winner"]:
                 winner_by_num[match_num] = m_obj["actual_winner"]
+
+    # ── Corrección del cuadro de octavos (bracket fix según BBC 2026) ──
+    # Las tres primeras eliminatorias tenían cruces erróneos en el Excel.
+    # Esta corrección aplica los cruces reales sin modificar el fichero Excel.
+    _r8_flag_by_team = {}
+    for _m in matches:
+        if _m.get("phase") == "r16" and _m.get("played"):
+            _r8_flag_by_team[_m["home"]] = _m.get("flag_home", "")
+            _r8_flag_by_team[_m["away"]] = _m.get("flag_away", "")
+    # También para equipos no resueltos (placeholder)
+    for _m in matches:
+        if _m.get("phase") == "r16":
+            _r8_flag_by_team.setdefault(_m["home"], _m.get("flag_home", ""))
+            _r8_flag_by_team.setdefault(_m["away"], _m.get("flag_away", ""))
+
+    _R8_BRACKET_FIX = {
+        # old_name: (new_name, home_match_num, away_match_num, override_date, override_time)
+        "W73-W75": ("W75-W78", 75, 78, "2026-07-04", "23:00"),  # Filadelfia: Paraguay vs Francia
+        "W74-W77": ("W73-W76", 73, 76, "2026-07-04", "19:00"),  # Houston: Canadá vs Marruecos
+        "W76-W78": ("W74-W77", 74, 77, None,         None    ),  # Nueva York: Brasil vs Noruega
+    }
+    for _m in matches:
+        if _m.get("phase") == "r8" and _m.get("name") in _R8_BRACKET_FIX:
+            _new_name, _hnum, _anum, _new_date, _new_time = _R8_BRACKET_FIX[_m["name"]]
+            _home_team = winner_by_num.get(_hnum) or f"W{_hnum}"
+            _away_team = winner_by_num.get(_anum) or f"W{_anum}"
+            _m["name"]      = _new_name
+            _m["home"]      = _home_team
+            _m["away"]      = _away_team
+            _m["flag_home"] = _r8_flag_by_team.get(_home_team, "")
+            _m["flag_away"] = _r8_flag_by_team.get(_away_team, "")
+            if _new_date:
+                _m["date"]       = _new_date
+                _m["datetime_es"] = _new_date + "T" + (_new_time or "00:00") + ":00"
+            if _new_time:
+                _m["time_es"]    = _new_time
 
     # ── Recalcular puntos de posiciones de grupo y clasificados a 16avos ──
     # Para evitar depender de la caché de fórmulas de Excel, que no se actualiza
