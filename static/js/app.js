@@ -2978,7 +2978,10 @@ function renderMatchCard(m, players, colors) {
     <div class="card match-row ${playedClass}${liveClass}${isNextMatch ? " next-match" : ""} p-4 mb-2" data-match-name="${(m.name||"").replace(/"/g,"&quot;")}">
       <div class="card-corner-tags">
         ${isNextMatch ? `<div class="card-corner-tag"><span class="text-xs font-bold next-match-tag">⏱ Próximo partido</span></div>` : (m.played ? `<div class="card-corner-tag"><span class="text-xs font-bold finished-tag">✓ Finalizado</span></div>` : "<div class=\"card-corner-tag\"></div>")}
-        <div class="card-corner-center">${m.highlights_video_id ? `<button class="match-hl-btn" onclick="openHighlightsModal('${escapeHtml(m.highlights_video_id)}',event)" title="Ver resumen del partido">🎬 Ver resumen</button>` : ""}</div>
+        <div class="card-corner-center">
+          ${m.highlights_video_id ? `<button class="match-hl-btn" onclick="openHighlightsModal('${escapeHtml(m.highlights_video_id)}',event)" title="Ver resumen del partido">🎬 Ver resumen</button>` : ""}
+          ${m.phase !== "groups" && m.match_num ? `<button class="match-hl-btn select-none porra-only" onclick="focusMatchInBracket(${m.match_num},event)" title="Ver este partido en el cuadro" style="margin-left:5px;">🏆 Ver cuadro</button>` : ""}
+        </div>
         <div class="card-corner-tag-right">${(() => {
           if (m.phase === "groups" && m.id) {
             const grp = m.id.charAt(0).toUpperCase();
@@ -6408,7 +6411,7 @@ function renderBracket(overrideEl) {
       if (prov) return `<div class="bkt-team"><span class="bkt-fl">${prov.flag || "🛡"}</span><span class="bkt-tn bkt-prov" title="Provisional según clasificación actual">${escapeHtml(prov.name)}<span class="bkt-prov-slot">${slot}</span></span></div>`;
       return `<div class="bkt-team"><span class="bkt-fl">🛡</span><span class="bkt-tn"><span class="bkt-ph">Por definir</span></span></div>`;
     }
-    return `<div class="bkt-card${played ? " bkt-played" : ""}${m.date ? " grp-match-link bkt-click" : ""}${cls ? " " + cls : ""}" ${da}>
+    return `<div class="bkt-card${played ? " bkt-played" : ""}${m.date ? " grp-match-link bkt-click" : ""}${cls ? " " + cls : ""}" ${da} data-match-num="${m.match_num || ""}">
       ${teamHtml(ph_h, provH, m.home, m.flag_home, m.home, winH, isKnockoutPhase)}
       ${midHtml}
       ${teamHtml(ph_a, provA, m.flag_away, m.flag_away, m.away, winA, isKnockoutPhase)}
@@ -9559,3 +9562,25 @@ function resetAppMode() {
 
 loadData();
 
+
+/* ── Navegar al cuadro y enfocar un partido de eliminatorias ── */
+function focusMatchInBracket(matchNum, event) {
+  if (event) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  const btn = document.querySelector('.tab-btn[data-tab="bracket"]');
+  if (btn) {
+    btn.click();
+    setTimeout(() => {
+      const card = document.querySelector(`.bkt-card[data-match-num="${matchNum}"]`);
+      if (card) {
+        card.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+        card.classList.add("bkt-highlight-pulse");
+        setTimeout(() => {
+          card.classList.remove("bkt-highlight-pulse");
+        }, 2000);
+      }
+    }, 150);
+  }
+}

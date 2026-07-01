@@ -3499,6 +3499,19 @@
     .bkt-card-final:hover { border-color: var(--gold) !important; }
     .bkt-card-3rd { border-color: rgba(148,163,184,.25) !important; }
 
+    /* Highlight Pulse Animation */
+    @keyframes bktPulseHighlight {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.8); border-color: var(--gold); }
+      50% { transform: scale(1.04); box-shadow: 0 0 15px 5px rgba(234, 179, 8, 0.8); border-color: var(--gold); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(234, 179, 8, 0); }
+    }
+    .bkt-highlight-pulse {
+      animation: bktPulseHighlight 1.5s ease-out;
+      border-color: var(--gold) !important;
+      position: relative;
+      z-index: 10;
+    }
+
     /* Teams */
     .bkt-team { display: flex; align-items: center; gap: .35rem; min-width: 0; }
     .bkt-win .bkt-tn { color: #E2E8F0; font-weight: 700; }
