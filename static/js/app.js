@@ -5719,7 +5719,7 @@ function _renderScePersonal(standings, leader, maxPerMatch, remainingMatches, co
 /* ═══════════════════════════════════════════════════════════════
    CLASIFICACIÓN MUNDIAL — sub-tabs: Grupos / Goleadores / General
 ═══════════════════════════════════════════════════════════════ */
-let _teamsSubTab = "groups"; // "groups" | "scorers" | "general" | "thirds" | "bracket"
+let _teamsSubTab = "general"; // "groups" | "scorers" | "general" | "thirds" | "bracket"
 
 function renderTeams() {
   const container = document.getElementById("teams-container");
@@ -5731,10 +5731,8 @@ function renderTeams() {
       <div class="tms-root">
         <h2 class="tms-title">${_TMS_TITLES[_teamsSubTab] || "🌍 Clasificaciones Mundial 2026"}</h2>
         <div class="tms-sub-tabs" id="tms-sub-tabs">
-          <button class="tms-sub-tab active" data-stab="groups">📊 Grupos</button>
+          <button class="tms-sub-tab active" data-stab="general">🏆 Clasificación general</button>
           <button class="tms-sub-tab" data-stab="scorers">⚽ Goleadores</button>
-          <button class="tms-sub-tab" data-stab="general">🏆 Clasificación general</button>
-          <button class="tms-sub-tab" data-stab="thirds">🥉 Terceros</button>
         </div>
         <div id="tms-sub-body"></div>
       </div>`;
