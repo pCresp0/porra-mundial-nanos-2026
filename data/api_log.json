@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-24T23:40:34+02:00",
-    "date": "24/06/2026",
-    "time": "23:40:34",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-24T23:42:22+02:00",
     "date": "24/06/2026",
     "time": "23:42:22",
@@ -17615,5 +17607,22 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-07-01T18:04:26+02:00",
+    "date": "01/07/2026",
+    "time": "18:04:26",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇬🇧Inglaterra ?-? RD Congo🇨🇩",
+        "name": "Inglaterra-RD Congo",
+        "date": "2026-07-01",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]
