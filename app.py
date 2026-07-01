@@ -1679,27 +1679,37 @@ def build_data():
             _r8_flag_by_team.setdefault(_m["home"], _m.get("flag_home", ""))
             _r8_flag_by_team.setdefault(_m["away"], _m.get("flag_away", ""))
 
-    _R8_BRACKET_FIX = {
-        # old_name: (new_name, home_match_num, away_match_num, override_date, override_time)
-        "W73-W75": ("W75-W78", 75, 78, "2026-07-04", "23:00"),  # Filadelfia: Paraguay vs Francia
-        "W74-W77": ("W73-W76", 73, 76, "2026-07-04", "19:00"),  # Houston: Canadá vs Marruecos
-        "W76-W78": ("W74-W77", 74, 77, None,         None    ),  # Nueva York: Brasil vs Noruega
+    # ── BBC 2026 bracket structure for Octavos (corrected mapping) ──
+    # Maps current Excel match row/name to BBC-compliant bracket structure
+    # Excel has incorrect pairings; BBC has: W73-W76, W75-W78, W74-W77, W79-W80, W81-W84, W83-W86, W82-W85, W88-W87
+    _R8_BRACKET_MAP = {
+        # Excel match 89 (W73-W75) -> BBC Match 89 (W73-W76): Canadá vs Marruecos
+        89: {"name": "W73-W76", "home_num": 73, "away_num": 76},
+        # Excel match 90 (W74-W77) -> BBC Match 90 (W75-W78): Paraguay vs Francia
+        90: {"name": "W75-W78", "home_num": 75, "away_num": 78},
+        # Excel match 91 (W76-W78) -> BBC Match 91 (W74-W77): Brasil vs Noruega
+        91: {"name": "W74-W77", "home_num": 74, "away_num": 77},
+        # Excel match 92 (W79-W80) -> BBC Match 92 (W79-W80): México vs Inglaterra
+        92: {"name": "W79-W80", "home_num": 79, "away_num": 80},
+        # Excel match 93 (W83-W84) -> BBC Match 93 (W81-W84): Bélgica vs Portugal
+        93: {"name": "W81-W84", "home_num": 81, "away_num": 84},
+        # Excel match 94 (W81-W82) -> BBC Match 94 (W83-W86): España vs Australia
+        94: {"name": "W83-W86", "home_num": 83, "away_num": 86},
+        # Excel match 95 (W86-W88) -> BBC Match 95 (W82-W85): Estados Unidos vs Suiza
+        95: {"name": "W82-W85", "home_num": 82, "away_num": 85},
+        # Excel match 96 (W85-W87) -> BBC Match 96 (W88-W87): Colombia vs Argentina
+        96: {"name": "W88-W87", "home_num": 88, "away_num": 87},
     }
     for _m in matches:
-        if _m.get("phase") == "r8" and _m.get("name") in _R8_BRACKET_FIX:
-            _new_name, _hnum, _anum, _new_date, _new_time = _R8_BRACKET_FIX[_m["name"]]
-            _home_team = winner_by_num.get(_hnum) or f"W{_hnum}"
-            _away_team = winner_by_num.get(_anum) or f"W{_anum}"
-            _m["name"]      = _new_name
+        if _m.get("phase") == "r8" and _m.get("match_num") in _R8_BRACKET_MAP:
+            _bbc_cfg = _R8_BRACKET_MAP[_m["match_num"]]
+            _home_team = winner_by_num.get(_bbc_cfg["home_num"]) or f"W{_bbc_cfg['home_num']}"
+            _away_team = winner_by_num.get(_bbc_cfg["away_num"]) or f"W{_bbc_cfg['away_num']}"
+            _m["name"]      = _bbc_cfg["name"]
             _m["home"]      = _home_team
             _m["away"]      = _away_team
             _m["flag_home"] = _r8_flag_by_team.get(_home_team, "")
             _m["flag_away"] = _r8_flag_by_team.get(_away_team, "")
-            if _new_date:
-                _m["date"]       = _new_date
-                _m["datetime_es"] = _new_date + "T" + (_new_time or "00:00") + ":00"
-            if _new_time:
-                _m["time_es"]    = _new_time
 
     # ── Recalcular puntos de posiciones de grupo y clasificados a 16avos ──
     # Para evitar depender de la caché de fórmulas de Excel, que no se actualiza
