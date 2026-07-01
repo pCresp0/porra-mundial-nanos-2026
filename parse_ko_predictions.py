@@ -79,11 +79,21 @@ def extract_player_predictions(xlsx_path):
     POOL_TO_WORLDCUP_ROW = {
         164: 101, 165: 102, 166: 103, 167: 104, 168: 105, 169: 106, 170: 107, 171: 108,
         172: 109, 173: 110, 174: 111, 175: 112, 176: 113, 177: 114, 178: 115, 179: 116,
-        200: 120, 201: 121, 202: 122, 203: 123, 204: 124, 205: 125, 206: 126, 207: 127,
+        200: 121, 201: 120, 202: 122, 203: 123, 204: 124, 205: 125, 206: 126, 207: 127,
         220: 131, 221: 132, 222: 133, 223: 134,
         232: 138, 233: 139,
         244: 143,
         247: 147
+    }
+
+    ROW_TO_MATCH_NUM = {
+        164: 73, 165: 74, 166: 75, 167: 76, 168: 77, 169: 78, 170: 79, 171: 80,
+        172: 81, 173: 82, 174: 83, 175: 84, 176: 85, 177: 86, 178: 87, 179: 88,
+        200: 89, 201: 90, 202: 91, 203: 92, 204: 93, 205: 94, 206: 95, 207: 96,
+        220: 97, 221: 98, 222: 99, 223: 100,
+        232: 101, 233: 102,
+        244: 103,
+        247: 104
     }
 
     ws_wc = wb["WORLDCUP"]
@@ -137,7 +147,7 @@ def extract_player_predictions(xlsx_path):
 
         # ── For R8+ matches, correct team names via j_to_winner ─────────────
         if wc_row is not None and r not in R16_POOL_ROWS:
-            match_num = ws_wc.cell(wc_row, 10).value
+            match_num = ROW_TO_MATCH_NUM.get(r)
             _R8_BRACKET_MAP = {
                 89: (73, 76),
                 90: (75, 78),
@@ -182,7 +192,7 @@ def extract_player_predictions(xlsx_path):
 
         # Update j_to_winner so subsequent phases (R4, SF, Final) can use this winner
         if wc_row:
-            match_num = ws_wc.cell(wc_row, 10).value
+            match_num = ROW_TO_MATCH_NUM.get(r)
             if match_num is not None:
                 if winner:
                     j_to_winner[int(match_num)] = winner

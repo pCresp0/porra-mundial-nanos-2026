@@ -376,7 +376,7 @@ TEAM_FLAGS = {
      "Austria": "🇦🇹", "Bélgica": "🇧🇪", "Bolivia": "🇧🇴", "Brasil": "🇧🇷",
      "Camerún": "🇨🇲", "Canadá": "🇨🇦", "Chile": "🇨🇱", "China": "🇨🇳",
      "Colombia": "🇨🇴", "Costa Rica": "🇨🇷", "Croacia": "🇭🇷", "República Checa": "🇨🇿",
-     "Dinamarca": "🇩🇰", "Ecuador": "🇪🇨", "Egipto": "🇪🇬", "Inglaterra": "🏴\u200d󠁧󠁢󠁥󠁮\u200d󠁿",
+     "Dinamarca": "🇩🇰", "Ecuador": "🇪🇨", "Egipto": "🇪🇬", "Inglaterra": "🇬🇧",
      "Francia": "🇫🇷", "Alemania": "🇩🇪", "Ghana": "🇬🇭", "Grecia": "🇬🇷",
      "Honduras": "🇭🇳", "Hungría": "🇭🇺", "Indonesia": "🇮🇩", "Irán": "🇮🇷",
      "Irak": "🇮🇶", "Israel": "🇮🇱", "Italia": "🇮🇹", "Costa de Marfil": "🇨🇮",

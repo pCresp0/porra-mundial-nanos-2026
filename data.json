@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "01/07/2026 15:12",
+    "generated": "01/07/2026 17:12",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -8887,7 +8887,7 @@
       "away": "Croacia",
       "home_placeholder": "NombreEquipo",
       "away_placeholder": "L",
-      "flag_home": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "flag_home": "🇬🇧",
       "flag_away": "🇭🇷",
       "match_num": null,
       "bracket_order": 0,
@@ -13228,7 +13228,7 @@
       "away": "Ghana",
       "home_placeholder": "Croacia",
       "away_placeholder": "",
-      "flag_home": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "flag_home": "🇬🇧",
       "flag_away": "🇬🇭",
       "match_num": null,
       "bracket_order": 0,
@@ -17550,7 +17550,7 @@
       "home_placeholder": "Panamá",
       "away_placeholder": "",
       "flag_home": "🇵🇦",
-      "flag_away": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "flag_away": "🇬🇧",
       "match_num": null,
       "bracket_order": 0,
       "city": "Nueva York",
@@ -19459,7 +19459,7 @@
       "away": "RD Congo",
       "home_placeholder": "1L",
       "away_placeholder": "3EHIJK",
-      "flag_home": "🏴‍󠁧󠁢󠁥󠁮‍󠁿",
+      "flag_home": "🇬🇧",
       "flag_away": "🇨🇩",
       "match_num": 80,
       "bracket_order": 11,
@@ -20633,9 +20633,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Alemania",
+            "winner": "Marruecos",
             "pred_home": "Canadá",
-            "pred_away": "Alemania"
+            "pred_away": "Marruecos"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20644,11 +20644,11 @@
         },
         "LARRY": {
           "pred": {
-            "sign": "1",
-            "score": "2-1",
-            "winner": "Canadá",
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Países Bajos",
             "pred_home": "Canadá",
-            "pred_away": "Alemania"
+            "pred_away": "Países Bajos"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20657,10 +20657,11 @@
         },
         "LUIS/VIR": {
           "pred": {
-            "sign": "X",
-            "score": "2-2",
+            "sign": "2",
+            "score": "0-3",
+            "winner": "Países Bajos",
             "pred_home": "Canadá",
-            "pred_away": "Alemania"
+            "pred_away": "Países Bajos"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20671,9 +20672,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Alemania",
+            "winner": "Países Bajos",
             "pred_home": "Canadá",
-            "pred_away": "Alemania"
+            "pred_away": "Países Bajos"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20684,9 +20685,9 @@
           "pred": {
             "sign": "2",
             "score": "0-1",
-            "winner": "Alemania",
+            "winner": "Países Bajos",
             "pred_home": "Canadá",
-            "pred_away": "Alemania"
+            "pred_away": "Países Bajos"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20696,10 +20697,10 @@
         "CRESPO": {
           "pred": {
             "sign": "2",
-            "score": "1-2",
-            "winner": "Alemania",
+            "score": "0-2",
+            "winner": "Países Bajos",
             "pred_home": "Canadá",
-            "pred_away": "Alemania"
+            "pred_away": "Países Bajos"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20758,9 +20759,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Noruega",
-            "pred_home": "Brasil",
-            "pred_away": "Noruega"
+            "winner": "Francia",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20769,11 +20770,11 @@
         },
         "LARRY": {
           "pred": {
-            "sign": "2",
-            "score": "1-2",
-            "winner": "Noruega",
-            "pred_home": "Japón",
-            "pred_away": "Noruega"
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Alemania",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20782,11 +20783,11 @@
         },
         "LUIS/VIR": {
           "pred": {
-            "sign": "2",
-            "score": "0-3",
-            "winner": "Noruega",
-            "pred_home": "Brasil",
-            "pred_away": "Noruega"
+            "sign": "X",
+            "score": "2-2",
+            "winner": "Francia",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20797,9 +20798,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Noruega",
-            "pred_home": "Brasil",
-            "pred_away": "Noruega"
+            "winner": "Francia",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20810,9 +20811,9 @@
           "pred": {
             "sign": "2",
             "score": "0-1",
-            "winner": "Noruega",
-            "pred_home": "Brasil",
-            "pred_away": "Noruega"
+            "winner": "Francia",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20822,10 +20823,10 @@
         "CRESPO": {
           "pred": {
             "sign": "2",
-            "score": "0-2",
-            "winner": "Noruega",
-            "pred_home": "Brasil",
-            "pred_away": "Noruega"
+            "score": "1-2",
+            "winner": "Francia",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20884,9 +20885,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Marruecos",
-            "pred_home": "Marruecos",
-            "pred_away": "Francia"
+            "winner": "Brasil",
+            "pred_home": "Brasil",
+            "pred_away": "Noruega"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20897,8 +20898,9 @@
           "pred": {
             "sign": "X",
             "score": "2-2",
-            "pred_home": "Países Bajos",
-            "pred_away": "Francia"
+            "winner": "Japón",
+            "pred_home": "Japón",
+            "pred_away": "Noruega"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20909,9 +20911,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Países Bajos",
-            "pred_home": "Países Bajos",
-            "pred_away": "Francia"
+            "winner": "Brasil",
+            "pred_home": "Brasil",
+            "pred_away": "Noruega"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20922,9 +20924,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Países Bajos",
-            "pred_home": "Países Bajos",
-            "pred_away": "Francia"
+            "winner": "Brasil",
+            "pred_home": "Brasil",
+            "pred_away": "Noruega"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20935,9 +20937,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Países Bajos",
-            "pred_home": "Países Bajos",
-            "pred_away": "Francia"
+            "winner": "Brasil",
+            "pred_home": "Brasil",
+            "pred_away": "Noruega"
           },
           "score": 0.0,
           "breakdown": null,
@@ -20948,9 +20950,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Países Bajos",
-            "pred_home": "Países Bajos",
-            "pred_away": "Francia"
+            "winner": "Brasil",
+            "pred_home": "Brasil",
+            "pred_away": "Noruega"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21387,9 +21389,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Egipto",
-            "pred_home": "Egipto",
-            "pred_away": "Colombia"
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Egipto"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21400,9 +21402,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Egipto",
-            "pred_home": "Egipto",
-            "pred_away": "Colombia"
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Egipto"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21413,9 +21415,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Egipto",
-            "pred_home": "Egipto",
-            "pred_away": "Colombia"
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Egipto"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21426,9 +21428,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Egipto",
-            "pred_home": "Egipto",
-            "pred_away": "Colombia"
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Egipto"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21439,9 +21441,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Egipto",
-            "pred_home": "Egipto",
-            "pred_away": "Colombia"
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Egipto"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21452,9 +21454,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Egipto",
-            "pred_home": "Egipto",
-            "pred_away": "Colombia"
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Egipto"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21513,9 +21515,9 @@
           "pred": {
             "sign": "2",
             "score": "0-1",
-            "winner": "Argentina",
+            "winner": "Colombia",
             "pred_home": "Suiza",
-            "pred_away": "Argentina"
+            "pred_away": "Colombia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21528,7 +21530,7 @@
             "score": "1-0",
             "winner": "Suiza",
             "pred_home": "Suiza",
-            "pred_away": "Argentina"
+            "pred_away": "Colombia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21539,9 +21541,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Argentina",
+            "winner": "Colombia",
             "pred_home": "Suiza",
-            "pred_away": "Argentina"
+            "pred_away": "Colombia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21552,9 +21554,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Argentina",
+            "winner": "Colombia",
             "pred_home": "Suiza",
-            "pred_away": "Argentina"
+            "pred_away": "Colombia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21567,7 +21569,7 @@
             "score": "2-1",
             "winner": "Suiza",
             "pred_home": "Suiza",
-            "pred_away": "Argentina"
+            "pred_away": "Colombia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21578,9 +21580,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Argentina",
+            "winner": "Colombia",
             "pred_home": "Suiza",
-            "pred_away": "Argentina"
+            "pred_away": "Colombia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21639,9 +21641,9 @@
           "pred": {
             "sign": "1",
             "score": "3-1",
-            "winner": "Noruega",
-            "pred_home": "Noruega",
-            "pred_away": "Alemania"
+            "winner": "Marruecos",
+            "pred_home": "Marruecos",
+            "pred_away": "Francia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21652,9 +21654,9 @@
           "pred": {
             "sign": "1",
             "score": "1-0",
-            "winner": "Noruega",
-            "pred_home": "Noruega",
-            "pred_away": "Canadá"
+            "winner": "Países Bajos",
+            "pred_home": "Países Bajos",
+            "pred_away": "Alemania"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21665,8 +21667,8 @@
           "pred": {
             "sign": "1",
             "score": "3-2",
-            "winner": "Noruega",
-            "pred_home": "Noruega",
+            "winner": "Países Bajos",
+            "pred_home": "Países Bajos",
             "pred_away": "Francia"
           },
           "score": 0.0,
@@ -21678,9 +21680,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Noruega",
-            "pred_home": "Noruega",
-            "pred_away": "Alemania"
+            "winner": "Países Bajos",
+            "pred_home": "Países Bajos",
+            "pred_away": "Francia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21691,9 +21693,9 @@
           "pred": {
             "sign": "1",
             "score": "1-0",
-            "winner": "Noruega",
-            "pred_home": "Noruega",
-            "pred_away": "Alemania"
+            "winner": "Países Bajos",
+            "pred_home": "Países Bajos",
+            "pred_away": "Francia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21704,9 +21706,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Noruega",
-            "pred_home": "Noruega",
-            "pred_away": "Alemania"
+            "winner": "Países Bajos",
+            "pred_home": "Países Bajos",
+            "pred_away": "Francia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -21891,7 +21893,7 @@
             "sign": "2",
             "score": "1-2",
             "winner": "Inglaterra",
-            "pred_home": "Marruecos",
+            "pred_home": "Brasil",
             "pred_away": "Inglaterra"
           },
           "score": 0.0,
@@ -21916,8 +21918,8 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Países Bajos",
-            "pred_home": "Países Bajos",
+            "winner": "Brasil",
+            "pred_home": "Brasil",
             "pred_away": "Inglaterra"
           },
           "score": 0.0,
@@ -21930,7 +21932,7 @@
             "sign": "2",
             "score": "1-2",
             "winner": "Inglaterra",
-            "pred_home": "Países Bajos",
+            "pred_home": "Brasil",
             "pred_away": "Inglaterra"
           },
           "score": 0.0,
@@ -21943,7 +21945,7 @@
             "sign": "2",
             "score": "1-2",
             "winner": "Inglaterra",
-            "pred_home": "Países Bajos",
+            "pred_home": "Brasil",
             "pred_away": "Inglaterra"
           },
           "score": 0.0,
@@ -21956,7 +21958,7 @@
             "sign": "2",
             "score": "1-2",
             "winner": "Inglaterra",
-            "pred_home": "Países Bajos",
+            "pred_home": "Brasil",
             "pred_away": "Inglaterra"
           },
           "score": 0.0,
@@ -22016,9 +22018,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Egipto",
-            "pred_home": "Egipto",
-            "pred_away": "Argentina"
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Colombia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22029,8 +22031,8 @@
           "pred": {
             "sign": "1",
             "score": "1-0",
-            "winner": "Egipto",
-            "pred_home": "Egipto",
+            "winner": "Argentina",
+            "pred_home": "Argentina",
             "pred_away": "Suiza"
           },
           "score": 0.0,
@@ -22043,8 +22045,8 @@
             "sign": "X",
             "score": "1-1",
             "winner": "Argentina",
-            "pred_home": "Egipto",
-            "pred_away": "Argentina"
+            "pred_home": "Argentina",
+            "pred_away": "Colombia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22055,9 +22057,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Egipto",
-            "pred_home": "Egipto",
-            "pred_away": "Argentina"
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Colombia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22068,8 +22070,8 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Egipto",
-            "pred_home": "Egipto",
+            "winner": "Argentina",
+            "pred_home": "Argentina",
             "pred_away": "Suiza"
           },
           "score": 0.0,
@@ -22081,9 +22083,9 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Egipto",
-            "pred_home": "Egipto",
-            "pred_away": "Argentina"
+            "winner": "Argentina",
+            "pred_home": "Argentina",
+            "pred_away": "Colombia"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22142,8 +22144,8 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Noruega",
-            "pred_home": "Noruega",
+            "winner": "Marruecos",
+            "pred_home": "Marruecos",
             "pred_away": "Portugal"
           },
           "score": 0.0,
@@ -22156,7 +22158,7 @@
             "sign": "2",
             "score": "1-2",
             "winner": "Croacia",
-            "pred_home": "Noruega",
+            "pred_home": "Países Bajos",
             "pred_away": "Croacia"
           },
           "score": 0.0,
@@ -22168,8 +22170,8 @@
           "pred": {
             "sign": "1",
             "score": "3-2",
-            "winner": "Noruega",
-            "pred_home": "Noruega",
+            "winner": "Países Bajos",
+            "pred_home": "Países Bajos",
             "pred_away": "España"
           },
           "score": 0.0,
@@ -22181,8 +22183,8 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Noruega",
-            "pred_home": "Noruega",
+            "winner": "Países Bajos",
+            "pred_home": "Países Bajos",
             "pred_away": "Portugal"
           },
           "score": 0.0,
@@ -22194,8 +22196,8 @@
           "pred": {
             "sign": "1",
             "score": "1-0",
-            "winner": "Noruega",
-            "pred_home": "Noruega",
+            "winner": "Países Bajos",
+            "pred_home": "Países Bajos",
             "pred_away": "España"
           },
           "score": 0.0,
@@ -22208,7 +22210,7 @@
             "sign": "2",
             "score": "0-1",
             "winner": "Portugal",
-            "pred_home": "Noruega",
+            "pred_home": "Países Bajos",
             "pred_away": "Portugal"
           },
           "score": 0.0,
@@ -22270,7 +22272,7 @@
             "score": "2-1",
             "winner": "Inglaterra",
             "pred_home": "Inglaterra",
-            "pred_away": "Egipto"
+            "pred_away": "Argentina"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22283,7 +22285,7 @@
             "score": "3-1",
             "winner": "Inglaterra",
             "pred_home": "Inglaterra",
-            "pred_away": "Egipto"
+            "pred_away": "Argentina"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22295,7 +22297,7 @@
             "sign": "X",
             "score": "1-1",
             "winner": "Argentina",
-            "pred_home": "Países Bajos",
+            "pred_home": "Brasil",
             "pred_away": "Argentina"
           },
           "score": 0.0,
@@ -22307,9 +22309,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Egipto",
+            "winner": "Argentina",
             "pred_home": "Inglaterra",
-            "pred_away": "Egipto"
+            "pred_away": "Argentina"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22322,7 +22324,7 @@
             "score": "2-1",
             "winner": "Inglaterra",
             "pred_home": "Inglaterra",
-            "pred_away": "Egipto"
+            "pred_away": "Argentina"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22333,9 +22335,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Egipto",
+            "winner": "Argentina",
             "pred_home": "Inglaterra",
-            "pred_away": "Egipto"
+            "pred_away": "Argentina"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22484,8 +22486,8 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Noruega",
-            "pred_home": "Noruega",
+            "winner": "Marruecos",
+            "pred_home": "Marruecos",
             "pred_away": "Inglaterra"
           },
           "score": 0.0,
@@ -22510,8 +22512,8 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Noruega",
-            "pred_home": "Noruega",
+            "winner": "Países Bajos",
+            "pred_home": "Países Bajos",
             "pred_away": "Argentina"
           },
           "score": 0.0,
@@ -22523,9 +22525,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Noruega",
-            "pred_home": "Noruega",
-            "pred_away": "Egipto"
+            "winner": "Países Bajos",
+            "pred_home": "Países Bajos",
+            "pred_away": "Argentina"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22536,8 +22538,8 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Noruega",
-            "pred_home": "Noruega",
+            "winner": "Países Bajos",
+            "pred_home": "Países Bajos",
             "pred_away": "Inglaterra"
           },
           "score": 0.0,
@@ -22551,7 +22553,7 @@
             "score": "2-1",
             "winner": "Portugal",
             "pred_home": "Portugal",
-            "pred_away": "Egipto"
+            "pred_away": "Argentina"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22700,8 +22702,8 @@
           "pred": {
             "sign": "1",
             "score": "2-0",
-            "winner": "Noruega",
-            "pred_home": "Noruega",
+            "winner": "Marruecos",
+            "pred_home": "Marruecos",
             "pred_away": "Inglaterra"
           },
           "score": 0.0,
@@ -22726,8 +22728,8 @@
           "pred": {
             "sign": "1",
             "score": "3-1",
-            "winner": "Noruega",
-            "pred_home": "Noruega",
+            "winner": "Países Bajos",
+            "pred_home": "Países Bajos",
             "pred_away": "Argentina"
           },
           "score": 0.0,
@@ -22739,9 +22741,9 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Noruega",
-            "pred_home": "Noruega",
-            "pred_away": "Egipto"
+            "winner": "Países Bajos",
+            "pred_home": "Países Bajos",
+            "pred_away": "Argentina"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22752,8 +22754,8 @@
           "pred": {
             "sign": "1",
             "score": "1-0",
-            "winner": "Noruega",
-            "pred_home": "Noruega",
+            "winner": "Países Bajos",
+            "pred_home": "Países Bajos",
             "pred_away": "Inglaterra"
           },
           "score": 0.0,
@@ -22767,7 +22769,7 @@
             "score": "2-1",
             "winner": "Portugal",
             "pred_home": "Portugal",
-            "pred_away": "Egipto"
+            "pred_away": "Argentina"
           },
           "score": 0.0,
           "breakdown": null,
@@ -22884,7 +22886,7 @@
       "🇦🇷🇩🇿",
       "🇦🇹🇯🇴",
       "🇵🇹🇨🇩",
-      "🏴󠁧󠁢󠁥󠁮󠁧󠁿🇭🇷",
+      "🇬🇧🇭🇷",
       "🇬🇭🇵🇦",
       "🇺🇿🇨🇴",
       "🇨🇿🇿🇦",
@@ -22908,7 +22910,7 @@
       "🇳🇴🇸🇳",
       "🇯🇴🇩🇿",
       "🇵🇹🇺🇿",
-      "🏴󠁧󠁢󠁥󠁮󠁧󠁿🇬🇭",
+      "🇬🇧🇬🇭",
       "🇵🇦🇭🇷",
       "🇨🇴🇨🇩",
       "🇨🇭🇨🇦",
@@ -22929,7 +22931,7 @@
       "🇺🇾🇪🇸",
       "🇪🇬🇮🇷",
       "🇳🇿🇧🇪",
-      "🇵🇦🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "🇵🇦🇬🇧",
       "🇭🇷🇬🇭",
       "🇨🇴🇵🇹",
       "🇨🇩🇺🇿",
