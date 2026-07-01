@@ -547,6 +547,7 @@ def _build_wc_match_meta(wb):
                 scorers.append({"team": str(team).strip(), "player": s})
         ph_h = _val(wc, r, 1)  # A
         ph_a = _val(wc, r, 2)  # B
+        match_num = _val(wc, r, 10) # J
         meta[key] = {
             "home":      str(home).strip(),
             "away":      str(away).strip(),
@@ -555,6 +556,7 @@ def _build_wc_match_meta(wb):
             "flag_home": str(fh).strip() if fh else "",
             "flag_away": str(fa).strip() if fa else "",
             "scorers":   scorers,
+            "match_num": int(match_num) if match_num is not None else None,
         }
         meta[key.replace(" ", "")] = meta[key]
     return meta
@@ -1427,6 +1429,7 @@ def build_data():
             "away_placeholder": wc.get("away_placeholder", ""),
             "flag_home": wc.get("flag_home", ""),
             "flag_away": wc.get("flag_away", ""),
+            "match_num": wc.get("match_num"),
             "city":       fix.get("city", ""),
             "country":    fix.get("country", ""),
             "tv":         "both" if (wc.get("home", "") == "España" or wc.get("away", "") == "España") else fix.get("tv", ""),
@@ -1609,6 +1612,59 @@ def build_data():
                         elif m["phase"] == "r2" and a in actual_final_qualifiers: m["actual_winner"] = a
                         elif m["phase"] == "r34" and actual_3rd_place in (h, a): m["actual_winner"] = actual_3rd_place
                         elif m["phase"] == "final" and actual_champion in (h, a): m["actual_winner"] = actual_champion
+
+    # Map team name to flag
+    team_to_flag = {}
+    for m in matches:
+        if m.get("home") and m.get("flag_home") and not m["home"].startswith("W") and not m["home"].startswith("L"):
+            team_to_flag[m["home"]] = m["flag_home"]
+        if m.get("away") and m.get("flag_away") and not m["away"].startswith("W") and not m["away"].startswith("L"):
+            team_to_flag[m["away"]] = m["flag_away"]
+
+    # Map match number to match object and winner
+    match_by_num = {}
+    winner_by_num = {}
+    for m in matches:
+        mnum = m.get("match_num")
+        if mnum:
+            match_by_num[mnum] = m
+            if m.get("actual_winner"):
+                winner_by_num[mnum] = m["actual_winner"]
+
+    # Helper to resolve placeholder (W73, L73)
+    def resolve_placeholder_team(ph):
+        if not ph:
+            return None, None
+        ph = str(ph).strip()
+        # Winner placeholder: e.g. W73
+        if ph.startswith("W") and ph[1:].isdigit():
+            num = int(ph[1:])
+            winner = winner_by_num.get(num)
+            if winner:
+                return winner, team_to_flag.get(winner, "")
+        # Loser placeholder: e.g. L73
+        if ph.startswith("L") and ph[1:].isdigit():
+            num = int(ph[1:])
+            winner = winner_by_num.get(num)
+            m_orig = match_by_num.get(num)
+            if winner and m_orig:
+                h, a = m_orig.get("home"), m_orig.get("away")
+                if h and a and not h.startswith("W") and not h.startswith("L") and not a.startswith("W") and not a.startswith("L"):
+                    loser = a if h == winner else h
+                    return loser, team_to_flag.get(loser, "")
+        return None, None
+
+    # Resolve placeholders for all matches home/away
+    for m in matches:
+        if m["phase"] != "groups":
+            resolved_h, flag_h = resolve_placeholder_team(m["home"])
+            if resolved_h:
+                m["home"] = resolved_h
+                m["flag_home"] = flag_h
+            resolved_a, flag_a = resolve_placeholder_team(m["away"])
+            if resolved_a:
+                m["away"] = resolved_a
+                m["flag_away"] = flag_a
 
     player_positions_pts = {}
     player_q16_pts = {}
