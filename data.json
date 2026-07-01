@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "01/07/2026 20:26",
+    "generated": "01/07/2026 20:28",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-01T22:04",
-      "last_updated_time": "22:04",
+      "last_updated_iso": "2026-07-01T22:28",
+      "last_updated_time": "22:28",
       "last_updated_date": "01/07/2026",
       "next_update_iso": "2026-07-01T22:30",
       "next_update_time": "22:30",
       "next_update_date": "01/07/2026",
-      "last_checked_iso": "2026-07-01T22:26",
-      "last_checked_time": "22:26",
+      "last_checked_iso": "2026-07-01T22:28",
+      "last_checked_time": "22:28",
       "last_checked_date": "01/07/2026"
     },
     "players": [
@@ -407,6 +407,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-01T22:28:29+02:00",
+        "date": "01/07/2026",
+        "time": "22:28:29",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇧🇪Bélgica ?-? Senegal🇸🇳",
+            "name": "Bélgica-Senegal",
+            "date": "2026-07-01",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-01T22:26:30+02:00",
         "date": "01/07/2026",
@@ -4632,14 +4649,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:12:27+02:00",
-        "date": "30/06/2026",
-        "time": "05:12:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4847,8 +4856,8 @@
     {
       "name": "LARRY",
       "total": 253.0,
-      "live_points": 5.0,
-      "total_live": 258.0,
+      "live_points": 0.0,
+      "total_live": 253.0,
       "groups": 105.0,
       "positions": 67.0,
       "q16": 54.0,
@@ -19718,8 +19727,16 @@
       "live": true,
       "live_minute": "live",
       "live_goals_l": 0,
-      "live_goals_v": 0,
-      "live_scorers": [],
+      "live_goals_v": 1,
+      "live_scorers": [
+        {
+          "player": "Habib Diarra",
+          "minute": "25'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        }
+      ],
       "goals_l": null,
       "goals_v": null,
       "scorers": [],
@@ -19764,19 +19781,18 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 3.0,
-            "diff": 2.0,
+            "sign": 0.0,
+            "diff": 0.0,
             "exact": 0,
-            "total": 5.0,
+            "total": 0.0,
             "reasons": [
-              "1X2 correcto (+3.0)",
-              "Diferencia de goles (+2)"
+              "1X2 incorrecto — 0 pts"
             ],
             "team_match": null,
             "pred_home": "Bélgica",
             "pred_away": "Senegal"
           },
-          "live_score": 5.0
+          "live_score": 0.0
         },
         "LUIS/VIR": {
           "pred": {
