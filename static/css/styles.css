@@ -3418,7 +3418,7 @@
     .bkt-root-embedded .bkt-score { font-size: 1.2rem; }
 
     /* Winner badges in knockout stages */
-    .bkt-ko-winner .bkt-tn { color: var(--gold); font-weight: 700; font-size: 1.08em; }
+    .bkt-ko-winner .bkt-tn { color: var(--gold); font-weight: 700; }
     .bkt-trophy { color: var(--gold); font-size: .92em; }
     .bkt-badge-pk {
       display: inline-block; margin-left: .25rem; background: #7C3AED; color: white;
