@@ -137,9 +137,22 @@ def extract_player_predictions(xlsx_path):
 
         # ── For R8+ matches, correct team names via j_to_winner ─────────────
         if wc_row is not None and r not in R16_POOL_ROWS:
-            ph_home = ws_wc.cell(wc_row, 1).value  # A = ph_home (e.g. "W76")
-            ph_away = ws_wc.cell(wc_row, 2).value  # B = ph_away (e.g. "W78")
-            if ph_home and ph_away:
+            match_num = ws_wc.cell(wc_row, 10).value
+            _R8_BRACKET_MAP = {
+                89: (73, 76),
+                90: (75, 78),
+                91: (74, 77),
+                92: (79, 80),
+                93: (83, 84),
+                94: (81, 82),
+                95: (87, 86),
+                96: (85, 88),
+            }
+            if match_num in _R8_BRACKET_MAP:
+                home_num, away_num = _R8_BRACKET_MAP[match_num]
+            else:
+                ph_home = ws_wc.cell(wc_row, 1).value  # A = ph_home (e.g. "W76")
+                ph_away = ws_wc.cell(wc_row, 2).value  # B = ph_away (e.g. "W78")
                 def _ph_to_num(ph):
                     try:
                         return int(str(ph).lstrip("WL"))
@@ -147,10 +160,11 @@ def extract_player_predictions(xlsx_path):
                         return None
                 home_num = _ph_to_num(ph_home)
                 away_num = _ph_to_num(ph_away)
-                home_team = j_to_winner.get(home_num) if home_num is not None else None
-                away_team = j_to_winner.get(away_num) if away_num is not None else None
-                if home_team and away_team:
-                    mname = f"{home_team}-{away_team}"
+
+            home_team = j_to_winner.get(home_num) if home_num is not None else None
+            away_team = j_to_winner.get(away_num) if away_num is not None else None
+            if home_team and away_team:
+                mname = f"{home_team}-{away_team}"
 
         winner = _derive_winner(mname, sign, gl, gv, winners)
         # Fallback: if corrected mname has no winner from sign (e.g. draw with

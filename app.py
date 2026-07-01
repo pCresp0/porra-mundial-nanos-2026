@@ -1578,7 +1578,7 @@ def build_data():
                 played_count[name] += 1
 
         fix = lookup_fixture(row)
-        r16_order = [73, 75, 74, 77, 83, 84, 81, 82, 76, 78, 79, 80, 86, 88, 85, 87]
+        r16_order = [73, 76, 75, 78, 83, 84, 81, 82, 74, 77, 79, 80, 87, 86, 85, 88]
         r8_order = [200, 201, 204, 205, 202, 203, 206, 207]
         r4_order = [220, 221, 222, 223]
         r2_order = [232, 233]
@@ -1665,40 +1665,26 @@ def build_data():
             if m_obj["actual_winner"]:
                 winner_by_num[match_num] = m_obj["actual_winner"]
 
-    # ── Corrección del cuadro de octavos (bracket fix según BBC 2026) ──
-    # Las tres primeras eliminatorias tenían cruces erróneos en el Excel.
-    # Esta corrección aplica los cruces reales sin modificar el fichero Excel.
+    # ── Corrección del cuadro de octavos (según el cuadro oficial FIFA 2026) ──
     _r8_flag_by_team = {}
     for _m in matches:
         if _m.get("phase") == "r16" and _m.get("played"):
             _r8_flag_by_team[_m["home"]] = _m.get("flag_home", "")
             _r8_flag_by_team[_m["away"]] = _m.get("flag_away", "")
-    # También para equipos no resueltos (placeholder)
     for _m in matches:
         if _m.get("phase") == "r16":
             _r8_flag_by_team.setdefault(_m["home"], _m.get("flag_home", ""))
             _r8_flag_by_team.setdefault(_m["away"], _m.get("flag_away", ""))
 
-    # ── BBC 2026 bracket structure for Octavos (corrected mapping) ──
-    # Maps current Excel match row/name to BBC-compliant bracket structure
-    # Excel has incorrect pairings; BBC has: W73-W76, W75-W78, W74-W77, W79-W80, W81-W84, W83-W86, W82-W85, W88-W87
     _R8_BRACKET_MAP = {
-        # Excel match 89 (W73-W75) -> BBC Match 89 (W73-W76): Canadá vs Marruecos
         89: {"name": "W73-W76", "home_num": 73, "away_num": 76},
-        # Excel match 90 (W74-W77) -> BBC Match 90 (W75-W78): Paraguay vs Francia
         90: {"name": "W75-W78", "home_num": 75, "away_num": 78},
-        # Excel match 91 (W76-W78) -> BBC Match 91 (W74-W77): Brasil vs Noruega
         91: {"name": "W74-W77", "home_num": 74, "away_num": 77},
-        # Excel match 92 (W79-W80) -> BBC Match 92 (W79-W80): México vs Inglaterra
         92: {"name": "W79-W80", "home_num": 79, "away_num": 80},
-        # Excel match 93 (W83-W84) -> BBC Match 93 (W81-W84): Bélgica vs Portugal
-        93: {"name": "W81-W84", "home_num": 81, "away_num": 84},
-        # Excel match 94 (W81-W82) -> BBC Match 94 (W83-W86): España vs Australia
-        94: {"name": "W83-W86", "home_num": 83, "away_num": 86},
-        # Excel match 95 (W86-W88) -> BBC Match 95 (W82-W85): Estados Unidos vs Suiza
-        95: {"name": "W82-W85", "home_num": 82, "away_num": 85},
-        # Excel match 96 (W85-W87) -> BBC Match 96 (W88-W87): Colombia vs Argentina
-        96: {"name": "W88-W87", "home_num": 88, "away_num": 87},
+        93: {"name": "W83-W84", "home_num": 83, "away_num": 84},
+        94: {"name": "W81-W82", "home_num": 81, "away_num": 82},
+        95: {"name": "W87-W86", "home_num": 87, "away_num": 86},
+        96: {"name": "W85-W88", "home_num": 85, "away_num": 88},
     }
     for _m in matches:
         if _m.get("phase") == "r8" and _m.get("match_num") in _R8_BRACKET_MAP:

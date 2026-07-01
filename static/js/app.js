@@ -3422,17 +3422,17 @@ function renderScoring() {
     groups_match: "<strong>Fase de Grupos — Partidos:</strong><br>• 2 pts por signo 1X2.<br>• +1 pt por diferencia de goles.<br>• +3 pts por resultado exacto.<br>Máximo: 6 pts por partido.",
     groups_pos: "<strong>Fase de Grupos — Posiciones:</strong><br>• Se otorgan por la posición exacta final en cada grupo.<br>• 1º (4 pts), 2º (3 pts), 3º (2 pts), 4º (1 pt).<br>• Se darán al finalizar la fase de grupos al completo.",
     q16_team: "<strong>Clasificados Dieciseisavos:</strong><br>• En la práctica <strong>no se puntúa (0 pts)</strong>, ya que para la Fase 2 todos los jugadores reciben el cuadro con los equipos reales.",
-    r16: "<strong>Dieciseisavos de Final:</strong><br>• Máx. 9 pts (3 signo, +2 diferencia, +4 exacto).<br>• Si no aciertas ninguno de los equipos del cruce real: 0 pts.<br>• Si aciertas 1: puntúas si gana según tu signo pronosticado.",
+    r16: "<strong>Dieciseisavos de Final:</strong><br>• Máx. 9 pts (3 signo, +2 diferencia, +4 exacto).<br>• En esta ronda los equipos reales ya vienen dados en el Excel, por lo que todos juegan con los mismos cruces reales.",
     r8_team: "<strong>Clasificados Octavos:</strong><br>• Sumas 3 pts por cada equipo real clasificado para Octavos que coincida con tus predicciones.",
-    r8: "<strong>Octavos de Final:</strong><br>• Máx. 12 pts (4 signo, +3 diferencia, +5 exacto).<br>• Si no aciertas ninguno de los equipos del cruce real: 0 pts.<br>• Si aciertas 1: puntúas si gana según tu signo pronosticado.",
+    r8: "<strong>Octavos de Final:</strong><br>• Máx. 12 pts (4 signo, +3 diferencia, +5 exacto).<br>• <strong>Regla de cruces:</strong> Para puntuar por el partido (1X2, dif. o exacto) debes acertar los 2 equipos del cruce real. Si solo aciertas 1 (o ninguno), te llevas 0 pts de este partido.<br>• Si el equipo que acertaste pasa de ronda, sí sumas los puntos de Clasificados.",
     r4_team: "<strong>Clasificados Cuartos:</strong><br>• Sumas 5 pts por cada equipo real clasificado para Cuartos que coincida con tus predicciones.",
-    r4: "<strong>Cuartos de Final:</strong><br>• Máx. 15 pts (5 signo, +4 diferencia, +6 exacto).<br>• Si no aciertas ninguno de los equipos del cruce real: 0 pts.<br>• Si aciertas 1: puntúas si gana según tu signo pronosticado.",
+    r4: "<strong>Cuartos de Final:</strong><br>• Máx. 15 pts (5 signo, +4 diferencia, +6 exacto).<br>• <strong>Regla de cruces:</strong> Para puntuar por el partido (1X2, dif. o exacto) debes acertar los 2 equipos del cruce real. Si solo aciertas 1 (o ninguno), te llevas 0 pts de este partido.<br>• Si el equipo que acertaste pasa de ronda, sí sumas los puntos de Clasificados.",
     r2_team: "<strong>Clasificados Semifinales:</strong><br>• Sumas 8 pts por cada equipo real clasificado para Semifinales que coincida con tus predicciones.",
-    r2: "<strong>Semifinales:</strong><br>• Máx. 19 pts (6 signo, +5 diferencia, +8 exacto).<br>• Si no aciertas ninguno de los equipos del cruce real: 0 pts.<br>• Si aciertas 1: puntúas si gana según tu signo pronosticado.",
+    r2: "<strong>Semifinales:</strong><br>• Máx. 19 pts (6 signo, +5 diferencia, +8 exacto).<br>• <strong>Regla de cruces:</strong> Para puntuar por el partido (1X2, dif. o exacto) debes acertar los 2 equipos del cruce real. Si solo aciertas 1 (o ninguno), te llevas 0 pts de este partido.<br>• Si el equipo que acertaste pasa de ronda, sí sumas los puntos de Clasificados.",
     r34_team: "<strong>Clasificados 3º y 4º Puesto:</strong><br>• Sumas 8 pts por cada equipo real clasificado para el 3º y 4º puesto que coincida con tus predicciones.",
     final_team: "<strong>Clasificados Final:</strong><br>• Sumas 12 pts por cada equipo real clasificado para la Final que coincida con tus predicciones.",
-    r34: "<strong>3º y 4º Puesto:</strong><br>• Máx. 19 pts (6 signo, +5 diferencia, +8 exacto).<br>• Si no aciertas ninguno de los equipos del cruce real: 0 pts.<br>• Si aciertas 1: puntúas si gana según tu signo pronosticado.",
-    final: "<strong>Final:</strong><br>• Máx. 26 pts (8 signo, +6 diferencia, +12 exacto).<br>• Si no aciertas ninguno de los equipos del cruce real: 0 pts.<br>• Si aciertas 1: puntúas si gana según tu signo pronosticado.",
+    r34: "<strong>3º y 4º Puesto:</strong><br>• Máx. 19 pts (6 signo, +5 diferencia, +8 exacto).<br>• <strong>Regla de cruces:</strong> Para puntuar por el partido (1X2, dif. o exacto) debes acertar los 2 equipos del cruce real. Si solo aciertas 1 (o ninguno), te llevas 0 pts de este partido.<br>• Si el equipo que acertaste pasa de ronda, sí sumas los puntos de Clasificados.",
+    final: "<strong>Final:</strong><br>• Máx. 26 pts (8 signo, +6 diferencia, +12 exacto).<br>• <strong>Regla de cruces:</strong> Para puntuar por el partido (1X2, dif. o exacto) debes acertar los 2 equipos del cruce real. Si solo aciertas 1 (o ninguno), te llevas 0 pts de este partido.<br>• Si el equipo que acertaste pasa de ronda, sí sumas los puntos de Clasificados.",
     honor: "<strong>Cuadro de Honor:</strong><br>• Puntos asignados al finalizar el torneo por acertar Campeón, Subcampeón, 3º puesto, máximos goleadores o mejores jugadores."
   };
 
@@ -3483,9 +3483,9 @@ function renderScoring() {
           <span class="info-btn" style="cursor:pointer">i</span>
           <div class="info-tip">
             <strong>¿Cómo se puntúa en eliminatorias (Fase 2)?</strong><br>
-            • Si <strong>no aciertas ninguno</strong> de los dos equipos que juegan el cruce real: te llevas <strong>0 pts</strong>.<br>
-            • Si <strong>aciertas solo 1 equipo</strong>: puedes puntuar por signo (1X2), diferencia o exacto, pero <em>solo si el equipo que acertaste gana</em> (o empata) de acuerdo a tu signo pronosticado.<br>
-            • Si <strong>aciertas ambos equipos</strong>: optas a la puntuación completa del partido.
+            • Si <strong>no aciertas los dos equipos</strong> del cruce real: te llevas <strong>0 pts</strong> por ese partido (no sumas por 1X2, diferencia ni exacto).<br>
+            • Si <strong>aciertas solo 1 equipo</strong>: no te llevas puntos por el partido, pero <em>sí te llevas los puntos de Clasificados</em> si ese equipo pasa de ronda.<br>
+            • Si <strong>aciertas ambos equipos</strong>: optas a la puntuación completa del partido y de clasificado.
           </div>
         </div>
       </div>
@@ -3505,6 +3505,14 @@ function renderScoring() {
 
     <div class="card p-5 mb-5">
       <h3 class="font-bold text-white mb-3">🏟️ Fase final: reglas especiales de puntuación</h3>
+      
+      <div class="rounded-lg p-4 mb-3 border border-red-500/30 bg-red-950/20 text-sm leading-relaxed text-gray-300">
+        <strong class="text-red-400">⚠️ REGLA DE ORO DE ELIMINATORIAS (Octavos en adelante):</strong><br>
+        Para poder puntuar por el resultado del partido (1X2, diferencia o resultado exacto), <strong class="text-white">debes haber acertado los DOS equipos</strong> que juegan el cruce real.<br>
+        • Si en tu cuadro pusiste un partido que no coincide exactamente en ambos rivales con el cruce real (ej. acertaste solo uno de los dos equipos, o ninguno): <strong class="text-red-400">te llevas 0 puntos por ese partido</strong>.<br>
+        • La única excepción es que si ese único equipo que acertaste es el que <strong>pasa de ronda</strong>, sí te llevarás los puntos por <strong class="text-white">«Equipo clasificado para la siguiente ronda»</strong> correspondientes a esa fase (ej. +3 pts en octavos, +5 en cuartos, etc.).
+      </div>
+
       <div class="scoring-callout mb-3">
         <strong class="text-gray-200">Clasificados a dieciseisavos — no se puntúa lo que hayáis puesto en la Fase 1.</strong><br>
         En el Excel Matejero aparece la fila «Equipo clasificado para dieciseisavos», pero en nuestra porra
@@ -3544,8 +3552,8 @@ function renderScoring() {
         </div>
       </div>
       <p class="text-xs text-gray-500 mt-3">
-        En eliminatorias con empate al 90′ cuenta el resultado del minuto 120′.
-        Los criterios de «Equipo clasificado para…» suman si acertaste qué equipo pasa, independientemente del partido concreto.
+        En eliminatorias con empate al 90′ cuenta el resultado del minuto 120′ (sin penaltis).<br>
+        Recuerda: Si no acertaste los dos equipos del cruce real, no sumas por el partido. Los criterios de «Equipo clasificado para…» se suman igual de forma independiente si acertaste qué equipo pasa.
       </p>
     </div>
 
@@ -6296,9 +6304,9 @@ function renderBracket(overrideEl) {
   }
 
   // Orden correcto de los partidos en cada fase para que los conectores del bracket coincidan
-  // con los cruces reales: r16[73,76]→r8[89], r16[75,78]→r8[90], etc.
+  // con los cruces reales de la porra:
   const BRACKET_ORDER = {
-    r16: [73, 76, 75, 78, 81, 84, 83, 86, 74, 77, 79, 80, 82, 85, 88, 87],
+    r16: [73, 76, 75, 78, 83, 84, 81, 82, 74, 77, 79, 80, 87, 86, 85, 88],
     r8:  [89, 90, 93, 94, 91, 92, 95, 96],
     r4:  [97, 98, 99, 100],
     r2:  [101, 102],
