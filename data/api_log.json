@@ -1,48 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-25T02:04:36+02:00",
-    "date": "25/06/2026",
-    "time": "02:04:36",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🏴󠁧󠁢󠁳󠁣󠁴󠁿Escocia 0-3 Brasil🇧🇷",
-        "name": "Escocia-Brasil",
-        "date": "2026-06-25",
-        "fields": [
-          "marcador",
-          "jugado"
-        ],
-        "old": {
-          "marcador": "0-0",
-          "jugado": "no"
-        },
-        "new": {
-          "marcador": "0-3",
-          "jugado": "sí"
-        }
-      },
-      {
-        "label": "🇲🇦Marruecos 4-2 Haití🇭🇹",
-        "name": "Marruecos-Haití",
-        "date": "2026-06-25",
-        "fields": [
-          "marcador",
-          "jugado"
-        ],
-        "old": {
-          "marcador": "0-0",
-          "jugado": "no"
-        },
-        "new": {
-          "marcador": "4-2",
-          "jugado": "sí"
-        }
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-25T02:20:31+02:00",
     "date": "25/06/2026",
     "time": "02:20:31",
@@ -17550,6 +17507,14 @@
     "ts_iso": "2026-07-01T21:40:39+02:00",
     "date": "01/07/2026",
     "time": "21:40:39",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-01T21:42:36+02:00",
+    "date": "01/07/2026",
+    "time": "21:42:36",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
