@@ -1,22 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-25T04:58:21+02:00",
-    "date": "25/06/2026",
-    "time": "04:58:21",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇨🇿República Checa 0-0 México🇲🇽",
-        "name": "República Checa-México",
-        "date": "2026-06-25",
-        "fields": [],
-        "old": {},
-        "new": {}
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-25T05:00:52+02:00",
     "date": "25/06/2026",
     "time": "05:00:52",
@@ -17516,6 +17499,14 @@
     "ts_iso": "2026-07-02T00:14:28+02:00",
     "date": "02/07/2026",
     "time": "00:14:28",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-02T00:16:31+02:00",
+    "date": "02/07/2026",
+    "time": "00:16:31",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
