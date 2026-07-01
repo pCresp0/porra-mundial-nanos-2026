@@ -1,12 +1,19 @@
 {
   "Bélgica-Senegal": {
     "home": 0,
-    "away": 1,
+    "away": 2,
     "minute": "live",
     "scorers": [
       {
         "player": "Habib Diarra",
         "minute": "25'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Ismaïla Sarr",
+        "minute": "51'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
