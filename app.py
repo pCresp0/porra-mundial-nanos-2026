@@ -1011,16 +1011,15 @@ def _abbr_team(name):
 
 
 def _build_daily_progression(matches, player_names, player_positions_pts=None, all_groups_finished=False):
-    """Puntos acumulados tras cada partido jugado (orden cronológico)."""
-    group = [m for m in matches
-             if m["phase"] == "groups" and m.get("played") and m.get("date")]
-    if not group:
+    """Puntos acumulados tras cada partido jugado (orden cronológico), incluyendo fase final."""
+    played_matches = [m for m in matches if m.get("played") and m.get("date")]
+    if not played_matches:
         return {"labels": [], "flag_labels": [], "dates": [], "titles": [],
                 "players": {n: [] for n in player_names},
                 "day_points": {n: [] for n in player_names}}
 
     # Orden cronológico: fecha + hora España
-    group.sort(key=lambda m: (m.get("date", ""), m.get("time_es", "")))
+    played_matches.sort(key=lambda m: (m.get("date", ""), m.get("time_es", "")))
 
     cumulative  = {n: 0.0 for n in player_names}
     players_out = {n: [] for n in player_names}
@@ -1030,7 +1029,13 @@ def _build_daily_progression(matches, player_names, player_positions_pts=None, a
     dates  = []
     titles = []
 
-    for m in group:
+    last_group_idx = -1
+    if all_groups_finished and player_positions_pts:
+        for i, m in enumerate(played_matches):
+            if m["phase"] == "groups":
+                last_group_idx = i
+
+    for i, m in enumerate(played_matches):
         for n in player_names:
             earned = m["predictions"][n]["score"]
             cumulative[n] = round(cumulative[n] + earned, 1)
@@ -1056,8 +1061,18 @@ def _build_daily_progression(matches, player_names, player_positions_pts=None, a
                 pass
         titles.append(title + dt_part)
 
-    # Si la fase de grupos ha terminado, añadimos un paso final para los puntos de posiciones de grupo
-    if all_groups_finished and player_positions_pts:
+        if i == last_group_idx:
+            labels.append("Pos. Grupos")
+            flag_labels.append("🏆")
+            dates.append(dates[-1])
+            titles.append("Posiciones de Fase de Grupos")
+            for n in player_names:
+                pos_earned = player_positions_pts.get(n, 0.0)
+                cumulative[n] = round(cumulative[n] + pos_earned, 1)
+                players_out[n].append(cumulative[n])
+                day_points[n].append(round(pos_earned, 1))
+
+    if all_groups_finished and player_positions_pts and last_group_idx == -1:
         labels.append("Pos. Grupos")
         flag_labels.append("🏆")
         last_date = dates[-1] if dates else datetime.now().strftime("%Y-%m-%d")
