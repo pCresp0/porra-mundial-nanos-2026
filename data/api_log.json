@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-25T09:32:23+02:00",
-    "date": "25/06/2026",
-    "time": "09:32:23",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-25T09:48:33+02:00",
     "date": "25/06/2026",
     "time": "09:48:33",
@@ -17484,5 +17476,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-07-02T00:52:27+02:00",
+    "date": "02/07/2026",
+    "time": "00:52:27",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇧🇪Bélgica 3-2 Senegal🇸🇳",
+        "name": "Bélgica-Senegal",
+        "date": "2026-07-01",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "sin resultado",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "3-2",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]
