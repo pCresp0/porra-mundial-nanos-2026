@@ -5036,3 +5036,14 @@ body.mode-guest .tms-sub-tabs { display: none !important; }
 }
 
 
+
+/* Highlight animation for mobile bracket navigation */
+@keyframes highlightTargetPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(245, 197, 24, 0.7); border-color: rgba(245, 197, 24, 0.8); }
+  50%  { box-shadow: 0 0 15px 5px rgba(245, 197, 24, 0); border-color: rgba(245, 197, 24, 1); }
+  100% { box-shadow: 0 0 0 0 rgba(245, 197, 24, 0); border-color: var(--color-border); }
+}
+.highlight-target {
+  animation: highlightTargetPulse 2s ease-out;
+  border: 1px solid var(--color-border);
+}

@@ -6531,14 +6531,14 @@ function renderBracket(overrideEl) {
     const navWrap = container.querySelector("#bkt-mob-nav-wrap");
     const MOB_ROUNDS_REF = [
       { phase: "r16", label: "16avos", count: 16 },
-      { phase: "r4", label: "Octavos", count: 8 },
-      { phase: "r2", label: "Cuartos", count: 4 },
+      { phase: "r8", label: "Octavos", count: 8 },
+      { phase: "r4", label: "Cuartos", count: 4 },
       { phase: "r2", label: "Semis", count: 2 },
       { phase: "r34_final", label: "Final", count: 2 },
     ];
     let currentIdx = 0;
 
-    function switchMobRound(idx) {
+    function switchMobRound(idx, targetMatchIdx = null) {
       if (idx < 0 || idx >= MOB_ROUNDS_REF.length) return;
       currentIdx = idx;
       const r = MOB_ROUNDS_REF[idx];
@@ -6567,23 +6567,44 @@ function renderBracket(overrideEl) {
         const count = { r16: 16, r8: 8, r4: 4, r2: 2 }[phase];
         let html = "";
         for (let i = 0; i < count; i += 2) {
+          const pairIndex = i / 2;
           html += `
           <div class="bkt-mob-pair">
             <div class="bkt-mob-pair-matches">
               ${matchCard(ms[i] || null, "bkt-mob-card")}
               ${matchCard(ms[i+1] || null, "bkt-mob-card")}
             </div>
-            <button class="bkt-mob-pair-nav bkt-mob-nav-next-btn" aria-label="Siguiente ronda">
+            <button class="bkt-mob-pair-nav bkt-mob-nav-next-btn" data-pair-idx="${pairIndex}" aria-label="Siguiente ronda">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
             </button>
           </div>`;
         }
         bodyEl.innerHTML = html;
         bodyEl.querySelectorAll(".bkt-mob-nav-next-btn").forEach(btn => {
-          btn.addEventListener("click", () => switchMobRound(currentIdx + 1));
+          btn.addEventListener("click", (e) => {
+             const targetMatchIdx = parseInt(e.currentTarget.dataset.pairIdx, 10);
+             switchMobRound(currentIdx + 1, targetMatchIdx);
+          });
         });
       }
-      bodyEl.scrollTop = 0;
+      if (targetMatchIdx !== null) {
+        // Find the match card in the DOM
+        const matchCards = bodyEl.querySelectorAll(".bkt-mob-card");
+        if (matchCards[targetMatchIdx]) {
+           const targetCard = matchCards[targetMatchIdx];
+           targetCard.classList.add("highlight-target");
+           setTimeout(() => {
+               targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+           }, 50);
+           setTimeout(() => {
+               targetCard.classList.remove("highlight-target");
+           }, 2000);
+        } else {
+           bodyEl.scrollTop = 0;
+        }
+      } else {
+        bodyEl.scrollTop = 0;
+      }
       // Update nav buttons
       if (navWrap) {
         const hasPrev = idx > 0, hasNext = idx < MOB_ROUNDS_REF.length - 1;
@@ -6757,7 +6778,7 @@ function renderTopTable() {
   const pendingCount = matches.filter(({ m }) => !m.played && !m.live).length;
 
   const PHASE_LABEL = {
-    groups: "Grupos", r16: "16avos", r4: "Octavos", r2: "Cuartos",
+    groups: "Grupos", r16: "16avos", r8: "Octavos", r4: "Cuartos",
     r2: "Semifinales", r34_final: "Final / 3.º-4.º"
   };
 

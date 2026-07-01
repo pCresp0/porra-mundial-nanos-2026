@@ -418,6 +418,19 @@ def _load_penalties():
     return {}
 
 
+
+def _load_penalties():
+    path = os.path.join(BASE, "data", "penalties.json")
+    if os.path.isfile(path):
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                import json
+                return json.load(f)
+        except Exception as e:
+            pass
+    return {}
+
+
 def _lookup_scorers(scorers, match_name):
     if not match_name or not scorers:
         return []
@@ -1198,6 +1211,7 @@ def build_data():
     wc_scores   = _build_wc_scores(FILE1)
     wc_scorers  = _load_scorers()
     wc_penalties = _load_penalties()
+    wc_penalties = _load_penalties()
     wc_live     = _load_live()
     pts_sign  = float(_val(ws1, 8,  4) or 2)
     pts_diff  = float(_val(ws1, 9,  4) or 1)
@@ -1430,8 +1444,11 @@ def build_data():
         
         for p, ws in zip(all_players, all_ws):
             if phase in KO_PHASE_PTS:
-                # For KO phases, read from the JSON file by row number first
-                pred_raw = _ko_preds.get(p["name"], {}).get(str(row))
+                # For KO phases, read from the JSON file by match_num first, then row number
+                m_num_str = str(wc.get("match_num")) if wc.get("match_num") is not None else ""
+                pred_raw = _ko_preds.get(p["name"], {}).get(m_num_str)
+                if not pred_raw:
+                    pred_raw = _ko_preds.get(p["name"], {}).get(str(row))
                 if not pred_raw:
                     # fallback to resolved match names
                     mkey_resolved = f"{home_resolved}-{away_resolved}"

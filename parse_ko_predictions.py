@@ -76,6 +76,18 @@ def extract_player_predictions(xlsx_path):
     if honor:
         preds["_honor"] = honor
 
+    POOL_TO_WORLDCUP_ROW = {
+        164: 101, 165: 102, 166: 103, 167: 104, 168: 105, 169: 106, 170: 107, 171: 108,
+        172: 109, 173: 110, 174: 111, 175: 112, 176: 113, 177: 114, 178: 115, 179: 116,
+        200: 120, 201: 121, 202: 122, 203: 123, 204: 124, 205: 125, 206: 126, 207: 127,
+        220: 131, 221: 132, 222: 133, 223: 134,
+        232: 138, 233: 139,
+        244: 143,
+        247: 147
+    }
+
+    ws_wc = wb["WORLDCUP"]
+
     for r in PRED_ROWS:
         raw = ws.cell(r, 3).value
         parsed = parse_pred_cell(str(raw) if raw else "")
@@ -85,7 +97,15 @@ def extract_player_predictions(xlsx_path):
             winner = winners.get(mname)
             if winner:
                 pred_str += f"|{winner}"
+            
+            wc_row = POOL_TO_WORLDCUP_ROW.get(r)
+            if wc_row:
+                match_num = ws_wc.cell(wc_row, 10).value
+                if match_num:
+                    preds[str(match_num)] = pred_str
+            
             preds[mname] = pred_str
+            # Still keep row just in case
             preds[str(r)] = pred_str
     return preds
 
