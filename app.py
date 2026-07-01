@@ -1521,24 +1521,75 @@ def build_data():
         else:
             actual_positions_map[r] = f"{pos_idx+1}{grp}"
 
-    actual_q16_qualifiers = set()
+    def is_real_team(t):
+        if not t: return False
+        t_str = str(t).strip()
+        if not t_str or t_str.startswith("1") or t_str.startswith("2") or t_str.startswith("3") or t_str.startswith("W") or t_str.startswith("L") or "-" in t_str:
+            return False
+        return True
+
     ws_wc = wb1_raw["WORLDCUP"]
+
+    # q16_team: rows 101-116 in WORLDCUP
+    actual_q16_qualifiers = set()
     for r in range(101, 117):
         t1 = ws_wc.cell(r, 27).value # AA
         t2 = ws_wc.cell(r, 32).value # AF
-        def is_real_team(t):
-            if not t: return False
-            t_str = str(t).strip()
-            if not t_str or t_str.startswith("1") or t_str.startswith("2") or t_str.startswith("3") or t_str.startswith("W") or t_str.startswith("L") or "-" in t_str:
-                return False
-            return True
         if is_real_team(t1): actual_q16_qualifiers.add(str(t1).strip())
         if is_real_team(t2): actual_q16_qualifiers.add(str(t2).strip())
 
+    # Octavos (r8_team): rows 120-127 in WORLDCUP
+    actual_r8_qualifiers = set()
+    for r in range(120, 128):
+        t1 = ws_wc.cell(r, 27).value # AA
+        t2 = ws_wc.cell(r, 32).value # AF
+        if is_real_team(t1): actual_r8_qualifiers.add(str(t1).strip())
+        if is_real_team(t2): actual_r8_qualifiers.add(str(t2).strip())
+
+    # Cuartos (r4_team): rows 131-134 in WORLDCUP
+    actual_r4_qualifiers = set()
+    for r in range(131, 135):
+        t1 = ws_wc.cell(r, 27).value # AA
+        t2 = ws_wc.cell(r, 32).value # AF
+        if is_real_team(t1): actual_r4_qualifiers.add(str(t1).strip())
+        if is_real_team(t2): actual_r4_qualifiers.add(str(t2).strip())
+
+    # Semifinales (r2_team): rows 138-139 in WORLDCUP
+    actual_r2_qualifiers = set()
+    for r in range(138, 140):
+        t1 = ws_wc.cell(r, 27).value # AA
+        t2 = ws_wc.cell(r, 32).value # AF
+        if is_real_team(t1): actual_r2_qualifiers.add(str(t1).strip())
+        if is_real_team(t2): actual_r2_qualifiers.add(str(t2).strip())
+
+    # 3º-4º puesto (r34_team): row 143 in WORLDCUP
+    actual_r34_qualifiers = set()
+    t1 = ws_wc.cell(143, 27).value # AA
+    t2 = ws_wc.cell(143, 32).value # AF
+    if is_real_team(t1): actual_r34_qualifiers.add(str(t1).strip())
+    if is_real_team(t2): actual_r34_qualifiers.add(str(t2).strip())
+
+    # Final (final_team): row 147 in WORLDCUP
+    actual_final_qualifiers = set()
+    t1 = ws_wc.cell(147, 27).value # AA
+    t2 = ws_wc.cell(147, 32).value # AF
+    if is_real_team(t1): actual_final_qualifiers.add(str(t1).strip())
+    if is_real_team(t2): actual_final_qualifiers.add(str(t2).strip())
+
     pts_q16_team = float(_val(ws1, 15, 4) or 2.0)
+    pts_r8_team = float(_val(ws1, 19, 4) or 3.0)
+    pts_r4_team = float(_val(ws1, 23, 4) or 5.0)
+    pts_r2_team = float(_val(ws1, 27, 4) or 8.0)
+    pts_r34_team = float(_val(ws1, 31, 4) or 8.0)
+    pts_final_team = float(_val(ws1, 32, 4) or 12.0)
 
     player_positions_pts = {}
     player_q16_pts = {}
+    player_r8_team_pts = {}
+    player_r4_team_pts = {}
+    player_r2_team_pts = {}
+    player_r34_team_pts = {}
+    player_final_team_pts = {}
 
     for p, ws in zip(all_players, all_ws):
         name = p["name"]
@@ -1550,9 +1601,53 @@ def build_data():
                 pos_pts += pts_pos_rules[(r - 80) % 4]
         player_positions_pts[name] = pos_pts
 
-        # Clasificados Dieciseisavos (q16) no se puntúan
+        # q16_team (Clasificados 16avos)
         q16_pts = 0.0
+        for r in range(130, 162):
+            pred = _val(ws, r, p["pred_col"])
+            if pred and str(pred).strip() in actual_q16_qualifiers:
+                q16_pts += pts_q16_team
         player_q16_pts[name] = q16_pts
+
+        # r8_team (Clasificados Octavos)
+        r8_team_pts = 0.0
+        for r in range(182, 198):
+            pred = _val(ws, r, p["pred_col"])
+            if pred and str(pred).strip() in actual_r8_qualifiers:
+                r8_team_pts += pts_r8_team
+        player_r8_team_pts[name] = r8_team_pts
+
+        # r4_team (Clasificados Cuartos)
+        r4_team_pts = 0.0
+        for r in range(210, 218):
+            pred = _val(ws, r, p["pred_col"])
+            if pred and str(pred).strip() in actual_r4_qualifiers:
+                r4_team_pts += pts_r4_team
+        player_r4_team_pts[name] = r4_team_pts
+
+        # r2_team (Clasificados Semifinales)
+        r2_team_pts = 0.0
+        for r in range(226, 230):
+            pred = _val(ws, r, p["pred_col"])
+            if pred and str(pred).strip() in actual_r2_qualifiers:
+                r2_team_pts += pts_r2_team
+        player_r2_team_pts[name] = r2_team_pts
+
+        # r34_team (Clasificados 3º y 4º Puesto)
+        r34_team_pts = 0.0
+        for r in range(236, 238):
+            pred = _val(ws, r, p["pred_col"])
+            if pred and str(pred).strip() in actual_r34_qualifiers:
+                r34_team_pts += pts_r34_team
+        player_r34_team_pts[name] = r34_team_pts
+
+        # final_team (Clasificados Final)
+        final_team_pts = 0.0
+        for r in range(240, 242):
+            pred = _val(ws, r, p["pred_col"])
+            if pred and str(pred).strip() in actual_final_qualifiers:
+                final_team_pts += pts_final_team
+        player_final_team_pts[name] = final_team_pts
 
     # ── standings ────────────────────────────────────────────────────────────
     standings_raw = []
@@ -1571,12 +1666,16 @@ def build_data():
         positions_calc = player_positions_pts.get(name, 0.0)
         positions_excel = fv("positions")
         
-        q16_calc      = 0.0  # clasificados 16avos no puntúan según las reglas
-        r16_calc      = round(ko_points["r16"].get(name, 0.0), 2)
-        r8_calc       = round(ko_points["r8"].get(name, 0.0), 2)
-        r4_calc       = round(ko_points["r4"].get(name, 0.0), 2)
-        r2_calc       = round(ko_points["r2"].get(name, 0.0), 2)
-        r34_final_calc = round(ko_points["r34"].get(name, 0.0) + ko_points["final"].get(name, 0.0), 2)
+        q16_calc      = player_q16_pts.get(name, 0.0)
+        r16_calc      = round(ko_points["r16"].get(name, 0.0) + q16_calc, 2)
+        r8_calc       = round(ko_points["r8"].get(name, 0.0) + player_r8_team_pts.get(name, 0.0), 2)
+        r4_calc       = round(ko_points["r4"].get(name, 0.0) + player_r4_team_pts.get(name, 0.0), 2)
+        r2_calc       = round(ko_points["r2"].get(name, 0.0) + player_r2_team_pts.get(name, 0.0), 2)
+        r34_final_calc = round(
+            ko_points["r34"].get(name, 0.0) + ko_points["final"].get(name, 0.0)
+            + player_r34_team_pts.get(name, 0.0) + player_final_team_pts.get(name, 0.0),
+            2
+        )
 
         total = round(groups_calc + positions_calc + r16_calc + r8_calc + r4_calc + r2_calc + r34_final_calc, 2)
         lp = round(live_points.get(name, 0.0), 2)

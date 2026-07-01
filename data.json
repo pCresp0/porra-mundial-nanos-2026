@@ -1,12 +1,12 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "01/07/2026 07:10",
+    "generated": "01/07/2026 09:11",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-01T09:10",
-      "last_updated_time": "09:10",
+      "last_updated_iso": "2026-07-01T09:11",
+      "last_updated_time": "09:11",
       "last_updated_date": "01/07/2026",
       "next_update_iso": "2026-07-01T09:15",
       "next_update_time": "09:15",
@@ -4654,13 +4654,13 @@
   "standings": [
     {
       "name": "MEDINA",
-      "total": 246.0,
+      "total": 298.0,
       "live_points": 0.0,
-      "total_live": 246.0,
+      "total_live": 298.0,
       "groups": 130.0,
       "positions": 89.0,
-      "q16": 0.0,
-      "r16": 27.0,
+      "q16": 52.0,
+      "r16": 79.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4683,7 +4683,7 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 27.0
+          "pts": 79.0
         }
       ],
       "color": "#F97316",
@@ -4694,13 +4694,13 @@
     },
     {
       "name": "JUANCHO",
-      "total": 226.0,
+      "total": 278.0,
       "live_points": 0.0,
-      "total_live": 226.0,
+      "total_live": 278.0,
       "groups": 118.0,
       "positions": 85.0,
-      "q16": 0.0,
-      "r16": 23.0,
+      "q16": 52.0,
+      "r16": 75.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4723,24 +4723,24 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 23.0
+          "pts": 75.0
         }
       ],
       "color": "#F5C518",
       "played": 72,
       "pos": 2,
-      "pos_change": 1,
+      "pos_change": 0,
       "live_pos": 2
     },
     {
       "name": "VÍCTOR",
-      "total": 223.0,
+      "total": 273.0,
       "live_points": 0.0,
-      "total_live": 223.0,
+      "total_live": 273.0,
       "groups": 134.0,
       "positions": 75.0,
-      "q16": 0.0,
-      "r16": 14.0,
+      "q16": 50.0,
+      "r16": 64.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4763,24 +4763,24 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 14.0
+          "pts": 64.0
         }
       ],
       "color": "#A855F7",
       "played": 72,
       "pos": 3,
-      "pos_change": -1,
+      "pos_change": 0,
       "live_pos": 3
     },
     {
       "name": "CRESPO",
-      "total": 220.0,
+      "total": 270.0,
       "live_points": 0.0,
-      "total_live": 220.0,
+      "total_live": 270.0,
       "groups": 121.0,
       "positions": 81.0,
-      "q16": 0.0,
-      "r16": 18.0,
+      "q16": 50.0,
+      "r16": 68.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4803,7 +4803,7 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 18.0
+          "pts": 68.0
         }
       ],
       "color": "#EF4444",
@@ -4814,13 +4814,13 @@
     },
     {
       "name": "LUIS/VIR",
-      "total": 211.0,
+      "total": 265.0,
       "live_points": 0.0,
-      "total_live": 211.0,
+      "total_live": 265.0,
       "groups": 104.0,
       "positions": 77.0,
-      "q16": 0.0,
-      "r16": 30.0,
+      "q16": 54.0,
+      "r16": 84.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4843,7 +4843,7 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 30.0
+          "pts": 84.0
         }
       ],
       "color": "#10B981",
@@ -4854,13 +4854,13 @@
     },
     {
       "name": "LARRY",
-      "total": 196.0,
+      "total": 250.0,
       "live_points": 0.0,
-      "total_live": 196.0,
+      "total_live": 250.0,
       "groups": 105.0,
       "positions": 67.0,
-      "q16": 0.0,
-      "r16": 24.0,
+      "q16": 54.0,
+      "r16": 78.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4883,7 +4883,7 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 24.0
+          "pts": 78.0
         }
       ],
       "color": "#3B82F6",
@@ -23723,15 +23723,15 @@
           "avg_match": 4,
           "hit_rate": 4,
           "phase_positions": 2,
-          "phase_q16": 1,
+          "phase_q16": 3,
           "phase_ko": 4,
           "phase_honor": 1
         },
         "top_skills": [
           {
-            "key": "phase_q16",
-            "label": "Clasificados 16avos",
-            "icon": "🏁",
+            "key": "phase_honor",
+            "label": "Cuadro de honor",
+            "icon": "🏆",
             "rank": 1,
             "display": "0 pts"
           },
@@ -23750,11 +23750,11 @@
             "display": "19 aciertos · 19 pts"
           },
           {
-            "key": "hit_rate",
-            "label": "Tasa de acierto",
-            "icon": "✅",
-            "rank": 4,
-            "display": "58% (42/72)"
+            "key": "phase_q16",
+            "label": "Clasificados 16avos",
+            "icon": "🏁",
+            "rank": 3,
+            "display": "52 pts"
           }
         ],
         "badges": [],
@@ -23930,7 +23930,7 @@
           "avg_match": 6,
           "hit_rate": 6,
           "phase_positions": 4,
-          "phase_q16": 3,
+          "phase_q16": 2,
           "phase_ko": 1,
           "phase_honor": 3
         },
@@ -23940,7 +23940,14 @@
             "label": "Eliminatorias (KO)",
             "icon": "⚔️",
             "rank": 1,
-            "display": "30 pts"
+            "display": "84 pts"
+          },
+          {
+            "key": "phase_q16",
+            "label": "Clasificados 16avos",
+            "icon": "🏁",
+            "rank": 2,
+            "display": "54 pts"
           },
           {
             "key": "goals_home",
@@ -23994,11 +24001,18 @@
           "avg_match": 5,
           "hit_rate": 3,
           "phase_positions": 6,
-          "phase_q16": 2,
+          "phase_q16": 1,
           "phase_ko": 3,
           "phase_honor": 2
         },
         "top_skills": [
+          {
+            "key": "phase_q16",
+            "label": "Clasificados 16avos",
+            "icon": "🏁",
+            "rank": 1,
+            "display": "54 pts"
+          },
           {
             "key": "goals_away",
             "label": "Goles visitante exactos",
@@ -24007,21 +24021,25 @@
             "display": "31 aciertos"
           },
           {
+            "key": "phase_ko",
+            "label": "Eliminatorias (KO)",
+            "icon": "⚔️",
+            "rank": 3,
+            "display": "78 pts"
+          },
+          {
             "key": "hit_rate",
             "label": "Tasa de acierto",
             "icon": "✅",
             "rank": 3,
             "display": "60% (43/72)"
-          },
-          {
-            "key": "hits_1x2",
-            "label": "Signo 1X2",
-            "icon": "1️⃣",
-            "rank": 3,
-            "display": "43 aciertos · 86 pts"
           }
         ],
         "badges": [
+          {
+            "icon": "🏁",
+            "label": "Visionario 16avos"
+          },
           {
             "icon": "✈️",
             "label": "Goles visitante"
@@ -24389,45 +24407,45 @@
       "phase_q16": [
         {
           "rank": 1,
-          "name": "JUANCHO",
-          "color": "#F5C518",
-          "display": "0 pts",
-          "value": 0.0
+          "name": "LARRY",
+          "color": "#3B82F6",
+          "display": "54 pts",
+          "value": 54.0
         },
         {
           "rank": 2,
-          "name": "LARRY",
-          "color": "#3B82F6",
-          "display": "0 pts",
-          "value": 0.0
+          "name": "LUIS/VIR",
+          "color": "#10B981",
+          "display": "54 pts",
+          "value": 54.0
         },
         {
           "rank": 3,
-          "name": "LUIS/VIR",
-          "color": "#10B981",
-          "display": "0 pts",
-          "value": 0.0
+          "name": "JUANCHO",
+          "color": "#F5C518",
+          "display": "52 pts",
+          "value": 52.0
         },
         {
           "rank": 4,
           "name": "MEDINA",
           "color": "#F97316",
-          "display": "0 pts",
-          "value": 0.0
+          "display": "52 pts",
+          "value": 52.0
         },
         {
           "rank": 5,
           "name": "VÍCTOR",
           "color": "#A855F7",
-          "display": "0 pts",
-          "value": 0.0
+          "display": "50 pts",
+          "value": 50.0
         },
         {
           "rank": 6,
           "name": "CRESPO",
           "color": "#EF4444",
-          "display": "0 pts",
-          "value": 0.0
+          "display": "50 pts",
+          "value": 50.0
         }
       ],
       "phase_ko": [
@@ -24435,43 +24453,43 @@
           "rank": 1,
           "name": "LUIS/VIR",
           "color": "#10B981",
-          "display": "30 pts",
-          "value": 30.0
+          "display": "84 pts",
+          "value": 84.0
         },
         {
           "rank": 2,
           "name": "MEDINA",
           "color": "#F97316",
-          "display": "27 pts",
-          "value": 27.0
+          "display": "79 pts",
+          "value": 79.0
         },
         {
           "rank": 3,
           "name": "LARRY",
           "color": "#3B82F6",
-          "display": "24 pts",
-          "value": 24.0
+          "display": "78 pts",
+          "value": 78.0
         },
         {
           "rank": 4,
           "name": "JUANCHO",
           "color": "#F5C518",
-          "display": "23 pts",
-          "value": 23.0
+          "display": "75 pts",
+          "value": 75.0
         },
         {
           "rank": 5,
           "name": "CRESPO",
           "color": "#EF4444",
-          "display": "18 pts",
-          "value": 18.0
+          "display": "68 pts",
+          "value": 68.0
         },
         {
           "rank": 6,
           "name": "VÍCTOR",
           "color": "#A855F7",
-          "display": "14 pts",
-          "value": 14.0
+          "display": "64 pts",
+          "value": 64.0
         }
       ],
       "phase_honor": [
