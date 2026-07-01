@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "01/07/2026 19:50",
+    "generated": "01/07/2026 19:52",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-01T21:55",
       "next_update_time": "21:55",
       "next_update_date": "01/07/2026",
-      "last_checked_iso": "2026-07-01T21:50",
-      "last_checked_time": "21:50",
+      "last_checked_iso": "2026-07-01T21:52",
+      "last_checked_time": "21:52",
       "last_checked_date": "01/07/2026"
     },
     "players": [
@@ -405,6 +405,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-01T21:52:29+02:00",
+        "date": "01/07/2026",
+        "time": "21:52:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-07-01T21:50:40+02:00",
         "date": "01/07/2026",
@@ -4630,23 +4638,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:36:29+02:00",
-        "date": "30/06/2026",
-        "time": "04:36:29",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇳🇱Países Bajos ?-? Marruecos🇲🇦",
-            "name": "Países Bajos-Marruecos",
-            "date": "2026-06-30",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
