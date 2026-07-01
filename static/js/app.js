@@ -6356,9 +6356,9 @@ function renderBracket(overrideEl) {
     }
     const played = m.played;
     const gh = m.goals_l ?? 0, ga = m.goals_v ?? 0;
-    const isPenalty = played && gh === ga && m.winner;  // Draw + has winner = penalties
-    const winH = played && (gh > ga || (isPenalty && m.home === m.winner));
-    const winA = played && (ga > gh || (isPenalty && m.away === m.winner));
+    const isPenalty = played && gh === ga && m.actual_winner;  // Draw + has winner = penalties
+    const winH = played && (gh > ga || (isPenalty && m.home === m.actual_winner));
+    const winA = played && (ga > gh || (isPenalty && m.away === m.actual_winner));
     const [,mo,dd] = (m.date || "").split("-");
     const dateStr = mo ? `${parseInt(dd)} ${MONTH_SHORT[parseInt(mo)]}` : "";
     const timeStr = m.time_es || "";
