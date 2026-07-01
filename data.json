@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "01/07/2026 16:20",
+    "generated": "01/07/2026 16:22",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-01T18:25",
       "next_update_time": "18:25",
       "next_update_date": "01/07/2026",
-      "last_checked_iso": "2026-07-01T18:20",
-      "last_checked_time": "18:20",
+      "last_checked_iso": "2026-07-01T18:22",
+      "last_checked_time": "18:22",
       "last_checked_date": "01/07/2026"
     },
     "players": [
@@ -407,6 +407,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-01T18:22:27+02:00",
+        "date": "01/07/2026",
+        "time": "18:22:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-07-01T18:20:18+02:00",
         "date": "01/07/2026",
@@ -4614,32 +4622,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T01:32:27+02:00",
-        "date": "30/06/2026",
-        "time": "01:32:27",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇩🇪Alemania 1-1 Paraguay🇵🇾",
-            "name": "Alemania-Paraguay",
-            "date": "2026-06-29",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "sin resultado",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "1-1",
-              "jugado": "sí"
-            }
-          }
-        ]
       }
     ]
   },
