@@ -6356,12 +6356,15 @@ function renderBracket(overrideEl) {
     }
     const played = m.played;
     const gh = m.goals_l ?? 0, ga = m.goals_v ?? 0;
-    const winH = played && gh > ga, winA = played && ga > gh;
+    const isPenalty = played && gh === ga && m.winner;  // Draw + has winner = penalties
+    const winH = played && (gh > ga || (isPenalty && m.home === m.winner));
+    const winA = played && (ga > gh || (isPenalty && m.away === m.winner));
     const [,mo,dd] = (m.date || "").split("-");
     const dateStr = mo ? `${parseInt(dd)} ${MONTH_SHORT[parseInt(mo)]}` : "";
     const timeStr = m.time_es || "";
+    const penaltyHtml = isPenalty ? `<span class="bkt-badge-pk">pk</span>` : "";
     const midHtml = played
-      ? `<div class="bkt-mid bkt-score${gh === ga ? " bkt-draw" : ""}">${gh}–${ga}</div>`
+      ? `<div class="bkt-mid bkt-score${gh === ga ? " bkt-draw" : ""}">${gh}–${ga}${penaltyHtml}</div>`
       : `<div class="bkt-mid bkt-time">${timeStr}<span class="bkt-dt">${dateStr}</span></div>`;
     const ph_h = isPlaceholder(m.home, m.home_placeholder), ph_a = isPlaceholder(m.away, m.away_placeholder);
     // Solo resolver equipos provisionalmente para slots de fase de grupos.
@@ -6371,15 +6374,16 @@ function renderBracket(overrideEl) {
     const provH = ph_h && isGroupSlot(m.home) ? _resolveSlot(m.home) : null;
     const provA = ph_a && isGroupSlot(m.away) ? _resolveSlot(m.away) : null;
     const da = m.date ? `data-date="${m.date}" data-match="${(m.name || "").replace(/"/g, "&quot;")}"` : "";
-    function teamHtml(isPh, prov, slot, flag, name, isWin) {
-      if (!isPh) return `<div class="bkt-team${isWin ? " bkt-win" : ""}"><span class="bkt-fl">${flag || "🛡"}</span><span class="bkt-tn">${escapeHtml(name)}</span></div>`;
+    function teamHtml(isPh, prov, slot, flag, name, isWin, isKO) {
+      const wonBadge = isWin && isKO ? '&nbsp;<span class="bkt-trophy">🏆</span>' : '';
+      if (!isPh) return `<div class="bkt-team${isWin ? " bkt-win" : ""}${isWin && isKO ? " bkt-ko-winner" : ""}"><span class="bkt-fl">${flag || "🛡"}</span><span class="bkt-tn">${escapeHtml(name)}${wonBadge}</span></div>`;
       if (prov) return `<div class="bkt-team"><span class="bkt-fl">${prov.flag || "🛡"}</span><span class="bkt-tn bkt-prov" title="Provisional según clasificación actual">${escapeHtml(prov.name)}<span class="bkt-prov-slot">${slot}</span></span></div>`;
       return `<div class="bkt-team"><span class="bkt-fl">🛡</span><span class="bkt-tn"><span class="bkt-ph">Por definir</span></span></div>`;
     }
     return `<div class="bkt-card${played ? " bkt-played" : ""}${m.date ? " grp-match-link bkt-click" : ""}${cls ? " " + cls : ""}" ${da}>
-      ${teamHtml(ph_h, provH, m.home, m.flag_home, m.home, winH)}
+      ${teamHtml(ph_h, provH, m.home, m.flag_home, m.home, winH, isKnockoutPhase)}
       ${midHtml}
-      ${teamHtml(ph_a, provA, m.flag_away, m.flag_away, m.away, winA)}
+      ${teamHtml(ph_a, provA, m.flag_away, m.flag_away, m.away, winA, isKnockoutPhase)}
     </div>`;
   }
 
