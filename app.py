@@ -1053,6 +1053,7 @@ def _build_daily_progression(matches, player_names, player_positions_pts=None, a
     flag_labels = []
     dates  = []
     titles = []
+    phases = []
 
     last_group_idx = -1
     if all_groups_finished and player_positions_pts:
@@ -1073,6 +1074,7 @@ def _build_daily_progression(matches, player_names, player_positions_pts=None, a
         fa = m.get("flag_away", "")
         flag_labels.append(f"{fh}{fa}" if (fh or fa) else ab)
         dates.append(m.get("date", ""))
+        phases.append(m.get("phase", "groups"))
 
         gl, gv = m.get("goals_l"), m.get("goals_v")
         score = f" {gl}-{gv} " if gl is not None and gv is not None else " vs "
@@ -1091,6 +1093,7 @@ def _build_daily_progression(matches, player_names, player_positions_pts=None, a
             flag_labels.append("🏆")
             dates.append(dates[-1])
             titles.append("Posiciones de Fase de Grupos")
+            phases.append("positions")
             for n in player_names:
                 pos_earned = player_positions_pts.get(n, 0.0)
                 cumulative[n] = round(cumulative[n] + pos_earned, 1)
@@ -1103,6 +1106,7 @@ def _build_daily_progression(matches, player_names, player_positions_pts=None, a
         last_date = dates[-1] if dates else datetime.now().strftime("%Y-%m-%d")
         dates.append(last_date)
         titles.append("Posiciones de Fase de Grupos")
+        phases.append("positions")
         for n in player_names:
             pos_earned = player_positions_pts.get(n, 0.0)
             cumulative[n] = round(cumulative[n] + pos_earned, 1)
@@ -1116,6 +1120,7 @@ def _build_daily_progression(matches, player_names, player_positions_pts=None, a
         "titles":      titles,
         "players":     players_out,
         "day_points":  day_points,
+        "phases":      phases,
     }
 
 
