@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "02/07/2026 20:52",
+    "generated": "02/07/2026 20:55",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-02T22:30",
-      "last_updated_time": "22:30",
+      "last_updated_iso": "2026-07-02T22:55",
+      "last_updated_time": "22:55",
       "last_updated_date": "02/07/2026",
-      "next_update_iso": "2026-07-02T22:55",
-      "next_update_time": "22:55",
+      "next_update_iso": "2026-07-02T23:00",
+      "next_update_time": "23:00",
       "next_update_date": "02/07/2026",
-      "last_checked_iso": "2026-07-02T22:52",
-      "last_checked_time": "22:52",
+      "last_checked_iso": "2026-07-02T22:55",
+      "last_checked_time": "22:55",
       "last_checked_date": "02/07/2026"
     },
     "players": [
@@ -419,6 +419,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-02T22:55:00+02:00",
+        "date": "02/07/2026",
+        "time": "22:55:00",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇪🇸España ?-? Austria🇦🇹",
+            "name": "España-Austria",
+            "date": "2026-07-02",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-02T22:52:33+02:00",
         "date": "02/07/2026",
@@ -4626,23 +4643,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-01T04:34:26+02:00",
-        "date": "01/07/2026",
-        "time": "04:34:26",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇲🇽México ?-? Ecuador🇪🇨",
-            "name": "México-Ecuador",
-            "date": "2026-07-01",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
@@ -4650,8 +4650,8 @@
     {
       "name": "MEDINA",
       "total": 315.0,
-      "live_points": 9.0,
-      "total_live": 324.0,
+      "live_points": 3.0,
+      "total_live": 318.0,
       "groups": 130.0,
       "positions": 89.0,
       "q16": 52.0,
@@ -4690,8 +4690,8 @@
     {
       "name": "VÍCTOR",
       "total": 290.0,
-      "live_points": 9.0,
-      "total_live": 299.0,
+      "live_points": 3.0,
+      "total_live": 293.0,
       "groups": 134.0,
       "positions": 75.0,
       "q16": 50.0,
@@ -4730,8 +4730,8 @@
     {
       "name": "JUANCHO",
       "total": 289.0,
-      "live_points": 9.0,
-      "total_live": 298.0,
+      "live_points": 3.0,
+      "total_live": 292.0,
       "groups": 118.0,
       "positions": 85.0,
       "q16": 52.0,
@@ -4770,8 +4770,8 @@
     {
       "name": "CRESPO",
       "total": 281.0,
-      "live_points": 9.0,
-      "total_live": 290.0,
+      "live_points": 3.0,
+      "total_live": 284.0,
       "groups": 121.0,
       "positions": 81.0,
       "q16": 50.0,
@@ -4810,8 +4810,8 @@
     {
       "name": "LUIS/VIR",
       "total": 273.0,
-      "live_points": 9.0,
-      "total_live": 282.0,
+      "live_points": 3.0,
+      "total_live": 276.0,
       "groups": 104.0,
       "positions": 77.0,
       "q16": 54.0,
@@ -4850,8 +4850,8 @@
     {
       "name": "LARRY",
       "total": 256.0,
-      "live_points": 3.0,
-      "total_live": 259.0,
+      "live_points": 9.0,
+      "total_live": 265.0,
       "groups": 105.0,
       "positions": 67.0,
       "q16": 54.0,
@@ -20184,7 +20184,7 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 2,
+      "live_goals_l": 3,
       "live_goals_v": 0,
       "live_scorers": [
         {
@@ -20197,6 +20197,13 @@
         {
           "player": "Pedro Porro",
           "minute": "66'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Mikel Oyarzabal",
+          "minute": "89'",
           "own_goal": false,
           "penalty": false,
           "team": "home"
@@ -20223,6 +20230,31 @@
           "breakdown": null,
           "live_breakdown": {
             "sign": 3.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 3.0,
+            "reasons": [
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles no acertada"
+            ],
+            "team_match": null,
+            "pred_home": "España",
+            "pred_away": "Austria"
+          },
+          "live_score": 3.0
+        },
+        "LARRY": {
+          "pred": {
+            "sign": "1",
+            "score": "3-0",
+            "winner": "España",
+            "pred_home": "España",
+            "pred_away": "Austria"
+          },
+          "score": 0.0,
+          "breakdown": null,
+          "live_breakdown": {
+            "sign": 3.0,
             "diff": 2.0,
             "exact": 4.0,
             "total": 9.0,
@@ -20237,10 +20269,10 @@
           },
           "live_score": 9.0
         },
-        "LARRY": {
+        "LUIS/VIR": {
           "pred": {
             "sign": "1",
-            "score": "3-0",
+            "score": "2-0",
             "winner": "España",
             "pred_home": "España",
             "pred_away": "Austria"
@@ -20262,32 +20294,6 @@
           },
           "live_score": 3.0
         },
-        "LUIS/VIR": {
-          "pred": {
-            "sign": "1",
-            "score": "2-0",
-            "winner": "España",
-            "pred_home": "España",
-            "pred_away": "Austria"
-          },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
-            "sign": 3.0,
-            "diff": 2.0,
-            "exact": 4.0,
-            "total": 9.0,
-            "reasons": [
-              "1X2 correcto (+3.0)",
-              "Diferencia de goles (+2.0)",
-              "Resultado exacto (+4.0)"
-            ],
-            "team_match": null,
-            "pred_home": "España",
-            "pred_away": "Austria"
-          },
-          "live_score": 9.0
-        },
         "MEDINA": {
           "pred": {
             "sign": "1",
@@ -20300,19 +20306,18 @@
           "breakdown": null,
           "live_breakdown": {
             "sign": 3.0,
-            "diff": 2.0,
-            "exact": 4.0,
-            "total": 9.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 3.0,
             "reasons": [
               "1X2 correcto (+3.0)",
-              "Diferencia de goles (+2.0)",
-              "Resultado exacto (+4.0)"
+              "Diferencia de goles no acertada"
             ],
             "team_match": null,
             "pred_home": "España",
             "pred_away": "Austria"
           },
-          "live_score": 9.0
+          "live_score": 3.0
         },
         "VÍCTOR": {
           "pred": {
@@ -20326,19 +20331,18 @@
           "breakdown": null,
           "live_breakdown": {
             "sign": 3.0,
-            "diff": 2.0,
-            "exact": 4.0,
-            "total": 9.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 3.0,
             "reasons": [
               "1X2 correcto (+3.0)",
-              "Diferencia de goles (+2.0)",
-              "Resultado exacto (+4.0)"
+              "Diferencia de goles no acertada"
             ],
             "team_match": null,
             "pred_home": "España",
             "pred_away": "Austria"
           },
-          "live_score": 9.0
+          "live_score": 3.0
         },
         "CRESPO": {
           "pred": {
@@ -20352,19 +20356,18 @@
           "breakdown": null,
           "live_breakdown": {
             "sign": 3.0,
-            "diff": 2.0,
-            "exact": 4.0,
-            "total": 9.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 3.0,
             "reasons": [
               "1X2 correcto (+3.0)",
-              "Diferencia de goles (+2.0)",
-              "Resultado exacto (+4.0)"
+              "Diferencia de goles no acertada"
             ],
             "team_match": null,
             "pred_home": "España",
             "pred_away": "Austria"
           },
-          "live_score": 9.0
+          "live_score": 3.0
         }
       },
       "penalties": null,

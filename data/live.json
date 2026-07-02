@@ -1,6 +1,6 @@
 {
   "España-Austria": {
-    "home": 2,
+    "home": 3,
     "away": 0,
     "minute": "live",
     "scorers": [
@@ -14,6 +14,13 @@
       {
         "player": "Pedro Porro",
         "minute": "66'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Mikel Oyarzabal",
+        "minute": "89'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
