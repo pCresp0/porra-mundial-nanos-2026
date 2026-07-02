@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "02/07/2026 23:40",
+    "generated": "02/07/2026 23:42",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-03T01:45",
       "next_update_time": "01:45",
       "next_update_date": "03/07/2026",
-      "last_checked_iso": "2026-07-03T01:40",
-      "last_checked_time": "01:40",
+      "last_checked_iso": "2026-07-03T01:42",
+      "last_checked_time": "01:42",
       "last_checked_date": "03/07/2026"
     },
     "players": [
@@ -419,6 +419,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-03T01:42:24+02:00",
+        "date": "03/07/2026",
+        "time": "01:42:24",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-07-03T01:40:38+02:00",
         "date": "03/07/2026",
@@ -4644,32 +4652,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-01T06:04:26+02:00",
-        "date": "01/07/2026",
-        "time": "06:04:26",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇲🇽México 2-0 Ecuador🇪🇨",
-            "name": "México-Ecuador",
-            "date": "2026-07-01",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "sin resultado",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "2-0",
-              "jugado": "sí"
-            }
-          }
-        ]
       }
     ]
   },
