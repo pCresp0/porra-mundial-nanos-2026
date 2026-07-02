@@ -1,31 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-26T02:58:21+02:00",
-    "date": "26/06/2026",
-    "time": "02:58:21",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇹🇳Túnez 1-3 Países Bajos🇳🇱",
-        "name": "Túnez-Países Bajos",
-        "date": "2026-06-26",
-        "fields": [
-          "marcador",
-          "jugado"
-        ],
-        "old": {
-          "marcador": "0-0",
-          "jugado": "no"
-        },
-        "new": {
-          "marcador": "1-3",
-          "jugado": "sí"
-        }
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-26T03:00:48+02:00",
     "date": "26/06/2026",
     "time": "03:00:48",
@@ -17395,6 +17369,14 @@
     "ts_iso": "2026-07-02T22:06:29+02:00",
     "date": "02/07/2026",
     "time": "22:06:29",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-02T22:08:41+02:00",
+    "date": "02/07/2026",
+    "time": "22:08:41",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
