@@ -1,16 +1,19 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "02/07/2026 02:38",
+    "generated": "02/07/2026 02:40",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-07-02T04:38",
       "last_updated_time": "04:38",
       "last_updated_date": "02/07/2026",
-      "next_update_iso": "2026-07-02T04:40",
-      "next_update_time": "04:40",
-      "next_update_date": "02/07/2026"
+      "next_update_iso": "2026-07-02T04:45",
+      "next_update_time": "04:45",
+      "next_update_date": "02/07/2026",
+      "last_checked_iso": "2026-07-02T04:40",
+      "last_checked_time": "04:40",
+      "last_checked_date": "02/07/2026"
     },
     "players": [
       "JUANCHO",
@@ -402,6 +405,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-02T04:40:38+02:00",
+        "date": "02/07/2026",
+        "time": "04:40:38",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-07-02T04:24:27+02:00",
         "date": "02/07/2026",
@@ -4660,14 +4671,6 @@
         "ts_iso": "2026-06-30T22:44:30+02:00",
         "date": "30/06/2026",
         "time": "22:44:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T22:43:12+02:00",
-        "date": "30/06/2026",
-        "time": "22:43:12",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
