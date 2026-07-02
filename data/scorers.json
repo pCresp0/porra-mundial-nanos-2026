@@ -1731,5 +1731,81 @@
       "penalty": false,
       "team": "home"
     }
+  ],
+  "Inglaterra-RD Congo": [
+    {
+      "player": "Hri Kin",
+      "minute": "75'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Hri Kin",
+      "minute": "86'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Braian Sipnga",
+      "minute": "7'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Estados Unidos-Bosnia y Herzegovina": [
+    {
+      "player": "Flvrin Balvgan",
+      "minute": "45'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Malik Tillman",
+      "minute": "82'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
+  "Bélgica-Senegal": [
+    {
+      "player": "Romelu Lukaku",
+      "minute": "86'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Youri Tielemans",
+      "minute": "89'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Youri Tielemans 125(P)'",
+      "minute": "",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Habib Diarra",
+      "minute": "25'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Ismaïla Sarr",
+      "minute": "51'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
   ]
 }

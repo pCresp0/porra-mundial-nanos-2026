@@ -21,11 +21,9 @@
       "CRESPO"
     ],
     "live": {
-      "active": true,
-      "count": 1,
-      "matches": [
-        "Inglaterra-RD Congo"
-      ]
+      "active": false,
+      "count": 0,
+      "matches": []
     },
     "colors": {
       "JUANCHO": "#F5C518",
@@ -98,30 +96,6 @@
       "L": 6
     },
     "visits_log": [
-      {
-        "ts_iso": "2026-06-21T18:05:43+02:00",
-        "total": 986
-      },
-      {
-        "ts_iso": "2026-06-21T20:45:22+02:00",
-        "total": 1011
-      },
-      {
-        "ts_iso": "2026-06-21T22:44:45+02:00",
-        "total": 1023
-      },
-      {
-        "ts_iso": "2026-06-22T00:21:26+02:00",
-        "total": 1029
-      },
-      {
-        "ts_iso": "2026-06-22T02:19:59+02:00",
-        "total": 1038
-      },
-      {
-        "ts_iso": "2026-06-22T08:38:50+02:00",
-        "total": 1044
-      },
       {
         "ts_iso": "2026-06-22T15:02:32+02:00",
         "total": 1062
@@ -401,9 +375,2290 @@
       {
         "ts_iso": "2026-07-01T15:39:32+02:00",
         "total": 1638
+      },
+      {
+        "ts_iso": "2026-07-01T18:36:30+02:00",
+        "total": 1654
+      },
+      {
+        "ts_iso": "2026-07-01T21:06:43+02:00",
+        "total": 1660
+      },
+      {
+        "ts_iso": "2026-07-01T23:44:30+02:00",
+        "total": 1674
+      },
+      {
+        "ts_iso": "2026-07-02T01:38:08+02:00",
+        "total": 1681
+      },
+      {
+        "ts_iso": "2026-07-02T06:17:12+02:00",
+        "total": 1683
+      },
+      {
+        "ts_iso": "2026-07-02T10:21:02+02:00",
+        "total": 1694
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-02T11:38:29+02:00",
+        "date": "02/07/2026",
+        "time": "11:38:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T11:22:29+02:00",
+        "date": "02/07/2026",
+        "time": "11:22:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T11:06:29+02:00",
+        "date": "02/07/2026",
+        "time": "11:06:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T10:50:39+02:00",
+        "date": "02/07/2026",
+        "time": "10:50:39",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T10:34:30+02:00",
+        "date": "02/07/2026",
+        "time": "10:34:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T10:18:30+02:00",
+        "date": "02/07/2026",
+        "time": "10:18:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T10:02:29+02:00",
+        "date": "02/07/2026",
+        "time": "10:02:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T09:46:31+02:00",
+        "date": "02/07/2026",
+        "time": "09:46:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T09:29:40+02:00",
+        "date": "02/07/2026",
+        "time": "09:29:40",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T09:12:36+02:00",
+        "date": "02/07/2026",
+        "time": "09:12:36",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T08:56:34+02:00",
+        "date": "02/07/2026",
+        "time": "08:56:34",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T08:40:39+02:00",
+        "date": "02/07/2026",
+        "time": "08:40:39",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T08:24:32+02:00",
+        "date": "02/07/2026",
+        "time": "08:24:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T08:08:28+02:00",
+        "date": "02/07/2026",
+        "time": "08:08:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T07:52:32+02:00",
+        "date": "02/07/2026",
+        "time": "07:52:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T07:36:28+02:00",
+        "date": "02/07/2026",
+        "time": "07:36:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T07:20:41+02:00",
+        "date": "02/07/2026",
+        "time": "07:20:41",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T07:04:27+02:00",
+        "date": "02/07/2026",
+        "time": "07:04:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T06:48:36+02:00",
+        "date": "02/07/2026",
+        "time": "06:48:36",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T06:32:28+02:00",
+        "date": "02/07/2026",
+        "time": "06:32:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T06:16:31+02:00",
+        "date": "02/07/2026",
+        "time": "06:16:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T06:00:59+02:00",
+        "date": "02/07/2026",
+        "time": "06:00:59",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T05:44:30+02:00",
+        "date": "02/07/2026",
+        "time": "05:44:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T05:28:26+02:00",
+        "date": "02/07/2026",
+        "time": "05:28:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T05:12:29+02:00",
+        "date": "02/07/2026",
+        "time": "05:12:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T04:56:27+02:00",
+        "date": "02/07/2026",
+        "time": "04:56:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T04:40:38+02:00",
+        "date": "02/07/2026",
+        "time": "04:40:38",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T04:24:27+02:00",
+        "date": "02/07/2026",
+        "time": "04:24:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T04:08:32+02:00",
+        "date": "02/07/2026",
+        "time": "04:08:32",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇺🇸Estados Unidos 2-0 Bosnia y Herzegovina🇧🇦",
+            "name": "Estados Unidos-Bosnia y Herzegovina",
+            "date": "2026-07-02",
+            "fields": [
+              "marcador",
+              "jugado"
+            ],
+            "old": {
+              "marcador": "sin resultado",
+              "jugado": "no"
+            },
+            "new": {
+              "marcador": "2-0",
+              "jugado": "sí"
+            }
+          }
+        ]
+      },
+      {
+        "ts_iso": "2026-07-02T04:06:26+02:00",
+        "date": "02/07/2026",
+        "time": "04:06:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T04:04:25+02:00",
+        "date": "02/07/2026",
+        "time": "04:04:25",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T04:02:27+02:00",
+        "date": "02/07/2026",
+        "time": "04:02:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T04:01:02+02:00",
+        "date": "02/07/2026",
+        "time": "04:01:02",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:58:30+02:00",
+        "date": "02/07/2026",
+        "time": "03:58:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:56:31+02:00",
+        "date": "02/07/2026",
+        "time": "03:56:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:54:32+02:00",
+        "date": "02/07/2026",
+        "time": "03:54:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:52:27+02:00",
+        "date": "02/07/2026",
+        "time": "03:52:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:50:36+02:00",
+        "date": "02/07/2026",
+        "time": "03:50:36",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇺🇸Estados Unidos ?-? Bosnia y Herzegovina🇧🇦",
+            "name": "Estados Unidos-Bosnia y Herzegovina",
+            "date": "2026-07-02",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
+      {
+        "ts_iso": "2026-07-02T03:48:26+02:00",
+        "date": "02/07/2026",
+        "time": "03:48:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:47:04+02:00",
+        "date": "02/07/2026",
+        "time": "03:47:04",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:44:27+02:00",
+        "date": "02/07/2026",
+        "time": "03:44:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:42:28+02:00",
+        "date": "02/07/2026",
+        "time": "03:42:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:40:39+02:00",
+        "date": "02/07/2026",
+        "time": "03:40:39",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:38:28+02:00",
+        "date": "02/07/2026",
+        "time": "03:38:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:36:28+02:00",
+        "date": "02/07/2026",
+        "time": "03:36:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:34:26+02:00",
+        "date": "02/07/2026",
+        "time": "03:34:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:32:26+02:00",
+        "date": "02/07/2026",
+        "time": "03:32:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:30:57+02:00",
+        "date": "02/07/2026",
+        "time": "03:30:57",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:28:27+02:00",
+        "date": "02/07/2026",
+        "time": "03:28:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:26:30+02:00",
+        "date": "02/07/2026",
+        "time": "03:26:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:24:31+02:00",
+        "date": "02/07/2026",
+        "time": "03:24:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:22:29+02:00",
+        "date": "02/07/2026",
+        "time": "03:22:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:20:37+02:00",
+        "date": "02/07/2026",
+        "time": "03:20:37",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:18:29+02:00",
+        "date": "02/07/2026",
+        "time": "03:18:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:16:28+02:00",
+        "date": "02/07/2026",
+        "time": "03:16:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:15:04+02:00",
+        "date": "02/07/2026",
+        "time": "03:15:04",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:12:26+02:00",
+        "date": "02/07/2026",
+        "time": "03:12:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:10:37+02:00",
+        "date": "02/07/2026",
+        "time": "03:10:37",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:08:26+02:00",
+        "date": "02/07/2026",
+        "time": "03:08:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:06:31+02:00",
+        "date": "02/07/2026",
+        "time": "03:06:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:04:29+02:00",
+        "date": "02/07/2026",
+        "time": "03:04:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:02:27+02:00",
+        "date": "02/07/2026",
+        "time": "03:02:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T03:00:59+02:00",
+        "date": "02/07/2026",
+        "time": "03:00:59",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:58:27+02:00",
+        "date": "02/07/2026",
+        "time": "02:58:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:56:27+02:00",
+        "date": "02/07/2026",
+        "time": "02:56:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:54:25+02:00",
+        "date": "02/07/2026",
+        "time": "02:54:25",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:52:29+02:00",
+        "date": "02/07/2026",
+        "time": "02:52:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:50:37+02:00",
+        "date": "02/07/2026",
+        "time": "02:50:37",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:48:26+02:00",
+        "date": "02/07/2026",
+        "time": "02:48:26",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇺🇸Estados Unidos ?-? Bosnia y Herzegovina🇧🇦",
+            "name": "Estados Unidos-Bosnia y Herzegovina",
+            "date": "2026-07-02",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
+      {
+        "ts_iso": "2026-07-02T02:46:27+02:00",
+        "date": "02/07/2026",
+        "time": "02:46:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:44:27+02:00",
+        "date": "02/07/2026",
+        "time": "02:44:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:43:08+02:00",
+        "date": "02/07/2026",
+        "time": "02:43:08",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:40:38+02:00",
+        "date": "02/07/2026",
+        "time": "02:40:38",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:38:32+02:00",
+        "date": "02/07/2026",
+        "time": "02:38:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:36:25+02:00",
+        "date": "02/07/2026",
+        "time": "02:36:25",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:34:26+02:00",
+        "date": "02/07/2026",
+        "time": "02:34:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:32:28+02:00",
+        "date": "02/07/2026",
+        "time": "02:32:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:30:48+02:00",
+        "date": "02/07/2026",
+        "time": "02:30:48",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:28:30+02:00",
+        "date": "02/07/2026",
+        "time": "02:28:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:26:29+02:00",
+        "date": "02/07/2026",
+        "time": "02:26:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:24:28+02:00",
+        "date": "02/07/2026",
+        "time": "02:24:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:22:30+02:00",
+        "date": "02/07/2026",
+        "time": "02:22:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:20:35+02:00",
+        "date": "02/07/2026",
+        "time": "02:20:35",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:18:29+02:00",
+        "date": "02/07/2026",
+        "time": "02:18:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:16:31+02:00",
+        "date": "02/07/2026",
+        "time": "02:16:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:14:30+02:00",
+        "date": "02/07/2026",
+        "time": "02:14:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:12:27+02:00",
+        "date": "02/07/2026",
+        "time": "02:12:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:11:17+02:00",
+        "date": "02/07/2026",
+        "time": "02:11:17",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:08:26+02:00",
+        "date": "02/07/2026",
+        "time": "02:08:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:06:30+02:00",
+        "date": "02/07/2026",
+        "time": "02:06:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:04:31+02:00",
+        "date": "02/07/2026",
+        "time": "02:04:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T02:02:29+02:00",
+        "date": "02/07/2026",
+        "time": "02:02:29",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇺🇸Estados Unidos ?-? Bosnia y Herzegovina🇧🇦",
+            "name": "Estados Unidos-Bosnia y Herzegovina",
+            "date": "2026-07-02",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
+      {
+        "ts_iso": "2026-07-02T02:01:00+02:00",
+        "date": "02/07/2026",
+        "time": "02:01:00",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T01:58:27+02:00",
+        "date": "02/07/2026",
+        "time": "01:58:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T01:56:26+02:00",
+        "date": "02/07/2026",
+        "time": "01:56:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T01:54:33+02:00",
+        "date": "02/07/2026",
+        "time": "01:54:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T01:52:36+02:00",
+        "date": "02/07/2026",
+        "time": "01:52:36",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T01:50:38+02:00",
+        "date": "02/07/2026",
+        "time": "01:50:38",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T01:48:29+02:00",
+        "date": "02/07/2026",
+        "time": "01:48:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T01:46:28+02:00",
+        "date": "02/07/2026",
+        "time": "01:46:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T01:44:27+02:00",
+        "date": "02/07/2026",
+        "time": "01:44:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T01:42:28+02:00",
+        "date": "02/07/2026",
+        "time": "01:42:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T01:41:15+02:00",
+        "date": "02/07/2026",
+        "time": "01:41:15",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T01:38:25+02:00",
+        "date": "02/07/2026",
+        "time": "01:38:25",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T01:36:25+02:00",
+        "date": "02/07/2026",
+        "time": "01:36:25",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T01:34:28+02:00",
+        "date": "02/07/2026",
+        "time": "01:34:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T01:32:30+02:00",
+        "date": "02/07/2026",
+        "time": "01:32:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T01:30:51+02:00",
+        "date": "02/07/2026",
+        "time": "01:30:51",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T01:24:28+02:00",
+        "date": "02/07/2026",
+        "time": "01:24:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T01:08:30+02:00",
+        "date": "02/07/2026",
+        "time": "01:08:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:52:27+02:00",
+        "date": "02/07/2026",
+        "time": "00:52:27",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇧🇪Bélgica 3-2 Senegal🇸🇳",
+            "name": "Bélgica-Senegal",
+            "date": "2026-07-01",
+            "fields": [
+              "marcador",
+              "jugado"
+            ],
+            "old": {
+              "marcador": "sin resultado",
+              "jugado": "no"
+            },
+            "new": {
+              "marcador": "3-2",
+              "jugado": "sí"
+            }
+          }
+        ]
+      },
+      {
+        "ts_iso": "2026-07-02T00:50:38+02:00",
+        "date": "02/07/2026",
+        "time": "00:50:38",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:48:27+02:00",
+        "date": "02/07/2026",
+        "time": "00:48:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:46:31+02:00",
+        "date": "02/07/2026",
+        "time": "00:46:31",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇧🇪Bélgica ?-? Senegal🇸🇳",
+            "name": "Bélgica-Senegal",
+            "date": "2026-07-01",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
+      {
+        "ts_iso": "2026-07-02T00:44:33+02:00",
+        "date": "02/07/2026",
+        "time": "00:44:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:42:28+02:00",
+        "date": "02/07/2026",
+        "time": "00:42:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:40:39+02:00",
+        "date": "02/07/2026",
+        "time": "00:40:39",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:39:14+02:00",
+        "date": "02/07/2026",
+        "time": "00:39:14",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:36:28+02:00",
+        "date": "02/07/2026",
+        "time": "00:36:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:34:29+02:00",
+        "date": "02/07/2026",
+        "time": "00:34:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:32:26+02:00",
+        "date": "02/07/2026",
+        "time": "00:32:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:30:49+02:00",
+        "date": "02/07/2026",
+        "time": "00:30:49",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:28:27+02:00",
+        "date": "02/07/2026",
+        "time": "00:28:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:26:27+02:00",
+        "date": "02/07/2026",
+        "time": "00:26:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:24:30+02:00",
+        "date": "02/07/2026",
+        "time": "00:24:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:22:26+02:00",
+        "date": "02/07/2026",
+        "time": "00:22:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:20:33+02:00",
+        "date": "02/07/2026",
+        "time": "00:20:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:18:30+02:00",
+        "date": "02/07/2026",
+        "time": "00:18:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:16:31+02:00",
+        "date": "02/07/2026",
+        "time": "00:16:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:14:28+02:00",
+        "date": "02/07/2026",
+        "time": "00:14:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:12:30+02:00",
+        "date": "02/07/2026",
+        "time": "00:12:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:10:38+02:00",
+        "date": "02/07/2026",
+        "time": "00:10:38",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:08:56+02:00",
+        "date": "02/07/2026",
+        "time": "00:08:56",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:06:27+02:00",
+        "date": "02/07/2026",
+        "time": "00:06:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:04:27+02:00",
+        "date": "02/07/2026",
+        "time": "00:04:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:02:28+02:00",
+        "date": "02/07/2026",
+        "time": "00:02:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-02T00:00:57+02:00",
+        "date": "02/07/2026",
+        "time": "00:00:57",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:58:28+02:00",
+        "date": "01/07/2026",
+        "time": "23:58:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:56:27+02:00",
+        "date": "01/07/2026",
+        "time": "23:56:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:54:26+02:00",
+        "date": "01/07/2026",
+        "time": "23:54:26",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇧🇪Bélgica ?-? Senegal🇸🇳",
+            "name": "Bélgica-Senegal",
+            "date": "2026-07-01",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
+      {
+        "ts_iso": "2026-07-01T23:52:29+02:00",
+        "date": "01/07/2026",
+        "time": "23:52:29",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇧🇪Bélgica ?-? Senegal🇸🇳",
+            "name": "Bélgica-Senegal",
+            "date": "2026-07-01",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
+      {
+        "ts_iso": "2026-07-01T23:50:36+02:00",
+        "date": "01/07/2026",
+        "time": "23:50:36",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:48:30+02:00",
+        "date": "01/07/2026",
+        "time": "23:48:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:46:29+02:00",
+        "date": "01/07/2026",
+        "time": "23:46:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:44:32+02:00",
+        "date": "01/07/2026",
+        "time": "23:44:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:42:29+02:00",
+        "date": "01/07/2026",
+        "time": "23:42:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:40:36+02:00",
+        "date": "01/07/2026",
+        "time": "23:40:36",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:38:27+02:00",
+        "date": "01/07/2026",
+        "time": "23:38:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:37:09+02:00",
+        "date": "01/07/2026",
+        "time": "23:37:09",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:34:28+02:00",
+        "date": "01/07/2026",
+        "time": "23:34:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:32:30+02:00",
+        "date": "01/07/2026",
+        "time": "23:32:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:30:57+02:00",
+        "date": "01/07/2026",
+        "time": "23:30:57",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:28:26+02:00",
+        "date": "01/07/2026",
+        "time": "23:28:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:26:30+02:00",
+        "date": "01/07/2026",
+        "time": "23:26:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:24:27+02:00",
+        "date": "01/07/2026",
+        "time": "23:24:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:22:31+02:00",
+        "date": "01/07/2026",
+        "time": "23:22:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:20:40+02:00",
+        "date": "01/07/2026",
+        "time": "23:20:40",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:18:29+02:00",
+        "date": "01/07/2026",
+        "time": "23:18:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:16:29+02:00",
+        "date": "01/07/2026",
+        "time": "23:16:29",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇧🇪Bélgica ?-? Senegal🇸🇳",
+            "name": "Bélgica-Senegal",
+            "date": "2026-07-01",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
+      {
+        "ts_iso": "2026-07-01T23:14:29+02:00",
+        "date": "01/07/2026",
+        "time": "23:14:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:12:27+02:00",
+        "date": "01/07/2026",
+        "time": "23:12:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:10:43+02:00",
+        "date": "01/07/2026",
+        "time": "23:10:43",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:08:25+02:00",
+        "date": "01/07/2026",
+        "time": "23:08:25",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:06:27+02:00",
+        "date": "01/07/2026",
+        "time": "23:06:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:05:15+02:00",
+        "date": "01/07/2026",
+        "time": "23:05:15",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:02:37+02:00",
+        "date": "01/07/2026",
+        "time": "23:02:37",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T23:01:09+02:00",
+        "date": "01/07/2026",
+        "time": "23:01:09",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:58:33+02:00",
+        "date": "01/07/2026",
+        "time": "22:58:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:56:28+02:00",
+        "date": "01/07/2026",
+        "time": "22:56:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:54:32+02:00",
+        "date": "01/07/2026",
+        "time": "22:54:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:52:30+02:00",
+        "date": "01/07/2026",
+        "time": "22:52:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:50:37+02:00",
+        "date": "01/07/2026",
+        "time": "22:50:37",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:48:32+02:00",
+        "date": "01/07/2026",
+        "time": "22:48:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:46:35+02:00",
+        "date": "01/07/2026",
+        "time": "22:46:35",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:44:31+02:00",
+        "date": "01/07/2026",
+        "time": "22:44:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:42:26+02:00",
+        "date": "01/07/2026",
+        "time": "22:42:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:40:46+02:00",
+        "date": "01/07/2026",
+        "time": "22:40:46",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:38:33+02:00",
+        "date": "01/07/2026",
+        "time": "22:38:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:36:26+02:00",
+        "date": "01/07/2026",
+        "time": "22:36:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:34:31+02:00",
+        "date": "01/07/2026",
+        "time": "22:34:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:33:20+02:00",
+        "date": "01/07/2026",
+        "time": "22:33:20",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:30:49+02:00",
+        "date": "01/07/2026",
+        "time": "22:30:49",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:28:29+02:00",
+        "date": "01/07/2026",
+        "time": "22:28:29",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇧🇪Bélgica ?-? Senegal🇸🇳",
+            "name": "Bélgica-Senegal",
+            "date": "2026-07-01",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
+      {
+        "ts_iso": "2026-07-01T22:26:30+02:00",
+        "date": "01/07/2026",
+        "time": "22:26:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:24:30+02:00",
+        "date": "01/07/2026",
+        "time": "22:24:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:22:32+02:00",
+        "date": "01/07/2026",
+        "time": "22:22:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:20:40+02:00",
+        "date": "01/07/2026",
+        "time": "22:20:40",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:18:30+02:00",
+        "date": "01/07/2026",
+        "time": "22:18:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:16:27+02:00",
+        "date": "01/07/2026",
+        "time": "22:16:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:14:27+02:00",
+        "date": "01/07/2026",
+        "time": "22:14:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:12:29+02:00",
+        "date": "01/07/2026",
+        "time": "22:12:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:10:36+02:00",
+        "date": "01/07/2026",
+        "time": "22:10:36",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:08:27+02:00",
+        "date": "01/07/2026",
+        "time": "22:08:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:06:31+02:00",
+        "date": "01/07/2026",
+        "time": "22:06:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:04:31+02:00",
+        "date": "01/07/2026",
+        "time": "22:04:31",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇧🇪Bélgica ?-? Senegal🇸🇳",
+            "name": "Bélgica-Senegal",
+            "date": "2026-07-01",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
+      {
+        "ts_iso": "2026-07-01T22:02:58+02:00",
+        "date": "01/07/2026",
+        "time": "22:02:58",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T22:01:00+02:00",
+        "date": "01/07/2026",
+        "time": "22:01:00",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T21:58:30+02:00",
+        "date": "01/07/2026",
+        "time": "21:58:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T21:56:28+02:00",
+        "date": "01/07/2026",
+        "time": "21:56:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T21:54:28+02:00",
+        "date": "01/07/2026",
+        "time": "21:54:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T21:52:29+02:00",
+        "date": "01/07/2026",
+        "time": "21:52:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T21:50:40+02:00",
+        "date": "01/07/2026",
+        "time": "21:50:40",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T21:48:29+02:00",
+        "date": "01/07/2026",
+        "time": "21:48:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T21:46:27+02:00",
+        "date": "01/07/2026",
+        "time": "21:46:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T21:44:30+02:00",
+        "date": "01/07/2026",
+        "time": "21:44:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T21:42:36+02:00",
+        "date": "01/07/2026",
+        "time": "21:42:36",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T21:40:39+02:00",
+        "date": "01/07/2026",
+        "time": "21:40:39",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T21:38:31+02:00",
+        "date": "01/07/2026",
+        "time": "21:38:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T21:36:33+02:00",
+        "date": "01/07/2026",
+        "time": "21:36:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T21:34:30+02:00",
+        "date": "01/07/2026",
+        "time": "21:34:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T21:32:49+02:00",
+        "date": "01/07/2026",
+        "time": "21:32:49",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T21:30:56+02:00",
+        "date": "01/07/2026",
+        "time": "21:30:56",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T21:24:34+02:00",
+        "date": "01/07/2026",
+        "time": "21:24:34",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T21:08:28+02:00",
+        "date": "01/07/2026",
+        "time": "21:08:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T20:52:33+02:00",
+        "date": "01/07/2026",
+        "time": "20:52:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T20:36:32+02:00",
+        "date": "01/07/2026",
+        "time": "20:36:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T20:19:51+02:00",
+        "date": "01/07/2026",
+        "time": "20:19:51",
+        "updated": false,
+        "trigger": "schedule",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T20:04:28+02:00",
+        "date": "01/07/2026",
+        "time": "20:04:28",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇬🇧Inglaterra 2-1 RD Congo🇨🇩",
+            "name": "Inglaterra-RD Congo",
+            "date": "2026-07-01",
+            "fields": [
+              "marcador",
+              "jugado"
+            ],
+            "old": {
+              "marcador": "sin resultado",
+              "jugado": "no"
+            },
+            "new": {
+              "marcador": "2-1",
+              "jugado": "sí"
+            }
+          }
+        ]
+      },
+      {
+        "ts_iso": "2026-07-01T20:02:38+02:00",
+        "date": "01/07/2026",
+        "time": "20:02:38",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T20:01:27+02:00",
+        "date": "01/07/2026",
+        "time": "20:01:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:58:33+02:00",
+        "date": "01/07/2026",
+        "time": "19:58:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:56:33+02:00",
+        "date": "01/07/2026",
+        "time": "19:56:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:54:29+02:00",
+        "date": "01/07/2026",
+        "time": "19:54:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:52:30+02:00",
+        "date": "01/07/2026",
+        "time": "19:52:30",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇬🇧Inglaterra ?-? RD Congo🇨🇩",
+            "name": "Inglaterra-RD Congo",
+            "date": "2026-07-01",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
+      {
+        "ts_iso": "2026-07-01T19:50:39+02:00",
+        "date": "01/07/2026",
+        "time": "19:50:39",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:48:27+02:00",
+        "date": "01/07/2026",
+        "time": "19:48:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:46:34+02:00",
+        "date": "01/07/2026",
+        "time": "19:46:34",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:44:37+02:00",
+        "date": "01/07/2026",
+        "time": "19:44:37",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:42:34+02:00",
+        "date": "01/07/2026",
+        "time": "19:42:34",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:40:37+02:00",
+        "date": "01/07/2026",
+        "time": "19:40:37",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇬🇧Inglaterra ?-? RD Congo🇨🇩",
+            "name": "Inglaterra-RD Congo",
+            "date": "2026-07-01",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
+      {
+        "ts_iso": "2026-07-01T19:38:28+02:00",
+        "date": "01/07/2026",
+        "time": "19:38:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:36:32+02:00",
+        "date": "01/07/2026",
+        "time": "19:36:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:34:32+02:00",
+        "date": "01/07/2026",
+        "time": "19:34:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:32:29+02:00",
+        "date": "01/07/2026",
+        "time": "19:32:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:31:24+02:00",
+        "date": "01/07/2026",
+        "time": "19:31:24",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:28:26+02:00",
+        "date": "01/07/2026",
+        "time": "19:28:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:26:28+02:00",
+        "date": "01/07/2026",
+        "time": "19:26:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:24:26+02:00",
+        "date": "01/07/2026",
+        "time": "19:24:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:22:30+02:00",
+        "date": "01/07/2026",
+        "time": "19:22:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:20:36+02:00",
+        "date": "01/07/2026",
+        "time": "19:20:36",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:18:31+02:00",
+        "date": "01/07/2026",
+        "time": "19:18:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:16:26+02:00",
+        "date": "01/07/2026",
+        "time": "19:16:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:14:35+02:00",
+        "date": "01/07/2026",
+        "time": "19:14:35",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:12:32+02:00",
+        "date": "01/07/2026",
+        "time": "19:12:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:10:41+02:00",
+        "date": "01/07/2026",
+        "time": "19:10:41",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:08:28+02:00",
+        "date": "01/07/2026",
+        "time": "19:08:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:06:29+02:00",
+        "date": "01/07/2026",
+        "time": "19:06:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:04:30+02:00",
+        "date": "01/07/2026",
+        "time": "19:04:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:02:33+02:00",
+        "date": "01/07/2026",
+        "time": "19:02:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T19:01:05+02:00",
+        "date": "01/07/2026",
+        "time": "19:01:05",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T18:59:11+02:00",
+        "date": "01/07/2026",
+        "time": "18:59:11",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T18:56:31+02:00",
+        "date": "01/07/2026",
+        "time": "18:56:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T18:54:31+02:00",
+        "date": "01/07/2026",
+        "time": "18:54:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T18:52:33+02:00",
+        "date": "01/07/2026",
+        "time": "18:52:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T18:50:35+02:00",
+        "date": "01/07/2026",
+        "time": "18:50:35",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T18:48:30+02:00",
+        "date": "01/07/2026",
+        "time": "18:48:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T18:46:26+02:00",
+        "date": "01/07/2026",
+        "time": "18:46:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T18:44:29+02:00",
+        "date": "01/07/2026",
+        "time": "18:44:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T18:42:26+02:00",
+        "date": "01/07/2026",
+        "time": "18:42:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T18:40:41+02:00",
+        "date": "01/07/2026",
+        "time": "18:40:41",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T18:38:26+02:00",
+        "date": "01/07/2026",
+        "time": "18:38:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T18:36:26+02:00",
+        "date": "01/07/2026",
+        "time": "18:36:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-01T18:34:06+02:00",
+        "date": "01/07/2026",
+        "time": "18:34:06",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
       {
         "ts_iso": "2026-07-01T18:32:28+02:00",
         "date": "01/07/2026",
@@ -2407,2231 +4662,19 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T23:34:28+02:00",
-        "date": "30/06/2026",
-        "time": "23:34:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T23:32:30+02:00",
-        "date": "30/06/2026",
-        "time": "23:32:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T23:30:49+02:00",
-        "date": "30/06/2026",
-        "time": "23:30:49",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T23:28:30+02:00",
-        "date": "30/06/2026",
-        "time": "23:28:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T23:26:32+02:00",
-        "date": "30/06/2026",
-        "time": "23:26:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T23:24:31+02:00",
-        "date": "30/06/2026",
-        "time": "23:24:31",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T23:22:27+02:00",
-        "date": "30/06/2026",
-        "time": "23:22:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T23:20:39+02:00",
-        "date": "30/06/2026",
-        "time": "23:20:39",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T23:18:31+02:00",
-        "date": "30/06/2026",
-        "time": "23:18:31",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T23:16:28+02:00",
-        "date": "30/06/2026",
-        "time": "23:16:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T23:14:53+02:00",
-        "date": "30/06/2026",
-        "time": "23:14:53",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T23:12:30+02:00",
-        "date": "30/06/2026",
-        "time": "23:12:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T23:10:46+02:00",
-        "date": "30/06/2026",
-        "time": "23:10:46",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T23:08:29+02:00",
-        "date": "30/06/2026",
-        "time": "23:08:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T23:06:29+02:00",
-        "date": "30/06/2026",
-        "time": "23:06:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T23:04:29+02:00",
-        "date": "30/06/2026",
-        "time": "23:04:29",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇫🇷Francia ?-? Suecia🇸🇪",
-            "name": "Francia-Suecia",
-            "date": "2026-06-30",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
-      },
-      {
-        "ts_iso": "2026-06-30T23:02:27+02:00",
-        "date": "30/06/2026",
-        "time": "23:02:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T23:00:59+02:00",
-        "date": "30/06/2026",
-        "time": "23:00:59",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T22:58:28+02:00",
-        "date": "30/06/2026",
-        "time": "22:58:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T22:56:33+02:00",
-        "date": "30/06/2026",
-        "time": "22:56:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T22:54:30+02:00",
-        "date": "30/06/2026",
-        "time": "22:54:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T22:52:26+02:00",
-        "date": "30/06/2026",
-        "time": "22:52:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T22:50:37+02:00",
-        "date": "30/06/2026",
-        "time": "22:50:37",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T22:48:26+02:00",
-        "date": "30/06/2026",
-        "time": "22:48:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T22:46:29+02:00",
-        "date": "30/06/2026",
-        "time": "22:46:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T22:44:30+02:00",
-        "date": "30/06/2026",
-        "time": "22:44:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T22:43:12+02:00",
-        "date": "30/06/2026",
-        "time": "22:43:12",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T22:40:36+02:00",
-        "date": "30/06/2026",
-        "time": "22:40:36",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T22:38:28+02:00",
-        "date": "30/06/2026",
-        "time": "22:38:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T22:36:29+02:00",
-        "date": "30/06/2026",
-        "time": "22:36:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T22:34:28+02:00",
-        "date": "30/06/2026",
-        "time": "22:34:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T22:32:33+02:00",
-        "date": "30/06/2026",
-        "time": "22:32:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T22:30:53+02:00",
-        "date": "30/06/2026",
-        "time": "22:30:53",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T22:20:36+02:00",
-        "date": "30/06/2026",
-        "time": "22:20:36",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T22:04:30+02:00",
-        "date": "30/06/2026",
-        "time": "22:04:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T21:48:30+02:00",
-        "date": "30/06/2026",
-        "time": "21:48:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T21:32:29+02:00",
-        "date": "30/06/2026",
-        "time": "21:32:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T21:16:29+02:00",
-        "date": "30/06/2026",
-        "time": "21:16:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T21:01:03+02:00",
-        "date": "30/06/2026",
-        "time": "21:01:03",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇨🇮Costa de Marfil 1-2 Noruega🇳🇴",
-            "name": "Costa de Marfil-Noruega",
-            "date": "2026-06-30",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "sin resultado",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "1-2",
-              "jugado": "sí"
-            }
-          }
-        ]
-      },
-      {
-        "ts_iso": "2026-06-30T20:58:27+02:00",
-        "date": "30/06/2026",
-        "time": "20:58:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:56:27+02:00",
-        "date": "30/06/2026",
-        "time": "20:56:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:54:27+02:00",
-        "date": "30/06/2026",
-        "time": "20:54:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:52:28+02:00",
-        "date": "30/06/2026",
-        "time": "20:52:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:50:40+02:00",
-        "date": "30/06/2026",
-        "time": "20:50:40",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:48:29+02:00",
-        "date": "30/06/2026",
-        "time": "20:48:29",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇨🇮Costa de Marfil ?-? Noruega🇳🇴",
-            "name": "Costa de Marfil-Noruega",
-            "date": "2026-06-30",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
-      },
-      {
-        "ts_iso": "2026-06-30T20:46:27+02:00",
-        "date": "30/06/2026",
-        "time": "20:46:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:44:27+02:00",
-        "date": "30/06/2026",
-        "time": "20:44:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:42:33+02:00",
-        "date": "30/06/2026",
-        "time": "20:42:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:40:41+02:00",
-        "date": "30/06/2026",
-        "time": "20:40:41",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:38:29+02:00",
-        "date": "30/06/2026",
-        "time": "20:38:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:36:50+02:00",
-        "date": "30/06/2026",
-        "time": "20:36:50",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇨🇮Costa de Marfil ?-? Noruega🇳🇴",
-            "name": "Costa de Marfil-Noruega",
-            "date": "2026-06-30",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
-      },
-      {
-        "ts_iso": "2026-06-30T20:34:30+02:00",
-        "date": "30/06/2026",
-        "time": "20:34:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:32:34+02:00",
-        "date": "30/06/2026",
-        "time": "20:32:34",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:30:49+02:00",
-        "date": "30/06/2026",
-        "time": "20:30:49",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:28:26+02:00",
-        "date": "30/06/2026",
-        "time": "20:28:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:26:27+02:00",
-        "date": "30/06/2026",
-        "time": "20:26:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:24:31+02:00",
-        "date": "30/06/2026",
-        "time": "20:24:31",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:22:27+02:00",
-        "date": "30/06/2026",
-        "time": "20:22:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:20:40+02:00",
-        "date": "30/06/2026",
-        "time": "20:20:40",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:18:31+02:00",
-        "date": "30/06/2026",
-        "time": "20:18:31",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:16:30+02:00",
-        "date": "30/06/2026",
-        "time": "20:16:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:14:34+02:00",
-        "date": "30/06/2026",
-        "time": "20:14:34",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:12:30+02:00",
-        "date": "30/06/2026",
-        "time": "20:12:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:10:38+02:00",
-        "date": "30/06/2026",
-        "time": "20:10:38",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:08:19+02:00",
-        "date": "30/06/2026",
-        "time": "20:08:19",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:06:30+02:00",
-        "date": "30/06/2026",
-        "time": "20:06:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:05:15+02:00",
-        "date": "30/06/2026",
-        "time": "20:05:15",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:02:27+02:00",
-        "date": "30/06/2026",
-        "time": "20:02:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:00:57+02:00",
-        "date": "30/06/2026",
-        "time": "20:00:57",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:58:36+02:00",
-        "date": "30/06/2026",
-        "time": "19:58:36",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:56:28+02:00",
-        "date": "30/06/2026",
-        "time": "19:56:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:54:34+02:00",
-        "date": "30/06/2026",
-        "time": "19:54:34",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:52:30+02:00",
-        "date": "30/06/2026",
-        "time": "19:52:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:50:44+02:00",
-        "date": "30/06/2026",
-        "time": "19:50:44",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:48:27+02:00",
-        "date": "30/06/2026",
-        "time": "19:48:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:46:38+02:00",
-        "date": "30/06/2026",
-        "time": "19:46:38",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:44:34+02:00",
-        "date": "30/06/2026",
-        "time": "19:44:34",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:42:27+02:00",
-        "date": "30/06/2026",
-        "time": "19:42:27",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇨🇮Costa de Marfil ?-? Noruega🇳🇴",
-            "name": "Costa de Marfil-Noruega",
-            "date": "2026-06-30",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
-      },
-      {
-        "ts_iso": "2026-06-30T19:40:37+02:00",
-        "date": "30/06/2026",
-        "time": "19:40:37",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:38:33+02:00",
-        "date": "30/06/2026",
-        "time": "19:38:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:36:28+02:00",
-        "date": "30/06/2026",
-        "time": "19:36:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:34:29+02:00",
-        "date": "30/06/2026",
-        "time": "19:34:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:32:54+02:00",
-        "date": "30/06/2026",
-        "time": "19:32:54",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:30:50+02:00",
-        "date": "30/06/2026",
-        "time": "19:30:50",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:28:30+02:00",
-        "date": "30/06/2026",
-        "time": "19:28:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:26:32+02:00",
-        "date": "30/06/2026",
-        "time": "19:26:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:24:33+02:00",
-        "date": "30/06/2026",
-        "time": "19:24:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:22:33+02:00",
-        "date": "30/06/2026",
-        "time": "19:22:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:20:44+02:00",
-        "date": "30/06/2026",
-        "time": "19:20:44",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:18:34+02:00",
-        "date": "30/06/2026",
-        "time": "19:18:34",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:16:26+02:00",
-        "date": "30/06/2026",
-        "time": "19:16:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:14:31+02:00",
-        "date": "30/06/2026",
-        "time": "19:14:31",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:12:27+02:00",
-        "date": "30/06/2026",
-        "time": "19:12:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:10:36+02:00",
-        "date": "30/06/2026",
-        "time": "19:10:36",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:08:28+02:00",
-        "date": "30/06/2026",
-        "time": "19:08:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:06:34+02:00",
-        "date": "30/06/2026",
-        "time": "19:06:34",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:04:32+02:00",
-        "date": "30/06/2026",
-        "time": "19:04:32",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇨🇮Costa de Marfil ?-? Noruega🇳🇴",
-            "name": "Costa de Marfil-Noruega",
-            "date": "2026-06-30",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
-      },
-      {
-        "ts_iso": "2026-06-30T19:02:29+02:00",
-        "date": "30/06/2026",
-        "time": "19:02:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T19:01:45+02:00",
-        "date": "30/06/2026",
-        "time": "19:01:45",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T18:58:28+02:00",
-        "date": "30/06/2026",
-        "time": "18:58:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T18:56:28+02:00",
-        "date": "30/06/2026",
-        "time": "18:56:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T18:54:34+02:00",
-        "date": "30/06/2026",
-        "time": "18:54:34",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T18:52:31+02:00",
-        "date": "30/06/2026",
-        "time": "18:52:31",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T18:50:37+02:00",
-        "date": "30/06/2026",
-        "time": "18:50:37",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T18:48:30+02:00",
-        "date": "30/06/2026",
-        "time": "18:48:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T18:46:30+02:00",
-        "date": "30/06/2026",
-        "time": "18:46:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T18:44:27+02:00",
-        "date": "30/06/2026",
-        "time": "18:44:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T18:42:30+02:00",
-        "date": "30/06/2026",
-        "time": "18:42:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T18:40:42+02:00",
-        "date": "30/06/2026",
-        "time": "18:40:42",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T18:38:36+02:00",
-        "date": "30/06/2026",
-        "time": "18:38:36",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T18:36:31+02:00",
-        "date": "30/06/2026",
-        "time": "18:36:31",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T18:34:29+02:00",
-        "date": "30/06/2026",
-        "time": "18:34:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T18:32:33+02:00",
-        "date": "30/06/2026",
-        "time": "18:32:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T18:30:51+02:00",
-        "date": "30/06/2026",
-        "time": "18:30:51",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T18:14:28+02:00",
-        "date": "30/06/2026",
-        "time": "18:14:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T17:58:51+02:00",
-        "date": "30/06/2026",
-        "time": "17:58:51",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T17:42:27+02:00",
-        "date": "30/06/2026",
-        "time": "17:42:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T17:27:05+02:00",
-        "date": "30/06/2026",
-        "time": "17:27:05",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T17:10:39+02:00",
-        "date": "30/06/2026",
-        "time": "17:10:39",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T16:54:51+02:00",
-        "date": "30/06/2026",
-        "time": "16:54:51",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T16:38:33+02:00",
-        "date": "30/06/2026",
-        "time": "16:38:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T16:22:27+02:00",
-        "date": "30/06/2026",
-        "time": "16:22:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T16:06:31+02:00",
-        "date": "30/06/2026",
-        "time": "16:06:31",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T15:50:38+02:00",
-        "date": "30/06/2026",
-        "time": "15:50:38",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T15:34:37+02:00",
-        "date": "30/06/2026",
-        "time": "15:34:37",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T15:18:34+02:00",
-        "date": "30/06/2026",
-        "time": "15:18:34",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T15:02:32+02:00",
-        "date": "30/06/2026",
-        "time": "15:02:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T14:46:27+02:00",
-        "date": "30/06/2026",
-        "time": "14:46:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T14:30:54+02:00",
-        "date": "30/06/2026",
-        "time": "14:30:54",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T14:14:29+02:00",
-        "date": "30/06/2026",
-        "time": "14:14:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T13:58:27+02:00",
-        "date": "30/06/2026",
-        "time": "13:58:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T13:42:27+02:00",
-        "date": "30/06/2026",
-        "time": "13:42:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T13:26:30+02:00",
-        "date": "30/06/2026",
-        "time": "13:26:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T13:10:39+02:00",
-        "date": "30/06/2026",
-        "time": "13:10:39",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T12:54:32+02:00",
-        "date": "30/06/2026",
-        "time": "12:54:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T12:38:32+02:00",
-        "date": "30/06/2026",
-        "time": "12:38:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T12:22:26+02:00",
-        "date": "30/06/2026",
-        "time": "12:22:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T12:06:31+02:00",
-        "date": "30/06/2026",
-        "time": "12:06:31",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T11:50:38+02:00",
-        "date": "30/06/2026",
-        "time": "11:50:38",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T11:34:31+02:00",
-        "date": "30/06/2026",
-        "time": "11:34:31",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T11:18:32+02:00",
-        "date": "30/06/2026",
-        "time": "11:18:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T11:02:29+02:00",
-        "date": "30/06/2026",
-        "time": "11:02:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T10:46:31+02:00",
-        "date": "30/06/2026",
-        "time": "10:46:31",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T10:30:54+02:00",
-        "date": "30/06/2026",
-        "time": "10:30:54",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T10:14:28+02:00",
-        "date": "30/06/2026",
-        "time": "10:14:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T09:58:26+02:00",
-        "date": "30/06/2026",
-        "time": "09:58:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T09:42:29+02:00",
-        "date": "30/06/2026",
-        "time": "09:42:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T09:26:28+02:00",
-        "date": "30/06/2026",
-        "time": "09:26:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T09:09:41+02:00",
-        "date": "30/06/2026",
-        "time": "09:09:41",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T08:52:31+02:00",
-        "date": "30/06/2026",
-        "time": "08:52:31",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T08:37:04+02:00",
-        "date": "30/06/2026",
-        "time": "08:37:04",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T08:20:42+02:00",
-        "date": "30/06/2026",
-        "time": "08:20:42",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T08:04:52+02:00",
-        "date": "30/06/2026",
-        "time": "08:04:52",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T07:48:26+02:00",
-        "date": "30/06/2026",
-        "time": "07:48:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T07:33:08+02:00",
-        "date": "30/06/2026",
-        "time": "07:33:08",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T07:16:29+02:00",
-        "date": "30/06/2026",
-        "time": "07:16:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T07:01:14+02:00",
-        "date": "30/06/2026",
-        "time": "07:01:14",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T06:44:29+02:00",
-        "date": "30/06/2026",
-        "time": "06:44:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T06:29:06+02:00",
-        "date": "30/06/2026",
-        "time": "06:29:06",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T06:12:29+02:00",
-        "date": "30/06/2026",
-        "time": "06:12:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:56:36+02:00",
-        "date": "30/06/2026",
-        "time": "05:56:36",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇳🇱Países Bajos 1-1 Marruecos🇲🇦",
-            "name": "Países Bajos-Marruecos",
-            "date": "2026-06-30",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "sin resultado",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "1-1",
-              "jugado": "sí"
-            }
-          }
-        ]
-      },
-      {
-        "ts_iso": "2026-06-30T05:54:29+02:00",
-        "date": "30/06/2026",
-        "time": "05:54:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:52:30+02:00",
-        "date": "30/06/2026",
-        "time": "05:52:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:50:34+02:00",
-        "date": "30/06/2026",
-        "time": "05:50:34",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:48:26+02:00",
-        "date": "30/06/2026",
-        "time": "05:48:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:46:33+02:00",
-        "date": "30/06/2026",
-        "time": "05:46:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:44:28+02:00",
-        "date": "30/06/2026",
-        "time": "05:44:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:42:30+02:00",
-        "date": "30/06/2026",
-        "time": "05:42:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:40:35+02:00",
-        "date": "30/06/2026",
-        "time": "05:40:35",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:38:34+02:00",
-        "date": "30/06/2026",
-        "time": "05:38:34",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:36:28+02:00",
-        "date": "30/06/2026",
-        "time": "05:36:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:34:27+02:00",
-        "date": "30/06/2026",
-        "time": "05:34:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:32:39+02:00",
-        "date": "30/06/2026",
-        "time": "05:32:39",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:30:45+02:00",
-        "date": "30/06/2026",
-        "time": "05:30:45",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:28:44+02:00",
-        "date": "30/06/2026",
-        "time": "05:28:44",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:26:27+02:00",
-        "date": "30/06/2026",
-        "time": "05:26:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:24:33+02:00",
-        "date": "30/06/2026",
-        "time": "05:24:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:22:26+02:00",
-        "date": "30/06/2026",
-        "time": "05:22:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:20:33+02:00",
-        "date": "30/06/2026",
-        "time": "05:20:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:18:27+02:00",
-        "date": "30/06/2026",
-        "time": "05:18:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:16:29+02:00",
-        "date": "30/06/2026",
-        "time": "05:16:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:14:26+02:00",
-        "date": "30/06/2026",
-        "time": "05:14:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:12:27+02:00",
-        "date": "30/06/2026",
-        "time": "05:12:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:10:32+02:00",
-        "date": "30/06/2026",
-        "time": "05:10:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:08:29+02:00",
-        "date": "30/06/2026",
-        "time": "05:08:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:06:25+02:00",
-        "date": "30/06/2026",
-        "time": "05:06:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:04:26+02:00",
-        "date": "30/06/2026",
-        "time": "05:04:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:02:28+02:00",
-        "date": "30/06/2026",
-        "time": "05:02:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T05:01:06+02:00",
-        "date": "30/06/2026",
-        "time": "05:01:06",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:58:27+02:00",
-        "date": "30/06/2026",
-        "time": "04:58:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:56:49+02:00",
-        "date": "30/06/2026",
-        "time": "04:56:49",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:54:26+02:00",
-        "date": "30/06/2026",
-        "time": "04:54:26",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇳🇱Países Bajos ?-? Marruecos🇲🇦",
-            "name": "Países Bajos-Marruecos",
-            "date": "2026-06-30",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
-      },
-      {
-        "ts_iso": "2026-06-30T04:52:29+02:00",
-        "date": "30/06/2026",
-        "time": "04:52:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:50:32+02:00",
-        "date": "30/06/2026",
-        "time": "04:50:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:48:32+02:00",
-        "date": "30/06/2026",
-        "time": "04:48:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:46:27+02:00",
-        "date": "30/06/2026",
-        "time": "04:46:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:44:28+02:00",
-        "date": "30/06/2026",
-        "time": "04:44:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:42:29+02:00",
-        "date": "30/06/2026",
-        "time": "04:42:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:40:36+02:00",
-        "date": "30/06/2026",
-        "time": "04:40:36",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:38:27+02:00",
-        "date": "30/06/2026",
-        "time": "04:38:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:36:29+02:00",
-        "date": "30/06/2026",
-        "time": "04:36:29",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇳🇱Países Bajos ?-? Marruecos🇲🇦",
-            "name": "Países Bajos-Marruecos",
-            "date": "2026-06-30",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
-      },
-      {
-        "ts_iso": "2026-06-30T04:34:26+02:00",
-        "date": "30/06/2026",
-        "time": "04:34:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:32:29+02:00",
-        "date": "30/06/2026",
-        "time": "04:32:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:30:45+02:00",
-        "date": "30/06/2026",
-        "time": "04:30:45",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:28:35+02:00",
-        "date": "30/06/2026",
-        "time": "04:28:35",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:26:28+02:00",
-        "date": "30/06/2026",
-        "time": "04:26:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:24:59+02:00",
-        "date": "30/06/2026",
-        "time": "04:24:59",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:22:29+02:00",
-        "date": "30/06/2026",
-        "time": "04:22:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:20:36+02:00",
-        "date": "30/06/2026",
-        "time": "04:20:36",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:18:29+02:00",
-        "date": "30/06/2026",
-        "time": "04:18:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:16:30+02:00",
-        "date": "30/06/2026",
-        "time": "04:16:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:14:26+02:00",
-        "date": "30/06/2026",
-        "time": "04:14:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:12:26+02:00",
-        "date": "30/06/2026",
-        "time": "04:12:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:10:34+02:00",
-        "date": "30/06/2026",
-        "time": "04:10:34",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:08:29+02:00",
-        "date": "30/06/2026",
-        "time": "04:08:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:06:29+02:00",
-        "date": "30/06/2026",
-        "time": "04:06:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:04:26+02:00",
-        "date": "30/06/2026",
-        "time": "04:04:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:02:25+02:00",
-        "date": "30/06/2026",
-        "time": "04:02:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T04:00:54+02:00",
-        "date": "30/06/2026",
-        "time": "04:00:54",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:58:34+02:00",
-        "date": "30/06/2026",
-        "time": "03:58:34",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:56:26+02:00",
-        "date": "30/06/2026",
-        "time": "03:56:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:54:27+02:00",
-        "date": "30/06/2026",
-        "time": "03:54:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:53:39+02:00",
-        "date": "30/06/2026",
-        "time": "03:53:39",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:50:32+02:00",
-        "date": "30/06/2026",
-        "time": "03:50:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:48:27+02:00",
-        "date": "30/06/2026",
-        "time": "03:48:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:46:26+02:00",
-        "date": "30/06/2026",
-        "time": "03:46:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:44:30+02:00",
-        "date": "30/06/2026",
-        "time": "03:44:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:42:22+02:00",
-        "date": "30/06/2026",
-        "time": "03:42:22",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:40:35+02:00",
-        "date": "30/06/2026",
-        "time": "03:40:35",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:38:25+02:00",
-        "date": "30/06/2026",
-        "time": "03:38:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:36:27+02:00",
-        "date": "30/06/2026",
-        "time": "03:36:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:34:28+02:00",
-        "date": "30/06/2026",
-        "time": "03:34:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:32:28+02:00",
-        "date": "30/06/2026",
-        "time": "03:32:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:31:24+02:00",
-        "date": "30/06/2026",
-        "time": "03:31:24",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:30:45+02:00",
-        "date": "30/06/2026",
-        "time": "03:30:45",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:28:35+02:00",
-        "date": "30/06/2026",
-        "time": "03:28:35",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:26:28+02:00",
-        "date": "30/06/2026",
-        "time": "03:26:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:24:28+02:00",
-        "date": "30/06/2026",
-        "time": "03:24:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:23:01+02:00",
-        "date": "30/06/2026",
-        "time": "03:23:01",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:20:37+02:00",
-        "date": "30/06/2026",
-        "time": "03:20:37",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:18:29+02:00",
-        "date": "30/06/2026",
-        "time": "03:18:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:16:28+02:00",
-        "date": "30/06/2026",
-        "time": "03:16:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:14:26+02:00",
-        "date": "30/06/2026",
-        "time": "03:14:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:12:28+02:00",
-        "date": "30/06/2026",
-        "time": "03:12:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:10:37+02:00",
-        "date": "30/06/2026",
-        "time": "03:10:37",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:08:26+02:00",
-        "date": "30/06/2026",
-        "time": "03:08:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:06:27+02:00",
-        "date": "30/06/2026",
-        "time": "03:06:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:04:31+02:00",
-        "date": "30/06/2026",
-        "time": "03:04:31",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇳🇱Países Bajos ?-? Marruecos🇲🇦",
-            "name": "Países Bajos-Marruecos",
-            "date": "2026-06-30",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
-      },
-      {
-        "ts_iso": "2026-06-30T03:02:27+02:00",
-        "date": "30/06/2026",
-        "time": "03:02:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T03:01:00+02:00",
-        "date": "30/06/2026",
-        "time": "03:01:00",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T02:58:28+02:00",
-        "date": "30/06/2026",
-        "time": "02:58:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T02:56:27+02:00",
-        "date": "30/06/2026",
-        "time": "02:56:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T02:54:26+02:00",
-        "date": "30/06/2026",
-        "time": "02:54:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T02:52:45+02:00",
-        "date": "30/06/2026",
-        "time": "02:52:45",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T02:50:33+02:00",
-        "date": "30/06/2026",
-        "time": "02:50:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T02:48:28+02:00",
-        "date": "30/06/2026",
-        "time": "02:48:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T02:46:28+02:00",
-        "date": "30/06/2026",
-        "time": "02:46:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T02:44:26+02:00",
-        "date": "30/06/2026",
-        "time": "02:44:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T02:42:29+02:00",
-        "date": "30/06/2026",
-        "time": "02:42:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T02:40:33+02:00",
-        "date": "30/06/2026",
-        "time": "02:40:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T02:38:26+02:00",
-        "date": "30/06/2026",
-        "time": "02:38:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T02:36:25+02:00",
-        "date": "30/06/2026",
-        "time": "02:36:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T02:34:27+02:00",
-        "date": "30/06/2026",
-        "time": "02:34:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
   "standings": [
     {
       "name": "MEDINA",
-      "total": 298.0,
+      "total": 315.0,
       "live_points": 0.0,
-      "total_live": 298.0,
+      "total_live": 315.0,
       "groups": 130.0,
       "positions": 89.0,
       "q16": 52.0,
-      "r16": 79.0,
+      "r16": 96.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4654,64 +4697,24 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 79.0
+          "pts": 96.0
         }
       ],
       "color": "#F97316",
       "played": 72,
       "pos": 1,
-      "pos_change": 1,
+      "pos_change": 0,
       "live_pos": 1
     },
     {
-      "name": "JUANCHO",
-      "total": 278.0,
-      "live_points": 0.0,
-      "total_live": 278.0,
-      "groups": 118.0,
-      "positions": 85.0,
-      "q16": 52.0,
-      "r16": 75.0,
-      "r8": 0.0,
-      "r4": 0.0,
-      "r2": 0.0,
-      "r34_final": 0.0,
-      "honor": 0.0,
-      "phase_detail": [
-        {
-          "key": "groups",
-          "label": "Fase de Grupos",
-          "desc": "Partidos + marcadores",
-          "pts": 118.0
-        },
-        {
-          "key": "positions",
-          "label": "Posiciones Grupos",
-          "desc": "1º, 2º, 3º y 4º por grupo",
-          "pts": 85.0
-        },
-        {
-          "key": "r16",
-          "label": "Dieciseisavos",
-          "desc": "Partidos de 16avos",
-          "pts": 75.0
-        }
-      ],
-      "color": "#F5C518",
-      "played": 72,
-      "pos": 2,
-      "pos_change": 2,
-      "live_pos": 2
-    },
-    {
       "name": "VÍCTOR",
-      "total": 273.0,
+      "total": 290.0,
       "live_points": 0.0,
-      "total_live": 273.0,
+      "total_live": 290.0,
       "groups": 134.0,
       "positions": 75.0,
       "q16": 50.0,
-      "r16": 64.0,
+      "r16": 81.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4734,24 +4737,64 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 64.0
+          "pts": 81.0
         }
       ],
       "color": "#A855F7",
       "played": 72,
+      "pos": 2,
+      "pos_change": 1,
+      "live_pos": 2
+    },
+    {
+      "name": "JUANCHO",
+      "total": 289.0,
+      "live_points": 0.0,
+      "total_live": 289.0,
+      "groups": 118.0,
+      "positions": 85.0,
+      "q16": 52.0,
+      "r16": 86.0,
+      "r8": 0.0,
+      "r4": 0.0,
+      "r2": 0.0,
+      "r34_final": 0.0,
+      "honor": 0.0,
+      "phase_detail": [
+        {
+          "key": "groups",
+          "label": "Fase de Grupos",
+          "desc": "Partidos + marcadores",
+          "pts": 118.0
+        },
+        {
+          "key": "positions",
+          "label": "Posiciones Grupos",
+          "desc": "1º, 2º, 3º y 4º por grupo",
+          "pts": 85.0
+        },
+        {
+          "key": "r16",
+          "label": "Dieciseisavos",
+          "desc": "Partidos de 16avos",
+          "pts": 86.0
+        }
+      ],
+      "color": "#F5C518",
+      "played": 72,
       "pos": 3,
-      "pos_change": 3,
+      "pos_change": -1,
       "live_pos": 3
     },
     {
       "name": "CRESPO",
-      "total": 270.0,
+      "total": 281.0,
       "live_points": 0.0,
-      "total_live": 270.0,
+      "total_live": 281.0,
       "groups": 121.0,
       "positions": 81.0,
       "q16": 50.0,
-      "r16": 68.0,
+      "r16": 79.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4774,24 +4817,24 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 68.0
+          "pts": 79.0
         }
       ],
       "color": "#EF4444",
       "played": 72,
       "pos": 4,
-      "pos_change": 1,
+      "pos_change": 0,
       "live_pos": 4
     },
     {
       "name": "LUIS/VIR",
-      "total": 265.0,
+      "total": 273.0,
       "live_points": 0.0,
-      "total_live": 265.0,
+      "total_live": 273.0,
       "groups": 104.0,
       "positions": 77.0,
       "q16": 54.0,
-      "r16": 84.0,
+      "r16": 92.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4814,24 +4857,24 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 84.0
+          "pts": 92.0
         }
       ],
       "color": "#10B981",
       "played": 72,
       "pos": 5,
-      "pos_change": -4,
+      "pos_change": 0,
       "live_pos": 5
     },
     {
       "name": "LARRY",
-      "total": 250.0,
+      "total": 256.0,
       "live_points": 0.0,
-      "total_live": 250.0,
+      "total_live": 256.0,
       "groups": 105.0,
       "positions": 67.0,
       "q16": 54.0,
-      "r16": 78.0,
+      "r16": 84.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4854,13 +4897,13 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 78.0
+          "pts": 84.0
         }
       ],
       "color": "#3B82F6",
       "played": 72,
       "pos": 6,
-      "pos_change": -3,
+      "pos_change": 0,
       "live_pos": 6
     }
   ],
@@ -19463,13 +19506,33 @@
       "day_label": "Miércoles 01 julio",
       "datetime_es": "2026-07-01T18:00:00",
       "phase": "r16",
-      "result": null,
-      "played": false,
-      "live": true,
-      "live_minute": "live",
-      "live_goals_l": 0,
-      "live_goals_v": 1,
-      "live_scorers": [
+      "result": {
+        "sign": "1",
+        "score": "2-1"
+      },
+      "played": true,
+      "live": false,
+      "live_minute": "",
+      "live_goals_l": null,
+      "live_goals_v": null,
+      "live_scorers": [],
+      "goals_l": 2,
+      "goals_v": 1,
+      "scorers": [
+        {
+          "player": "Hri Kin",
+          "minute": "75'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Hri Kin",
+          "minute": "86'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
         {
           "player": "Braian Sipnga",
           "minute": "7'",
@@ -19478,9 +19541,6 @@
           "team": "away"
         }
       ],
-      "goals_l": null,
-      "goals_v": null,
-      "scorers": [],
       "phase_pts": {
         "sign": 3.0,
         "diff": 2.0,
@@ -19495,21 +19555,23 @@
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
-            "sign": 0.0,
+          "score": 6.0,
+          "breakdown": {
+            "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 0.0,
+            "total": 6.0,
             "reasons": [
-              "1X2 incorrecto — 0 pts"
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "LARRY": {
           "pred": {
@@ -19519,21 +19581,23 @@
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
-            "sign": 0.0,
+          "score": 6.0,
+          "breakdown": {
+            "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 0.0,
+            "total": 6.0,
             "reasons": [
-              "1X2 incorrecto — 0 pts"
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "LUIS/VIR": {
           "pred": {
@@ -19543,21 +19607,23 @@
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
-            "sign": 0.0,
+          "score": 6.0,
+          "breakdown": {
+            "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 0.0,
+            "total": 6.0,
             "reasons": [
-              "1X2 incorrecto — 0 pts"
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "MEDINA": {
           "pred": {
@@ -19567,21 +19633,23 @@
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
-            "sign": 0.0,
+          "score": 6.0,
+          "breakdown": {
+            "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 0.0,
+            "total": 6.0,
             "reasons": [
-              "1X2 incorrecto — 0 pts"
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "VÍCTOR": {
           "pred": {
@@ -19591,21 +19659,23 @@
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
-            "sign": 0.0,
+          "score": 6.0,
+          "breakdown": {
+            "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 0.0,
+            "total": 6.0,
             "reasons": [
-              "1X2 incorrecto — 0 pts"
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "CRESPO": {
           "pred": {
@@ -19615,25 +19685,27 @@
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
-            "sign": 0.0,
+          "score": 6.0,
+          "breakdown": {
+            "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 0.0,
+            "total": 6.0,
             "reasons": [
-              "1X2 incorrecto — 0 pts"
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
             "pred_home": "Inglaterra",
             "pred_away": "RD Congo"
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         }
       },
       "penalties": null,
-      "actual_winner": null
+      "actual_winner": "Inglaterra"
     },
     {
       "row": 172,
@@ -19663,16 +19735,55 @@
       "day_label": "Miércoles 01 julio",
       "datetime_es": "2026-07-01T22:00:00",
       "phase": "r16",
-      "result": null,
-      "played": false,
+      "result": {
+        "sign": "1",
+        "score": "3-2"
+      },
+      "played": true,
       "live": false,
       "live_minute": "",
       "live_goals_l": null,
       "live_goals_v": null,
       "live_scorers": [],
-      "goals_l": null,
-      "goals_v": null,
-      "scorers": [],
+      "goals_l": 3,
+      "goals_v": 2,
+      "scorers": [
+        {
+          "player": "R. Lukaku",
+          "minute": "86'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Youri Tielemans",
+          "minute": "89'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Youri Tielemans 125(P)'",
+          "minute": "",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Habib Diarra",
+          "minute": "25'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        },
+        {
+          "player": "I. Sarr",
+          "minute": "51'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        }
+      ],
       "phase_pts": {
         "sign": 3.0,
         "diff": 2.0,
@@ -19687,8 +19798,21 @@
             "pred_home": "Bélgica",
             "pred_away": "Senegal"
           },
-          "score": 0.0,
-          "breakdown": null,
+          "score": 8.0,
+          "breakdown": {
+            "sign": 3.0,
+            "diff": 2.0,
+            "exact": 0,
+            "total": 8.0,
+            "reasons": [
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles (+2)",
+              "Clasificado correcto (+3.0 pts)"
+            ],
+            "team_match": null,
+            "pred_home": "Bélgica",
+            "pred_away": "Senegal"
+          },
           "live_breakdown": null,
           "live_score": null
         },
@@ -19701,7 +19825,18 @@
             "pred_away": "Senegal"
           },
           "score": 0.0,
-          "breakdown": null,
+          "breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ],
+            "team_match": null,
+            "pred_home": "Bélgica",
+            "pred_away": "Senegal"
+          },
           "live_breakdown": null,
           "live_score": null
         },
@@ -19713,8 +19848,21 @@
             "pred_home": "Bélgica",
             "pred_away": "Senegal"
           },
-          "score": 0.0,
-          "breakdown": null,
+          "score": 8.0,
+          "breakdown": {
+            "sign": 3.0,
+            "diff": 2.0,
+            "exact": 0,
+            "total": 8.0,
+            "reasons": [
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles (+2)",
+              "Clasificado correcto (+3.0 pts)"
+            ],
+            "team_match": null,
+            "pred_home": "Bélgica",
+            "pred_away": "Senegal"
+          },
           "live_breakdown": null,
           "live_score": null
         },
@@ -19726,8 +19874,21 @@
             "pred_home": "Bélgica",
             "pred_away": "Senegal"
           },
-          "score": 0.0,
-          "breakdown": null,
+          "score": 8.0,
+          "breakdown": {
+            "sign": 3.0,
+            "diff": 2.0,
+            "exact": 0,
+            "total": 8.0,
+            "reasons": [
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles (+2)",
+              "Clasificado correcto (+3.0 pts)"
+            ],
+            "team_match": null,
+            "pred_home": "Bélgica",
+            "pred_away": "Senegal"
+          },
           "live_breakdown": null,
           "live_score": null
         },
@@ -19739,8 +19900,21 @@
             "pred_home": "Bélgica",
             "pred_away": "Senegal"
           },
-          "score": 0.0,
-          "breakdown": null,
+          "score": 8.0,
+          "breakdown": {
+            "sign": 3.0,
+            "diff": 2.0,
+            "exact": 0,
+            "total": 8.0,
+            "reasons": [
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles (+2)",
+              "Clasificado correcto (+3.0 pts)"
+            ],
+            "team_match": null,
+            "pred_home": "Bélgica",
+            "pred_away": "Senegal"
+          },
           "live_breakdown": null,
           "live_score": null
         },
@@ -19752,14 +19926,27 @@
             "pred_home": "Bélgica",
             "pred_away": "Senegal"
           },
-          "score": 0.0,
-          "breakdown": null,
+          "score": 8.0,
+          "breakdown": {
+            "sign": 3.0,
+            "diff": 2.0,
+            "exact": 0,
+            "total": 8.0,
+            "reasons": [
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles (+2)",
+              "Clasificado correcto (+3.0 pts)"
+            ],
+            "team_match": null,
+            "pred_home": "Bélgica",
+            "pred_away": "Senegal"
+          },
           "live_breakdown": null,
           "live_score": null
         }
       },
       "penalties": null,
-      "actual_winner": null
+      "actual_winner": "Bélgica"
     },
     {
       "row": 173,
@@ -19789,16 +19976,34 @@
       "day_label": "Jueves 02 julio",
       "datetime_es": "2026-07-02T02:00:00",
       "phase": "r16",
-      "result": null,
-      "played": false,
+      "result": {
+        "sign": "1",
+        "score": "2-0"
+      },
+      "played": true,
       "live": false,
       "live_minute": "",
       "live_goals_l": null,
       "live_goals_v": null,
       "live_scorers": [],
-      "goals_l": null,
-      "goals_v": null,
-      "scorers": [],
+      "goals_l": 2,
+      "goals_v": 0,
+      "scorers": [
+        {
+          "player": "Flvrin Balvgan",
+          "minute": "45'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Malik Tillman",
+          "minute": "82'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        }
+      ],
       "phase_pts": {
         "sign": 3.0,
         "diff": 2.0,
@@ -19813,8 +20018,21 @@
             "pred_home": "Estados Unidos",
             "pred_away": "Bosnia y Herzegovina"
           },
-          "score": 0.0,
-          "breakdown": null,
+          "score": 6.0,
+          "breakdown": {
+            "sign": 3.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 6.0,
+            "reasons": [
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+3.0 pts)"
+            ],
+            "team_match": null,
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bosnia y Herzegovina"
+          },
           "live_breakdown": null,
           "live_score": null
         },
@@ -19826,8 +20044,21 @@
             "pred_home": "Estados Unidos",
             "pred_away": "Bosnia y Herzegovina"
           },
-          "score": 0.0,
-          "breakdown": null,
+          "score": 6.0,
+          "breakdown": {
+            "sign": 3.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 6.0,
+            "reasons": [
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+3.0 pts)"
+            ],
+            "team_match": null,
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bosnia y Herzegovina"
+          },
           "live_breakdown": null,
           "live_score": null
         },
@@ -19839,8 +20070,20 @@
             "pred_home": "Estados Unidos",
             "pred_away": "Bosnia y Herzegovina"
           },
-          "score": 0.0,
-          "breakdown": null,
+          "score": 3.0,
+          "breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 3.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts",
+              "Clasificado correcto (+3.0 pts)"
+            ],
+            "team_match": null,
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bosnia y Herzegovina"
+          },
           "live_breakdown": null,
           "live_score": null
         },
@@ -19852,8 +20095,22 @@
             "pred_home": "Estados Unidos",
             "pred_away": "Bosnia y Herzegovina"
           },
-          "score": 0.0,
-          "breakdown": null,
+          "score": 12.0,
+          "breakdown": {
+            "sign": 3.0,
+            "diff": 2.0,
+            "exact": 4.0,
+            "total": 12.0,
+            "reasons": [
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles (+2.0)",
+              "Resultado exacto (+4.0)",
+              "Clasificado correcto (+3.0 pts)"
+            ],
+            "team_match": null,
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bosnia y Herzegovina"
+          },
           "live_breakdown": null,
           "live_score": null
         },
@@ -19865,8 +20122,22 @@
             "pred_home": "Estados Unidos",
             "pred_away": "Bosnia y Herzegovina"
           },
-          "score": 0.0,
-          "breakdown": null,
+          "score": 12.0,
+          "breakdown": {
+            "sign": 3.0,
+            "diff": 2.0,
+            "exact": 4.0,
+            "total": 12.0,
+            "reasons": [
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles (+2.0)",
+              "Resultado exacto (+4.0)",
+              "Clasificado correcto (+3.0 pts)"
+            ],
+            "team_match": null,
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bosnia y Herzegovina"
+          },
           "live_breakdown": null,
           "live_score": null
         },
@@ -19878,14 +20149,27 @@
             "pred_home": "Estados Unidos",
             "pred_away": "Bosnia y Herzegovina"
           },
-          "score": 0.0,
-          "breakdown": null,
+          "score": 6.0,
+          "breakdown": {
+            "sign": 3.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 6.0,
+            "reasons": [
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+3.0 pts)"
+            ],
+            "team_match": null,
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bosnia y Herzegovina"
+          },
           "live_breakdown": null,
           "live_score": null
         }
       },
       "penalties": null,
-      "actual_winner": null
+      "actual_winner": "Estados Unidos"
     },
     {
       "row": 174,
@@ -21026,11 +21310,11 @@
       "id": "",
       "name": "W79-W80",
       "home": "México",
-      "away": "W80",
+      "away": "Inglaterra",
       "home_placeholder": "W79",
       "away_placeholder": "W80",
       "flag_home": "🇲🇽",
-      "flag_away": "",
+      "flag_away": "🇬🇧",
       "match_num": 92,
       "bracket_order": 5,
       "city": "Ciudad de México",
@@ -21277,12 +21561,12 @@
       "row": 205,
       "id": "",
       "name": "W81-W82",
-      "home": "W81",
-      "away": "W82",
+      "home": "Bélgica",
+      "away": "Estados Unidos",
       "home_placeholder": "W81",
       "away_placeholder": "W82",
-      "flag_home": "",
-      "flag_away": "",
+      "flag_home": "🇧🇪",
+      "flag_away": "🇺🇸",
       "match_num": 94,
       "bracket_order": 3,
       "city": "Seattle",
@@ -22921,7 +23205,10 @@
       "PAÍ-MAR",
       "COS-NOR",
       "FRA-SUE",
-      "MÉX-ECU"
+      "MÉX-ECU",
+      "ING-RDC",
+      "BÉL-SEN",
+      "EST-BOS"
     ],
     "flag_labels": [
       "🇲🇽🇿🇦",
@@ -23003,7 +23290,10 @@
       "🇳🇱🇲🇦",
       "🇨🇮🇳🇴",
       "🇫🇷🇸🇪",
-      "🇲🇽🇪🇨"
+      "🇲🇽🇪🇨",
+      "🇬🇧🇨🇩",
+      "🇧🇪🇸🇳",
+      "🇺🇸🇧🇦"
     ],
     "dates": [
       "2026-06-11",
@@ -23085,7 +23375,10 @@
       "2026-06-30",
       "2026-06-30",
       "2026-06-30",
-      "2026-07-01"
+      "2026-07-01",
+      "2026-07-01",
+      "2026-07-01",
+      "2026-07-02"
     ],
     "titles": [
       "México 2-0 Sudáfrica · 11 jun",
@@ -23167,7 +23460,10 @@
       "Países Bajos 1-1 Marruecos · 30 jun",
       "Costa de Marfil 1-2 Noruega · 30 jun",
       "Francia 3-0 Suecia · 30 jun",
-      "México 2-0 Ecuador · 1 jul"
+      "México 2-0 Ecuador · 1 jul",
+      "Inglaterra 2-1 RD Congo · 1 jul",
+      "Bélgica 3-2 Senegal · 1 jul",
+      "Estados Unidos 2-0 Bosnia y Herzegovina · 2 jul"
     ],
     "players": {
       "JUANCHO": [
@@ -23250,7 +23546,10 @@
         224.0,
         232.0,
         238.0,
-        244.0
+        244.0,
+        250.0,
+        258.0,
+        264.0
       ],
       "LARRY": [
         2.0,
@@ -23332,7 +23631,10 @@
         187.0,
         199.0,
         205.0,
-        205.0
+        205.0,
+        211.0,
+        211.0,
+        217.0
       ],
       "LUIS/VIR": [
         2.0,
@@ -23414,7 +23716,10 @@
         196.0,
         208.0,
         214.0,
-        226.0
+        226.0,
+        232.0,
+        240.0,
+        243.0
       ],
       "MEDINA": [
         2.0,
@@ -23496,7 +23801,10 @@
         231.0,
         243.0,
         255.0,
-        261.0
+        261.0,
+        267.0,
+        275.0,
+        287.0
       ],
       "VÍCTOR": [
         6.0,
@@ -23578,7 +23886,10 @@
         223.0,
         229.0,
         235.0,
-        235.0
+        235.0,
+        241.0,
+        249.0,
+        261.0
       ],
       "CRESPO": [
         3.0,
@@ -23660,7 +23971,10 @@
         214.0,
         226.0,
         232.0,
-        232.0
+        232.0,
+        238.0,
+        246.0,
+        252.0
       ]
     },
     "day_points": {
@@ -23744,6 +24058,9 @@
         3.0,
         8.0,
         6.0,
+        6.0,
+        6.0,
+        8.0,
         6.0
       ],
       "LARRY": [
@@ -23826,7 +24143,10 @@
         9.0,
         12.0,
         6.0,
-        0.0
+        0.0,
+        6.0,
+        0.0,
+        6.0
       ],
       "LUIS/VIR": [
         2.0,
@@ -23908,7 +24228,10 @@
         0.0,
         12.0,
         6.0,
-        12.0
+        12.0,
+        6.0,
+        8.0,
+        3.0
       ],
       "MEDINA": [
         2.0,
@@ -23990,7 +24313,10 @@
         0.0,
         12.0,
         12.0,
-        6.0
+        6.0,
+        6.0,
+        8.0,
+        12.0
       ],
       "VÍCTOR": [
         6.0,
@@ -24072,7 +24398,10 @@
         0.0,
         6.0,
         6.0,
-        0.0
+        0.0,
+        6.0,
+        8.0,
+        12.0
       ],
       "CRESPO": [
         3.0,
@@ -24154,7 +24483,10 @@
         0.0,
         12.0,
         6.0,
-        0.0
+        0.0,
+        6.0,
+        8.0,
+        6.0
       ]
     }
   },
@@ -25031,10 +25363,17 @@
           "hit_rate": 1,
           "phase_positions": 1,
           "phase_q16": 4,
-          "phase_ko": 2,
+          "phase_ko": 1,
           "phase_honor": 4
         },
         "top_skills": [
+          {
+            "key": "phase_ko",
+            "label": "Eliminatorias (KO)",
+            "icon": "⚔️",
+            "rank": 1,
+            "display": "96 pts"
+          },
           {
             "key": "phase_positions",
             "label": "Posiciones de grupos",
@@ -25055,23 +25394,16 @@
             "icon": "1️⃣",
             "rank": 1,
             "display": "45 aciertos · 90 pts"
-          },
-          {
-            "key": "goals_home",
-            "label": "Goles local exactos",
-            "icon": "🏠",
-            "rank": 1,
-            "display": "23 aciertos"
           }
         ],
         "badges": [
           {
-            "icon": "📊",
-            "label": "Estratega de grupos"
+            "icon": "⚔️",
+            "label": "Maestro KO"
           },
           {
-            "icon": "✅",
-            "label": "Consistente"
+            "icon": "📊",
+            "label": "Estratega de grupos"
           }
         ],
         "best_phase": {
@@ -25080,75 +25412,9 @@
         }
       },
       {
-        "name": "JUANCHO",
-        "color": "#F5C518",
-        "pos": 2,
-        "matches_played": 72,
-        "stats": {
-          "hits_1x2": 42,
-          "pts_1x2": 84.0,
-          "hits_diff": 19,
-          "pts_diff": 19.0,
-          "hits_exact": 5,
-          "pts_exact": 15.0,
-          "goals_home": 17,
-          "goals_away": 28,
-          "hit_rate": 58,
-          "avg_match": 1.64
-        },
-        "ranks": {
-          "hits_exact": 5,
-          "hits_diff": 2,
-          "hits_1x2": 4,
-          "goals_home": 4,
-          "goals_away": 4,
-          "avg_match": 4,
-          "hit_rate": 4,
-          "phase_positions": 2,
-          "phase_q16": 3,
-          "phase_ko": 4,
-          "phase_honor": 1
-        },
-        "top_skills": [
-          {
-            "key": "phase_honor",
-            "label": "Cuadro de honor",
-            "icon": "🏆",
-            "rank": 1,
-            "display": "0 pts"
-          },
-          {
-            "key": "phase_positions",
-            "label": "Posiciones de grupos",
-            "icon": "📊",
-            "rank": 2,
-            "display": "85 pts"
-          },
-          {
-            "key": "hits_diff",
-            "label": "Diferencia de goles",
-            "icon": "📐",
-            "rank": 2,
-            "display": "19 aciertos · 19 pts"
-          },
-          {
-            "key": "phase_q16",
-            "label": "Clasificados 16avos",
-            "icon": "🏁",
-            "rank": 3,
-            "display": "52 pts"
-          }
-        ],
-        "badges": [],
-        "best_phase": {
-          "label": "Fase de grupos",
-          "pts": 118.0
-        }
-      },
-      {
         "name": "VÍCTOR",
         "color": "#A855F7",
-        "pos": 3,
+        "pos": 2,
         "matches_played": 72,
         "stats": {
           "hits_1x2": 45,
@@ -25172,7 +25438,7 @@
           "hit_rate": 2,
           "phase_positions": 5,
           "phase_q16": 5,
-          "phase_ko": 6,
+          "phase_ko": 5,
           "phase_honor": 5
         },
         "top_skills": [
@@ -25221,6 +25487,72 @@
         }
       },
       {
+        "name": "JUANCHO",
+        "color": "#F5C518",
+        "pos": 3,
+        "matches_played": 72,
+        "stats": {
+          "hits_1x2": 42,
+          "pts_1x2": 84.0,
+          "hits_diff": 19,
+          "pts_diff": 19.0,
+          "hits_exact": 5,
+          "pts_exact": 15.0,
+          "goals_home": 17,
+          "goals_away": 28,
+          "hit_rate": 58,
+          "avg_match": 1.64
+        },
+        "ranks": {
+          "hits_exact": 5,
+          "hits_diff": 2,
+          "hits_1x2": 4,
+          "goals_home": 4,
+          "goals_away": 4,
+          "avg_match": 4,
+          "hit_rate": 4,
+          "phase_positions": 2,
+          "phase_q16": 3,
+          "phase_ko": 3,
+          "phase_honor": 1
+        },
+        "top_skills": [
+          {
+            "key": "phase_honor",
+            "label": "Cuadro de honor",
+            "icon": "🏆",
+            "rank": 1,
+            "display": "0 pts"
+          },
+          {
+            "key": "phase_positions",
+            "label": "Posiciones de grupos",
+            "icon": "📊",
+            "rank": 2,
+            "display": "85 pts"
+          },
+          {
+            "key": "hits_diff",
+            "label": "Diferencia de goles",
+            "icon": "📐",
+            "rank": 2,
+            "display": "19 aciertos · 19 pts"
+          },
+          {
+            "key": "phase_ko",
+            "label": "Eliminatorias (KO)",
+            "icon": "⚔️",
+            "rank": 3,
+            "display": "86 pts"
+          }
+        ],
+        "badges": [],
+        "best_phase": {
+          "label": "Fase de grupos",
+          "pts": 118.0
+        }
+      },
+      {
         "name": "CRESPO",
         "color": "#EF4444",
         "pos": 4,
@@ -25247,7 +25579,7 @@
           "hit_rate": 5,
           "phase_positions": 3,
           "phase_q16": 6,
-          "phase_ko": 5,
+          "phase_ko": 6,
           "phase_honor": 6
         },
         "top_skills": [
@@ -25313,7 +25645,7 @@
           "hit_rate": 6,
           "phase_positions": 4,
           "phase_q16": 2,
-          "phase_ko": 1,
+          "phase_ko": 2,
           "phase_honor": 3
         },
         "top_skills": [
@@ -25321,8 +25653,8 @@
             "key": "phase_ko",
             "label": "Eliminatorias (KO)",
             "icon": "⚔️",
-            "rank": 1,
-            "display": "84 pts"
+            "rank": 2,
+            "display": "92 pts"
           },
           {
             "key": "phase_q16",
@@ -25346,12 +25678,7 @@
             "display": "6 aciertos · 18 pts"
           }
         ],
-        "badges": [
-          {
-            "icon": "⚔️",
-            "label": "Maestro KO"
-          }
-        ],
+        "badges": [],
         "best_phase": {
           "label": "Fase de grupos",
           "pts": 104.0
@@ -25384,7 +25711,7 @@
           "hit_rate": 3,
           "phase_positions": 6,
           "phase_q16": 1,
-          "phase_ko": 3,
+          "phase_ko": 4,
           "phase_honor": 2
         },
         "top_skills": [
@@ -25403,18 +25730,18 @@
             "display": "31 aciertos"
           },
           {
-            "key": "phase_ko",
-            "label": "Eliminatorias (KO)",
-            "icon": "⚔️",
-            "rank": 3,
-            "display": "78 pts"
-          },
-          {
             "key": "hit_rate",
             "label": "Tasa de acierto",
             "icon": "✅",
             "rank": 3,
             "display": "60% (43/72)"
+          },
+          {
+            "key": "hits_1x2",
+            "label": "Signo 1X2",
+            "icon": "1️⃣",
+            "rank": 3,
+            "display": "43 aciertos · 86 pts"
           }
         ],
         "badges": [
@@ -25833,45 +26160,45 @@
       "phase_ko": [
         {
           "rank": 1,
+          "name": "MEDINA",
+          "color": "#F97316",
+          "display": "96 pts",
+          "value": 96.0
+        },
+        {
+          "rank": 2,
           "name": "LUIS/VIR",
           "color": "#10B981",
+          "display": "92 pts",
+          "value": 92.0
+        },
+        {
+          "rank": 3,
+          "name": "JUANCHO",
+          "color": "#F5C518",
+          "display": "86 pts",
+          "value": 86.0
+        },
+        {
+          "rank": 4,
+          "name": "LARRY",
+          "color": "#3B82F6",
           "display": "84 pts",
           "value": 84.0
         },
         {
-          "rank": 2,
-          "name": "MEDINA",
-          "color": "#F97316",
-          "display": "79 pts",
-          "value": 79.0
-        },
-        {
-          "rank": 3,
-          "name": "LARRY",
-          "color": "#3B82F6",
-          "display": "78 pts",
-          "value": 78.0
-        },
-        {
-          "rank": 4,
-          "name": "JUANCHO",
-          "color": "#F5C518",
-          "display": "75 pts",
-          "value": 75.0
-        },
-        {
           "rank": 5,
-          "name": "CRESPO",
-          "color": "#EF4444",
-          "display": "68 pts",
-          "value": 68.0
+          "name": "VÍCTOR",
+          "color": "#A855F7",
+          "display": "81 pts",
+          "value": 81.0
         },
         {
           "rank": 6,
-          "name": "VÍCTOR",
-          "color": "#A855F7",
-          "display": "64 pts",
-          "value": 64.0
+          "name": "CRESPO",
+          "color": "#EF4444",
+          "display": "79 pts",
+          "value": 79.0
         }
       ],
       "phase_honor": [

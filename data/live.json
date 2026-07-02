@@ -1,16 +1,1 @@
-{
-  "Inglaterra-RD Congo": {
-    "home": 0,
-    "away": 1,
-    "minute": "live",
-    "scorers": [
-      {
-        "player": "Braian Sipnga",
-        "minute": "7'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "away"
-      }
-    ]
-  }
-}
+{}
