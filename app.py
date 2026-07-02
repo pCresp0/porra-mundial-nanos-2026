@@ -1701,7 +1701,19 @@ def build_data():
             _m["flag_home"] = _r8_flag_by_team.get(_home_team, "")
             _m["flag_away"] = _r8_flag_by_team.get(_away_team, "")
 
-    # ── Recalcular puntos de posiciones de grupo y clasificados a 16avos ──
+    # ── Corregir bracket_order visual de los octavos ──────────────────────────
+    # En el Admin Excel los octavos van en pares: (89,90), (91,92), (93,94), (95,96).
+    # El primer partido de cada par (ej. 89) alimenta visualmente desde los 16avos
+    # de abajo (Alemania/Paraguay + Francia/Suecia), pero bracket_order=0 lo pone
+    # arriba. Intercambiamos los bracket_order dentro de cada par para que el
+    # partido cuyas fuentes son los 16avos superiores quede arriba visualmente.
+    _R8_ORDER_SWAP_PAIRS = [(89, 90), (91, 92), (93, 94), (95, 96)]
+    for _mn_a, _mn_b in _R8_ORDER_SWAP_PAIRS:
+        _ma = next((x for x in matches if x.get("match_num") == _mn_a), None)
+        _mb = next((x for x in matches if x.get("match_num") == _mn_b), None)
+        if _ma and _mb:
+            _ma["bracket_order"], _mb["bracket_order"] = _mb["bracket_order"], _ma["bracket_order"]
+
     # Para evitar depender de la caché de fórmulas de Excel, que no se actualiza
     # al escribir datos programáticamente.
     actual_standings = {}
