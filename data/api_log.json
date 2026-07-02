@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-26T04:16:22+02:00",
-    "date": "26/06/2026",
-    "time": "04:16:22",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-26T04:18:28+02:00",
     "date": "26/06/2026",
     "time": "04:18:28",
@@ -17345,5 +17337,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-07-02T23:01:10+02:00",
+    "date": "02/07/2026",
+    "time": "23:01:10",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇪🇸España 3-0 Austria🇦🇹",
+        "name": "España-Austria",
+        "date": "2026-07-02",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "sin resultado",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "3-0",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]
