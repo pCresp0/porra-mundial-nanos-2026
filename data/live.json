@@ -1,8 +1,16 @@
 {
   "Estados Unidos-Bosnia y Herzegovina": {
-    "home": 0,
+    "home": 1,
     "away": 0,
     "minute": "live",
-    "scorers": []
+    "scorers": [
+      {
+        "player": "Flvrin Balvgan",
+        "minute": "45'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      }
+    ]
   }
 }

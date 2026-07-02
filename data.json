@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "02/07/2026 00:46",
+    "generated": "02/07/2026 00:48",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-02T02:02",
-      "last_updated_time": "02:02",
+      "last_updated_iso": "2026-07-02T02:48",
+      "last_updated_time": "02:48",
       "last_updated_date": "02/07/2026",
       "next_update_iso": "2026-07-02T02:50",
       "next_update_time": "02:50",
       "next_update_date": "02/07/2026",
-      "last_checked_iso": "2026-07-02T02:46",
-      "last_checked_time": "02:46",
+      "last_checked_iso": "2026-07-02T02:48",
+      "last_checked_time": "02:48",
       "last_checked_date": "02/07/2026"
     },
     "players": [
@@ -407,6 +407,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-02T02:48:26+02:00",
+        "date": "02/07/2026",
+        "time": "02:48:26",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇺🇸Estados Unidos ?-? Bosnia y Herzegovina🇧🇦",
+            "name": "Estados Unidos-Bosnia y Herzegovina",
+            "date": "2026-07-02",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-02T02:46:27+02:00",
         "date": "02/07/2026",
@@ -4668,14 +4685,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:00:57+02:00",
-        "date": "30/06/2026",
-        "time": "20:00:57",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4683,8 +4692,8 @@
     {
       "name": "MEDINA",
       "total": 306.0,
-      "live_points": 0.0,
-      "total_live": 306.0,
+      "live_points": 3.0,
+      "total_live": 309.0,
       "groups": 130.0,
       "positions": 89.0,
       "q16": 52.0,
@@ -4723,8 +4732,8 @@
     {
       "name": "JUANCHO",
       "total": 286.0,
-      "live_points": 0.0,
-      "total_live": 286.0,
+      "live_points": 5.0,
+      "total_live": 291.0,
       "groups": 118.0,
       "positions": 85.0,
       "q16": 52.0,
@@ -4763,8 +4772,8 @@
     {
       "name": "VÍCTOR",
       "total": 281.0,
-      "live_points": 0.0,
-      "total_live": 281.0,
+      "live_points": 3.0,
+      "total_live": 284.0,
       "groups": 134.0,
       "positions": 75.0,
       "q16": 50.0,
@@ -4803,8 +4812,8 @@
     {
       "name": "CRESPO",
       "total": 278.0,
-      "live_points": 0.0,
-      "total_live": 278.0,
+      "live_points": 5.0,
+      "total_live": 283.0,
       "groups": 121.0,
       "positions": 81.0,
       "q16": 50.0,
@@ -4843,8 +4852,8 @@
     {
       "name": "LUIS/VIR",
       "total": 273.0,
-      "live_points": 5.0,
-      "total_live": 278.0,
+      "live_points": 0.0,
+      "total_live": 273.0,
       "groups": 104.0,
       "positions": 77.0,
       "q16": 54.0,
@@ -4883,8 +4892,8 @@
     {
       "name": "LARRY",
       "total": 253.0,
-      "live_points": 0.0,
-      "total_live": 253.0,
+      "live_points": 5.0,
+      "total_live": 258.0,
       "groups": 105.0,
       "positions": 67.0,
       "q16": 54.0,
@@ -19987,9 +19996,17 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 0,
+      "live_goals_l": 1,
       "live_goals_v": 0,
-      "live_scorers": [],
+      "live_scorers": [
+        {
+          "player": "Flvrin Balvgan",
+          "minute": "45'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        }
+      ],
       "goals_l": null,
       "goals_v": null,
       "scorers": [],
@@ -20003,54 +20020,6 @@
           "pred": {
             "sign": "1",
             "score": "2-1",
-            "winner": "Estados Unidos",
-            "pred_home": "Estados Unidos",
-            "pred_away": "Bosnia y Herzegovina"
-          },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
-            "sign": 0.0,
-            "diff": 0.0,
-            "exact": 0,
-            "total": 0.0,
-            "reasons": [
-              "1X2 incorrecto — 0 pts"
-            ],
-            "team_match": null,
-            "pred_home": "Estados Unidos",
-            "pred_away": "Bosnia y Herzegovina"
-          },
-          "live_score": 0.0
-        },
-        "LARRY": {
-          "pred": {
-            "sign": "1",
-            "score": "2-1",
-            "winner": "Estados Unidos",
-            "pred_home": "Estados Unidos",
-            "pred_away": "Bosnia y Herzegovina"
-          },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
-            "sign": 0.0,
-            "diff": 0.0,
-            "exact": 0,
-            "total": 0.0,
-            "reasons": [
-              "1X2 incorrecto — 0 pts"
-            ],
-            "team_match": null,
-            "pred_home": "Estados Unidos",
-            "pred_away": "Bosnia y Herzegovina"
-          },
-          "live_score": 0.0
-        },
-        "LUIS/VIR": {
-          "pred": {
-            "sign": "X",
-            "score": "2-2",
             "winner": "Estados Unidos",
             "pred_home": "Estados Unidos",
             "pred_away": "Bosnia y Herzegovina"
@@ -20072,10 +20041,35 @@
           },
           "live_score": 5.0
         },
-        "MEDINA": {
+        "LARRY": {
           "pred": {
             "sign": "1",
-            "score": "2-0",
+            "score": "2-1",
+            "winner": "Estados Unidos",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bosnia y Herzegovina"
+          },
+          "score": 0.0,
+          "breakdown": null,
+          "live_breakdown": {
+            "sign": 3.0,
+            "diff": 2.0,
+            "exact": 0,
+            "total": 5.0,
+            "reasons": [
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles (+2)"
+            ],
+            "team_match": null,
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bosnia y Herzegovina"
+          },
+          "live_score": 5.0
+        },
+        "LUIS/VIR": {
+          "pred": {
+            "sign": "X",
+            "score": "2-2",
             "winner": "Estados Unidos",
             "pred_home": "Estados Unidos",
             "pred_away": "Bosnia y Herzegovina"
@@ -20095,6 +20089,31 @@
             "pred_away": "Bosnia y Herzegovina"
           },
           "live_score": 0.0
+        },
+        "MEDINA": {
+          "pred": {
+            "sign": "1",
+            "score": "2-0",
+            "winner": "Estados Unidos",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bosnia y Herzegovina"
+          },
+          "score": 0.0,
+          "breakdown": null,
+          "live_breakdown": {
+            "sign": 3.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 3.0,
+            "reasons": [
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles no acertada"
+            ],
+            "team_match": null,
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bosnia y Herzegovina"
+          },
+          "live_score": 3.0
         },
         "VÍCTOR": {
           "pred": {
@@ -20107,18 +20126,19 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 0.0,
+            "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 0.0,
+            "total": 3.0,
             "reasons": [
-              "1X2 incorrecto — 0 pts"
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles no acertada"
             ],
             "team_match": null,
             "pred_home": "Estados Unidos",
             "pred_away": "Bosnia y Herzegovina"
           },
-          "live_score": 0.0
+          "live_score": 3.0
         },
         "CRESPO": {
           "pred": {
@@ -20131,18 +20151,19 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 0.0,
-            "diff": 0.0,
+            "sign": 3.0,
+            "diff": 2.0,
             "exact": 0,
-            "total": 0.0,
+            "total": 5.0,
             "reasons": [
-              "1X2 incorrecto — 0 pts"
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles (+2)"
             ],
             "team_match": null,
             "pred_home": "Estados Unidos",
             "pred_away": "Bosnia y Herzegovina"
           },
-          "live_score": 0.0
+          "live_score": 5.0
         }
       },
       "penalties": null,
