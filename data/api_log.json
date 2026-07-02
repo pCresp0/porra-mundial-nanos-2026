@@ -1,22 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-25T23:28:21+02:00",
-    "date": "25/06/2026",
-    "time": "23:28:21",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇨🇼Curazao 0-0 Costa de Marfil🇨🇮",
-        "name": "Curazao-Costa de Marfil",
-        "date": "2026-06-25",
-        "fields": [],
-        "old": {},
-        "new": {}
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-25T23:30:40+02:00",
     "date": "25/06/2026",
     "time": "23:30:40",
@@ -17500,6 +17483,14 @@
     "ts_iso": "2026-07-02T09:46:31+02:00",
     "date": "02/07/2026",
     "time": "09:46:31",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-02T10:02:29+02:00",
+    "date": "02/07/2026",
+    "time": "10:02:29",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
