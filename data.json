@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "02/07/2026 01:34",
+    "generated": "02/07/2026 01:36",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-07-02T02:48",
       "last_updated_time": "02:48",
       "last_updated_date": "02/07/2026",
-      "next_update_iso": "2026-07-02T03:35",
-      "next_update_time": "03:35",
+      "next_update_iso": "2026-07-02T03:40",
+      "next_update_time": "03:40",
       "next_update_date": "02/07/2026",
-      "last_checked_iso": "2026-07-02T03:34",
-      "last_checked_time": "03:34",
+      "last_checked_iso": "2026-07-02T03:36",
+      "last_checked_time": "03:36",
       "last_checked_date": "02/07/2026"
     },
     "players": [
@@ -407,6 +407,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-02T03:36:28+02:00",
+        "date": "02/07/2026",
+        "time": "03:36:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-07-02T03:34:26+02:00",
         "date": "02/07/2026",
@@ -4659,23 +4667,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T20:48:29+02:00",
-        "date": "30/06/2026",
-        "time": "20:48:29",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇨🇮Costa de Marfil ?-? Noruega🇳🇴",
-            "name": "Costa de Marfil-Noruega",
-            "date": "2026-06-30",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
