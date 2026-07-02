@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "02/07/2026 01:47",
+    "generated": "02/07/2026 01:48",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-02T03:50",
       "next_update_time": "03:50",
       "next_update_date": "02/07/2026",
-      "last_checked_iso": "2026-07-02T03:47",
-      "last_checked_time": "03:47",
+      "last_checked_iso": "2026-07-02T03:48",
+      "last_checked_time": "03:48",
       "last_checked_date": "02/07/2026"
     },
     "players": [
@@ -407,6 +407,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-02T03:48:26+02:00",
+        "date": "02/07/2026",
+        "time": "03:48:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-07-02T03:47:04+02:00",
         "date": "02/07/2026",
@@ -4641,32 +4649,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-06-30T21:01:03+02:00",
-        "date": "30/06/2026",
-        "time": "21:01:03",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇨🇮Costa de Marfil 1-2 Noruega🇳🇴",
-            "name": "Costa de Marfil-Noruega",
-            "date": "2026-06-30",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "sin resultado",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "1-2",
-              "jugado": "sí"
-            }
-          }
-        ]
       }
     ]
   },
