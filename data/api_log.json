@@ -1,22 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-26T04:06:26+02:00",
-    "date": "26/06/2026",
-    "time": "04:06:26",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇹🇷Turquía 0-0 Estados Unidos🇺🇸",
-        "name": "Turquía-Estados Unidos",
-        "date": "2026-06-26",
-        "fields": [],
-        "old": {},
-        "new": {}
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-26T04:08:22+02:00",
     "date": "26/06/2026",
     "time": "04:08:22",
@@ -17351,6 +17334,14 @@
     "ts_iso": "2026-07-02T22:48:28+02:00",
     "date": "02/07/2026",
     "time": "22:48:28",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-02T22:50:45+02:00",
+    "date": "02/07/2026",
+    "time": "22:50:45",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
