@@ -1,30 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-26T02:24:28+02:00",
-    "date": "26/06/2026",
-    "time": "02:24:28",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇯🇵Japón 0-0 Suecia🇸🇪",
-        "name": "Japón-Suecia",
-        "date": "2026-06-26",
-        "fields": [],
-        "old": {},
-        "new": {}
-      },
-      {
-        "label": "🇹🇳Túnez 0-0 Países Bajos🇳🇱",
-        "name": "Túnez-Países Bajos",
-        "date": "2026-06-26",
-        "fields": [],
-        "old": {},
-        "new": {}
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-26T02:26:26+02:00",
     "date": "26/06/2026",
     "time": "02:26:26",
@@ -17403,6 +17378,14 @@
     "ts_iso": "2026-07-02T21:34:32+02:00",
     "date": "02/07/2026",
     "time": "21:34:32",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-02T21:36:28+02:00",
+    "date": "02/07/2026",
+    "time": "21:36:28",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
