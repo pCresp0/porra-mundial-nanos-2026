@@ -137,13 +137,12 @@ def extract_player_predictions(xlsx_path):
     # ── j_to_winner: match_num -> team_name (winner of that match) ──────────
     # Built incrementally from the player's own predictions as rows are processed.
     # Starts empty — populated when R16 rows are parsed, then R8 rows, etc.
-    # This lets us correctly derive bracket slot keys for later phases.
-    j_to_winner: dict = {}
-
-    # R16 pool rows (164-179): additionally populate j_to_winner from the
-    # parsed R16 prediction winner fields (more reliable than D column cache).
-    # We do a pre-pass over R16 rows first.
-    R16_POOL_ROWS = set(range(164, 180))
+    # ── Phase row sets ──────────────────────────────────────────────────────
+    R16_POOL_ROWS = set(range(164, 180))   # R16 (octavos)
+    R8_POOL_ROWS  = set(range(200, 208))   # R8  (cuartos)
+    R4_POOL_ROWS  = set(range(220, 224))   # R4  (semis)
+    SF_POOL_ROWS  = {232, 233}             # SF  (3er/4o puesto + final)
+    F_POOL_ROWS   = {244, 247}             # Final and 3rd place
 
     def _derive_winner(mname, sign, gl, gv, winners_dict):
         """Derive winner team name from prediction fields."""
@@ -157,41 +156,134 @@ def extract_player_predictions(xlsx_path):
         else:  # "X" draw — try winners dict (handles penalty shootouts)
             w = winners_dict.get(mname)
             if w:
-                # Strip penalty annotation from winner string
                 return w.split("(")[0].strip() if "(" in w else w
             return None
+
+    def _winner_from_row(r, ws, ROW_TO_MATCH_NUM, winners):
+        """Parse row r and return (match_num, winner_team_name) or (None, None)."""
+        raw = ws.cell(r, 3).value
+        p = parse_pred_cell(str(raw) if raw else "")
+        if not p:
+            return None, None
+        mn, sg, gl, gv = p
+        match_num = ROW_TO_MATCH_NUM.get(r)
+        if match_num is None:
+            return None, None
+        parts = mn.split("-", 1)
+        home = parts[0].strip()
+        away = parts[1].strip() if len(parts) > 1 else ""
+        if sg == "1":
+            w = home
+        elif sg == "2":
+            w = away
+        else:
+            w = winners.get(mn)
+            if w and "(" in w:
+                w = w.split("(")[0].strip()
+        return match_num, w
 
     # Use the globally precomputed map (loaded from the ADMIN Excel which has
     # proper W-codes in column D, unlike player Excels that have team names).
     match_num_to_winner_code = MATCH_NUM_TO_WINNER_CODE
 
-    # ── Pre-pass: populate j_to_winner from the player's R16 predictions ─────
-    # We must do this BEFORE processing R8+ rows so that the reverse lookup
-    # (team_name -> match_num -> winner_code) works when computing slot keys.
-    for r in R16_POOL_ROWS:
-        raw = ws.cell(r, 3).value
-        parsed_r16 = parse_pred_cell(str(raw) if raw else "")
-        if not parsed_r16:
-            continue
-        mn_r16, sg_r16, gl_r16, gv_r16 = parsed_r16
-        match_num_r16 = ROW_TO_MATCH_NUM.get(r)
-        if match_num_r16 is None:
-            continue
-        # Derive winner from the prediction
-        parts_r16 = mn_r16.split("-", 1)
-        home_r16 = parts_r16[0].strip()
-        away_r16 = parts_r16[1].strip() if len(parts_r16) > 1 else ""
-        if sg_r16 == "1":
-            w_r16 = home_r16
-        elif sg_r16 == "2":
-            w_r16 = away_r16
+    # ── Cascaded pre-passes: build phase_winners[phase] = {match_num: team} ──
+    # We need these populated BEFORE the main loop so that when we compute
+    # the slot key for a phase-N match, we can reverse-look up the correct
+    # phase-(N-1) match_num (and thus winner_code) for each team.
+    #
+    # Why cascaded? Consider cuartos (R4). The slot "W89-W90" means:
+    #   W89 = winner of R8-match-90 (W73-W75 bracket)
+    #   W90 = winner of R8-match-89 (W74-W77 bracket)
+    # To find "which R8 match produced França?", we need R8 winners keyed by
+    # the R8 match_num (89-96), NOT the R16 match_nums (73-88).
+    # A shared j_to_winner with smallest-match_num preference would pick the
+    # R16 entry (78→França) instead of the correct R8 entry (89→França),
+    # giving winner_code W77 instead of W90.
+
+    phase_winners: dict = {
+        "R16": {},  # match_num (73-88) -> team
+        "R8":  {},  # match_num (89-96) -> team
+        "R4":  {},  # match_num (97-100) -> team
+        "SF":  {},  # match_num (101-102) -> team
+    }
+
+    # Pre-pass R16 (rows 164-179)
+    for r in sorted(R16_POOL_ROWS):
+        match_num, w = _winner_from_row(r, ws, ROW_TO_MATCH_NUM, winners)
+        if match_num and w:
+            phase_winners["R16"][match_num] = w
+
+    # Pre-pass R8 (rows 200-207) — needs R16 winners to resolve placeholders
+    for r in sorted(R8_POOL_ROWS):
+        match_num, w = _winner_from_row(r, ws, ROW_TO_MATCH_NUM, winners)
+        if match_num and w:
+            phase_winners["R8"][match_num] = w
+
+    # Pre-pass R4 (rows 220-223)
+    for r in sorted(R4_POOL_ROWS):
+        match_num, w = _winner_from_row(r, ws, ROW_TO_MATCH_NUM, winners)
+        if match_num and w:
+            phase_winners["R4"][match_num] = w
+
+    # Pre-pass SF (rows 232-233)
+    for r in sorted(SF_POOL_ROWS):
+        match_num, w = _winner_from_row(r, ws, ROW_TO_MATCH_NUM, winners)
+        if match_num and w:
+            phase_winners["SF"][match_num] = w
+
+    def _slot_key_for_row(r, mname, phase_winners, match_num_to_winner_code,
+                          wc_row, ws_wc):
+        """Compute the WORLDCUP bracket slot key (e.g. 'W89-W90') for a KO row.
+
+        For R8 rows: the home/away teams come from R16 matches, so we reverse-
+        lookup in phase_winners['R16'] to get the source match_num, then convert
+        to a winner_code via match_num_to_winner_code.
+
+        For R4 rows: same idea but using phase_winners['R8'].
+        For SF/Final rows: using phase_winners['R4'].
+        """
+        if r in R8_POOL_ROWS:
+            prev = phase_winners["R16"]
+        elif r in R4_POOL_ROWS:
+            prev = phase_winners["R8"]
+        elif r in SF_POOL_ROWS:
+            prev = phase_winners["R4"]
+        elif r in F_POOL_ROWS:
+            prev = phase_winners["SF"]
         else:
-            # Draw: look up in winners dict (penalty shootout)
-            w_r16 = winners.get(mn_r16)
-            if w_r16 and "(" in w_r16:
-                w_r16 = w_r16.split("(")[0].strip()
-        if w_r16:
-            j_to_winner[int(match_num_r16)] = w_r16
+            return None
+
+        parts_m = mname.split("-", 1)
+        h_team = parts_m[0].strip()
+        a_team = parts_m[1].strip() if len(parts_m) > 1 else ""
+
+        # Build reverse: team -> match_num from the immediately preceding phase
+        rev: dict = {}
+        for mn_k, mn_v in prev.items():
+            if isinstance(mn_v, str):
+                if mn_v not in rev or mn_k < rev[mn_v]:
+                    rev[mn_v] = mn_k
+
+        h_src = rev.get(h_team)
+        a_src = rev.get(a_team)
+        h_code = match_num_to_winner_code.get(h_src) if h_src is not None else None
+        a_code = match_num_to_winner_code.get(a_src) if a_src is not None else None
+
+        if h_code and a_code:
+            return f"{h_code}-{a_code}"
+
+        # Fallback: use the WORLDCUP row's placeholder pair
+        if wc_row:
+            ph_h = ws_wc.cell(wc_row, 1).value
+            ph_a = ws_wc.cell(wc_row, 2).value
+            if ph_h and ph_a:
+                return f"{ph_h}-{ph_a}"
+        return None
+
+    # ── Main loop: parse all prediction rows and store with correct slot key ──
+    # j_to_winner tracks running cumulative winners (used by _resolve_placeholder
+    # to expand W73-style codes when players leave formulas in their cells).
+    j_to_winner: dict = {**phase_winners["R16"]}   # seed with R16 so R8 can resolve
 
     for r in PRED_ROWS:
         raw = ws.cell(r, 3).value
@@ -206,8 +298,8 @@ def extract_player_predictions(xlsx_path):
 
         # ── For R8+ matches: resolve bracket placeholders if needed ──────────
         # Players usually write real team names (e.g. "Portugal-España") so we
-        # should trust those.  Only substitute teams that are still placeholders
-        # like "W73" or "W84" (which means the player left the Excel formula as-is).
+        # should trust those. Only substitute teams that are still placeholders
+        # like "W73" or "W84" (player left the Excel formula as-is).
         if wc_row is not None and r not in R16_POOL_ROWS:
             def _is_placeholder(name):
                 return not name or bool(re.match(r'^[WwLl]\d+$', name.strip()))
@@ -216,31 +308,27 @@ def extract_player_predictions(xlsx_path):
             home_excel = parts_excel[0].strip() if len(parts_excel) > 0 else ""
             away_excel = parts_excel[1].strip() if len(parts_excel) > 1 else ""
 
-            # Resolve only the placeholder parts using j_to_winner
             def _resolve_placeholder(team_name):
-                """If team_name is a 'W73'-style placeholder, look up the winner."""
+                """If team_name is a 'W73'-style placeholder, look up winner."""
                 if not _is_placeholder(team_name):
-                    return team_name  # already a real name, keep it
+                    return team_name
                 m = re.match(r'^[Ww](\d+)$', team_name.strip())
                 if m:
                     code_num = int(m.group(1))
-                    return j_to_winner.get(code_num)  # may be None
+                    return j_to_winner.get(code_num)
                 return None
 
             resolved_home = _resolve_placeholder(home_excel)
             resolved_away = _resolve_placeholder(away_excel)
 
-            # Only update mname if both sides could be resolved
             if resolved_home and resolved_away:
                 mname = f"{resolved_home}-{resolved_away}"
             elif resolved_home and not _is_placeholder(away_excel):
                 mname = f"{resolved_home}-{away_excel}"
             elif not _is_placeholder(home_excel) and resolved_away:
                 mname = f"{home_excel}-{resolved_away}"
-            # else: keep mname_excel as-is (real team names written by player)
 
         winner = _derive_winner(mname, sign, gl, gv, winners)
-        # Fallback for draws with penalty shootout
         if winner is None and mname != mname_excel:
             fallback_winner = _derive_winner(mname_excel, sign, gl, gv, winners)
             if fallback_winner:
@@ -251,44 +339,14 @@ def extract_player_predictions(xlsx_path):
         if winner:
             pred_str += f"|{winner}"
 
-        # ── Compute slot_key from the TEAMS the player wrote ──────────────────
-        # We must NOT use the row-based WORLDCUP slot (ph_home/ph_away from
-        # wc_row), because the player may have filled octavos rows in a
-        # different order than the WORLDCUP sheet.
-        # Reverse-look up each team in j_to_winner to find which PREVIOUS-PHASE
-        # match produced it, then convert match_num -> winner_code (W73 etc).
-        # IMPORTANT: compute rev_winner BEFORE updating j_to_winner below so
-        # that the reverse map only sees the previous phase's winners (not the
-        # current match's winner which would create a duplicate and override the
-        # correct source match_num).
+        # ── Compute slot_key using phase-specific reverse lookup ──────────────
         slot_key = None
         if wc_row and r not in R16_POOL_ROWS:
-            parts_mname = mname.split("-", 1)
-            h_team = parts_mname[0].strip()
-            a_team = parts_mname[1].strip() if len(parts_mname) > 1 else ""
-            # Build reverse: team_name -> match_num.
-            # When a team appears as winner of multiple matches (can happen in
-            # dict comprehension if same team wins consecutive phases), prefer
-            # the match with the smallest match_num (i.e. the earliest phase).
-            rev_winner: dict = {}
-            for mn_k, mn_v in j_to_winner.items():
-                if isinstance(mn_v, str):
-                    if mn_v not in rev_winner or mn_k < rev_winner[mn_v]:
-                        rev_winner[mn_v] = mn_k
-            h_src = rev_winner.get(h_team)
-            a_src = rev_winner.get(a_team)
-            h_code = match_num_to_winner_code.get(h_src) if h_src is not None else None
-            a_code = match_num_to_winner_code.get(a_src) if a_src is not None else None
-            if h_code and a_code:
-                slot_key = f"{h_code}-{a_code}"
-            else:
-                # Fallback: use the row's WORLDCUP slot
-                ph_home_val = ws_wc.cell(wc_row, 1).value
-                ph_away_val = ws_wc.cell(wc_row, 2).value
-                if ph_home_val and ph_away_val:
-                    slot_key = f"{ph_home_val}-{ph_away_val}"
+            slot_key = _slot_key_for_row(
+                r, mname, phase_winners, match_num_to_winner_code, wc_row, ws_wc
+            )
 
-        # Update j_to_winner so subsequent phases (R4, SF, Final) can chain
+        # Store prediction under all relevant keys
         if wc_row and r not in R16_POOL_ROWS:
             match_num = ROW_TO_MATCH_NUM.get(r)
             if match_num is not None:
@@ -306,8 +364,7 @@ def extract_player_predictions(xlsx_path):
                 preds[str(match_num)] = pred_str
 
         preds[mname] = pred_str
-        # Keep row key as fallback
-        preds[str(r)] = pred_str
+        preds[str(r)] = pred_str  # row-number fallback
 
     return preds
 
