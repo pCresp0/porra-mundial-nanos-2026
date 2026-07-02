@@ -1755,6 +1755,22 @@
       "team": "away"
     }
   ],
+  "Estados Unidos-Bosnia y Herzegovina": [
+    {
+      "player": "Flvrin Balvgan",
+      "minute": "45'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Malik Tillman",
+      "minute": "82'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
   "Bélgica-Senegal": [
     {
       "player": "Romelu Lukaku",
