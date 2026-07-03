@@ -1,39 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-27T07:00:58+02:00",
-    "date": "27/06/2026",
-    "time": "07:00:58",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇪🇬Egipto 0-0 Irán🇮🇷",
-        "name": "Egipto-Irán",
-        "date": "2026-06-27",
-        "fields": [],
-        "old": {},
-        "new": {}
-      },
-      {
-        "label": "🇳🇿Nueva Zelanda 1-5 Bélgica🇧🇪",
-        "name": "Nueva Zelanda-Bélgica",
-        "date": "2026-06-27",
-        "fields": [
-          "marcador",
-          "jugado"
-        ],
-        "old": {
-          "marcador": "0-0",
-          "jugado": "no"
-        },
-        "new": {
-          "marcador": "1-5",
-          "jugado": "sí"
-        }
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-27T07:02:32+02:00",
     "date": "27/06/2026",
     "time": "07:02:32",
@@ -17141,6 +17107,14 @@
     "ts_iso": "2026-07-04T00:46:37+02:00",
     "date": "04/07/2026",
     "time": "00:46:37",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-04T00:48:28+02:00",
+    "date": "04/07/2026",
+    "time": "00:48:28",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
