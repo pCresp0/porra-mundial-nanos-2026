@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "03/07/2026 19:18",
+    "generated": "03/07/2026 19:20",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-07-03T21:18",
       "last_updated_time": "21:18",
       "last_updated_date": "03/07/2026",
-      "next_update_iso": "2026-07-03T21:20",
-      "next_update_time": "21:20",
+      "next_update_iso": "2026-07-03T21:25",
+      "next_update_time": "21:25",
       "next_update_date": "03/07/2026",
-      "last_checked_iso": "2026-07-03T21:18",
-      "last_checked_time": "21:18",
+      "last_checked_iso": "2026-07-03T21:20",
+      "last_checked_time": "21:20",
       "last_checked_date": "03/07/2026"
     },
     "players": [
@@ -423,6 +423,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-03T21:20:40+02:00",
+        "date": "03/07/2026",
+        "time": "21:20:40",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-07-03T21:18:26+02:00",
         "date": "03/07/2026",
@@ -4699,14 +4707,6 @@
         "ts_iso": "2026-07-01T23:42:29+02:00",
         "date": "01/07/2026",
         "time": "23:42:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-01T23:40:36+02:00",
-        "date": "01/07/2026",
-        "time": "23:40:36",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -20930,7 +20930,7 @@
       "live_goals_v": 1,
       "live_scorers": [
         {
-          "player": "Harry Souttar",
+          "player": "Mohamed Hany",
           "minute": "55'",
           "own_goal": false,
           "penalty": false,
