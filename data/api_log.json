@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-27T08:02:31+02:00",
-    "date": "27/06/2026",
-    "time": "08:02:31",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-27T08:04:30+02:00",
     "date": "27/06/2026",
     "time": "08:04:30",
@@ -17100,5 +17092,22 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-07-04T01:24:31+02:00",
+    "date": "04/07/2026",
+    "time": "01:24:31",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇦🇷Argentina ?-? Cabo Verde🇺🇾",
+        "name": "Argentina-Cabo Verde",
+        "date": "2026-07-04",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]
