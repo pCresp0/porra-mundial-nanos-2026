@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "03/07/2026 18:01",
+    "generated": "03/07/2026 18:02",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-03T19:28",
-      "last_updated_time": "19:28",
+      "last_updated_iso": "2026-07-03T20:02",
+      "last_updated_time": "20:02",
       "last_updated_date": "03/07/2026",
       "next_update_iso": "2026-07-03T20:05",
       "next_update_time": "20:05",
       "next_update_date": "03/07/2026",
-      "last_checked_iso": "2026-07-03T20:01",
-      "last_checked_time": "20:01",
+      "last_checked_iso": "2026-07-03T20:02",
+      "last_checked_time": "20:02",
       "last_checked_date": "03/07/2026"
     },
     "players": [
@@ -24,9 +24,11 @@
       "CRESPO"
     ],
     "live": {
-      "active": false,
-      "count": 0,
-      "matches": []
+      "active": true,
+      "count": 1,
+      "matches": [
+        "Australia-Egipto"
+      ]
     },
     "colors": {
       "JUANCHO": "#F5C518",
@@ -421,6 +423,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-03T20:02:31+02:00",
+        "date": "03/07/2026",
+        "time": "20:02:31",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇦🇺Australia ?-? Egipto🇪🇬",
+            "name": "Australia-Egipto",
+            "date": "2026-07-03",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-03T20:01:03+02:00",
         "date": "03/07/2026",
@@ -4691,14 +4710,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-01T22:22:32+02:00",
-        "date": "01/07/2026",
-        "time": "22:22:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4706,8 +4717,8 @@
     {
       "name": "MEDINA",
       "total": 330.0,
-      "live_points": 0.0,
-      "total_live": 330.0,
+      "live_points": 5.0,
+      "total_live": 335.0,
       "groups": 130.0,
       "positions": 89.0,
       "q16": 52.0,
@@ -4746,8 +4757,8 @@
     {
       "name": "VÍCTOR",
       "total": 307.0,
-      "live_points": 0.0,
-      "total_live": 307.0,
+      "live_points": 5.0,
+      "total_live": 312.0,
       "groups": 134.0,
       "positions": 75.0,
       "q16": 50.0,
@@ -4821,13 +4832,13 @@
       "played": 72,
       "pos": 3,
       "pos_change": 0,
-      "live_pos": 3
+      "live_pos": 4
     },
     {
       "name": "JUANCHO",
       "total": 295.0,
-      "live_points": 0.0,
-      "total_live": 295.0,
+      "live_points": 5.0,
+      "total_live": 300.0,
       "groups": 118.0,
       "positions": 85.0,
       "q16": 52.0,
@@ -4861,7 +4872,7 @@
       "played": 72,
       "pos": 4,
       "pos_change": 0,
-      "live_pos": 4
+      "live_pos": 3
     },
     {
       "name": "LUIS/VIR",
@@ -20913,10 +20924,10 @@
       "phase": "r16",
       "result": null,
       "played": false,
-      "live": false,
-      "live_minute": "",
-      "live_goals_l": null,
-      "live_goals_v": null,
+      "live": true,
+      "live_minute": "live",
+      "live_goals_l": 0,
+      "live_goals_v": 0,
       "live_scorers": [],
       "goals_l": null,
       "goals_v": null,
@@ -20937,8 +20948,20 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 3.0,
+            "diff": 2.0,
+            "exact": 0,
+            "total": 5.0,
+            "reasons": [
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles (+2)"
+            ],
+            "team_match": null,
+            "pred_home": "Australia",
+            "pred_away": "Egipto"
+          },
+          "live_score": 5.0
         },
         "LARRY": {
           "pred": {
@@ -20950,8 +20973,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ],
+            "team_match": null,
+            "pred_home": "Australia",
+            "pred_away": "Egipto"
+          },
+          "live_score": 0.0
         },
         "LUIS/VIR": {
           "pred": {
@@ -20963,8 +20997,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ],
+            "team_match": null,
+            "pred_home": "Australia",
+            "pred_away": "Egipto"
+          },
+          "live_score": 0.0
         },
         "MEDINA": {
           "pred": {
@@ -20976,8 +21021,20 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 3.0,
+            "diff": 2.0,
+            "exact": 0,
+            "total": 5.0,
+            "reasons": [
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles (+2)"
+            ],
+            "team_match": null,
+            "pred_home": "Australia",
+            "pred_away": "Egipto"
+          },
+          "live_score": 5.0
         },
         "VÍCTOR": {
           "pred": {
@@ -20989,8 +21046,20 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 3.0,
+            "diff": 2.0,
+            "exact": 0,
+            "total": 5.0,
+            "reasons": [
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles (+2)"
+            ],
+            "team_match": null,
+            "pred_home": "Australia",
+            "pred_away": "Egipto"
+          },
+          "live_score": 5.0
         },
         "CRESPO": {
           "pred": {
@@ -21002,8 +21071,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ],
+            "team_match": null,
+            "pred_home": "Australia",
+            "pred_away": "Egipto"
+          },
+          "live_score": 0.0
         }
       },
       "penalties": null,
