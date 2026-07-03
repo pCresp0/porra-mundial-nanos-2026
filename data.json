@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "03/07/2026 20:28",
+    "generated": "03/07/2026 20:30",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-07-03T21:18",
       "last_updated_time": "21:18",
       "last_updated_date": "03/07/2026",
-      "next_update_iso": "2026-07-03T22:30",
-      "next_update_time": "22:30",
+      "next_update_iso": "2026-07-03T22:35",
+      "next_update_time": "22:35",
       "next_update_date": "03/07/2026",
-      "last_checked_iso": "2026-07-03T22:28",
-      "last_checked_time": "22:28",
+      "last_checked_iso": "2026-07-03T22:30",
+      "last_checked_time": "22:30",
       "last_checked_date": "03/07/2026"
     },
     "players": [
@@ -427,6 +427,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-03T22:30:51+02:00",
+        "date": "03/07/2026",
+        "time": "22:30:51",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-07-03T22:28:32+02:00",
         "date": "03/07/2026",
@@ -4661,32 +4669,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-02T00:52:27+02:00",
-        "date": "02/07/2026",
-        "time": "00:52:27",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇧🇪Bélgica 3-2 Senegal🇸🇳",
-            "name": "Bélgica-Senegal",
-            "date": "2026-07-01",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "sin resultado",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "3-2",
-              "jugado": "sí"
-            }
-          }
-        ]
       }
     ]
   },
