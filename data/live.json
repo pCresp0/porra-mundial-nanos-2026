@@ -1,9 +1,16 @@
 {
   "Australia-Egipto": {
-    "home": 0,
+    "home": 1,
     "away": 1,
     "minute": "live",
     "scorers": [
+      {
+        "player": "Harry Souttar",
+        "minute": "55'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
       {
         "player": "Emam Ashour",
         "minute": "13'",
