@@ -1,7 +1,7 @@
 {
   "Portugal-Croacia": {
     "home": 2,
-    "away": 1,
+    "away": 2,
     "minute": "live",
     "scorers": [
       {
@@ -14,6 +14,13 @@
       {
         "player": "Ivan Perišić",
         "minute": "53'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Joško Gvardiol",
+        "minute": "90'+13'",
         "own_goal": false,
         "penalty": false,
         "team": "away"

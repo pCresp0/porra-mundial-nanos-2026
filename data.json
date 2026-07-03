@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "03/07/2026 01:04",
+    "generated": "03/07/2026 01:06",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-03T02:56",
-      "last_updated_time": "02:56",
+      "last_updated_iso": "2026-07-03T03:06",
+      "last_updated_time": "03:06",
       "last_updated_date": "03/07/2026",
-      "next_update_iso": "2026-07-03T03:05",
-      "next_update_time": "03:05",
+      "next_update_iso": "2026-07-03T03:10",
+      "next_update_time": "03:10",
       "next_update_date": "03/07/2026",
-      "last_checked_iso": "2026-07-03T03:04",
-      "last_checked_time": "03:04",
+      "last_checked_iso": "2026-07-03T03:06",
+      "last_checked_time": "03:06",
       "last_checked_date": "03/07/2026"
     },
     "players": [
@@ -419,6 +419,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-03T03:06:27+02:00",
+        "date": "03/07/2026",
+        "time": "03:06:27",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇵🇹Portugal ?-? Croacia🇭🇷",
+            "name": "Portugal-Croacia",
+            "date": "2026-07-03",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-03T03:04:26+02:00",
         "date": "03/07/2026",
@@ -4671,14 +4688,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-01T15:34:32+02:00",
-        "date": "01/07/2026",
-        "time": "15:34:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4686,8 +4695,8 @@
     {
       "name": "MEDINA",
       "total": 318.0,
-      "live_points": 9.0,
-      "total_live": 327.0,
+      "live_points": 0.0,
+      "total_live": 318.0,
       "groups": 130.0,
       "positions": 89.0,
       "q16": 52.0,
@@ -4726,8 +4735,8 @@
     {
       "name": "VÍCTOR",
       "total": 293.0,
-      "live_points": 5.0,
-      "total_live": 298.0,
+      "live_points": 0.0,
+      "total_live": 293.0,
       "groups": 134.0,
       "positions": 75.0,
       "q16": 50.0,
@@ -4761,13 +4770,13 @@
       "played": 72,
       "pos": 2,
       "pos_change": 0,
-      "live_pos": 2
+      "live_pos": 3
     },
     {
       "name": "JUANCHO",
       "total": 292.0,
-      "live_points": 0.0,
-      "total_live": 292.0,
+      "live_points": 5.0,
+      "total_live": 297.0,
       "groups": 118.0,
       "positions": 85.0,
       "q16": 52.0,
@@ -4801,13 +4810,13 @@
       "played": 72,
       "pos": 3,
       "pos_change": 0,
-      "live_pos": 4
+      "live_pos": 2
     },
     {
       "name": "CRESPO",
       "total": 284.0,
-      "live_points": 9.0,
-      "total_live": 293.0,
+      "live_points": 0.0,
+      "total_live": 284.0,
       "groups": 121.0,
       "positions": 81.0,
       "q16": 50.0,
@@ -4841,13 +4850,13 @@
       "played": 72,
       "pos": 4,
       "pos_change": 0,
-      "live_pos": 3
+      "live_pos": 4
     },
     {
       "name": "LUIS/VIR",
       "total": 276.0,
-      "live_points": 5.0,
-      "total_live": 281.0,
+      "live_points": 0.0,
+      "total_live": 276.0,
       "groups": 104.0,
       "positions": 77.0,
       "q16": 54.0,
@@ -4886,8 +4895,8 @@
     {
       "name": "LARRY",
       "total": 265.0,
-      "live_points": 0.0,
-      "total_live": 265.0,
+      "live_points": 5.0,
+      "total_live": 270.0,
       "groups": 105.0,
       "positions": 67.0,
       "q16": 54.0,
@@ -20451,7 +20460,7 @@
       "live": true,
       "live_minute": "live",
       "live_goals_l": 2,
-      "live_goals_v": 1,
+      "live_goals_v": 2,
       "live_scorers": [
         {
           "player": "Gvnchalv Ramvs",
@@ -20463,6 +20472,13 @@
         {
           "player": "I. Perišić",
           "minute": "53'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        },
+        {
+          "player": "Joško Gvardiol",
+          "minute": "90'+13'",
           "own_goal": false,
           "penalty": false,
           "team": "away"
@@ -20488,18 +20504,19 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 0.0,
-            "diff": 0.0,
+            "sign": 3.0,
+            "diff": 2.0,
             "exact": 0,
-            "total": 0.0,
+            "total": 5.0,
             "reasons": [
-              "1X2 incorrecto — 0 pts"
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles (+2)"
             ],
             "team_match": null,
             "pred_home": "Portugal",
             "pred_away": "Croacia"
           },
-          "live_score": 0.0
+          "live_score": 5.0
         },
         "LARRY": {
           "pred": {
@@ -20512,6 +20529,31 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
+            "sign": 3.0,
+            "diff": 2.0,
+            "exact": 0,
+            "total": 5.0,
+            "reasons": [
+              "1X2 correcto (+3.0)",
+              "Diferencia de goles (+2)"
+            ],
+            "team_match": null,
+            "pred_home": "Portugal",
+            "pred_away": "Croacia"
+          },
+          "live_score": 5.0
+        },
+        "LUIS/VIR": {
+          "pred": {
+            "sign": "1",
+            "score": "3-2",
+            "winner": "Portugal",
+            "pred_home": "Portugal",
+            "pred_away": "Croacia"
+          },
+          "score": 0.0,
+          "breakdown": null,
+          "live_breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -20525,31 +20567,6 @@
           },
           "live_score": 0.0
         },
-        "LUIS/VIR": {
-          "pred": {
-            "sign": "1",
-            "score": "3-2",
-            "winner": "Portugal",
-            "pred_home": "Portugal",
-            "pred_away": "Croacia"
-          },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
-            "sign": 3.0,
-            "diff": 2.0,
-            "exact": 0,
-            "total": 5.0,
-            "reasons": [
-              "1X2 correcto (+3.0)",
-              "Diferencia de goles (+2)"
-            ],
-            "team_match": null,
-            "pred_home": "Portugal",
-            "pred_away": "Croacia"
-          },
-          "live_score": 5.0
-        },
         "MEDINA": {
           "pred": {
             "sign": "1",
@@ -20561,20 +20578,18 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 3.0,
-            "diff": 2.0,
-            "exact": 4.0,
-            "total": 9.0,
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
             "reasons": [
-              "1X2 correcto (+3.0)",
-              "Diferencia de goles (+2.0)",
-              "Resultado exacto (+4.0)"
+              "1X2 incorrecto — 0 pts"
             ],
             "team_match": null,
             "pred_home": "Portugal",
             "pred_away": "Croacia"
           },
-          "live_score": 9.0
+          "live_score": 0.0
         },
         "VÍCTOR": {
           "pred": {
@@ -20587,19 +20602,18 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 3.0,
-            "diff": 2.0,
+            "sign": 0.0,
+            "diff": 0.0,
             "exact": 0,
-            "total": 5.0,
+            "total": 0.0,
             "reasons": [
-              "1X2 correcto (+3.0)",
-              "Diferencia de goles (+2)"
+              "1X2 incorrecto — 0 pts"
             ],
             "team_match": null,
             "pred_home": "Portugal",
             "pred_away": "Croacia"
           },
-          "live_score": 5.0
+          "live_score": 0.0
         },
         "CRESPO": {
           "pred": {
@@ -20612,20 +20626,18 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 3.0,
-            "diff": 2.0,
-            "exact": 4.0,
-            "total": 9.0,
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
             "reasons": [
-              "1X2 correcto (+3.0)",
-              "Diferencia de goles (+2.0)",
-              "Resultado exacto (+4.0)"
+              "1X2 incorrecto — 0 pts"
             ],
             "team_match": null,
             "pred_home": "Portugal",
             "pred_away": "Croacia"
           },
-          "live_score": 9.0
+          "live_score": 0.0
         }
       },
       "penalties": null,
