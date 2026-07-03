@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-26T15:04:33+02:00",
-    "date": "26/06/2026",
-    "time": "15:04:33",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-26T15:20:35+02:00",
     "date": "26/06/2026",
     "time": "15:20:35",
@@ -17286,5 +17278,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-07-03T03:12:28+02:00",
+    "date": "03/07/2026",
+    "time": "03:12:28",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇵🇹Portugal 2-1 Croacia🇭🇷",
+        "name": "Portugal-Croacia",
+        "date": "2026-07-03",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "sin resultado",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "2-1",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]

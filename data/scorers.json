@@ -1808,6 +1808,22 @@
       "team": "away"
     }
   ],
+  "Portugal-Croacia": [
+    {
+      "player": "Gvnchalv Ramvs",
+      "minute": "90'+4'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Ivan Perišić",
+      "minute": "53'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "España-Austria": [
     {
       "player": "Mikel Oyarzabal",
