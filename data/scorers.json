@@ -1862,5 +1862,21 @@
       "penalty": false,
       "team": "home"
     }
+  ],
+  "Australia-Egipto": [
+    {
+      "player": "Mohamed Hany",
+      "minute": "55'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Emam Ashour",
+      "minute": "13'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
   ]
 }
