@@ -1846,5 +1846,21 @@
       "penalty": false,
       "team": "home"
     }
+  ],
+  "Suiza-Argelia": [
+    {
+      "player": "Breel Embolo",
+      "minute": "10'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Dn Andvi",
+      "minute": "46'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
   ]
 }
