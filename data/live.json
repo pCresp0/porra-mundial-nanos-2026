@@ -10,6 +10,13 @@
         "own_goal": false,
         "penalty": false,
         "team": "home"
+      },
+      {
+        "player": "Dan Ndoye",
+        "minute": "46'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
       }
     ]
   }
