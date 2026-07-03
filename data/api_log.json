@@ -1,22 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-26T21:26:33+02:00",
-    "date": "26/06/2026",
-    "time": "21:26:33",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇳🇴Noruega 0-0 Francia🇫🇷",
-        "name": "Noruega-Francia",
-        "date": "2026-06-26",
-        "fields": [],
-        "old": {},
-        "new": {}
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-26T21:28:59+02:00",
     "date": "26/06/2026",
     "time": "21:28:59",
@@ -17275,6 +17258,14 @@
     "ts_iso": "2026-07-03T05:54:26+02:00",
     "date": "03/07/2026",
     "time": "05:54:26",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-03T05:56:26+02:00",
+    "date": "03/07/2026",
+    "time": "05:56:26",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
