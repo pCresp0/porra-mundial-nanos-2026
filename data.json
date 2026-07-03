@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "03/07/2026 22:20",
+    "generated": "03/07/2026 22:22",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-04T00:25",
       "next_update_time": "00:25",
       "next_update_date": "04/07/2026",
-      "last_checked_iso": "2026-07-04T00:20",
-      "last_checked_time": "00:20",
+      "last_checked_iso": "2026-07-04T00:22",
+      "last_checked_time": "00:22",
       "last_checked_date": "04/07/2026"
     },
     "players": [
@@ -427,6 +427,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-04T00:22:27+02:00",
+        "date": "04/07/2026",
+        "time": "00:22:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-07-04T00:20:40+02:00",
         "date": "04/07/2026",
@@ -4670,23 +4678,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-02T02:48:26+02:00",
-        "date": "02/07/2026",
-        "time": "02:48:26",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇺🇸Estados Unidos ?-? Bosnia y Herzegovina🇧🇦",
-            "name": "Estados Unidos-Bosnia y Herzegovina",
-            "date": "2026-07-02",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
