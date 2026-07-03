@@ -1,9 +1,16 @@
 {
   "Portugal-Croacia": {
-    "home": 1,
+    "home": 2,
     "away": 1,
     "minute": "live",
     "scorers": [
+      {
+        "player": "Gvnchalv Ramvs",
+        "minute": "90'+4'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
       {
         "player": "Ivan Perišić",
         "minute": "53'",
