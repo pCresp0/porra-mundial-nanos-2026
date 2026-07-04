@@ -1,12 +1,19 @@
 {
   "Colombia-Ghana": {
-    "home": 1,
+    "home": 2,
     "away": 0,
     "minute": "live",
     "scorers": [
       {
         "player": "Jan Arias",
         "minute": "14'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Lviiz Diaz",
+        "minute": "56'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
