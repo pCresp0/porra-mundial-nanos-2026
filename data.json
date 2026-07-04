@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "04/07/2026 00:44",
+    "generated": "04/07/2026 00:46",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-04T02:34",
-      "last_updated_time": "02:34",
+      "last_updated_iso": "2026-07-04T02:46",
+      "last_updated_time": "02:46",
       "last_updated_date": "04/07/2026",
-      "next_update_iso": "2026-07-04T02:45",
-      "next_update_time": "02:45",
+      "next_update_iso": "2026-07-04T02:50",
+      "next_update_time": "02:50",
       "next_update_date": "04/07/2026",
-      "last_checked_iso": "2026-07-04T02:44",
-      "last_checked_time": "02:44",
+      "last_checked_iso": "2026-07-04T02:46",
+      "last_checked_time": "02:46",
       "last_checked_date": "04/07/2026"
     },
     "players": [
@@ -24,11 +24,9 @@
       "CRESPO"
     ],
     "live": {
-      "active": true,
-      "count": 1,
-      "matches": [
-        "Argentina-Cabo Verde"
-      ]
+      "active": false,
+      "count": 0,
+      "matches": []
     },
     "colors": {
       "JUANCHO": "#F5C518",
@@ -427,6 +425,32 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-04T02:46:34+02:00",
+        "date": "04/07/2026",
+        "time": "02:46:34",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇦🇷Argentina 3-2 Cabo Verde🇺🇾",
+            "name": "Argentina-Cabo Verde",
+            "date": "2026-07-04",
+            "fields": [
+              "marcador",
+              "jugado"
+            ],
+            "old": {
+              "marcador": "sin resultado",
+              "jugado": "no"
+            },
+            "new": {
+              "marcador": "3-2",
+              "jugado": "sí"
+            }
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-04T02:44:30+02:00",
         "date": "04/07/2026",
@@ -4688,27 +4712,19 @@
         "updated": false,
         "trigger": "push",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-02T12:28:32+02:00",
-        "date": "02/07/2026",
-        "time": "12:28:32",
-        "updated": false,
-        "trigger": "push",
-        "changes": []
       }
     ]
   },
   "standings": [
     {
       "name": "MEDINA",
-      "total": 339.0,
-      "live_points": 3.0,
+      "total": 342.0,
+      "live_points": 0.0,
       "total_live": 342.0,
       "groups": 130.0,
       "positions": 89.0,
       "q16": 52.0,
-      "r16": 120.0,
+      "r16": 123.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4731,7 +4747,7 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 120.0
+          "pts": 123.0
         }
       ],
       "color": "#F97316",
@@ -4742,13 +4758,13 @@
     },
     {
       "name": "VÍCTOR",
-      "total": 316.0,
-      "live_points": 3.0,
+      "total": 319.0,
+      "live_points": 0.0,
       "total_live": 319.0,
       "groups": 134.0,
       "positions": 75.0,
       "q16": 50.0,
-      "r16": 107.0,
+      "r16": 110.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4771,7 +4787,7 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 107.0
+          "pts": 110.0
         }
       ],
       "color": "#A855F7",
@@ -4782,13 +4798,13 @@
     },
     {
       "name": "JUANCHO",
-      "total": 300.0,
-      "live_points": 3.0,
+      "total": 303.0,
+      "live_points": 0.0,
       "total_live": 303.0,
       "groups": 118.0,
       "positions": 85.0,
       "q16": 52.0,
-      "r16": 97.0,
+      "r16": 100.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4811,24 +4827,24 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 97.0
+          "pts": 100.0
         }
       ],
       "color": "#F5C518",
       "played": 72,
       "pos": 3,
-      "pos_change": 1,
+      "pos_change": 0,
       "live_pos": 3
     },
     {
       "name": "CRESPO",
-      "total": 296.0,
-      "live_points": 3.0,
+      "total": 299.0,
+      "live_points": 0.0,
       "total_live": 299.0,
       "groups": 121.0,
       "positions": 81.0,
       "q16": 50.0,
-      "r16": 94.0,
+      "r16": 97.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4851,24 +4867,24 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 94.0
+          "pts": 97.0
         }
       ],
       "color": "#EF4444",
       "played": 72,
       "pos": 4,
-      "pos_change": -1,
+      "pos_change": 0,
       "live_pos": 4
     },
     {
       "name": "LUIS/VIR",
-      "total": 284.0,
-      "live_points": 3.0,
+      "total": 287.0,
+      "live_points": 0.0,
       "total_live": 287.0,
       "groups": 104.0,
       "positions": 77.0,
       "q16": 54.0,
-      "r16": 103.0,
+      "r16": 106.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4891,7 +4907,7 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 103.0
+          "pts": 106.0
         }
       ],
       "color": "#10B981",
@@ -4902,13 +4918,13 @@
     },
     {
       "name": "LARRY",
-      "total": 274.0,
-      "live_points": 3.0,
+      "total": 277.0,
+      "live_points": 0.0,
       "total_live": 277.0,
       "groups": 105.0,
       "positions": 67.0,
       "q16": 54.0,
-      "r16": 102.0,
+      "r16": 105.0,
       "r8": 0.0,
       "r4": 0.0,
       "r2": 0.0,
@@ -4931,7 +4947,7 @@
           "key": "r16",
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
-          "pts": 102.0
+          "pts": 105.0
         }
       ],
       "color": "#3B82F6",
@@ -21132,13 +21148,19 @@
       "day_label": "Sábado 04 julio",
       "datetime_es": "2026-07-04T00:00:00",
       "phase": "r16",
-      "result": null,
-      "played": false,
-      "live": true,
-      "live_minute": "live",
-      "live_goals_l": 3,
-      "live_goals_v": 2,
-      "live_scorers": [
+      "result": {
+        "sign": "1",
+        "score": "3-2"
+      },
+      "played": true,
+      "live": false,
+      "live_minute": "",
+      "live_goals_l": null,
+      "live_goals_v": null,
+      "live_scorers": [],
+      "goals_l": 3,
+      "goals_v": 2,
+      "scorers": [
         {
           "player": "L. Messi",
           "minute": "29'",
@@ -21175,9 +21197,6 @@
           "team": "away"
         }
       ],
-      "goals_l": null,
-      "goals_v": null,
-      "scorers": [],
       "phase_pts": {
         "sign": 3.0,
         "diff": 2.0,
@@ -21192,22 +21211,23 @@
             "pred_home": "Argentina",
             "pred_away": "Cabo Verde"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 6.0,
+          "breakdown": {
             "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 6.0,
             "reasons": [
               "1X2 correcto (+3.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
             "pred_home": "Argentina",
             "pred_away": "Cabo Verde"
           },
-          "live_score": 3.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "LARRY": {
           "pred": {
@@ -21217,22 +21237,23 @@
             "pred_home": "Argentina",
             "pred_away": "Cabo Verde"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 6.0,
+          "breakdown": {
             "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 6.0,
             "reasons": [
               "1X2 correcto (+3.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
             "pred_home": "Argentina",
             "pred_away": "Cabo Verde"
           },
-          "live_score": 3.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "LUIS/VIR": {
           "pred": {
@@ -21242,22 +21263,23 @@
             "pred_home": "Argentina",
             "pred_away": "Cabo Verde"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 6.0,
+          "breakdown": {
             "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 6.0,
             "reasons": [
               "1X2 correcto (+3.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
             "pred_home": "Argentina",
             "pred_away": "Cabo Verde"
           },
-          "live_score": 3.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "MEDINA": {
           "pred": {
@@ -21267,22 +21289,23 @@
             "pred_home": "Argentina",
             "pred_away": "Cabo Verde"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 6.0,
+          "breakdown": {
             "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 6.0,
             "reasons": [
               "1X2 correcto (+3.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
             "pred_home": "Argentina",
             "pred_away": "Cabo Verde"
           },
-          "live_score": 3.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "VÍCTOR": {
           "pred": {
@@ -21292,22 +21315,23 @@
             "pred_home": "Argentina",
             "pred_away": "Cabo Verde"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 6.0,
+          "breakdown": {
             "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 6.0,
             "reasons": [
               "1X2 correcto (+3.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
             "pred_home": "Argentina",
             "pred_away": "Cabo Verde"
           },
-          "live_score": 3.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "CRESPO": {
           "pred": {
@@ -21317,26 +21341,27 @@
             "pred_home": "Argentina",
             "pred_away": "Cabo Verde"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 6.0,
+          "breakdown": {
             "sign": 3.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 3.0,
+            "total": 6.0,
             "reasons": [
               "1X2 correcto (+3.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+3.0 pts)"
             ],
             "team_match": null,
             "pred_home": "Argentina",
             "pred_away": "Cabo Verde"
           },
-          "live_score": 3.0
+          "live_breakdown": null,
+          "live_score": null
         }
       },
       "penalties": null,
-      "actual_winner": null
+      "actual_winner": "Argentina"
     },
     {
       "row": 179,
@@ -22224,11 +22249,11 @@
       "row": 206,
       "id": "",
       "name": "W86-W88",
-      "home": "W87",
+      "home": "Argentina",
       "away": "Egipto",
       "home_placeholder": "W86",
       "away_placeholder": "W88",
-      "flag_home": "",
+      "flag_home": "🇦🇷",
       "flag_away": "🇪🇬",
       "match_num": 95,
       "bracket_order": 7,
@@ -23749,7 +23774,8 @@
       "ESP-AUS",
       "POR-CRO",
       "SUI-ARG",
-      "AUS-EGI"
+      "AUS-EGI",
+      "ARG-CAB"
     ],
     "flag_labels": [
       "🇲🇽🇿🇦",
@@ -23838,7 +23864,8 @@
       "🇪🇸🇦🇹",
       "🇵🇹🇭🇷",
       "🇨🇭🇩🇿",
-      "🇦🇺🇪🇬"
+      "🇦🇺🇪🇬",
+      "🇦🇷🇺🇾"
     ],
     "dates": [
       "2026-06-11",
@@ -23927,7 +23954,8 @@
       "2026-07-02",
       "2026-07-03",
       "2026-07-03",
-      "2026-07-03"
+      "2026-07-03",
+      "2026-07-04"
     ],
     "titles": [
       "México 2-0 Sudáfrica · 11 jun",
@@ -24016,7 +24044,8 @@
       "España 3-0 Austria · 2 jul",
       "Portugal 2-1 Croacia · 3 jul",
       "Suiza 2-0 Argelia · 3 jul",
-      "Australia 1-1 Egipto · 3 jul"
+      "Australia 1-1 Egipto · 3 jul",
+      "Argentina 3-2 Cabo Verde · 4 jul"
     ],
     "players": {
       "JUANCHO": [
@@ -24106,7 +24135,8 @@
         270.0,
         273.0,
         279.0,
-        287.0
+        287.0,
+        293.0
       ],
       "LARRY": [
         2.0,
@@ -24195,7 +24225,8 @@
         229.0,
         229.0,
         241.0,
-        244.0
+        244.0,
+        250.0
       ],
       "LUIS/VIR": [
         2.0,
@@ -24284,7 +24315,8 @@
         249.0,
         257.0,
         263.0,
-        266.0
+        266.0,
+        272.0
       ],
       "MEDINA": [
         2.0,
@@ -24373,7 +24405,8 @@
         293.0,
         305.0,
         311.0,
-        323.0
+        323.0,
+        329.0
       ],
       "VÍCTOR": [
         6.0,
@@ -24462,7 +24495,8 @@
         267.0,
         275.0,
         287.0,
-        299.0
+        299.0,
+        305.0
       ],
       "CRESPO": [
         3.0,
@@ -24551,7 +24585,8 @@
         258.0,
         270.0,
         276.0,
-        279.0
+        279.0,
+        285.0
       ]
     },
     "day_points": {
@@ -24642,7 +24677,8 @@
         6.0,
         3.0,
         6.0,
-        8.0
+        8.0,
+        6.0
       ],
       "LARRY": [
         2.0,
@@ -24731,7 +24767,8 @@
         12.0,
         0.0,
         12.0,
-        3.0
+        3.0,
+        6.0
       ],
       "LUIS/VIR": [
         2.0,
@@ -24820,7 +24857,8 @@
         6.0,
         8.0,
         6.0,
-        3.0
+        3.0,
+        6.0
       ],
       "MEDINA": [
         2.0,
@@ -24909,7 +24947,8 @@
         6.0,
         12.0,
         6.0,
-        12.0
+        12.0,
+        6.0
       ],
       "VÍCTOR": [
         6.0,
@@ -24998,7 +25037,8 @@
         6.0,
         8.0,
         12.0,
-        12.0
+        12.0,
+        6.0
       ],
       "CRESPO": [
         3.0,
@@ -25087,7 +25127,8 @@
         6.0,
         12.0,
         6.0,
-        3.0
+        3.0,
+        6.0
       ]
     },
     "phases": [
@@ -25164,6 +25205,7 @@
       "groups",
       "groups",
       "positions",
+      "r16",
       "r16",
       "r16",
       "r16",
@@ -26062,7 +26104,7 @@
             "label": "Eliminatorias (KO)",
             "icon": "⚔️",
             "rank": 1,
-            "display": "120 pts"
+            "display": "123 pts"
           },
           {
             "key": "phase_positions",
@@ -26158,7 +26200,7 @@
             "label": "Eliminatorias (KO)",
             "icon": "⚔️",
             "rank": 2,
-            "display": "107 pts"
+            "display": "110 pts"
           }
         ],
         "badges": [
@@ -26358,7 +26400,7 @@
             "label": "Eliminatorias (KO)",
             "icon": "⚔️",
             "rank": 3,
-            "display": "103 pts"
+            "display": "106 pts"
           },
           {
             "key": "hits_exact",
@@ -26370,8 +26412,8 @@
         ],
         "badges": [],
         "best_phase": {
-          "label": "Fase de grupos",
-          "pts": 104.0
+          "label": "Eliminatorias",
+          "pts": 106.0
         }
       },
       {
@@ -26852,43 +26894,43 @@
           "rank": 1,
           "name": "MEDINA",
           "color": "#F97316",
-          "display": "120 pts",
-          "value": 120.0
+          "display": "123 pts",
+          "value": 123.0
         },
         {
           "rank": 2,
           "name": "VÍCTOR",
           "color": "#A855F7",
-          "display": "107 pts",
-          "value": 107.0
+          "display": "110 pts",
+          "value": 110.0
         },
         {
           "rank": 3,
           "name": "LUIS/VIR",
           "color": "#10B981",
-          "display": "103 pts",
-          "value": 103.0
+          "display": "106 pts",
+          "value": 106.0
         },
         {
           "rank": 4,
           "name": "LARRY",
           "color": "#3B82F6",
-          "display": "102 pts",
-          "value": 102.0
+          "display": "105 pts",
+          "value": 105.0
         },
         {
           "rank": 5,
           "name": "JUANCHO",
           "color": "#F5C518",
-          "display": "97 pts",
-          "value": 97.0
+          "display": "100 pts",
+          "value": 100.0
         },
         {
           "rank": 6,
           "name": "CRESPO",
           "color": "#EF4444",
-          "display": "94 pts",
-          "value": 94.0
+          "display": "97 pts",
+          "value": 97.0
         }
       ],
       "phase_honor": [

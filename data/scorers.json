@@ -1863,6 +1863,43 @@
       "team": "home"
     }
   ],
+  "Argentina-Cabo Verde": [
+    {
+      "player": "Lionel Messi",
+      "minute": "29'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Lisandro Martínez",
+      "minute": "92'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Dini Bvrgs",
+      "minute": "111'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Drvi Dviart",
+      "minute": "59'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Lvpz Kabral",
+      "minute": "103'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "Australia-Egipto": [
     {
       "player": "Mohamed Hany",
