@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "04/07/2026 10:22",
+    "generated": "04/07/2026 10:24",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -10,7 +10,10 @@
       "last_updated_date": "04/07/2026",
       "next_update_iso": "2026-07-04T12:25",
       "next_update_time": "12:25",
-      "next_update_date": "04/07/2026"
+      "next_update_date": "04/07/2026",
+      "last_checked_iso": "2026-07-04T12:24",
+      "last_checked_time": "12:24",
+      "last_checked_date": "04/07/2026"
     },
     "players": [
       "JUANCHO",
@@ -426,6 +429,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-04T12:24:28+02:00",
+        "date": "04/07/2026",
+        "time": "12:24:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-07-04T12:07:18+02:00",
         "date": "04/07/2026",
@@ -4723,23 +4734,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-02T22:55:00+02:00",
-        "date": "02/07/2026",
-        "time": "22:55:00",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇪🇸España ?-? Austria🇦🇹",
-            "name": "España-Austria",
-            "date": "2026-07-02",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
