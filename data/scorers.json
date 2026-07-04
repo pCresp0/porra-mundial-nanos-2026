@@ -1900,6 +1900,15 @@
       "team": "away"
     }
   ],
+  "Colombia-Ghana": [
+    {
+      "player": "Jan Arias",
+      "minute": "14'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
   "Australia-Egipto": [
     {
       "player": "Mohamed Hany",
