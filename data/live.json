@@ -1,7 +1,7 @@
 {
   "Argentina-Cabo Verde": {
     "home": 2,
-    "away": 1,
+    "away": 2,
     "minute": "live",
     "scorers": [
       {
@@ -21,6 +21,13 @@
       {
         "player": "Drvi Dviart",
         "minute": "59'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Lvpz Kabral",
+        "minute": "103'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
