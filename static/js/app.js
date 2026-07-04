@@ -6424,7 +6424,14 @@ function renderBracket(overrideEl) {
     const [,mo,dd] = (m.date || "").split("-");
     const dateStr = mo ? `${parseInt(dd)} ${MONTH_SHORT[parseInt(mo)]}` : "";
     const timeStr = m.time_es || "";
-    const penaltyHtml = isPenalty ? `<span class="bkt-badge-pk">pk</span>` : "";
+    let penaltyHtml = "";
+    if (isPenalty) {
+      if (m.penalties && m.penalties.home !== undefined && m.penalties.away !== undefined) {
+        penaltyHtml = `<span class="bkt-badge-pk" title="Penaltis: ${m.penalties.home}-${m.penalties.away}">${m.penalties.home}-${m.penalties.away} pen.</span>`;
+      } else {
+        penaltyHtml = `<span class="bkt-badge-pk">pen.</span>`;
+      }
+    }
     const midHtml = played
       ? `<div class="bkt-mid bkt-score${gh === ga ? " bkt-draw" : ""}">${gh}–${ga}${penaltyHtml}</div>`
       : `<div class="bkt-mid bkt-time">${timeStr}<span class="bkt-dt">${dateStr}</span></div>`;
