@@ -1,8 +1,16 @@
 {
   "Canadá-Marruecos": {
     "home": 0,
-    "away": 0,
+    "away": 1,
     "minute": "live",
-    "scorers": []
+    "scorers": [
+      {
+        "player": "Azdin Avnahi",
+        "minute": "50'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      }
+    ]
   }
 }
