@@ -1,22 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-28T00:36:30+02:00",
-    "date": "28/06/2026",
-    "time": "00:36:30",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇭🇷Croacia 0-0 Ghana🇬🇭",
-        "name": "Croacia-Ghana",
-        "date": "2026-06-27",
-        "fields": [],
-        "old": {},
-        "new": {}
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-28T00:38:37+02:00",
     "date": "28/06/2026",
     "time": "00:38:37",
@@ -17161,6 +17144,14 @@
     "ts_iso": "2026-07-04T19:34:25+02:00",
     "date": "04/07/2026",
     "time": "19:34:25",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-04T19:36:34+02:00",
+    "date": "04/07/2026",
+    "time": "19:36:34",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
