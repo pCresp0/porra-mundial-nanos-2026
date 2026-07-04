@@ -6628,7 +6628,26 @@ function renderBracket(overrideEl) {
       { phase: "r2", label: "Semis", count: 2 },
       { phase: "r34_final", label: "Final", count: 2 },
     ];
-    let currentIdx = 0;
+    // Tabs móvil: determinar la fase inicial (la más avanzada con cruces totalmente definidos)
+    let initialIdx = 0;
+    for (let i = 0; i < MOB_ROUNDS_REF.length; i++) {
+      const phase = MOB_ROUNDS_REF[i].phase;
+      let hasPlaceholders = false;
+      if (phase === "r34_final") {
+        if (!finalMatch || isPlaceholder(finalMatch.home) || isPlaceholder(finalMatch.away)) {
+          hasPlaceholders = true;
+        }
+      } else {
+        const ms = byPhase[phase] || [];
+        if (ms.length === 0 || ms.some(m => isPlaceholder(m.home) || isPlaceholder(m.away))) {
+          hasPlaceholders = true;
+        }
+      }
+      if (!hasPlaceholders) {
+        initialIdx = i;
+      }
+    }
+    let currentIdx = initialIdx;
 
     function _phaseTopNav(idx) {
       const hasPrev = idx > 0;
@@ -6741,6 +6760,10 @@ function renderBracket(overrideEl) {
         if (idx >= 0) switchMobRound(idx);
       });
     }
+    
+    // Iniciar en la ronda detectada
+    switchMobRound(initialIdx);
+
     // Wire up initial nav buttons
     navWrap?.querySelector(".bkt-mob-nav-next")?.addEventListener("click", () => switchMobRound(currentIdx + 1));
     navWrap?.querySelector(".bkt-mob-nav-prev")?.addEventListener("click", () => switchMobRound(currentIdx - 1));
@@ -6770,6 +6793,39 @@ function renderBracket(overrideEl) {
           if (col) col.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
         });
       });
+      
+      // Auto-scrollear a la fase más avanzada con cruces totalmente definidos
+      let activePhase = "r16";
+      const phasesList = ["r16", "r8", "r4", "r2", "final"];
+      for (const phase of phasesList) {
+        let hasPlaceholders = false;
+        if (phase === "final") {
+          if (!finalMatch || isPlaceholder(finalMatch.home) || isPlaceholder(finalMatch.away)) {
+            hasPlaceholders = true;
+          }
+        } else {
+          const ms = byPhase[phase] || [];
+          if (ms.length === 0 || ms.some(m => isPlaceholder(m.home) || isPlaceholder(m.away))) {
+            hasPlaceholders = true;
+          }
+        }
+        if (!hasPlaceholders) {
+          activePhase = phase;
+        }
+      }
+
+      // Encontrar el botón correspondiente y simular click o scroll directo tras el render
+      const activeBtn = Array.from(phaseNavBtns).find(b => b.dataset.bktPhase === activePhase);
+      if (activeBtn) {
+        // Marcamos la pestaña activa
+        phaseNavBtns.forEach(b => b.classList.toggle("active", b === activeBtn));
+        // Scrolleamos a la columna correspondiente
+        setTimeout(() => {
+          const col = scrollInner.querySelector(`[data-phase-col="${activePhase}"]`);
+          if (col) col.scrollIntoView({ behavior: "auto", block: "nearest", inline: "start" });
+        }, 100);
+      }
+
       // Update active nav on scroll
       const track = scrollInner.querySelector(".bkt-track");
       if (track) {
