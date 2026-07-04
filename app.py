@@ -1235,6 +1235,21 @@ def build_data():
     # Mapeamos las fases del Excel (r34 y final) a las claves de standings (r34_final)
     _KO_STANDINGS_KEY = {"r16": "r16", "r8": "r8", "r4": "r4", "r2": "r2", "r34": "r34_final", "final": "r34_final"}
 
+    _R8_BRACKET_MAP = {
+        # match_num: {name: slot_key, home_num: source_r16_match_for_home, away_num: source_r16_match_for_away}
+        # W-code -> source match: W73=m73, W74=m75, W75=m76, W76=m74, W77=m78, W78=m77
+        #                         W79=m79, W80=m80, W81=m82, W82=m81, W83=m84, W84=m83
+        #                         W85=m85, W86=m87, W87=m88, W88=m86
+        89: {"name": "W74-W77", "home_num": 75, "away_num": 78},  # W74=m75 (Alem/Parag), W77=m78 (Fra/Sue)
+        90: {"name": "W73-W75", "home_num": 73, "away_num": 76},  # W73=m73 (Suda/Can),  W75=m76 (PB/Mar)
+        91: {"name": "W76-W78", "home_num": 74, "away_num": 77},  # W76=m74 (Bra/Jap),   W78=m77 (CdI/Nor)
+        92: {"name": "W79-W80", "home_num": 79, "away_num": 80},  # W79=m79 (Mex/Ecu),   W80=m80 (Ing/RDC)
+        93: {"name": "W83-W84", "home_num": 84, "away_num": 83},  # W83=m84 (Por/Cro),   W84=m83 (Esp/Aut)
+        94: {"name": "W81-W82", "home_num": 82, "away_num": 81},  # W81=m82 (EEU/Bos),   W82=m81 (Bel/Sen)
+        95: {"name": "W86-W88", "home_num": 87, "away_num": 86},  # W86=m87 (Arg/CaV),   W88=m86 (Aus/Egi)
+        96: {"name": "W85-W87", "home_num": 85, "away_num": 88},  # W85=m85 (Sui/Arg),   W87=m88 (Col/Gha)
+    }
+
     # ── Cargar predicciones KO de los Excel individuales de cada jugador ──
     _ko_pred_path = os.path.join(BASE, "data", "ko_predictions.json")
     _ko_preds = {}
@@ -1454,10 +1469,14 @@ def build_data():
                 # match_num swap that exists between some player Excels and the main
                 # Excel (e.g. the player assigns num=89 to slot W74-W77 while the main
                 # Excel assigns num=90 to the same slot).
-                slot_key = str(match_name).strip()
+                m_num = wc.get("match_num")
+                if phase == "r8" and m_num in _R8_BRACKET_MAP:
+                    slot_key = _R8_BRACKET_MAP[m_num]["name"]
+                else:
+                    slot_key = str(match_name).strip()
                 pred_raw = _ko_preds.get(p["name"], {}).get(slot_key)
                 if not pred_raw:
-                    m_num_str = str(wc.get("match_num")) if wc.get("match_num") is not None else ""
+                    m_num_str = str(m_num) if m_num is not None else ""
                     pred_raw = _ko_preds.get(p["name"], {}).get(m_num_str)
                 if not pred_raw:
                     pred_raw = _ko_preds.get(p["name"], {}).get(str(row))
@@ -1670,7 +1689,6 @@ def build_data():
             if m_obj["actual_winner"]:
                 winner_by_num[match_num] = m_obj["actual_winner"]
 
-    # ── Corrección del cuadro de octavos (según el cuadro oficial FIFA 2026) ──
     _r8_flag_by_team = {}
     for _m in matches:
         if _m.get("phase") == "r16" and _m.get("played"):
@@ -1681,20 +1699,6 @@ def build_data():
             _r8_flag_by_team.setdefault(_m["home"], _m.get("flag_home", ""))
             _r8_flag_by_team.setdefault(_m["away"], _m.get("flag_away", ""))
 
-    _R8_BRACKET_MAP = {
-        # match_num: {name: slot_key, home_num: source_r16_match_for_home, away_num: source_r16_match_for_away}
-        # W-code -> source match: W73=m73, W74=m75, W75=m76, W76=m74, W77=m78, W78=m77
-        #                         W79=m79, W80=m80, W81=m82, W82=m81, W83=m84, W84=m83
-        #                         W85=m85, W86=m87, W87=m88, W88=m86
-        89: {"name": "W74-W77", "home_num": 75, "away_num": 78},  # W74=m75 (Alem/Parag), W77=m78 (Fra/Sue)
-        90: {"name": "W73-W75", "home_num": 73, "away_num": 76},  # W73=m73 (Suda/Can),  W75=m76 (PB/Mar)
-        91: {"name": "W76-W78", "home_num": 74, "away_num": 77},  # W76=m74 (Bra/Jap),   W78=m77 (CdI/Nor)
-        92: {"name": "W79-W80", "home_num": 79, "away_num": 80},  # W79=m79 (Mex/Ecu),   W80=m80 (Ing/RDC)
-        93: {"name": "W83-W84", "home_num": 84, "away_num": 83},  # W83=m84 (Por/Cro),   W84=m83 (Esp/Aut)
-        94: {"name": "W81-W82", "home_num": 82, "away_num": 81},  # W81=m82 (EEU/Bos),   W82=m81 (Bel/Sen)
-        95: {"name": "W86-W88", "home_num": 87, "away_num": 86},  # W86=m87 (Arg/CaV),   W88=m86 (Aus/Egi)
-        96: {"name": "W85-W87", "home_num": 85, "away_num": 88},  # W85=m85 (Sui/Arg),   W87=m88 (Col/Gha)
-    }
     for _m in matches:
         if _m.get("phase") == "r8" and _m.get("match_num") in _R8_BRACKET_MAP:
             _bbc_cfg = _R8_BRACKET_MAP[_m["match_num"]]
