@@ -1,6 +1,6 @@
 {
   "Argentina-Cabo Verde": {
-    "home": 2,
+    "home": 3,
     "away": 2,
     "minute": "live",
     "scorers": [
@@ -14,6 +14,13 @@
       {
         "player": "Lisandro Martínez",
         "minute": "92'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Cristian Romero",
+        "minute": "111'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
