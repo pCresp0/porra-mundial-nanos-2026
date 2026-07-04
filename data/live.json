@@ -1,12 +1,19 @@
 {
   "Argentina-Cabo Verde": {
-    "home": 1,
+    "home": 2,
     "away": 1,
     "minute": "live",
     "scorers": [
       {
         "player": "Lionel Messi",
         "minute": "29'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Lisandro Martínez",
+        "minute": "92'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
