@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-27T10:02:33+02:00",
-    "date": "27/06/2026",
-    "time": "10:02:33",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-06-27T10:04:29+02:00",
     "date": "27/06/2026",
     "time": "10:04:29",
@@ -17154,5 +17146,22 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-07-04T03:34:30+02:00",
+    "date": "04/07/2026",
+    "time": "03:34:30",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇨🇴Colombia ?-? Ghana🇬🇭",
+        "name": "Colombia-Ghana",
+        "date": "2026-07-04",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]
