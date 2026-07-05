@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "05/07/2026 04:24",
+    "generated": "05/07/2026 04:26",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-07-04T18:28",
       "last_updated_time": "18:28",
       "last_updated_date": "04/07/2026",
-      "next_update_iso": "2026-07-05T06:25",
-      "next_update_time": "06:25",
+      "next_update_iso": "2026-07-05T06:30",
+      "next_update_time": "06:30",
       "next_update_date": "05/07/2026",
-      "last_checked_iso": "2026-07-05T06:24",
-      "last_checked_time": "06:24",
+      "last_checked_iso": "2026-07-05T06:26",
+      "last_checked_time": "06:26",
       "last_checked_date": "05/07/2026"
     },
     "players": [
@@ -433,6 +433,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-05T06:26:26+02:00",
+        "date": "05/07/2026",
+        "time": "06:26:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-07-05T06:24:27+02:00",
         "date": "05/07/2026",
@@ -4505,23 +4513,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-04T02:21:06+02:00",
-        "date": "04/07/2026",
-        "time": "02:21:06",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇦🇷Argentina ?-? Cabo Verde🇺🇾",
-            "name": "Argentina-Cabo Verde",
-            "date": "2026-07-04",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
