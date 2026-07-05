@@ -1554,9 +1554,25 @@ function renderStandingsTable() {
     r34_final: Math.max(...rows.map(r => r.r34_final || 0))
   };
 
-  const cellHtml = (val, maxVal) => {
+  const minVals = {
+    groups: Math.min(...rows.map(r => r.groups || 0).filter(v => v > 0)),
+    positions: Math.min(...rows.map(r => r.positions || 0).filter(v => v > 0)),
+    r16: Math.min(...rows.map(r => r.r16 || 0).filter(v => v > 0)),
+    r8: Math.min(...rows.map(r => r.r8 || 0).filter(v => v > 0)),
+    r4: Math.min(...rows.map(r => r.r4 || 0).filter(v => v > 0)),
+    r2: Math.min(...rows.map(r => r.r2 || 0).filter(v => v > 0)),
+    r34_final: Math.min(...rows.map(r => r.r34_final || 0).filter(v => v > 0))
+  };
+
+  const cellHtml = (val, maxVal, minVal) => {
     const isMax = val > 0 && val === maxVal;
-    const style = isMax ? ' style="background: rgba(74, 222, 128, 0.12); color: #4ADE80; font-weight: 700; border-radius: 4px;"' : '';
+    const isMin = val > 0 && val === minVal;
+    let style = '';
+    if (isMax) {
+      style = ' style="background: rgba(74, 222, 128, 0.12); color: #4ADE80; font-weight: 700; border-radius: 4px;"';
+    } else if (isMin) {
+      style = ' style="background: rgba(239, 68, 68, 0.12); color: #F87171; font-weight: 700; border-radius: 4px;"';
+    }
     return `<td${style}>${fmt(val)}</td>`;
   };
 
@@ -1574,13 +1590,13 @@ function renderStandingsTable() {
       <td class="font-bold" style="color:${r.color}">${r.pos}</td>
       <td class="text-left font-semibold text-white">${medal}${r.name} ${chgHtml}</td>
       <td class="font-extrabold text-lg" style="color:${r.color}">${fmt(r.total)}${provBadge}</td>
-      ${cellHtml(r.groups, maxVals.groups)}
-      ${cellHtml(r.positions, maxVals.positions)}
-      ${cellHtml(r.r16, maxVals.r16)}
-      ${cellHtml(r.r8, maxVals.r8)}
-      ${cellHtml(r.r4, maxVals.r4)}
-      ${cellHtml(r.r2, maxVals.r2)}
-      ${cellHtml(r.r34_final, maxVals.r34_final)}
+      ${cellHtml(r.groups, maxVals.groups, minVals.groups)}
+      ${cellHtml(r.positions, maxVals.positions, minVals.positions)}
+      ${cellHtml(r.r16, maxVals.r16, minVals.r16)}
+      ${cellHtml(r.r8, maxVals.r8, minVals.r8)}
+      ${cellHtml(r.r4, maxVals.r4, minVals.r4)}
+      ${cellHtml(r.r2, maxVals.r2, minVals.r2)}
+      ${cellHtml(r.r34_final, maxVals.r34_final, minVals.r34_final)}
     </tr>`;
   }).join("");
   _syncStandingsSortIndicators();
