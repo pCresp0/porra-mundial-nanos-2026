@@ -2554,17 +2554,22 @@ function renderMatches(phase, week) {
     const isoDate = dayMatches[0]?.date || "sin-fecha";
     const dayId = isoDate === "sin-fecha" ? "day-sin-fecha" : `day-${isoDate}`;
     const isToday = isoDate === today;
+    const isYesterday = isoDate === addDaysISO(today, -1);
+    const isTomorrow = isoDate === addDaysISO(today, 1);
+    const isAnchor = isoDate === anchor;
+    const keepOpen = isToday || isYesterday || isTomorrow || isAnchor || teamMode || dayKey === NO_DATE;
+    const colCls = keepOpen ? "" : " collapsed";
     const todayCls = isToday ? " today-header" : "";
     const cards = dayMatches.map(m => renderMatchCard(m, players, colors)).join("");
 
     return `
       <div class="day-section">
-        <div class="day-header${todayCls}" id="${dayId}" data-day-date="${isoDate}" onclick="toggleDay(this)">
+        <div class="day-header${todayCls}${colCls}" id="${dayId}" data-day-date="${isoDate}" onclick="toggleDay(this)">
           <span class="day-name">${dayKey === NO_DATE ? "Sin fecha" : dayKey}</span>
           <span class="day-count">${count} partido${count!==1?"s":""}${playedInDay ? ` · ${playedInDay} jugado${playedInDay!==1?"s":""}` : ""}</span>
           <span class="day-chevron">▼</span>
         </div>
-        <div class="day-matches">
+        <div class="day-matches${colCls}">
           ${cards}
         </div>
       </div>`;
