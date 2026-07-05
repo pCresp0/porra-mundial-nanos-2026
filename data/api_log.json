@@ -1,31 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-29T21:06:58+02:00",
-    "date": "29/06/2026",
-    "time": "21:06:58",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇧🇷Brasil 2-1 Japón🇯🇵",
-        "name": "Brasil-Japón",
-        "date": "2026-06-29",
-        "fields": [
-          "marcador",
-          "jugado"
-        ],
-        "old": {
-          "marcador": "sin resultado",
-          "jugado": "no"
-        },
-        "new": {
-          "marcador": "2-1",
-          "jugado": "sí"
-        }
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-29T21:22:31+02:00",
     "date": "29/06/2026",
     "time": "21:22:31",
@@ -16795,6 +16769,14 @@
     "ts_iso": "2026-07-05T23:12:26+02:00",
     "date": "05/07/2026",
     "time": "23:12:26",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-05T23:14:30+02:00",
+    "date": "05/07/2026",
+    "time": "23:14:30",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
