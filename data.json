@@ -431,6 +431,22 @@
     ],
     "api_log": [
       {
+        "ts_iso": "2026-07-05T09:59:18+02:00",
+        "date": "05/07/2026",
+        "time": "09:59:18",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T09:54:27+02:00",
+        "date": "05/07/2026",
+        "time": "09:54:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
         "ts_iso": "2026-07-05T09:38:31+02:00",
         "date": "05/07/2026",
         "time": "09:38:31",
@@ -4464,22 +4480,6 @@
         "ts_iso": "2026-07-04T03:30:53+02:00",
         "date": "04/07/2026",
         "time": "03:30:53",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-04T03:28:33+02:00",
-        "date": "04/07/2026",
-        "time": "03:28:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-04T03:26:26+02:00",
-        "date": "04/07/2026",
-        "time": "03:26:26",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -21426,29 +21426,7 @@
       "live_scorers": [],
       "goals_l": 0,
       "goals_v": 3,
-      "scorers": [
-        {
-          "player": "Azdin Avnahi",
-          "minute": "50'",
-          "own_goal": false,
-          "penalty": false,
-          "team": "away"
-        },
-        {
-          "player": "Azdin Avnahi",
-          "minute": "82'",
-          "own_goal": false,
-          "penalty": false,
-          "team": "away"
-        },
-        {
-          "player": "Svfian Rhimi",
-          "minute": "90'+8'",
-          "own_goal": false,
-          "penalty": false,
-          "team": "away"
-        }
-      ],
+      "scorers": [],
       "phase_pts": {
         "sign": 4.0,
         "diff": 3.0,
