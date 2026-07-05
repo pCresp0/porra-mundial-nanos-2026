@@ -1237,11 +1237,12 @@ def build_data():
 
     _R8_BRACKET_MAP = {
         # match_num: {name: slot_key, home_num: source_r16_match_for_home, away_num: source_r16_match_for_away}
-        # W-code -> source match: W73=m73, W74=m75, W75=m76, W76=m74, W77=m78, W78=m77
-        #                         W79=m79, W80=m80, W81=m82, W82=m81, W83=m84, W84=m83
-        #                         W85=m85, W86=m87, W87=m88, W88=m86
-        89: {"name": "W74-W77", "home_num": 75, "away_num": 78},  # W74=m75 (Alem/Parag), W77=m78 (Fra/Sue)
-        90: {"name": "W73-W75", "home_num": 73, "away_num": 76},  # W73=m73 (Suda/Can),  W75=m76 (PB/Mar)
+        # WORLDCUP match nums (col J): m73=Suda/Can, m74=Bra/Jap, m75=Ale/Par, m76=PB/Mar, m77=CdI/Nor, m78=Fra/Sue
+        # Resultados reales r8 del 04/07/2026:
+        #   WORLDCUP J=89 (19:00 España): Canadá(W73) vs Marruecos(W76) → 0-3 → avanza Marruecos
+        #   WORLDCUP J=90 (23:00 España): Paraguay(W75) vs Francia(W78) → 0-1 → avanza Francia
+        89: {"name": "W73-W75", "home_num": 73, "away_num": 76},  # Canadá(m73) vs Marruecos(m76) — 19:00h
+        90: {"name": "W74-W77", "home_num": 75, "away_num": 78},  # Paraguay(m75) vs Francia(m78) — 23:00h
         91: {"name": "W76-W78", "home_num": 74, "away_num": 77},  # W76=m74 (Bra/Jap),   W78=m77 (CdI/Nor)
         92: {"name": "W79-W80", "home_num": 79, "away_num": 80},  # W79=m79 (Mex/Ecu),   W80=m80 (Ing/RDC)
         93: {"name": "W83-W84", "home_num": 84, "away_num": 83},  # W83=m84 (Por/Cro),   W84=m83 (Esp/Aut)

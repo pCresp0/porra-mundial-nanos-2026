@@ -1947,5 +1947,28 @@
       "penalty": false,
       "team": "away"
     }
+  ],
+  "W73-W75": [
+    {
+      "player": "Azdin Avnahi",
+      "minute": "50'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Azdin Avnahi",
+      "minute": "82'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Svfian Rhimi",
+      "minute": "90'+8'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
   ]
 }
