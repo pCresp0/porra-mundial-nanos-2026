@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "05/07/2026 09:58",
+    "generated": "05/07/2026 07:59",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -10,7 +10,10 @@
       "last_updated_date": "05/07/2026",
       "next_update_iso": "2026-07-05T10:00",
       "next_update_time": "10:00",
-      "next_update_date": "05/07/2026"
+      "next_update_date": "05/07/2026",
+      "last_checked_iso": "2026-07-05T09:59",
+      "last_checked_time": "09:59",
+      "last_checked_date": "05/07/2026"
     },
     "players": [
       "JUANCHO",
@@ -430,6 +433,22 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-05T09:59:18+02:00",
+        "date": "05/07/2026",
+        "time": "09:59:18",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T09:54:27+02:00",
+        "date": "05/07/2026",
+        "time": "09:54:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-07-05T09:38:31+02:00",
         "date": "05/07/2026",
@@ -4464,22 +4483,6 @@
         "ts_iso": "2026-07-04T03:30:53+02:00",
         "date": "04/07/2026",
         "time": "03:30:53",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-04T03:28:33+02:00",
-        "date": "04/07/2026",
-        "time": "03:28:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-04T03:26:26+02:00",
-        "date": "04/07/2026",
-        "time": "03:26:26",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -21426,29 +21429,7 @@
       "live_scorers": [],
       "goals_l": 0,
       "goals_v": 3,
-      "scorers": [
-        {
-          "player": "Azdin Avnahi",
-          "minute": "50'",
-          "own_goal": false,
-          "penalty": false,
-          "team": "away"
-        },
-        {
-          "player": "Azdin Avnahi",
-          "minute": "82'",
-          "own_goal": false,
-          "penalty": false,
-          "team": "away"
-        },
-        {
-          "player": "Svfian Rhimi",
-          "minute": "90'+8'",
-          "own_goal": false,
-          "penalty": false,
-          "team": "away"
-        }
-      ],
+      "scorers": [],
       "phase_pts": {
         "sign": 4.0,
         "diff": 3.0,
