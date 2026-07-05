@@ -2159,7 +2159,13 @@ def build_data():
         preds = {}
         preds_list = []
         for p, ws in zip(all_players, all_ws):
-            pv = _val(ws, row, p["pred_col"])
+            # Rows 250-252 (Podium) are dynamically computed in the KO bracket, so they are in _ko_preds
+            # Rows 253-258 (Awards) were manually filled in the Group stage Excel and left blank in the KO stage
+            if row in (250, 251, 252):
+                pv_dict = _ko_preds.get(p["name"], {}).get("_honor", {})
+                pv = pv_dict.get(str(row))
+            else:
+                pv = _val(ws, row, p["pred_col"])
             pred_raw = str(pv).strip() if pv and not str(pv).startswith("Pegar") else None
             pred = _normalize_honor_name(pred_raw) if pred_raw else None
             correct = bool(actual and pred and pred == actual)

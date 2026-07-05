@@ -1,15 +1,15 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "05/07/2026 09:18",
+    "generated": "05/07/2026 11:20",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-05T11:18",
-      "last_updated_time": "11:18",
+      "last_updated_iso": "2026-07-05T11:20",
+      "last_updated_time": "11:20",
       "last_updated_date": "05/07/2026",
-      "next_update_iso": "2026-07-05T11:20",
-      "next_update_time": "11:20",
+      "next_update_iso": "2026-07-05T11:25",
+      "next_update_time": "11:25",
       "next_update_date": "05/07/2026"
     },
     "players": [
@@ -25308,7 +25308,7 @@
       "resolved": false,
       "predictions": {
         "JUANCHO": {
-          "pred": "WF",
+          "pred": "Francia",
           "score": 0.0,
           "correct": false
         },
@@ -25318,17 +25318,17 @@
           "correct": false
         },
         "LUIS/VIR": {
-          "pred": "WF",
+          "pred": "Francia",
           "score": 0.0,
           "correct": false
         },
         "MEDINA": {
-          "pred": "WF",
+          "pred": "Francia",
           "score": 0.0,
           "correct": false
         },
         "VÍCTOR": {
-          "pred": "WF",
+          "pred": "Francia",
           "score": 0.0,
           "correct": false
         },
@@ -25348,7 +25348,7 @@
         },
         {
           "name": "JUANCHO",
-          "pred": "WF",
+          "pred": "Francia",
           "score": 0.0,
           "correct": false,
           "color": "#F5C518"
@@ -25362,27 +25362,27 @@
         },
         {
           "name": "LUIS/VIR",
-          "pred": "WF",
+          "pred": "Francia",
           "score": 0.0,
           "correct": false,
           "color": "#10B981"
         },
         {
           "name": "MEDINA",
-          "pred": "WF",
+          "pred": "Francia",
           "score": 0.0,
           "correct": false,
           "color": "#F97316"
         },
         {
           "name": "VÍCTOR",
-          "pred": "WF",
+          "pred": "Francia",
           "score": 0.0,
           "correct": false,
           "color": "#A855F7"
         }
       ],
-      "consensus": "WF",
+      "consensus": "Francia",
       "consensus_count": 4,
       "filled_count": 6
     },
@@ -25395,32 +25395,32 @@
       "resolved": false,
       "predictions": {
         "JUANCHO": {
-          "pred": "LF",
+          "pred": "Inglaterra",
           "score": 0.0,
           "correct": false
         },
         "LARRY": {
-          "pred": "Alemania",
+          "pred": "Inglaterra",
           "score": 0.0,
           "correct": false
         },
         "LUIS/VIR": {
-          "pred": "LF",
+          "pred": "Argentina",
           "score": 0.0,
           "correct": false
         },
         "MEDINA": {
-          "pred": "LF",
+          "pred": "Argentina",
           "score": 0.0,
           "correct": false
         },
         "VÍCTOR": {
-          "pred": "LF",
+          "pred": "Inglaterra",
           "score": 0.0,
           "correct": false
         },
         "CRESPO": {
-          "pred": "Portugal",
+          "pred": "Argentina",
           "score": 0.0,
           "correct": false
         }
@@ -25428,49 +25428,49 @@
       "predictions_list": [
         {
           "name": "CRESPO",
-          "pred": "Portugal",
+          "pred": "Argentina",
           "score": 0.0,
           "correct": false,
           "color": "#EF4444"
         },
         {
           "name": "JUANCHO",
-          "pred": "LF",
+          "pred": "Inglaterra",
           "score": 0.0,
           "correct": false,
           "color": "#F5C518"
         },
         {
           "name": "LARRY",
-          "pred": "Alemania",
+          "pred": "Inglaterra",
           "score": 0.0,
           "correct": false,
           "color": "#3B82F6"
         },
         {
           "name": "LUIS/VIR",
-          "pred": "LF",
+          "pred": "Argentina",
           "score": 0.0,
           "correct": false,
           "color": "#10B981"
         },
         {
           "name": "MEDINA",
-          "pred": "LF",
+          "pred": "Argentina",
           "score": 0.0,
           "correct": false,
           "color": "#F97316"
         },
         {
           "name": "VÍCTOR",
-          "pred": "LF",
+          "pred": "Inglaterra",
           "score": 0.0,
           "correct": false,
           "color": "#A855F7"
         }
       ],
-      "consensus": "LF",
-      "consensus_count": 4,
+      "consensus": "Argentina",
+      "consensus_count": 3,
       "filled_count": 6
     },
     {
@@ -25482,27 +25482,27 @@
       "resolved": false,
       "predictions": {
         "JUANCHO": {
-          "pred": "W34",
+          "pred": "España",
           "score": 0.0,
           "correct": false
         },
         "LARRY": {
-          "pred": "Portugal",
+          "pred": "Alemania",
           "score": 0.0,
           "correct": false
         },
         "LUIS/VIR": {
-          "pred": "W34",
+          "pred": "España",
           "score": 0.0,
           "correct": false
         },
         "MEDINA": {
-          "pred": "W34",
+          "pred": "España",
           "score": 0.0,
           "correct": false
         },
         "VÍCTOR": {
-          "pred": "W34",
+          "pred": "España",
           "score": 0.0,
           "correct": false
         },
@@ -25522,41 +25522,41 @@
         },
         {
           "name": "JUANCHO",
-          "pred": "W34",
+          "pred": "España",
           "score": 0.0,
           "correct": false,
           "color": "#F5C518"
         },
         {
           "name": "LARRY",
-          "pred": "Portugal",
+          "pred": "Alemania",
           "score": 0.0,
           "correct": false,
           "color": "#3B82F6"
         },
         {
           "name": "LUIS/VIR",
-          "pred": "W34",
+          "pred": "España",
           "score": 0.0,
           "correct": false,
           "color": "#10B981"
         },
         {
           "name": "MEDINA",
-          "pred": "W34",
+          "pred": "España",
           "score": 0.0,
           "correct": false,
           "color": "#F97316"
         },
         {
           "name": "VÍCTOR",
-          "pred": "W34",
+          "pred": "España",
           "score": 0.0,
           "correct": false,
           "color": "#A855F7"
         }
       ],
-      "consensus": "W34",
+      "consensus": "España",
       "consensus_count": 4,
       "filled_count": 6
     },
