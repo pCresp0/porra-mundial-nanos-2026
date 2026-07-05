@@ -1666,7 +1666,10 @@ def build_data():
             "live_scorers": live_info["scorers"] if live_info else [],
             "goals_l":   int(goals_l) if (played and goals_l is not None) else None,
             "goals_v":   int(goals_v) if (played and goals_v is not None) else None,
-            "scorers":   _lookup_scorers(wc_scorers, match_name) if played else [],
+            "scorers":   (_lookup_scorers(wc_scorers, match_name)
+                          or _lookup_scorers(wc_scorers, f"{home_resolved}-{away_resolved}")
+                          or _lookup_scorers(wc_scorers, f"{away_resolved}-{home_resolved}"))
+                         if played else [],
             "phase_pts":  KO_PHASE_PTS.get(phase),  # puntos posibles por criterio para este partido
             "predictions": predictions,
         })

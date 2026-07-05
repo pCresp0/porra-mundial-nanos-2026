@@ -1,12 +1,12 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "05/07/2026 10:01",
+    "generated": "05/07/2026 10:03",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-05T10:01",
-      "last_updated_time": "10:01",
+      "last_updated_iso": "2026-07-05T10:03",
+      "last_updated_time": "10:03",
       "last_updated_date": "05/07/2026",
       "next_update_iso": "2026-07-05T10:05",
       "next_update_time": "10:05",
@@ -21426,7 +21426,29 @@
       "live_scorers": [],
       "goals_l": 0,
       "goals_v": 3,
-      "scorers": [],
+      "scorers": [
+        {
+          "player": "Azdin Avnahi",
+          "minute": "50'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        },
+        {
+          "player": "Azdin Avnahi",
+          "minute": "82'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        },
+        {
+          "player": "Svfian Rhimi",
+          "minute": "90'+8'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        }
+      ],
       "phase_pts": {
         "sign": 4.0,
         "diff": 3.0,
