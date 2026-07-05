@@ -1,4 +1,8 @@
 {
+  "Australia-Egipto": {
+    "home": 2,
+    "away": 4
+  },
   "Alemania-Paraguay": {
     "home": 3,
     "away": 4
@@ -6,9 +10,5 @@
   "Países Bajos-Marruecos": {
     "home": 2,
     "away": 3
-  },
-  "Australia-Egipto": {
-    "home": 2,
-    "away": 4
   }
 }
