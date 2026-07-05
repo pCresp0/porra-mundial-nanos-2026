@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "05/07/2026 04:50",
+    "generated": "05/07/2026 04:52",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-05T06:55",
       "next_update_time": "06:55",
       "next_update_date": "05/07/2026",
-      "last_checked_iso": "2026-07-05T06:50",
-      "last_checked_time": "06:50",
+      "last_checked_iso": "2026-07-05T06:52",
+      "last_checked_time": "06:52",
       "last_checked_date": "05/07/2026"
     },
     "players": [
@@ -433,6 +433,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-05T06:52:27+02:00",
+        "date": "05/07/2026",
+        "time": "06:52:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-07-05T06:50:57+02:00",
         "date": "05/07/2026",
@@ -4478,32 +4486,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-04T02:46:34+02:00",
-        "date": "04/07/2026",
-        "time": "02:46:34",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇦🇷Argentina 3-2 Cabo Verde🇺🇾",
-            "name": "Argentina-Cabo Verde",
-            "date": "2026-07-04",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "sin resultado",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "3-2",
-              "jugado": "sí"
-            }
-          }
-        ]
       }
     ]
   },
