@@ -4416,22 +4416,32 @@ function renderStats() {
   playersEl.innerHTML = D.standings.map(p => {
     const pp = perPlayer.find(x => x.name === p.name) || {};
     const last10 = playedAll.slice(-16);
-    // Un color distinto por estado real.
-    const scoreColor = (sc) => sc >= 6 ? "#22C55E"   // exacto
-                             : sc >= 3 ? "#FACC15"   // 1X2 + diferencia
-                             : sc >= 2 ? "#F97316"   // solo 1X2
-                             :           "#374151";  // falló
-    const scoreTip = (sc) => sc >= 6 ? "resultado exacto"
-                           : sc >= 3 ? "1X2 + diferencia"
-                           : sc >= 2 ? "acertó 1X2"
-                           :           "falló el 1X2";
+    const getColorType = (bk, sc) => {
+      if (bk) {
+        if (bk.exact > 0) return 3;
+        if (bk.diff > 0) return 2;
+        if (bk.sign > 0) return 1;
+        return 0;
+      }
+      return sc >= 6 ? 3 : sc >= 3 ? 2 : sc >= 2 ? 1 : 0;
+    };
+    const scoreColor = (type) => type === 3 ? "#22C55E"
+                               : type === 2 ? "#FACC15"
+                               : type === 1 ? "#F97316"
+                               : "#374151";
+    const scoreTip = (type) => type === 3 ? "resultado exacto"
+                             : type === 2 ? "1X2 + diferencia"
+                             : type === 1 ? "acertó 1X2"
+                             : "falló el 1X2";
     const lastBar = last10.length ? `
       <div class="pstat-dir-row">
         <span class="pstat-dir-lbl">antiguo ›</span>
         <div class="pstat-squares">${last10.map(m => {
           const sc = m.predictions[p.name]?.score ?? 0;
-          const col = scoreColor(sc);
-          const lbl = `${m.name}: ${sc} pts (${scoreTip(sc)})`;
+          const bk = m.predictions[p.name]?.breakdown;
+          const cType = getColorType(bk, sc);
+          const col = scoreColor(cType);
+          const lbl = `${m.name}: ${sc} pts (${scoreTip(cType)})`;
           return `<div title="${lbl.replace(/"/g,"&quot;")}" style="width:13px;height:20px;border-radius:3px;background:${col};flex-shrink:0"></div>`;
         }).join("")}<span class="pstat-dir-lbl pstat-dir-end">‹ reciente</span></div>
       </div>` : `<div class="text-xs text-gray-600 mt-1">Aún sin partidos</div>`;
@@ -4465,7 +4475,7 @@ function renderStats() {
           </div>
           <div class="pstat-box" style="background:rgba(245,197,24,.10)">
             <div class="pstat-num" style="color:var(--gold)">${pp.exact ?? 0}</div>
-            <div class="pstat-lbl">Exactos (6 pts)</div>
+            <div class="pstat-lbl">Exactos</div>
           </div>
           <div class="pstat-box">
             <div class="pstat-num" style="color:${p.color}">${pp.last4pts ?? 0}</div>
@@ -4474,14 +4484,14 @@ function renderStats() {
         </div>
 
         <div class="pstat-last-head">
-          <span>Últimos ${last10.length || 16} partidos (grupos)</span>
+          <span>Últimos ${last10.length || 16} partidos</span>
         </div>
         ${lastBar}
         <div class="pstat-legend">
-          <span><i style="background:#22C55E"></i> Exacto (6)</span>
-          <span><i style="background:#FACC15"></i> 1X2 + dif. (3)</span>
-          <span><i style="background:#F97316"></i> Solo 1X2 (2)</span>
-          <span><i style="background:#374151"></i> Fallo (0)</span>
+          <span><i style="background:#22C55E"></i> Exacto</span>
+          <span><i style="background:#FACC15"></i> 1X2 + dif.</span>
+          <span><i style="background:#F97316"></i> Solo 1X2</span>
+          <span><i style="background:#374151"></i> Fallo</span>
         </div>
       </div>`;
   }).join("");
