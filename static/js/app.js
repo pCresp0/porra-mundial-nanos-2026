@@ -2511,19 +2511,30 @@ function renderMatches(phase, week) {
 
   const today = todaySpainISO();
   const anchor = matchesAnchorISO();
-  const visibleStart = addDaysISO(anchor, -1 - matchesDaysBefore);
-  const visibleEnd   = addDaysISO(anchor,  1 + matchesDaysAfter);
-
   const dayISO = key => {
     const iso = byDay[key][0]?.date;
     return iso && iso.length >= 10 ? iso : null;
   };
 
   const datedKeys = dayKeys.filter(k => k !== NO_DATE);
-  const filterDates = datedKeys.map(dayISO).filter(Boolean);
-  const anchorInFilter = filterDates.length
-    ? anchor >= filterDates[0] && anchor <= filterDates[filterDates.length - 1]
-    : false;
+  // Get unique valid dates that have matches in the current filter
+  const filterDates = [...new Set(datedKeys.map(dayISO).filter(Boolean))].sort();
+  
+  let anchorIdx = filterDates.findIndex(d => d >= anchor);
+  if (anchorIdx === -1 && filterDates.length > 0) anchorIdx = filterDates.length - 1;
+  else if (anchorIdx === -1) anchorIdx = 0;
+
+  let visibleStart = "1970-01-01";
+  let visibleEnd   = "2999-12-31";
+
+  if (filterDates.length > 0) {
+    const startIdx = Math.max(0, anchorIdx - 1 - matchesDaysBefore);
+    const endIdx   = Math.min(filterDates.length - 1, anchorIdx + 1 + matchesDaysAfter);
+    visibleStart = filterDates[startIdx];
+    visibleEnd   = filterDates[endIdx];
+  }
+
+  const anchorInFilter = filterDates.length > 0 && anchor >= filterDates[0] && anchor <= filterDates[filterDates.length - 1];
 
   let visibleDayKeys, hiddenBefore, hiddenAfter;
   if (teamMode) {
