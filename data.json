@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "05/07/2026 01:26",
+    "generated": "05/07/2026 01:28",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-05T03:30",
       "next_update_time": "03:30",
       "next_update_date": "05/07/2026",
-      "last_checked_iso": "2026-07-05T03:26",
-      "last_checked_time": "03:26",
+      "last_checked_iso": "2026-07-05T03:28",
+      "last_checked_time": "03:28",
       "last_checked_date": "05/07/2026"
     },
     "players": [
@@ -433,6 +433,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-05T03:28:28+02:00",
+        "date": "05/07/2026",
+        "time": "03:28:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-07-05T03:26:26+02:00",
         "date": "05/07/2026",
@@ -4550,32 +4558,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-03T22:56:31+02:00",
-        "date": "03/07/2026",
-        "time": "22:56:31",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇦🇺Australia 1-1 Egipto🇪🇬",
-            "name": "Australia-Egipto",
-            "date": "2026-07-03",
-            "fields": [
-              "marcador",
-              "jugado"
-            ],
-            "old": {
-              "marcador": "sin resultado",
-              "jugado": "no"
-            },
-            "new": {
-              "marcador": "1-1",
-              "jugado": "sí"
-            }
-          }
-        ]
       }
     ]
   },
