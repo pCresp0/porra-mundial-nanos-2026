@@ -1947,5 +1947,21 @@
       "penalty": false,
       "team": "away"
     }
+  ],
+  "Brasil-Noruega": [
+    {
+      "player": "Erling Haaland",
+      "minute": "79'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Erling Haaland",
+      "minute": "90'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
   ]
 }
