@@ -1460,6 +1460,22 @@ def build_data():
         wc["away"] = away_resolved
         wc["flag_away"] = flag_a
 
+        # ── Aplicar el bracket_map ANTES del scoring para que team_match use
+        # los equipos reales (no los del placeholder W73/W74/W77…) ──────────
+        _pre_m_num = wc.get("match_num")
+        if phase == "r8" and _pre_m_num in _R8_BRACKET_MAP:
+            _bbc_pre = _R8_BRACKET_MAP[_pre_m_num]
+            _bbc_h = winner_by_num.get(_bbc_pre["home_num"])
+            _bbc_a = winner_by_num.get(_bbc_pre["away_num"])
+            if _bbc_h:
+                home_resolved = _bbc_h
+                wc["home"] = _bbc_h
+                wc["flag_home"] = team_to_flag.get(_bbc_h, wc.get("flag_home", ""))
+            if _bbc_a:
+                away_resolved = _bbc_a
+                wc["away"] = _bbc_a
+                wc["flag_away"] = team_to_flag.get(_bbc_a, wc.get("flag_away", ""))
+
         actual_home_set = bool(home_resolved and not home_resolved.startswith("1") and not home_resolved.startswith("2") and not home_resolved.startswith("W") and not home_resolved.startswith("L"))
         actual_away_set = bool(away_resolved and not away_resolved.startswith("1") and not away_resolved.startswith("2") and not away_resolved.startswith("W") and not away_resolved.startswith("L"))
         

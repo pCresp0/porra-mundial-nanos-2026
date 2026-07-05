@@ -1,15 +1,15 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "05/07/2026 09:58",
+    "generated": "05/07/2026 10:01",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-05T09:58",
-      "last_updated_time": "09:58",
+      "last_updated_iso": "2026-07-05T10:01",
+      "last_updated_time": "10:01",
       "last_updated_date": "05/07/2026",
-      "next_update_iso": "2026-07-05T10:00",
-      "next_update_time": "10:00",
+      "next_update_iso": "2026-07-05T10:05",
+      "next_update_time": "10:05",
       "next_update_date": "05/07/2026"
     },
     "players": [
@@ -4489,14 +4489,14 @@
   "standings": [
     {
       "name": "MEDINA",
-      "total": 349.0,
+      "total": 356.0,
       "live_points": 0.0,
-      "total_live": 349.0,
+      "total_live": 356.0,
       "groups": 130.0,
       "positions": 89.0,
       "q16": 52.0,
       "r16": 126.0,
-      "r8": 4.0,
+      "r8": 11.0,
       "r4": 0.0,
       "r2": 0.0,
       "r34_final": 0.0,
@@ -4524,7 +4524,7 @@
           "key": "r8",
           "label": "Octavos",
           "desc": "Partidos de octavos",
-          "pts": 4.0
+          "pts": 11.0
         }
       ],
       "color": "#F97316",
@@ -4535,14 +4535,14 @@
     },
     {
       "name": "VÍCTOR",
-      "total": 326.0,
+      "total": 338.0,
       "live_points": 0.0,
-      "total_live": 326.0,
+      "total_live": 338.0,
       "groups": 134.0,
       "positions": 75.0,
       "q16": 50.0,
       "r16": 113.0,
-      "r8": 4.0,
+      "r8": 16.0,
       "r4": 0.0,
       "r2": 0.0,
       "r34_final": 0.0,
@@ -4570,7 +4570,7 @@
           "key": "r8",
           "label": "Octavos",
           "desc": "Partidos de octavos",
-          "pts": 4.0
+          "pts": 16.0
         }
       ],
       "color": "#A855F7",
@@ -4581,14 +4581,14 @@
     },
     {
       "name": "JUANCHO",
-      "total": 312.0,
+      "total": 319.0,
       "live_points": 0.0,
-      "total_live": 312.0,
+      "total_live": 319.0,
       "groups": 118.0,
       "positions": 85.0,
       "q16": 52.0,
       "r16": 105.0,
-      "r8": 4.0,
+      "r8": 11.0,
       "r4": 0.0,
       "r2": 0.0,
       "r34_final": 0.0,
@@ -4616,7 +4616,7 @@
           "key": "r8",
           "label": "Octavos",
           "desc": "Partidos de octavos",
-          "pts": 4.0
+          "pts": 11.0
         }
       ],
       "color": "#F5C518",
@@ -4627,14 +4627,14 @@
     },
     {
       "name": "CRESPO",
-      "total": 306.0,
+      "total": 313.0,
       "live_points": 0.0,
-      "total_live": 306.0,
+      "total_live": 313.0,
       "groups": 121.0,
       "positions": 81.0,
       "q16": 50.0,
       "r16": 100.0,
-      "r8": 4.0,
+      "r8": 11.0,
       "r4": 0.0,
       "r2": 0.0,
       "r34_final": 0.0,
@@ -4662,7 +4662,7 @@
           "key": "r8",
           "label": "Octavos",
           "desc": "Partidos de octavos",
-          "pts": 4.0
+          "pts": 11.0
         }
       ],
       "color": "#EF4444",
@@ -21463,17 +21463,18 @@
             "pred_home": "Canadá",
             "pred_away": "Marruecos"
           },
-          "score": 4.0,
+          "score": 9.0,
           "breakdown": {
             "sign": 4.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 4.0,
+            "total": 9.0,
             "reasons": [
               "1X2 correcto (+4.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+5.0 pts)"
             ],
-            "team_match": "home",
+            "team_match": "both",
             "pred_home": "Canadá",
             "pred_away": "Marruecos"
           },
@@ -21608,7 +21609,7 @@
         }
       },
       "penalties": null,
-      "actual_winner": "Paraguay"
+      "actual_winner": "Marruecos"
     },
     {
       "row": 201,
@@ -21665,16 +21666,18 @@
             "pred_home": "Alemania",
             "pred_away": "Francia"
           },
-          "score": 0.0,
+          "score": 12.0,
           "breakdown": {
-            "sign": 0.0,
-            "diff": 0.0,
-            "exact": 0.0,
-            "total": 0.0,
+            "sign": 4.0,
+            "diff": 3.0,
+            "exact": 0,
+            "total": 12.0,
             "reasons": [
-              "Equipos incorrectos (0 pts)"
+              "1X2 correcto (+4.0)",
+              "Diferencia de goles (+3)",
+              "Clasificado correcto (+5.0 pts)"
             ],
-            "team_match": "none",
+            "team_match": "away",
             "pred_home": "Alemania",
             "pred_away": "Francia"
           },
@@ -21693,12 +21696,12 @@
           "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
-            "exact": 0.0,
+            "exact": 0,
             "total": 0.0,
             "reasons": [
-              "Equipos incorrectos (0 pts)"
+              "1X2 incorrecto — 0 pts"
             ],
-            "team_match": "none",
+            "team_match": "away",
             "pred_home": "Alemania",
             "pred_away": "Francia"
           },
@@ -21713,16 +21716,17 @@
             "pred_home": "Alemania",
             "pred_away": "Francia"
           },
-          "score": 0.0,
+          "score": 5.0,
           "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
-            "exact": 0.0,
-            "total": 0.0,
+            "exact": 0,
+            "total": 5.0,
             "reasons": [
-              "Equipos incorrectos (0 pts)"
+              "1X2 incorrecto — 0 pts",
+              "Clasificado correcto (+5.0 pts)"
             ],
-            "team_match": "none",
+            "team_match": "away",
             "pred_home": "Alemania",
             "pred_away": "Francia"
           },
@@ -21737,16 +21741,18 @@
             "pred_home": "Alemania",
             "pred_away": "Francia"
           },
-          "score": 0.0,
+          "score": 12.0,
           "breakdown": {
-            "sign": 0.0,
-            "diff": 0.0,
-            "exact": 0.0,
-            "total": 0.0,
+            "sign": 4.0,
+            "diff": 3.0,
+            "exact": 0,
+            "total": 12.0,
             "reasons": [
-              "Equipos incorrectos (0 pts)"
+              "1X2 correcto (+4.0)",
+              "Diferencia de goles (+3)",
+              "Clasificado correcto (+5.0 pts)"
             ],
-            "team_match": "none",
+            "team_match": "away",
             "pred_home": "Alemania",
             "pred_away": "Francia"
           },
@@ -21761,16 +21767,19 @@
             "pred_home": "Alemania",
             "pred_away": "Francia"
           },
-          "score": 0.0,
+          "score": 17.0,
           "breakdown": {
-            "sign": 0.0,
-            "diff": 0.0,
-            "exact": 0.0,
-            "total": 0.0,
+            "sign": 4.0,
+            "diff": 3.0,
+            "exact": 5.0,
+            "total": 17.0,
             "reasons": [
-              "Equipos incorrectos (0 pts)"
+              "1X2 correcto (+4.0)",
+              "Diferencia de goles (+3.0)",
+              "Resultado exacto (+5.0)",
+              "Clasificado correcto (+5.0 pts)"
             ],
-            "team_match": "none",
+            "team_match": "away",
             "pred_home": "Alemania",
             "pred_away": "Francia"
           },
@@ -21785,16 +21794,18 @@
             "pred_home": "Alemania",
             "pred_away": "Francia"
           },
-          "score": 0.0,
+          "score": 12.0,
           "breakdown": {
-            "sign": 0.0,
-            "diff": 0.0,
-            "exact": 0.0,
-            "total": 0.0,
+            "sign": 4.0,
+            "diff": 3.0,
+            "exact": 0,
+            "total": 12.0,
             "reasons": [
-              "Equipos incorrectos (0 pts)"
+              "1X2 correcto (+4.0)",
+              "Diferencia de goles (+3)",
+              "Clasificado correcto (+5.0 pts)"
             ],
-            "team_match": "none",
+            "team_match": "away",
             "pred_home": "Alemania",
             "pred_away": "Francia"
           },
@@ -21803,7 +21814,7 @@
         }
       },
       "penalties": null,
-      "actual_winner": "Noruega"
+      "actual_winner": "Francia"
     },
     {
       "row": 202,
@@ -22565,12 +22576,12 @@
       "row": 220,
       "id": "1/4",
       "name": "W89-W90",
-      "home": "Paraguay",
-      "away": "Noruega",
+      "home": "Marruecos",
+      "away": "Francia",
       "home_placeholder": "W89",
       "away_placeholder": "W90",
-      "flag_home": "🇵🇾",
-      "flag_away": "🇳🇴",
+      "flag_home": "🇲🇦",
+      "flag_away": "🇫🇷",
       "match_num": 97,
       "bracket_order": 0,
       "city": "Boston",
@@ -24214,8 +24225,8 @@
         287.0,
         293.0,
         301.0,
-        305.0,
-        305.0
+        310.0,
+        322.0
       ],
       "LARRY": [
         2.0,
@@ -24401,7 +24412,7 @@
         272.0,
         280.0,
         292.0,
-        292.0
+        297.0
       ],
       "MEDINA": [
         2.0,
@@ -24494,7 +24505,7 @@
         329.0,
         335.0,
         339.0,
-        339.0
+        351.0
       ],
       "VÍCTOR": [
         6.0,
@@ -24587,7 +24598,7 @@
         305.0,
         311.0,
         315.0,
-        315.0
+        332.0
       ],
       "CRESPO": [
         3.0,
@@ -24680,7 +24691,7 @@
         285.0,
         291.0,
         295.0,
-        295.0
+        307.0
       ]
     },
     "day_points": {
@@ -24774,8 +24785,8 @@
         8.0,
         6.0,
         8.0,
-        4.0,
-        0.0
+        9.0,
+        12.0
       ],
       "LARRY": [
         2.0,
@@ -24961,7 +24972,7 @@
         6.0,
         8.0,
         12.0,
-        0.0
+        5.0
       ],
       "MEDINA": [
         2.0,
@@ -25054,7 +25065,7 @@
         6.0,
         6.0,
         4.0,
-        0.0
+        12.0
       ],
       "VÍCTOR": [
         6.0,
@@ -25147,7 +25158,7 @@
         6.0,
         6.0,
         4.0,
-        0.0
+        17.0
       ],
       "CRESPO": [
         3.0,
@@ -25240,7 +25251,7 @@
         6.0,
         6.0,
         4.0,
-        0.0
+        12.0
       ]
     },
     "phases": [
@@ -26219,7 +26230,7 @@
             "label": "Eliminatorias (KO)",
             "icon": "⚔️",
             "rank": 1,
-            "display": "130 pts"
+            "display": "137 pts"
           },
           {
             "key": "phase_positions",
@@ -26254,8 +26265,8 @@
           }
         ],
         "best_phase": {
-          "label": "Fase de grupos",
-          "pts": 130.0
+          "label": "Eliminatorias",
+          "pts": 137.0
         }
       },
       {
@@ -26285,7 +26296,7 @@
           "hit_rate": 2,
           "phase_positions": 5,
           "phase_q16": 5,
-          "phase_ko": 4,
+          "phase_ko": 2,
           "phase_honor": 5
         },
         "top_skills": [
@@ -26311,11 +26322,11 @@
             "display": "1.86 pts/partido"
           },
           {
-            "key": "hit_rate",
-            "label": "Tasa de acierto",
-            "icon": "✅",
+            "key": "phase_ko",
+            "label": "Eliminatorias (KO)",
+            "icon": "⚔️",
             "rank": 2,
-            "display": "62% (45/72)"
+            "display": "129 pts"
           }
         ],
         "badges": [
@@ -26492,17 +26503,10 @@
           "hit_rate": 6,
           "phase_positions": 4,
           "phase_q16": 2,
-          "phase_ko": 2,
+          "phase_ko": 3,
           "phase_honor": 3
         },
         "top_skills": [
-          {
-            "key": "phase_ko",
-            "label": "Eliminatorias (KO)",
-            "icon": "⚔️",
-            "rank": 2,
-            "display": "123 pts"
-          },
           {
             "key": "phase_q16",
             "label": "Clasificados 16avos",
@@ -26516,6 +26520,13 @@
             "icon": "🏠",
             "rank": 2,
             "display": "21 aciertos"
+          },
+          {
+            "key": "phase_ko",
+            "label": "Eliminatorias (KO)",
+            "icon": "⚔️",
+            "rank": 3,
+            "display": "123 pts"
           },
           {
             "key": "hits_exact",
@@ -26558,7 +26569,7 @@
           "hit_rate": 3,
           "phase_positions": 6,
           "phase_q16": 1,
-          "phase_ko": 3,
+          "phase_ko": 4,
           "phase_honor": 2
         },
         "top_skills": [
@@ -26577,18 +26588,18 @@
             "display": "31 aciertos"
           },
           {
-            "key": "phase_ko",
-            "label": "Eliminatorias (KO)",
-            "icon": "⚔️",
-            "rank": 3,
-            "display": "118 pts"
-          },
-          {
             "key": "hit_rate",
             "label": "Tasa de acierto",
             "icon": "✅",
             "rank": 3,
             "display": "60% (43/72)"
+          },
+          {
+            "key": "hits_1x2",
+            "label": "Signo 1X2",
+            "icon": "1️⃣",
+            "rank": 3,
+            "display": "43 aciertos · 86 pts"
           }
         ],
         "badges": [
@@ -27009,43 +27020,43 @@
           "rank": 1,
           "name": "MEDINA",
           "color": "#F97316",
-          "display": "130 pts",
-          "value": 130.0
+          "display": "137 pts",
+          "value": 137.0
         },
         {
           "rank": 2,
+          "name": "VÍCTOR",
+          "color": "#A855F7",
+          "display": "129 pts",
+          "value": 129.0
+        },
+        {
+          "rank": 3,
           "name": "LUIS/VIR",
           "color": "#10B981",
           "display": "123 pts",
           "value": 123.0
         },
         {
-          "rank": 3,
+          "rank": 4,
           "name": "LARRY",
           "color": "#3B82F6",
           "display": "118 pts",
           "value": 118.0
         },
         {
-          "rank": 4,
-          "name": "VÍCTOR",
-          "color": "#A855F7",
-          "display": "117 pts",
-          "value": 117.0
-        },
-        {
           "rank": 5,
           "name": "JUANCHO",
           "color": "#F5C518",
-          "display": "109 pts",
-          "value": 109.0
+          "display": "116 pts",
+          "value": 116.0
         },
         {
           "rank": 6,
           "name": "CRESPO",
           "color": "#EF4444",
-          "display": "104 pts",
-          "value": 104.0
+          "display": "111 pts",
+          "value": 111.0
         }
       ],
       "phase_honor": [
