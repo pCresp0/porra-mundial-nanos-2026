@@ -1812,12 +1812,8 @@ function renderWeekFilter() {
   const weeks = D.meta.weeks || [];
   const today = todaySpainISO();
 
-  // Auto-select the current week on first render (no mientras hay búsqueda de
-  // equipo activa: en ese caso queremos ver todas las semanas)
-  if (currentWeek === "all" && weeks.length && !selectedTeamFilter) {
-    const cur = weeks.find(w => today >= w.from && today <= w.to);
-    if (cur) currentWeek = cur.id;
-  }
+  // Auto-select is no longer needed since the accordion window natively handles showing
+  // only relevant matches around the current anchor date.
 
   el.innerHTML = `<button class="week-btn ${currentWeek==='all'?'active':''}" data-week="all">Todas</button>` +
     weeks.map(w => `<button class="week-btn ${currentWeek===w.id?'active':''}" data-week="${w.id}">${w.label}</button>`).join("");
