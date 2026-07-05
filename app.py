@@ -1536,16 +1536,22 @@ def build_data():
                 actual_away = wc.get("away", "")
                 ph = pred.get("pred_home", "")
                 pa = pred.get("pred_away", "")
-                home_ok = bool(ph and actual_home and ph.strip() == actual_home.strip())
-                away_ok = bool(pa and actual_away and pa.strip() == actual_away.strip())
+                home_ok      = bool(ph and actual_home and ph.strip() == actual_home.strip())
+                away_ok      = bool(pa and actual_away and pa.strip() == actual_away.strip())
+                # Detectar equipos puestos en orden invertido (ej. predijo Francia-Marruecos
+                # pero el cruce real es Marruecos-Francia). La regla habla de acertar
+                # los DOS equipos, sin importar si los puso como local o visitante.
+                home_as_away = bool(ph and actual_away and ph.strip() == actual_away.strip())
+                away_as_home = bool(pa and actual_home and pa.strip() == actual_home.strip())
+                teams_reversed = home_as_away and away_as_home
                 # team_match: 'both', 'home', 'away', 'none', or None if no team pred
                 if ph and pa:
-                    if home_ok and away_ok:
+                    if (home_ok and away_ok) or teams_reversed:
                         team_match = "both"
-                    elif home_ok:
-                        team_match = "home"
-                    elif away_ok:
-                        team_match = "away"
+                    elif home_ok or home_as_away:
+                        team_match = "home" if home_ok else "away"
+                    elif away_ok or away_as_home:
+                        team_match = "away" if away_ok else "home"
                     else:
                         team_match = "none"
                 else:
@@ -1554,8 +1560,19 @@ def build_data():
                     # En 16avos no hay penalización por equipos incorrectos
                     team_match = None
                 ko_cfg = KO_PHASE_PTS[phase]
+                # Si los equipos están invertidos, flipear goles y sign para la
+                # comparación (el jugador apostó «local»/«visitante» al revés)
+                _cmp_gl, _cmp_gv, _cmp_result = gl, gv, result
+                if teams_reversed and not (home_ok and away_ok) and gl is not None and gv is not None:
+                    _cmp_gl, _cmp_gv = gv, gl
+                    if _cmp_result:
+                        _flipped_sign = ("2" if _cmp_result.get("sign") == "1"
+                                         else ("1" if _cmp_result.get("sign") == "2"
+                                               else _cmp_result.get("sign", "")))
+                        _cmp_result = {**_cmp_result, "sign": _flipped_sign,
+                                       "score": f"{_cmp_gl}-{_cmp_gv}"}
                 breakdown = _score_breakdown(
-                    pred, result, gl, gv,
+                    pred, _cmp_result, _cmp_gl, _cmp_gv,
                     ko_cfg["sign"], ko_cfg["diff"], ko_cfg["exact"],
                     diff_factor, multiplier,
                 )
@@ -1591,18 +1608,36 @@ def build_data():
                 actual_away = wc.get("away", "")
                 ph = pred.get("pred_home", "")
                 pa = pred.get("pred_away", "")
-                home_ok = bool(ph and actual_home and ph.strip() == actual_home.strip())
-                away_ok = bool(pa and actual_away and pa.strip() == actual_away.strip())
+                home_ok      = bool(ph and actual_home and ph.strip() == actual_home.strip())
+                away_ok      = bool(pa and actual_away and pa.strip() == actual_away.strip())
+                home_as_away = bool(ph and actual_away and ph.strip() == actual_away.strip())
+                away_as_home = bool(pa and actual_home and pa.strip() == actual_home.strip())
+                teams_reversed = home_as_away and away_as_home
                 if ph and pa:
-                    team_match = "both" if (home_ok and away_ok) else ("home" if home_ok else ("away" if away_ok else "none"))
+                    if (home_ok and away_ok) or teams_reversed:
+                        team_match = "both"
+                    elif home_ok or home_as_away:
+                        team_match = "home" if home_ok else "away"
+                    elif away_ok or away_as_home:
+                        team_match = "away" if away_ok else "home"
+                    else:
+                        team_match = "none"
                 else:
                     team_match = None
                 if phase == "r16":
                     team_match = None
                 ko_cfg = KO_PHASE_PTS[phase]
+                _lgl = live_info["goals_l"]; _lgv = live_info["goals_v"]
+                _lresult = live_info["result"]
+                if teams_reversed and not (home_ok and away_ok) and _lgl is not None and _lgv is not None:
+                    _lgl, _lgv = _lgv, _lgl
+                    if _lresult:
+                        _flipped_sign = ("2" if _lresult.get("sign") == "1"
+                                         else ("1" if _lresult.get("sign") == "2"
+                                               else _lresult.get("sign", "")))
+                        _lresult = {**_lresult, "sign": _flipped_sign, "score": f"{_lgl}-{_lgv}"}
                 live_breakdown = _score_breakdown(
-                    pred, live_info["result"],
-                    live_info["goals_l"], live_info["goals_v"],
+                    pred, _lresult, _lgl, _lgv,
                     ko_cfg["sign"], ko_cfg["diff"], ko_cfg["exact"],
                     diff_factor, multiplier,
                 )

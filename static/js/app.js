@@ -2962,9 +2962,13 @@ function renderMatchCard(m, players, colors) {
             }
             const hOk = predH.trim() === m.home.trim();
             const aOk = predA.trim() === m.away.trim();
-            if (hOk && aOk) return `<span class="brk-chip ok" title="Equipos correctos">⚽ ${predH} vs ${predA} ✓</span>`;
-            if (hOk) return `<span class="brk-chip pending" title="Local ✓, Visitante ✗">⚽ ${predH} ✓ vs ${predA} ✗</span>`;
-            if (aOk) return `<span class="brk-chip pending" title="Local ✗, Visitante ✓">⚽ ${predH} ✗ vs ${predA} ✓</span>`;
+            // También detectar equipos en orden inverso (predijo visitante como local y viceversa)
+            const hInMatch = hOk || predH.trim() === m.away.trim();
+            const aInMatch = aOk || predA.trim() === m.home.trim();
+            const bothTeams = hInMatch && aInMatch && (new Set([predH.trim(), predA.trim()])).size === 2;
+            if ((hOk && aOk) || bothTeams) return `<span class="brk-chip ok" title="Equipos correctos">⚽ ${predH} vs ${predA} ✓</span>`;
+            if (hInMatch) return `<span class="brk-chip pending" title="Acertaste ${predH}, falla ${predA}">⚽ ${predH} ✓ vs ${predA} ✗</span>`;
+            if (aInMatch) return `<span class="brk-chip pending" title="Acertaste ${predA}, falla ${predH}">⚽ ${predH} ✗ vs ${predA} ✓</span>`;
             bothWrong = true;
             return `<span class="brk-chip miss" title="Equipos incorrectos">⚽ ${predH} ✗ vs ${predA} ✗</span>`;
           })()
