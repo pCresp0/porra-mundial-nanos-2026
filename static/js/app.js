@@ -2077,7 +2077,7 @@ function renderProgression() {
   const titles = allTitles.slice(winStart, cutIdx + 1);
 
   // ── Window selector UI ────────────────────────────────────
-  const WIN_OPTS = [5, 10, 15, 0]; // 0 = Todos
+  const WIN_OPTS = [5, 10, 15, 20, 0]; // 0 = Todos
   const winRow = document.getElementById("prog-window-row");
   if (winRow) {
     winRow.innerHTML = WIN_OPTS.map(w => {
