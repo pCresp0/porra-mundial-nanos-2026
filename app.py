@@ -1559,15 +1559,23 @@ def build_data():
                     ko_cfg["sign"], ko_cfg["diff"], ko_cfg["exact"],
                     diff_factor, multiplier,
                 )
-                # Si el jugador puso equipos equivocados en AMBOS (solo a partir de Octavos), sus puntos son 0
-                if phase != "r16" and team_match == "none":
+                # REGLA DE ORO: para puntuar por resultado (1X2/diff/exacto) hay
+                # que acertar LOS DOS equipos. Con solo uno correcto (o ninguno)
+                # los puntos de resultado son 0; la excepción del "Clasificado"
+                # se aplica más abajo si ese único equipo acertado avanza.
+                if phase != "r16" and team_match != "both" and team_match is not None:
+                    if team_match == "none":
+                        _reason = "Equipos incorrectos (0 pts)"
+                    else:
+                        _reason = "Solo un equipo correcto — sin puntos de resultado"
                     breakdown = {**breakdown, "total": 0.0, "sign": 0.0, "diff": 0.0, "exact": 0.0,
-                                 "reasons": ["Equipos incorrectos (0 pts)"]}
+                                 "reasons": [_reason]}
                 breakdown["team_match"] = team_match
                 breakdown["pred_home"] = ph
                 breakdown["pred_away"] = pa
                 score = breakdown["total"]
                 ko_points[phase][p["name"]] += breakdown["total"]
+
             elif live_info and phase == "groups" and pred and "|" in str(pred_raw or ""):
                 # Puntos provisionales del partido en curso (no oficiales).
                 live_breakdown = _score_breakdown(
@@ -1598,13 +1606,18 @@ def build_data():
                     ko_cfg["sign"], ko_cfg["diff"], ko_cfg["exact"],
                     diff_factor, multiplier,
                 )
-                if phase != "r16" and team_match == "none":
+                if phase != "r16" and team_match != "both" and team_match is not None:
+                    if team_match == "none":
+                        _reason = "Equipos incorrectos (0 pts)"
+                    else:
+                        _reason = "Solo un equipo correcto — sin puntos de resultado"
                     live_breakdown = {**live_breakdown, "total": 0.0, "sign": 0.0, "diff": 0.0, "exact": 0.0,
-                                      "reasons": ["Equipos incorrectos (0 pts)"]}
+                                      "reasons": [_reason]}
                 live_breakdown["team_match"] = team_match
                 live_breakdown["pred_home"] = ph
                 live_breakdown["pred_away"] = pa
                 live_points[p["name"]] += live_breakdown["total"]
+
 
             predictions[p["name"]] = {
                 "pred":      pred,
@@ -1888,6 +1901,11 @@ def build_data():
                 name = p["name"]
                 pred_obj = m["predictions"].get(name)
                 if pred_obj and pred_obj.get("pred"):
+                    # El bonus de clasificado solo aplica si se acertó al menos un equipo
+                    # (team_match 'both', 'home' o 'away'); con team_match 'none' no hay excepción
+                    _tm = (pred_obj.get("breakdown") or {}).get("team_match")
+                    if _tm == "none":
+                        continue
                     pred_w = pred_obj["pred"].get("winner")
                     if pred_w and str(pred_w).strip().lower() == str(actual_w).strip().lower():
                         this_pts = qual_pts
