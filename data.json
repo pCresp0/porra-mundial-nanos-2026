@@ -1,16 +1,19 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "05/07/2026 08:18",
+    "generated": "05/07/2026 08:20",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
       "last_updated_iso": "2026-07-05T10:18",
       "last_updated_time": "10:18",
       "last_updated_date": "05/07/2026",
-      "next_update_iso": "2026-07-05T10:20",
-      "next_update_time": "10:20",
-      "next_update_date": "05/07/2026"
+      "next_update_iso": "2026-07-05T10:25",
+      "next_update_time": "10:25",
+      "next_update_date": "05/07/2026",
+      "last_checked_iso": "2026-07-05T10:20",
+      "last_checked_time": "10:20",
+      "last_checked_date": "05/07/2026"
     },
     "players": [
       "JUANCHO",
@@ -430,6 +433,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-05T10:20:49+02:00",
+        "date": "05/07/2026",
+        "time": "10:20:49",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-07-05T10:03:55+02:00",
         "date": "05/07/2026",
@@ -4466,23 +4477,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-04T03:34:30+02:00",
-        "date": "04/07/2026",
-        "time": "03:34:30",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇨🇴Colombia ?-? Ghana🇬🇭",
-            "name": "Colombia-Ghana",
-            "date": "2026-07-04",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
