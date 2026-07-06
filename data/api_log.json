@@ -1,31 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-30T01:32:27+02:00",
-    "date": "30/06/2026",
-    "time": "01:32:27",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇩🇪Alemania 1-1 Paraguay🇵🇾",
-        "name": "Alemania-Paraguay",
-        "date": "2026-06-29",
-        "fields": [
-          "marcador",
-          "jugado"
-        ],
-        "old": {
-          "marcador": "sin resultado",
-          "jugado": "no"
-        },
-        "new": {
-          "marcador": "1-1",
-          "jugado": "sí"
-        }
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-30T01:48:46+02:00",
     "date": "30/06/2026",
     "time": "01:48:46",
@@ -16732,6 +16706,14 @@
     "ts_iso": "2026-07-06T02:52:26+02:00",
     "date": "06/07/2026",
     "time": "02:52:26",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-06T02:54:28+02:00",
+    "date": "06/07/2026",
+    "time": "02:54:28",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
