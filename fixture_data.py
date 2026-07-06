@@ -257,8 +257,8 @@ FIXTURE_BY_ROW = {
     203: {"city": "Ciudad de México", "tv": "dazn"},  # 6 jul 02:00 México-Inglaterra · DAZN
     204: {"city": "Dallas",           "tv": "both"},  # 6 jul 21:00 Portugal-España · La 1 + DAZN
     205: {"city": "Seattle",          "tv": "dazn"},  # 7 jul 02:00 EE.UU.-Bélgica · DAZN
-    206: {"city": "Atlanta",          "tv": "dazn"},  # 7 jul 18:00 Argentina-Egipto · DAZN
-    207: {"city": "Vancouver",        "tv": "dazn"},  # 7 jul 22:00 Suiza-Colombia · DAZN
+    206: {"city": "Atlanta",          "tv": "dazn"},  # 7 jul 18:00 Egipto-Colombia · DAZN
+    207: {"city": "Vancouver",        "tv": "dazn"},  # 7 jul 22:00 Suiza-Argentina · DAZN
     # ── Cuartos ──
     220: {"city": "Boston",           "tv": "dazn"},
     221: {"city": "Los Ángeles",      "tv": "both"},

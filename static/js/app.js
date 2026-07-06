@@ -6548,7 +6548,7 @@ function renderBracket(overrideEl) {
   // Orden correcto de los partidos en cada fase para que los conectores del bracket coincidan
   // con los cruces reales de la porra:
   const BRACKET_ORDER = {
-    r16: [73, 76, 75, 78, 83, 84, 81, 82, 74, 77, 79, 80, 87, 86, 85, 88],
+    r16: [73, 75, 74, 77, 76, 78, 79, 80, 83, 84, 81, 82, 86, 88, 85, 87],
     r8:  [89, 90, 93, 94, 91, 92, 95, 96],
     r4:  [97, 98, 99, 100],
     r2:  [101, 102],

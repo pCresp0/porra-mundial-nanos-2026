@@ -572,7 +572,7 @@ def _build_wc_match_meta(wb):
                 scorers.append({"team": str(team).strip(), "player": s})
         ph_h = _val(wc, r, 1)  # A
         ph_a = _val(wc, r, 2)  # B
-        match_num = _val(wc, r, 10) # J
+        match_num = _val(wc, r, 34)  # AH — número oficial FIFA (W-labels); col J difiere en 14 partidos
         meta[key] = {
             "home":      str(home).strip(),
             "away":      str(away).strip(),
@@ -1379,8 +1379,8 @@ def build_data():
 
     _R8_BRACKET_MAP = {
         # match_num ADMIN → slot W del cuadro (home_placeholder-away_placeholder)
-        89: {"name": "W74-W77", "home_num": 74, "away_num": 77},  # Paraguay vs Francia
-        90: {"name": "W73-W75", "home_num": 73, "away_num": 75},  # Canadá vs Marruecos
+        89: {"name": "W73-W75", "home_num": 73, "away_num": 75},  # Canadá vs Marruecos
+        90: {"name": "W74-W77", "home_num": 74, "away_num": 77},  # Paraguay vs Francia
         91: {"name": "W76-W78", "home_num": 76, "away_num": 78},
         92: {"name": "W79-W80", "home_num": 79, "away_num": 80},
         93: {"name": "W83-W84", "home_num": 83, "away_num": 84},
@@ -1814,7 +1814,7 @@ def build_data():
                 played_count[name] += 1
 
         fix = lookup_fixture(row)
-        r16_order = [73, 76, 75, 78, 83, 84, 81, 82, 74, 77, 79, 80, 87, 86, 85, 88]
+        r16_order = [73, 75, 74, 77, 76, 78, 79, 80, 83, 84, 81, 82, 86, 88, 85, 87]
         r8_order = [200, 201, 204, 205, 202, 203, 206, 207]
         r4_order = [220, 221, 222, 223]
         r2_order = [232, 233]
