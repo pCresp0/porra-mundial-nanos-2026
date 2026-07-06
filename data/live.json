@@ -1,9 +1,16 @@
 {
   "México-Inglaterra": {
-    "home": 0,
+    "home": 1,
     "away": 2,
     "minute": "live",
     "scorers": [
+      {
+        "player": "Jvlian Kviinvnz",
+        "minute": "42'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
       {
         "player": "Jvd Blingham",
         "minute": "36'",
