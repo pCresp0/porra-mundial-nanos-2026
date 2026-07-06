@@ -931,8 +931,30 @@
       display: inline-flex; align-items: center; gap: .3rem; flex-wrap: nowrap;
     }
     .pred-table th .st-th-label.justify-center { justify-content: center; }
-    .pred-table th .info-wrap .info-tip { width: 260px; z-index: 200; }
-    .pred-table th .info-btn { width: 15px; height: 15px; font-size: .62rem; }
+  /* Tooltips de columnas KO: position fixed (escapan del overflow-x-auto) */
+    .pred-table th .info-wrap.st-col-tip .info-tip {
+      position: fixed;
+      width: min(300px, calc(100vw - 24px));
+      max-height: min(70vh, 420px);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      z-index: 10050;
+      text-transform: none;
+      letter-spacing: normal;
+      white-space: normal;
+      word-wrap: break-word;
+      overflow-wrap: anywhere;
+      line-height: 1.45;
+      bottom: auto;
+      transform: none !important;
+    }
+    .pred-table th .info-wrap.st-col-tip:hover .info-tip,
+    .pred-table th .info-wrap.st-col-tip.open .info-tip { display: block; }
+    .pred-table th .info-btn { width: 15px; height: 15px; font-size: .62rem; flex-shrink: 0; }
+    .st-col-tip-backdrop {
+      position: fixed; inset: 0; z-index: 10040;
+      background: rgba(0, 0, 0, .45);
+    }
 
     /* ── tooltip ── */
     .tooltip-wrap { position: relative; display: inline-block; }
@@ -1363,7 +1385,7 @@
     /* Apertura hacia abajo cuando no hay espacio arriba (cerca del nav fijo) */
     .info-wrap.tip-below .info-tip { bottom: auto; top: calc(100% + 8px); }
     @media (max-width: 560px) {
-      .info-wrap .info-tip {
+      .info-wrap:not(.st-col-tip) .info-tip {
         position: fixed !important;
         left: 50% !important;
         right: auto !important;

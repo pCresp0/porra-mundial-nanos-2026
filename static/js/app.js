@@ -1701,9 +1701,9 @@ function _scoringSec(key) {
 
 function _shortRuleLabel(label) {
   const s = String(label).replace(/^[^:]+:\s*/, "").replace(/\*\*/g, "").trim();
-  if (/signo|1X2/i.test(s)) return "1X2";
-  if (/diferencia|distancia/i.test(s)) return "Diferencia de goles (con 1X2)";
   if (/exacto/i.test(s)) return "Resultado exacto";
+  if (/diferencia|distancia/i.test(s)) return "Diferencia de goles (con 1X2)";
+  if (/signo/i.test(s) || /^1X2/i.test(s)) return "1X2";
   if (/clasificado/i.test(s)) return "Equipo en el cuadro";
   return s;
 }
@@ -1784,7 +1784,7 @@ function _injectStandingsHeadTooltips() {
     const tip = _standingsColTip(key);
     if (!tip) return;
     const align = th.classList.contains("text-left") ? "" : " justify-center";
-    th.innerHTML = `<span class="st-th-label${align}">${label}${infoTip(tip, "center").replace("info-wrap", "info-wrap tip-below")}</span>`;
+    th.innerHTML = `<span class="st-th-label${align}">${label}${infoTip(tip, "center").replace("info-wrap", "info-wrap st-col-tip")}</span>`;
     th.dataset.tipDone = "1";
   });
 }
@@ -4774,12 +4774,58 @@ applyPorraMode();
 
 /* ── Info tooltips: abrir/cerrar al tocar (móvil) además del hover ── */
 (function() {
+  function placeStandingsColTip(wrap, tip) {
+    const btn = wrap.querySelector(".info-btn") || wrap;
+    const bRect = btn.getBoundingClientRect();
+    const margin = 10;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const mobile = vw <= 640;
+
+    const prev = tip.style.cssText;
+    tip.style.cssText = [
+      "display:block", "visibility:hidden", "position:fixed",
+      "width:min(300px,calc(100vw - 24px))", "max-height:min(70vh,420px)",
+      "overflow-y:auto", "left:0", "top:0", "transform:none", "bottom:auto",
+    ].join(";");
+    const tipW = tip.offsetWidth;
+    const tipH = tip.offsetHeight;
+
+    let top, left;
+    if (mobile) {
+      top = Math.max(margin, vh - tipH - 24);
+      left = Math.max(margin, (vw - tipW) / 2);
+    } else {
+      top = bRect.bottom + margin;
+      if (top + tipH > vh - margin) top = bRect.top - tipH - margin;
+      top = Math.max(margin, Math.min(top, vh - tipH - margin));
+      left = bRect.left + bRect.width / 2 - tipW / 2;
+      left = Math.max(margin, Math.min(left, vw - tipW - margin));
+    }
+
+    tip.style.cssText = prev;
+    tip.style.position = "fixed";
+    tip.style.left = `${left}px`;
+    tip.style.top = `${top}px`;
+    tip.style.bottom = "auto";
+    tip.style.transform = "none";
+    tip.style.width = mobile ? `min(300px, calc(100vw - 24px))` : "min(300px, calc(100vw - 24px))";
+    tip.style.maxHeight = "min(70vh, 420px)";
+    tip.style.overflowY = "auto";
+    tip.style.zIndex = "10050";
+    wrap.dataset.tipPlaced = "1";
+  }
+
   // Decide si el tooltip se abre hacia arriba o hacia abajo según el espacio
   // disponible sobre el icono (evita que quede tapado por la barra de nav fija).
   function placeInfoTip(wrap) {
     if (!wrap) return;
     const tip = wrap.querySelector(".info-tip");
     if (!tip) return;
+    if (wrap.classList.contains("st-col-tip")) {
+      placeStandingsColTip(wrap, tip);
+      return;
+    }
     // Borde inferior real de la barra de navegación visible (sticky).
     const nav = [...document.querySelectorAll(".desktop-nav, .mobile-nav")]
       .find(n => n.offsetParent !== null);
@@ -4815,15 +4861,33 @@ applyPorraMode();
     document.querySelectorAll(".info-wrap.open").forEach(w => {
       if (!btn || w !== btn.closest(".info-wrap")) w.classList.remove("open");
     });
+    document.getElementById("st-col-tip-backdrop")?.remove();
     if (btn) {
       e.stopPropagation();
       const wrap = btn.closest(".info-wrap");
       if (wrap) {
         placeInfoTip(wrap);
         wrap.classList.toggle("open");
+        if (wrap.classList.contains("st-col-tip") && wrap.classList.contains("open") && window.innerWidth <= 640) {
+          const bd = document.createElement("div");
+          bd.id = "st-col-tip-backdrop";
+          bd.className = "st-col-tip-backdrop";
+          bd.addEventListener("click", () => {
+            wrap.classList.remove("open");
+            bd.remove();
+          });
+          document.body.appendChild(bd);
+        }
       }
     }
   });
+
+  window.addEventListener("scroll", () => {
+    document.querySelectorAll(".info-wrap.st-col-tip.open, .info-wrap.st-col-tip:hover").forEach(w => {
+      const tip = w.querySelector(".info-tip");
+      if (tip && (w.classList.contains("open") || w.matches(":hover"))) placeStandingsColTip(w, tip);
+    });
+  }, { passive: true });
 })();
 
 /* Devuelve el HTML de un icono (i) con su tooltip. pos: "left" | "right" | "center" */
