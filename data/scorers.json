@@ -1963,5 +1963,28 @@
       "penalty": false,
       "team": "away"
     }
+  ],
+  "México-Inglaterra": [
+    {
+      "player": "Jvlian Kviinvnz",
+      "minute": "42'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Jvd Blingham",
+      "minute": "36'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Jvd Blingham",
+      "minute": "38'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
   ]
 }
