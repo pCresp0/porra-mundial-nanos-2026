@@ -1,22 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-30T20:36:50+02:00",
-    "date": "30/06/2026",
-    "time": "20:36:50",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇨🇮Costa de Marfil ?-? Noruega🇳🇴",
-        "name": "Costa de Marfil-Noruega",
-        "date": "2026-06-30",
-        "fields": [],
-        "old": {},
-        "new": {}
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-30T20:38:29+02:00",
     "date": "30/06/2026",
     "time": "20:38:29",
@@ -16651,6 +16634,14 @@
     "ts_iso": "2026-07-06T12:06:30+02:00",
     "date": "06/07/2026",
     "time": "12:06:30",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-06T12:22:32+02:00",
+    "date": "06/07/2026",
+    "time": "12:22:32",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
