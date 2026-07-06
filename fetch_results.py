@@ -288,14 +288,51 @@ def _patch_worldcup_cells(path: str, updates: dict) -> list:
 
 
 def _patch_worldcup_scores(path: str, updates: dict) -> list:
-    """Surgically set AC/AD score cells in the WORLDCUP sheet XML.
-    updates: {row:int -> (gl:int, gv:int)}
+    """Surgically set AC/AD score cells (and optionally names/flags) in the WORLDCUP sheet XML.
+    updates: {cell_ref: str -> value}
     """
-    cell_updates = {}
-    for row, (gl, gv) in updates.items():
-        cell_updates[f"AC{row}"] = gl
-        cell_updates[f"AD{row}"] = gv
-    return _patch_worldcup_cells(path, cell_updates)
+    return _patch_worldcup_cells(path, updates)
+
+
+def _load_wc_match_map(wc_data) -> dict:
+    """Mapa equipos (normalizado) → match_num desde WORLDCUP, sin depender de data.json."""
+    match_map = {}
+    if wc_data is None:
+        return match_map
+    for r in range(4, 148):
+        home = wc_data.cell(r, 27).value
+        away = wc_data.cell(r, 32).value
+        mn = wc_data.cell(r, 34).value
+        if not home or not away or mn is None:
+            continue
+        if str(home).startswith("=") or str(away).startswith("="):
+            continue
+        if str(home).startswith("W") or str(away).startswith("W"):
+            continue
+        try:
+            mn_int = int(mn)
+        except (TypeError, ValueError):
+            continue
+        key = _norm_key(_match_key(str(home).strip(), str(away).strip()))
+        match_map[key] = mn_int
+    return match_map
+
+
+def _load_data_json_match_map() -> dict:
+    import json
+    import os
+    match_map = {}
+    try:
+        data_path = os.path.join(os.path.dirname(__file__), "data.json")
+        with open(data_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        for m in data.get("matches", []):
+            if m.get("home") and m.get("away") and m.get("match_num"):
+                k = _norm_key(_match_key(m["home"], m["away"]))
+                match_map[k] = m["match_num"]
+    except Exception:
+        pass
+    return match_map
 
 
 def update_excel(games: list, path: str, label: str = "") -> int:
@@ -310,9 +347,23 @@ def update_excel(games: list, path: str, label: str = "") -> int:
     wb_data = openpyxl.load_workbook(path, data_only=True)
     wc_data = wb_data["WORLDCUP"] if "WORLDCUP" in wb_data.sheetnames else None
 
+    # Mapa equipos → match_num desde el Excel (más fiable que data.json desactualizado)
+    match_map = _load_wc_match_map(wc_data)
+    if not match_map:
+        match_map = _load_data_json_match_map()
+
     row_index = {}
+    row_by_match_num = {}
     if wc_data:
         for r in range(4, 148):
+            # Map visual match number (AH, col 34) -> row
+            mn = wc_data.cell(r, 34).value
+            if mn is not None:
+                try:
+                    row_by_match_num[int(mn)] = r
+                except (TypeError, ValueError):
+                    pass
+
             home = wc_data.cell(r, 27).value
             away = wc_data.cell(r, 32).value
             if not home or not away:
@@ -340,11 +391,25 @@ def update_excel(games: list, path: str, label: str = "") -> int:
             continue
 
         key = _norm_key(_match_key(home_es, away_es))
-        row = row_index.get(key)
-        if not row:
-            row = row_index.get(_norm_key(_match_key(away_es, home_es)))
-            if row:
+        k_rev = _norm_key(_match_key(away_es, home_es))
+        
+        row = None
+        m_num = match_map.get(key)
+        if not m_num and k_rev in match_map:
+            m_num = match_map.get(k_rev)
+            
+        if m_num:
+            row = row_by_match_num.get(m_num)
+            if row and match_map.get(k_rev) == m_num:
                 gl, gv = gv, gl
+                
+        if not row:
+            row = row_index.get(key)
+            if not row:
+                row = row_index.get(k_rev)
+                if row:
+                    gl, gv = gv, gl
+                    
         if not row:
             print(f"  ⚠ Sin fila Excel: {home_es} vs {away_es}")
             continue
@@ -355,20 +420,53 @@ def update_excel(games: list, path: str, label: str = "") -> int:
             same = cur_l is not None and cur_v is not None and int(cur_l) == gl and int(cur_v) == gv
         except (TypeError, ValueError):
             same = False
-        if same:
+            
+        ex_home = wc_ro.cell(row, 27).value
+        ex_away = wc_ro.cell(row, 32).value
+        needs_name_update = (row >= 101) and (str(ex_home) != home_es or str(ex_away) != away_es)
+
+        if same and not needs_name_update:
             continue
-        updates[row] = (gl, gv)
+            
+        updates[f"AC{row}"] = gl
+        updates[f"AD{row}"] = gv
+        
+        if needs_name_update:
+            updates[f"AA{row}"] = home_es
+            updates[f"AF{row}"] = away_es
+            t1_flag = TEAM_FLAGS.get(home_es, "")
+            t2_flag = TEAM_FLAGS.get(away_es, "")
+            if t1_flag: updates[f"AB{row}"] = t1_flag
+            if t2_flag: updates[f"AE{row}"] = t2_flag
+            
         print(f"  ✓ {home_es} {gl}-{gv} {away_es}  (fila WORLDCUP {row})")
 
     if updates:
         missing = _patch_worldcup_scores(path, updates)
+        
+        # Admin names sync for Knockout matches
+        admin_updates = {}
+        for ref, val in updates.items():
+            if ref.startswith("AA"):
+                row = int(ref[2:])
+                h = updates.get(f"AA{row}")
+                a = updates.get(f"AF{row}")
+                if h and a and row >= 101:
+                    admin_row = row + 63 if row <= 116 else (row + 80 if row <= 127 else (row + 89 if row <= 135 else (row + 94 if row <= 140 else (row + 97 if row <= 143 else row + 101))))
+                    admin_updates[f"K{admin_row}"] = f"{h}-{a}"
+        if admin_updates:
+            _patch_excel_cells(path, "ADMIN", admin_updates)
+
         if missing:
             print(f"  ⚠ Celdas no encontradas en XML: {', '.join(missing)}")
-        print(f"💾 Excel {label} guardado ({len(updates)} partido(s) actualizado(s))")
+        
+        # Number of unique rows updated
+        unique_rows = len(set([k[2:] for k in updates.keys() if k.startswith("AC")]))
+        print(f"💾 Excel {label} guardado ({unique_rows} partido(s) actualizado(s))")
         print(f"   → {path}")
     else:
         print(f"ℹ️  Excel {label}: sin cambios")
-    return len(updates)
+    return len([k for k in updates.keys() if k.startswith("AC")])
 
 
 TEAM_FLAGS = {
@@ -392,455 +490,6 @@ TEAM_FLAGS = {
      "Venezuela": "🇻🇪", "Gales": "🏴\u200d󠁧󠁢󠁷󠁡\u200d󠁿", "Kenia": "🇰🇪", "Tanzania": "🇹🇿",
      "Congo RD": "🇨🇩", "RD Congo": "🇨🇩", "Emiratos Árabes Unidos": "🇦🇪"
 }
-
-def fetch_bbc_knockout_matchups() -> list:
-    """Fetch knockout stage matchups from BBC World Cup schedule."""
-    import urllib.request
-    import re
-    import json
-    import codecs
-
-    url = "https://www.bbc.com/sport/football/world-cup/schedule"
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"})
-    try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            html = resp.read().decode("utf-8")
-    except Exception as e:
-        print(f"  ❌ Error al descargar el calendario de la BBC: {e}")
-        return []
-
-    m = re.search(r'window\.__INITIAL_DATA__\s*=\s*"(.*?)"\s*;', html)
-    if not m:
-        m = re.search(r'window\.__INITIAL_DATA__\s*=\s*"(.*?)"', html)
-
-    if not m:
-        print("  ❌ No se pudo encontrar window.__INITIAL_DATA__ en la web de la BBC")
-        return []
-
-    try:
-        raw_val = m.group(1)
-        unescaped = codecs.escape_decode(raw_val.encode('utf-8'))[0].decode('utf-8')
-        data = json.loads(unescaped)
-        nested_data = data.get("data", {})
-        
-        wc_key = None
-        for k in nested_data.keys():
-            if "tournament=world-cup" in k:
-                wc_key = k
-                break
-        
-        if not wc_key:
-            return []
-            
-        wc_data = nested_data[wc_key]
-        wc_stage = wc_data.get("data", {}).get("knockoutStage", {})
-        
-        rounds = []
-        for r in wc_stage.get("preFinalRounds", []):
-            rname = r.get("roundName")
-            matches = []
-            for m_item in r.get("matches", []):
-                ev = m_item.get("event", {})
-                teams = ev.get("teams", [])
-                t_list = []
-                for t in teams:
-                    name = t.get("name", {}).get("fullName", "")
-                    placeholder = t.get("knockoutGroupPlaceholder", "")
-                    t_list.append({"name": name, "placeholder": placeholder})
-                matches.append({
-                    "id": ev.get("id"),
-                    "date": ev.get("date", {}).get("isoDate"),
-                    "teams": t_list
-                })
-            rounds.append({"name": rname, "matches": matches})
-        
-        third = wc_stage.get("thirdPlacePlayoff", {})
-        if third:
-            rname = third.get("roundName")
-            m_item = third.get("match", {})
-            if m_item:
-                ev = m_item.get("event", {})
-                teams = ev.get("teams", [])
-                t_list = []
-                for t in teams:
-                    name = t.get("name", {}).get("fullName", "")
-                    placeholder = t.get("knockoutGroupPlaceholder", "")
-                    t_list.append({"name": name, "placeholder": placeholder})
-                rounds.append({
-                    "name": rname,
-                    "matches": [{
-                        "id": ev.get("id"),
-                        "date": ev.get("date", {}).get("isoDate"),
-                        "teams": t_list
-                    }]
-                })
-        
-        fin = wc_stage.get("final", {})
-        if fin:
-            rname = fin.get("roundName")
-            m_item = fin.get("match", {})
-            if m_item:
-                ev = m_item.get("event", {})
-                teams = ev.get("teams", [])
-                t_list = []
-                for t in teams:
-                    name = t.get("name", {}).get("fullName", "")
-                    placeholder = t.get("knockoutGroupPlaceholder", "")
-                    t_list.append({"name": name, "placeholder": placeholder})
-                rounds.append({
-                    "name": rname,
-                    "matches": [{
-                        "id": ev.get("id"),
-                        "date": ev.get("date", {}).get("isoDate"),
-                        "teams": t_list
-                    }]
-                })
-        return rounds
-    except Exception as e:
-        print(f"  ❌ Error al parsear JSON de la BBC: {e}")
-        return []
-
-
-def update_excel_knockout_matchups(path: str, rounds: list) -> int:
-    """Read the Excel file's WORLDCUP sheet, match BBC rounds, and surgically update AA/AF and AB/AE in the visual row."""
-    wb_ro = openpyxl.load_workbook(path, data_only=True)
-    if "WORLDCUP" not in wb_ro.sheetnames:
-        return 0
-    ws = wb_ro["WORLDCUP"]
-
-    def norm_ph(p: str) -> str:
-        if not p: return ""
-        p = str(p).strip().upper()
-        if p[-1].isdigit():
-            return p[-1] + p[:-1]
-        return p
-
-    def wc_row_to_admin_row(wc_row: int) -> int:
-        if 101 <= wc_row <= 116:
-            return wc_row + 63
-        if 120 <= wc_row <= 127:
-            return wc_row + 80
-        if 131 <= wc_row <= 134:
-            return wc_row + 89
-        if 138 <= wc_row <= 139:
-            return wc_row + 94
-        if wc_row == 143:
-            return 244
-        if wc_row == 147:
-            return 247
-        return wc_row
-
-    ws_admin = wb_ro["ADMIN"] if "ADMIN" in wb_ro.sheetnames else None
-
-    excel_matches = {}
-    row_current_values = {}
-    for r in range(101, 148):
-        mid = ws.cell(row=r, column=10).value # J
-        home = ws.cell(row=r, column=1).value # A (original placeholder)
-        away = ws.cell(row=r, column=2).value # B (original placeholder)
-        ah = ws.cell(row=r, column=34).value # AH (visual MatchNo)
-        
-        actual_home = ws.cell(row=r, column=27).value # AA (current home name)
-        actual_away = ws.cell(row=r, column=32).value # AF (current away name)
-        
-        admin_row = wc_row_to_admin_row(r)
-        admin_k = ws_admin.cell(row=admin_row, column=11).value if ws_admin else None # K (concatenate name)
-        
-        row_current_values[r] = {
-            "home": str(actual_home).strip() if actual_home else "",
-            "away": str(actual_away).strip() if actual_away else "",
-            "admin_k": str(admin_k).strip() if admin_k else ""
-        }
-        
-        if mid or home or away:
-            excel_matches[r] = {
-                "id": str(mid).strip() if mid else "",
-                "home_ph": norm_ph(home),
-                "away_ph": norm_ph(away),
-                "ah": str(ah).strip() if ah else ""
-            }
-
-    def find_visual_row(mid: str) -> int:
-        for r, info in excel_matches.items():
-            if info["ah"] == mid:
-                return r
-        return None
-
-    bbc_last_32 = []
-    bbc_last_16 = []
-    bbc_qf = []
-    bbc_sf = []
-    bbc_third = []
-    bbc_final = []
-
-    for rd in rounds:
-        rname = rd["name"].lower()
-        if "32" in rname:
-            bbc_last_32 = rd["matches"]
-        elif "16" in rname:
-            bbc_last_16 = rd["matches"]
-        elif "quarter" in rname:
-            bbc_qf = rd["matches"]
-        elif "semi" in rname:
-            bbc_sf = rd["matches"]
-        elif "3rd" in rname:
-            bbc_third = rd["matches"]
-        elif "final" in rname:
-            bbc_final = rd["matches"]
-
-    last_32_mapping = {}
-    excel_last_32_rows = list(range(101, 117))
-    
-    for bbc_idx, bm in enumerate(bbc_last_32):
-        if len(bm["teams"]) != 2:
-            continue
-        t1_ph = norm_ph(bm["teams"][0]["placeholder"])
-        t2_ph = norm_ph(bm["teams"][1]["placeholder"])
-        bm_set = {t1_ph, t2_ph}
-        
-        matched_row = None
-        for r in excel_last_32_rows:
-            ex_info = excel_matches[r]
-            ex_set = {ex_info["home_ph"], ex_info["away_ph"]}
-            if bm_set == ex_set:
-                matched_row = r
-                break
-        if matched_row:
-            last_32_mapping[bbc_idx + 1] = matched_row
-            bm["excel_row"] = matched_row
-            bm["excel_id"] = excel_matches[matched_row]["id"]
-
-    last_16_mapping = {}
-    excel_last_16_rows = list(range(120, 128))
-    
-    for bbc_idx, bm in enumerate(bbc_last_16):
-        if len(bm["teams"]) != 2:
-            continue
-        
-        def translate_placeholder(p: str) -> str:
-            p = p.strip()
-            m_match = re.match(r'^([WL])-32-(\d+)$', p, re.IGNORECASE)
-            if m_match:
-                side = m_match.group(1).upper()
-                idx = int(m_match.group(2))
-                ex_row = last_32_mapping.get(idx)
-                if ex_row:
-                    ex_id = excel_matches[ex_row]["id"]
-                    return f"{side}{ex_id}"
-            return p
-
-        t1_ph = translate_placeholder(bm["teams"][0]["placeholder"])
-        t2_ph = translate_placeholder(bm["teams"][1]["placeholder"])
-        bm_set = {t1_ph, t2_ph}
-        
-        matched_row = None
-        for r in excel_last_16_rows:
-            ex_info = excel_matches[r]
-            ex_set = {ex_info["home_ph"], ex_info["away_ph"]}
-            if bm_set == ex_set:
-                matched_row = r
-                break
-        if matched_row:
-            last_16_mapping[bbc_idx + 1] = matched_row
-            bm["excel_row"] = matched_row
-            bm["excel_id"] = excel_matches[matched_row]["id"]
-
-    qf_mapping = {}
-    excel_qf_rows = list(range(131, 135))
-    
-    for bbc_idx, bm in enumerate(bbc_qf):
-        if len(bm["teams"]) != 2:
-            continue
-        
-        def translate_placeholder(p: str) -> str:
-            p = p.strip()
-            m_match = re.match(r'^([WL])-16-(\d+)$', p, re.IGNORECASE)
-            if m_match:
-                side = m_match.group(1).upper()
-                idx = int(m_match.group(2))
-                ex_row = last_16_mapping.get(idx)
-                if ex_row:
-                    ex_id = excel_matches[ex_row]["id"]
-                    return f"{side}{ex_id}"
-            return p
-
-        t1_ph = translate_placeholder(bm["teams"][0]["placeholder"])
-        t2_ph = translate_placeholder(bm["teams"][1]["placeholder"])
-        bm_set = {t1_ph, t2_ph}
-        
-        matched_row = None
-        for r in excel_qf_rows:
-            ex_info = excel_matches[r]
-            ex_set = {ex_info["home_ph"], ex_info["away_ph"]}
-            if bm_set == ex_set:
-                matched_row = r
-                break
-        if matched_row:
-            qf_mapping[bbc_idx + 1] = matched_row
-            bm["excel_row"] = matched_row
-            bm["excel_id"] = excel_matches[matched_row]["id"]
-
-    sf_mapping = {}
-    excel_sf_rows = list(range(138, 140))
-    
-    for bbc_idx, bm in enumerate(bbc_sf):
-        if len(bm["teams"]) != 2:
-            continue
-        
-        def translate_placeholder(p: str) -> str:
-            p = p.strip().upper()
-            m_match = re.match(r'^([WL])-QF(\d+)$', p)
-            if m_match:
-                side = m_match.group(1)
-                idx = int(m_match.group(2))
-                ex_row = qf_mapping.get(idx)
-                if ex_row:
-                    ex_id = excel_matches[ex_row]["id"]
-                    return f"{side}{ex_id}"
-            return p
-
-        t1_ph = translate_placeholder(bm["teams"][0]["placeholder"])
-        t2_ph = translate_placeholder(bm["teams"][1]["placeholder"])
-        bm_set = {t1_ph, t2_ph}
-        
-        matched_row = None
-        for r in excel_sf_rows:
-            ex_info = excel_matches[r]
-            ex_set = {ex_info["home_ph"], ex_info["away_ph"]}
-            if bm_set == ex_set:
-                matched_row = r
-                break
-        if matched_row:
-            sf_mapping[bbc_idx + 1] = matched_row
-            bm["excel_row"] = matched_row
-            bm["excel_id"] = excel_matches[matched_row]["id"]
-
-    excel_third_row = 143
-    if bbc_third and len(bbc_third[0]["teams"]) == 2:
-        bm = bbc_third[0]
-        def translate_placeholder(p: str) -> str:
-            p = p.strip().upper()
-            m_match = re.match(r'^([WL])-SF(\d+)$', p)
-            if m_match:
-                side = m_match.group(1)
-                idx = int(m_match.group(2))
-                ex_row = sf_mapping.get(idx)
-                if ex_row:
-                    ex_id = excel_matches[ex_row]["id"]
-                    return f"{side}{ex_id}"
-            return p
-        t1_ph = translate_placeholder(bm["teams"][0]["placeholder"])
-        t2_ph = translate_placeholder(bm["teams"][1]["placeholder"])
-        bm["excel_row"] = excel_third_row
-        bm["excel_id"] = excel_matches[excel_third_row]["id"]
-
-    excel_final_row = 147
-    if bbc_final and len(bbc_final[0]["teams"]) == 2:
-        bm = bbc_final[0]
-        def translate_placeholder(p: str) -> str:
-            p = p.strip().upper()
-            m_match = re.match(r'^([WL])-SF(\d+)$', p)
-            if m_match:
-                side = m_match.group(1)
-                idx = int(m_match.group(2))
-                ex_row = sf_mapping.get(idx)
-                if ex_row:
-                    ex_id = excel_matches[ex_row]["id"]
-                    return f"{side}{ex_id}"
-            return p
-        t1_ph = translate_placeholder(bm["teams"][0]["placeholder"])
-        t2_ph = translate_placeholder(bm["teams"][1]["placeholder"])
-        bm["excel_row"] = excel_final_row
-        bm["excel_id"] = excel_matches[excel_final_row]["id"]
-
-    def is_ph(name: str) -> bool:
-        n = name.strip()
-        if not n: return True
-        n_up = n.upper()
-        if re.match(r'^[WL]-(?:32|16|QF|SF|F)-?\d*$', n_up):
-            return True
-        if re.match(r'^[WL]\d+$', n_up):
-            return True
-        if re.match(r'^[1-4]?[A-L]+[1-4]?$', n_up):
-            return True
-        if len(n_up) <= 6 and any(c.isdigit() for c in n_up):
-            return True
-        return False
-
-    cell_updates = {}
-    admin_updates = {}
-    updates_count = 0
-
-    all_bbc_matches = bbc_last_32 + bbc_last_16 + bbc_qf + bbc_sf + bbc_third + bbc_final
-    for bm in all_bbc_matches:
-        r_physical = bm.get("excel_row")
-        if not r_physical:
-            continue
-        mid = bm.get("excel_id")
-        r_visual = find_visual_row(mid)
-        if not r_visual:
-            print(f"  ⚠️ Warning: No visual row found for Match ID {mid}")
-            continue
-
-        t1_name = bm["teams"][0]["name"]
-        t2_name = bm["teams"][1]["name"]
-        
-        if not is_ph(t1_name) and not is_ph(t2_name):
-            t1_es = to_spanish(t1_name)
-            t2_es = to_spanish(t2_name)
-            t1_flag = TEAM_FLAGS.get(t1_es, "")
-            t2_flag = TEAM_FLAGS.get(t2_es, "")
-            
-            ex_home = row_current_values[r_visual]["home"]
-            ex_away = row_current_values[r_visual]["away"]
-            ex_admin_k = row_current_values[r_visual]["admin_k"]
-            
-            bm_t1_ph = norm_ph(bm["teams"][0]["placeholder"])
-            ex_home_ph = excel_matches[r_physical]["home_ph"]
-            
-            if bm_t1_ph == ex_home_ph:
-                home_es, away_es = t1_es, t2_es
-                home_flag, away_flag = t1_flag, t2_flag
-            else:
-                home_es, away_es = t2_es, t1_es
-                home_flag, away_flag = t2_flag, t1_flag
-                
-            expected_admin_k = f"{home_es}-{away_es}"
-            
-            needs_wc = ex_home != home_es or ex_away != away_es
-            needs_admin = ex_admin_k != expected_admin_k
-            
-            if needs_wc or needs_admin:
-                if needs_wc:
-                    cell_updates[f"AA{r_visual}"] = home_es
-                    cell_updates[f"AF{r_visual}"] = away_es
-                    if home_flag: cell_updates[f"AB{r_visual}"] = home_flag
-                    if away_flag: cell_updates[f"AE{r_visual}"] = away_flag
-                if needs_admin:
-                    admin_row = wc_row_to_admin_row(r_visual)
-                    admin_updates[f"K{admin_row}"] = expected_admin_k
-                
-                print(f"  ✓ cruce visual {r_visual} (Partido {mid}): {home_es} {home_flag} vs {away_es} {away_flag}")
-                updates_count += 1
-
-    if cell_updates or admin_updates:
-        if cell_updates:
-            missing_wc = _patch_excel_cells(path, "WORLDCUP", cell_updates)
-            if missing_wc:
-                print(f"  ⚠ Celdas no encontradas en WORLDCUP XML: {', '.join(missing_wc)}")
-        
-        if admin_updates:
-            missing_admin = _patch_excel_cells(path, "ADMIN", admin_updates)
-            if missing_admin:
-                print(f"  ⚠ Celdas no encontradas en ADMIN XML: {', '.join(missing_admin)}")
-            
-        print(f"💾 Excel guardado ({updates_count} cruce(s) de eliminatorias actualizado(s))")
-        print(f"   → {path}")
-    else:
-        print("ℹ️  Cruces de eliminatorias: sin cambios")
-        
-    return updates_count
-
 
 def main():
     cfg = _load_config()
@@ -877,19 +526,6 @@ def main():
     # Save in-progress live scores (provisional overlay)
     write_live_json(games)
 
-    # Update knockout matchups from BBC
-    print("🌐 Sincronizando cruces de eliminatorias desde BBC…")
-    try:
-        rounds = fetch_bbc_knockout_matchups()
-        if rounds:
-            update_excel_knockout_matchups(file1, rounds)
-            if file2 and os.path.isfile(file2):
-                update_excel_knockout_matchups(file2, rounds)
-        else:
-            print("  ⚠️ No se pudieron descargar los cruces de eliminatorias desde BBC")
-    except Exception as e:
-        print(f"  ❌ Error al sincronizar cruces desde BBC: {e}")
-        
     return 0
 
 

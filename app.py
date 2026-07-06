@@ -1460,21 +1460,15 @@ def build_data():
         wc["away"] = away_resolved
         wc["flag_away"] = flag_a
 
-        # ── Aplicar el bracket_map ANTES del scoring para que team_match use
-        # los equipos reales (no los del placeholder W73/W74/W77…) ──────────
-        _pre_m_num = wc.get("match_num")
-        if phase == "r8" and _pre_m_num in _R8_BRACKET_MAP:
-            _bbc_pre = _R8_BRACKET_MAP[_pre_m_num]
-            _bbc_h = winner_by_num.get(_bbc_pre["home_num"])
-            _bbc_a = winner_by_num.get(_bbc_pre["away_num"])
-            if _bbc_h:
-                home_resolved = _bbc_h
-                wc["home"] = _bbc_h
-                wc["flag_home"] = team_to_flag.get(_bbc_h, wc.get("flag_home", ""))
-            if _bbc_a:
-                away_resolved = _bbc_a
-                wc["away"] = _bbc_a
-                wc["flag_away"] = team_to_flag.get(_bbc_a, wc.get("flag_away", ""))
+        # Reintentar marcador con nombres ya resueltos (p. ej. ADMIN «Paraguay-Francia»)
+        if not played and home_resolved and away_resolved:
+            for sk in (f"{home_resolved}-{away_resolved}",
+                       f"{away_resolved}-{home_resolved}"):
+                if sk in wc_scores:
+                    goals_l, goals_v = wc_scores[sk]
+                    result = _result_from_goals(goals_l, goals_v)
+                    played = result is not None
+                    break
 
         actual_home_set = bool(home_resolved and not home_resolved.startswith("1") and not home_resolved.startswith("2") and not home_resolved.startswith("W") and not home_resolved.startswith("L"))
         actual_away_set = bool(away_resolved and not away_resolved.startswith("1") and not away_resolved.startswith("2") and not away_resolved.startswith("W") and not away_resolved.startswith("L"))
@@ -1487,24 +1481,21 @@ def build_data():
                 # Excel (e.g. the player assigns num=89 to slot W74-W77 while the main
                 # Excel assigns num=90 to the same slot).
                 m_num = wc.get("match_num")
-                if phase == "r8" and m_num in _R8_BRACKET_MAP:
-                    slot_key = _R8_BRACKET_MAP[m_num]["name"]
-                else:
-                    slot_key = str(match_name).strip()
-                pred_raw = _ko_preds.get(p["name"], {}).get(slot_key)
-                if not pred_raw:
-                    m_num_str = str(m_num) if m_num is not None else ""
-                    pred_raw = _ko_preds.get(p["name"], {}).get(m_num_str)
-                if not pred_raw:
-                    pred_raw = _ko_preds.get(p["name"], {}).get(str(row))
-                if not pred_raw:
-                    # fallback to resolved match names
-                    mkey_resolved = f"{home_resolved}-{away_resolved}"
-                    mkey_resolved_rev = f"{away_resolved}-{home_resolved}"
-                    pred_raw = _ko_preds.get(p["name"], {}).get(mkey_resolved) or _ko_preds.get(p["name"], {}).get(mkey_resolved_rev)
-                if not pred_raw:
-                    # fallback to the sheet's match name
-                    pred_raw = _ko_preds.get(p["name"], {}).get(mkey)
+                name_str = str(match_name).strip()
+                ko_player = _ko_preds.get(p["name"], {})
+                pred_raw = None
+                for key in filter(None, [
+                    name_str,
+                    str(row),
+                    str(m_num) if m_num is not None else None,
+                    f"{home_resolved}-{away_resolved}" if actual_home_set and actual_away_set else None,
+                    f"{away_resolved}-{home_resolved}" if actual_home_set and actual_away_set else None,
+                    _R8_BRACKET_MAP[m_num]["name"] if phase == "r8" and m_num in _R8_BRACKET_MAP else None,
+                    mkey,
+                ]):
+                    pred_raw = ko_player.get(key)
+                    if pred_raw:
+                        break
                 score_raw = 0 # Score will be calculated below
             else:
                 pred_raw  = _val(ws, row, p["pred_col"])
@@ -1766,17 +1757,6 @@ def build_data():
         if _m.get("phase") == "r16":
             _r8_flag_by_team.setdefault(_m["home"], _m.get("flag_home", ""))
             _r8_flag_by_team.setdefault(_m["away"], _m.get("flag_away", ""))
-
-    for _m in matches:
-        if _m.get("phase") == "r8" and _m.get("match_num") in _R8_BRACKET_MAP:
-            _bbc_cfg = _R8_BRACKET_MAP[_m["match_num"]]
-            _home_team = winner_by_num.get(_bbc_cfg["home_num"]) or f"W{_bbc_cfg['home_num']}"
-            _away_team = winner_by_num.get(_bbc_cfg["away_num"]) or f"W{_bbc_cfg['away_num']}"
-            _m["name"]      = _bbc_cfg["name"]
-            _m["home"]      = _home_team
-            _m["away"]      = _away_team
-            _m["flag_home"] = _r8_flag_by_team.get(_home_team, "")
-            _m["flag_away"] = _r8_flag_by_team.get(_away_team, "")
 
     # ── Corregir bracket_order visual de los octavos ──────────────────────────
     # En el Admin Excel los octavos van en pares: (89,90), (91,92), (93,94), (95,96).
