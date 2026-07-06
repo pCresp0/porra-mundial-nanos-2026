@@ -2221,15 +2221,17 @@ function renderProgression() {
   const lastDayIdx = lastDate
     ? progDates.map((d, i) => d === lastDate ? i : -1).filter(i => i >= 0)
     : [];
-  cardsEl.innerHTML = D.standings.map(p => {
+  cardsEl.innerHTML = [...D.standings]
+    .sort((a, b) => (a.pos ?? 99) - (b.pos ?? 99))
+    .map(p => {
     const series = prog.players?.[p.name] || [];
-    const last   = series.at(-1) || 0;
+    const displayTotal = liveActive ? (+p.total_live || +p.total || 0) : (+p.total || 0);
     const prev   = series.length > 1 ? series.at(-2) : 0;
     const dayArr = prog.day_points?.[p.name] || [];
     const matchDelta = dayArr.at(-1) || 0;                       // último partido
     const dayDelta   = lastDayIdx.reduce((s, i) => s + (dayArr[i] || 0), 0); // último día
     const dayFmt     = Math.round(dayDelta * 10) / 10;
-    const pct  = Math.round((last / maxTotal) * 100);
+    const pct  = Math.round((displayTotal / maxTotal) * 100);
     const matchesPl = p.played || 0;
     const avg = matchesPl > 0 ? (p.groups / matchesPl).toFixed(1) : "—";
     const deltaCls = v => v > 0 ? "color:var(--green)" : "color:#64748B";
@@ -2247,7 +2249,7 @@ function renderProgression() {
           </div>
         </div>
         <div class="text-center">
-          <div class="bebas text-3xl" style="color:${p.color}">${liveActive ? last + lp : last}</div>
+          <div class="bebas text-3xl" style="color:${p.color}">${displayTotal}</div>
           <div class="text-xs text-gray-500 mb-1">${liveActive ? "acumulado (prov.)" : "acumulado"}</div>
           <div class="prog-deltas mb-2">
             <div class="text-xs font-bold" style="${deltaCls(matchDelta)}">+${matchDelta} último partido</div>
