@@ -1,22 +1,5 @@
 [
   {
-    "ts_iso": "2026-07-01T04:34:26+02:00",
-    "date": "01/07/2026",
-    "time": "04:34:26",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇲🇽México ?-? Ecuador🇪🇨",
-        "name": "México-Ecuador",
-        "date": "2026-07-01",
-        "fields": [],
-        "old": {},
-        "new": {}
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-07-01T04:36:27+02:00",
     "date": "01/07/2026",
     "time": "04:36:27",
@@ -16543,6 +16526,14 @@
     "ts_iso": "2026-07-07T01:31:06+02:00",
     "date": "07/07/2026",
     "time": "01:31:06",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-07T01:32:31+02:00",
+    "date": "07/07/2026",
+    "time": "01:32:31",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
