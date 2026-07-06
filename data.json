@@ -1,15 +1,15 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "06/07/2026 11:17",
+    "generated": "06/07/2026 09:24",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-06T11:17",
-      "last_updated_time": "11:17",
+      "last_updated_iso": "2026-07-06T11:24",
+      "last_updated_time": "11:24",
       "last_updated_date": "06/07/2026",
-      "next_update_iso": "2026-07-06T11:20",
-      "next_update_time": "11:20",
+      "next_update_iso": "2026-07-06T11:25",
+      "next_update_time": "11:25",
       "next_update_date": "06/07/2026"
     },
     "players": [
@@ -94,7 +94,4009 @@
       "J": 6,
       "K": 6,
       "L": 6
-    }
+    },
+    "api_log": [
+      {
+        "ts_iso": "2026-07-06T11:18:21+02:00",
+        "date": "06/07/2026",
+        "time": "11:18:21",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T11:10:00+02:00",
+        "date": "06/07/2026",
+        "time": "11:10:00",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T11:08:26+02:00",
+        "date": "06/07/2026",
+        "time": "11:08:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T10:52:32+02:00",
+        "date": "06/07/2026",
+        "time": "10:52:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T10:36:32+02:00",
+        "date": "06/07/2026",
+        "time": "10:36:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T10:20:46+02:00",
+        "date": "06/07/2026",
+        "time": "10:20:46",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T10:05:25+02:00",
+        "date": "06/07/2026",
+        "time": "10:05:25",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T10:04:28+02:00",
+        "date": "06/07/2026",
+        "time": "10:04:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:47:39+02:00",
+        "date": "06/07/2026",
+        "time": "09:47:39",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:46:35+02:00",
+        "date": "06/07/2026",
+        "time": "09:46:35",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:44:33+02:00",
+        "date": "06/07/2026",
+        "time": "09:44:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:42:34+02:00",
+        "date": "06/07/2026",
+        "time": "09:42:34",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:40:52+02:00",
+        "date": "06/07/2026",
+        "time": "09:40:52",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:38:35+02:00",
+        "date": "06/07/2026",
+        "time": "09:38:35",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:36:29+02:00",
+        "date": "06/07/2026",
+        "time": "09:36:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:34:37+02:00",
+        "date": "06/07/2026",
+        "time": "09:34:37",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:32:28+02:00",
+        "date": "06/07/2026",
+        "time": "09:32:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:31:02+02:00",
+        "date": "06/07/2026",
+        "time": "09:31:02",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:28:26+02:00",
+        "date": "06/07/2026",
+        "time": "09:28:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:27:41+02:00",
+        "date": "06/07/2026",
+        "time": "09:27:41",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:24:30+02:00",
+        "date": "06/07/2026",
+        "time": "09:24:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:22:31+02:00",
+        "date": "06/07/2026",
+        "time": "09:22:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:20:54+02:00",
+        "date": "06/07/2026",
+        "time": "09:20:54",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:18:26+02:00",
+        "date": "06/07/2026",
+        "time": "09:18:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:16:34+02:00",
+        "date": "06/07/2026",
+        "time": "09:16:34",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:14:28+02:00",
+        "date": "06/07/2026",
+        "time": "09:14:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:12:28+02:00",
+        "date": "06/07/2026",
+        "time": "09:12:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:10:50+02:00",
+        "date": "06/07/2026",
+        "time": "09:10:50",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:08:27+02:00",
+        "date": "06/07/2026",
+        "time": "09:08:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:06:29+02:00",
+        "date": "06/07/2026",
+        "time": "09:06:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:04:31+02:00",
+        "date": "06/07/2026",
+        "time": "09:04:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:02:36+02:00",
+        "date": "06/07/2026",
+        "time": "09:02:36",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T09:01:20+02:00",
+        "date": "06/07/2026",
+        "time": "09:01:20",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:58:27+02:00",
+        "date": "06/07/2026",
+        "time": "08:58:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:56:57+02:00",
+        "date": "06/07/2026",
+        "time": "08:56:57",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:54:34+02:00",
+        "date": "06/07/2026",
+        "time": "08:54:34",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:52:31+02:00",
+        "date": "06/07/2026",
+        "time": "08:52:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:50:57+02:00",
+        "date": "06/07/2026",
+        "time": "08:50:57",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:48:35+02:00",
+        "date": "06/07/2026",
+        "time": "08:48:35",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:46:27+02:00",
+        "date": "06/07/2026",
+        "time": "08:46:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:44:32+02:00",
+        "date": "06/07/2026",
+        "time": "08:44:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:42:31+02:00",
+        "date": "06/07/2026",
+        "time": "08:42:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:40:48+02:00",
+        "date": "06/07/2026",
+        "time": "08:40:48",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:38:27+02:00",
+        "date": "06/07/2026",
+        "time": "08:38:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:36:37+02:00",
+        "date": "06/07/2026",
+        "time": "08:36:37",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:34:30+02:00",
+        "date": "06/07/2026",
+        "time": "08:34:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:32:32+02:00",
+        "date": "06/07/2026",
+        "time": "08:32:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:31:04+02:00",
+        "date": "06/07/2026",
+        "time": "08:31:04",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:28:27+02:00",
+        "date": "06/07/2026",
+        "time": "08:28:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:27:21+02:00",
+        "date": "06/07/2026",
+        "time": "08:27:21",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:24:23+02:00",
+        "date": "06/07/2026",
+        "time": "08:24:23",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:22:31+02:00",
+        "date": "06/07/2026",
+        "time": "08:22:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:20:56+02:00",
+        "date": "06/07/2026",
+        "time": "08:20:56",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:18:31+02:00",
+        "date": "06/07/2026",
+        "time": "08:18:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:16:31+02:00",
+        "date": "06/07/2026",
+        "time": "08:16:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:14:38+02:00",
+        "date": "06/07/2026",
+        "time": "08:14:38",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:12:36+02:00",
+        "date": "06/07/2026",
+        "time": "08:12:36",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:10:50+02:00",
+        "date": "06/07/2026",
+        "time": "08:10:50",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:08:29+02:00",
+        "date": "06/07/2026",
+        "time": "08:08:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:06:29+02:00",
+        "date": "06/07/2026",
+        "time": "08:06:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:04:37+02:00",
+        "date": "06/07/2026",
+        "time": "08:04:37",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:02:29+02:00",
+        "date": "06/07/2026",
+        "time": "08:02:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T08:01:14+02:00",
+        "date": "06/07/2026",
+        "time": "08:01:14",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:58:25+02:00",
+        "date": "06/07/2026",
+        "time": "07:58:25",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:56:32+02:00",
+        "date": "06/07/2026",
+        "time": "07:56:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:55:01+02:00",
+        "date": "06/07/2026",
+        "time": "07:55:01",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:52:27+02:00",
+        "date": "06/07/2026",
+        "time": "07:52:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:50:54+02:00",
+        "date": "06/07/2026",
+        "time": "07:50:54",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:48:28+02:00",
+        "date": "06/07/2026",
+        "time": "07:48:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:46:29+02:00",
+        "date": "06/07/2026",
+        "time": "07:46:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:44:30+02:00",
+        "date": "06/07/2026",
+        "time": "07:44:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:42:33+02:00",
+        "date": "06/07/2026",
+        "time": "07:42:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:40:55+02:00",
+        "date": "06/07/2026",
+        "time": "07:40:55",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:38:30+02:00",
+        "date": "06/07/2026",
+        "time": "07:38:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:36:33+02:00",
+        "date": "06/07/2026",
+        "time": "07:36:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:34:33+02:00",
+        "date": "06/07/2026",
+        "time": "07:34:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:32:32+02:00",
+        "date": "06/07/2026",
+        "time": "07:32:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:30:56+02:00",
+        "date": "06/07/2026",
+        "time": "07:30:56",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:28:28+02:00",
+        "date": "06/07/2026",
+        "time": "07:28:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:26:30+02:00",
+        "date": "06/07/2026",
+        "time": "07:26:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:24:09+02:00",
+        "date": "06/07/2026",
+        "time": "07:24:09",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:20:51+02:00",
+        "date": "06/07/2026",
+        "time": "07:20:51",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:18:26+02:00",
+        "date": "06/07/2026",
+        "time": "07:18:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:16:31+02:00",
+        "date": "06/07/2026",
+        "time": "07:16:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:14:30+02:00",
+        "date": "06/07/2026",
+        "time": "07:14:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:12:38+02:00",
+        "date": "06/07/2026",
+        "time": "07:12:38",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:10:53+02:00",
+        "date": "06/07/2026",
+        "time": "07:10:53",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:08:28+02:00",
+        "date": "06/07/2026",
+        "time": "07:08:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:06:27+02:00",
+        "date": "06/07/2026",
+        "time": "07:06:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:04:33+02:00",
+        "date": "06/07/2026",
+        "time": "07:04:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:02:35+02:00",
+        "date": "06/07/2026",
+        "time": "07:02:35",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T07:01:14+02:00",
+        "date": "06/07/2026",
+        "time": "07:01:14",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:58:35+02:00",
+        "date": "06/07/2026",
+        "time": "06:58:35",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:56:34+02:00",
+        "date": "06/07/2026",
+        "time": "06:56:34",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:54:29+02:00",
+        "date": "06/07/2026",
+        "time": "06:54:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:52:38+02:00",
+        "date": "06/07/2026",
+        "time": "06:52:38",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:51:30+02:00",
+        "date": "06/07/2026",
+        "time": "06:51:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:48:32+02:00",
+        "date": "06/07/2026",
+        "time": "06:48:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:46:28+02:00",
+        "date": "06/07/2026",
+        "time": "06:46:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:44:23+02:00",
+        "date": "06/07/2026",
+        "time": "06:44:23",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:42:32+02:00",
+        "date": "06/07/2026",
+        "time": "06:42:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:40:54+02:00",
+        "date": "06/07/2026",
+        "time": "06:40:54",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:38:32+02:00",
+        "date": "06/07/2026",
+        "time": "06:38:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:36:30+02:00",
+        "date": "06/07/2026",
+        "time": "06:36:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:34:29+02:00",
+        "date": "06/07/2026",
+        "time": "06:34:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:32:31+02:00",
+        "date": "06/07/2026",
+        "time": "06:32:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:30:59+02:00",
+        "date": "06/07/2026",
+        "time": "06:30:59",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:28:30+02:00",
+        "date": "06/07/2026",
+        "time": "06:28:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:26:28+02:00",
+        "date": "06/07/2026",
+        "time": "06:26:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:24:26+02:00",
+        "date": "06/07/2026",
+        "time": "06:24:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:22:28+02:00",
+        "date": "06/07/2026",
+        "time": "06:22:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:21:43+02:00",
+        "date": "06/07/2026",
+        "time": "06:21:43",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:18:27+02:00",
+        "date": "06/07/2026",
+        "time": "06:18:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:16:28+02:00",
+        "date": "06/07/2026",
+        "time": "06:16:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:14:28+02:00",
+        "date": "06/07/2026",
+        "time": "06:14:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:12:30+02:00",
+        "date": "06/07/2026",
+        "time": "06:12:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:10:51+02:00",
+        "date": "06/07/2026",
+        "time": "06:10:51",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:08:29+02:00",
+        "date": "06/07/2026",
+        "time": "06:08:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:06:26+02:00",
+        "date": "06/07/2026",
+        "time": "06:06:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:04:29+02:00",
+        "date": "06/07/2026",
+        "time": "06:04:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:02:30+02:00",
+        "date": "06/07/2026",
+        "time": "06:02:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T06:01:16+02:00",
+        "date": "06/07/2026",
+        "time": "06:01:16",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:58:30+02:00",
+        "date": "06/07/2026",
+        "time": "05:58:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:56:27+02:00",
+        "date": "06/07/2026",
+        "time": "05:56:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:54:30+02:00",
+        "date": "06/07/2026",
+        "time": "05:54:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:52:27+02:00",
+        "date": "06/07/2026",
+        "time": "05:52:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:50:57+02:00",
+        "date": "06/07/2026",
+        "time": "05:50:57",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:49:19+02:00",
+        "date": "06/07/2026",
+        "time": "05:49:19",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:46:33+02:00",
+        "date": "06/07/2026",
+        "time": "05:46:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:44:28+02:00",
+        "date": "06/07/2026",
+        "time": "05:44:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:42:29+02:00",
+        "date": "06/07/2026",
+        "time": "05:42:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:40:51+02:00",
+        "date": "06/07/2026",
+        "time": "05:40:51",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:38:33+02:00",
+        "date": "06/07/2026",
+        "time": "05:38:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:36:28+02:00",
+        "date": "06/07/2026",
+        "time": "05:36:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:34:31+02:00",
+        "date": "06/07/2026",
+        "time": "05:34:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:32:29+02:00",
+        "date": "06/07/2026",
+        "time": "05:32:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:30:59+02:00",
+        "date": "06/07/2026",
+        "time": "05:30:59",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:28:27+02:00",
+        "date": "06/07/2026",
+        "time": "05:28:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:26:31+02:00",
+        "date": "06/07/2026",
+        "time": "05:26:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:24:32+02:00",
+        "date": "06/07/2026",
+        "time": "05:24:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:22:29+02:00",
+        "date": "06/07/2026",
+        "time": "05:22:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:20:52+02:00",
+        "date": "06/07/2026",
+        "time": "05:20:52",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:19:15+02:00",
+        "date": "06/07/2026",
+        "time": "05:19:15",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:16:28+02:00",
+        "date": "06/07/2026",
+        "time": "05:16:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:14:28+02:00",
+        "date": "06/07/2026",
+        "time": "05:14:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:12:27+02:00",
+        "date": "06/07/2026",
+        "time": "05:12:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:10:52+02:00",
+        "date": "06/07/2026",
+        "time": "05:10:52",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:08:33+02:00",
+        "date": "06/07/2026",
+        "time": "05:08:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:06:28+02:00",
+        "date": "06/07/2026",
+        "time": "05:06:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:04:27+02:00",
+        "date": "06/07/2026",
+        "time": "05:04:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:02:28+02:00",
+        "date": "06/07/2026",
+        "time": "05:02:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T05:01:10+02:00",
+        "date": "06/07/2026",
+        "time": "05:01:10",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:58:32+02:00",
+        "date": "06/07/2026",
+        "time": "04:58:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:56:28+02:00",
+        "date": "06/07/2026",
+        "time": "04:56:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:54:26+02:00",
+        "date": "06/07/2026",
+        "time": "04:54:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:52:30+02:00",
+        "date": "06/07/2026",
+        "time": "04:52:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:50:47+02:00",
+        "date": "06/07/2026",
+        "time": "04:50:47",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:49:18+02:00",
+        "date": "06/07/2026",
+        "time": "04:49:18",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:46:28+02:00",
+        "date": "06/07/2026",
+        "time": "04:46:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:44:27+02:00",
+        "date": "06/07/2026",
+        "time": "04:44:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:42:31+02:00",
+        "date": "06/07/2026",
+        "time": "04:42:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:40:48+02:00",
+        "date": "06/07/2026",
+        "time": "04:40:48",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:38:27+02:00",
+        "date": "06/07/2026",
+        "time": "04:38:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:36:33+02:00",
+        "date": "06/07/2026",
+        "time": "04:36:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:34:27+02:00",
+        "date": "06/07/2026",
+        "time": "04:34:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:32:29+02:00",
+        "date": "06/07/2026",
+        "time": "04:32:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:30:59+02:00",
+        "date": "06/07/2026",
+        "time": "04:30:59",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:28:28+02:00",
+        "date": "06/07/2026",
+        "time": "04:28:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:26:28+02:00",
+        "date": "06/07/2026",
+        "time": "04:26:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:24:30+02:00",
+        "date": "06/07/2026",
+        "time": "04:24:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:22:26+02:00",
+        "date": "06/07/2026",
+        "time": "04:22:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:20:46+02:00",
+        "date": "06/07/2026",
+        "time": "04:20:46",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:19:00+02:00",
+        "date": "06/07/2026",
+        "time": "04:19:00",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:16:28+02:00",
+        "date": "06/07/2026",
+        "time": "04:16:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:14:25+02:00",
+        "date": "06/07/2026",
+        "time": "04:14:25",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:12:29+02:00",
+        "date": "06/07/2026",
+        "time": "04:12:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:10:52+02:00",
+        "date": "06/07/2026",
+        "time": "04:10:52",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:08:30+02:00",
+        "date": "06/07/2026",
+        "time": "04:08:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:06:29+02:00",
+        "date": "06/07/2026",
+        "time": "04:06:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:04:32+02:00",
+        "date": "06/07/2026",
+        "time": "04:04:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:02:28+02:00",
+        "date": "06/07/2026",
+        "time": "04:02:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T04:01:09+02:00",
+        "date": "06/07/2026",
+        "time": "04:01:09",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:58:26+02:00",
+        "date": "06/07/2026",
+        "time": "03:58:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:56:27+02:00",
+        "date": "06/07/2026",
+        "time": "03:56:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:54:24+02:00",
+        "date": "06/07/2026",
+        "time": "03:54:24",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:52:25+02:00",
+        "date": "06/07/2026",
+        "time": "03:52:25",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:50:52+02:00",
+        "date": "06/07/2026",
+        "time": "03:50:52",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:48:29+02:00",
+        "date": "06/07/2026",
+        "time": "03:48:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:47:02+02:00",
+        "date": "06/07/2026",
+        "time": "03:47:02",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:44:30+02:00",
+        "date": "06/07/2026",
+        "time": "03:44:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:42:28+02:00",
+        "date": "06/07/2026",
+        "time": "03:42:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:40:49+02:00",
+        "date": "06/07/2026",
+        "time": "03:40:49",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:38:31+02:00",
+        "date": "06/07/2026",
+        "time": "03:38:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:36:34+02:00",
+        "date": "06/07/2026",
+        "time": "03:36:34",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:34:31+02:00",
+        "date": "06/07/2026",
+        "time": "03:34:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:32:29+02:00",
+        "date": "06/07/2026",
+        "time": "03:32:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:30:59+02:00",
+        "date": "06/07/2026",
+        "time": "03:30:59",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:28:28+02:00",
+        "date": "06/07/2026",
+        "time": "03:28:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:26:28+02:00",
+        "date": "06/07/2026",
+        "time": "03:26:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:24:05+02:00",
+        "date": "06/07/2026",
+        "time": "03:24:05",
+        "updated": false,
+        "trigger": "schedule",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:22:28+02:00",
+        "date": "06/07/2026",
+        "time": "03:22:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:20:49+02:00",
+        "date": "06/07/2026",
+        "time": "03:20:49",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:18:26+02:00",
+        "date": "06/07/2026",
+        "time": "03:18:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:17:02+02:00",
+        "date": "06/07/2026",
+        "time": "03:17:02",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:14:28+02:00",
+        "date": "06/07/2026",
+        "time": "03:14:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:12:31+02:00",
+        "date": "06/07/2026",
+        "time": "03:12:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:10:48+02:00",
+        "date": "06/07/2026",
+        "time": "03:10:48",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:08:26+02:00",
+        "date": "06/07/2026",
+        "time": "03:08:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:06:29+02:00",
+        "date": "06/07/2026",
+        "time": "03:06:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:04:30+02:00",
+        "date": "06/07/2026",
+        "time": "03:04:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:02:26+02:00",
+        "date": "06/07/2026",
+        "time": "03:02:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T03:01:08+02:00",
+        "date": "06/07/2026",
+        "time": "03:01:08",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:58:28+02:00",
+        "date": "06/07/2026",
+        "time": "02:58:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:56:30+02:00",
+        "date": "06/07/2026",
+        "time": "02:56:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:54:28+02:00",
+        "date": "06/07/2026",
+        "time": "02:54:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:52:26+02:00",
+        "date": "06/07/2026",
+        "time": "02:52:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:50:52+02:00",
+        "date": "06/07/2026",
+        "time": "02:50:52",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:48:28+02:00",
+        "date": "06/07/2026",
+        "time": "02:48:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:46:28+02:00",
+        "date": "06/07/2026",
+        "time": "02:46:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:45:13+02:00",
+        "date": "06/07/2026",
+        "time": "02:45:13",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:42:29+02:00",
+        "date": "06/07/2026",
+        "time": "02:42:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:40:46+02:00",
+        "date": "06/07/2026",
+        "time": "02:40:46",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:38:31+02:00",
+        "date": "06/07/2026",
+        "time": "02:38:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:36:27+02:00",
+        "date": "06/07/2026",
+        "time": "02:36:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:34:30+02:00",
+        "date": "06/07/2026",
+        "time": "02:34:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:32:28+02:00",
+        "date": "06/07/2026",
+        "time": "02:32:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:31:00+02:00",
+        "date": "06/07/2026",
+        "time": "02:31:00",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:28:27+02:00",
+        "date": "06/07/2026",
+        "time": "02:28:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:26:25+02:00",
+        "date": "06/07/2026",
+        "time": "02:26:25",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:24:33+02:00",
+        "date": "06/07/2026",
+        "time": "02:24:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:22:29+02:00",
+        "date": "06/07/2026",
+        "time": "02:22:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:20:51+02:00",
+        "date": "06/07/2026",
+        "time": "02:20:51",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:18:28+02:00",
+        "date": "06/07/2026",
+        "time": "02:18:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:16:29+02:00",
+        "date": "06/07/2026",
+        "time": "02:16:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:14:54+02:00",
+        "date": "06/07/2026",
+        "time": "02:14:54",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:12:27+02:00",
+        "date": "06/07/2026",
+        "time": "02:12:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:10:50+02:00",
+        "date": "06/07/2026",
+        "time": "02:10:50",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:08:27+02:00",
+        "date": "06/07/2026",
+        "time": "02:08:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:06:28+02:00",
+        "date": "06/07/2026",
+        "time": "02:06:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:04:30+02:00",
+        "date": "06/07/2026",
+        "time": "02:04:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:02:31+02:00",
+        "date": "06/07/2026",
+        "time": "02:02:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T02:01:13+02:00",
+        "date": "06/07/2026",
+        "time": "02:01:13",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:58:28+02:00",
+        "date": "06/07/2026",
+        "time": "01:58:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:56:27+02:00",
+        "date": "06/07/2026",
+        "time": "01:56:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:54:27+02:00",
+        "date": "06/07/2026",
+        "time": "01:54:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:52:30+02:00",
+        "date": "06/07/2026",
+        "time": "01:52:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:50:53+02:00",
+        "date": "06/07/2026",
+        "time": "01:50:53",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:48:28+02:00",
+        "date": "06/07/2026",
+        "time": "01:48:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:46:34+02:00",
+        "date": "06/07/2026",
+        "time": "01:46:34",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:44:29+02:00",
+        "date": "06/07/2026",
+        "time": "01:44:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:43:39+02:00",
+        "date": "06/07/2026",
+        "time": "01:43:39",
+        "updated": false,
+        "trigger": "schedule",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:42:27+02:00",
+        "date": "06/07/2026",
+        "time": "01:42:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:40:51+02:00",
+        "date": "06/07/2026",
+        "time": "01:40:51",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:38:27+02:00",
+        "date": "06/07/2026",
+        "time": "01:38:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:36:31+02:00",
+        "date": "06/07/2026",
+        "time": "01:36:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:34:27+02:00",
+        "date": "06/07/2026",
+        "time": "01:34:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:32:30+02:00",
+        "date": "06/07/2026",
+        "time": "01:32:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:31:06+02:00",
+        "date": "06/07/2026",
+        "time": "01:31:06",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:28:31+02:00",
+        "date": "06/07/2026",
+        "time": "01:28:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:26:27+02:00",
+        "date": "06/07/2026",
+        "time": "01:26:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:24:27+02:00",
+        "date": "06/07/2026",
+        "time": "01:24:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:22:26+02:00",
+        "date": "06/07/2026",
+        "time": "01:22:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:20:48+02:00",
+        "date": "06/07/2026",
+        "time": "01:20:48",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:18:27+02:00",
+        "date": "06/07/2026",
+        "time": "01:18:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:16:28+02:00",
+        "date": "06/07/2026",
+        "time": "01:16:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:14:26+02:00",
+        "date": "06/07/2026",
+        "time": "01:14:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:13:20+02:00",
+        "date": "06/07/2026",
+        "time": "01:13:20",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:10:49+02:00",
+        "date": "06/07/2026",
+        "time": "01:10:49",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:08:31+02:00",
+        "date": "06/07/2026",
+        "time": "01:08:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:06:27+02:00",
+        "date": "06/07/2026",
+        "time": "01:06:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:04:27+02:00",
+        "date": "06/07/2026",
+        "time": "01:04:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:02:27+02:00",
+        "date": "06/07/2026",
+        "time": "01:02:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T01:01:14+02:00",
+        "date": "06/07/2026",
+        "time": "01:01:14",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:58:36+02:00",
+        "date": "06/07/2026",
+        "time": "00:58:36",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:56:30+02:00",
+        "date": "06/07/2026",
+        "time": "00:56:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:54:31+02:00",
+        "date": "06/07/2026",
+        "time": "00:54:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:52:28+02:00",
+        "date": "06/07/2026",
+        "time": "00:52:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:50:54+02:00",
+        "date": "06/07/2026",
+        "time": "00:50:54",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:48:29+02:00",
+        "date": "06/07/2026",
+        "time": "00:48:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:46:27+02:00",
+        "date": "06/07/2026",
+        "time": "00:46:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:44:32+02:00",
+        "date": "06/07/2026",
+        "time": "00:44:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:43:16+02:00",
+        "date": "06/07/2026",
+        "time": "00:43:16",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:40:51+02:00",
+        "date": "06/07/2026",
+        "time": "00:40:51",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:38:26+02:00",
+        "date": "06/07/2026",
+        "time": "00:38:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:36:27+02:00",
+        "date": "06/07/2026",
+        "time": "00:36:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:34:28+02:00",
+        "date": "06/07/2026",
+        "time": "00:34:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:32:29+02:00",
+        "date": "06/07/2026",
+        "time": "00:32:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:31:07+02:00",
+        "date": "06/07/2026",
+        "time": "00:31:07",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:28:32+02:00",
+        "date": "06/07/2026",
+        "time": "00:28:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:26:27+02:00",
+        "date": "06/07/2026",
+        "time": "00:26:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:24:32+02:00",
+        "date": "06/07/2026",
+        "time": "00:24:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:22:27+02:00",
+        "date": "06/07/2026",
+        "time": "00:22:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:20:55+02:00",
+        "date": "06/07/2026",
+        "time": "00:20:55",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:18:27+02:00",
+        "date": "06/07/2026",
+        "time": "00:18:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:16:36+02:00",
+        "date": "06/07/2026",
+        "time": "00:16:36",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:14:26+02:00",
+        "date": "06/07/2026",
+        "time": "00:14:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:12:32+02:00",
+        "date": "06/07/2026",
+        "time": "00:12:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:11:48+02:00",
+        "date": "06/07/2026",
+        "time": "00:11:48",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:08:28+02:00",
+        "date": "06/07/2026",
+        "time": "00:08:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:06:29+02:00",
+        "date": "06/07/2026",
+        "time": "00:06:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:04:26+02:00",
+        "date": "06/07/2026",
+        "time": "00:04:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:02:31+02:00",
+        "date": "06/07/2026",
+        "time": "00:02:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-06T00:01:13+02:00",
+        "date": "06/07/2026",
+        "time": "00:01:13",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:58:31+02:00",
+        "date": "05/07/2026",
+        "time": "23:58:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:56:33+02:00",
+        "date": "05/07/2026",
+        "time": "23:56:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:54:29+02:00",
+        "date": "05/07/2026",
+        "time": "23:54:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:52:26+02:00",
+        "date": "05/07/2026",
+        "time": "23:52:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:50:55+02:00",
+        "date": "05/07/2026",
+        "time": "23:50:55",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:48:27+02:00",
+        "date": "05/07/2026",
+        "time": "23:48:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:46:33+02:00",
+        "date": "05/07/2026",
+        "time": "23:46:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:44:27+02:00",
+        "date": "05/07/2026",
+        "time": "23:44:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:43:07+02:00",
+        "date": "05/07/2026",
+        "time": "23:43:07",
+        "updated": false,
+        "trigger": "schedule",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:42:27+02:00",
+        "date": "05/07/2026",
+        "time": "23:42:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:40:57+02:00",
+        "date": "05/07/2026",
+        "time": "23:40:57",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:39:06+02:00",
+        "date": "05/07/2026",
+        "time": "23:39:06",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:36:30+02:00",
+        "date": "05/07/2026",
+        "time": "23:36:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:34:28+02:00",
+        "date": "05/07/2026",
+        "time": "23:34:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:32:27+02:00",
+        "date": "05/07/2026",
+        "time": "23:32:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:31:02+02:00",
+        "date": "05/07/2026",
+        "time": "23:31:02",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:28:29+02:00",
+        "date": "05/07/2026",
+        "time": "23:28:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:26:27+02:00",
+        "date": "05/07/2026",
+        "time": "23:26:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:24:37+02:00",
+        "date": "05/07/2026",
+        "time": "23:24:37",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:22:28+02:00",
+        "date": "05/07/2026",
+        "time": "23:22:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:20:51+02:00",
+        "date": "05/07/2026",
+        "time": "23:20:51",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:18:28+02:00",
+        "date": "05/07/2026",
+        "time": "23:18:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:16:29+02:00",
+        "date": "05/07/2026",
+        "time": "23:16:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:14:30+02:00",
+        "date": "05/07/2026",
+        "time": "23:14:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:12:26+02:00",
+        "date": "05/07/2026",
+        "time": "23:12:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:10:50+02:00",
+        "date": "05/07/2026",
+        "time": "23:10:50",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:08:35+02:00",
+        "date": "05/07/2026",
+        "time": "23:08:35",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:07:03+02:00",
+        "date": "05/07/2026",
+        "time": "23:07:03",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:04:32+02:00",
+        "date": "05/07/2026",
+        "time": "23:04:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:02:28+02:00",
+        "date": "05/07/2026",
+        "time": "23:02:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T23:01:10+02:00",
+        "date": "05/07/2026",
+        "time": "23:01:10",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:58:35+02:00",
+        "date": "05/07/2026",
+        "time": "22:58:35",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:56:32+02:00",
+        "date": "05/07/2026",
+        "time": "22:56:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:54:32+02:00",
+        "date": "05/07/2026",
+        "time": "22:54:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:52:27+02:00",
+        "date": "05/07/2026",
+        "time": "22:52:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:50:54+02:00",
+        "date": "05/07/2026",
+        "time": "22:50:54",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:48:27+02:00",
+        "date": "05/07/2026",
+        "time": "22:48:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:46:35+02:00",
+        "date": "05/07/2026",
+        "time": "22:46:35",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:45:10+02:00",
+        "date": "05/07/2026",
+        "time": "22:45:10",
+        "updated": false,
+        "trigger": "schedule",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:44:31+02:00",
+        "date": "05/07/2026",
+        "time": "22:44:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:42:26+02:00",
+        "date": "05/07/2026",
+        "time": "22:42:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:40:47+02:00",
+        "date": "05/07/2026",
+        "time": "22:40:47",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:38:26+02:00",
+        "date": "05/07/2026",
+        "time": "22:38:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:36:52+02:00",
+        "date": "05/07/2026",
+        "time": "22:36:52",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:34:27+02:00",
+        "date": "05/07/2026",
+        "time": "22:34:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:32:36+02:00",
+        "date": "05/07/2026",
+        "time": "22:32:36",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:31:00+02:00",
+        "date": "05/07/2026",
+        "time": "22:31:00",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:28:27+02:00",
+        "date": "05/07/2026",
+        "time": "22:28:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:26:31+02:00",
+        "date": "05/07/2026",
+        "time": "22:26:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:24:30+02:00",
+        "date": "05/07/2026",
+        "time": "22:24:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:22:33+02:00",
+        "date": "05/07/2026",
+        "time": "22:22:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:20:58+02:00",
+        "date": "05/07/2026",
+        "time": "22:20:58",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:18:27+02:00",
+        "date": "05/07/2026",
+        "time": "22:18:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:16:28+02:00",
+        "date": "05/07/2026",
+        "time": "22:16:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:14:26+02:00",
+        "date": "05/07/2026",
+        "time": "22:14:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:12:27+02:00",
+        "date": "05/07/2026",
+        "time": "22:12:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:10:52+02:00",
+        "date": "05/07/2026",
+        "time": "22:10:52",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:08:27+02:00",
+        "date": "05/07/2026",
+        "time": "22:08:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:06:29+02:00",
+        "date": "05/07/2026",
+        "time": "22:06:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:05:17+02:00",
+        "date": "05/07/2026",
+        "time": "22:05:17",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:02:29+02:00",
+        "date": "05/07/2026",
+        "time": "22:02:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:01:11+02:00",
+        "date": "05/07/2026",
+        "time": "22:01:11",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:58:30+02:00",
+        "date": "05/07/2026",
+        "time": "21:58:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:56:31+02:00",
+        "date": "05/07/2026",
+        "time": "21:56:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:54:27+02:00",
+        "date": "05/07/2026",
+        "time": "21:54:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:53:52+02:00",
+        "date": "05/07/2026",
+        "time": "21:53:52",
+        "updated": false,
+        "trigger": "schedule",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:52:27+02:00",
+        "date": "05/07/2026",
+        "time": "21:52:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:50:54+02:00",
+        "date": "05/07/2026",
+        "time": "21:50:54",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:48:32+02:00",
+        "date": "05/07/2026",
+        "time": "21:48:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:46:28+02:00",
+        "date": "05/07/2026",
+        "time": "21:46:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:44:31+02:00",
+        "date": "05/07/2026",
+        "time": "21:44:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:42:32+02:00",
+        "date": "05/07/2026",
+        "time": "21:42:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:40:53+02:00",
+        "date": "05/07/2026",
+        "time": "21:40:53",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:38:28+02:00",
+        "date": "05/07/2026",
+        "time": "21:38:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:36:27+02:00",
+        "date": "05/07/2026",
+        "time": "21:36:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:35:23+02:00",
+        "date": "05/07/2026",
+        "time": "21:35:23",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:32:26+02:00",
+        "date": "05/07/2026",
+        "time": "21:32:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:30:59+02:00",
+        "date": "05/07/2026",
+        "time": "21:30:59",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:16:26+02:00",
+        "date": "05/07/2026",
+        "time": "21:16:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:01:10+02:00",
+        "date": "05/07/2026",
+        "time": "21:01:10",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T20:44:30+02:00",
+        "date": "05/07/2026",
+        "time": "20:44:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T20:28:27+02:00",
+        "date": "05/07/2026",
+        "time": "20:28:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T20:12:26+02:00",
+        "date": "05/07/2026",
+        "time": "20:12:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T19:56:28+02:00",
+        "date": "05/07/2026",
+        "time": "19:56:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T19:40:51+02:00",
+        "date": "05/07/2026",
+        "time": "19:40:51",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T19:24:30+02:00",
+        "date": "05/07/2026",
+        "time": "19:24:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T19:08:30+02:00",
+        "date": "05/07/2026",
+        "time": "19:08:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T18:52:30+02:00",
+        "date": "05/07/2026",
+        "time": "18:52:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T18:36:27+02:00",
+        "date": "05/07/2026",
+        "time": "18:36:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T18:20:48+02:00",
+        "date": "05/07/2026",
+        "time": "18:20:48",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T18:04:30+02:00",
+        "date": "05/07/2026",
+        "time": "18:04:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T17:48:29+02:00",
+        "date": "05/07/2026",
+        "time": "17:48:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T17:32:30+02:00",
+        "date": "05/07/2026",
+        "time": "17:32:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T17:16:31+02:00",
+        "date": "05/07/2026",
+        "time": "17:16:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T16:59:22+02:00",
+        "date": "05/07/2026",
+        "time": "16:59:22",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T16:42:30+02:00",
+        "date": "05/07/2026",
+        "time": "16:42:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T16:26:31+02:00",
+        "date": "05/07/2026",
+        "time": "16:26:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T16:10:56+02:00",
+        "date": "05/07/2026",
+        "time": "16:10:56",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T15:54:29+02:00",
+        "date": "05/07/2026",
+        "time": "15:54:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T15:38:31+02:00",
+        "date": "05/07/2026",
+        "time": "15:38:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T15:22:29+02:00",
+        "date": "05/07/2026",
+        "time": "15:22:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T15:06:29+02:00",
+        "date": "05/07/2026",
+        "time": "15:06:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T14:50:49+02:00",
+        "date": "05/07/2026",
+        "time": "14:50:49",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T14:34:29+02:00",
+        "date": "05/07/2026",
+        "time": "14:34:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T14:18:28+02:00",
+        "date": "05/07/2026",
+        "time": "14:18:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T14:02:29+02:00",
+        "date": "05/07/2026",
+        "time": "14:02:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T13:46:28+02:00",
+        "date": "05/07/2026",
+        "time": "13:46:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T13:31:03+02:00",
+        "date": "05/07/2026",
+        "time": "13:31:03",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T13:14:38+02:00",
+        "date": "05/07/2026",
+        "time": "13:14:38",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T12:58:27+02:00",
+        "date": "05/07/2026",
+        "time": "12:58:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T12:42:31+02:00",
+        "date": "05/07/2026",
+        "time": "12:42:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T12:26:28+02:00",
+        "date": "05/07/2026",
+        "time": "12:26:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T12:10:53+02:00",
+        "date": "05/07/2026",
+        "time": "12:10:53",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T11:54:28+02:00",
+        "date": "05/07/2026",
+        "time": "11:54:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T11:38:29+02:00",
+        "date": "05/07/2026",
+        "time": "11:38:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T11:21:45+02:00",
+        "date": "05/07/2026",
+        "time": "11:21:45",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T11:17:05+02:00",
+        "date": "05/07/2026",
+        "time": "11:17:05",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T11:10:51+02:00",
+        "date": "05/07/2026",
+        "time": "11:10:51",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T10:54:29+02:00",
+        "date": "05/07/2026",
+        "time": "10:54:29",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T10:50:27+02:00",
+        "date": "05/07/2026",
+        "time": "10:50:27",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T10:36:31+02:00",
+        "date": "05/07/2026",
+        "time": "10:36:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T10:20:49+02:00",
+        "date": "05/07/2026",
+        "time": "10:20:49",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T10:03:55+02:00",
+        "date": "05/07/2026",
+        "time": "10:03:55",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T10:02:52+02:00",
+        "date": "05/07/2026",
+        "time": "10:02:52",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T09:59:18+02:00",
+        "date": "05/07/2026",
+        "time": "09:59:18",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T09:54:27+02:00",
+        "date": "05/07/2026",
+        "time": "09:54:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T09:38:31+02:00",
+        "date": "05/07/2026",
+        "time": "09:38:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T09:22:30+02:00",
+        "date": "05/07/2026",
+        "time": "09:22:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T09:06:31+02:00",
+        "date": "05/07/2026",
+        "time": "09:06:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T08:50:46+02:00",
+        "date": "05/07/2026",
+        "time": "08:50:46",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T08:34:28+02:00",
+        "date": "05/07/2026",
+        "time": "08:34:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T08:18:30+02:00",
+        "date": "05/07/2026",
+        "time": "08:18:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T08:02:32+02:00",
+        "date": "05/07/2026",
+        "time": "08:02:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T07:46:28+02:00",
+        "date": "05/07/2026",
+        "time": "07:46:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T07:31:09+02:00",
+        "date": "05/07/2026",
+        "time": "07:31:09",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T07:14:27+02:00",
+        "date": "05/07/2026",
+        "time": "07:14:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:58:26+02:00",
+        "date": "05/07/2026",
+        "time": "06:58:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:56:30+02:00",
+        "date": "05/07/2026",
+        "time": "06:56:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:54:28+02:00",
+        "date": "05/07/2026",
+        "time": "06:54:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:52:27+02:00",
+        "date": "05/07/2026",
+        "time": "06:52:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:50:57+02:00",
+        "date": "05/07/2026",
+        "time": "06:50:57",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:48:33+02:00",
+        "date": "05/07/2026",
+        "time": "06:48:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:46:26+02:00",
+        "date": "05/07/2026",
+        "time": "06:46:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:44:28+02:00",
+        "date": "05/07/2026",
+        "time": "06:44:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:42:27+02:00",
+        "date": "05/07/2026",
+        "time": "06:42:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:40:50+02:00",
+        "date": "05/07/2026",
+        "time": "06:40:50",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:38:59+02:00",
+        "date": "05/07/2026",
+        "time": "06:38:59",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:36:26+02:00",
+        "date": "05/07/2026",
+        "time": "06:36:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:34:32+02:00",
+        "date": "05/07/2026",
+        "time": "06:34:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:32:27+02:00",
+        "date": "05/07/2026",
+        "time": "06:32:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:30:59+02:00",
+        "date": "05/07/2026",
+        "time": "06:30:59",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:28:30+02:00",
+        "date": "05/07/2026",
+        "time": "06:28:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:26:26+02:00",
+        "date": "05/07/2026",
+        "time": "06:26:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:24:27+02:00",
+        "date": "05/07/2026",
+        "time": "06:24:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:22:27+02:00",
+        "date": "05/07/2026",
+        "time": "06:22:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:20:53+02:00",
+        "date": "05/07/2026",
+        "time": "06:20:53",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:18:30+02:00",
+        "date": "05/07/2026",
+        "time": "06:18:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:16:27+02:00",
+        "date": "05/07/2026",
+        "time": "06:16:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:14:27+02:00",
+        "date": "05/07/2026",
+        "time": "06:14:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:12:23+02:00",
+        "date": "05/07/2026",
+        "time": "06:12:23",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:10:57+02:00",
+        "date": "05/07/2026",
+        "time": "06:10:57",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:08:54+02:00",
+        "date": "05/07/2026",
+        "time": "06:08:54",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:06:28+02:00",
+        "date": "05/07/2026",
+        "time": "06:06:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:04:30+02:00",
+        "date": "05/07/2026",
+        "time": "06:04:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:02:27+02:00",
+        "date": "05/07/2026",
+        "time": "06:02:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:01:15+02:00",
+        "date": "05/07/2026",
+        "time": "06:01:15",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:58:32+02:00",
+        "date": "05/07/2026",
+        "time": "05:58:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:56:32+02:00",
+        "date": "05/07/2026",
+        "time": "05:56:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:54:30+02:00",
+        "date": "05/07/2026",
+        "time": "05:54:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:52:31+02:00",
+        "date": "05/07/2026",
+        "time": "05:52:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:50:53+02:00",
+        "date": "05/07/2026",
+        "time": "05:50:53",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:48:29+02:00",
+        "date": "05/07/2026",
+        "time": "05:48:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:46:27+02:00",
+        "date": "05/07/2026",
+        "time": "05:46:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:44:26+02:00",
+        "date": "05/07/2026",
+        "time": "05:44:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:42:30+02:00",
+        "date": "05/07/2026",
+        "time": "05:42:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:40:51+02:00",
+        "date": "05/07/2026",
+        "time": "05:40:51",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:39:10+02:00",
+        "date": "05/07/2026",
+        "time": "05:39:10",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:36:29+02:00",
+        "date": "05/07/2026",
+        "time": "05:36:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:34:27+02:00",
+        "date": "05/07/2026",
+        "time": "05:34:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:32:24+02:00",
+        "date": "05/07/2026",
+        "time": "05:32:24",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:31:02+02:00",
+        "date": "05/07/2026",
+        "time": "05:31:02",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:28:26+02:00",
+        "date": "05/07/2026",
+        "time": "05:28:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:26:30+02:00",
+        "date": "05/07/2026",
+        "time": "05:26:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:24:26+02:00",
+        "date": "05/07/2026",
+        "time": "05:24:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:22:25+02:00",
+        "date": "05/07/2026",
+        "time": "05:22:25",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:20:50+02:00",
+        "date": "05/07/2026",
+        "time": "05:20:50",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:18:28+02:00",
+        "date": "05/07/2026",
+        "time": "05:18:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:16:27+02:00",
+        "date": "05/07/2026",
+        "time": "05:16:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:14:29+02:00",
+        "date": "05/07/2026",
+        "time": "05:14:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:12:30+02:00",
+        "date": "05/07/2026",
+        "time": "05:12:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:10:50+02:00",
+        "date": "05/07/2026",
+        "time": "05:10:50",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:08:27+02:00",
+        "date": "05/07/2026",
+        "time": "05:08:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:07:08+02:00",
+        "date": "05/07/2026",
+        "time": "05:07:08",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:04:26+02:00",
+        "date": "05/07/2026",
+        "time": "05:04:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:02:36+02:00",
+        "date": "05/07/2026",
+        "time": "05:02:36",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:01:13+02:00",
+        "date": "05/07/2026",
+        "time": "05:01:13",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T04:58:31+02:00",
+        "date": "05/07/2026",
+        "time": "04:58:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      }
+    ]
   },
   "standings": [
     {
