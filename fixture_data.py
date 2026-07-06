@@ -250,15 +250,15 @@ FIXTURE_BY_ROW = {
     177: {"city": "Dallas",           "tv": "dazn"},  # Australia-Egipto
     178: {"city": "Miami",            "tv": "dazn"},  # Argentina-Cabo Verde
     179: {"city": "Kansas City",      "tv": "dazn"},  # Colombia-Ghana
-    # ── Octavos ──
-    200: {"city": "Filadelfia",       "tv": "dazn"},
-    201: {"city": "Houston",          "tv": "dazn"},
-    202: {"city": "Nueva York",       "tv": "dazn"},
-    203: {"city": "Ciudad de México", "tv": "both"},
-    204: {"city": "Dallas",           "tv": "dazn"},
-    205: {"city": "Seattle",          "tv": "dazn"},
-    206: {"city": "Atlanta",          "tv": "dazn"},
-    207: {"city": "Vancouver",        "tv": "dazn"},
+    # ── Octavos (calendario TV España, jul 2026) ──
+    200: {"city": "Filadelfia",       "tv": "both"},  # 4 jul 23:00 Paraguay-Francia · La 1 + DAZN
+    201: {"city": "Houston",          "tv": "dazn"},  # 4 jul 19:00 Canadá-Marruecos · DAZN
+    202: {"city": "Nueva York",       "tv": "both"},  # 5 jul 22:00 Brasil-Noruega · La 1 + DAZN
+    203: {"city": "Ciudad de México", "tv": "dazn"},  # 6 jul 02:00 México-Inglaterra · DAZN
+    204: {"city": "Dallas",           "tv": "both"},  # 6 jul 21:00 Portugal-España · La 1 + DAZN
+    205: {"city": "Seattle",          "tv": "dazn"},  # 7 jul 02:00 EE.UU.-Bélgica · DAZN
+    206: {"city": "Atlanta",          "tv": "dazn"},  # 7 jul 18:00 Argentina-Egipto · DAZN
+    207: {"city": "Vancouver",        "tv": "dazn"},  # 7 jul 22:00 Suiza-Colombia · DAZN
     # ── Cuartos ──
     220: {"city": "Boston",           "tv": "dazn"},
     221: {"city": "Los Ángeles",      "tv": "both"},
