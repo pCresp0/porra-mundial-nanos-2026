@@ -1,12 +1,19 @@
 {
   "México-Inglaterra": {
     "home": 0,
-    "away": 1,
+    "away": 2,
     "minute": "live",
     "scorers": [
       {
         "player": "Jvd Blingham",
         "minute": "36'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Jvd Blingham",
+        "minute": "38'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
