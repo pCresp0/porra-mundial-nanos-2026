@@ -1378,19 +1378,15 @@ def build_data():
     _KO_STANDINGS_KEY = {"r16": "r16", "r8": "r8", "r4": "r4", "r2": "r2", "r34": "r34_final", "final": "r34_final"}
 
     _R8_BRACKET_MAP = {
-        # match_num: {name: slot_key, home_num: source_r16_match_for_home, away_num: source_r16_match_for_away}
-        # WORLDCUP match nums (col J): m73=Suda/Can, m74=Bra/Jap, m75=Ale/Par, m76=PB/Mar, m77=CdI/Nor, m78=Fra/Sue
-        # Resultados reales r8 del 04/07/2026:
-        #   WORLDCUP J=89 (19:00 España): Canadá(W73) vs Marruecos(W76) → 0-3 → avanza Marruecos
-        #   WORLDCUP J=90 (23:00 España): Paraguay(W75) vs Francia(W78) → 0-1 → avanza Francia
-        89: {"name": "W73-W75", "home_num": 73, "away_num": 76},  # Canadá(m73) vs Marruecos(m76) — 19:00h
-        90: {"name": "W74-W77", "home_num": 75, "away_num": 78},  # Paraguay(m75) vs Francia(m78) — 23:00h
-        91: {"name": "W76-W78", "home_num": 74, "away_num": 77},  # W76=m74 (Bra/Jap),   W78=m77 (CdI/Nor)
-        92: {"name": "W79-W80", "home_num": 79, "away_num": 80},  # W79=m79 (Mex/Ecu),   W80=m80 (Ing/RDC)
-        93: {"name": "W83-W84", "home_num": 84, "away_num": 83},  # W83=m84 (Por/Cro),   W84=m83 (Esp/Aut)
-        94: {"name": "W81-W82", "home_num": 82, "away_num": 81},  # W81=m82 (EEU/Bos),   W82=m81 (Bel/Sen)
-        95: {"name": "W86-W88", "home_num": 87, "away_num": 86},  # W86=m87 (Arg/CaV),   W88=m86 (Aus/Egi)
-        96: {"name": "W85-W87", "home_num": 85, "away_num": 88},  # W85=m85 (Sui/Arg),   W87=m88 (Col/Gha)
+        # match_num ADMIN → slot W del cuadro (home_placeholder-away_placeholder)
+        89: {"name": "W74-W77", "home_num": 74, "away_num": 77},  # Paraguay vs Francia
+        90: {"name": "W73-W75", "home_num": 73, "away_num": 75},  # Canadá vs Marruecos
+        91: {"name": "W76-W78", "home_num": 76, "away_num": 78},
+        92: {"name": "W79-W80", "home_num": 79, "away_num": 80},
+        93: {"name": "W83-W84", "home_num": 83, "away_num": 84},
+        94: {"name": "W81-W82", "home_num": 81, "away_num": 82},
+        95: {"name": "W86-W88", "home_num": 86, "away_num": 88},
+        96: {"name": "W85-W87", "home_num": 85, "away_num": 87},
     }
 
     # ── Cargar predicciones KO de los Excel individuales de cada jugador ──
@@ -1618,25 +1614,28 @@ def build_data():
         for p, ws in zip(all_players, all_ws):
             if phase in KO_PHASE_PTS:
                 # Lookup order differs by phase:
-                #   r8: slot position first (row/match_num/bracket-label) then name.
-                #       This avoids cross-slot collisions where a player stored a team-name
-                #       prediction for a DIFFERENT bracket slot (e.g., JUANCHO's "Canadá-Marruecos"
-                #       for slot 89 matching the actual match 90 teams).
-                #   r16 and others: name first, because the player Excels number their rows
-                #       differently from the ADMIN sheet, so row-based lookup retrieves the
-                #       wrong prediction; team-name keys are correct here.
+                #   r8: bracket slot (W-label from placeholders) first — this is how
+                #       players store predictions in their Excel (e.g. "W74-W77").
+                #       Row/match_num differ between player Excels and ADMIN, so they
+                #       must NOT be used as primary keys.
+                #   r16 and others: name first, because player Excels number rows
+                #       differently from ADMIN but team-name keys are correct.
                 m_num = wc.get("match_num")
                 name_str = str(match_name).strip()
                 ko_player = _ko_preds.get(p["name"], {})
                 pred_raw = None
+                h_ph = str(wc.get("home_placeholder") or "").strip()
+                a_ph = str(wc.get("away_placeholder") or "").strip()
+                bracket_slot = f"{h_ph}-{a_ph}" if h_ph.startswith("W") and a_ph.startswith("W") else None
                 if phase == "r8":
                     key_order = [
-                        str(row),
-                        str(m_num) if m_num is not None else None,
+                        bracket_slot,
                         _R8_BRACKET_MAP[m_num]["name"] if m_num in _R8_BRACKET_MAP else None,
                         name_str,
                         f"{home_resolved}-{away_resolved}" if actual_home_set and actual_away_set else None,
                         f"{away_resolved}-{home_resolved}" if actual_home_set and actual_away_set else None,
+                        str(m_num) if m_num is not None else None,
+                        str(row),
                         mkey,
                     ]
                 else:

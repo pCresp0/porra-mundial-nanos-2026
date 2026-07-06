@@ -1,15 +1,15 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "06/07/2026 11:09",
+    "generated": "06/07/2026 11:15",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-06T11:09",
-      "last_updated_time": "11:09",
+      "last_updated_iso": "2026-07-06T11:15",
+      "last_updated_time": "11:15",
       "last_updated_date": "06/07/2026",
-      "next_update_iso": "2026-07-06T11:10",
-      "next_update_time": "11:10",
+      "next_update_iso": "2026-07-06T11:20",
+      "next_update_time": "11:20",
       "next_update_date": "06/07/2026"
     },
     "players": [
@@ -180,7 +180,7 @@
       "color": "#A855F7",
       "played": 72,
       "pos": 2,
-      "pos_change": 1,
+      "pos_change": 0,
       "live_pos": 2
     },
     {
@@ -226,19 +226,19 @@
       "color": "#EF4444",
       "played": 72,
       "pos": 3,
-      "pos_change": -1,
+      "pos_change": 0,
       "live_pos": 3
     },
     {
       "name": "JUANCHO",
-      "total": 315.0,
+      "total": 319.0,
       "live_points": 0.0,
-      "total_live": 315.0,
+      "total_live": 319.0,
       "groups": 118.0,
       "positions": 85.0,
       "q16": 52.0,
       "r16": 105.0,
-      "r8": 7.0,
+      "r8": 11.0,
       "r4": 0.0,
       "r2": 0.0,
       "r34_final": 0.0,
@@ -266,7 +266,7 @@
           "key": "r8",
           "label": "Octavos",
           "desc": "Partidos de octavos",
-          "pts": 7.0
+          "pts": 11.0
         }
       ],
       "color": "#F5C518",
@@ -17035,33 +17035,34 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Marruecos",
-            "pred_home": "Canadá",
-            "pred_away": "Marruecos"
+            "winner": "Francia",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
-          "score": 0.0,
+          "score": 5.0,
           "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0.0,
-            "total": 0.0,
+            "total": 5.0,
             "reasons": [
-              "Equipos incorrectos (0 pts)"
+              "Solo un equipo correcto — sin puntos de resultado",
+              "Clasificado correcto (+5.0 pts)"
             ],
-            "team_match": "none",
-            "pred_home": "Canadá",
-            "pred_away": "Marruecos"
+            "team_match": "away",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
           "pred": {
-            "sign": "2",
-            "score": "1-2",
-            "winner": "Países Bajos",
-            "pred_home": "Canadá",
-            "pred_away": "Países Bajos"
+            "sign": "1",
+            "score": "2-1",
+            "winner": "Alemania",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
           "score": 0.0,
           "breakdown": {
@@ -17070,35 +17071,36 @@
             "exact": 0.0,
             "total": 0.0,
             "reasons": [
-              "Equipos incorrectos (0 pts)"
+              "Solo un equipo correcto — sin puntos de resultado"
             ],
-            "team_match": "none",
-            "pred_home": "Canadá",
-            "pred_away": "Países Bajos"
+            "team_match": "away",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
           "pred": {
-            "sign": "2",
-            "score": "0-3",
-            "winner": "Países Bajos",
-            "pred_home": "Canadá",
-            "pred_away": "Países Bajos"
+            "sign": "X",
+            "score": "2-2",
+            "winner": "Francia",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
-          "score": 0.0,
+          "score": 5.0,
           "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0.0,
-            "total": 0.0,
+            "total": 5.0,
             "reasons": [
-              "Equipos incorrectos (0 pts)"
+              "Solo un equipo correcto — sin puntos de resultado",
+              "Clasificado correcto (+5.0 pts)"
             ],
-            "team_match": "none",
-            "pred_home": "Canadá",
-            "pred_away": "Países Bajos"
+            "team_match": "away",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
           "live_breakdown": null,
           "live_score": null
@@ -17107,22 +17109,23 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Países Bajos",
-            "pred_home": "Canadá",
-            "pred_away": "Países Bajos"
+            "winner": "Francia",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
-          "score": 0.0,
+          "score": 5.0,
           "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0.0,
-            "total": 0.0,
+            "total": 5.0,
             "reasons": [
-              "Equipos incorrectos (0 pts)"
+              "Solo un equipo correcto — sin puntos de resultado",
+              "Clasificado correcto (+5.0 pts)"
             ],
-            "team_match": "none",
-            "pred_home": "Canadá",
-            "pred_away": "Países Bajos"
+            "team_match": "away",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
           "live_breakdown": null,
           "live_score": null
@@ -17131,22 +17134,23 @@
           "pred": {
             "sign": "2",
             "score": "0-1",
-            "winner": "Países Bajos",
-            "pred_home": "Canadá",
-            "pred_away": "Países Bajos"
+            "winner": "Francia",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
-          "score": 0.0,
+          "score": 5.0,
           "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0.0,
-            "total": 0.0,
+            "total": 5.0,
             "reasons": [
-              "Equipos incorrectos (0 pts)"
+              "Solo un equipo correcto — sin puntos de resultado",
+              "Clasificado correcto (+5.0 pts)"
             ],
-            "team_match": "none",
-            "pred_home": "Canadá",
-            "pred_away": "Países Bajos"
+            "team_match": "away",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
           "live_breakdown": null,
           "live_score": null
@@ -17154,23 +17158,24 @@
         "CRESPO": {
           "pred": {
             "sign": "2",
-            "score": "0-2",
-            "winner": "Países Bajos",
-            "pred_home": "Canadá",
-            "pred_away": "Países Bajos"
+            "score": "1-2",
+            "winner": "Francia",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
-          "score": 0.0,
+          "score": 5.0,
           "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0.0,
-            "total": 0.0,
+            "total": 5.0,
             "reasons": [
-              "Equipos incorrectos (0 pts)"
+              "Solo un equipo correcto — sin puntos de resultado",
+              "Clasificado correcto (+5.0 pts)"
             ],
-            "team_match": "none",
-            "pred_home": "Canadá",
-            "pred_away": "Países Bajos"
+            "team_match": "away",
+            "pred_home": "Alemania",
+            "pred_away": "Francia"
           },
           "live_breakdown": null,
           "live_score": null
@@ -17252,33 +17257,35 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Francia",
-            "pred_home": "Alemania",
-            "pred_away": "Francia"
+            "winner": "Marruecos",
+            "pred_home": "Canadá",
+            "pred_away": "Marruecos"
           },
-          "score": 0.0,
+          "score": 9.0,
           "breakdown": {
-            "sign": 0.0,
+            "sign": 4.0,
             "diff": 0.0,
-            "exact": 0.0,
-            "total": 0.0,
+            "exact": 0,
+            "total": 9.0,
             "reasons": [
-              "Equipos incorrectos (0 pts)"
+              "1X2 correcto (+4.0)",
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+5.0 pts)"
             ],
-            "team_match": "none",
-            "pred_home": "Alemania",
-            "pred_away": "Francia"
+            "team_match": "both",
+            "pred_home": "Canadá",
+            "pred_away": "Marruecos"
           },
           "live_breakdown": null,
           "live_score": null
         },
         "LARRY": {
           "pred": {
-            "sign": "1",
-            "score": "2-1",
-            "winner": "Alemania",
-            "pred_home": "Alemania",
-            "pred_away": "Francia"
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Países Bajos",
+            "pred_home": "Canadá",
+            "pred_away": "Países Bajos"
           },
           "score": 0.0,
           "breakdown": {
@@ -17287,22 +17294,22 @@
             "exact": 0.0,
             "total": 0.0,
             "reasons": [
-              "Equipos incorrectos (0 pts)"
+              "Solo un equipo correcto — sin puntos de resultado"
             ],
-            "team_match": "none",
-            "pred_home": "Alemania",
-            "pred_away": "Francia"
+            "team_match": "home",
+            "pred_home": "Canadá",
+            "pred_away": "Países Bajos"
           },
           "live_breakdown": null,
           "live_score": null
         },
         "LUIS/VIR": {
           "pred": {
-            "sign": "X",
-            "score": "2-2",
-            "winner": "Francia",
-            "pred_home": "Alemania",
-            "pred_away": "Francia"
+            "sign": "2",
+            "score": "0-3",
+            "winner": "Países Bajos",
+            "pred_home": "Canadá",
+            "pred_away": "Países Bajos"
           },
           "score": 0.0,
           "breakdown": {
@@ -17311,11 +17318,11 @@
             "exact": 0.0,
             "total": 0.0,
             "reasons": [
-              "Equipos incorrectos (0 pts)"
+              "Solo un equipo correcto — sin puntos de resultado"
             ],
-            "team_match": "none",
-            "pred_home": "Alemania",
-            "pred_away": "Francia"
+            "team_match": "home",
+            "pred_home": "Canadá",
+            "pred_away": "Países Bajos"
           },
           "live_breakdown": null,
           "live_score": null
@@ -17324,9 +17331,9 @@
           "pred": {
             "sign": "2",
             "score": "1-2",
-            "winner": "Francia",
-            "pred_home": "Alemania",
-            "pred_away": "Francia"
+            "winner": "Países Bajos",
+            "pred_home": "Canadá",
+            "pred_away": "Países Bajos"
           },
           "score": 0.0,
           "breakdown": {
@@ -17335,11 +17342,11 @@
             "exact": 0.0,
             "total": 0.0,
             "reasons": [
-              "Equipos incorrectos (0 pts)"
+              "Solo un equipo correcto — sin puntos de resultado"
             ],
-            "team_match": "none",
-            "pred_home": "Alemania",
-            "pred_away": "Francia"
+            "team_match": "home",
+            "pred_home": "Canadá",
+            "pred_away": "Países Bajos"
           },
           "live_breakdown": null,
           "live_score": null
@@ -17348,9 +17355,9 @@
           "pred": {
             "sign": "2",
             "score": "0-1",
-            "winner": "Francia",
-            "pred_home": "Alemania",
-            "pred_away": "Francia"
+            "winner": "Países Bajos",
+            "pred_home": "Canadá",
+            "pred_away": "Países Bajos"
           },
           "score": 0.0,
           "breakdown": {
@@ -17359,11 +17366,11 @@
             "exact": 0.0,
             "total": 0.0,
             "reasons": [
-              "Equipos incorrectos (0 pts)"
+              "Solo un equipo correcto — sin puntos de resultado"
             ],
-            "team_match": "none",
-            "pred_home": "Alemania",
-            "pred_away": "Francia"
+            "team_match": "home",
+            "pred_home": "Canadá",
+            "pred_away": "Países Bajos"
           },
           "live_breakdown": null,
           "live_score": null
@@ -17371,10 +17378,10 @@
         "CRESPO": {
           "pred": {
             "sign": "2",
-            "score": "1-2",
-            "winner": "Francia",
-            "pred_home": "Alemania",
-            "pred_away": "Francia"
+            "score": "0-2",
+            "winner": "Países Bajos",
+            "pred_home": "Canadá",
+            "pred_away": "Países Bajos"
           },
           "score": 0.0,
           "breakdown": {
@@ -17383,11 +17390,11 @@
             "exact": 0.0,
             "total": 0.0,
             "reasons": [
-              "Equipos incorrectos (0 pts)"
+              "Solo un equipo correcto — sin puntos de resultado"
             ],
-            "team_match": "none",
-            "pred_home": "Alemania",
-            "pred_away": "Francia"
+            "team_match": "home",
+            "pred_home": "Canadá",
+            "pred_away": "Países Bajos"
           },
           "live_breakdown": null,
           "live_score": null
@@ -20032,9 +20039,9 @@
         305.0,
         308.0,
         308.0,
-        308.0,
-        308.0,
-        315.0
+        312.0,
+        312.0,
+        319.0
       ],
       "LARRY": [
         2.0,
@@ -20646,7 +20653,7 @@
         5.0,
         3.0,
         0.0,
-        0.0,
+        4.0,
         0.0,
         7.0
       ],
@@ -22470,7 +22477,7 @@
           "hit_rate": 2,
           "phase_positions": 5,
           "phase_q16": 5,
-          "phase_ko": 4,
+          "phase_ko": 5,
           "phase_honor": 5
         },
         "top_skills": [
@@ -22611,7 +22618,7 @@
           "hit_rate": 4,
           "phase_positions": 2,
           "phase_q16": 3,
-          "phase_ko": 5,
+          "phase_ko": 4,
           "phase_honor": 1
         },
         "top_skills": [
@@ -23213,17 +23220,17 @@
         },
         {
           "rank": 4,
+          "name": "JUANCHO",
+          "color": "#F5C518",
+          "display": "116 pts",
+          "value": 116.0
+        },
+        {
+          "rank": 5,
           "name": "VÍCTOR",
           "color": "#A855F7",
           "display": "113 pts",
           "value": 113.0
-        },
-        {
-          "rank": 5,
-          "name": "JUANCHO",
-          "color": "#F5C518",
-          "display": "112 pts",
-          "value": 112.0
         },
         {
           "rank": 6,
