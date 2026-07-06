@@ -351,6 +351,13 @@ def update_excel(games: list, path: str, label: str = "") -> int:
     match_map = _load_wc_match_map(wc_data)
     if not match_map:
         match_map = _load_data_json_match_map()
+    else:
+        # Suplementar con data.json para partidos de eliminatorias cuyos equipos
+        # aún son placeholders (W83, W84…) en el Excel y por tanto fueron ignorados
+        # por _load_wc_match_map.
+        for k, v in _load_data_json_match_map().items():
+            if k not in match_map:
+                match_map[k] = v
 
     row_index = {}
     row_by_match_num = {}

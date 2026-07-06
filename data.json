@@ -1,19 +1,16 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "06/07/2026 22:34",
+    "generated": "07/07/2026 00:32",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-06T20:28",
-      "last_updated_time": "20:28",
-      "last_updated_date": "06/07/2026",
+      "last_updated_iso": "2026-07-07T00:32",
+      "last_updated_time": "00:32",
+      "last_updated_date": "07/07/2026",
       "next_update_iso": "2026-07-07T00:35",
       "next_update_time": "00:35",
-      "next_update_date": "07/07/2026",
-      "last_checked_iso": "2026-07-07T00:34",
-      "last_checked_time": "00:34",
-      "last_checked_date": "07/07/2026"
+      "next_update_date": "07/07/2026"
     },
     "players": [
       "JUANCHO",
@@ -98,1589 +95,7 @@
       "K": 6,
       "L": 6
     },
-    "visits_log": [
-      {
-        "ts_iso": "2026-06-27T02:18:27+02:00",
-        "total": 1367
-      },
-      {
-        "ts_iso": "2026-06-27T07:01:49+02:00",
-        "total": 1371
-      },
-      {
-        "ts_iso": "2026-06-27T10:04:07+02:00",
-        "total": 1375
-      },
-      {
-        "ts_iso": "2026-06-27T12:21:02+02:00",
-        "total": 1380
-      },
-      {
-        "ts_iso": "2026-06-27T14:15:40+02:00",
-        "total": 1383
-      },
-      {
-        "ts_iso": "2026-06-27T16:52:38+02:00",
-        "total": 1387
-      },
-      {
-        "ts_iso": "2026-06-27T18:16:49+02:00",
-        "total": 1387
-      },
-      {
-        "ts_iso": "2026-06-27T20:15:00+02:00",
-        "total": 1387
-      },
-      {
-        "ts_iso": "2026-06-27T22:17:24+02:00",
-        "total": 1390
-      },
-      {
-        "ts_iso": "2026-06-28T00:13:21+02:00",
-        "total": 1395
-      },
-      {
-        "ts_iso": "2026-06-28T02:12:29+02:00",
-        "total": 1416
-      },
-      {
-        "ts_iso": "2026-06-28T07:42:22+02:00",
-        "total": 1423
-      },
-      {
-        "ts_iso": "2026-06-28T11:28:15+02:00",
-        "total": 1439
-      },
-      {
-        "ts_iso": "2026-06-28T13:56:20+02:00",
-        "total": 1452
-      },
-      {
-        "ts_iso": "2026-06-28T16:10:18+02:00",
-        "total": 1456
-      },
-      {
-        "ts_iso": "2026-06-28T18:21:53+02:00",
-        "total": 1463
-      },
-      {
-        "ts_iso": "2026-06-28T20:15:04+02:00",
-        "total": 1471
-      },
-      {
-        "ts_iso": "2026-06-28T22:21:10+02:00",
-        "total": 1480
-      },
-      {
-        "ts_iso": "2026-06-29T00:11:47+02:00",
-        "total": 1490
-      },
-      {
-        "ts_iso": "2026-06-29T02:17:40+02:00",
-        "total": 1491
-      },
-      {
-        "ts_iso": "2026-06-29T08:03:00+02:00",
-        "total": 1496
-      },
-      {
-        "ts_iso": "2026-06-29T18:06:11+02:00",
-        "total": 1511
-      },
-      {
-        "ts_iso": "2026-06-29T21:10:44+02:00",
-        "total": 1522
-      },
-      {
-        "ts_iso": "2026-06-29T23:42:18+02:00",
-        "total": 1531
-      },
-      {
-        "ts_iso": "2026-06-30T01:12:22+02:00",
-        "total": 1537
-      },
-      {
-        "ts_iso": "2026-06-30T06:21:29+02:00",
-        "total": 1538
-      },
-      {
-        "ts_iso": "2026-06-30T10:36:14+02:00",
-        "total": 1551
-      },
-      {
-        "ts_iso": "2026-06-30T13:49:30+02:00",
-        "total": 1554
-      },
-      {
-        "ts_iso": "2026-06-30T16:39:19+02:00",
-        "total": 1563
-      },
-      {
-        "ts_iso": "2026-06-30T19:11:06+02:00",
-        "total": 1567
-      },
-      {
-        "ts_iso": "2026-06-30T22:13:28+02:00",
-        "total": 1581
-      },
-      {
-        "ts_iso": "2026-07-01T00:23:09+02:00",
-        "total": 1589
-      },
-      {
-        "ts_iso": "2026-07-01T02:17:58+02:00",
-        "total": 1591
-      },
-      {
-        "ts_iso": "2026-07-01T07:50:52+02:00",
-        "total": 1598
-      },
-      {
-        "ts_iso": "2026-07-01T12:08:49+02:00",
-        "total": 1621
-      },
-      {
-        "ts_iso": "2026-07-01T15:39:32+02:00",
-        "total": 1638
-      },
-      {
-        "ts_iso": "2026-07-01T18:36:30+02:00",
-        "total": 1654
-      },
-      {
-        "ts_iso": "2026-07-01T21:06:43+02:00",
-        "total": 1660
-      },
-      {
-        "ts_iso": "2026-07-01T23:44:30+02:00",
-        "total": 1674
-      },
-      {
-        "ts_iso": "2026-07-02T01:38:08+02:00",
-        "total": 1681
-      },
-      {
-        "ts_iso": "2026-07-02T06:17:12+02:00",
-        "total": 1683
-      },
-      {
-        "ts_iso": "2026-07-02T10:21:02+02:00",
-        "total": 1694
-      },
-      {
-        "ts_iso": "2026-07-02T13:41:30+02:00",
-        "total": 1701
-      },
-      {
-        "ts_iso": "2026-07-02T16:25:41+02:00",
-        "total": 1704
-      },
-      {
-        "ts_iso": "2026-07-02T18:59:10+02:00",
-        "total": 1708
-      },
-      {
-        "ts_iso": "2026-07-02T20:43:47+02:00",
-        "total": 1711
-      },
-      {
-        "ts_iso": "2026-07-02T22:36:01+02:00",
-        "total": 1719
-      },
-      {
-        "ts_iso": "2026-07-03T00:16:04+02:00",
-        "total": 1726
-      },
-      {
-        "ts_iso": "2026-07-03T02:16:44+02:00",
-        "total": 1727
-      },
-      {
-        "ts_iso": "2026-07-03T06:53:01+02:00",
-        "total": 1731
-      },
-      {
-        "ts_iso": "2026-07-03T10:22:17+02:00",
-        "total": 1744
-      },
-      {
-        "ts_iso": "2026-07-03T13:39:53+02:00",
-        "total": 1752
-      },
-      {
-        "ts_iso": "2026-07-03T16:28:52+02:00",
-        "total": 1755
-      },
-      {
-        "ts_iso": "2026-07-03T18:43:00+02:00",
-        "total": 1757
-      },
-      {
-        "ts_iso": "2026-07-03T20:22:05+02:00",
-        "total": 1759
-      },
-      {
-        "ts_iso": "2026-07-03T22:21:04+02:00",
-        "total": 1765
-      },
-      {
-        "ts_iso": "2026-07-04T00:13:26+02:00",
-        "total": 1775
-      },
-      {
-        "ts_iso": "2026-07-04T02:15:20+02:00",
-        "total": 1781
-      },
-      {
-        "ts_iso": "2026-07-04T06:46:38+02:00",
-        "total": 1784
-      },
-      {
-        "ts_iso": "2026-07-04T10:01:18+02:00",
-        "total": 1791
-      },
-      {
-        "ts_iso": "2026-07-04T12:22:27+02:00",
-        "total": 1800
-      },
-      {
-        "ts_iso": "2026-07-04T14:13:29+02:00",
-        "total": 1805
-      },
-      {
-        "ts_iso": "2026-07-04T16:43:32+02:00",
-        "total": 1809
-      },
-      {
-        "ts_iso": "2026-07-04T18:13:12+02:00",
-        "total": 1813
-      },
-      {
-        "ts_iso": "2026-07-04T20:11:30+02:00",
-        "total": 1821
-      },
-      {
-        "ts_iso": "2026-07-04T22:15:17+02:00",
-        "total": 1827
-      },
-      {
-        "ts_iso": "2026-07-05T00:07:52+02:00",
-        "total": 1840
-      },
-      {
-        "ts_iso": "2026-07-05T02:10:33+02:00",
-        "total": 1844
-      },
-      {
-        "ts_iso": "2026-07-05T07:06:06+02:00",
-        "total": 1847
-      },
-      {
-        "ts_iso": "2026-07-05T11:19:43+02:00",
-        "total": 1862
-      },
-      {
-        "ts_iso": "2026-07-05T13:45:25+02:00",
-        "total": 1869
-      },
-      {
-        "ts_iso": "2026-07-05T16:02:48+02:00",
-        "total": 1872
-      },
-      {
-        "ts_iso": "2026-07-05T17:34:15+02:00",
-        "total": 1875
-      },
-      {
-        "ts_iso": "2026-07-05T19:23:35+02:00",
-        "total": 1881
-      },
-      {
-        "ts_iso": "2026-07-05T21:39:33+02:00",
-        "total": 1886
-      },
-      {
-        "ts_iso": "2026-07-05T23:15:23+02:00",
-        "total": 1891
-      },
-      {
-        "ts_iso": "2026-07-06T01:13:30+02:00",
-        "total": 1896
-      },
-      {
-        "ts_iso": "2026-07-06T06:24:18+02:00",
-        "total": 1903
-      },
-      {
-        "ts_iso": "2026-07-06T11:08:22+02:00",
-        "total": 1915
-      },
-      {
-        "ts_iso": "2026-07-06T15:58:57+02:00",
-        "total": 1924
-      },
-      {
-        "ts_iso": "2026-07-06T19:11:57+02:00",
-        "total": 1928
-      },
-      {
-        "ts_iso": "2026-07-06T22:10:34+02:00",
-        "total": 1930
-      },
-      {
-        "ts_iso": "2026-07-07T00:22:45+02:00",
-        "total": 1935
-      }
-    ],
     "api_log": [
-      {
-        "ts_iso": "2026-07-07T00:34:25+02:00",
-        "date": "07/07/2026",
-        "time": "00:34:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-07T00:32:26+02:00",
-        "date": "07/07/2026",
-        "time": "00:32:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-07T00:31:01+02:00",
-        "date": "07/07/2026",
-        "time": "00:31:01",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-07T00:28:25+02:00",
-        "date": "07/07/2026",
-        "time": "00:28:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-07T00:26:26+02:00",
-        "date": "07/07/2026",
-        "time": "00:26:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-07T00:25:28+02:00",
-        "date": "07/07/2026",
-        "time": "00:25:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-07T00:22:26+02:00",
-        "date": "07/07/2026",
-        "time": "00:22:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-07T00:20:52+02:00",
-        "date": "07/07/2026",
-        "time": "00:20:52",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-07T00:18:29+02:00",
-        "date": "07/07/2026",
-        "time": "00:18:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-07T00:16:25+02:00",
-        "date": "07/07/2026",
-        "time": "00:16:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-07T00:14:28+02:00",
-        "date": "07/07/2026",
-        "time": "00:14:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-07T00:12:30+02:00",
-        "date": "07/07/2026",
-        "time": "00:12:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-07T00:10:53+02:00",
-        "date": "07/07/2026",
-        "time": "00:10:53",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-07T00:08:25+02:00",
-        "date": "07/07/2026",
-        "time": "00:08:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-07T00:06:25+02:00",
-        "date": "07/07/2026",
-        "time": "00:06:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-07T00:04:26+02:00",
-        "date": "07/07/2026",
-        "time": "00:04:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-07T00:02:28+02:00",
-        "date": "07/07/2026",
-        "time": "00:02:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-07T00:01:20+02:00",
-        "date": "07/07/2026",
-        "time": "00:01:20",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:58:17+02:00",
-        "date": "06/07/2026",
-        "time": "23:58:17",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:56:33+02:00",
-        "date": "06/07/2026",
-        "time": "23:56:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:54:26+02:00",
-        "date": "06/07/2026",
-        "time": "23:54:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:53:24+02:00",
-        "date": "06/07/2026",
-        "time": "23:53:24",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:50:51+02:00",
-        "date": "06/07/2026",
-        "time": "23:50:51",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:48:36+02:00",
-        "date": "06/07/2026",
-        "time": "23:48:36",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:46:27+02:00",
-        "date": "06/07/2026",
-        "time": "23:46:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:44:27+02:00",
-        "date": "06/07/2026",
-        "time": "23:44:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:42:25+02:00",
-        "date": "06/07/2026",
-        "time": "23:42:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:40:54+02:00",
-        "date": "06/07/2026",
-        "time": "23:40:54",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:38:25+02:00",
-        "date": "06/07/2026",
-        "time": "23:38:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:36:25+02:00",
-        "date": "06/07/2026",
-        "time": "23:36:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:34:27+02:00",
-        "date": "06/07/2026",
-        "time": "23:34:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:32:29+02:00",
-        "date": "06/07/2026",
-        "time": "23:32:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:31:04+02:00",
-        "date": "06/07/2026",
-        "time": "23:31:04",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:28:32+02:00",
-        "date": "06/07/2026",
-        "time": "23:28:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:26:28+02:00",
-        "date": "06/07/2026",
-        "time": "23:26:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:24:29+02:00",
-        "date": "06/07/2026",
-        "time": "23:24:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:23:07+02:00",
-        "date": "06/07/2026",
-        "time": "23:23:07",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:20:52+02:00",
-        "date": "06/07/2026",
-        "time": "23:20:52",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:18:25+02:00",
-        "date": "06/07/2026",
-        "time": "23:18:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:16:32+02:00",
-        "date": "06/07/2026",
-        "time": "23:16:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:14:28+02:00",
-        "date": "06/07/2026",
-        "time": "23:14:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:12:25+02:00",
-        "date": "06/07/2026",
-        "time": "23:12:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:10:51+02:00",
-        "date": "06/07/2026",
-        "time": "23:10:51",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:08:30+02:00",
-        "date": "06/07/2026",
-        "time": "23:08:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:06:34+02:00",
-        "date": "06/07/2026",
-        "time": "23:06:34",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:04:33+02:00",
-        "date": "06/07/2026",
-        "time": "23:04:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:02:25+02:00",
-        "date": "06/07/2026",
-        "time": "23:02:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:01:16+02:00",
-        "date": "06/07/2026",
-        "time": "23:01:16",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:58:26+02:00",
-        "date": "06/07/2026",
-        "time": "22:58:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:56:36+02:00",
-        "date": "06/07/2026",
-        "time": "22:56:36",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:54:29+02:00",
-        "date": "06/07/2026",
-        "time": "22:54:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:52:26+02:00",
-        "date": "06/07/2026",
-        "time": "22:52:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:51:52+02:00",
-        "date": "06/07/2026",
-        "time": "22:51:52",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:48:25+02:00",
-        "date": "06/07/2026",
-        "time": "22:48:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:46:26+02:00",
-        "date": "06/07/2026",
-        "time": "22:46:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:44:26+02:00",
-        "date": "06/07/2026",
-        "time": "22:44:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:42:30+02:00",
-        "date": "06/07/2026",
-        "time": "22:42:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:40:51+02:00",
-        "date": "06/07/2026",
-        "time": "22:40:51",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:38:29+02:00",
-        "date": "06/07/2026",
-        "time": "22:38:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:36:28+02:00",
-        "date": "06/07/2026",
-        "time": "22:36:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:34:29+02:00",
-        "date": "06/07/2026",
-        "time": "22:34:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:32:32+02:00",
-        "date": "06/07/2026",
-        "time": "22:32:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:31:07+02:00",
-        "date": "06/07/2026",
-        "time": "22:31:07",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:28:22+02:00",
-        "date": "06/07/2026",
-        "time": "22:28:22",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:26:31+02:00",
-        "date": "06/07/2026",
-        "time": "22:26:31",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:24:27+02:00",
-        "date": "06/07/2026",
-        "time": "22:24:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:22:32+02:00",
-        "date": "06/07/2026",
-        "time": "22:22:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:21:26+02:00",
-        "date": "06/07/2026",
-        "time": "22:21:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:18:39+02:00",
-        "date": "06/07/2026",
-        "time": "22:18:39",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:16:26+02:00",
-        "date": "06/07/2026",
-        "time": "22:16:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:14:31+02:00",
-        "date": "06/07/2026",
-        "time": "22:14:31",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:12:25+02:00",
-        "date": "06/07/2026",
-        "time": "22:12:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:10:51+02:00",
-        "date": "06/07/2026",
-        "time": "22:10:51",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:08:30+02:00",
-        "date": "06/07/2026",
-        "time": "22:08:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:06:31+02:00",
-        "date": "06/07/2026",
-        "time": "22:06:31",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:04:33+02:00",
-        "date": "06/07/2026",
-        "time": "22:04:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:02:32+02:00",
-        "date": "06/07/2026",
-        "time": "22:02:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T22:01:16+02:00",
-        "date": "06/07/2026",
-        "time": "22:01:16",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:58:29+02:00",
-        "date": "06/07/2026",
-        "time": "21:58:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:56:30+02:00",
-        "date": "06/07/2026",
-        "time": "21:56:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:54:25+02:00",
-        "date": "06/07/2026",
-        "time": "21:54:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:52:28+02:00",
-        "date": "06/07/2026",
-        "time": "21:52:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:51:36+02:00",
-        "date": "06/07/2026",
-        "time": "21:51:36",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:48:28+02:00",
-        "date": "06/07/2026",
-        "time": "21:48:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:46:32+02:00",
-        "date": "06/07/2026",
-        "time": "21:46:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:44:28+02:00",
-        "date": "06/07/2026",
-        "time": "21:44:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:42:26+02:00",
-        "date": "06/07/2026",
-        "time": "21:42:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:40:51+02:00",
-        "date": "06/07/2026",
-        "time": "21:40:51",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:38:26+02:00",
-        "date": "06/07/2026",
-        "time": "21:38:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:36:31+02:00",
-        "date": "06/07/2026",
-        "time": "21:36:31",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:34:28+02:00",
-        "date": "06/07/2026",
-        "time": "21:34:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:32:27+02:00",
-        "date": "06/07/2026",
-        "time": "21:32:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:31:57+02:00",
-        "date": "06/07/2026",
-        "time": "21:31:57",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:26:33+02:00",
-        "date": "06/07/2026",
-        "time": "21:26:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:24:27+02:00",
-        "date": "06/07/2026",
-        "time": "21:24:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:22:29+02:00",
-        "date": "06/07/2026",
-        "time": "21:22:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:20:53+02:00",
-        "date": "06/07/2026",
-        "time": "21:20:53",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:19:33+02:00",
-        "date": "06/07/2026",
-        "time": "21:19:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:16:31+02:00",
-        "date": "06/07/2026",
-        "time": "21:16:31",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:14:25+02:00",
-        "date": "06/07/2026",
-        "time": "21:14:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:12:26+02:00",
-        "date": "06/07/2026",
-        "time": "21:12:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:10:55+02:00",
-        "date": "06/07/2026",
-        "time": "21:10:55",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:08:29+02:00",
-        "date": "06/07/2026",
-        "time": "21:08:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:06:26+02:00",
-        "date": "06/07/2026",
-        "time": "21:06:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:04:27+02:00",
-        "date": "06/07/2026",
-        "time": "21:04:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:02:32+02:00",
-        "date": "06/07/2026",
-        "time": "21:02:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T21:01:15+02:00",
-        "date": "06/07/2026",
-        "time": "21:01:15",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T20:58:28+02:00",
-        "date": "06/07/2026",
-        "time": "20:58:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T20:56:35+02:00",
-        "date": "06/07/2026",
-        "time": "20:56:35",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T20:54:26+02:00",
-        "date": "06/07/2026",
-        "time": "20:54:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T20:52:27+02:00",
-        "date": "06/07/2026",
-        "time": "20:52:27",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T20:51:03+02:00",
-        "date": "06/07/2026",
-        "time": "20:51:03",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T20:48:31+02:00",
-        "date": "06/07/2026",
-        "time": "20:48:31",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T20:46:58+02:00",
-        "date": "06/07/2026",
-        "time": "20:46:58",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T20:44:39+02:00",
-        "date": "06/07/2026",
-        "time": "20:44:39",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T20:42:30+02:00",
-        "date": "06/07/2026",
-        "time": "20:42:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T20:40:52+02:00",
-        "date": "06/07/2026",
-        "time": "20:40:52",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T20:38:26+02:00",
-        "date": "06/07/2026",
-        "time": "20:38:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T20:36:28+02:00",
-        "date": "06/07/2026",
-        "time": "20:36:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T20:34:38+02:00",
-        "date": "06/07/2026",
-        "time": "20:34:38",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T20:32:33+02:00",
-        "date": "06/07/2026",
-        "time": "20:32:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T20:30:51+02:00",
-        "date": "06/07/2026",
-        "time": "20:30:51",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T20:26:28+02:00",
-        "date": "06/07/2026",
-        "time": "20:26:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T20:10:51+02:00",
-        "date": "06/07/2026",
-        "time": "20:10:51",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T19:54:26+02:00",
-        "date": "06/07/2026",
-        "time": "19:54:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T19:38:32+02:00",
-        "date": "06/07/2026",
-        "time": "19:38:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T19:22:28+02:00",
-        "date": "06/07/2026",
-        "time": "19:22:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T19:06:28+02:00",
-        "date": "06/07/2026",
-        "time": "19:06:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T18:50:51+02:00",
-        "date": "06/07/2026",
-        "time": "18:50:51",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T18:34:35+02:00",
-        "date": "06/07/2026",
-        "time": "18:34:35",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T18:18:30+02:00",
-        "date": "06/07/2026",
-        "time": "18:18:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T18:01:21+02:00",
-        "date": "06/07/2026",
-        "time": "18:01:21",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T17:44:26+02:00",
-        "date": "06/07/2026",
-        "time": "17:44:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T17:28:26+02:00",
-        "date": "06/07/2026",
-        "time": "17:28:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T17:11:40+02:00",
-        "date": "06/07/2026",
-        "time": "17:11:40",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T16:54:31+02:00",
-        "date": "06/07/2026",
-        "time": "16:54:31",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T16:38:30+02:00",
-        "date": "06/07/2026",
-        "time": "16:38:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T16:22:49+02:00",
-        "date": "06/07/2026",
-        "time": "16:22:49",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T16:06:30+02:00",
-        "date": "06/07/2026",
-        "time": "16:06:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T15:51:06+02:00",
-        "date": "06/07/2026",
-        "time": "15:51:06",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T15:34:30+02:00",
-        "date": "06/07/2026",
-        "time": "15:34:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T15:18:30+02:00",
-        "date": "06/07/2026",
-        "time": "15:18:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T15:02:34+02:00",
-        "date": "06/07/2026",
-        "time": "15:02:34",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T14:46:33+02:00",
-        "date": "06/07/2026",
-        "time": "14:46:33",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T14:31:10+02:00",
-        "date": "06/07/2026",
-        "time": "14:31:10",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T14:14:59+02:00",
-        "date": "06/07/2026",
-        "time": "14:14:59",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T13:58:29+02:00",
-        "date": "06/07/2026",
-        "time": "13:58:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T13:42:26+02:00",
-        "date": "06/07/2026",
-        "time": "13:42:26",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T13:26:28+02:00",
-        "date": "06/07/2026",
-        "time": "13:26:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T13:10:50+02:00",
-        "date": "06/07/2026",
-        "time": "13:10:50",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T12:54:25+02:00",
-        "date": "06/07/2026",
-        "time": "12:54:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T12:38:32+02:00",
-        "date": "06/07/2026",
-        "time": "12:38:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T12:22:32+02:00",
-        "date": "06/07/2026",
-        "time": "12:22:32",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T12:06:30+02:00",
-        "date": "06/07/2026",
-        "time": "12:06:30",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T11:51:09+02:00",
-        "date": "06/07/2026",
-        "time": "11:51:09",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T11:34:34+02:00",
-        "date": "06/07/2026",
-        "time": "11:34:34",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
       {
         "ts_iso": "2026-07-06T11:18:21+02:00",
         "date": "06/07/2026",
@@ -4432,20 +2847,1268 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:40:47+02:00",
+        "date": "05/07/2026",
+        "time": "22:40:47",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:38:26+02:00",
+        "date": "05/07/2026",
+        "time": "22:38:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:36:52+02:00",
+        "date": "05/07/2026",
+        "time": "22:36:52",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:34:27+02:00",
+        "date": "05/07/2026",
+        "time": "22:34:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:32:36+02:00",
+        "date": "05/07/2026",
+        "time": "22:32:36",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:31:00+02:00",
+        "date": "05/07/2026",
+        "time": "22:31:00",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:28:27+02:00",
+        "date": "05/07/2026",
+        "time": "22:28:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:26:31+02:00",
+        "date": "05/07/2026",
+        "time": "22:26:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:24:30+02:00",
+        "date": "05/07/2026",
+        "time": "22:24:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:22:33+02:00",
+        "date": "05/07/2026",
+        "time": "22:22:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:20:58+02:00",
+        "date": "05/07/2026",
+        "time": "22:20:58",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:18:27+02:00",
+        "date": "05/07/2026",
+        "time": "22:18:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:16:28+02:00",
+        "date": "05/07/2026",
+        "time": "22:16:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:14:26+02:00",
+        "date": "05/07/2026",
+        "time": "22:14:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:12:27+02:00",
+        "date": "05/07/2026",
+        "time": "22:12:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:10:52+02:00",
+        "date": "05/07/2026",
+        "time": "22:10:52",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:08:27+02:00",
+        "date": "05/07/2026",
+        "time": "22:08:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:06:29+02:00",
+        "date": "05/07/2026",
+        "time": "22:06:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:05:17+02:00",
+        "date": "05/07/2026",
+        "time": "22:05:17",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:02:29+02:00",
+        "date": "05/07/2026",
+        "time": "22:02:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T22:01:11+02:00",
+        "date": "05/07/2026",
+        "time": "22:01:11",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:58:30+02:00",
+        "date": "05/07/2026",
+        "time": "21:58:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:56:31+02:00",
+        "date": "05/07/2026",
+        "time": "21:56:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:54:27+02:00",
+        "date": "05/07/2026",
+        "time": "21:54:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:53:52+02:00",
+        "date": "05/07/2026",
+        "time": "21:53:52",
+        "updated": false,
+        "trigger": "schedule",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:52:27+02:00",
+        "date": "05/07/2026",
+        "time": "21:52:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:50:54+02:00",
+        "date": "05/07/2026",
+        "time": "21:50:54",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:48:32+02:00",
+        "date": "05/07/2026",
+        "time": "21:48:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:46:28+02:00",
+        "date": "05/07/2026",
+        "time": "21:46:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:44:31+02:00",
+        "date": "05/07/2026",
+        "time": "21:44:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:42:32+02:00",
+        "date": "05/07/2026",
+        "time": "21:42:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:40:53+02:00",
+        "date": "05/07/2026",
+        "time": "21:40:53",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:38:28+02:00",
+        "date": "05/07/2026",
+        "time": "21:38:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:36:27+02:00",
+        "date": "05/07/2026",
+        "time": "21:36:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:35:23+02:00",
+        "date": "05/07/2026",
+        "time": "21:35:23",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:32:26+02:00",
+        "date": "05/07/2026",
+        "time": "21:32:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:30:59+02:00",
+        "date": "05/07/2026",
+        "time": "21:30:59",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:16:26+02:00",
+        "date": "05/07/2026",
+        "time": "21:16:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T21:01:10+02:00",
+        "date": "05/07/2026",
+        "time": "21:01:10",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T20:44:30+02:00",
+        "date": "05/07/2026",
+        "time": "20:44:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T20:28:27+02:00",
+        "date": "05/07/2026",
+        "time": "20:28:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T20:12:26+02:00",
+        "date": "05/07/2026",
+        "time": "20:12:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T19:56:28+02:00",
+        "date": "05/07/2026",
+        "time": "19:56:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T19:40:51+02:00",
+        "date": "05/07/2026",
+        "time": "19:40:51",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T19:24:30+02:00",
+        "date": "05/07/2026",
+        "time": "19:24:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T19:08:30+02:00",
+        "date": "05/07/2026",
+        "time": "19:08:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T18:52:30+02:00",
+        "date": "05/07/2026",
+        "time": "18:52:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T18:36:27+02:00",
+        "date": "05/07/2026",
+        "time": "18:36:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T18:20:48+02:00",
+        "date": "05/07/2026",
+        "time": "18:20:48",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T18:04:30+02:00",
+        "date": "05/07/2026",
+        "time": "18:04:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T17:48:29+02:00",
+        "date": "05/07/2026",
+        "time": "17:48:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T17:32:30+02:00",
+        "date": "05/07/2026",
+        "time": "17:32:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T17:16:31+02:00",
+        "date": "05/07/2026",
+        "time": "17:16:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T16:59:22+02:00",
+        "date": "05/07/2026",
+        "time": "16:59:22",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T16:42:30+02:00",
+        "date": "05/07/2026",
+        "time": "16:42:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T16:26:31+02:00",
+        "date": "05/07/2026",
+        "time": "16:26:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T16:10:56+02:00",
+        "date": "05/07/2026",
+        "time": "16:10:56",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T15:54:29+02:00",
+        "date": "05/07/2026",
+        "time": "15:54:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T15:38:31+02:00",
+        "date": "05/07/2026",
+        "time": "15:38:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T15:22:29+02:00",
+        "date": "05/07/2026",
+        "time": "15:22:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T15:06:29+02:00",
+        "date": "05/07/2026",
+        "time": "15:06:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T14:50:49+02:00",
+        "date": "05/07/2026",
+        "time": "14:50:49",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T14:34:29+02:00",
+        "date": "05/07/2026",
+        "time": "14:34:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T14:18:28+02:00",
+        "date": "05/07/2026",
+        "time": "14:18:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T14:02:29+02:00",
+        "date": "05/07/2026",
+        "time": "14:02:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T13:46:28+02:00",
+        "date": "05/07/2026",
+        "time": "13:46:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T13:31:03+02:00",
+        "date": "05/07/2026",
+        "time": "13:31:03",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T13:14:38+02:00",
+        "date": "05/07/2026",
+        "time": "13:14:38",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T12:58:27+02:00",
+        "date": "05/07/2026",
+        "time": "12:58:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T12:42:31+02:00",
+        "date": "05/07/2026",
+        "time": "12:42:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T12:26:28+02:00",
+        "date": "05/07/2026",
+        "time": "12:26:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T12:10:53+02:00",
+        "date": "05/07/2026",
+        "time": "12:10:53",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T11:54:28+02:00",
+        "date": "05/07/2026",
+        "time": "11:54:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T11:38:29+02:00",
+        "date": "05/07/2026",
+        "time": "11:38:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T11:21:45+02:00",
+        "date": "05/07/2026",
+        "time": "11:21:45",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T11:17:05+02:00",
+        "date": "05/07/2026",
+        "time": "11:17:05",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T11:10:51+02:00",
+        "date": "05/07/2026",
+        "time": "11:10:51",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T10:54:29+02:00",
+        "date": "05/07/2026",
+        "time": "10:54:29",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T10:50:27+02:00",
+        "date": "05/07/2026",
+        "time": "10:50:27",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T10:36:31+02:00",
+        "date": "05/07/2026",
+        "time": "10:36:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T10:20:49+02:00",
+        "date": "05/07/2026",
+        "time": "10:20:49",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T10:03:55+02:00",
+        "date": "05/07/2026",
+        "time": "10:03:55",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T10:02:52+02:00",
+        "date": "05/07/2026",
+        "time": "10:02:52",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T09:59:18+02:00",
+        "date": "05/07/2026",
+        "time": "09:59:18",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T09:54:27+02:00",
+        "date": "05/07/2026",
+        "time": "09:54:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T09:38:31+02:00",
+        "date": "05/07/2026",
+        "time": "09:38:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T09:22:30+02:00",
+        "date": "05/07/2026",
+        "time": "09:22:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T09:06:31+02:00",
+        "date": "05/07/2026",
+        "time": "09:06:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T08:50:46+02:00",
+        "date": "05/07/2026",
+        "time": "08:50:46",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T08:34:28+02:00",
+        "date": "05/07/2026",
+        "time": "08:34:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T08:18:30+02:00",
+        "date": "05/07/2026",
+        "time": "08:18:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T08:02:32+02:00",
+        "date": "05/07/2026",
+        "time": "08:02:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T07:46:28+02:00",
+        "date": "05/07/2026",
+        "time": "07:46:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T07:31:09+02:00",
+        "date": "05/07/2026",
+        "time": "07:31:09",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T07:14:27+02:00",
+        "date": "05/07/2026",
+        "time": "07:14:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:58:26+02:00",
+        "date": "05/07/2026",
+        "time": "06:58:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:56:30+02:00",
+        "date": "05/07/2026",
+        "time": "06:56:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:54:28+02:00",
+        "date": "05/07/2026",
+        "time": "06:54:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:52:27+02:00",
+        "date": "05/07/2026",
+        "time": "06:52:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:50:57+02:00",
+        "date": "05/07/2026",
+        "time": "06:50:57",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:48:33+02:00",
+        "date": "05/07/2026",
+        "time": "06:48:33",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:46:26+02:00",
+        "date": "05/07/2026",
+        "time": "06:46:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:44:28+02:00",
+        "date": "05/07/2026",
+        "time": "06:44:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:42:27+02:00",
+        "date": "05/07/2026",
+        "time": "06:42:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:40:50+02:00",
+        "date": "05/07/2026",
+        "time": "06:40:50",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:38:59+02:00",
+        "date": "05/07/2026",
+        "time": "06:38:59",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:36:26+02:00",
+        "date": "05/07/2026",
+        "time": "06:36:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:34:32+02:00",
+        "date": "05/07/2026",
+        "time": "06:34:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:32:27+02:00",
+        "date": "05/07/2026",
+        "time": "06:32:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:30:59+02:00",
+        "date": "05/07/2026",
+        "time": "06:30:59",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:28:30+02:00",
+        "date": "05/07/2026",
+        "time": "06:28:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:26:26+02:00",
+        "date": "05/07/2026",
+        "time": "06:26:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:24:27+02:00",
+        "date": "05/07/2026",
+        "time": "06:24:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:22:27+02:00",
+        "date": "05/07/2026",
+        "time": "06:22:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:20:53+02:00",
+        "date": "05/07/2026",
+        "time": "06:20:53",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:18:30+02:00",
+        "date": "05/07/2026",
+        "time": "06:18:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:16:27+02:00",
+        "date": "05/07/2026",
+        "time": "06:16:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:14:27+02:00",
+        "date": "05/07/2026",
+        "time": "06:14:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:12:23+02:00",
+        "date": "05/07/2026",
+        "time": "06:12:23",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:10:57+02:00",
+        "date": "05/07/2026",
+        "time": "06:10:57",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:08:54+02:00",
+        "date": "05/07/2026",
+        "time": "06:08:54",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:06:28+02:00",
+        "date": "05/07/2026",
+        "time": "06:06:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:04:30+02:00",
+        "date": "05/07/2026",
+        "time": "06:04:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:02:27+02:00",
+        "date": "05/07/2026",
+        "time": "06:02:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T06:01:15+02:00",
+        "date": "05/07/2026",
+        "time": "06:01:15",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:58:32+02:00",
+        "date": "05/07/2026",
+        "time": "05:58:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:56:32+02:00",
+        "date": "05/07/2026",
+        "time": "05:56:32",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:54:30+02:00",
+        "date": "05/07/2026",
+        "time": "05:54:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:52:31+02:00",
+        "date": "05/07/2026",
+        "time": "05:52:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:50:53+02:00",
+        "date": "05/07/2026",
+        "time": "05:50:53",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:48:29+02:00",
+        "date": "05/07/2026",
+        "time": "05:48:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:46:27+02:00",
+        "date": "05/07/2026",
+        "time": "05:46:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:44:26+02:00",
+        "date": "05/07/2026",
+        "time": "05:44:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:42:30+02:00",
+        "date": "05/07/2026",
+        "time": "05:42:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:40:51+02:00",
+        "date": "05/07/2026",
+        "time": "05:40:51",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:39:10+02:00",
+        "date": "05/07/2026",
+        "time": "05:39:10",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:36:29+02:00",
+        "date": "05/07/2026",
+        "time": "05:36:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:34:27+02:00",
+        "date": "05/07/2026",
+        "time": "05:34:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:32:24+02:00",
+        "date": "05/07/2026",
+        "time": "05:32:24",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:31:02+02:00",
+        "date": "05/07/2026",
+        "time": "05:31:02",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:28:26+02:00",
+        "date": "05/07/2026",
+        "time": "05:28:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:26:30+02:00",
+        "date": "05/07/2026",
+        "time": "05:26:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:24:26+02:00",
+        "date": "05/07/2026",
+        "time": "05:24:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:22:25+02:00",
+        "date": "05/07/2026",
+        "time": "05:22:25",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:20:50+02:00",
+        "date": "05/07/2026",
+        "time": "05:20:50",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:18:28+02:00",
+        "date": "05/07/2026",
+        "time": "05:18:28",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:16:27+02:00",
+        "date": "05/07/2026",
+        "time": "05:16:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:14:29+02:00",
+        "date": "05/07/2026",
+        "time": "05:14:29",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:12:30+02:00",
+        "date": "05/07/2026",
+        "time": "05:12:30",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:10:50+02:00",
+        "date": "05/07/2026",
+        "time": "05:10:50",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:08:27+02:00",
+        "date": "05/07/2026",
+        "time": "05:08:27",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:07:08+02:00",
+        "date": "05/07/2026",
+        "time": "05:07:08",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:04:26+02:00",
+        "date": "05/07/2026",
+        "time": "05:04:26",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:02:36+02:00",
+        "date": "05/07/2026",
+        "time": "05:02:36",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T05:01:13+02:00",
+        "date": "05/07/2026",
+        "time": "05:01:13",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
+      {
+        "ts_iso": "2026-07-05T04:58:31+02:00",
+        "date": "05/07/2026",
+        "time": "04:58:31",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
       }
     ]
   },
   "standings": [
     {
       "name": "MEDINA",
-      "total": 352.0,
+      "total": 359.0,
       "live_points": 0.0,
-      "total_live": 352.0,
+      "total_live": 359.0,
       "groups": 130.0,
       "positions": 89.0,
       "q16": 52.0,
       "r16": 126.0,
-      "r8": 7.0,
+      "r8": 14.0,
       "r4": 0.0,
       "r2": 0.0,
       "r34_final": 0.0,
@@ -4473,7 +4136,7 @@
           "key": "r8",
           "label": "Octavos",
           "desc": "Partidos de octavos",
-          "pts": 7.0
+          "pts": 14.0
         }
       ],
       "color": "#F97316",
@@ -4481,6 +4144,98 @@
       "pos": 1,
       "pos_change": 0,
       "live_pos": 1
+    },
+    {
+      "name": "CRESPO",
+      "total": 333.0,
+      "live_points": 0.0,
+      "total_live": 333.0,
+      "groups": 121.0,
+      "positions": 81.0,
+      "q16": 50.0,
+      "r16": 100.0,
+      "r8": 31.0,
+      "r4": 0.0,
+      "r2": 0.0,
+      "r34_final": 0.0,
+      "honor": 0.0,
+      "phase_detail": [
+        {
+          "key": "groups",
+          "label": "Fase de Grupos",
+          "desc": "Partidos + marcadores",
+          "pts": 121.0
+        },
+        {
+          "key": "positions",
+          "label": "Posiciones Grupos",
+          "desc": "1º, 2º, 3º y 4º por grupo",
+          "pts": 81.0
+        },
+        {
+          "key": "r16",
+          "label": "Dieciseisavos",
+          "desc": "Partidos de 16avos",
+          "pts": 100.0
+        },
+        {
+          "key": "r8",
+          "label": "Octavos",
+          "desc": "Partidos de octavos",
+          "pts": 31.0
+        }
+      ],
+      "color": "#EF4444",
+      "played": 72,
+      "pos": 2,
+      "pos_change": 1,
+      "live_pos": 2
+    },
+    {
+      "name": "JUANCHO",
+      "total": 326.0,
+      "live_points": 0.0,
+      "total_live": 326.0,
+      "groups": 118.0,
+      "positions": 85.0,
+      "q16": 52.0,
+      "r16": 105.0,
+      "r8": 18.0,
+      "r4": 0.0,
+      "r2": 0.0,
+      "r34_final": 0.0,
+      "honor": 0.0,
+      "phase_detail": [
+        {
+          "key": "groups",
+          "label": "Fase de Grupos",
+          "desc": "Partidos + marcadores",
+          "pts": 118.0
+        },
+        {
+          "key": "positions",
+          "label": "Posiciones Grupos",
+          "desc": "1º, 2º, 3º y 4º por grupo",
+          "pts": 85.0
+        },
+        {
+          "key": "r16",
+          "label": "Dieciseisavos",
+          "desc": "Partidos de 16avos",
+          "pts": 105.0
+        },
+        {
+          "key": "r8",
+          "label": "Octavos",
+          "desc": "Partidos de octavos",
+          "pts": 18.0
+        }
+      ],
+      "color": "#F5C518",
+      "played": 72,
+      "pos": 3,
+      "pos_change": 1,
+      "live_pos": 3
     },
     {
       "name": "VÍCTOR",
@@ -4518,112 +4273,20 @@
       ],
       "color": "#A855F7",
       "played": 72,
-      "pos": 2,
-      "pos_change": 0,
-      "live_pos": 2
-    },
-    {
-      "name": "CRESPO",
-      "total": 320.0,
-      "live_points": 0.0,
-      "total_live": 320.0,
-      "groups": 121.0,
-      "positions": 81.0,
-      "q16": 50.0,
-      "r16": 100.0,
-      "r8": 18.0,
-      "r4": 0.0,
-      "r2": 0.0,
-      "r34_final": 0.0,
-      "honor": 0.0,
-      "phase_detail": [
-        {
-          "key": "groups",
-          "label": "Fase de Grupos",
-          "desc": "Partidos + marcadores",
-          "pts": 121.0
-        },
-        {
-          "key": "positions",
-          "label": "Posiciones Grupos",
-          "desc": "1º, 2º, 3º y 4º por grupo",
-          "pts": 81.0
-        },
-        {
-          "key": "r16",
-          "label": "Dieciseisavos",
-          "desc": "Partidos de 16avos",
-          "pts": 100.0
-        },
-        {
-          "key": "r8",
-          "label": "Octavos",
-          "desc": "Partidos de octavos",
-          "pts": 18.0
-        }
-      ],
-      "color": "#EF4444",
-      "played": 72,
-      "pos": 3,
-      "pos_change": 0,
-      "live_pos": 3
-    },
-    {
-      "name": "JUANCHO",
-      "total": 319.0,
-      "live_points": 0.0,
-      "total_live": 319.0,
-      "groups": 118.0,
-      "positions": 85.0,
-      "q16": 52.0,
-      "r16": 105.0,
-      "r8": 11.0,
-      "r4": 0.0,
-      "r2": 0.0,
-      "r34_final": 0.0,
-      "honor": 0.0,
-      "phase_detail": [
-        {
-          "key": "groups",
-          "label": "Fase de Grupos",
-          "desc": "Partidos + marcadores",
-          "pts": 118.0
-        },
-        {
-          "key": "positions",
-          "label": "Posiciones Grupos",
-          "desc": "1º, 2º, 3º y 4º por grupo",
-          "pts": 85.0
-        },
-        {
-          "key": "r16",
-          "label": "Dieciseisavos",
-          "desc": "Partidos de 16avos",
-          "pts": 105.0
-        },
-        {
-          "key": "r8",
-          "label": "Octavos",
-          "desc": "Partidos de octavos",
-          "pts": 11.0
-        }
-      ],
-      "color": "#F5C518",
-      "played": 72,
       "pos": 4,
-      "pos_change": 0,
+      "pos_change": -2,
       "live_pos": 4
     },
     {
       "name": "LARRY",
-      "total": 298.0,
+      "total": 304.0,
       "live_points": 0.0,
-      "total_live": 298.0,
+      "total_live": 304.0,
       "groups": 105.0,
       "positions": 67.0,
       "q16": 54.0,
       "r16": 114.0,
-      "r8": 12.0,
+      "r8": 18.0,
       "r4": 0.0,
       "r2": 0.0,
       "r34_final": 0.0,
@@ -4651,7 +4314,7 @@
           "key": "r8",
           "label": "Octavos",
           "desc": "Partidos de octavos",
-          "pts": 12.0
+          "pts": 18.0
         }
       ],
       "color": "#3B82F6",
@@ -4662,14 +4325,14 @@
     },
     {
       "name": "LUIS/VIR",
-      "total": 292.0,
+      "total": 299.0,
       "live_points": 0.0,
-      "total_live": 292.0,
+      "total_live": 299.0,
       "groups": 104.0,
       "positions": 77.0,
       "q16": 54.0,
       "r16": 111.0,
-      "r8": 0.0,
+      "r8": 7.0,
       "r4": 0.0,
       "r2": 0.0,
       "r34_final": 0.0,
@@ -4692,6 +4355,12 @@
           "label": "Dieciseisavos",
           "desc": "Partidos de 16avos",
           "pts": 111.0
+        },
+        {
+          "key": "r8",
+          "label": "Octavos",
+          "desc": "Partidos de octavos",
+          "pts": 7.0
         }
       ],
       "color": "#10B981",
@@ -22180,7 +21849,7 @@
     {
       "row": 204,
       "id": "",
-      "name": "W83-W84",
+      "name": "Portugal-España",
       "home": "Portugal",
       "away": "España",
       "home_placeholder": "W83",
@@ -22205,16 +21874,27 @@
       "day_label": "Lunes 06 julio",
       "datetime_es": "2026-07-06T21:00:00",
       "phase": "r8",
-      "result": null,
-      "played": false,
+      "result": {
+        "sign": "2",
+        "score": "0-1"
+      },
+      "played": true,
       "live": false,
       "live_minute": "",
       "live_goals_l": null,
       "live_goals_v": null,
       "live_scorers": [],
-      "goals_l": null,
-      "goals_v": null,
-      "scorers": [],
+      "goals_l": 0,
+      "goals_v": 1,
+      "scorers": [
+        {
+          "player": "Mikel Merino",
+          "minute": "90'+1'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        }
+      ],
       "phase_pts": {
         "sign": 4.0,
         "diff": 3.0,
@@ -22229,8 +21909,21 @@
             "pred_home": "Portugal",
             "pred_away": "España"
           },
-          "score": 0.0,
-          "breakdown": null,
+          "score": 12.0,
+          "breakdown": {
+            "sign": 4.0,
+            "diff": 3.0,
+            "exact": 0,
+            "total": 12.0,
+            "reasons": [
+              "1X2 correcto (+4.0)",
+              "Diferencia de goles (+3)",
+              "Clasificado correcto (+5.0 pts)"
+            ],
+            "team_match": "both",
+            "pred_home": "Portugal",
+            "pred_away": "España"
+          },
           "live_breakdown": null,
           "live_score": null
         },
@@ -22242,8 +21935,20 @@
             "pred_home": "Croacia",
             "pred_away": "España"
           },
-          "score": 0.0,
-          "breakdown": null,
+          "score": 5.0,
+          "breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0.0,
+            "total": 5.0,
+            "reasons": [
+              "Solo un equipo correcto — sin puntos de resultado",
+              "Clasificado correcto (+5.0 pts)"
+            ],
+            "team_match": "away",
+            "pred_home": "Croacia",
+            "pred_away": "España"
+          },
           "live_breakdown": null,
           "live_score": null
         },
@@ -22255,8 +21960,21 @@
             "pred_home": "Portugal",
             "pred_away": "España"
           },
-          "score": 0.0,
-          "breakdown": null,
+          "score": 12.0,
+          "breakdown": {
+            "sign": 4.0,
+            "diff": 3.0,
+            "exact": 0,
+            "total": 12.0,
+            "reasons": [
+              "1X2 correcto (+4.0)",
+              "Diferencia de goles (+3)",
+              "Clasificado correcto (+5.0 pts)"
+            ],
+            "team_match": "both",
+            "pred_home": "Portugal",
+            "pred_away": "España"
+          },
           "live_breakdown": null,
           "live_score": null
         },
@@ -22268,8 +21986,21 @@
             "pred_home": "Portugal",
             "pred_away": "España"
           },
-          "score": 0.0,
-          "breakdown": null,
+          "score": 12.0,
+          "breakdown": {
+            "sign": 4.0,
+            "diff": 3.0,
+            "exact": 0,
+            "total": 12.0,
+            "reasons": [
+              "1X2 correcto (+4.0)",
+              "Diferencia de goles (+3)",
+              "Clasificado correcto (+5.0 pts)"
+            ],
+            "team_match": "both",
+            "pred_home": "Portugal",
+            "pred_away": "España"
+          },
           "live_breakdown": null,
           "live_score": null
         },
@@ -22281,8 +22012,20 @@
             "pred_home": "Portugal",
             "pred_away": "España"
           },
-          "score": 0.0,
-          "breakdown": null,
+          "score": 5.0,
+          "breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 5.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts",
+              "Clasificado correcto (+5.0 pts)"
+            ],
+            "team_match": "both",
+            "pred_home": "Portugal",
+            "pred_away": "España"
+          },
           "live_breakdown": null,
           "live_score": null
         },
@@ -22294,14 +22037,27 @@
             "pred_home": "Portugal",
             "pred_away": "España"
           },
-          "score": 0.0,
-          "breakdown": null,
+          "score": 12.0,
+          "breakdown": {
+            "sign": 4.0,
+            "diff": 3.0,
+            "exact": 0,
+            "total": 12.0,
+            "reasons": [
+              "1X2 correcto (+4.0)",
+              "Diferencia de goles (+3)",
+              "Clasificado correcto (+5.0 pts)"
+            ],
+            "team_match": "both",
+            "pred_home": "Portugal",
+            "pred_away": "España"
+          },
           "live_breakdown": null,
           "live_score": null
         }
       },
       "penalties": null,
-      "actual_winner": null
+      "actual_winner": "España"
     },
     {
       "row": 205,
@@ -22811,11 +22567,11 @@
       "row": 221,
       "id": "",
       "name": "W93-W94",
-      "home": "W93",
+      "home": "España",
       "away": "W94",
       "home_placeholder": "W93",
       "away_placeholder": "W94",
-      "flag_home": "",
+      "flag_home": "🇪🇸",
       "flag_away": "",
       "match_num": 98,
       "bracket_order": 1,
@@ -23963,7 +23719,9 @@
       "EST-BOS",
       "BÉL-SEN",
       "POR-CRO",
+      "Clasif. POR",
       "ESP-AUS",
+      "Clasif. ESP",
       "SUI-ARG",
       "COL-GHA",
       "AUS-EGI",
@@ -23971,7 +23729,8 @@
       "PAR-FRA",
       "CAN-MAR",
       "BRA-NOR",
-      "MÉX-ING"
+      "MÉX-ING",
+      "POR-ESP"
     ],
     "flag_labels": [
       "🇲🇽🇿🇦",
@@ -24065,7 +23824,9 @@
       "🇺🇸🇧🇦",
       "🇧🇪🇸🇳",
       "🇵🇹🇭🇷",
+      "✓",
       "🇪🇸🇦🇹",
+      "✓",
       "🇨🇭🇩🇿",
       "🇨🇴🇬🇭",
       "🇦🇺🇪🇬",
@@ -24073,7 +23834,8 @@
       "🇵🇾🇫🇷",
       "🇨🇦🇲🇦",
       "🇧🇷🇳🇴",
-      "🇲🇽🇬🇧"
+      "🇲🇽🇬🇧",
+      "🇵🇹🇪🇸"
     ],
     "dates": [
       "2026-06-11",
@@ -24167,6 +23929,8 @@
       "2026-07-01",
       "2026-07-02",
       "2026-07-02",
+      "2026-07-02",
+      "2026-07-03",
       "2026-07-03",
       "2026-07-03",
       "2026-07-03",
@@ -24175,6 +23939,7 @@
       "2026-07-04",
       "2026-07-04",
       "2026-07-05",
+      "2026-07-06",
       "2026-07-06"
     ],
     "titles": [
@@ -24269,7 +24034,9 @@
       "Estados Unidos 2-0 Bosnia y Herzegovina · 1 jul",
       "Bélgica 3-2 Senegal · 2 jul",
       "Portugal 2-1 Croacia · 2 jul",
+      "Clasificado a fase siguiente: Portugal",
       "España 3-0 Austria · 3 jul",
+      "Clasificado a fase siguiente: España",
       "Suiza 2-0 Argelia · 3 jul",
       "Colombia 1-0 Ghana · 3 jul",
       "Australia 1-1 Egipto · 4 jul",
@@ -24277,7 +24044,8 @@
       "Paraguay 0-1 Francia · 4 jul",
       "Canadá 0-3 Marruecos · 4 jul",
       "Brasil 1-2 Noruega · 5 jul",
-      "México 2-3 Inglaterra · 6 jul"
+      "México 2-3 Inglaterra · 6 jul",
+      "Portugal 0-1 España · 6 jul"
     ],
     "players": {
       "JUANCHO": [
@@ -24372,6 +24140,8 @@
         284.0,
         289.0,
         289.0,
+        289.0,
+        292.0,
         292.0,
         295.0,
         300.0,
@@ -24380,7 +24150,8 @@
         308.0,
         312.0,
         312.0,
-        319.0
+        319.0,
+        326.0
       ],
       "LARRY": [
         2.0,
@@ -24474,15 +24245,18 @@
         268.0,
         268.0,
         268.0,
-        277.0,
-        286.0,
-        295.0,
-        295.0,
-        298.0,
-        298.0,
-        298.0,
-        298.0,
-        298.0
+        271.0,
+        280.0,
+        283.0,
+        292.0,
+        301.0,
+        301.0,
+        304.0,
+        304.0,
+        304.0,
+        304.0,
+        304.0,
+        304.0
       ],
       "LUIS/VIR": [
         2.0,
@@ -24576,6 +24350,8 @@
         268.0,
         273.0,
         278.0,
+        278.0,
+        281.0,
         281.0,
         284.0,
         289.0,
@@ -24584,7 +24360,8 @@
         292.0,
         292.0,
         292.0,
-        292.0
+        292.0,
+        299.0
       ],
       "MEDINA": [
         2.0,
@@ -24678,6 +24455,8 @@
         310.0,
         315.0,
         324.0,
+        324.0,
+        327.0,
         327.0,
         330.0,
         333.0,
@@ -24686,7 +24465,8 @@
         345.0,
         345.0,
         345.0,
-        352.0
+        352.0,
+        359.0
       ],
       "VÍCTOR": [
         6.0,
@@ -24780,10 +24560,13 @@
         285.0,
         290.0,
         295.0,
+        295.0,
+        298.0,
         298.0,
         307.0,
         310.0,
         319.0,
+        322.0,
         322.0,
         322.0,
         322.0,
@@ -24885,12 +24668,15 @@
         311.0,
         314.0,
         317.0,
-        317.0,
         320.0,
-        320.0,
-        320.0,
-        320.0,
-        320.0
+        323.0,
+        323.0,
+        326.0,
+        326.0,
+        326.0,
+        326.0,
+        326.0,
+        333.0
       ]
     },
     "day_points": {
@@ -24986,7 +24772,9 @@
         3.0,
         5.0,
         0.0,
+        0.0,
         3.0,
+        0.0,
         3.0,
         5.0,
         5.0,
@@ -24994,6 +24782,7 @@
         0.0,
         4.0,
         0.0,
+        7.0,
         7.0
       ],
       "LARRY": [
@@ -25088,11 +24877,14 @@
         3.0,
         0.0,
         0.0,
+        3.0,
         9.0,
+        3.0,
         9.0,
         9.0,
         0.0,
         3.0,
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -25190,7 +24982,9 @@
         0.0,
         5.0,
         5.0,
+        0.0,
         3.0,
+        0.0,
         3.0,
         5.0,
         0.0,
@@ -25198,7 +24992,8 @@
         0.0,
         0.0,
         0.0,
-        0.0
+        0.0,
+        7.0
       ],
       "MEDINA": [
         2.0,
@@ -25292,7 +25087,9 @@
         9.0,
         5.0,
         9.0,
+        0.0,
         3.0,
+        0.0,
         3.0,
         3.0,
         9.0,
@@ -25300,6 +25097,7 @@
         0.0,
         0.0,
         0.0,
+        7.0,
         7.0
       ],
       "VÍCTOR": [
@@ -25394,11 +25192,14 @@
         9.0,
         5.0,
         5.0,
+        0.0,
         3.0,
+        0.0,
         9.0,
         3.0,
         9.0,
         3.0,
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -25499,12 +25300,15 @@
         3.0,
         3.0,
         3.0,
+        3.0,
+        3.0,
         0.0,
         3.0,
         0.0,
         0.0,
         0.0,
-        0.0
+        0.0,
+        7.0
       ]
     },
     "phases": [
@@ -25599,11 +25403,14 @@
       "r16",
       "r16",
       "r16",
+      "r8_team",
+      "r16",
+      "r8_team",
       "r16",
       "r16",
       "r16",
       "r16",
-      "r16",
+      "r8",
       "r8",
       "r8",
       "r8",
@@ -26750,7 +26557,7 @@
             "label": "Eliminatorias (KO)",
             "icon": "⚔️",
             "rank": 1,
-            "display": "133 pts"
+            "display": "140 pts"
           },
           {
             "key": "phase_positions",
@@ -26786,88 +26593,13 @@
         ],
         "best_phase": {
           "label": "Eliminatorias",
-          "pts": 133.0
-        }
-      },
-      {
-        "name": "VÍCTOR",
-        "color": "#A855F7",
-        "pos": 2,
-        "matches_played": 72,
-        "stats": {
-          "hits_1x2": 45,
-          "pts_1x2": 90.0,
-          "hits_diff": 20,
-          "pts_diff": 20.0,
-          "hits_exact": 8,
-          "pts_exact": 24.0,
-          "goals_home": 20,
-          "goals_away": 29,
-          "hit_rate": 62,
-          "avg_match": 1.86
-        },
-        "ranks": {
-          "hits_exact": 1,
-          "hits_diff": 1,
-          "hits_1x2": 2,
-          "goals_home": 3,
-          "goals_away": 3,
-          "avg_match": 1,
-          "hit_rate": 2,
-          "phase_positions": 5,
-          "phase_q16": 5,
-          "phase_ko": 5,
-          "phase_honor": 5
-        },
-        "top_skills": [
-          {
-            "key": "hits_diff",
-            "label": "Diferencia de goles",
-            "icon": "📐",
-            "rank": 1,
-            "display": "20 aciertos · 20 pts"
-          },
-          {
-            "key": "hits_exact",
-            "label": "Resultados exactos",
-            "icon": "🎯",
-            "rank": 1,
-            "display": "8 aciertos · 24 pts"
-          },
-          {
-            "key": "avg_match",
-            "label": "Media pts/partido",
-            "icon": "⚡",
-            "rank": 1,
-            "display": "1.86 pts/partido"
-          },
-          {
-            "key": "hit_rate",
-            "label": "Tasa de acierto",
-            "icon": "✅",
-            "rank": 2,
-            "display": "62% (45/72)"
-          }
-        ],
-        "badges": [
-          {
-            "icon": "📐",
-            "label": "Ojo clínico (dif.)"
-          },
-          {
-            "icon": "🎯",
-            "label": "Francotirador"
-          }
-        ],
-        "best_phase": {
-          "label": "Fase de grupos",
-          "pts": 134.0
+          "pts": 140.0
         }
       },
       {
         "name": "CRESPO",
         "color": "#EF4444",
-        "pos": 3,
+        "pos": 2,
         "matches_played": 72,
         "stats": {
           "hits_1x2": 42,
@@ -26900,7 +26632,7 @@
             "label": "Eliminatorias (KO)",
             "icon": "⚔️",
             "rank": 3,
-            "display": "118 pts"
+            "display": "131 pts"
           },
           {
             "key": "phase_positions",
@@ -26926,14 +26658,14 @@
         ],
         "badges": [],
         "best_phase": {
-          "label": "Fase de grupos",
-          "pts": 121.0
+          "label": "Eliminatorias",
+          "pts": 131.0
         }
       },
       {
         "name": "JUANCHO",
         "color": "#F5C518",
-        "pos": 4,
+        "pos": 3,
         "matches_played": 72,
         "stats": {
           "hits_1x2": 42,
@@ -26992,8 +26724,83 @@
         ],
         "badges": [],
         "best_phase": {
+          "label": "Eliminatorias",
+          "pts": 123.0
+        }
+      },
+      {
+        "name": "VÍCTOR",
+        "color": "#A855F7",
+        "pos": 4,
+        "matches_played": 72,
+        "stats": {
+          "hits_1x2": 45,
+          "pts_1x2": 90.0,
+          "hits_diff": 20,
+          "pts_diff": 20.0,
+          "hits_exact": 8,
+          "pts_exact": 24.0,
+          "goals_home": 20,
+          "goals_away": 29,
+          "hit_rate": 62,
+          "avg_match": 1.86
+        },
+        "ranks": {
+          "hits_exact": 1,
+          "hits_diff": 1,
+          "hits_1x2": 2,
+          "goals_home": 3,
+          "goals_away": 3,
+          "avg_match": 1,
+          "hit_rate": 2,
+          "phase_positions": 5,
+          "phase_q16": 5,
+          "phase_ko": 6,
+          "phase_honor": 5
+        },
+        "top_skills": [
+          {
+            "key": "hits_diff",
+            "label": "Diferencia de goles",
+            "icon": "📐",
+            "rank": 1,
+            "display": "20 aciertos · 20 pts"
+          },
+          {
+            "key": "hits_exact",
+            "label": "Resultados exactos",
+            "icon": "🎯",
+            "rank": 1,
+            "display": "8 aciertos · 24 pts"
+          },
+          {
+            "key": "avg_match",
+            "label": "Media pts/partido",
+            "icon": "⚡",
+            "rank": 1,
+            "display": "1.86 pts/partido"
+          },
+          {
+            "key": "hit_rate",
+            "label": "Tasa de acierto",
+            "icon": "✅",
+            "rank": 2,
+            "display": "62% (45/72)"
+          }
+        ],
+        "badges": [
+          {
+            "icon": "📐",
+            "label": "Ojo clínico (dif.)"
+          },
+          {
+            "icon": "🎯",
+            "label": "Francotirador"
+          }
+        ],
+        "best_phase": {
           "label": "Fase de grupos",
-          "pts": 118.0
+          "pts": 134.0
         }
       },
       {
@@ -27046,7 +26853,7 @@
             "label": "Eliminatorias (KO)",
             "icon": "⚔️",
             "rank": 2,
-            "display": "126 pts"
+            "display": "132 pts"
           },
           {
             "key": "hit_rate",
@@ -27068,7 +26875,7 @@
         ],
         "best_phase": {
           "label": "Eliminatorias",
-          "pts": 126.0
+          "pts": 132.0
         }
       },
       {
@@ -27098,7 +26905,7 @@
           "hit_rate": 6,
           "phase_positions": 4,
           "phase_q16": 2,
-          "phase_ko": 6,
+          "phase_ko": 5,
           "phase_honor": 3
         },
         "top_skills": [
@@ -27134,7 +26941,7 @@
         "badges": [],
         "best_phase": {
           "label": "Eliminatorias",
-          "pts": 111.0
+          "pts": 118.0
         }
       }
     ],
@@ -27540,43 +27347,43 @@
           "rank": 1,
           "name": "MEDINA",
           "color": "#F97316",
-          "display": "133 pts",
-          "value": 133.0
+          "display": "140 pts",
+          "value": 140.0
         },
         {
           "rank": 2,
           "name": "LARRY",
           "color": "#3B82F6",
-          "display": "126 pts",
-          "value": 126.0
+          "display": "132 pts",
+          "value": 132.0
         },
         {
           "rank": 3,
           "name": "CRESPO",
           "color": "#EF4444",
-          "display": "118 pts",
-          "value": 118.0
+          "display": "131 pts",
+          "value": 131.0
         },
         {
           "rank": 4,
           "name": "JUANCHO",
           "color": "#F5C518",
-          "display": "116 pts",
-          "value": 116.0
+          "display": "123 pts",
+          "value": 123.0
         },
         {
           "rank": 5,
+          "name": "LUIS/VIR",
+          "color": "#10B981",
+          "display": "118 pts",
+          "value": 118.0
+        },
+        {
+          "rank": 6,
           "name": "VÍCTOR",
           "color": "#A855F7",
           "display": "113 pts",
           "value": 113.0
-        },
-        {
-          "rank": 6,
-          "name": "LUIS/VIR",
-          "color": "#10B981",
-          "display": "111 pts",
-          "value": 111.0
         }
       ],
       "phase_honor": [
