@@ -1692,6 +1692,7 @@ const _stSort = { key: "pos", dir: "asc" };
 const _ST_DEFAULT_DIR = { name: "asc" }; // el resto, numéricas → desc
 
 const _ST_COL_LABELS = {
+  groups: "F.Grupos", positions: "Pos.Grupos",
   r16: "16avos", r8: "Octavos", r4: "Cuartos", r2: "Semis", r34_final: "Final",
 };
 
@@ -1719,44 +1720,128 @@ function _matchRulesHtml(sec) {
 
 function _teamGridHtml(sec) {
   if (!sec?.items?.length) return "";
-  return `• Cuadro de clasificados: <strong>${sec.items[0].pts} pts</strong> por equipo acertado`;
+  return `• Cuadro (equipo pasa de ronda): <strong>${sec.items[0].pts} pts</strong>/equipo acertado`;
+}
+
+/** Compute total-column maximums from scoring rules */
+function _colMaxPts(colKey) {
+  const rules = (typeof D !== "undefined" && D?.scoring_rules) || {};
+  function secPts(key) {
+    const s = (rules.sections || []).find(x => x.key === key);
+    return s ? s.items.reduce((t, i) => t + Number(i.pts), 0) : 0;
+  }
+  function secTeamPts(key) {
+    const s = (rules.sections || []).find(x => x.key === key);
+    return s?.items?.[0] ? Number(s.items[0].pts) : 0;
+  }
+  if (colKey === "groups")     return 72 * secPts("groups_match");   // 72 × 6 = 432
+  if (colKey === "positions")  return 12 * secPts("groups_pos");     // 12 × 10 = 120
+  if (colKey === "r16") {
+    // 16 r16 matches × max pts/match + 32 team predictions × 2 pts
+    return 16 * secPts("r16") + 32 * secTeamPts("q16_team");
+  }
+  if (colKey === "r8") {
+    // 8 r8 matches × max pts/match + 16 r8 cuadro × 3 pts + 16 pasa-16avos × 3 pts
+    const t = secTeamPts("r8_team");
+    return 8 * secPts("r8") + 16 * t + 16 * t;
+  }
+  if (colKey === "r4") {
+    // 4 r4 matches + 8 r4 cuadro × 5 pts + 8 pasa-octavos × 5 pts
+    const t = secTeamPts("r4_team");
+    return 4 * secPts("r4") + 8 * t + 8 * t;
+  }
+  if (colKey === "r2") {
+    // 2 semis + 4 r2 cuadro × 8 pts + 4 pasa-cuartos × 8 pts
+    const t = secTeamPts("r2_team");
+    return 2 * secPts("r2") + 4 * t + 4 * t;
+  }
+  if (colKey === "r34_final") {
+    // 3rd match + final match + 2 r34 cuadro × 8 + 2 final cuadro × 12 + 2 pasa-semis × 12
+    return secPts("r34") + secPts("final")
+         + 2 * secTeamPts("r34_team") + 2 * secTeamPts("final_team")
+         + 2 * secTeamPts("final_team"); // max pasa-semis = finalista pts
+  }
+  return 0;
+}
+
+function _colMaxBadge(colKey) {
+  const max = _colMaxPts(colKey);
+  if (!max) return "";
+  return `<br><div style="margin-top:6px;padding:3px 7px;background:rgba(234,179,8,.15);border:1px solid rgba(234,179,8,.35);border-radius:4px;font-size:0.78em;color:#fcd34d;display:inline-block">🏆 Máx. posible esta columna: <strong>${max} pts</strong></div>`;
 }
 
 function _standingsColTip(colKey) {
   const tips = {
+    groups: () => {
+      const m = _scoringSec("groups_match");
+      const maxM = m ? m.items.reduce((s, i) => s + Number(i.pts), 0) : 6;
+      return `<strong>📊 Columna F.Grupos — Resultados de partidos:</strong><br><br>`
+        + `• <strong>2 pts</strong> por acertar el signo 1X2 (local/empate/visitante).<br>`
+        + `• <strong>+1 pt</strong> por diferencia de goles (solo si acertaste el 1X2).<br>`
+        + `• <strong>+3 pts</strong> por resultado exacto (se acumula con los anteriores).<br>`
+        + `→ Máx. <strong>${maxM} pts</strong> por partido.<br><br>`
+        + `72 partidos × máx. ${maxM} = <strong>${72*maxM} pts</strong> máx. totales`
+        + `<br><div style="margin-top:6px;padding:3px 7px;background:rgba(234,179,8,.15);border:1px solid rgba(234,179,8,.35);border-radius:4px;font-size:0.78em;color:#fcd34d;display:inline-block">🏆 Máx. posible esta columna: <strong>${72*maxM} pts</strong></div>`;
+    },
+    positions: () => {
+      const p = _scoringSec("groups_pos");
+      const maxP = p ? p.items.reduce((s, i) => s + Number(i.pts), 0) : 10;
+      return `<strong>📊 Columna Pos.Grupos — Posiciones finales en grupos:</strong><br><br>`
+        + `Puntos por acertar la posición exacta dentro de cada grupo:<br>`
+        + `• <strong>4 pts</strong> por acertar el 1º del grupo.<br>`
+        + `• <strong>3 pts</strong> por acertar el 2º.<br>`
+        + `• <strong>2 pts</strong> por acertar el 3º.<br>`
+        + `• <strong>1 pt</strong> por acertar el 4º.<br>`
+        + `→ Máx. <strong>${maxP} pts</strong> por grupo.<br><br>`
+        + `12 grupos × máx. ${maxP} = <strong>${12*maxP} pts</strong> máx. totales`
+        + `<br><div style="margin-top:6px;padding:3px 7px;background:rgba(234,179,8,.15);border:1px solid rgba(234,179,8,.35);border-radius:4px;font-size:0.78em;color:#fcd34d;display:inline-block">🏆 Máx. posible esta columna: <strong>${12*maxP} pts</strong></div>`;
+    },
     r16: () => {
       const q = _scoringSec("q16_team");
       const m = _scoringSec("r16");
-      return `<strong>Columna 16avos</strong><br>`
-        + `${_teamGridHtml(q)}<br><br>`
-        + `<strong>Partidos de 16avos:</strong><br>${_matchRulesHtml(m)}<br><br>`
-        + `<span style="color:#94A3B8">Los equipos reales ya vienen dados en el Excel; no aplica la regla de acertar ambos equipos del cruce.</span>`;
+      const qPts = q?.items?.[0]?.pts ?? 2;
+      const maxM = m ? m.items.reduce((s, i) => s + Number(i.pts), 0) : 9;
+      return `<strong>📊 Columna 16avos — 3 componentes:</strong><br><br>`
+        + `<strong>① Partidos de 16avos</strong> (resultado 1X2/dif/exacto):<br>${_matchRulesHtml(m)}<br>16 partidos × máx. ${maxM} = <strong>${16*maxM} pts</strong><br><br>`
+        + `<strong>② Cuadro: clasificados para 16avos</strong><br>• <strong>${qPts} pts</strong> por cada equipo de tu cuadro que está en los 16avos reales.<br>32 equipos × ${qPts} = <strong>${32*qPts} pts</strong> máx.<br><br>`
+        + `<span style="color:#94A3B8;font-size:0.88em">ℹ Los cruces de 16avos ya vienen dados → no aplica la Regla de Oro (acertar 2 equipos).</span>`
+        + _colMaxBadge("r16");
     },
     r8: () => {
       const t = _scoringSec("r8_team");
       const m = _scoringSec("r8");
-      return `<strong>Columna Octavos</strong><br>`
-        + `${_teamGridHtml(t)}<br>`
-        + `• <strong>+${t?.items?.[0]?.pts ?? 3} pts</strong> por cada equipo que acertaste que pasa de 16avos (en la ficha: «Pasa: X»)<br><br>`
-        + `<strong>Partidos de octavos:</strong><br>${_matchRulesHtml(m)}<br><br>`
-        + `<span style="color:#94A3B8">Para puntuar por resultado (1X2/dif/exacto) debes acertar los <strong>2 equipos</strong> del cruce real en tu estimación.</span>`;
+      const tPts = t?.items?.[0]?.pts ?? 3;
+      const maxM = m ? m.items.reduce((s, i) => s + Number(i.pts), 0) : 12;
+      return `<strong>📊 Columna Octavos — 3 componentes:</strong><br><br>`
+        + `<strong>① Cuadro: octavofinalistas</strong><br>• <strong>${tPts} pts</strong> por cada equipo de tu cuadro que llega a octavos.<br>16 equipos × ${tPts} = <strong>${16*tPts} pts</strong> máx.<br><br>`
+        + `<strong>② «Pasa: X» — equipo correcto avanza de 16avos</strong><br>• <strong>${tPts} pts</strong> por cada partido de 16avos en que acertaste qué equipo pasa (aparece en cada ficha de partido como «Pasa ✓»).<br>16 partidos × ${tPts} = <strong>${16*tPts} pts</strong> máx.<br><br>`
+        + `<strong>③ Partidos de octavos</strong> (resultado 1X2/dif/exacto):<br>${_matchRulesHtml(m)}<br>8 partidos × máx. ${maxM} = <strong>${8*maxM} pts</strong> máx.<br><br>`
+        + `<span style="color:#94A3B8;font-size:0.88em">⚠️ <strong>Regla de Oro:</strong> Para sumar pts por resultado debes haber acertado los 2 equipos del cruce en tu cuadro estimado.</span>`
+        + _colMaxBadge("r8");
     },
     r4: () => {
       const t = _scoringSec("r4_team");
       const m = _scoringSec("r4");
-      return `<strong>Columna Cuartos</strong><br>`
-        + `${_teamGridHtml(t)}<br>`
-        + `• <strong>+${t?.items?.[0]?.pts ?? 5} pts</strong> por cada equipo que acertaste que pasa de octavos (en la ficha del partido: «Pasa: X»)<br><br>`
-        + `<strong>Partidos de cuartos:</strong><br>${_matchRulesHtml(m)}<br><br>`
-        + `<span style="color:#94A3B8">Regla de cruces: acertar los 2 equipos del cruce para puntuar por resultado.</span>`;
+      const tPts = t?.items?.[0]?.pts ?? 5;
+      const maxM = m ? m.items.reduce((s, i) => s + Number(i.pts), 0) : 15;
+      return `<strong>📊 Columna Cuartos — 3 componentes:</strong><br><br>`
+        + `<strong>① Cuadro: cuartofinalistas</strong><br>• <strong>${tPts} pts</strong> por cada equipo de tu cuadro que llega a cuartos.<br>8 equipos × ${tPts} = <strong>${8*tPts} pts</strong> máx.<br><br>`
+        + `<strong>② «Pasa: X» — equipo correcto avanza de octavos</strong><br>• <strong>${tPts} pts</strong> por cada partido de octavos en que acertaste qué equipo pasa.<br>8 partidos × ${tPts} = <strong>${8*tPts} pts</strong> máx.<br><br>`
+        + `<strong>③ Partidos de cuartos</strong> (resultado 1X2/dif/exacto):<br>${_matchRulesHtml(m)}<br>4 partidos × máx. ${maxM} = <strong>${4*maxM} pts</strong> máx.<br><br>`
+        + `<span style="color:#94A3B8;font-size:0.88em">⚠️ <strong>Regla de Oro:</strong> Para sumar pts por resultado debes haber acertado los 2 equipos del cruce.</span>`
+        + _colMaxBadge("r4");
     },
     r2: () => {
       const t = _scoringSec("r2_team");
       const m = _scoringSec("r2");
-      return `<strong>Columna Semis</strong><br>`
-        + `${_teamGridHtml(t)}<br><br>`
-        + `<strong>Partidos de semifinales:</strong><br>${_matchRulesHtml(m)}<br><br>`
-        + `<span style="color:#94A3B8">Regla de cruces: acertar los 2 equipos del cruce para puntuar por resultado.</span>`;
+      const tPts = t?.items?.[0]?.pts ?? 8;
+      const maxM = m ? m.items.reduce((s, i) => s + Number(i.pts), 0) : 19;
+      return `<strong>📊 Columna Semis — 3 componentes:</strong><br><br>`
+        + `<strong>① Cuadro: semifinalistas</strong><br>• <strong>${tPts} pts</strong> por cada equipo de tu cuadro que llega a semis.<br>4 equipos × ${tPts} = <strong>${4*tPts} pts</strong> máx.<br><br>`
+        + `<strong>② «Pasa: X» — equipo correcto avanza de cuartos</strong><br>• <strong>${tPts} pts</strong> por cada partido de cuartos en que acertaste qué equipo pasa.<br>4 partidos × ${tPts} = <strong>${4*tPts} pts</strong> máx.<br><br>`
+        + `<strong>③ Partidos de semifinales</strong> (resultado 1X2/dif/exacto):<br>${_matchRulesHtml(m)}<br>2 partidos × máx. ${maxM} = <strong>${2*maxM} pts</strong> máx.<br><br>`
+        + `<span style="color:#94A3B8;font-size:0.88em">⚠️ <strong>Regla de Oro:</strong> Para sumar pts por resultado debes haber acertado los 2 equipos del cruce.</span>`
+        + _colMaxBadge("r2");
     },
     r34_final: () => {
       const t34 = _scoringSec("r34_team");
@@ -1765,11 +1850,16 @@ function _standingsColTip(colKey) {
       const mf = _scoringSec("final");
       const p34 = t34?.items?.[0]?.pts ?? 8;
       const pf = tf?.items?.[0]?.pts ?? 12;
-      return `<strong>Columna Final</strong> (3º puesto + final)<br>`
-        + `• Cuadro 3º/4º puesto: <strong>${p34} pts</strong> por equipo<br>`
-        + `• Cuadro finalistas: <strong>${pf} pts</strong> por equipo<br><br>`
-        + `<strong>Partido 3º puesto:</strong><br>${_matchRulesHtml(m34)}<br><br>`
-        + `<strong>Partido final:</strong><br>${_matchRulesHtml(mf)}`;
+      const pfSemi = _scoringSec("r2_team")?.items?.[0]?.pts ?? 8;
+      const max34m = m34 ? m34.items.reduce((s, i) => s + Number(i.pts), 0) : 19;
+      const maxFm  = mf  ? mf.items.reduce((s, i) => s + Number(i.pts), 0) : 26;
+      return `<strong>📊 Columna Final+3er Puesto — 5 componentes:</strong><br><br>`
+        + `<strong>① «Pasa: X» — equipo correcto avanza de semis</strong><br>• <strong>+${pf} pts</strong> si el equipo que pasa a la Final era tu finalista · <strong>+${p34} pts</strong> si lo pusiste en 3er puesto.<br>2 semifinales → máx. <strong>${2*pf} pts</strong><br><br>`
+        + `<strong>② Cuadro: equipo en 3er puesto</strong><br>• <strong>${p34} pts</strong> × 2 equipos = <strong>${2*p34} pts</strong> máx.<br><br>`
+        + `<strong>③ Cuadro: finalistas</strong><br>• <strong>${pf} pts</strong> × 2 equipos = <strong>${2*pf} pts</strong> máx.<br><br>`
+        + `<strong>④ Partido 3er puesto:</strong><br>${_matchRulesHtml(m34)}<br><br>`
+        + `<strong>⑤ Partido final:</strong><br>${_matchRulesHtml(mf)}`
+        + _colMaxBadge("r34_final");
     },
   };
   return tips[colKey]?.() || "";
