@@ -18,8 +18,9 @@ import openpyxl
 BASE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, BASE)
 
-SCORERS_JSON = os.path.join(BASE, "data", "scorers.json")
-LIVE_JSON = os.path.join(BASE, "data", "live.json")
+SCORERS_JSON  = os.path.join(BASE, "data", "scorers.json")
+LIVE_JSON     = os.path.join(BASE, "data", "live.json")
+RESULTS_JSON  = os.path.join(BASE, "data", "results.json")
 
 from excel_sync import excel_paths as _excel_paths
 from team_names import to_spanish, _norm
@@ -498,6 +499,184 @@ TEAM_FLAGS = {
      "Congo RD": "🇨🇩", "RD Congo": "🇨🇩", "Emiratos Árabes Unidos": "🇦🇪"
 }
 
+def _build_bracket_match_map(results_path: str, excel_path: str) -> dict:
+    """Augment the match_map with resolved future KO team pairings.
+
+    For example, match AH=94 (W81-W82) can be resolved once we know
+    the winners of matches AH=82 and AH=81 from results.json.
+    The J→AH mapping is read from the Excel WORLDCUP sheet.
+    """
+    match_map: dict = {}
+
+    # Load current results.json
+    cache: dict = {}
+    if os.path.isfile(results_path):
+        try:
+            with open(results_path, encoding="utf-8") as f:
+                cache = json.load(f).get("by_match_num", {})
+        except Exception:
+            pass
+
+    # Build J→AH mapping from Excel
+    j_to_ah: dict = {}
+    try:
+        import openpyxl as _opx
+        wb = _opx.load_workbook(excel_path, data_only=True)
+        if "WORLDCUP" in wb.sheetnames:
+            wc = wb["WORLDCUP"]
+            for r in range(4, 148):
+                j  = wc.cell(r, 10).value
+                ah = wc.cell(r, 34).value
+                if j is not None and ah is not None:
+                    try:
+                        j_to_ah[int(j)] = int(ah)
+                    except (TypeError, ValueError):
+                        pass
+        wb.close()
+    except Exception:
+        pass
+
+    ah_to_j = {v: k for k, v in j_to_ah.items()}
+
+    # Build W-label → winner mapping from cache
+    wlabel_winner: dict = {}
+    for ah_str, entry in cache.items():
+        try:
+            ah = int(ah_str)
+        except ValueError:
+            continue
+        winner = entry.get("winner", "")
+        if winner:
+            j = ah_to_j.get(ah, ah)
+            wlabel_winner[f"W{j}"] = winner
+
+    # Full WORLDCUP match map (resolved teams only)
+    try:
+        import openpyxl as _opx
+        wb = _opx.load_workbook(excel_path, data_only=True)
+        wc = wb["WORLDCUP"]
+        for r in range(4, 148):
+            home = wc.cell(r, 27).value
+            away = wc.cell(r, 32).value
+            ah   = wc.cell(r, 34).value
+            if not home or not away or ah is None:
+                continue
+            # Resolve W-labels
+            h_str = str(home).strip()
+            a_str = str(away).strip()
+            if h_str.startswith("W"):
+                h_str = wlabel_winner.get(h_str, "")
+            if a_str.startswith("W"):
+                a_str = wlabel_winner.get(a_str, "")
+            if not h_str or not a_str or h_str.startswith("W") or a_str.startswith("W"):
+                continue
+            try:
+                ah_i = int(ah)
+            except (TypeError, ValueError):
+                continue
+            key = _norm_key(_match_key(h_str, a_str))
+            match_map[key] = ah_i
+        wb.close()
+    except Exception:
+        pass
+
+    return match_map
+
+
+def write_results_json(games: list, match_map: dict) -> int:
+    """Write finished match results to data/results.json (replaces Excel AC/AD writes).
+
+    Also resolves penalty shootout winners using penalties.json.
+    Returns the number of newly updated matches.
+    """
+    from datetime import datetime, timezone
+
+    # Load existing results
+    existing: dict = {}
+    if os.path.isfile(RESULTS_JSON):
+        try:
+            with open(RESULTS_JSON, encoding="utf-8") as f:
+                existing = json.load(f).get("by_match_num", {})
+        except Exception:
+            pass
+
+    # Load penalties for KO drawn matches
+    pen_data: dict = {}
+    pen_path = os.path.join(BASE, "data", "penalties.json")
+    if os.path.isfile(pen_path):
+        try:
+            with open(pen_path, encoding="utf-8") as f:
+                pen_data = json.load(f)
+        except Exception:
+            pass
+
+    updated = 0
+    for g in games:
+        if str(g.get("finished", "")).upper() != "TRUE":
+            continue
+        home_es = to_spanish(g.get("home_team_name_en", ""))
+        away_es = to_spanish(g.get("away_team_name_en", ""))
+        if not home_es or not away_es:
+            continue
+        try:
+            gl = int(g.get("home_score", ""))
+            gv = int(g.get("away_score", ""))
+        except (TypeError, ValueError):
+            continue
+
+        key     = _norm_key(_match_key(home_es, away_es))
+        k_rev   = _norm_key(_match_key(away_es, home_es))
+        m_num   = match_map.get(key) or match_map.get(k_rev)
+        if not m_num:
+            print(f"  ⚠ Sin match_num para: {home_es} vs {away_es}")
+            continue
+
+        # Swap goals if the stored canonical order is reversed
+        if k_rev in match_map and key not in match_map:
+            gl, gv = gv, gl
+
+        # Determine winner (includes penalties for KO draws)
+        if gl > gv:
+            winner = home_es
+        elif gv > gl:
+            winner = away_es
+        else:
+            pen_key     = f"{home_es}-{away_es}"
+            pen_key_rev = f"{away_es}-{home_es}"
+            pen = pen_data.get(pen_key) or pen_data.get(pen_key_rev)
+            if pen:
+                ph = int(pen.get("home", 0))
+                pa = int(pen.get("away", 0))
+                if pen_key in pen_data:
+                    winner = home_es if ph > pa else away_es
+                else:
+                    winner = away_es if ph > pa else home_es
+            else:
+                winner = ""
+
+        entry = {"home": home_es, "away": away_es,
+                 "goals_h": gl, "goals_a": gv, "winner": winner}
+        if existing.get(str(m_num)) != entry:
+            existing[str(m_num)] = entry
+            updated += 1
+            print(f"  ✓ {home_es} {gl}-{gv} {away_es}  winner={winner or '?'}  (AH={m_num})")
+
+    os.makedirs(os.path.dirname(RESULTS_JSON), exist_ok=True)
+    payload = {
+        "version": 1,
+        "last_updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "by_match_num": existing,
+    }
+    with open(RESULTS_JSON, "w", encoding="utf-8") as f:
+        json.dump(payload, f, ensure_ascii=False, indent=2)
+
+    if updated:
+        print(f"💾 results.json actualizado ({updated} partido(s)) → {RESULTS_JSON}")
+    else:
+        print(f"ℹ️  results.json: sin cambios")
+    return updated
+
+
 def main():
     cfg = _load_config()
     if not cfg.get("fetch_live_results", True):
@@ -520,18 +699,43 @@ def main():
     finished = [g for g in games if str(g.get("finished", "")).upper() == "TRUE"]
     print(f"📥 {len(finished)} partido(s) finalizado(s) en la API")
 
-    # Update BOTH Excel files (WORLDCUP tab) with the scores
-    update_excel(games, file1, "[1]")
-    if file2 and os.path.isfile(file2):
-        update_excel(games, file2, "[2]")
-    else:
-        print("ℹ️  Excel [2] no encontrado, omitido")
+    # Build match_map: data.json (primary) + bracket resolution (for future KO)
+    match_map = _load_data_json_match_map()
+    bracket_map = _build_bracket_match_map(RESULTS_JSON, file1)
+    for k, v in bracket_map.items():
+        if k not in match_map:
+            match_map[k] = v
+    # Also supplement with Excel-derived map for any remaining gaps
+    try:
+        import openpyxl as _opx
+        wb_ro = _opx.load_workbook(file1, data_only=True)
+        wc_data = wb_ro["WORLDCUP"] if "WORLDCUP" in wb_ro.sheetnames else None
+        excel_map = _load_wc_match_map(wc_data)
+        for k, v in excel_map.items():
+            if k not in match_map:
+                match_map[k] = v
+        wb_ro.close()
+    except Exception:
+        pass
 
-    # 3. Escribir goleadores de partidos finalizados y penaltis
+    # ── Write match results to results.json (no Excel writes) ──────────────
+    write_results_json(games, match_map)
+
+    # ── Side-data files (unchanged) ─────────────────────────────────────────
     write_scorers_json(games)
     write_penalties_json(games)
-    # Save in-progress live scores (provisional overlay)
     write_live_json(games)
+
+    # ── Rebuild data.json from updated results ───────────────────────────────
+    try:
+        import sys as _sys
+        _sys.path.insert(0, BASE)
+        from build_static import main as _build_main
+        print("🔄 Reconstruyendo data.json…")
+        _build_main()
+        print("✅ data.json actualizado")
+    except Exception as _e:
+        print(f"⚠️  No se pudo reconstruir data.json: {_e}")
 
     return 0
 

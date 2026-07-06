@@ -1,0 +1,657 @@
+{
+  "version": 1,
+  "last_updated": "2026-07-06T23:35:52Z",
+  "by_match_num": {
+    "1": {
+      "home": "México",
+      "away": "Sudáfrica",
+      "goals_h": 2,
+      "goals_a": 0,
+      "winner": "México"
+    },
+    "2": {
+      "home": "Corea del Sur",
+      "away": "República Checa",
+      "goals_h": 2,
+      "goals_a": 1,
+      "winner": "Corea del Sur"
+    },
+    "25": {
+      "home": "República Checa",
+      "away": "Sudáfrica",
+      "goals_h": 1,
+      "goals_a": 1,
+      "winner": ""
+    },
+    "28": {
+      "home": "México",
+      "away": "Corea del Sur",
+      "goals_h": 1,
+      "goals_a": 0,
+      "winner": "México"
+    },
+    "53": {
+      "home": "República Checa",
+      "away": "México",
+      "goals_h": 0,
+      "goals_a": 3,
+      "winner": "México"
+    },
+    "54": {
+      "home": "Sudáfrica",
+      "away": "Corea del Sur",
+      "goals_h": 1,
+      "goals_a": 0,
+      "winner": "Sudáfrica"
+    },
+    "3": {
+      "home": "Canadá",
+      "away": "Bosnia y Herzegovina",
+      "goals_h": 1,
+      "goals_a": 1,
+      "winner": ""
+    },
+    "8": {
+      "home": "Catar",
+      "away": "Suiza",
+      "goals_h": 1,
+      "goals_a": 1,
+      "winner": ""
+    },
+    "26": {
+      "home": "Suiza",
+      "away": "Bosnia y Herzegovina",
+      "goals_h": 4,
+      "goals_a": 1,
+      "winner": "Suiza"
+    },
+    "27": {
+      "home": "Canadá",
+      "away": "Catar",
+      "goals_h": 6,
+      "goals_a": 0,
+      "winner": "Canadá"
+    },
+    "51": {
+      "home": "Suiza",
+      "away": "Canadá",
+      "goals_h": 2,
+      "goals_a": 1,
+      "winner": "Suiza"
+    },
+    "52": {
+      "home": "Bosnia y Herzegovina",
+      "away": "Catar",
+      "goals_h": 3,
+      "goals_a": 1,
+      "winner": "Bosnia y Herzegovina"
+    },
+    "7": {
+      "home": "Brasil",
+      "away": "Marruecos",
+      "goals_h": 1,
+      "goals_a": 1,
+      "winner": ""
+    },
+    "5": {
+      "home": "Haití",
+      "away": "Escocia",
+      "goals_h": 0,
+      "goals_a": 1,
+      "winner": "Escocia"
+    },
+    "30": {
+      "home": "Escocia",
+      "away": "Marruecos",
+      "goals_h": 0,
+      "goals_a": 1,
+      "winner": "Marruecos"
+    },
+    "29": {
+      "home": "Brasil",
+      "away": "Haití",
+      "goals_h": 3,
+      "goals_a": 0,
+      "winner": "Brasil"
+    },
+    "49": {
+      "home": "Escocia",
+      "away": "Brasil",
+      "goals_h": 0,
+      "goals_a": 3,
+      "winner": "Brasil"
+    },
+    "50": {
+      "home": "Marruecos",
+      "away": "Haití",
+      "goals_h": 4,
+      "goals_a": 2,
+      "winner": "Marruecos"
+    },
+    "4": {
+      "home": "Estados Unidos",
+      "away": "Paraguay",
+      "goals_h": 4,
+      "goals_a": 1,
+      "winner": "Estados Unidos"
+    },
+    "6": {
+      "home": "Australia",
+      "away": "Turquía",
+      "goals_h": 2,
+      "goals_a": 0,
+      "winner": "Australia"
+    },
+    "32": {
+      "home": "Estados Unidos",
+      "away": "Australia",
+      "goals_h": 2,
+      "goals_a": 0,
+      "winner": "Estados Unidos"
+    },
+    "31": {
+      "home": "Turquía",
+      "away": "Paraguay",
+      "goals_h": 0,
+      "goals_a": 1,
+      "winner": "Paraguay"
+    },
+    "59": {
+      "home": "Turquía",
+      "away": "Estados Unidos",
+      "goals_h": 3,
+      "goals_a": 2,
+      "winner": "Turquía"
+    },
+    "60": {
+      "home": "Paraguay",
+      "away": "Australia",
+      "goals_h": 0,
+      "goals_a": 0,
+      "winner": ""
+    },
+    "10": {
+      "home": "Alemania",
+      "away": "Curazao",
+      "goals_h": 7,
+      "goals_a": 1,
+      "winner": "Alemania"
+    },
+    "9": {
+      "home": "Costa de Marfil",
+      "away": "Ecuador",
+      "goals_h": 1,
+      "goals_a": 0,
+      "winner": "Costa de Marfil"
+    },
+    "33": {
+      "home": "Alemania",
+      "away": "Costa de Marfil",
+      "goals_h": 2,
+      "goals_a": 1,
+      "winner": "Alemania"
+    },
+    "34": {
+      "home": "Ecuador",
+      "away": "Curazao",
+      "goals_h": 0,
+      "goals_a": 0,
+      "winner": ""
+    },
+    "55": {
+      "home": "Curazao",
+      "away": "Costa de Marfil",
+      "goals_h": 0,
+      "goals_a": 2,
+      "winner": "Costa de Marfil"
+    },
+    "56": {
+      "home": "Ecuador",
+      "away": "Alemania",
+      "goals_h": 2,
+      "goals_a": 1,
+      "winner": "Ecuador"
+    },
+    "11": {
+      "home": "Países Bajos",
+      "away": "Japón",
+      "goals_h": 2,
+      "goals_a": 2,
+      "winner": ""
+    },
+    "12": {
+      "home": "Suecia",
+      "away": "Túnez",
+      "goals_h": 5,
+      "goals_a": 1,
+      "winner": "Suecia"
+    },
+    "35": {
+      "home": "Países Bajos",
+      "away": "Suecia",
+      "goals_h": 5,
+      "goals_a": 1,
+      "winner": "Países Bajos"
+    },
+    "36": {
+      "home": "Túnez",
+      "away": "Japón",
+      "goals_h": 0,
+      "goals_a": 4,
+      "winner": "Japón"
+    },
+    "57": {
+      "home": "Japón",
+      "away": "Suecia",
+      "goals_h": 1,
+      "goals_a": 1,
+      "winner": ""
+    },
+    "58": {
+      "home": "Túnez",
+      "away": "Países Bajos",
+      "goals_h": 1,
+      "goals_a": 3,
+      "winner": "Países Bajos"
+    },
+    "16": {
+      "home": "Bélgica",
+      "away": "Egipto",
+      "goals_h": 1,
+      "goals_a": 1,
+      "winner": ""
+    },
+    "15": {
+      "home": "Irán",
+      "away": "Nueva Zelanda",
+      "goals_h": 2,
+      "goals_a": 2,
+      "winner": ""
+    },
+    "39": {
+      "home": "Bélgica",
+      "away": "Irán",
+      "goals_h": 0,
+      "goals_a": 0,
+      "winner": ""
+    },
+    "40": {
+      "home": "Nueva Zelanda",
+      "away": "Egipto",
+      "goals_h": 1,
+      "goals_a": 3,
+      "winner": "Egipto"
+    },
+    "63": {
+      "home": "Egipto",
+      "away": "Irán",
+      "goals_h": 1,
+      "goals_a": 1,
+      "winner": ""
+    },
+    "64": {
+      "home": "Nueva Zelanda",
+      "away": "Bélgica",
+      "goals_h": 1,
+      "goals_a": 5,
+      "winner": "Bélgica"
+    },
+    "14": {
+      "home": "España",
+      "away": "Cabo Verde",
+      "goals_h": 0,
+      "goals_a": 0,
+      "winner": ""
+    },
+    "13": {
+      "home": "Arabia Saudita",
+      "away": "Uruguay",
+      "goals_h": 1,
+      "goals_a": 1,
+      "winner": ""
+    },
+    "38": {
+      "home": "España",
+      "away": "Arabia Saudita",
+      "goals_h": 4,
+      "goals_a": 0,
+      "winner": "España"
+    },
+    "37": {
+      "home": "Uruguay",
+      "away": "Cabo Verde",
+      "goals_h": 2,
+      "goals_a": 2,
+      "winner": ""
+    },
+    "65": {
+      "home": "Cabo Verde",
+      "away": "Arabia Saudita",
+      "goals_h": 0,
+      "goals_a": 0,
+      "winner": ""
+    },
+    "66": {
+      "home": "Uruguay",
+      "away": "España",
+      "goals_h": 0,
+      "goals_a": 1,
+      "winner": "España"
+    },
+    "17": {
+      "home": "Francia",
+      "away": "Senegal",
+      "goals_h": 3,
+      "goals_a": 1,
+      "winner": "Francia"
+    },
+    "18": {
+      "home": "Irak",
+      "away": "Noruega",
+      "goals_h": 1,
+      "goals_a": 4,
+      "winner": "Noruega"
+    },
+    "42": {
+      "home": "Francia",
+      "away": "Irak",
+      "goals_h": 3,
+      "goals_a": 0,
+      "winner": "Francia"
+    },
+    "41": {
+      "home": "Noruega",
+      "away": "Senegal",
+      "goals_h": 3,
+      "goals_a": 2,
+      "winner": "Noruega"
+    },
+    "61": {
+      "home": "Noruega",
+      "away": "Francia",
+      "goals_h": 1,
+      "goals_a": 4,
+      "winner": "Francia"
+    },
+    "62": {
+      "home": "Senegal",
+      "away": "Irak",
+      "goals_h": 5,
+      "goals_a": 0,
+      "winner": "Senegal"
+    },
+    "19": {
+      "home": "Argentina",
+      "away": "Argelia",
+      "goals_h": 3,
+      "goals_a": 0,
+      "winner": "Argentina"
+    },
+    "20": {
+      "home": "Austria",
+      "away": "Jordania",
+      "goals_h": 3,
+      "goals_a": 1,
+      "winner": "Austria"
+    },
+    "43": {
+      "home": "Argentina",
+      "away": "Austria",
+      "goals_h": 2,
+      "goals_a": 0,
+      "winner": "Argentina"
+    },
+    "44": {
+      "home": "Jordania",
+      "away": "Argelia",
+      "goals_h": 1,
+      "goals_a": 2,
+      "winner": "Argelia"
+    },
+    "69": {
+      "home": "Argelia",
+      "away": "Austria",
+      "goals_h": 3,
+      "goals_a": 3,
+      "winner": ""
+    },
+    "70": {
+      "home": "Jordania",
+      "away": "Argentina",
+      "goals_h": 1,
+      "goals_a": 3,
+      "winner": "Argentina"
+    },
+    "23": {
+      "home": "Portugal",
+      "away": "RD Congo",
+      "goals_h": 1,
+      "goals_a": 1,
+      "winner": ""
+    },
+    "24": {
+      "home": "Uzbekistán",
+      "away": "Colombia",
+      "goals_h": 1,
+      "goals_a": 3,
+      "winner": "Colombia"
+    },
+    "47": {
+      "home": "Portugal",
+      "away": "Uzbekistán",
+      "goals_h": 5,
+      "goals_a": 0,
+      "winner": "Portugal"
+    },
+    "48": {
+      "home": "Colombia",
+      "away": "RD Congo",
+      "goals_h": 1,
+      "goals_a": 0,
+      "winner": "Colombia"
+    },
+    "71": {
+      "home": "Colombia",
+      "away": "Portugal",
+      "goals_h": 0,
+      "goals_a": 0,
+      "winner": ""
+    },
+    "72": {
+      "home": "RD Congo",
+      "away": "Uzbekistán",
+      "goals_h": 3,
+      "goals_a": 1,
+      "winner": "RD Congo"
+    },
+    "22": {
+      "home": "Inglaterra",
+      "away": "Croacia",
+      "goals_h": 4,
+      "goals_a": 2,
+      "winner": "Inglaterra"
+    },
+    "21": {
+      "home": "Ghana",
+      "away": "Panamá",
+      "goals_h": 1,
+      "goals_a": 0,
+      "winner": "Ghana"
+    },
+    "45": {
+      "home": "Inglaterra",
+      "away": "Ghana",
+      "goals_h": 0,
+      "goals_a": 0,
+      "winner": ""
+    },
+    "46": {
+      "home": "Panamá",
+      "away": "Croacia",
+      "goals_h": 0,
+      "goals_a": 1,
+      "winner": "Croacia"
+    },
+    "67": {
+      "home": "Panamá",
+      "away": "Inglaterra",
+      "goals_h": 0,
+      "goals_a": 2,
+      "winner": "Inglaterra"
+    },
+    "68": {
+      "home": "Croacia",
+      "away": "Ghana",
+      "goals_h": 2,
+      "goals_a": 1,
+      "winner": "Croacia"
+    },
+    "73": {
+      "home": "Sudáfrica",
+      "away": "Canadá",
+      "goals_h": 0,
+      "goals_a": 1,
+      "winner": "Canadá"
+    },
+    "76": {
+      "home": "Países Bajos",
+      "away": "Marruecos",
+      "goals_h": 1,
+      "goals_a": 1,
+      "winner": "Marruecos"
+    },
+    "74": {
+      "home": "Brasil",
+      "away": "Japón",
+      "goals_h": 2,
+      "goals_a": 1,
+      "winner": "Brasil"
+    },
+    "75": {
+      "home": "Alemania",
+      "away": "Paraguay",
+      "goals_h": 1,
+      "goals_a": 1,
+      "winner": "Paraguay"
+    },
+    "78": {
+      "home": "Francia",
+      "away": "Suecia",
+      "goals_h": 3,
+      "goals_a": 0,
+      "winner": "Francia"
+    },
+    "77": {
+      "home": "Costa de Marfil",
+      "away": "Noruega",
+      "goals_h": 1,
+      "goals_a": 2,
+      "winner": "Noruega"
+    },
+    "79": {
+      "home": "México",
+      "away": "Ecuador",
+      "goals_h": 2,
+      "goals_a": 0,
+      "winner": "México"
+    },
+    "80": {
+      "home": "Inglaterra",
+      "away": "RD Congo",
+      "goals_h": 2,
+      "goals_a": 1,
+      "winner": "Inglaterra"
+    },
+    "82": {
+      "home": "Estados Unidos",
+      "away": "Bosnia y Herzegovina",
+      "goals_h": 2,
+      "goals_a": 0,
+      "winner": "Estados Unidos"
+    },
+    "81": {
+      "home": "Bélgica",
+      "away": "Senegal",
+      "goals_h": 3,
+      "goals_a": 2,
+      "winner": "Bélgica"
+    },
+    "84": {
+      "home": "Portugal",
+      "away": "Croacia",
+      "goals_h": 2,
+      "goals_a": 1,
+      "winner": "Portugal"
+    },
+    "83": {
+      "home": "España",
+      "away": "Austria",
+      "goals_h": 3,
+      "goals_a": 0,
+      "winner": "España"
+    },
+    "85": {
+      "home": "Suiza",
+      "away": "Argelia",
+      "goals_h": 2,
+      "goals_a": 0,
+      "winner": "Suiza"
+    },
+    "88": {
+      "home": "Colombia",
+      "away": "Ghana",
+      "goals_h": 1,
+      "goals_a": 0,
+      "winner": "Colombia"
+    },
+    "86": {
+      "home": "Australia",
+      "away": "Egipto",
+      "goals_h": 1,
+      "goals_a": 1,
+      "winner": "Egipto"
+    },
+    "87": {
+      "home": "Argentina",
+      "away": "Cabo Verde",
+      "goals_h": 3,
+      "goals_a": 2,
+      "winner": "Argentina"
+    },
+    "90": {
+      "home": "Paraguay",
+      "away": "Francia",
+      "goals_h": 0,
+      "goals_a": 1,
+      "winner": "Francia"
+    },
+    "89": {
+      "home": "Canadá",
+      "away": "Marruecos",
+      "goals_h": 0,
+      "goals_a": 3,
+      "winner": "Marruecos"
+    },
+    "91": {
+      "home": "Brasil",
+      "away": "Noruega",
+      "goals_h": 1,
+      "goals_a": 2,
+      "winner": "Noruega"
+    },
+    "92": {
+      "home": "México",
+      "away": "Inglaterra",
+      "goals_h": 2,
+      "goals_a": 3,
+      "winner": "Inglaterra"
+    },
+    "93": {
+      "home": "Portugal",
+      "away": "España",
+      "goals_h": 0,
+      "goals_a": 1,
+      "winner": "España"
+    }
+  }
+}

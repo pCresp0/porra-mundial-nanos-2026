@@ -502,11 +502,103 @@ def _lookup_live(live, match_name):
     return None
 
 
+RESULTS_JSON = os.path.join(BASE, "data", "results.json")
+
+
+def _load_results_cache() -> dict:
+    """Load match results from data/results.json (API-authoritative source).
+    Returns {str(match_num): {home, away, goals_h, goals_a, winner}}
+    """
+    if not os.path.isfile(RESULTS_JSON):
+        return {}
+    try:
+        with open(RESULTS_JSON, encoding="utf-8") as f:
+            data = json.load(f)
+        return data.get("by_match_num", {})
+    except Exception:
+        return {}
+
+
+def _build_j_to_ah(ws_wc) -> dict:
+    """Build {J_match_num → AH_match_num} mapping from WORLDCUP sheet.
+    J and AH differ for 14 of the 16 R16 matches and 2 of the 8 R8 matches.
+    """
+    j_to_ah = {}
+    for r in range(4, 148):
+        j  = ws_wc.cell(r, 10).value   # J column
+        ah = ws_wc.cell(r, 34).value   # AH column
+        if j is not None and ah is not None:
+            try:
+                j_to_ah[int(j)] = int(ah)
+            except (TypeError, ValueError):
+                pass
+    return j_to_ah
+
+
+def _build_wlabel_map(results_cache: dict, j_to_ah: dict) -> dict:
+    """Build {W/L-label → team name} mapping from results cache + J→AH mapping.
+
+    W{j} = winner  of the match whose J-column value is j.
+    L{j} = loser   of the match whose J-column value is j.
+
+    We translate J→AH to look up results_cache (keyed by AH).
+    """
+    wl = {}
+    ah_to_j = {v: k for k, v in j_to_ah.items()}
+    for ah_str, entry in results_cache.items():
+        try:
+            ah = int(ah_str)
+        except ValueError:
+            continue
+        j = ah_to_j.get(ah, ah)   # fall back to ah==j for matches not in map
+        h = entry.get("home", "")
+        a = entry.get("away", "")
+        w = entry.get("winner", "")
+        if not h or not a:
+            continue
+        # Determine loser from winner
+        if w == h:
+            l = a
+        elif w == a:
+            l = h
+        else:
+            # Draw with no winner recorded → can't determine loser
+            l = ""
+        if w:
+            wl[f"W{j}"] = w
+        if l:
+            wl[f"L{j}"] = l
+    return wl
+
+
 def _build_wc_scores(filepath):
-    """Goals from WORLDCUP AC/AD keyed by 'Local-Visitante' (Spanish team names)."""
+    """Goals from WORLDCUP AC/AD keyed by 'Local-Visitante' (Spanish team names).
+    Falls back to Excel if results.json is absent or incomplete.
+    """
+    # Primary: data/results.json (API-authoritative)
+    cache = _load_results_cache()
+    if cache:
+        scores = {}
+        for _, entry in cache.items():
+            h  = entry.get("home", "")
+            a  = entry.get("away", "")
+            gl = entry.get("goals_h")
+            gv = entry.get("goals_a")
+            if not h or not a or gl is None or gv is None:
+                continue
+            try:
+                gl, gv = int(gl), int(gv)
+            except (TypeError, ValueError):
+                continue
+            key = f"{h}-{a}"
+            scores[key] = (gl, gv)
+            scores[key.replace(" ", "")] = (gl, gv)
+        if scores:
+            return scores
+
+    # Fallback: read from Excel WORLDCUP AC/AD columns
     wb_val = openpyxl.load_workbook(filepath, data_only=True)
     wc_val = wb_val["WORLDCUP"]
-
     scores = {}
     for r in range(4, 148):
         home = wc_val.cell(r, 27).value
@@ -524,7 +616,6 @@ def _build_wc_scores(filepath):
         key = f"{str(home).strip()}-{str(away).strip()}"
         scores[key] = (gl, gv)
         scores[key.replace(" ", "")] = (gl, gv)
-
     wb_val.close()
     return scores
 
@@ -1392,11 +1483,42 @@ def build_data():
 
     spain_times = _build_spain_times(wb1_raw)
     wc_meta     = _build_wc_match_meta(wb1_raw)
-    wc_scores   = _build_wc_scores(FILE1)
+    wc_scores   = _build_wc_scores(FILE1)   # reads from results.json (primary) or Excel fallback
     wc_scorers  = _load_scorers()
     wc_penalties = _load_penalties()
-    wc_penalties = _load_penalties()
     wc_live     = _load_live()
+
+    # ── results.json: authoritative match results + W-label resolution ──────────
+    results_cache = _load_results_cache()
+    ws_wc_for_j   = wb1_raw["WORLDCUP"]
+    j_to_ah       = _build_j_to_ah(ws_wc_for_j)
+    # wlabel_to_team: "W81" → "Estados Unidos", "L101" → "Marruecos", etc.
+    wlabel_to_team = _build_wlabel_map(results_cache, j_to_ah)
+
+    # Enrich wc_meta: add real-team-name keys for W-label entries now resolved
+    for meta_key in list(wc_meta.keys()):
+        mv = wc_meta[meta_key]
+        h_raw = mv.get("home", "")
+        a_raw = mv.get("away", "")
+        if not (h_raw.startswith("W") or h_raw.startswith("L")):
+            continue
+        h_resolved = wlabel_to_team.get(h_raw)
+        a_resolved = wlabel_to_team.get(a_raw)
+        if h_resolved and a_resolved:
+            real_key = f"{h_resolved}-{a_resolved}"
+            if real_key not in wc_meta:
+                new_mv = {**mv, "home": h_resolved, "away": a_resolved}
+                wc_meta[real_key] = new_mv
+                wc_meta[real_key.replace(" ", "")] = new_mv
+            # Also add W-label scores to wc_scores so the lookup finds them
+            ah_str = str(mv.get("match_num", ""))
+            if ah_str in results_cache:
+                entry = results_cache[ah_str]
+                gl = entry.get("goals_h")
+                gv = entry.get("goals_a")
+                if gl is not None and gv is not None:
+                    wc_scores[meta_key] = (int(gl), int(gv))
+                    wc_scores[meta_key.replace(" ", "")] = (int(gl), int(gv))
     pts_sign  = float(_val(ws1, 8,  4) or 2)
     pts_diff  = float(_val(ws1, 9,  4) or 1)
     pts_exact = float(_val(ws1, 10, 4) or 3)
@@ -1514,6 +1636,24 @@ def build_data():
     winner_by_num = {}
     match_by_num = {}
 
+    # Pre-populate winner_by_num / match_by_num from results_cache so that
+    # W-label resolve_team() works for all played matches even before the main
+    # loop processes those rows.
+    ah_to_j_map = {v: k for k, v in j_to_ah.items()}
+    for _ah_str, _entry in results_cache.items():
+        try:
+            _ah = int(_ah_str)
+        except ValueError:
+            continue
+        _h = _entry.get("home", "")
+        _a = _entry.get("away", "")
+        _w = _entry.get("winner", "")
+        # winner_by_num uses AH match_num as key (consistent with wc_meta)
+        if _h and _a:
+            match_by_num[_ah] = {"home": _h, "away": _a}
+        if _w:
+            winner_by_num[_ah] = _w
+
     # ── collect all matches / prediction rows ────────────────────────────────
     matches = []
     played_count = {p["name"]: 0 for p in all_players}
@@ -1544,11 +1684,33 @@ def build_data():
         goals_l = _val(ws1, row, 15)   # O
         goals_v = _val(ws1, row, 16)   # P
         mkey = str(match_name).strip()
-        if mkey in wc_scores:
-            goals_l, goals_v = wc_scores[mkey]
-            result = _result_from_goals(goals_l, goals_v)
-            played = result is not None
-        else:
+
+        # Resolve W/L-label keys (e.g. "W81-W82") to real team names if possible
+        _wl_resolved = None
+        if re.match(r'^[WL]\d+-[WL]\d+$', mkey):
+            _parts = mkey.split("-", 1)
+            _t0 = wlabel_to_team.get(_parts[0])
+            _t1 = wlabel_to_team.get(_parts[1])
+            if _t0 and _t1:
+                _wl_resolved = f"{_t0}-{_t1}"
+                # Update match_name / name_str for downstream lookups
+                match_name = _wl_resolved
+                name_str   = _wl_resolved
+
+        # Score lookup: try original key, resolved name, and reversed resolved name
+        _score_keys = [mkey]
+        if _wl_resolved:
+            _rev = "-".join(_wl_resolved.split("-", 1)[::-1])
+            _score_keys += [_wl_resolved, _wl_resolved.replace(" ", ""), _rev, _rev.replace(" ", "")]
+        _score_found = False
+        for _sk in _score_keys:
+            if _sk in wc_scores:
+                goals_l, goals_v = wc_scores[_sk]
+                result  = _result_from_goals(goals_l, goals_v)
+                played  = result is not None
+                _score_found = True
+                break
+        if not _score_found:
             result = _parse_result(result_raw)
             played = result is not None
         mult_raw = _val(ws1, row, 9)
