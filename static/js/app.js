@@ -1691,9 +1691,108 @@ function _standingsRows() {
 const _stSort = { key: "pos", dir: "asc" };
 const _ST_DEFAULT_DIR = { name: "asc" }; // el resto, numéricas → desc
 
+const _ST_COL_LABELS = {
+  r16: "16avos", r8: "Octavos", r4: "Cuartos", r2: "Semis", r34_final: "Final",
+};
+
+function _scoringSec(key) {
+  return (D?.scoring_rules?.sections || []).find(s => s.key === key);
+}
+
+function _shortRuleLabel(label) {
+  const s = String(label).replace(/^[^:]+:\s*/, "").replace(/\*\*/g, "").trim();
+  if (/signo|1X2/i.test(s)) return "1X2";
+  if (/diferencia|distancia/i.test(s)) return "Diferencia de goles (con 1X2)";
+  if (/exacto/i.test(s)) return "Resultado exacto";
+  if (/clasificado/i.test(s)) return "Equipo en el cuadro";
+  return s;
+}
+
+function _matchRulesHtml(sec) {
+  if (!sec?.items?.length) return "";
+  const max = sec.items.reduce((s, i) => s + Number(i.pts), 0);
+  const lines = sec.items.map(i =>
+    `• ${_shortRuleLabel(i.label)}: <strong>${i.pts} pts</strong>`
+  ).join("<br>");
+  return `${lines}<br>• Máx. por partido: <strong>${max} pts</strong>`;
+}
+
+function _teamGridHtml(sec) {
+  if (!sec?.items?.length) return "";
+  return `• Cuadro de clasificados: <strong>${sec.items[0].pts} pts</strong> por equipo acertado`;
+}
+
+function _standingsColTip(colKey) {
+  const tips = {
+    r16: () => {
+      const q = _scoringSec("q16_team");
+      const m = _scoringSec("r16");
+      return `<strong>Columna 16avos</strong><br>`
+        + `${_teamGridHtml(q)}<br><br>`
+        + `<strong>Partidos de 16avos:</strong><br>${_matchRulesHtml(m)}<br><br>`
+        + `<span style="color:#94A3B8">Los equipos reales ya vienen dados en el Excel; no aplica la regla de acertar ambos equipos del cruce.</span>`;
+    },
+    r8: () => {
+      const t = _scoringSec("r8_team");
+      const m = _scoringSec("r8");
+      return `<strong>Columna Octavos</strong><br>`
+        + `${_teamGridHtml(t)}<br><br>`
+        + `<strong>Partidos de octavos:</strong><br>${_matchRulesHtml(m)}<br><br>`
+        + `<span style="color:#94A3B8">Para puntuar por resultado (1X2/dif/exacto) debes acertar los <strong>2 equipos</strong> del cruce real en tu estimación.</span>`;
+    },
+    r4: () => {
+      const t = _scoringSec("r4_team");
+      const m = _scoringSec("r4");
+      return `<strong>Columna Cuartos</strong><br>`
+        + `${_teamGridHtml(t)}<br><br>`
+        + `<strong>Partidos de cuartos:</strong><br>${_matchRulesHtml(m)}<br><br>`
+        + `<span style="color:#94A3B8">Regla de cruces: acertar los 2 equipos del cruce para puntuar por resultado.</span>`;
+    },
+    r2: () => {
+      const t = _scoringSec("r2_team");
+      const m = _scoringSec("r2");
+      return `<strong>Columna Semis</strong><br>`
+        + `${_teamGridHtml(t)}<br><br>`
+        + `<strong>Partidos de semifinales:</strong><br>${_matchRulesHtml(m)}<br><br>`
+        + `<span style="color:#94A3B8">Regla de cruces: acertar los 2 equipos del cruce para puntuar por resultado.</span>`;
+    },
+    r34_final: () => {
+      const t34 = _scoringSec("r34_team");
+      const tf = _scoringSec("final_team");
+      const m34 = _scoringSec("r34");
+      const mf = _scoringSec("final");
+      const p34 = t34?.items?.[0]?.pts ?? 8;
+      const pf = tf?.items?.[0]?.pts ?? 12;
+      return `<strong>Columna Final</strong> (3º puesto + final)<br>`
+        + `• Cuadro 3º/4º puesto: <strong>${p34} pts</strong> por equipo<br>`
+        + `• Cuadro finalistas: <strong>${pf} pts</strong> por equipo<br><br>`
+        + `<strong>Partido 3º puesto:</strong><br>${_matchRulesHtml(m34)}<br><br>`
+        + `<strong>Partido final:</strong><br>${_matchRulesHtml(mf)}`;
+    },
+  };
+  return tips[colKey]?.() || "";
+}
+
+function _injectStandingsHeadTooltips() {
+  const head = document.getElementById("standings-head");
+  if (!head || !D?.scoring_rules) return;
+  head.querySelectorAll("th.st-sortable[data-key]").forEach(th => {
+    const key = th.dataset.key;
+    if (!Object.prototype.hasOwnProperty.call(_ST_COL_LABELS, key)) return;
+    if (th.dataset.tipDone) return;
+    const label = _ST_COL_LABELS[key];
+    const tip = _standingsColTip(key);
+    if (!tip) return;
+    const align = th.classList.contains("text-left") ? "" : " justify-center";
+    th.innerHTML = `<span class="st-th-label${align}">${label}${infoTip(tip, "center").replace("info-wrap", "info-wrap tip-below")}</span>`;
+    th.dataset.tipDone = "1";
+  });
+}
+
 function _syncStandingsSortIndicators() {
   const head = document.getElementById("standings-head");
   if (!head) return;
+  _injectStandingsHeadTooltips();
   head.querySelectorAll("th.st-sortable").forEach(th => {
     const active = th.dataset.key === _stSort.key;
     th.classList.toggle("st-active", active);
@@ -1709,6 +1808,7 @@ function _syncStandingsSortIndicators() {
 
 (function initStandingsSort() {
   document.addEventListener("click", e => {
+    if (e.target.closest(".info-btn, .info-wrap")) return;
     const th = e.target.closest("#standings-head th.st-sortable");
     if (!th) return;
     const key = th.dataset.key;

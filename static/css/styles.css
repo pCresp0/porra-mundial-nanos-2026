@@ -927,6 +927,12 @@
     .pred-table th.st-sortable.st-active { color: #fff; }
     .pred-table th .st-arrow { font-size: .6rem; margin-left: .25rem; opacity: .45; }
     .pred-table th.st-active .st-arrow { opacity: 1; color: var(--gold); }
+    .pred-table th .st-th-label {
+      display: inline-flex; align-items: center; gap: .3rem; flex-wrap: nowrap;
+    }
+    .pred-table th .st-th-label.justify-center { justify-content: center; }
+    .pred-table th .info-wrap .info-tip { width: 260px; z-index: 200; }
+    .pred-table th .info-btn { width: 15px; height: 15px; font-size: .62rem; }
 
     /* ── tooltip ── */
     .tooltip-wrap { position: relative; display: inline-block; }
