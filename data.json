@@ -5,15 +5,12 @@
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-06T11:09",
-      "last_updated_time": "11:09",
+      "last_updated_iso": "2026-07-06T11:10",
+      "last_updated_time": "11:10",
       "last_updated_date": "06/07/2026",
       "next_update_iso": "2026-07-06T11:15",
       "next_update_time": "11:15",
-      "next_update_date": "06/07/2026",
-      "last_checked_iso": "2026-07-06T11:10",
-      "last_checked_time": "11:10",
-      "last_checked_date": "06/07/2026"
+      "next_update_date": "06/07/2026"
     },
     "players": [
       "JUANCHO",
