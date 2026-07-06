@@ -1736,7 +1736,8 @@ function _standingsColTip(colKey) {
       const t = _scoringSec("r8_team");
       const m = _scoringSec("r8");
       return `<strong>Columna Octavos</strong><br>`
-        + `${_teamGridHtml(t)}<br><br>`
+        + `${_teamGridHtml(t)}<br>`
+        + `• <strong>+${t?.items?.[0]?.pts ?? 3} pts</strong> por cada equipo que acertaste que pasa de 16avos (en la ficha: «Pasa: X»)<br><br>`
         + `<strong>Partidos de octavos:</strong><br>${_matchRulesHtml(m)}<br><br>`
         + `<span style="color:#94A3B8">Para puntuar por resultado (1X2/dif/exacto) debes acertar los <strong>2 equipos</strong> del cruce real en tu estimación.</span>`;
     },
@@ -1744,7 +1745,8 @@ function _standingsColTip(colKey) {
       const t = _scoringSec("r4_team");
       const m = _scoringSec("r4");
       return `<strong>Columna Cuartos</strong><br>`
-        + `${_teamGridHtml(t)}<br><br>`
+        + `${_teamGridHtml(t)}<br>`
+        + `• <strong>+${t?.items?.[0]?.pts ?? 5} pts</strong> por cada equipo que acertaste que pasa de octavos (en la ficha del partido: «Pasa: X»)<br><br>`
         + `<strong>Partidos de cuartos:</strong><br>${_matchRulesHtml(m)}<br><br>`
         + `<span style="color:#94A3B8">Regla de cruces: acertar los 2 equipos del cruce para puntuar por resultado.</span>`;
     },

@@ -1041,7 +1041,44 @@ def _prog_match_earned(m, pred_obj):
     if phase == "groups":
         return round(float(pred_obj.get("score") or 0), 2)
     bd = pred_obj.get("breakdown") or {}
-    return round((bd.get("sign") or 0) + (bd.get("diff") or 0) + (bd.get("exact") or 0), 2)
+    match_pts = round((bd.get("sign") or 0) + (bd.get("diff") or 0) + (bd.get("exact") or 0), 2)
+    return round(match_pts + float(pred_obj.get("qual_pts") or 0), 2)
+
+
+def _ko_match_qual_target_phase(m):
+    """Columna de standings donde van los pts de clasificado del partido."""
+    return {"r16": "r8", "r8": "r4", "r4": "r2", "r2": "r34_final",
+            "r34": "r34_final", "final": "r34_final"}.get(m.get("phase"))
+
+
+def _augment_actual_qualifiers_from_matches(matches, actual_r8, actual_r4, actual_r2,
+                                            actual_r34, actual_final):
+    """Añade ganadores ya conocidos cuando el Excel aún muestra placeholders Wxx."""
+    for m in matches:
+        if not m.get("played"):
+            continue
+        w = m.get("actual_winner")
+        if not w:
+            continue
+        w = str(w).strip()
+        ph = m.get("phase")
+        if ph == "r16":
+            actual_r8.add(w)
+        elif ph == "r8":
+            actual_r4.add(w)
+        elif ph == "r4":
+            actual_r2.add(w)
+        elif ph == "r2":
+            actual_final.add(w)
+            home = str(m.get("home") or "").strip()
+            away = str(m.get("away") or "").strip()
+            loser = away if w == home else home if w == away else ""
+            if loser:
+                actual_r34.add(loser)
+        elif ph == "r34":
+            actual_r34.add(w)
+        elif ph == "final":
+            actual_final.add(w)
 
 
 def _build_player_grid_preds(all_players, all_ws):
@@ -1140,7 +1177,7 @@ def _build_daily_progression(matches, player_names, player_positions_pts=None,
 
     Usa la misma lógica de puntuación que la tabla de clasificación:
     - Grupos: score del partido.
-    - Eliminatoria: 1X2 + diferencia + exacto (sin bonus «clasificado correcto» del partido).
+    - Eliminatoria: 1X2 + diferencia + exacto + bonus «clasificado correcto» (columna destino).
     - Cuadros de clasificados: q16 al acabar grupos; r8/r4/r2/final al clasificar cada equipo.
     """
     played_matches = [m for m in matches if m.get("played") and m.get("date")]
@@ -1927,6 +1964,11 @@ def build_data():
         if _ma and _mb:
             _ma["bracket_order"], _mb["bracket_order"] = _mb["bracket_order"], _ma["bracket_order"]
 
+    _augment_actual_qualifiers_from_matches(
+        matches, actual_r8_qualifiers, actual_r4_qualifiers, actual_r2_qualifiers,
+        actual_r34_qualifiers, actual_final_qualifiers,
+    )
+
     # Para evitar depender de la caché de fórmulas de Excel, que no se actualiza
     # al escribir datos programáticamente.
     actual_standings = {}
@@ -2056,6 +2098,13 @@ def build_data():
                 final_team_pts += pts_final_team
         player_final_team_pts[name] = final_team_pts
 
+    player_qual_match_pts = {
+        "r8": {n: 0.0 for n in player_names},
+        "r4": {n: 0.0 for n in player_names},
+        "r2": {n: 0.0 for n in player_names},
+        "r34_final": {n: 0.0 for n in player_names},
+    }
+
     # ── Sumar puntos de clasificados a las predicciones individuales de cada partido ──
     for m in matches:
         phase = m["phase"]
@@ -2095,9 +2144,13 @@ def build_data():
                             this_pts = pts_final_team
                             
                         pred_obj["score"] = (pred_obj.get("score") or 0.0) + this_pts
+                        pred_obj["qual_pts"] = (pred_obj.get("qual_pts") or 0.0) + this_pts
                         if pred_obj.get("breakdown"):
                             pred_obj["breakdown"]["total"] += this_pts
                             pred_obj["breakdown"]["reasons"].append(f"Clasificado correcto (+{this_pts} pts)")
+                        target = _ko_match_qual_target_phase(m)
+                        if target and target in player_qual_match_pts:
+                            player_qual_match_pts[target][name] += this_pts
 
     # ── standings ────────────────────────────────────────────────────────────
     standings_raw = []
@@ -2118,12 +2171,16 @@ def build_data():
         
         q16_calc      = player_q16_pts.get(name, 0.0)
         r16_calc      = round(ko_points["r16"].get(name, 0.0) + q16_calc, 2)
-        r8_calc       = round(ko_points["r8"].get(name, 0.0) + player_r8_team_pts.get(name, 0.0), 2)
-        r4_calc       = round(ko_points["r4"].get(name, 0.0) + player_r4_team_pts.get(name, 0.0), 2)
-        r2_calc       = round(ko_points["r2"].get(name, 0.0) + player_r2_team_pts.get(name, 0.0), 2)
+        r8_calc       = round(ko_points["r8"].get(name, 0.0) + player_r8_team_pts.get(name, 0.0)
+                          + player_qual_match_pts["r8"].get(name, 0.0), 2)
+        r4_calc       = round(ko_points["r4"].get(name, 0.0) + player_r4_team_pts.get(name, 0.0)
+                          + player_qual_match_pts["r4"].get(name, 0.0), 2)
+        r2_calc       = round(ko_points["r2"].get(name, 0.0) + player_r2_team_pts.get(name, 0.0)
+                          + player_qual_match_pts["r2"].get(name, 0.0), 2)
         r34_final_calc = round(
             ko_points["r34"].get(name, 0.0) + ko_points["final"].get(name, 0.0)
-            + player_r34_team_pts.get(name, 0.0) + player_final_team_pts.get(name, 0.0),
+            + player_r34_team_pts.get(name, 0.0) + player_final_team_pts.get(name, 0.0)
+            + player_qual_match_pts["r34_final"].get(name, 0.0),
             2
         )
 
