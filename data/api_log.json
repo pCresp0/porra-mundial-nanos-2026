@@ -1,22 +1,5 @@
 [
   {
-    "ts_iso": "2026-06-30T04:36:29+02:00",
-    "date": "30/06/2026",
-    "time": "04:36:29",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇳🇱Países Bajos ?-? Marruecos🇲🇦",
-        "name": "Países Bajos-Marruecos",
-        "date": "2026-06-30",
-        "fields": [],
-        "old": {},
-        "new": {}
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-06-30T04:38:27+02:00",
     "date": "30/06/2026",
     "time": "04:38:27",
@@ -16705,6 +16688,14 @@
     "ts_iso": "2026-07-06T05:08:33+02:00",
     "date": "06/07/2026",
     "time": "05:08:33",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-06T05:10:52+02:00",
+    "date": "06/07/2026",
+    "time": "05:10:52",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
