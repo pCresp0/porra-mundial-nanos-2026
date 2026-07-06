@@ -1986,5 +1986,14 @@
       "penalty": false,
       "team": "away"
     }
+  ],
+  "Portugal-España": [
+    {
+      "player": "Mikel Merino",
+      "minute": "90'+1'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
   ]
 }

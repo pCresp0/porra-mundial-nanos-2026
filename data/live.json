@@ -1,16 +1,1 @@
-{
-  "Portugal-España": {
-    "home": 0,
-    "away": 1,
-    "minute": "live",
-    "scorers": [
-      {
-        "player": "Mikel Merino",
-        "minute": "90'+1'",
-        "own_goal": false,
-        "penalty": false,
-        "team": "away"
-      }
-    ]
-  }
-}
+{}
