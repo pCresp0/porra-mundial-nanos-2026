@@ -1035,15 +1035,128 @@ def _abbr_team(name):
     return "".join(letters[:3]).upper() if letters else "?"
 
 
-def _build_daily_progression(matches, player_names, player_positions_pts=None, all_groups_finished=False):
-    """Puntos acumulados tras cada partido jugado (orden cronológico), incluyendo fase final."""
+def _prog_match_earned(m, pred_obj):
+    """Puntos de un partido para la progresión (misma lógica que la tabla de clasificación)."""
+    phase = m.get("phase", "groups")
+    if phase == "groups":
+        return round(float(pred_obj.get("score") or 0), 2)
+    bd = pred_obj.get("breakdown") or {}
+    return round((bd.get("sign") or 0) + (bd.get("diff") or 0) + (bd.get("exact") or 0), 2)
+
+
+def _build_player_grid_preds(all_players, all_ws):
+    """Equipos predichos en cada cuadro de clasificados (filas ADMIN)."""
+    ranges = {
+        "r8":    range(182, 198),
+        "r4":    range(210, 218),
+        "r2":    range(226, 230),
+        "r34":   range(236, 238),
+        "final": range(240, 242),
+    }
+    out = {}
+    for p, ws in zip(all_players, all_ws):
+        name = p["name"]
+        pc = p["pred_col"]
+        out[name] = {}
+        for key, rows in ranges.items():
+            out[name][key] = {
+                str(_val(ws, r, pc) or "").strip()
+                for r in rows if _val(ws, r, pc)
+            }
+    return out
+
+
+def _append_prog_step(cumulative, players_out, day_points, labels, flag_labels,
+                      dates, titles, phases, player_names, label, flag, date,
+                      title, phase, earned_by_player):
+    """Añade un paso (partido o hito) a la serie de progresión."""
+    labels.append(label)
+    flag_labels.append(flag)
+    dates.append(date)
+    titles.append(title)
+    phases.append(phase)
+    for n in player_names:
+        e = round(float(earned_by_player.get(n, 0.0)), 1)
+        cumulative[n] = round(cumulative[n] + e, 1)
+        players_out[n].append(cumulative[n])
+        day_points[n].append(e)
+
+
+def _award_grid_on_ko_win(m, player_names, grid_preds, pts_cfg, awarded_grid, actual_sets=None):
+    """Puntos de cuadro de clasificados al clasificar un equipo (misma lógica que CLAS)."""
+    phase = m.get("phase")
+    winner = m.get("actual_winner")
+    if not winner:
+        return {}
+    actual_sets = actual_sets or {}
+    winner = str(winner).strip()
+    earned = {n: 0.0 for n in player_names}
+
+    if phase == "r16":
+        grid_key, pt_key = "r8", "r8"
+    elif phase == "r8":
+        grid_key, pt_key = "r4", "r4"
+    elif phase == "r4":
+        grid_key, pt_key = "r2", "r2"
+    elif phase == "r2":
+        home = str(m.get("home") or "").strip()
+        away = str(m.get("away") or "").strip()
+        loser = away if winner == home else home if winner == away else ""
+        actual_final = actual_sets.get("final", set())
+        actual_r34 = actual_sets.get("r34", set())
+        pt_val_f = pts_cfg.get("final", 0)
+        pt_val_34 = pts_cfg.get("r34", 0)
+        for n in player_names:
+            preds = grid_preds.get(n, {})
+            if winner and winner in preds.get("final", set()) and winner in actual_final:
+                key = (n, winner, "final")
+                if key not in awarded_grid:
+                    awarded_grid.add(key)
+                    earned[n] += pt_val_f
+            if loser and loser in preds.get("r34", set()) and loser in actual_r34:
+                key = (n, loser, "r34")
+                if key not in awarded_grid:
+                    awarded_grid.add(key)
+                    earned[n] += pt_val_34
+        return earned
+    else:
+        return earned
+
+    actual = actual_sets.get(grid_key, set())
+    pt_val = pts_cfg.get(pt_key, 0)
+    for n in player_names:
+        if (winner in grid_preds.get(n, {}).get(grid_key, set())
+                and winner in actual):
+            key = (n, winner, grid_key)
+            if key not in awarded_grid:
+                awarded_grid.add(key)
+                earned[n] += pt_val
+    return earned
+
+
+def _build_daily_progression(matches, player_names, player_positions_pts=None,
+                            all_groups_finished=False, grid_ctx=None):
+    """Puntos acumulados tras cada partido jugado (orden cronológico), incluyendo fase final.
+
+    Usa la misma lógica de puntuación que la tabla de clasificación:
+    - Grupos: score del partido.
+    - Eliminatoria: 1X2 + diferencia + exacto (sin bonus «clasificado correcto» del partido).
+    - Cuadros de clasificados: q16 al acabar grupos; r8/r4/r2/final al clasificar cada equipo.
+    """
     played_matches = [m for m in matches if m.get("played") and m.get("date")]
     if not played_matches:
         return {"labels": [], "flag_labels": [], "dates": [], "titles": [],
                 "players": {n: [] for n in player_names},
-                "day_points": {n: [] for n in player_names}}
+                "day_points": {n: [] for n in player_names},
+                "phases": []}
 
-    # Orden cronológico: fecha + hora España
+    grid_ctx = grid_ctx or {}
+    player_q16_pts = grid_ctx.get("player_q16_pts") or {}
+    grid_preds = grid_ctx.get("grid_preds") or {}
+    pts_cfg = grid_ctx.get("pts") or {}
+    actual_sets = grid_ctx.get("actual") or {}
+    awarded_grid = set()
+
     played_matches.sort(key=lambda m: (m.get("date", ""), m.get("time_es", "")))
 
     cumulative  = {n: 0.0 for n in player_names}
@@ -1061,57 +1174,86 @@ def _build_daily_progression(matches, player_names, player_positions_pts=None, a
             if m["phase"] == "groups":
                 last_group_idx = i
 
-    for i, m in enumerate(played_matches):
-        for n in player_names:
-            earned = m["predictions"][n]["score"]
-            cumulative[n] = round(cumulative[n] + earned, 1)
-            players_out[n].append(cumulative[n])
-            day_points[n].append(round(earned, 1))
-
-        ab = f"{_abbr_team(m.get('home'))}-{_abbr_team(m.get('away'))}"
-        labels.append(ab)
-        fh = m.get("flag_home", "")
-        fa = m.get("flag_away", "")
-        flag_labels.append(f"{fh}{fa}" if (fh or fa) else ab)
-        dates.append(m.get("date", ""))
-        phases.append(m.get("phase", "groups"))
-
+    def _match_title(m):
         gl, gv = m.get("goals_l"), m.get("goals_v")
         score = f" {gl}-{gv} " if gl is not None and gv is not None else " vs "
         title = f"{m.get('home','')}{score}{m.get('away','')}"
-        dt_part = ""
         if m.get("date"):
             try:
                 dt = datetime.strptime(m["date"], "%Y-%m-%d")
-                dt_part = f" · {dt.day} {_MONTHS_ES[dt.month]}"
+                title += f" · {dt.day} {_MONTHS_ES[dt.month]}"
             except ValueError:
                 pass
-        titles.append(title + dt_part)
+        return title
+
+    for i, m in enumerate(played_matches):
+        match_earned = {
+            n: _prog_match_earned(m, m["predictions"].get(n, {}))
+            for n in player_names
+        }
+        _append_prog_step(
+            cumulative, players_out, day_points, labels, flag_labels,
+            dates, titles, phases, player_names,
+            f"{_abbr_team(m.get('home'))}-{_abbr_team(m.get('away'))}",
+            f"{m.get('flag_home', '')}{m.get('flag_away', '')}" or f"{_abbr_team(m.get('home'))}-{_abbr_team(m.get('away'))}",
+            m.get("date", ""),
+            _match_title(m),
+            m.get("phase", "groups"),
+            match_earned,
+        )
 
         if i == last_group_idx:
-            labels.append("Pos. Grupos")
-            flag_labels.append("🏆")
-            dates.append(dates[-1])
-            titles.append("Posiciones de Fase de Grupos")
-            phases.append("positions")
-            for n in player_names:
-                pos_earned = player_positions_pts.get(n, 0.0)
-                cumulative[n] = round(cumulative[n] + pos_earned, 1)
-                players_out[n].append(cumulative[n])
-                day_points[n].append(round(pos_earned, 1))
+            _append_prog_step(
+                cumulative, players_out, day_points, labels, flag_labels,
+                dates, titles, phases, player_names,
+                "Pos. Grupos", "🏆", dates[-1],
+                "Posiciones de Fase de Grupos", "positions",
+                {n: player_positions_pts.get(n, 0.0) for n in player_names},
+            )
+            if all_groups_finished and player_q16_pts:
+                _append_prog_step(
+                    cumulative, players_out, day_points, labels, flag_labels,
+                    dates, titles, phases, player_names,
+                    "Clasif. 16avos", "🏅", dates[-1],
+                    "Clasificados a Dieciseisavos", "q16_team",
+                    {n: player_q16_pts.get(n, 0.0) for n in player_names},
+                )
+
+        if m.get("phase") in ("r16", "r8", "r4", "r2") and grid_preds:
+            grid_earned = _award_grid_on_ko_win(
+                m, player_names, grid_preds, pts_cfg, awarded_grid, actual_sets,
+            )
+            if any(v > 0 for v in grid_earned.values()):
+                w = str(m.get("actual_winner") or "").strip()
+                abbr = _abbr_team(w) if w else "?"
+                phase = m.get("phase")
+                grid_phase = {"r16": "r8_team", "r8": "r4_team", "r4": "r2_team", "r2": "final_team"}.get(phase, "grid")
+                _append_prog_step(
+                    cumulative, players_out, day_points, labels, flag_labels,
+                    dates, titles, phases, player_names,
+                    f"Clasif. {abbr}", "✓", m.get("date", dates[-1] if dates else ""),
+                    f"Clasificado a fase siguiente: {w}" if w else "Clasificado",
+                    grid_phase,
+                    grid_earned,
+                )
 
     if all_groups_finished and player_positions_pts and last_group_idx == -1:
-        labels.append("Pos. Grupos")
-        flag_labels.append("🏆")
         last_date = dates[-1] if dates else datetime.now().strftime("%Y-%m-%d")
-        dates.append(last_date)
-        titles.append("Posiciones de Fase de Grupos")
-        phases.append("positions")
-        for n in player_names:
-            pos_earned = player_positions_pts.get(n, 0.0)
-            cumulative[n] = round(cumulative[n] + pos_earned, 1)
-            players_out[n].append(cumulative[n])
-            day_points[n].append(round(pos_earned, 1))
+        _append_prog_step(
+            cumulative, players_out, day_points, labels, flag_labels,
+            dates, titles, phases, player_names,
+            "Pos. Grupos", "🏆", last_date,
+            "Posiciones de Fase de Grupos", "positions",
+            {n: player_positions_pts.get(n, 0.0) for n in player_names},
+        )
+        if player_q16_pts:
+            _append_prog_step(
+                cumulative, players_out, day_points, labels, flag_labels,
+                dates, titles, phases, player_names,
+                "Clasif. 16avos", "🏅", last_date,
+                "Clasificados a Dieciseisavos", "q16_team",
+                {n: player_q16_pts.get(n, 0.0) for n in player_names},
+            )
 
     return {
         "labels":      labels,
@@ -1475,24 +1617,39 @@ def build_data():
         
         for p, ws in zip(all_players, all_ws):
             if phase in KO_PHASE_PTS:
-                # For KO phases, look up by bracket-slot key first (e.g. "W74-W77"),
-                # which is the match_name from the ADMIN sheet.  This avoids the
-                # match_num swap that exists between some player Excels and the main
-                # Excel (e.g. the player assigns num=89 to slot W74-W77 while the main
-                # Excel assigns num=90 to the same slot).
+                # Lookup order differs by phase:
+                #   r8: slot position first (row/match_num/bracket-label) then name.
+                #       This avoids cross-slot collisions where a player stored a team-name
+                #       prediction for a DIFFERENT bracket slot (e.g., JUANCHO's "Canadá-Marruecos"
+                #       for slot 89 matching the actual match 90 teams).
+                #   r16 and others: name first, because the player Excels number their rows
+                #       differently from the ADMIN sheet, so row-based lookup retrieves the
+                #       wrong prediction; team-name keys are correct here.
                 m_num = wc.get("match_num")
                 name_str = str(match_name).strip()
                 ko_player = _ko_preds.get(p["name"], {})
                 pred_raw = None
-                for key in filter(None, [
-                    name_str,
-                    str(row),
-                    str(m_num) if m_num is not None else None,
-                    f"{home_resolved}-{away_resolved}" if actual_home_set and actual_away_set else None,
-                    f"{away_resolved}-{home_resolved}" if actual_home_set and actual_away_set else None,
-                    _R8_BRACKET_MAP[m_num]["name"] if phase == "r8" and m_num in _R8_BRACKET_MAP else None,
-                    mkey,
-                ]):
+                if phase == "r8":
+                    key_order = [
+                        str(row),
+                        str(m_num) if m_num is not None else None,
+                        _R8_BRACKET_MAP[m_num]["name"] if m_num in _R8_BRACKET_MAP else None,
+                        name_str,
+                        f"{home_resolved}-{away_resolved}" if actual_home_set and actual_away_set else None,
+                        f"{away_resolved}-{home_resolved}" if actual_home_set and actual_away_set else None,
+                        mkey,
+                    ]
+                else:
+                    key_order = [
+                        name_str,
+                        str(row),
+                        str(m_num) if m_num is not None else None,
+                        f"{home_resolved}-{away_resolved}" if actual_home_set and actual_away_set else None,
+                        f"{away_resolved}-{home_resolved}" if actual_home_set and actual_away_set else None,
+                        _R8_BRACKET_MAP[m_num]["name"] if phase == "r8" and m_num in _R8_BRACKET_MAP else None,
+                        mkey,
+                    ]
+                for key in filter(None, key_order):
                     pred_raw = ko_player.get(key)
                     if pred_raw:
                         break
@@ -2219,7 +2376,28 @@ def build_data():
     }
 
     weeks = _week_ranges_from_dates(spain_dates)
-    progression = _build_daily_progression(matches, player_names, player_positions_pts, all_groups_finished)
+    prog_grid_ctx = {
+        "player_q16_pts": player_q16_pts,
+        "grid_preds": _build_player_grid_preds(all_players, all_ws),
+        "pts": {
+            "r8":    pts_r8_team,
+            "r4":    pts_r4_team,
+            "r2":    pts_r2_team,
+            "r34":   pts_r34_team,
+            "final": pts_final_team,
+        },
+        "actual": {
+            "r8":    actual_r8_qualifiers,
+            "r4":    actual_r4_qualifiers,
+            "r2":    actual_r2_qualifiers,
+            "r34":   actual_r34_qualifiers,
+            "final": actual_final_qualifiers,
+        },
+    }
+    progression = _build_daily_progression(
+        matches, player_names, player_positions_pts, all_groups_finished,
+        grid_ctx=prog_grid_ctx,
+    )
     player_strengths = _build_player_strengths(matches, standings, player_names)
 
     from update_schedule import build_update_meta
