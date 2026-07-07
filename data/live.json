@@ -1,8 +1,16 @@
 {
   "Argentina-Egipto": {
     "home": 0,
-    "away": 0,
+    "away": 1,
     "minute": "live",
-    "scorers": []
+    "scorers": [
+      {
+        "player": "Yasser Ibrahim",
+        "minute": "15'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      }
+    ]
   }
 }
