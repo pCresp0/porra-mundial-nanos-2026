@@ -1,9 +1,23 @@
 {
   "Argentina-Egipto": {
-    "home": 0,
+    "home": 2,
     "away": 2,
     "minute": "live",
     "scorers": [
+      {
+        "player": "Cristian Romero",
+        "minute": "79'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Lionel Messi",
+        "minute": "83'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
       {
         "player": "Yasser Ibrahim",
         "minute": "15'",
