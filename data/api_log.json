@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-07-01T04:48:32+02:00",
-    "date": "01/07/2026",
-    "time": "04:48:32",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-07-01T04:50:37+02:00",
     "date": "01/07/2026",
     "time": "04:50:37",
@@ -16546,5 +16538,22 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-07-07T02:42:27+02:00",
+    "date": "07/07/2026",
+    "time": "02:42:27",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "Estados Unidos ?-? Bélgica",
+        "name": "Estados Unidos-Bélgica",
+        "date": "Octavos de",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]

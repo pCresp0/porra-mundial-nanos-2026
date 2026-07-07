@@ -1,16 +1,19 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "07/07/2026 00:40",
+    "generated": "07/07/2026 00:42",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-07T02:40",
-      "last_updated_time": "02:40",
+      "last_updated_iso": "2026-07-07T02:42",
+      "last_updated_time": "02:42",
       "last_updated_date": "07/07/2026",
       "next_update_iso": "2026-07-07T02:45",
       "next_update_time": "02:45",
-      "next_update_date": "07/07/2026"
+      "next_update_date": "07/07/2026",
+      "last_checked_iso": "2026-07-07T02:42",
+      "last_checked_time": "02:42",
+      "last_checked_date": "07/07/2026"
     },
     "players": [
       "JUANCHO",
@@ -436,6 +439,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-07T02:42:27+02:00",
+        "date": "07/07/2026",
+        "time": "02:42:27",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "Estados Unidos ?-? Bélgica",
+            "name": "Estados Unidos-Bélgica",
+            "date": "Octavos de",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-07T02:26:28+02:00",
         "date": "07/07/2026",
@@ -4436,14 +4456,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-05T23:07:03+02:00",
-        "date": "05/07/2026",
-        "time": "23:07:03",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4451,8 +4463,8 @@
     {
       "name": "CRESPO",
       "total": 422.0,
-      "live_points": 7.0,
-      "total_live": 429.0,
+      "live_points": 12.0,
+      "total_live": 434.0,
       "groups": 121.0,
       "positions": 81.0,
       "q16": 50.0,
@@ -4607,8 +4619,8 @@
     {
       "name": "VÍCTOR",
       "total": 376.0,
-      "live_points": 7.0,
-      "total_live": 383.0,
+      "live_points": 12.0,
+      "total_live": 388.0,
       "groups": 134.0,
       "positions": 75.0,
       "q16": 50.0,
@@ -22579,12 +22591,26 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 0,
-      "live_goals_v": 1,
+      "live_goals_l": 1,
+      "live_goals_v": 2,
       "live_scorers": [
+        {
+          "player": "Malik Tillman",
+          "minute": "31'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
         {
           "player": "Sharl D Ktlar",
           "minute": "9'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        },
+        {
+          "player": "Sharl D Ktlar",
+          "minute": "33'",
           "own_goal": false,
           "penalty": false,
           "team": "away"
@@ -22709,17 +22735,18 @@
           "live_breakdown": {
             "sign": 4.0,
             "diff": 3.0,
-            "exact": 0,
-            "total": 7.0,
+            "exact": 5.0,
+            "total": 12.0,
             "reasons": [
               "1X2 correcto (+4.0)",
-              "Diferencia de goles (+3)"
+              "Diferencia de goles (+3.0)",
+              "Resultado exacto (+5.0)"
             ],
             "team_match": "both",
             "pred_home": "Estados Unidos",
             "pred_away": "Bélgica"
           },
-          "live_score": 7.0
+          "live_score": 12.0
         },
         "CRESPO": {
           "pred": {
@@ -22734,17 +22761,18 @@
           "live_breakdown": {
             "sign": 4.0,
             "diff": 3.0,
-            "exact": 0,
-            "total": 7.0,
+            "exact": 5.0,
+            "total": 12.0,
             "reasons": [
               "1X2 correcto (+4.0)",
-              "Diferencia de goles (+3)"
+              "Diferencia de goles (+3.0)",
+              "Resultado exacto (+5.0)"
             ],
             "team_match": "both",
             "pred_home": "Estados Unidos",
             "pred_away": "Bélgica"
           },
-          "live_score": 7.0
+          "live_score": 12.0
         }
       },
       "penalties": null,

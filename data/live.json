@@ -1,12 +1,26 @@
 {
   "Estados Unidos-Bélgica": {
-    "home": 0,
-    "away": 1,
+    "home": 1,
+    "away": 2,
     "minute": "live",
     "scorers": [
       {
+        "player": "Malik Tillman",
+        "minute": "31'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
         "player": "Sharl D Ktlar",
         "minute": "9'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Sharl D Ktlar",
+        "minute": "33'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
