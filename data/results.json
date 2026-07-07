@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_updated": "2026-07-07T18:29:44Z",
+  "last_updated": "2026-07-07T21:16:50Z",
   "by_match_num": {
     "1": {
       "home": "México",
@@ -619,18 +619,18 @@
       "winner": "Argentina"
     },
     "90": {
-      "home": "Paraguay",
-      "away": "Francia",
-      "goals_h": 0,
-      "goals_a": 1,
-      "winner": "Francia"
-    },
-    "89": {
       "home": "Canadá",
       "away": "Marruecos",
       "goals_h": 0,
       "goals_a": 3,
       "winner": "Marruecos"
+    },
+    "89": {
+      "home": "Paraguay",
+      "away": "Francia",
+      "goals_h": 0,
+      "goals_a": 1,
+      "winner": "Francia"
     },
     "91": {
       "home": "Brasil",

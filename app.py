@@ -1402,6 +1402,7 @@ def repair_progression(dj):
         )
 
     grid_ctx = _progression_grid_context_from_data(dj)
+    players = player_names
     if bundled_idx is not None and grid_ctx:
         matches_by_name = {m.get("name"): m for m in dj.get("matches", [])}
         m_est = matches_by_name.get("Estados Unidos-Bélgica")

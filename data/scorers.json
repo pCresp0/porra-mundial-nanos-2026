@@ -2035,35 +2035,35 @@
   ],
   "Argentina-Egipto": [
     {
-      "player": "C. Romero",
+      "player": "Cristian Romero",
       "minute": "79'",
       "own_goal": false,
       "penalty": false,
       "team": "home"
     },
     {
-      "player": "L. Messi",
+      "player": "Lionel Messi",
       "minute": "83'",
       "own_goal": false,
       "penalty": false,
       "team": "home"
     },
     {
-      "player": "E. Fernández",
-      "minute": "90+2'",
+      "player": "Enzo Fernández",
+      "minute": "90'+2'",
       "own_goal": false,
       "penalty": false,
       "team": "home"
     },
     {
-      "player": "Y. Ibrahim",
+      "player": "Yasser Ibrahim",
       "minute": "15'",
       "own_goal": false,
       "penalty": false,
       "team": "away"
     },
     {
-      "player": "M. Ziko",
+      "player": "Mostafa Ziko",
       "minute": "67'",
       "own_goal": false,
       "penalty": false,

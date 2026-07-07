@@ -59,6 +59,55 @@ def _sign(gl: int, gv: int) -> str:
     return "X"
 
 
+def _align_goals_to_match(
+    match: dict, api_home: str, api_away: str, gh: int, ga: int
+) -> tuple[int, int, bool]:
+    """Map API home/away goals to data.json home/away. Returns (gl, gv, swapped)."""
+    dh = str(match.get("home") or "").strip()
+    da = str(match.get("away") or "").strip()
+    ah = str(api_home or "").strip()
+    aa = str(api_away or "").strip()
+    if dh == ah and da == aa:
+        return gh, ga, False
+    if dh == aa and da == ah:
+        return ga, gh, True
+    return gh, ga, False
+
+
+def _remap_scorers(scorers: list | None, swapped: bool) -> list | None:
+    if not scorers or not swapped:
+        return scorers
+    out = []
+    for s in scorers:
+        s2 = dict(s)
+        if s2.get("team") == "home":
+            s2["team"] = "away"
+        elif s2.get("team") == "away":
+            s2["team"] = "home"
+        out.append(s2)
+    return out
+
+
+def _sync_match_teams_from_api(match: dict, api_home: str, api_away: str) -> bool:
+    """Update home/away/name/flags when data.json still has wrong KO pairing."""
+    from fetch_results import TEAM_FLAGS
+
+    ah = str(api_home or "").strip()
+    aa = str(api_away or "").strip()
+    if not ah or not aa:
+        return False
+    dh = str(match.get("home") or "").strip()
+    da = str(match.get("away") or "").strip()
+    if {dh, da} == {ah, aa}:
+        return False
+    match["home"] = ah
+    match["away"] = aa
+    match["name"] = f"{ah}-{aa}"
+    match["flag_home"] = TEAM_FLAGS.get(ah, match.get("flag_home", ""))
+    match["flag_away"] = TEAM_FLAGS.get(aa, match.get("flag_away", ""))
+    return True
+
+
 def calc_match_score(pred: dict | None, gl: int, gv: int, phase: str, match: dict | None = None) -> tuple[float, dict]:
     """Calculate player score given prediction and actual result.
     Returns (score, breakdown).
@@ -196,6 +245,8 @@ def apply_confirmed_result(
     match["actual_winner"] = winner
     if scorers is not None:
         match["scorers"] = scorers
+    elif match.get("scorers"):
+        match["scorers"] = []
     if penalties is not None:
         match["penalties"] = penalties
 
@@ -327,6 +378,8 @@ def main():
                         help="Solo actualizar puntos en vivo (no resultados confirmados)")
     parser.add_argument("--dry-run", action="store_true",
                         help="Mostrar cambios sin guardar")
+    parser.add_argument("--repair-played", action="store_true",
+                        help="Reaplicar resultados aunque el partido ya esté marcado como jugado")
     args = parser.parse_args()
 
     if not os.path.isfile(DATA_JSON):
@@ -376,22 +429,30 @@ def main():
             if phase not in AUTO_PHASES:
                 continue  # Don't touch groups or r16 (trust Excel)
 
-            if match.get("played"):
+            if match.get("played") and not args.repair_played:
                 continue  # Already applied
+
+            api_home = str(entry.get("home", "")).strip()
+            api_away = str(entry.get("away", "")).strip()
+            if _sync_match_teams_from_api(match, api_home, api_away):
+                print(f"  ↻ Equipos corregidos: {match['name']}")
 
             goals_h = int(entry.get("goals_h", 0))
             goals_a = int(entry.get("goals_a", 0))
             winner  = entry.get("winner", "")
 
+            gl, gv, swapped = _align_goals_to_match(match, api_home, api_away, goals_h, goals_a)
+
             # Get scorers
-            sc_key = f"{entry.get('home','')}-{entry.get('away','')}"
+            sc_key = f"{api_home}-{api_away}"
             scorers = scorers_data.get(sc_key) if isinstance(scorers_data, dict) else None
+            scorers = _remap_scorers(scorers, swapped)
 
             # Get penalties
             pen_entry = (pen_data.get(sc_key)
                          if isinstance(pen_data, dict) else None)
 
-            deltas = apply_confirmed_result(match, goals_h, goals_a, winner, scorers, pen_entry)
+            deltas = apply_confirmed_result(match, gl, gv, winner, scorers, pen_entry)
 
             # Update standings phase totals
             for st in dj.get("standings", []):
@@ -413,8 +474,8 @@ def main():
             # Update progression
             _update_progression(dj, match, deltas)
 
-            print(f"  ✓ {match['name']} {goals_h}-{goals_a} → scores: "
-                  + " ".join(f"{n}={d:.0f}" for n, d in deltas.items() if d != 0))
+            print(f"  ✓ {match['name']} {gl}-{gv} → scores: "
+                  + " ".join(f"{n}={d:+.0f}" for n, d in deltas.items() if d != 0))
             changes += 1
 
     # ── 2. Apply live in-progress scores ────────────────────────────────────
@@ -433,10 +494,16 @@ def main():
             if match.get("played"):
                 continue
 
+            api_parts = key.split("-", 1)
+            api_home = api_parts[0].strip() if api_parts else ""
+            api_away = api_parts[1].strip() if len(api_parts) > 1 else ""
+            if not api_home or not api_away:
+                continue
             gl = int(live_entry.get("home", 0))
             gv = int(live_entry.get("away", 0))
+            gl, gv, swapped = _align_goals_to_match(match, api_home, api_away, gl, gv)
             minute = live_entry.get("minute", "")
-            scorers = live_entry.get("scorers")
+            scorers = _remap_scorers(live_entry.get("scorers"), swapped)
             apply_live_score(match, gl, gv, minute, scorers)
             changes += 1
 

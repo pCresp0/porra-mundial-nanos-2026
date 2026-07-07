@@ -336,7 +336,23 @@ def _load_data_json_match_map() -> dict:
     return match_map
 
 
-def update_excel(games: list, path: str, label: str = "") -> int:
+def _load_data_json_by_num() -> dict:
+    """match_num → {home, away} from data.json."""
+    import json
+    import os
+    by_num: dict = {}
+    try:
+        data_path = os.path.join(os.path.dirname(__file__), "data.json")
+        with open(data_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        for m in data.get("matches", []):
+            num = m.get("match_num")
+            if num and m.get("home") and m.get("away"):
+                by_num[int(num)] = {"home": str(m["home"]).strip(),
+                                    "away": str(m["away"]).strip()}
+    except Exception:
+        pass
+    return by_num
     """Write finished match scores into WORLDCUP columns AC (29) and AD (30)."""
     wb_ro = openpyxl.load_workbook(path, data_only=False)
     if "WORLDCUP" not in wb_ro.sheetnames:
@@ -611,6 +627,7 @@ def write_results_json(games: list, match_map: dict) -> int:
             pass
 
     updated = 0
+    by_num = _load_data_json_by_num()
     for g in games:
         if str(g.get("finished", "")).upper() != "TRUE":
             continue
@@ -624,15 +641,28 @@ def write_results_json(games: list, match_map: dict) -> int:
         except (TypeError, ValueError):
             continue
 
+        # Prefer API game id when it matches data.json teams for that match_num
+        m_num = None
+        gid = None
+        try:
+            gid = int(g.get("id"))
+            if gid > 0:
+                slot = by_num.get(gid)
+                if slot and {home_es, away_es} == {slot["home"], slot["away"]}:
+                    m_num = gid
+        except (TypeError, ValueError):
+            pass
+
         key     = _norm_key(_match_key(home_es, away_es))
         k_rev   = _norm_key(_match_key(away_es, home_es))
-        m_num   = match_map.get(key) or match_map.get(k_rev)
+        if not m_num:
+            m_num = match_map.get(key) or match_map.get(k_rev)
         if not m_num:
             print(f"  ⚠ Sin match_num para: {home_es} vs {away_es}")
             continue
 
-        # Swap goals if the stored canonical order is reversed
-        if k_rev in match_map and key not in match_map:
+        # Swap goals only for legacy name-map fallback (id mapping keeps API order)
+        if gid is None and k_rev in match_map and key not in match_map:
             gl, gv = gv, gl
 
         # Determine winner (includes penalties for KO draws)
