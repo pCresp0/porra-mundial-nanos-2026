@@ -1741,6 +1741,19 @@ def build_data():
             date_es = str(h_val)[:10] if h_val else ""
             time_es = ""
             day_label = date_es
+            # Fallback: horario en fixture_data cuando Excel no tiene fecha válida
+            if not date_es.startswith("2026-"):
+                fix_sched = lookup_fixture(row)
+                if fix_sched.get("date", "").startswith("2026-"):
+                    date_es   = fix_sched["date"]
+                    time_es   = fix_sched.get("time_es", "")
+                    day_label = fix_sched.get("day_label", date_es)
+                    try:
+                        spain_dt = datetime.strptime(
+                            f"{date_es} {time_es or '00:00'}", "%Y-%m-%d %H:%M"
+                        )
+                    except ValueError:
+                        spain_dt = None
 
         predictions = {}
         # ── overlay EN CURSO: solo si el partido no está finalizado en Excel ──

@@ -257,13 +257,13 @@ FIXTURE_BY_ROW = {
     203: {"city": "Ciudad de México", "tv": "dazn"},  # 6 jul 02:00 México-Inglaterra · DAZN
     204: {"city": "Dallas",           "tv": "both"},  # 6 jul 21:00 Portugal-España · La 1 + DAZN
     205: {"city": "Seattle",          "tv": "dazn"},  # 7 jul 02:00 EE.UU.-Bélgica · DAZN
-    206: {"city": "Atlanta",          "tv": "dazn"},  # 7 jul 18:00 Egipto-Colombia · DAZN
-    207: {"city": "Vancouver",        "tv": "dazn"},  # 7 jul 22:00 Suiza-Argentina · DAZN
+    206: {"city": "Atlanta",          "tv": "dazn"},  # 7 jul 19:00 Argentina-Egipto · DAZN
+    207: {"city": "Vancouver",        "tv": "dazn"},  # 7 jul 22:00 Suiza-Colombia · DAZN
     # ── Cuartos ──
-    220: {"city": "Boston",           "tv": "dazn"},
-    221: {"city": "Los Ángeles",      "tv": "both"},
-    222: {"city": "Miami",            "tv": "dazn"},
-    223: {"city": "Kansas City",      "tv": "dazn"},
+    220: {"city": "Boston",           "tv": "dazn"},  # 9 jul 21:00 Francia-Marruecos
+    221: {"city": "Los Ángeles",      "tv": "both"},  # 10 jul 23:00 España-Bélgica
+    222: {"city": "Miami",            "tv": "dazn"},  # 11 jul 22:00 Noruega-Inglaterra
+    223: {"city": "Kansas City",      "tv": "dazn"},  # 12 jul 03:00 W95-W96
     # ── Semis ──
     232: {"city": "Dallas",           "tv": "both"},
     233: {"city": "Atlanta",          "tv": "both"},
@@ -278,14 +278,27 @@ TV_LABELS = {
     "both": "DAZN + TVE La 1",
 }
 
+# Horarios España peninsular para filas sin fecha en WORLDCUP (col X).
+# Evita que data.json quede con date="Octavos de" / "Cuartos de".
+SCHEDULE_BY_ROW: dict[int, dict] = {
+    205: {"date": "2026-07-07", "time_es": "02:00", "day_label": "Martes 07 julio"},
+    206: {"date": "2026-07-07", "time_es": "19:00", "day_label": "Martes 07 julio"},
+    207: {"date": "2026-07-07", "time_es": "22:00", "day_label": "Martes 07 julio"},
+    220: {"date": "2026-07-09", "time_es": "21:00", "day_label": "Jueves 09 julio"},
+    221: {"date": "2026-07-10", "time_es": "23:00", "day_label": "Viernes 10 julio"},
+    222: {"date": "2026-07-11", "time_es": "22:00", "day_label": "Sábado 11 julio"},
+    223: {"date": "2026-07-12", "time_es": "03:00", "day_label": "Domingo 12 julio"},
+}
+
 
 def lookup_fixture(row: int) -> dict:
     f = FIXTURE_BY_ROW.get(row, {})
     if not f:
-        return {}
+        sched = SCHEDULE_BY_ROW.get(row, {})
+        return dict(sched)
     city = f["city"]
     venue = get_venue(city)
-    return {
+    out = {
         "city":      city,
         "country":   venue.get("country", ""),
         "tv":        f.get("tv", ""),
@@ -297,3 +310,5 @@ def lookup_fixture(row: int) -> dict:
         "fact":      venue.get("fact", ""),
         "wiki":      venue.get("wiki", ""),
     }
+    out.update(SCHEDULE_BY_ROW.get(row, {}))
+    return out
