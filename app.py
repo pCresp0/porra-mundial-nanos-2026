@@ -1143,18 +1143,25 @@ def _is_real_team_name(t):
 
 
 def _backfill_match_flags(matches):
-    """Rellena banderas faltantes en eliminatorias usando partidos anteriores."""
-    flag_by_team = {}
+    """Rellena y corrige banderas en eliminatorias (voto mayoritario por equipo)."""
+    from collections import defaultdict
+
+    votes: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
     for m in matches:
         for side, fk in (("home", "flag_home"), ("away", "flag_away")):
             t, f = m.get(side), m.get(fk, "")
             if _is_real_team_name(t) and f:
-                flag_by_team[str(t).strip()] = f
+                votes[str(t).strip()][str(f).strip()] += 1
+
+    flag_by_team = {t: max(flags, key=flags.get) for t, flags in votes.items() if flags}
+
     for m in matches:
         for side, fk in (("home", "flag_home"), ("away", "flag_away")):
             t = m.get(side)
-            if _is_real_team_name(t) and not m.get(fk):
-                m[fk] = flag_by_team.get(str(t).strip(), "")
+            if _is_real_team_name(t):
+                correct = flag_by_team.get(str(t).strip(), "")
+                if correct:
+                    m[fk] = correct
     return matches
 
 
