@@ -1355,6 +1355,51 @@
       align-items: center;
       gap: .15rem;
     }
+    .pred-labeled-score {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: .1rem .2rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: .72rem;
+      line-height: 1.15;
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+    .pred-labeled-score .pred-side {
+      display: inline-flex;
+      align-items: baseline;
+      gap: .12rem;
+    }
+    .pred-labeled-score .pred-team {
+      font-family: inherit;
+      font-size: .58rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+      opacity: .92;
+    }
+    .pred-labeled-score .pred-goal {
+      font-size: .82rem;
+      font-weight: 800;
+      color: var(--text, #E2E8F0);
+    }
+    .pred-labeled-score .pred-dash {
+      opacity: .55;
+      font-weight: 600;
+      padding: 0 .05rem;
+    }
+    .pred-winner-hint {
+      display: block;
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+      opacity: .85;
+      line-height: 1.1;
+      margin-top: .1rem;
+      text-transform: none;
+      font-family: system-ui, sans-serif;
+    }
     .player-pred-card .ppc-chips { margin-top: .25rem; text-align: center; }
 
     /* ─── Player info popover (Partidos) ─── */

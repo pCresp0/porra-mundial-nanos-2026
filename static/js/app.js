@@ -936,6 +936,54 @@ function teamCode(name) {
   return FIFA_CODES[name] || name.slice(0, 3).toUpperCase();
 }
 
+/** Equipos + goles de una predicción en el orden que eligió el jugador. */
+function _predTeamsAndScore(pred, m) {
+  const scoreStr = String(pred?.score || "").trim();
+  const homeTeam = pred?.pred_home || m?.home;
+  const awayTeam = pred?.pred_away || m?.away;
+  if (!scoreStr || !scoreStr.includes("-") || !homeTeam || !awayTeam) return null;
+  const parts = scoreStr.split("-");
+  const gl = parts[0]?.trim();
+  const gv = parts[1]?.trim();
+  if (gl === "" || gv === "") return null;
+  return {
+    homeTeam, awayTeam, gl, gv,
+    hLabel: teamCode(homeTeam) || homeTeam.slice(0, 3).toUpperCase(),
+    aLabel: teamCode(awayTeam) || awayTeam.slice(0, 3).toUpperCase(),
+  };
+}
+
+/** Marcador con equipos: «USA 1-2 BEL» + hint de quién pasa. */
+function _formatPredBadgeHtml(pred, m) {
+  if (!pred) return "—";
+  if ((pred.sign === "X" || pred.sign === "Empate") && pred.winner) {
+    return `Empate<span class="block text-[8px] sm:text-[9px] md:text-[10px] leading-tight mt-0.5 opacity-90 font-sans tracking-wide" style="text-transform:none;">Pasa ${escapeHtml(pred.winner)}</span>`;
+  }
+  const ps = _predTeamsAndScore(pred, m);
+  if (ps) {
+    const title = `${ps.homeTeam} ${ps.gl} - ${ps.gv} ${ps.awayTeam}`;
+    let html = `<span class="pred-labeled-score" title="${escapeHtml(title)}">` +
+      `<span class="pred-side"><span class="pred-team">${escapeHtml(ps.hLabel)}</span><span class="pred-goal">${escapeHtml(ps.gl)}</span></span>` +
+      `<span class="pred-dash">-</span>` +
+      `<span class="pred-side"><span class="pred-goal">${escapeHtml(ps.gv)}</span><span class="pred-team">${escapeHtml(ps.aLabel)}</span></span>` +
+      `</span>`;
+    if (pred.winner) {
+      const w = escapeHtml(pred.winner);
+      const wShort = teamCode(pred.winner) || w;
+      html += `<span class="pred-winner-hint" title="Pasa ${w}">→ ${escapeHtml(wShort)}</span>`;
+    }
+    return html;
+  }
+  return escapeHtml(String(pred.score || pred.sign || "—"));
+}
+
+/** Línea compacta equipo-marcador para chips de desglose. */
+function _formatPredTeamsScoreLine(pred, m) {
+  const ps = _predTeamsAndScore(pred, m);
+  if (!ps) return "";
+  return ` ${ps.hLabel} ${ps.gl}-${ps.gv} ${ps.aLabel}`;
+}
+
 /* Último partido jugado en orden cronológico (fecha + hora España). */
 function lastPlayedMatch() {
   const played = (D?.matches || [])
@@ -3331,9 +3379,9 @@ function renderMatchCard(m, players, colors) {
     } else if (lb) {
       badgeClass = lb.total > 0 ? (lb.exact > 0 ? "badge-exact" : "badge-sign") : "badge-miss";
     }
-    let predTxt = pd.pred.score || pd.pred.sign;
-    if (pd.pred.winner && (pd.pred.sign === "X" || pd.pred.sign === "Empate")) {
-      predTxt += `<span class="block text-[8px] sm:text-[9px] md:text-[10px] leading-tight mt-0.5 opacity-90 font-sans tracking-wide" style="text-transform:none;">Pasa ${escapeHtml(pd.pred.winner)}</span>`;
+    let predTxt = _formatPredBadgeHtml(pd.pred, m);
+    if (!pd.pred.score && pd.pred.sign && !pd.pred.winner) {
+      predTxt = escapeHtml(pd.pred.sign);
     }
     const fmt = v => Math.round(v * 10) / 10;  // 2.0→2, 1.0→1, 3.0→3
 
@@ -3353,17 +3401,19 @@ function renderMatchCard(m, players, colors) {
       const tm = m.phase === "r16" ? null : b.team_match;  // Ignore team match for r16
       let teamHtml = "";
       if (tm !== null && tm !== undefined) {
-        // Show team prediction result
+        // Show team prediction result (with score tied to each team)
         const ph = b.pred_home || "?";
         const pa = b.pred_away || "?";
+        const predLine = _formatPredTeamsScoreLine(pd.pred, m);
+        const teamsLbl = predLine ? predLine.trim() : `${ph} vs ${pa}`;
         if (tm === "both") {
-          teamHtml = `<span class="brk-chip ok" title="Predijiste los equipos correctos">⚽ ${ph} vs ${pa} ✓</span>`;
+          teamHtml = `<span class="brk-chip ok" title="Predijiste los equipos correctos (${ph} ${pd.pred?.score || ""} ${pa})">⚽ ${teamsLbl} ✓</span>`;
         } else if (tm === "home") {
-          teamHtml = `<span class="brk-chip pending" title="Sólo acertaste el equipo local">⚽ ${ph} ✓ vs ${pa} ✗</span>`;
+          teamHtml = `<span class="brk-chip pending" title="Sólo acertaste el equipo local">⚽ ${teamsLbl} ✓</span>`;
         } else if (tm === "away") {
-          teamHtml = `<span class="brk-chip pending" title="Sólo acertaste el equipo visitante">⚽ ${ph} ✗ vs ${pa} ✓</span>`;
+          teamHtml = `<span class="brk-chip pending" title="Sólo acertaste el equipo visitante">⚽ ${teamsLbl} ✓</span>`;
         } else {
-          teamHtml = `<span class="brk-chip miss" title="Fallaste ambos equipos: ${ph} vs ${pa}">⚽ ${ph} ✗ vs ${pa} ✗</span>`;
+          teamHtml = `<span class="brk-chip miss" title="Fallaste ambos equipos: ${ph} vs ${pa}">⚽ ${teamsLbl} ✗</span>`;
         }
       }
       const chips = tm === "none" ? [] : [
@@ -3394,14 +3444,16 @@ function renderMatchCard(m, players, colors) {
       if (tm !== null && tm !== undefined) {
         const ph = lb.pred_home || "?";
         const pa = lb.pred_away || "?";
+        const predLine = _formatPredTeamsScoreLine(pd.pred, m);
+        const teamsLbl = predLine ? predLine.trim() : `${ph} vs ${pa}`;
         if (tm === "both") {
-          teamHtml = `<span class="brk-chip ok">⚽ ${ph} vs ${pa} ✓</span>`;
+          teamHtml = `<span class="brk-chip ok">⚽ ${teamsLbl} ✓</span>`;
         } else if (tm === "home") {
-          teamHtml = `<span class="brk-chip pending">⚽ ${ph} ✓ vs ${pa} ✗</span>`;
+          teamHtml = `<span class="brk-chip pending">⚽ ${teamsLbl} ✓</span>`;
         } else if (tm === "away") {
-          teamHtml = `<span class="brk-chip pending">⚽ ${ph} ✗ vs ${pa} ✓</span>`;
+          teamHtml = `<span class="brk-chip pending">⚽ ${teamsLbl} ✓</span>`;
         } else {
-          teamHtml = `<span class="brk-chip miss">⚽ ${ph} ✗ vs ${pa} ✗</span>`;
+          teamHtml = `<span class="brk-chip miss">⚽ ${teamsLbl} ✗</span>`;
         }
       }
       const chips = tm === "none" ? [] : [
@@ -3426,8 +3478,10 @@ function renderMatchCard(m, players, colors) {
       let bothWrong = false;
       const teamsHtml = (m.phase !== "r16" && predH && predA && m.home && m.away) // Ignore team match for r16
         ? (() => {
+            const predLine = _formatPredTeamsScoreLine(pd.pred, m);
+            const teamsBase = predLine ? predLine.trim() : `${predH} vs ${predA}`;
             if (isProv) {
-                return `<span class="brk-chip" style="background:var(--bg); border:1px dashed var(--border); color:var(--text-muted);" title="Partido estimado por el jugador">⚽ ${predH} vs ${predA} (estimado)</span>`;
+                return `<span class="brk-chip" style="background:var(--bg); border:1px dashed var(--border); color:var(--text-muted);" title="Partido estimado por el jugador">⚽ ${teamsBase} (estimado)</span>`;
             }
             const hOk = predH.trim() === m.home.trim();
             const aOk = predA.trim() === m.away.trim();
@@ -3435,11 +3489,11 @@ function renderMatchCard(m, players, colors) {
             const hInMatch = hOk || predH.trim() === m.away.trim();
             const aInMatch = aOk || predA.trim() === m.home.trim();
             const bothTeams = hInMatch && aInMatch && (new Set([predH.trim(), predA.trim()])).size === 2;
-            if ((hOk && aOk) || bothTeams) return `<span class="brk-chip ok" title="Equipos correctos">⚽ ${predH} vs ${predA} ✓</span>`;
-            if (hInMatch) return `<span class="brk-chip pending" title="Acertaste ${predH}, falla ${predA}">⚽ ${predH} ✓ vs ${predA} ✗</span>`;
-            if (aInMatch) return `<span class="brk-chip pending" title="Acertaste ${predA}, falla ${predH}">⚽ ${predH} ✗ vs ${predA} ✓</span>`;
+            if ((hOk && aOk) || bothTeams) return `<span class="brk-chip ok" title="Equipos correctos">⚽ ${teamsBase} ✓</span>`;
+            if (hInMatch) return `<span class="brk-chip pending" title="Acertaste ${predH}, falla ${predA}">⚽ ${teamsBase} ✓</span>`;
+            if (aInMatch) return `<span class="brk-chip pending" title="Acertaste ${predA}, falla ${predH}">⚽ ${teamsBase} ✓</span>`;
             bothWrong = true;
-            return `<span class="brk-chip miss" title="Equipos incorrectos">⚽ ${predH} ✗ vs ${predA} ✗</span>`;
+            return `<span class="brk-chip miss" title="Equipos incorrectos">⚽ ${teamsBase} ✗</span>`;
           })()
         : "";
       if (bothWrong) {
