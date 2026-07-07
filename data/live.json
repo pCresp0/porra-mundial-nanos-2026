@@ -1,1 +1,16 @@
-{}
+{
+  "Estados Unidos-Bélgica": {
+    "home": 0,
+    "away": 1,
+    "minute": "live",
+    "scorers": [
+      {
+        "player": "Sharl D Ktlar",
+        "minute": "9'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      }
+    ]
+  }
+}

@@ -1,16 +1,19 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "07/07/2026 00:08",
+    "generated": "07/07/2026 00:10",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-07T02:08",
-      "last_updated_time": "02:08",
+      "last_updated_iso": "2026-07-07T02:10",
+      "last_updated_time": "02:10",
       "last_updated_date": "07/07/2026",
-      "next_update_iso": "2026-07-07T02:10",
-      "next_update_time": "02:10",
-      "next_update_date": "07/07/2026"
+      "next_update_iso": "2026-07-07T02:15",
+      "next_update_time": "02:15",
+      "next_update_date": "07/07/2026",
+      "last_checked_iso": "2026-07-07T02:10",
+      "last_checked_time": "02:10",
+      "last_checked_date": "07/07/2026"
     },
     "players": [
       "JUANCHO",
@@ -21,9 +24,11 @@
       "CRESPO"
     ],
     "live": {
-      "active": false,
-      "count": 0,
-      "matches": []
+      "active": true,
+      "count": 1,
+      "matches": [
+        "Estados Unidos-Bélgica"
+      ]
     },
     "colors": {
       "JUANCHO": "#F5C518",
@@ -96,6 +101,23 @@
       "L": 6
     },
     "api_log": [
+      {
+        "ts_iso": "2026-07-07T02:10:55+02:00",
+        "date": "07/07/2026",
+        "time": "02:10:55",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "Estados Unidos ?-? Bélgica",
+            "name": "Estados Unidos-Bélgica",
+            "date": "Octavos de",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-07T01:54:24+02:00",
         "date": "07/07/2026",
@@ -4087,14 +4109,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-05T23:02:28+02:00",
-        "date": "05/07/2026",
-        "time": "23:02:28",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4102,8 +4116,8 @@
     {
       "name": "CRESPO",
       "total": 422.0,
-      "live_points": 0.0,
-      "total_live": 422.0,
+      "live_points": 7.0,
+      "total_live": 429.0,
       "groups": 121.0,
       "positions": 81.0,
       "q16": 50.0,
@@ -4258,8 +4272,8 @@
     {
       "name": "VÍCTOR",
       "total": 376.0,
-      "live_points": 0.0,
-      "total_live": 376.0,
+      "live_points": 7.0,
+      "total_live": 383.0,
       "groups": 134.0,
       "positions": 75.0,
       "q16": 50.0,
@@ -4362,8 +4376,8 @@
     {
       "name": "LUIS/VIR",
       "total": 356.0,
-      "live_points": 0.0,
-      "total_live": 356.0,
+      "live_points": 4.0,
+      "total_live": 360.0,
       "groups": 104.0,
       "positions": 77.0,
       "q16": 54.0,
@@ -22228,11 +22242,19 @@
       "phase": "r8",
       "result": null,
       "played": false,
-      "live": false,
-      "live_minute": "",
-      "live_goals_l": null,
-      "live_goals_v": null,
-      "live_scorers": [],
+      "live": true,
+      "live_minute": "live",
+      "live_goals_l": 0,
+      "live_goals_v": 1,
+      "live_scorers": [
+        {
+          "player": "Sharl D Ktlar",
+          "minute": "9'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        }
+      ],
       "goals_l": null,
       "goals_v": null,
       "scorers": [],
@@ -22252,8 +22274,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ],
+            "team_match": "both",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bélgica"
+          },
+          "live_score": 0.0
         },
         "LARRY": {
           "pred": {
@@ -22265,8 +22298,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0.0,
+            "total": 0.0,
+            "reasons": [
+              "Solo un equipo correcto — sin puntos de resultado"
+            ],
+            "team_match": "home",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Senegal"
+          },
+          "live_score": 0.0
         },
         "LUIS/VIR": {
           "pred": {
@@ -22278,8 +22322,20 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 4.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 4.0,
+            "reasons": [
+              "1X2 correcto (+4.0)",
+              "Diferencia de goles no acertada"
+            ],
+            "team_match": "both",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bélgica"
+          },
+          "live_score": 4.0
         },
         "MEDINA": {
           "pred": {
@@ -22291,8 +22347,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ],
+            "team_match": "both",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bélgica"
+          },
+          "live_score": 0.0
         },
         "VÍCTOR": {
           "pred": {
@@ -22304,8 +22371,20 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 4.0,
+            "diff": 3.0,
+            "exact": 0,
+            "total": 7.0,
+            "reasons": [
+              "1X2 correcto (+4.0)",
+              "Diferencia de goles (+3)"
+            ],
+            "team_match": "both",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bélgica"
+          },
+          "live_score": 7.0
         },
         "CRESPO": {
           "pred": {
@@ -22317,8 +22396,20 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 4.0,
+            "diff": 3.0,
+            "exact": 0,
+            "total": 7.0,
+            "reasons": [
+              "1X2 correcto (+4.0)",
+              "Diferencia de goles (+3)"
+            ],
+            "team_match": "both",
+            "pred_home": "Estados Unidos",
+            "pred_away": "Bélgica"
+          },
+          "live_score": 7.0
         }
       },
       "penalties": null,
