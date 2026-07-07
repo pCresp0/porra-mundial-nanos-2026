@@ -18,6 +18,8 @@ on:
       - "data/**"
       - "update_config.json"
       - "fetch_results.py"
+      - "ci_fetch_all.py"
+      - "ci_fetch_live.py"
       - "patch_data.py"
       - "team_names.py"
       - "app.py"
@@ -55,27 +57,7 @@ jobs:
         if: steps.guard.outputs.run == 'yes'
         # Solo descarga resultados/live → results.json, live.json, scorers.json
         # NO llama a build_static para no sobreescribir el data.json manual
-        run: |
-          python -c "
-import sys, json, os
-sys.path.insert(0, '.')
-import fetch_results as fr
-cfg = fr._load_config()
-url = cfg.get('api_url', 'https://worldcup26.ir/get/games')
-print(f'Descargando desde {url}...')
-try:
-    games = fr._fetch_games(url)
-    # Build match map from data.json
-    match_map = fr._load_data_json_match_map()
-    fr.write_results_json(games, match_map)
-    fr.write_scorers_json(games)
-    fr.write_penalties_json(games)
-    fr.write_live_json(games)
-    print('Descarga completada')
-except Exception as e:
-    print(f'Error: {e}')
-    sys.exit(0)  # No falla el workflow si la API no responde
-"
+        run: python ci_fetch_all.py
 
       - name: Aplicar resultados a data.json (patch incremental)
         if: steps.guard.outputs.run == 'yes'
@@ -84,18 +66,7 @@ except Exception as e:
       - name: Aplicar puntos en vivo (aunque no haya partido activo)
         if: steps.guard.outputs.run != 'yes'
         run: |
-          python -c "
-          import sys
-          sys.path.insert(0, '.')
-          import fetch_results as fr
-          cfg = fr._load_config()
-          url = cfg.get('api_url', 'https://worldcup26.ir/get/games')
-          try:
-              games = fr._fetch_games(url)
-              fr.write_live_json(games)
-          except Exception as e:
-              print(f'Live fetch: {e}')
-          "
+          python ci_fetch_live.py
           python patch_data.py --live-only
 
       - name: Buscar resúmenes DAZN en YouTube
@@ -105,32 +76,7 @@ except Exception as e:
         continue-on-error: true
 
       - name: Integrar highlights en data.json
-        run: |
-          python -c "
-import json, os
-BASE = '.'
-highlights_path = os.path.join(BASE, 'data', 'highlights.json')
-data_path = os.path.join(BASE, 'data.json')
-if not os.path.isfile(highlights_path):
-    print('Sin highlights.json')
-    exit(0)
-with open(highlights_path) as f:
-    highlights = json.load(f)
-with open(data_path) as f:
-    dj = json.load(f)
-count = 0
-for m in dj.get('matches', []):
-    vid = highlights.get(m.get('name', ''))
-    if vid and m.get('highlights_video_id') != vid:
-        m['highlights_video_id'] = vid
-        count += 1
-if count:
-    with open(data_path, 'w') as f:
-        json.dump(dj, f, ensure_ascii=False, separators=(',', ':'))
-    print(f'Highlights integrados: {count}')
-else:
-    print('Sin nuevos highlights')
-"
+        run: python ci_integrate_highlights.py
 
       - name: Subir highlights si hay nuevos (sin partido activo)
         if: steps.guard.outputs.run != 'yes'
