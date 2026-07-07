@@ -1,31 +1,5 @@
 [
   {
-    "ts_iso": "2026-07-01T06:04:26+02:00",
-    "date": "01/07/2026",
-    "time": "06:04:26",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇲🇽México 2-0 Ecuador🇪🇨",
-        "name": "México-Ecuador",
-        "date": "2026-07-01",
-        "fields": [
-          "marcador",
-          "jugado"
-        ],
-        "old": {
-          "marcador": "sin resultado",
-          "jugado": "no"
-        },
-        "new": {
-          "marcador": "2-0",
-          "jugado": "sí"
-        }
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-07-01T06:20:40+02:00",
     "date": "01/07/2026",
     "time": "06:20:40",
@@ -16579,6 +16553,14 @@
     "ts_iso": "2026-07-07T12:38:29+02:00",
     "date": "07/07/2026",
     "time": "12:38:29",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-07T12:54:29+02:00",
+    "date": "07/07/2026",
+    "time": "12:54:29",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
