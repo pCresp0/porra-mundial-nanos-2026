@@ -46,16 +46,27 @@ function addDaysISO(iso, n) {
 // Fecha "ancla" de la pestaña Partidos: el partido en juego (prioridad) o el
 // próximo por jugar. Si no hay ninguno (Mundial terminado o sin datos), usa
 // el día de hoy. Sirve para centrar la ventana de días y el auto-scroll.
+function matchesFocusId() {
+  if (!D?.matches) return _nextMatchId || null;
+  const live = D.matches.filter(m =>
+    !m.played && (m.live === true || (_liveMatchIds && _liveMatchIds.has(m.name)))
+  );
+  if (live.length) {
+    live.sort((a, b) =>
+      `${a.date || ""}T${a.time_es || "00:00"}`.localeCompare(`${b.date || ""}T${b.time_es || "00:00"}`)
+    );
+    return live[0].name || live[0].id || null;
+  }
+  return _nextMatchId || null;
+}
+
 function matchesAnchorISO() {
-  const today = todaySpainISO();
-  let anchorName = null;
-  if (_liveMatchIds && _liveMatchIds.size) anchorName = [..._liveMatchIds][0];
-  else if (_nextMatchId) anchorName = _nextMatchId;
-  if (anchorName && D?.matches) {
-    const m = D.matches.find(x => x.name === anchorName || x.id === anchorName);
+  const focusId = matchesFocusId();
+  if (focusId && D?.matches) {
+    const m = D.matches.find(x => x.name === focusId || x.id === focusId);
     if (m?.date && m.date.length >= 10) return m.date.slice(0, 10);
   }
-  return today;
+  return todaySpainISO();
 }
 
 /** Fecha (ISO) del partido inmediatamente posterior al en juego o al próximo por jugar. */
@@ -67,11 +78,9 @@ function matchesNextDayISO(matchesList) {
   if (!unplayed.length) return null;
 
   let curIdx = -1;
-  if (_liveMatchIds?.size) {
-    const live = [..._liveMatchIds][0];
-    curIdx = unplayed.findIndex(m => m.name === live);
-  } else if (_nextMatchId) {
-    curIdx = unplayed.findIndex(m => m.name === _nextMatchId);
+  const focusId = matchesFocusId();
+  if (focusId) {
+    curIdx = unplayed.findIndex(m => m.name === focusId || m.id === focusId);
   }
   const nextM = curIdx >= 0 ? unplayed[curIdx + 1] : unplayed[1];
   return nextM?.date?.slice(0, 10) || null;
@@ -467,10 +476,15 @@ function scrollToTodayInMatches() {
     window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
   };
 
-  // Prioridad: llevar al usuario al partido en juego o, en su defecto, al
-  // próximo partido por jugar (no al día de hoy).
-  const card = document.querySelector(".match-row.live-match")
-            || document.querySelector(".match-row.next-match");
+  // Prioridad: partido en juego → si no, próximo por jugar.
+  const focusId = matchesFocusId();
+  let card = focusId
+    ? [...document.querySelectorAll(".match-row")].find(r => r.getAttribute("data-match-name") === focusId)
+    : null;
+  if (!card) {
+    card = document.querySelector(".match-row.live-match")
+        || document.querySelector(".match-row.next-match");
+  }
   if (card) { scrollToEl(card); return; }
 
   // Si no hay tarjeta de próximo/en-juego en el DOM, caemos a la fecha ancla
@@ -2853,6 +2867,7 @@ function renderForma(prog, cutIdx) {
 /* ─── MATCHES ─── */
 function renderMatches(phase, week) {
   const list = document.getElementById("matches-list");
+  initCountdown();
   
   // Solo mostrar fases que representen partidos reales de fútbol (excluyendo predicciones de posiciones/clasificados)
   const isRealMatch = m => m.phase !== "positions" && m.phase !== "q16" && m.date && m.date.startsWith("2026-");
@@ -5288,29 +5303,25 @@ let _matchCountdownTimer = null;
 
 const MATCH_DURATION_MS = 115 * 60 * 1000; // ~115 min including extra time
 
-function initCountdown() {
-  _liveOverlayCache = null;
-  _liveOverlayKey = "";
-  if (_matchCountdownTimer) clearInterval(_matchCountdownTimer);
+function _kickoffSpainMs(m) {
+  if (!m?.date || !m.time_es || !/^\d{2}:\d{2}$/.test(m.time_es)) return null;
+  const [y, mo, dd] = m.date.slice(0, 10).split("-").map(Number);
+  const [hh, mm]    = m.time_es.split(":").map(Number);
+  const guess       = Date.UTC(y, mo - 1, dd, hh, mm, 0);
+  const guessDate   = new Date(guess);
+  const spainStr    = guessDate.toLocaleString("sv-SE", { timeZone: "Europe/Madrid" });
+  const spainMs     = new Date(spainStr + "Z").getTime();
+  return guess + (guess - spainMs);
+}
 
-  const toSpainUTC = (dateISO, timeEs) => {
-    const [y, mo, dd] = dateISO.slice(0, 10).split("-").map(Number);
-    const [hh, mm]    = timeEs.split(":").map(Number);
-    const guess    = Date.UTC(y, mo - 1, dd, hh, mm, 0);
-    const guessDate = new Date(guess);
-    const spainStr  = guessDate.toLocaleString("sv-SE", { timeZone: "Europe/Madrid" });
-    const spainMs   = new Date(spainStr + "Z").getTime();
-    const offsetMs  = guess - spainMs;
-    return guess + offsetMs;
-  };
-
+/** Recalcula qué partidos están en juego y cuál es el próximo por horario/API. */
+function _refreshLiveAndNextMatchIds() {
   const now = Date.now();
   const withTs = (D?.matches || [])
-    .filter(m => m.date && m.time_es && /^\d{2}:\d{2}$/.test(m.time_es))
-    .map(m => ({ m, ts: toSpainUTC(m.date, m.time_es) }));
+    .map(m => ({ m, ts: _kickoffSpainMs(m) }))
+    .filter(x => x.ts != null);
 
-  // Detect live: real live data from the server (m.live), plus a time-based
-  // fallback (started within last MATCH_DURATION_MS and not yet marked played).
+  const prevLiveKey = [..._liveMatchIds].sort().join("|");
   _liveMatchIds = new Set(
     withTs
       .filter(x => !x.m.played && x.ts <= now && (now - x.ts) < MATCH_DURATION_MS)
@@ -5319,24 +5330,51 @@ function initCountdown() {
   (D?.matches || []).forEach(m => {
     if (!m.played && m.live) _liveMatchIds.add(m.name);
   });
+  const liveChanged = [..._liveMatchIds].sort().join("|") !== prevLiveKey;
 
   const upcoming = withTs
     .filter(x => !x.m.played && x.ts > now)
     .sort((a, b) => a.ts - b.ts);
-
   _nextMatchId = upcoming.length ? upcoming[0].m.name : null;
-  const next = upcoming[0];
 
-  if (!next) return;
+  return { upcoming: upcoming[0] || null, liveChanged };
+}
 
+function initCountdown() {
+  _liveOverlayCache = null;
+  _liveOverlayKey = "";
+  if (_matchCountdownTimer) clearInterval(_matchCountdownTimer);
+
+  const { upcoming: next } = _refreshLiveAndNextMatchIds();
+
+  let tickCount = 0;
   const tick = () => {
+    tickCount++;
+    // Cada ~15 s: si un partido acaba de empezar, refrescar vista Partidos.
+    if (tickCount % 15 === 0) {
+      const { liveChanged } = _refreshLiveAndNextMatchIds();
+      const onMatches = document.getElementById("tab-matches") && !document.getElementById("tab-matches").classList.contains("hidden");
+      if (liveChanged && onMatches) {
+        scrollMatchesToToday = true;
+        renderMatches(currentPhase, currentWeek);
+        return;
+      }
+    }
+
+    if (!next) return;
     const el   = document.getElementById("match-countdown");
     if (!el) return;
     const diff = next.ts - Date.now();
     if (diff <= 0) {
-      el.textContent = "¡Ya!";
+      const { liveChanged } = _refreshLiveAndNextMatchIds();
+      const onMatches = document.getElementById("tab-matches") && !document.getElementById("tab-matches").classList.contains("hidden");
+      if (liveChanged && onMatches) {
+        scrollMatchesToToday = true;
+        renderMatches(currentPhase, currentWeek);
+        return;
+      }
+      el.textContent = "¡En juego!";
       el.style.color = "var(--green)";
-      clearInterval(_matchCountdownTimer);
       return;
     }
     const h   = Math.floor(diff / 3600000);
