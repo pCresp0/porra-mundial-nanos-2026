@@ -849,6 +849,7 @@ async function forceRefresh() {
 ═══════════════════════════════════════════════════════════════ */
 function render() {
   buildTeamIndex();
+  initCountdown();
   initTeamSearch();
   syncTeamSearchUI();
   initTeamSearchSheet();
@@ -856,7 +857,6 @@ function render() {
   renderStandingsTable();
   renderPlayerStrengths();
   renderWeekFilter();
-  initCountdown();
   renderMatches(currentPhase, currentWeek);
   renderCalendar();
   renderBracket();
@@ -947,7 +947,7 @@ function tickBanner() {
   const nextEl = document.getElementById("upd-next");
 
   // ── Si hay partidos en juego, el banner anuncia el directo ──
-  const liveMatches = (D?.matches || []).filter(m => !m.played && m.live);
+  const liveMatches = _liveMatchesNow();
   const lineEl = document.getElementById("upd-line");
   const tzEl = document.getElementById("upd-tz");
   if (lineEl) {
@@ -1164,12 +1164,13 @@ function renderPodium() {
   _renderLiveStandingsBanner();
   const liveActive = _liveStandingsActive();
   const ranked = liveActive
-    ? [...D.standings].sort((a, b) => (b.total_live || 0) - (a.total_live || 0) || (a.pos || 0) - (b.pos || 0))
+    ? [...D.standings].sort((a, b) => _effectiveTotalLive(b) - _effectiveTotalLive(a) || (a.pos || 0) - (b.pos || 0))
     : D.standings;
-  const totOf = p => liveActive ? (p.total_live != null ? p.total_live : p.total) : p.total;
+  const totOf = p => liveActive ? _effectiveTotalLive(p) : p.total;
   const provTag = p => {
     if (!liveActive) return "";
-    if (p.live_points > 0) return `<div class="podium-prov">+${_fmtPts(p.live_points)} en juego</div>`;
+    const lp = _effectiveLivePoints(p);
+    if (lp > 0) return `<div class="podium-prov">+${_fmtPts(lp)} en juego</div>`;
     return `<div class="podium-prov" style="visibility:hidden">+0 en juego</div>`;
   };
   const top3 = ranked.slice(0, 3);
@@ -1217,17 +1218,174 @@ function renderPodium() {
       <div>
         <span class="text-xs text-gray-500 font-bold">#${liveActive ? (i + 4) : p.pos}</span>
         <span class="font-bold text-white ml-2">${p.name}</span>${chgHtml}
-        ${(liveActive && p.live_points > 0) ? `<span class="rest-prov">+${_fmtPts(p.live_points)} en juego</span>` : ""}
+        ${(liveActive && _effectiveLivePoints(p) > 0) ? `<span class="rest-prov">+${_fmtPts(_effectiveLivePoints(p))} en juego</span>` : ""}
       </div>
       <span class="bebas text-xl rest-pts-block" style="color:${p.color}">${_fmtPts(totOf(p))} <span style="font-size:.75em;opacity:.7">PTS</span>${liveActive ? " <span class='prov-tag'>prov.</span>" : ""}</span>
     </div>`;
   }).join("");
 }
 
-/* ¿Hay clasificación provisional activa (algún partido en curso con puntos)? */
+/* ─── Puntos provisionales (partidos en directo) ─── */
+const _LIVE_PHASE_PTS = {
+  groups: { sign: 2, diff: 1, exact: 3 },
+  r16:    { sign: 3, diff: 2, exact: 4 },
+  r8:     { sign: 4, diff: 3, exact: 5 },
+  r4:     { sign: 5, diff: 4, exact: 6 },
+  r2:     { sign: 6, diff: 5, exact: 8 },
+  r34:    { sign: 6, diff: 5, exact: 8 },
+  final:  { sign: 8, diff: 6, exact: 12 },
+};
+
+function _livePhasePts(m) {
+  const pp = m?.phase_pts;
+  if (pp) return { sign: +pp.sign || 0, diff: +pp.diff || 0, exact: +pp.exact || 0 };
+  return _LIVE_PHASE_PTS[m?.phase] || _LIVE_PHASE_PTS.groups;
+}
+
+function _matchIsLiveNow(m) {
+  return !!m && !m.played && (m.live === true || (_liveMatchIds && _liveMatchIds.has(m.name)));
+}
+
+function _liveGoalsNow(m) {
+  if (m.live_goals_l != null && m.live_goals_v != null) return [+m.live_goals_l, +m.live_goals_v];
+  if (_matchIsLiveNow(m)) return [0, 0];
+  return null;
+}
+
+function _koTeamMatchForLive(m, pred) {
+  if (!pred) return null;
+  const ph = String(pred.pred_home || "").trim();
+  const pa = String(pred.pred_away || "").trim();
+  const home = String(m.home || "").trim();
+  const away = String(m.away || "").trim();
+  if (!ph || !pa || !home || !away) return null;
+  const homeOk = ph === home;
+  const awayOk = pa === away;
+  const homeAsAway = ph === away;
+  const awayAsHome = pa === home;
+  if ((homeOk && awayOk) || (homeAsAway && awayAsHome)) return "both";
+  if (homeOk || homeAsAway) return homeOk ? "home" : "away";
+  if (awayOk || awayAsHome) return awayOk ? "away" : "home";
+  return "none";
+}
+
+function _computeLiveBreakdown(m, pred, gl, gv) {
+  if (!pred) return null;
+  const phase = m.phase || "groups";
+  const pts = _livePhasePts(m);
+  let teamMatch = phase === "r16" ? null : _koTeamMatchForLive(m, pred);
+  let cmpGl = gl;
+  let cmpGv = gv;
+  const ph = String(pred.pred_home || "").trim();
+  const pa = String(pred.pred_away || "").trim();
+  const homeOk = ph === String(m.home || "").trim();
+  const awayOk = pa === String(m.away || "").trim();
+  const teamsReversed = ph === String(m.away || "").trim() && pa === String(m.home || "").trim();
+  if (teamsReversed && !(homeOk && awayOk)) {
+    cmpGl = gv;
+    cmpGv = gl;
+  }
+  if (phase !== "r16" && teamMatch !== "both" && teamMatch !== null) {
+    const reason = teamMatch === "none" ? "Equipos incorrectos (0 pts)" : "Solo un equipo correcto — sin puntos de resultado";
+    return {
+      sign: 0, diff: 0, exact: 0, total: 0, team_match: teamMatch,
+      pred_home: pred.pred_home, pred_away: pred.pred_away, reasons: [reason],
+    };
+  }
+  const predSign = pred.sign || _signFromScore(pred.score);
+  const actualSign = cmpGl > cmpGv ? "1" : cmpGl < cmpGv ? "2" : "X";
+  if (predSign !== actualSign) {
+    return {
+      sign: 0, diff: 0, exact: 0, total: 0, team_match: teamMatch,
+      pred_home: pred.pred_home, pred_away: pred.pred_away, reasons: ["1X2 incorrecto — 0 pts"],
+    };
+  }
+  let score = pts.sign;
+  const reasons = [`1X2 correcto (+${pts.sign})`];
+  let predGl = null;
+  let predGv = null;
+  try {
+    const parts = String(pred.score || "").split("-");
+    predGl = +parts[0].trim();
+    predGv = +parts[1].trim();
+  } catch (_) { /* ignore */ }
+  let diffOk = false;
+  let exactOk = false;
+  if (predGl != null && predGv != null && !Number.isNaN(predGl) && !Number.isNaN(predGv)) {
+    diffOk = (predGl - predGv) === (cmpGl - cmpGv);
+    exactOk = predGl === cmpGl && predGv === cmpGv;
+  }
+  if (exactOk) {
+    score += pts.diff + pts.exact;
+    reasons.push(`Diferencia de goles (+${pts.diff})`, `Resultado exacto (+${pts.exact})`);
+  } else if (diffOk) {
+    score += pts.diff;
+    reasons.push(`Diferencia de goles (+${pts.diff})`);
+  } else {
+    reasons.push("Diferencia de goles no acertada");
+  }
+  return {
+    sign: pts.sign,
+    diff: diffOk || exactOk ? pts.diff : 0,
+    exact: exactOk ? pts.exact : 0,
+    total: score,
+    team_match: teamMatch,
+    pred_home: pred.pred_home,
+    pred_away: pred.pred_away,
+    reasons,
+  };
+}
+
+function _getLiveBreakdown(m, pd) {
+  if (!pd?.pred) return null;
+  if (pd.live_breakdown) return pd.live_breakdown;
+  const goals = _liveGoalsNow(m);
+  if (!goals || !_matchIsLiveNow(m)) return null;
+  return _computeLiveBreakdown(m, pd.pred, goals[0], goals[1]);
+}
+
+let _liveOverlayCache = null;
+let _liveOverlayKey = "";
+
+function _livePointsOverlay() {
+  const key = (D?.matches || []).filter(_matchIsLiveNow).map(m =>
+    `${m.name}:${m.live_goals_l}:${m.live_goals_v}:${m.live}`
+  ).join("|");
+  if (_liveOverlayCache && _liveOverlayKey === key) return _liveOverlayCache;
+  const players = D?.meta?.players || [];
+  const out = Object.fromEntries(players.map(p => [p, 0]));
+  (D?.matches || []).forEach(m => {
+    if (!_matchIsLiveNow(m)) return;
+    players.forEach(name => {
+      const lb = _getLiveBreakdown(m, m.predictions?.[name]);
+      if (lb) out[name] += +(lb.total || 0);
+    });
+  });
+  _liveOverlayCache = out;
+  _liveOverlayKey = key;
+  return out;
+}
+
+function _effectiveLivePoints(p) {
+  const server = +(p.live_points || 0);
+  if (server > 0) return server;
+  return +(_livePointsOverlay()[p.name] || 0);
+}
+
+function _effectiveTotalLive(p) {
+  return (+p.total || 0) + _effectiveLivePoints(p);
+}
+
+function _liveMatchesNow() {
+  return (D?.matches || []).filter(_matchIsLiveNow);
+}
+
+/* ¿Hay clasificación provisional activa (partido en curso)? */
 function _liveStandingsActive() {
-  if (!D || !D.meta || !D.meta.live || !D.meta.live.active) return false;
-  return (D.standings || []).some(p => (p.live_points || 0) > 0);
+  if (!D) return false;
+  if (_liveMatchesNow().length > 0) return true;
+  if (D.meta?.live === true) return true;
+  return (D.standings || []).some(p => _effectiveLivePoints(p) > 0);
 }
 
 function _fmtPts(v) {
@@ -1240,7 +1398,7 @@ function _renderLiveStandingsBanner() {
   const el = document.getElementById("live-standings-banner");
   if (!el) return;
   if (!_liveStandingsActive()) { el.classList.add("hidden"); el.innerHTML = ""; return; }
-  const liveMatches = (D.matches || []).filter(m => !m.played && m.live);
+  const liveMatches = _liveMatchesNow();
   const names = liveMatches.map(m => {
     const home = m.home || (m.name.split("-")[0] || "").trim();
     const away = m.away || (m.name.split("-").slice(1).join("-") || "").trim();
@@ -1614,7 +1772,8 @@ function renderStandingsTable() {
 
   tbody.innerHTML = rows.map(r => {
     const medal = r.pos <= 3 ? MEDAL[r.pos - 1] + " " : "";
-    const provBadge = (liveActive && r.live_points > 0)
+    const lp = _effectiveLivePoints(r);
+    const provBadge = (liveActive && lp > 0)
       ? ` <span class="prov-tag">prov.</span>` : "";
     const chg = r.pos_change;
     const chgHtml = chg > 0
@@ -1625,7 +1784,7 @@ function renderStandingsTable() {
     return `<tr${liveActive ? ' class="st-prov-row"' : ""}>
       <td class="font-bold" style="color:${r.color}">${r.pos}</td>
       <td class="text-left font-semibold text-white">${medal}${r.name} ${chgHtml}</td>
-      <td class="font-extrabold text-lg" style="color:${r.color}">${fmt(r.total)}${provBadge}</td>
+      <td class="font-extrabold text-lg" style="color:${r.color}">${fmt(liveActive ? _effectiveTotalLive(r) : r.total)}${provBadge}</td>
       ${cellHtml(r.groups, maxVals.groups, minVals.groups)}
       ${cellHtml(r.positions, maxVals.positions, minVals.positions)}
       ${cellHtml(r.r16, maxVals.r16, minVals.r16)}
@@ -1682,9 +1841,7 @@ function _renderStandingsUpdated() {
 function _standingsRows() {
   const liveActive = _liveStandingsActive();
   const gm = (D.matches || []).filter(m => m.phase === "groups" && m.played);
-  const lm = liveActive
-    ? (D.matches || []).filter(m => m.phase === "groups" && !m.played && m.live)
-    : [];
+  const lm = liveActive ? _liveMatchesNow() : [];
   return D.standings.map(p => {
     let s1x2 = 0, sdiff = 0, sexact = 0;
     gm.forEach(m => {
@@ -1696,18 +1853,18 @@ function _standingsRows() {
       }
     });
     lm.forEach(m => {
-      const b = m.predictions?.[p.name]?.live_breakdown;
+      const b = _getLiveBreakdown(m, m.predictions?.[p.name]);
       if (b) {
         s1x2   += +b.sign  || 0;
         sdiff  += +b.diff  || 0;
         sexact += +b.exact || 0;
       }
     });
-    const lp = +p.live_points || 0;
+    const lp = _effectiveLivePoints(p);
     return {
       pos: liveActive ? (p.live_pos || p.pos) : p.pos,
       name: p.name, color: p.color,
-      total: liveActive ? (+p.total_live || +p.total || 0) : (+p.total || 0),
+      total: liveActive ? _effectiveTotalLive(p) : (+p.total || 0),
       groups: (+p.groups || 0) + (liveActive ? lp : 0),
       positions: +p.positions || 0,
       s1x2, sdiff, sexact,
@@ -2357,7 +2514,7 @@ function renderProgression() {
   const progLiveBanner = document.getElementById("prog-live-banner");
   if (progLiveBanner) {
     if (liveActive) {
-      const liveMs = (D.matches || []).filter(m => !m.played && m.live);
+      const liveMs = _liveMatchesNow();
       const liveLinks = liveMs.map(m => {
         const safeDate = escapeHtml(m.date || "");
         const safeName = escapeHtml((m.name || "").replace(/'/g, "\\'"));
@@ -2380,7 +2537,7 @@ function renderProgression() {
     datasets.forEach(ds => {
       const lastVal = ds.data.length > 0 ? ds.data[ds.data.length - 1] : 0;
       const player = D.standings.find(s => s.name === ds.label);
-      const lp = player ? (+player.live_points || 0) : 0;
+      const lp = player ? _effectiveLivePoints(player) : 0;
       ds.data.push(lastVal + lp);
     });
     // Style provisional segment with dashes
@@ -2470,7 +2627,7 @@ function renderProgression() {
     .sort((a, b) => (a.pos ?? 99) - (b.pos ?? 99))
     .map(p => {
     const series = prog.players?.[p.name] || [];
-    const displayTotal = liveActive ? (+p.total_live || +p.total || 0) : (+p.total || 0);
+    const displayTotal = liveActive ? _effectiveTotalLive(p) : (+p.total || 0);
     const prev   = series.length > 1 ? series.at(-2) : 0;
     const dayArr = prog.day_points?.[p.name] || [];
     const matchDelta = dayArr.at(-1) || 0;                       // último partido
@@ -2480,7 +2637,7 @@ function renderProgression() {
     const matchesPl = p.played || 0;
     const avg = matchesPl > 0 ? (p.groups / matchesPl).toFixed(1) : "—";
     const deltaCls = v => v > 0 ? "color:var(--green)" : "color:#64748B";
-    const lp = liveActive ? (+p.live_points || 0) : 0;
+    const lp = liveActive ? _effectiveLivePoints(p) : 0;
     const liveLine = lp > 0
       ? `<div class="text-xs font-bold" style="color:#FCA5A5">+${_fmtPts(lp)} en juego <span class="prov-tag">prov.</span></div>`
       : "";
@@ -2605,7 +2762,7 @@ function renderForma(prog, cutIdx) {
     const allPts  = (allDayPts[name] || []).slice(0, cutIdx + 1);
     const last5   = allPts.slice(startIdx);
     const _fLA    = _liveStandingsActive();
-    const lp      = _fLA ? (+stand.live_points || 0) : 0;
+    const lp      = _fLA ? _effectiveLivePoints(stand) : 0;
     const sum5    = last5.reduce((a, b) => a + b, 0) + lp;
 
     const formaArr = _fLA ? [...last5, lp] : last5;
@@ -2666,7 +2823,7 @@ function renderForma(prog, cutIdx) {
   const formaLiveActive = _liveStandingsActive();
   let formaLiveBanner = "";
   if (formaLiveActive) {
-    const fLiveMs = (D.matches || []).filter(m => !m.played && m.live);
+    const fLiveMs = _liveMatchesNow();
     const fLiveLinks = fLiveMs.map(m => {
       const safeDate = escapeHtml(m.date || "");
       const safeName = escapeHtml((m.name || "").replace(/'/g, "\\'"));
@@ -3126,7 +3283,7 @@ function renderMatchCard(m, players, colors) {
         <span class="text-xs text-gray-600">—</span>
       </div>`;
     }
-    const lb = (isLiveMatch && pd.live_breakdown) ? pd.live_breakdown : null;
+    const lb = _getLiveBreakdown(m, pd);
     let badgeClass = "badge-pending";
     if (m.played) {
       if (pd.score > 0) {
@@ -5132,6 +5289,8 @@ let _matchCountdownTimer = null;
 const MATCH_DURATION_MS = 115 * 60 * 1000; // ~115 min including extra time
 
 function initCountdown() {
+  _liveOverlayCache = null;
+  _liveOverlayKey = "";
   if (_matchCountdownTimer) clearInterval(_matchCountdownTimer);
 
   const toSpainUTC = (dateISO, timeEs) => {

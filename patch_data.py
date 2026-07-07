@@ -59,7 +59,7 @@ def _sign(gl: int, gv: int) -> str:
     return "X"
 
 
-def calc_match_score(pred: dict | None, gl: int, gv: int, phase: str) -> tuple[float, dict]:
+def calc_match_score(pred: dict | None, gl: int, gv: int, phase: str, match: dict | None = None) -> tuple[float, dict]:
     """Calculate player score given prediction and actual result.
     Returns (score, breakdown).
     """
@@ -71,11 +71,41 @@ def calc_match_score(pred: dict | None, gl: int, gv: int, phase: str) -> tuple[f
     diff_pts = pts["diff"]
     exact_pts = pts["exact"]
 
+    team_match = None
+    cmp_gl, cmp_gv = gl, gv
+    if phase not in ("groups", "r16") and match:
+        ph = str(pred.get("pred_home") or "").strip()
+        pa = str(pred.get("pred_away") or "").strip()
+        home = str(match.get("home") or "").strip()
+        away = str(match.get("away") or "").strip()
+        if ph and pa and home and away:
+            home_ok = ph == home
+            away_ok = pa == away
+            home_as_away = ph == away
+            away_as_home = pa == home
+            if (home_ok and away_ok) or (home_as_away and away_as_home):
+                team_match = "both"
+            elif home_ok or home_as_away:
+                team_match = "home" if home_ok else "away"
+            elif away_ok or away_as_home:
+                team_match = "away" if away_ok else "home"
+            else:
+                team_match = "none"
+            if home_as_away and away_as_home and not (home_ok and away_ok):
+                cmp_gl, cmp_gv = gv, gl
+        if team_match not in ("both", None):
+            reason = "Equipos incorrectos (0 pts)" if team_match == "none" else "Solo un equipo correcto — sin puntos de resultado"
+            return 0.0, {
+                "sign": 0.0, "diff": 0.0, "exact": 0, "total": 0.0,
+                "team_match": team_match, "pred_home": ph, "pred_away": pa,
+                "reasons": [reason],
+            }
+
     # Parse prediction score
     pred_score = pred.get("score", "") or ""
     pred_sign  = pred.get("sign", "")
 
-    actual_sign = _sign(gl, gv)
+    actual_sign = _sign(cmp_gl, cmp_gv)
     sign_ok = (pred_sign == actual_sign)
 
     reasons = []
@@ -83,7 +113,12 @@ def calc_match_score(pred: dict | None, gl: int, gv: int, phase: str) -> tuple[f
 
     if not sign_ok:
         reasons.append("1X2 incorrecto — 0 pts")
-        return 0.0, {"sign": 0.0, "diff": 0.0, "exact": 0, "total": 0.0, "reasons": reasons}
+        bd = {"sign": 0.0, "diff": 0.0, "exact": 0, "total": 0.0, "reasons": reasons}
+        if team_match is not None:
+            bd["team_match"] = team_match
+            bd["pred_home"] = pred.get("pred_home")
+            bd["pred_away"] = pred.get("pred_away")
+        return 0.0, bd
 
     score += sign_pts
     reasons.append(f"1X2 correcto (+{sign_pts:.0f})")
@@ -97,9 +132,9 @@ def calc_match_score(pred: dict | None, gl: int, gv: int, phase: str) -> tuple[f
         pred_gl = int(parts[0].strip())
         pred_gv = int(parts[1].strip())
         pred_diff = pred_gl - pred_gv
-        actual_diff = gl - gv
+        actual_diff = cmp_gl - cmp_gv
         diff_ok = (pred_diff == actual_diff)
-        exact_ok = (pred_gl == gl and pred_gv == gv)
+        exact_ok = (pred_gl == cmp_gl and pred_gv == cmp_gv)
     except (IndexError, ValueError, AttributeError):
         pass
 
@@ -113,13 +148,18 @@ def calc_match_score(pred: dict | None, gl: int, gv: int, phase: str) -> tuple[f
     else:
         reasons.append("Diferencia de goles no acertada")
 
-    return score, {
+    bd = {
         "sign": sign_pts if sign_ok else 0.0,
         "diff": diff_pts if diff_ok or exact_ok else 0.0,
         "exact": exact_pts if exact_ok else 0,
         "total": score,
         "reasons": reasons,
     }
+    if team_match is not None:
+        bd["team_match"] = team_match
+        bd["pred_home"] = pred.get("pred_home")
+        bd["pred_away"] = pred.get("pred_away")
+    return score, bd
 
 
 def load_json(path: str) -> dict | list:
@@ -163,7 +203,7 @@ def apply_confirmed_result(
     for player, pred_data in match.get("predictions", {}).items():
         pred = pred_data.get("pred")
         old_score = float(pred_data.get("score") or 0)
-        new_score, breakdown = calc_match_score(pred, gl, gv, phase)
+        new_score, breakdown = calc_match_score(pred, gl, gv, phase, match)
         pred_data["score"] = new_score
         pred_data["breakdown"] = breakdown
         pred_data["live_score"] = None
@@ -187,7 +227,7 @@ def apply_live_score(match: dict, gl: int, gv: int, minute: str, scorers: list |
 
     for player, pred_data in match.get("predictions", {}).items():
         pred = pred_data.get("pred")
-        live_score, live_breakdown = calc_match_score(pred, gl, gv, phase)
+        live_score, live_breakdown = calc_match_score(pred, gl, gv, phase, match)
         pred_data["live_score"]     = live_score
         pred_data["live_breakdown"] = live_breakdown
 

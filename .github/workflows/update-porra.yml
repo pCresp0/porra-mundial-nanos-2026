@@ -83,7 +83,20 @@ except Exception as e:
 
       - name: Aplicar puntos en vivo (aunque no haya partido activo)
         if: steps.guard.outputs.run != 'yes'
-        run: python patch_data.py --live-only
+        run: |
+          python -c "
+          import sys
+          sys.path.insert(0, '.')
+          import fetch_results as fr
+          cfg = fr._load_config()
+          url = cfg.get('api_url', 'https://worldcup26.ir/get/games')
+          try:
+              games = fr._fetch_games(url)
+              fr.write_live_json(games)
+          except Exception as e:
+              print(f'Live fetch: {e}')
+          "
+          python patch_data.py --live-only
 
       - name: Buscar resúmenes DAZN en YouTube
         env:
