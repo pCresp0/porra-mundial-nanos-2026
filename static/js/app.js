@@ -17,6 +17,7 @@ let soloLeaderChart = null;
 let _progWindow = 10; // last N matches to show in progression chart (0 = all)
 let breakdownChart = null;
 let breakdownViewMode = "matches"; // matches or points
+let _twinsPhase = "total"; // groups | final | total
 let currentPhase = "all";
 let currentWeek  = "all";
 let scrollMatchesToToday = true;
@@ -24,6 +25,7 @@ let matchesDaysBefore = 0;
 let porraUnlocked = true;
 let matchesDaysAfter  = 0;
 let teamIndex = [];
+let _teamFlagMap = {};
 let selectedTeamFilter = null;
 let teamSearchInited = false;
 let teamSuggestIdx = -1;
@@ -104,8 +106,23 @@ function isSearchableTeam(name, flag) {
   return true;
 }
 
+function buildTeamFlagMap() {
+  _teamFlagMap = {};
+  (D?.matches || []).forEach(m => {
+    if (m.home && m.flag_home) _teamFlagMap[m.home] = m.flag_home;
+    if (m.away && m.flag_away) _teamFlagMap[m.away] = m.flag_away;
+  });
+}
+
+/** Bandera de una selección: la del partido o la buscada en otros partidos. */
+function flagForTeam(name, directFlag) {
+  if (directFlag) return directFlag;
+  return (name && _teamFlagMap[name]) || "";
+}
+
 function buildTeamIndex() {
   if (!D?.matches) { teamIndex = []; return; }
+  buildTeamFlagMap();
   const map = new Map();
   D.matches.forEach(m => {
     [["home", m.flag_home], ["away", m.flag_away]].forEach(([side, flag]) => {
@@ -1249,8 +1266,8 @@ function liveMinuteLabel(raw) {
 function matchTeamsHtml(m) {
   const home = m.home || (m.name.includes("-") ? m.name.split("-")[0].trim() : m.name);
   const away = m.away || (m.name.includes("-") ? m.name.split("-").slice(1).join("-").trim() : "");
-  const fh = m.flag_home || "🏳️";
-  const fa = m.flag_away || "🏳️";
+  const fh = flagForTeam(home, m.flag_home) || "🏳️";
+  const fa = flagForTeam(away, m.flag_away) || "🏳️";
   const hasLiveScore = !m.played && m.live && m.live_goals_l != null && m.live_goals_v != null;
   const isLive = hasLiveScore || (_liveMatchIds && _liveMatchIds.has(m.name));
   let scoreHtml;
@@ -2026,15 +2043,30 @@ function renderWeekFilter() {
 ═══════════════════════════════════════════════════════════════ */
 let _h2hA = null, _h2hB = null;
 
-/* Categoría de acierto de una predicción a partir del desglose.
+/* Categoría de acierto de una predicción.
    "exact" | "diff" | "sign" | "miss" | "none" (sin predicción). */
-function _h2hCat(pd) {
+function _predHitCat(pd) {
   if (!pd || !pd.pred) return "none";
+  const sc = +(pd.score || 0);
   const b = pd.breakdown || {};
   if ((+b.exact || 0) > 0) return "exact";
-  if ((+b.diff  || 0) > 0) return "diff";
-  if ((+b.sign  || 0) > 0) return "sign";
+  if ((+b.diff || 0) > 0) return "diff";
+  if ((+b.sign || 0) > 0) return "sign";
+  const reasons = b.reasons || [];
+  if (reasons.length) {
+    const hasExact = reasons.some(r => r.toLowerCase().includes("exacto") && !r.toLowerCase().includes("no"));
+    const hasDiff  = reasons.some(r => r.includes("Diferencia") && !r.includes("no acertada"));
+    const hasSign  = reasons.some(r => r.includes("1X2 correcto"));
+    if (hasExact) return "exact";
+    if (hasDiff)  return "diff";
+    if (hasSign)  return "sign";
+  }
+  if (sc > 0) return "sign";
   return "miss";
+}
+
+function _h2hCat(pd) {
+  return _predHitCat(pd);
 }
 
 /* Racha activa (partidos seguidos puntuando desde el último jugado hacia atrás). */
@@ -2160,7 +2192,7 @@ function renderH2H() {
   const total = aWins + bWins + draws || 1;
   const duel = `
     <div class="card h2h-duel">
-      <div class="h2h-duel-title">⚔️ Duelo directo <span class="h2h-duel-note">partidos donde sacó más puntos que el rival</span></div>
+      <div class="h2h-duel-title">⚔️ Duelo directo <span class="h2h-duel-note">partidos donde sacó más puntos de partido que el rival</span></div>
       <div class="h2h-duel-bar">
         <div class="h2h-duel-seg h2h-seg-a" style="width:${aWins / total * 100}%;background:${cA}">${aWins || ""}</div>
         <div class="h2h-duel-seg h2h-seg-d" style="width:${draws / total * 100}%">${draws || ""}</div>
@@ -2184,7 +2216,8 @@ function renderH2H() {
           <th style="color:${cB}">${escapeHtml(_h2hB)}</th>
         </tr></thead>
         <tbody>
-          ${_h2hStatRow("Puntos sumados", stats.a.pts, stats.b.pts, fmtNum)}
+          ${_h2hStatRow("Total porra", +sA.total || 0, +sB.total || 0, fmtNum)}
+          ${_h2hStatRow("Puntos en partidos", stats.a.pts, stats.b.pts, fmtNum)}
           ${_h2hStatRow("🎯 Marcadores exactos", stats.a.exact, stats.b.exact)}
           ${_h2hStatRow("🔵 1X2 + Dif.", stats.a.diff, stats.b.diff)}
           ${_h2hStatRow("🟠 Solo 1X2", stats.a.sign, stats.b.sign)}
@@ -2202,7 +2235,7 @@ function renderH2H() {
   } else {
     const rows = diffMatches.map(d => {
       const m = d.m;
-      const fh = m.flag_home || "🏳️", fa = m.flag_away || "🏳️";
+      const fh = flagForTeam(m.home, m.flag_home) || "🏳️", fa = flagForTeam(m.away, m.flag_away) || "🏳️";
       const phase = PHASE_LABELS[m.phase] || m.phase || "";
       const res = m.result?.score || "";
       const predA = m.predictions?.[_h2hA]?.pred?.score || "—";
@@ -2248,11 +2281,12 @@ function renderProgression() {
   const allDates  = prog.dates  || [];
   const allTitles = prog.titles || [];
 
-  // Cut to today — no future data
+  // Cut to today — no future data (solo fechas ISO válidas)
   const todayStr = todaySpainISO();
+  const isProgDate = d => typeof d === "string" && /^\d{4}-\d{2}-\d{2}$/.test(d);
   let cutIdx = allDates.length - 1;
   for (let i = 0; i < allDates.length; i++) {
-    if (allDates[i] > todayStr) { cutIdx = i - 1; break; }
+    if (isProgDate(allDates[i]) && allDates[i] > todayStr) { cutIdx = i - 1; break; }
   }
   cutIdx = Math.max(0, cutIdx);
 
@@ -3463,7 +3497,7 @@ function openMatchDetail(matchName) {
   // Title
   const home = m.home || matchName.split("-")[0]?.trim() || matchName;
   const away = m.away || matchName.split("-").slice(1).join("-")?.trim() || "";
-  titleEl.innerHTML = `<span>${m.flag_home||"🏳️"}</span> <span style="margin:0 .3rem">${home}</span> <span style="color:#64748B">vs</span> <span style="margin:0 .3rem">${away}</span> <span>${m.flag_away||"🏳️"}</span>`;
+  titleEl.innerHTML = `<span>${flagForTeam(home, m.flag_home)||"🏳️"}</span> <span style="margin:0 .3rem">${home}</span> <span style="color:#64748B">vs</span> <span style="margin:0 .3rem">${away}</span> <span>${flagForTeam(away, m.flag_away)||"🏳️"}</span>`;
 
   // Show skeleton while loading
   body.innerHTML = `<div class="panel-section"><div class="panel-section-title">Cargando datos…</div><div style="height:40px;display:flex;align-items:center;justify-content:center"><div class="spinner" style="width:24px;height:24px;border-width:3px"></div></div></div>`;
@@ -3564,8 +3598,8 @@ async function _fillMatchDetail(m, body) {
     html += `<div class="panel-section">
       <div class="panel-section-title">⭐ Jugadores a seguir</div>
       <div class="kp-teams">
-        ${renderTeamCol(m.flag_home||"🏳️", home, homePlayers)}
-        ${renderTeamCol(m.flag_away||"🏳️", away, awayPlayers)}
+        ${renderTeamCol(flagForTeam(home, m.flag_home)||"🏳️", home, homePlayers)}
+        ${renderTeamCol(flagForTeam(away, m.flag_away)||"🏳️", away, awayPlayers)}
       </div>
     </div>`;
   }
@@ -3996,6 +4030,168 @@ function loadMoreMatchRows(containerId) {
   }
 }
 
+/* ─── STATS: gemelos (afinidad de predicciones) ─── */
+function computeTwinPairs(matches, players) {
+  const pairs = [];
+  for (let i = 0; i < players.length; i++) {
+    for (let j = i + 1; j < players.length; j++) {
+      const a = players[i], b = players[j];
+      let common = 0, sameExact = 0, sameSign = 0;
+      matches.forEach(m => {
+        const pa = m.predictions?.[a]?.pred, pb = m.predictions?.[b]?.pred;
+        if (!pa || !pb) return;
+        const scA = pa.score, scB = pb.score;
+        if (!scA || !scB) return;
+        common++;
+        if (scA === scB) { sameExact++; sameSign++; return; }
+        const sa = pa.sign, sb = pb.sign;
+        if (sa && sb && sa === sb) sameSign++;
+      });
+      if (common === 0) continue;
+      const score = (sameExact * 2 + (sameSign - sameExact)) / (common * 2);
+      pairs.push({ a, b, common, sameExact, sameSign, pct: Math.round(score * 100) });
+    }
+  }
+  return pairs.sort((x, y) => y.pct - x.pct || y.sameExact - x.sameExact);
+}
+
+function _twinCardHtml(data, kind, colors) {
+  const isTwin = kind === "twin";
+  const cA = colors[data.a] || "#94A3B8", cB = colors[data.b] || "#94A3B8";
+  const icon = isTwin ? "🃏" : "🧊";
+  const title = isTwin ? "El gemelo" : "Los polos opuestos";
+  const sub = isTwin
+    ? "Las predicciones más parecidas"
+    : "Los que casi nunca coinciden";
+  return `
+    <div class="twin-card ${isTwin ? "twin-card-best" : "twin-card-worst"}">
+      <div class="twin-card-head">
+        <span class="twin-icon">${icon}</span>
+        <div>
+          <div class="twin-title">${title}</div>
+          <div class="twin-sub">${sub}</div>
+        </div>
+      </div>
+      <div class="twin-names">
+        <span class="twin-name" style="color:${cA}">${escapeHtml(data.a)}</span>
+        <span class="twin-amp">${isTwin ? "&amp;" : "vs"}</span>
+        <span class="twin-name" style="color:${cB}">${escapeHtml(data.b)}</span>
+      </div>
+      <div class="twin-bar"><div class="twin-bar-fill ${isTwin ? "is-best" : "is-worst"}" style="width:${data.pct}%"></div></div>
+      <div class="twin-pct">${data.pct}% de afinidad</div>
+      <div class="twin-detail">
+        🎯 ${data.sameExact} marcador${data.sameExact === 1 ? "" : "es"} idéntico${data.sameExact === 1 ? "" : "s"}
+        · 🔵 ${data.sameSign} mismo signo
+        <span class="twin-detail-of">de ${data.common} en común</span>
+      </div>
+    </div>`;
+}
+
+function renderTwinsSection() {
+  const twinsEl = document.getElementById("stats-twins");
+  if (!twinsEl || !D) return;
+
+  const players = D.meta.players;
+  const colors  = D.meta.colors;
+  const allPred = (D.matches || []).filter(m => m.predictions);
+  const byPhase = {
+    groups: allPred.filter(m => m.phase === "groups"),
+    final:  allPred.filter(m => m.phase && m.phase !== "groups"),
+    total:  allPred,
+  };
+
+  const PHASE_OPTS = [
+    { id: "groups", label: "Fase de grupos", sub: "72 partidos" },
+    { id: "final",  label: "Fase final",     sub: "Eliminatorias" },
+    { id: "total",  label: "Total",          sub: "Todo el Mundial" },
+  ];
+
+  const phase = _twinsPhase in byPhase ? _twinsPhase : "total";
+  const ms = byPhase[phase];
+  const pairs = computeTwinPairs(ms, players);
+
+  const tabsHtml = `<div class="twins-phase-row mb-4">
+    ${PHASE_OPTS.map(o => {
+      const n = byPhase[o.id].length;
+      const active = o.id === phase;
+      return `<button type="button" class="prog-win-btn${active ? " prog-win-active" : ""}" data-twins-phase="${o.id}">
+        ${o.label} <span class="twins-phase-n">(${n})</span>
+      </button>`;
+    }).join("")}
+  </div>`;
+
+  if (pairs.length === 0) {
+    twinsEl.innerHTML = `
+      <div class="flex items-center gap-2 mb-1">
+        <h2 class="text-lg font-bold text-white">🃏 El gemelo</h2>
+      </div>
+      ${tabsHtml}
+      <div class="card p-5 text-center text-gray-500">Sin predicciones en común en esta fase.</div>`;
+    twinsEl.querySelectorAll("[data-twins-phase]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        _twinsPhase = btn.dataset.twinsPhase;
+        renderTwinsSection();
+      });
+    });
+    return;
+  }
+
+  const twin = pairs[0];
+  const opposite = pairs[pairs.length - 1];
+  const phaseLbl = PHASE_OPTS.find(o => o.id === phase)?.label || "Total";
+
+  const rankRows = pairs.map((p, i) => {
+    const cA = colors[p.a] || "#94A3B8", cB = colors[p.b] || "#94A3B8";
+    return `<tr>
+      <td class="text-center" style="color:#64748B;font-weight:700">${i + 1}</td>
+      <td><span style="color:${cA};font-weight:700">${escapeHtml(p.a)}</span> <span style="color:#475569">·</span> <span style="color:${cB};font-weight:700">${escapeHtml(p.b)}</span></td>
+      <td class="text-center" style="color:#CBD5E1">${p.sameExact}</td>
+      <td class="text-center" style="color:#CBD5E1">${p.sameSign}</td>
+      <td class="text-center"><span class="twin-rank-pct">${p.pct}%</span></td>
+    </tr>`;
+  }).join("");
+
+  twinsEl.innerHTML = `
+    <div class="flex items-center gap-2 mb-1">
+      <h2 class="text-lg font-bold text-white">🃏 El gemelo</h2>
+      ${infoTip("La <strong>afinidad</strong> mide cuánto se parecen las predicciones de dos jugadores en la fase seleccionada. Por cada partido que ambos han pronosticado: <strong>marcador idéntico</strong> cuenta el máximo, <strong>mismo signo</strong> (mismo ganador, distinto marcador) cuenta la mitad.", "left")}
+    </div>
+    <p class="text-sm text-gray-400 mb-3">Parejas con predicciones más parecidas y más opuestas, desglosado por fase.</p>
+    ${tabsHtml}
+    <p class="text-xs text-gray-500 mb-3 twins-phase-hint">Mostrando: <strong class="text-gray-300">${phaseLbl}</strong> · ${ms.length} partido${ms.length === 1 ? "" : "s"} con predicciones</p>
+    <div class="twin-cards">
+      ${_twinCardHtml(twin, "twin", colors)}
+      ${_twinCardHtml(opposite, "opposite", colors)}
+    </div>
+    <div class="card overflow-hidden mt-4">
+      <div class="px-6 py-4 border-b" style="border-color:var(--border)">
+        <h3 class="font-bold text-white">Afinidad de todas las parejas — ${phaseLbl}</h3>
+        <p class="text-xs text-gray-400 mt-1">Ordenadas de más parecidas a más opuestas en esta fase.</p>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="pred-table w-full">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th class="text-left">Pareja</th>
+              <th>🎯 Iguales</th>
+              <th>🔵 Mismo signo</th>
+              <th>Afinidad</th>
+            </tr>
+          </thead>
+          <tbody>${rankRows}</tbody>
+        </table>
+      </div>
+    </div>`;
+
+  twinsEl.querySelectorAll("[data-twins-phase]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      _twinsPhase = btn.dataset.twinsPhase;
+      renderTwinsSection();
+    });
+  });
+}
+
 /* ─── STATS ─── */
 /** Veces que cada jugador ha sido 1.º en solitario tras un partido de grupos. */
 function computeSoloLeaderStats(players, prog) {
@@ -4036,19 +4232,17 @@ function renderStats() {
 
   // ── per-player breakdown (all actual matches) ──────────────────────────────────────
   const perPlayer = players.map(name => {
-    let exact = 0, diff = 0, sign = 0, miss = 0, best = 0, streak = 0, curStreak = 0, bestDay = 0;
+    let exact = 0, diff = 0, sign = 0, miss = 0, best = 0, streak = 0, curStreak = 0, matchPtsSum = 0;
     playedAll.forEach(m => {
       const pd = m.predictions?.[name];
       const sc = pd?.score ?? 0;
+      matchPtsSum += sc;
       if (sc > best) best = sc;
-      const reasons = pd?.breakdown?.reasons || [];
-      const hasExact = reasons.some(r => r.toLowerCase().includes("exacto") && !r.toLowerCase().includes("no"));
-      const hasDiff  = reasons.some(r => r.includes("Diferencia") && !r.includes("no acertada"));
-      const hasSign  = reasons.some(r => r.includes("1X2 correcto"));
-      if (hasExact)        exact++;
-      else if (hasDiff)    diff++;
-      else if (hasSign)    sign++;
-      else                 miss++;
+      const cat = _predHitCat(pd);
+      if (cat === "exact")      exact++;
+      else if (cat === "diff")  diff++;
+      else if (cat === "sign")  sign++;
+      else if (cat !== "none")  miss++;
       if (sc > 0) { curStreak++; if (curStreak > streak) streak = curStreak; }
       else        { curStreak = 0; }
     });
@@ -4059,11 +4253,13 @@ function renderStats() {
       if (sc > 0) liveStreak++; else break;
     }
     const hits = exact + diff + sign;
-    const total = playedAll.length;
+    const predTotal = exact + diff + sign + miss;
+    const total = predTotal || playedAll.length;
     const pct   = total > 0 ? Math.round(hits / total * 100) : 0;
-    const avg   = total > 0 ? (((D.standings.find(s => s.name === name)?.total) || 0) / total).toFixed(2) : "—";
+    const avg   = total > 0 ? (matchPtsSum / total).toFixed(2) : "—";
     const last4pts = playedAll.slice(-4).reduce((s, m) => s + (m.predictions[name]?.score ?? 0), 0);
-    return { name, exact, diff, sign, miss, hits, total, pct, avg, best, last4pts, streak: liveStreak, maxStreak: streak };
+    const porraTotal = (D.standings.find(s => s.name === name)?.total) || 0;
+    return { name, exact, diff, sign, miss, hits, total, pct, avg, porraTotal, best, last4pts, streak: liveStreak, maxStreak: streak };
   });
 
   // Ordenar según clasificación general
@@ -4086,7 +4282,7 @@ function renderStats() {
     { icon: "🎯", val: totalExacts, label: "Marcadores exactos clavados", sub: `${perPlayer.reduce((s,p)=>s+p.miss,0)} predicciones falladas (0 pts) · suma de los ${players.length} jugadores`,
       info: "Número total de <strong>marcadores exactos clavados</strong> entre todos los jugadores en todo el Mundial." },
     { icon: "📈", val: bestPlayer ? `${bestPlayer.pct}%` : "—", label: "Mayor tasa de acierto", sub: bestSub,
-      info: "Jugador con mayor <strong>tasa de acierto</strong>: porcentaje de partidos totales en los que ha sumado al menos 1 punto." },
+      info: "Jugador con mayor <strong>tasa de acierto</strong>: porcentaje de partidos jugados (grupos y eliminatorias) en los que ha sumado al menos 1 punto." },
     { icon: streakKing?.streak > 0 ? "🔥" : "🤦", val: streakKing ? `${streakKing.streak}` : "—", label: "Racha activa más larga", sub: streakKing?.streak > 0 ? `${streakKings.map(p=>p.name).join(" · ")} · ${streakKing.streak} en racha${streakKings.length > 1 ? " (empate)" : ""}` : "Nadie acertó en el último partido",
       info: "<strong>Racha activa</strong>: partidos seguidos puntuando (≥1 pt) contando desde el último partido hacia atrás." },
   ].map(h => `
@@ -4607,12 +4803,12 @@ function renderStats() {
   if (playersInfoEl) {
     playersInfoEl.innerHTML = infoTip(
       "<strong>Cómo leer cada ficha:</strong><br>" +
-      "• <strong>Puntos totales</strong>: todos los puntos del jugador en el Mundial.<br>" +
-      "• <strong>Tasa de acierto</strong>: % de partidos de grupos en los que sumó ≥1 pt.<br>" +
-      "• <strong>Pts/partido</strong>: media de puntos por partido de grupos.<br>" +
+      "• <strong>Puntos totales</strong>: clasificación actual (partidos + posiciones + eliminatorias).<br>" +
+      "• <strong>Tasa de acierto</strong>: % de partidos jugados en los que sumó ≥1 pt.<br>" +
+      "• <strong>Pts/partido</strong>: media de puntos ganados solo en partidos (sin posiciones ni cuadros).<br>" +
       "• <strong>Racha activa</strong>: partidos seguidos puntuando ahora mismo.<br>" +
-      "• <strong>Exactos</strong>: resultados clavados (6 pts).<br>" +
-      "• <strong>pts (últ. 4)</strong>: suma de puntos en los últimos 4 partidos de grupos.<br>" +
+      "• <strong>Exactos</strong>: marcadores exactos clavados.<br>" +
+      "• <strong>pts (últ. 4)</strong>: suma de puntos en los últimos 4 partidos jugados.<br>" +
       "• <strong>Últimos partidos</strong>: cada cuadro es un partido reciente (ver leyenda).",
       "left"
     );
@@ -4742,117 +4938,8 @@ function renderStats() {
     );
   }
 
-  // ── El gemelo: parejas con predicciones más parecidas / opuestas ───────
-  const twinsEl = document.getElementById("stats-twins");
-  if (twinsEl) {
-    const players = D.meta.players;
-    const colors  = D.meta.colors;
-    const withPred = D.matches.filter(m => m.predictions);
-
-    const pairs = [];
-    for (let i = 0; i < players.length; i++) {
-      for (let j = i + 1; j < players.length; j++) {
-        const a = players[i], b = players[j];
-        let common = 0, sameExact = 0, sameSign = 0;
-        withPred.forEach(m => {
-          const pa = m.predictions?.[a]?.pred, pb = m.predictions?.[b]?.pred;
-          if (!pa || !pb) return;
-          const scA = pa.score, scB = pb.score;
-          if (!scA || !scB) return;
-          common++;
-          if (scA === scB) { sameExact++; sameSign++; return; }
-          const sa = pa.sign, sb = pb.sign;
-          if (sa && sb && sa === sb) sameSign++;
-        });
-        if (common === 0) continue;
-        // Afinidad: marcador idéntico vale doble que solo el signo.
-        const score = (sameExact * 2 + (sameSign - sameExact)) / (common * 2);
-        pairs.push({ a, b, common, sameExact, sameSign, pct: Math.round(score * 100) });
-      }
-    }
-
-    if (pairs.length === 0) {
-      twinsEl.innerHTML = "";
-    } else {
-      const sorted = [...pairs].sort((x, y) => y.pct - x.pct);
-      const twin = sorted[0];
-      const opposite = sorted[sorted.length - 1];
-
-      const card = (data, kind) => {
-        const isTwin = kind === "twin";
-        const cA = colors[data.a] || "#94A3B8", cB = colors[data.b] || "#94A3B8";
-        const icon = isTwin ? "🃏" : "🧊";
-        const title = isTwin ? "El gemelo" : "Los polos opuestos";
-        const sub = isTwin
-          ? "Las predicciones más parecidas de la porra"
-          : "Los que casi nunca coinciden";
-        return `
-          <div class="twin-card ${isTwin ? "twin-card-best" : "twin-card-worst"}">
-            <div class="twin-card-head">
-              <span class="twin-icon">${icon}</span>
-              <div>
-                <div class="twin-title">${title}</div>
-                <div class="twin-sub">${sub}</div>
-              </div>
-            </div>
-            <div class="twin-names">
-              <span class="twin-name" style="color:${cA}">${escapeHtml(data.a)}</span>
-              <span class="twin-amp">${isTwin ? "&amp;" : "vs"}</span>
-              <span class="twin-name" style="color:${cB}">${escapeHtml(data.b)}</span>
-            </div>
-            <div class="twin-bar"><div class="twin-bar-fill ${isTwin ? "is-best" : "is-worst"}" style="width:${data.pct}%"></div></div>
-            <div class="twin-pct">${data.pct}% de afinidad</div>
-            <div class="twin-detail">
-              🎯 ${data.sameExact} marcador${data.sameExact === 1 ? "" : "es"} idéntico${data.sameExact === 1 ? "" : "s"}
-              · 🔵 ${data.sameSign} mismo signo
-              <span class="twin-detail-of">de ${data.common} en común</span>
-            </div>
-          </div>`;
-      };
-
-      const rankRows = sorted.map((p, i) => {
-        const cA = colors[p.a] || "#94A3B8", cB = colors[p.b] || "#94A3B8";
-        return `<tr>
-          <td class="text-center" style="color:#64748B;font-weight:700">${i + 1}</td>
-          <td><span style="color:${cA};font-weight:700">${escapeHtml(p.a)}</span> <span style="color:#475569">·</span> <span style="color:${cB};font-weight:700">${escapeHtml(p.b)}</span></td>
-          <td class="text-center" style="color:#CBD5E1">${p.sameExact}</td>
-          <td class="text-center" style="color:#CBD5E1">${p.sameSign}</td>
-          <td class="text-center"><span class="twin-rank-pct">${p.pct}%</span></td>
-        </tr>`;
-      }).join("");
-
-      twinsEl.innerHTML = `
-        <div class="flex items-center gap-2 mb-1">
-          <h2 class="text-lg font-bold text-white">🃏 El gemelo</h2>
-          ${infoTip("La <strong>afinidad</strong> mide cuánto se parecen las predicciones de dos jugadores. Por cada partido que ambos han pronosticado: <strong>marcador idéntico</strong> (ej. los dos ponen 2-0) cuenta el máximo, <strong>mismo signo</strong> (los dos dan ganador al local pero con distinto marcador) cuenta la mitad, y predicciones con distinto signo no suman. El porcentaje es la media sobre todos los partidos en común.", "left")}
-        </div>
-        <p class="text-sm text-gray-400 mb-4">Qué dos jugadores tienen las predicciones más parecidas (y los más opuestos), comparando todos los pronósticos rellenados.</p>
-        <div class="twin-cards">
-          ${card(twin, "twin")}
-          ${card(opposite, "opposite")}
-        </div>
-        <div class="card overflow-hidden mt-4">
-          <div class="px-6 py-4 border-b" style="border-color:var(--border)">
-            <h3 class="font-bold text-white">Afinidad de todas las parejas</h3>
-            <p class="text-xs text-gray-400 mt-1">Ordenadas de más parecidas a más opuestas. Un marcador idéntico cuenta doble que coincidir solo en el signo.</p>
-          </div>
-          <div class="overflow-x-auto">
-            <table class="pred-table w-full">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th class="text-left">Pareja</th>
-                  <th>🎯 Iguales</th>
-                  <th>🔵 Mismo signo</th>
-                  <th>Afinidad</th>
-                </tr>
-              </thead>
-              <tbody>${rankRows}</tbody>
-            </table>
-          </div>
-        </div>`;
-    }
-  }
+  // ── El gemelo: parejas por fase (grupos / final / total) ───────────────
+  renderTwinsSection();
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -5122,8 +5209,8 @@ function _calAddDays(iso, n) {
 
 // Chip de un partido para la rejilla (vistas Semana / Mes)
 function _calMatchChip(m, iso) {
-  const fh = m.flag_home || "";
-  const fa = m.flag_away || "";
+  const fh = flagForTeam(m.home, m.flag_home);
+  const fa = flagForTeam(m.away, m.flag_away);
   const ch = TEAM_TO_FIFA[m.home] || (m.home || "").slice(0,3).toUpperCase();
   const ca = TEAM_TO_FIFA[m.away] || (m.away || "").slice(0,3).toUpperCase();
   const looksLikePlaceholder = v => !v || /^\d|^Win|^Los|^[A-Z]\d|^[A-Z]{1,2}\d/.test(v);
@@ -5149,8 +5236,8 @@ function _calRow(m, iso) {
   const looksPlaceholder = v => !v || /^\d|^Win|^Los|^[A-Z]\d|^[A-Z]{1,2}\d/.test(v) || v.includes("FINAL") || v.includes("puesto");
   const isProv = looksPlaceholder(m.home) || looksPlaceholder(m.away);
   const isKnockout = m.phase && m.phase !== "groups";
-  const fh = (m.flag_home && !looksPlaceholder(m.home)) ? m.flag_home : "🏳";
-  const fa = (m.flag_away && !looksPlaceholder(m.away)) ? m.flag_away : "🏳";
+  const fh = flagForTeam(m.home, m.flag_home && !looksPlaceholder(m.home) ? m.flag_home : "") || "🏳";
+  const fa = flagForTeam(m.away, m.flag_away && !looksPlaceholder(m.away) ? m.flag_away : "") || "🏳";
   // En eliminatorias, si el nombre es un placeholder, mostrar "Por definir"
   const home = isKnockout && looksPlaceholder(m.home) ? "Por definir" : (m.home || "—");
   const away = isKnockout && looksPlaceholder(m.away) ? "Por definir" : (m.away || "—");
@@ -6665,6 +6752,21 @@ function renderBracket(overrideEl) {
   const playedGroupCount = (D.matches || []).filter(m => m.phase === "groups" && m.played).length;
   const allGroupsFinished = (playedGroupCount === 72);
 
+  function _resolveKoSlot(name, placeholder) {
+    const slot = String(name || placeholder || "").trim();
+    const wm = slot.match(/^W(\d+)$/);
+    if (!wm) return null;
+    const src = (D.matches || []).find(
+      m => m.match_num === +wm[1] && m.played && m.actual_winner
+    );
+    if (!src) return null;
+    const w = String(src.actual_winner).trim();
+    const flag = w === src.home
+      ? flagForTeam(w, src.flag_home)
+      : flagForTeam(w, src.flag_away);
+    return { name: w, flag: flag || "🛡" };
+  }
+
   function isPlaceholder(name, placeholder) {
     if (!name || name.trim() === "" || /^Por def/i.test(name)) return true;
     if (/^(W|L)\d|^\d+[A-Z]|^[A-Z]\d/i.test(name)) return true;
@@ -6735,7 +6837,14 @@ function renderBracket(overrideEl) {
     const midHtml = played
       ? `<div class="bkt-mid bkt-score${gh === ga ? " bkt-draw" : ""}">${gh}–${ga}${penaltyHtml}</div>`
       : `<div class="bkt-mid bkt-time">${timeStr}<span class="bkt-dt">${dateStr}</span></div>`;
-    const ph_h = isPlaceholder(m.home, m.home_placeholder), ph_a = isPlaceholder(m.away, m.away_placeholder);
+    const resH = _resolveKoSlot(m.home, m.home_placeholder);
+    const resA = _resolveKoSlot(m.away, m.away_placeholder);
+    const dispH = resH?.name || m.home;
+    const dispA = resA?.name || m.away;
+    const flagH = resH?.flag || flagForTeam(m.home, m.flag_home);
+    const flagA = resA?.flag || flagForTeam(m.away, m.flag_away);
+    const ph_h = !resH && isPlaceholder(m.home, m.home_placeholder);
+    const ph_a = !resA && isPlaceholder(m.away, m.away_placeholder);
     // Solo resolver equipos provisionalmente para slots de fase de grupos.
     // En eliminatorias (r16, r4, r2, r34, final) solo se muestran equipos confirmados por BBC.
     const isKnockoutPhase = m.phase && m.phase !== "groups";
@@ -6750,9 +6859,9 @@ function renderBracket(overrideEl) {
       return `<div class="bkt-team"><span class="bkt-fl">🛡</span><span class="bkt-tn"><span class="bkt-ph">Por definir</span></span></div>`;
     }
     return `<div class="bkt-card${played ? " bkt-played" : ""}${m.date ? " grp-match-link bkt-click" : ""}${cls ? " " + cls : ""}" ${da} data-match-num="${m.match_num || ""}">
-      ${teamHtml(ph_h, provH, m.home, m.flag_home, m.home, winH, isKnockoutPhase)}
+      ${teamHtml(ph_h, provH, dispH, flagH, dispH, winH, isKnockoutPhase)}
       ${midHtml}
-      ${teamHtml(ph_a, provA, m.flag_away, m.flag_away, m.away, winA, isKnockoutPhase)}
+      ${teamHtml(ph_a, provA, dispA, flagA, dispA, winA, isKnockoutPhase)}
     </div>`;
   }
 

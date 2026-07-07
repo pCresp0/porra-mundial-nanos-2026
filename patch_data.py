@@ -436,6 +436,13 @@ def main():
         dj["meta"]["generated"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
         dj["meta"]["live"] = any(m.get("live") for m in dj.get("matches", []))
 
+    from app import _backfill_match_flags, _propagate_bracket_winners
+    _backfill_match_flags(dj.get("matches", []))
+    _propagate_bracket_winners(dj.get("matches", []))
+    if not args.dry_run and changes > 0:
+        from app import repair_progression
+        repair_progression(dj)
+
     if args.dry_run:
         print(f"\n📋 Dry-run: {changes} cambio(s) detectados (sin guardar)")
         return 0
@@ -450,23 +457,64 @@ def main():
 
 
 def _update_progression(dj: dict, match: dict, deltas: dict[str, float]):
-    """Add score deltas to the progression array for the given match.
-    For AUTO_PHASES, the match score is stored in event 113 (bundled slot).
-    Future versions can expand this to individual events.
-    """
+    """Añade un evento de progresión por partido y sincroniza la serie acumulada."""
+    from app import (
+        _abbr_team, _append_progression_event, _award_grid_on_ko_win,
+        _ko_match_qual_bonus, _match_prog_title, _progression_grid_context_from_data,
+        _sync_prog_players,
+    )
+
     prog = dj.get("progression")
     if not prog or not prog.get("day_points"):
         return
 
-    # For now, add to the last progression event (index 113) which holds
-    # bundled scores for remaining r8/r4 matches without dedicated events.
-    # This ensures the cumulative progression total stays consistent.
-    day_pts = prog["day_points"]
-    last_idx = len(next(iter(day_pts.values()))) - 1
+    player_names = dj.get("meta", {}).get("players", [])
+    if not player_names:
+        return
 
-    for player, delta in deltas.items():
-        if player in day_pts and delta != 0:
-            day_pts[player][last_idx] = float(day_pts[player][last_idx] or 0) + delta
+    date = match.get("date", "")
+    if not str(date).startswith("2026-"):
+        dates = prog.get("dates", [])
+        date = next((d for d in reversed(dates) if str(d).startswith("2026-")), "2026-07-07")
+
+    earned = {n: round(float(deltas.get(n, 0.0)), 1) for n in player_names}
+    label = f"{_abbr_team(match.get('home'))}-{_abbr_team(match.get('away'))}"
+    flag = f"{match.get('flag_home', '')}{match.get('flag_away', '')}" or label
+    _append_progression_event(
+        prog, player_names, label, flag, date,
+        _match_prog_title(match), match.get("phase", "r8"), earned,
+    )
+
+    grid_ctx = _progression_grid_context_from_data(dj)
+    if grid_ctx and match.get("phase") in ("r16", "r8", "r4", "r2"):
+        awarded = set()
+        grid_earned = _award_grid_on_ko_win(
+            match, player_names, grid_ctx["grid_preds"],
+            grid_ctx["pts"], awarded, grid_ctx["actual"],
+        )
+        qual_earned = _ko_match_qual_bonus(match, player_names, grid_ctx["pts"].get("r4", 5.0))
+        if match.get("phase") == "r8":
+            combined = {
+                n: round(grid_earned.get(n, 0) + qual_earned.get(n, 0), 1)
+                for n in player_names
+            }
+            if any(v > 0 for v in combined.values()):
+                w = str(match.get("actual_winner") or "").strip()
+                grid_phase = "r4_team"
+                _append_progression_event(
+                    prog, player_names, f"Clasif. {_abbr_team(w)}", "✓", date,
+                    f"Clasificado a fase siguiente: {w}", grid_phase, combined,
+                )
+        elif any(v > 0 for v in grid_earned.values()):
+            w = str(match.get("actual_winner") or "").strip()
+            phase_map = {"r16": "r8_team", "r4": "r2_team", "r2": "final_team"}
+            _append_progression_event(
+                prog, player_names, f"Clasif. {_abbr_team(w)}", "✓", date,
+                f"Clasificado a fase siguiente: {w}",
+                phase_map.get(match.get("phase"), "grid"), grid_earned,
+            )
+
+    _sync_prog_players(prog, player_names)
 
 
 if __name__ == "__main__":

@@ -1126,6 +1126,95 @@ def _abbr_team(name):
     return "".join(letters[:3]).upper() if letters else "?"
 
 
+def _is_real_team_name(t):
+    """True si el nombre es una selección real (no W94, 1A, 3º, etc.)."""
+    if not t:
+        return False
+    ts = str(t).strip()
+    if not ts or ts in ("3º", "4º", "ENFRENTAMIENTO FINAL"):
+        return False
+    if re.match(r"^[WL]\d+$", ts):
+        return False
+    if re.match(r"^[123][A-L]", ts):
+        return False
+    if "º" in ts or "finalista" in ts.lower():
+        return False
+    return True
+
+
+def _backfill_match_flags(matches):
+    """Rellena banderas faltantes en eliminatorias usando partidos anteriores."""
+    flag_by_team = {}
+    for m in matches:
+        for side, fk in (("home", "flag_home"), ("away", "flag_away")):
+            t, f = m.get(side), m.get(fk, "")
+            if _is_real_team_name(t) and f:
+                flag_by_team[str(t).strip()] = f
+    for m in matches:
+        for side, fk in (("home", "flag_home"), ("away", "flag_away")):
+            t = m.get(side)
+            if _is_real_team_name(t) and not m.get(fk):
+                m[fk] = flag_by_team.get(str(t).strip(), "")
+    return matches
+
+
+def _propagate_bracket_winners(matches):
+    """Sustituye Wxx/Lxx en fases siguientes por ganadores/perdedores ya conocidos."""
+    by_num = {m["match_num"]: m for m in matches if m.get("match_num") is not None}
+
+    def _winner_flag(src, winner):
+        if winner == src.get("home"):
+            return src.get("flag_home", "")
+        if winner == src.get("away"):
+            return src.get("flag_away", "")
+        return ""
+
+    def _from_w(num):
+        src = by_num.get(num)
+        if not src or not src.get("played") or not src.get("actual_winner"):
+            return None, None
+        w = str(src["actual_winner"]).strip()
+        return w, _winner_flag(src, w)
+
+    def _from_l(num):
+        src = by_num.get(num)
+        if not src or not src.get("played") or not src.get("actual_winner"):
+            return None, None
+        w = str(src["actual_winner"]).strip()
+        home, away = str(src.get("home") or "").strip(), str(src.get("away") or "").strip()
+        loser = away if w == home else home if w == away else ""
+        if not loser:
+            return None, None
+        return loser, _winner_flag(src, loser)
+
+    for m in matches:
+        for side, fk in (("home", "flag_home"), ("away", "flag_away")):
+            ph_key = "home_placeholder" if side == "home" else "away_placeholder"
+            candidates = [str(m.get(side) or "").strip(), str(m.get(ph_key) or "").strip()]
+            for slot in candidates:
+                if not slot:
+                    continue
+                wm = re.match(r"^W(\d+)$", slot)
+                lm = re.match(r"^L(\d+)$", slot)
+                resolved = None
+                if wm:
+                    resolved = _from_w(int(wm.group(1)))
+                elif lm:
+                    resolved = _from_l(int(lm.group(1)))
+                if resolved and resolved[0]:
+                    m[side] = resolved[0]
+                    if resolved[1]:
+                        m[fk] = resolved[1]
+                    break
+
+        h, a = str(m.get("home") or "").strip(), str(m.get("away") or "").strip()
+        if h and a:
+            m["name"] = f"{h}-{a}"
+
+    _backfill_match_flags(matches)
+    return matches
+
+
 def _prog_match_earned(m, pred_obj):
     """Puntos de un partido para la progresión (misma lógica que la tabla de clasificación)."""
     phase = m.get("phase", "groups")
@@ -1133,7 +1222,278 @@ def _prog_match_earned(m, pred_obj):
         return round(float(pred_obj.get("score") or 0), 2)
     bd = pred_obj.get("breakdown") or {}
     match_pts = round((bd.get("sign") or 0) + (bd.get("diff") or 0) + (bd.get("exact") or 0), 2)
-    return round(match_pts + float(pred_obj.get("qual_pts") or 0), 2)
+    qual_pts = round(float(pred_obj.get("qual_pts") or 0), 2)
+    if match_pts > 0:
+        return round(match_pts + qual_pts, 2)
+    score = round(float(pred_obj.get("score") or 0), 2)
+    if score > 0:
+        return score
+    return qual_pts
+
+
+def _sync_prog_players(progression, player_names):
+    """Recalcula la serie acumulada de cada jugador a partir de day_points."""
+    players_out = {n: [] for n in player_names}
+    for name in player_names:
+        cumulative = 0.0
+        for pts in progression.get("day_points", {}).get(name, []):
+            cumulative = round(cumulative + float(pts or 0), 1)
+            players_out[name].append(cumulative)
+    progression["players"] = players_out
+    return progression
+
+
+def _normalize_player_grid_preds(grid_preds):
+    """Excel usa VICTOR; la web usa VÍCTOR."""
+    if "VICTOR" in grid_preds and "VÍCTOR" not in grid_preds:
+        grid_preds["VÍCTOR"] = grid_preds.pop("VICTOR")
+    return grid_preds
+
+
+def _progression_grid_context_from_data(dj):
+    """Construye grid_ctx para progresión a partir de Excel + partidos jugados."""
+    global FILE1, FILE2
+    FILE1 = os.path.join(BASE, "data", "Admin real", "ALL_ADMIN-Excel-Mundial-2026_1.xlsx")
+    FILE2 = os.path.join(BASE, "data", "Admin real", "ALL_ADMIN-Excel-Mundial-2026_2.xlsx")
+    if not os.path.isfile(FILE1) or not os.path.isfile(FILE2):
+        return None
+    ws1, players1, _ = _load_file1()
+    ws2, player2, _ = _load_file2()
+    all_players = players1 + [player2]
+    all_ws = [ws1] * len(players1) + [ws2]
+    grid_preds = _normalize_player_grid_preds(_build_player_grid_preds(all_players, all_ws))
+    actual_r8, actual_r4, actual_r2, actual_r34, actual_final = (set(), set(), set(), set(), set())
+    _augment_actual_qualifiers_from_matches(
+        dj.get("matches", []), actual_r8, actual_r4, actual_r2, actual_r34, actual_final,
+    )
+    return {
+        "grid_preds": grid_preds,
+        "pts": {
+            "r8": float(_val(ws1, 19, 4) or 3.0),
+            "r4": float(_val(ws1, 23, 4) or 5.0),
+            "r2": float(_val(ws1, 27, 4) or 8.0),
+            "r34": float(_val(ws1, 31, 4) or 10.0),
+            "final": float(_val(ws1, 35, 4) or 15.0),
+        },
+        "actual": {
+            "r8": actual_r8, "r4": actual_r4, "r2": actual_r2,
+            "r34": actual_r34, "final": actual_final,
+        },
+    }
+
+
+def _ko_match_qual_bonus(m, player_names, qual_pts):
+    """Bonus «clasificado correcto» del partido (sin duplicar el cuadro de equipos)."""
+    if m.get("phase") not in ("r16", "r8", "r4", "r2", "r34", "final"):
+        return {}
+    winner = str(m.get("actual_winner") or "").strip()
+    if not winner:
+        return {}
+    earned = {}
+    for n in player_names:
+        pred_obj = m.get("predictions", {}).get(n, {})
+        if float(pred_obj.get("qual_pts") or 0) > 0:
+            earned[n] = float(pred_obj["qual_pts"])
+            continue
+        pred = pred_obj.get("pred") or {}
+        if (pred_obj.get("breakdown") or {}).get("team_match") == "none":
+            continue
+        pred_w = str(pred.get("winner") or "").strip()
+        if pred_w and pred_w.lower() == winner.lower():
+            earned[n] = qual_pts
+    return earned
+
+
+def _append_progression_event(prog, player_names, label, flag, date, title, phase, earned):
+    """Añade un evento al final de la progresión existente."""
+    prog.setdefault("labels", []).append(label)
+    prog.setdefault("flag_labels", []).append(flag)
+    prog.setdefault("dates", []).append(date)
+    prog.setdefault("titles", []).append(title)
+    prog.setdefault("phases", []).append(phase)
+    for n in player_names:
+        prog.setdefault("day_points", {}).setdefault(n, []).append(
+            round(float(earned.get(n, 0.0)), 1)
+        )
+    return _sync_prog_players(prog, player_names)
+
+
+def _insert_progression_events(prog, idx, events, player_names):
+    """Sustituye el evento en idx por una lista de eventos (misma suma de puntos)."""
+    for key in ("labels", "flag_labels", "dates", "titles", "phases"):
+        lst = prog.get(key, [])
+        if idx < len(lst):
+            lst.pop(idx)
+        for offset, ev in enumerate(events):
+            lst.insert(idx + offset, ev[key])
+    for n in player_names:
+        dp = prog.setdefault("day_points", {}).setdefault(n, [])
+        if idx < len(dp):
+            dp.pop(idx)
+        for offset, ev in enumerate(events):
+            dp.insert(idx + offset, round(float(ev.get("earned", {}).get(n, 0.0)), 1))
+    return _sync_prog_players(prog, player_names)
+
+
+def _match_prog_title(m):
+    gl, gv = m.get("goals_l"), m.get("goals_v")
+    score = f" {gl}-{gv} " if gl is not None and gv is not None else " vs "
+    title = f"{m.get('home', '')}{score}{m.get('away', '')}"
+    if m.get("date"):
+        try:
+            dt = datetime.strptime(m["date"], "%Y-%m-%d")
+            title += f" · {dt.day} {_MONTHS_ES[dt.month]}"
+        except ValueError:
+            pass
+    return title
+
+
+def repair_progression(dj):
+    """Corrige progresión: sincroniza players, fechas y eventos agrupados de octavos."""
+    prog = dj.get("progression")
+    if not prog:
+        return dj
+    player_names = dj.get("meta", {}).get("players", [])
+    if not player_names:
+        return dj
+
+    # Fechas inválidas → fecha del partido o última válida
+    dates = prog.get("dates", [])
+    last_ok = next((d for d in reversed(dates) if str(d).startswith("2026-")), "2026-07-07")
+    for i, d in enumerate(dates):
+        if not str(d).startswith("2026-"):
+            m = None
+            lbl = (prog.get("labels") or [""])[i] if i < len(prog.get("labels", [])) else ""
+            for cand in dj.get("matches", []):
+                ab = f"{_abbr_team(cand.get('home'))}-{_abbr_team(cand.get('away'))}"
+                if ab == lbl or cand.get("name", "").startswith(lbl[:3]):
+                    m = cand
+                    break
+            dates[i] = (m.get("date") if m and str(m.get("date", "")).startswith("2026-")
+                        else last_ok)
+
+    # Desagrupar evento EST-BÉL que incluye varios partidos del 07/07
+    labels = prog.get("labels", [])
+    bundled_idx = next(
+        (i for i, lbl in enumerate(labels)
+         if lbl in ("EST-BÉL", "EST-BEL") and i < len(dates)
+         and not str(dates[i]).startswith("2026-")),
+        None,
+    )
+    if bundled_idx is None:
+        bundled_idx = next(
+            (i for i, lbl in enumerate(labels) if lbl in ("EST-BÉL", "EST-BEL")), None
+        )
+
+    grid_ctx = _progression_grid_context_from_data(dj)
+    if bundled_idx is not None and grid_ctx:
+        matches_by_name = {m.get("name"): m for m in dj.get("matches", [])}
+        m_est = matches_by_name.get("Estados Unidos-Bélgica")
+        m_arg = matches_by_name.get("Argentina-Egipto")
+        already_split = (
+            bundled_idx + 1 < len(labels)
+            and labels[bundled_idx + 1] in ("ARG-EGI", "ARG-EGY")
+        )
+        if (m_est and m_arg and m_est.get("played") and m_arg.get("played")
+                and not already_split):
+            players = player_names
+            grid_preds = grid_ctx["grid_preds"]
+            pts_cfg = grid_ctx["pts"]
+            actual = grid_ctx["actual"]
+            awarded = set()
+            date = m_est.get("date") or m_arg.get("date") or "2026-07-07"
+
+            est_earned = {
+                n: round(float(m_est["predictions"].get(n, {}).get("score") or 0)
+                         + float(m_est["predictions"].get(n, {}).get("qual_pts") or 0), 1)
+                for n in players
+            }
+            bel_grid = _award_grid_on_ko_win(
+                m_est, players, grid_preds, pts_cfg, awarded, actual,
+            )
+            arg_earned = {
+                n: round(float(m_arg["predictions"].get(n, {}).get("score") or 0), 1)
+                for n in players
+            }
+            arg_grid = _award_grid_on_ko_win(
+                m_arg, players, grid_preds, pts_cfg, awarded, actual,
+            )
+            arg_qual = _ko_match_qual_bonus(m_arg, players, pts_cfg["r4"])
+            arg_combined = {
+                n: round(arg_grid.get(n, 0) + arg_qual.get(n, 0), 1) for n in players
+            }
+
+            base_totals = {
+                n: round(
+                    est_earned.get(n, 0) + bel_grid.get(n, 0)
+                    + arg_earned.get(n, 0) + arg_combined.get(n, 0),
+                    1,
+                )
+                for n in players
+            }
+            old_totals = {n: prog["day_points"][n][bundled_idx] for n in players}
+            if not all(abs(old_totals[n] - base_totals[n]) < 0.05 for n in players):
+                # Ajustar bonus de clasificado para respetar totales ya consolidados
+                arg_combined = {
+                    n: round(
+                        old_totals[n] - est_earned.get(n, 0) - bel_grid.get(n, 0)
+                        - arg_earned.get(n, 0),
+                        1,
+                    )
+                    for n in players
+                }
+
+            events = [
+                {
+                    "labels": f"{_abbr_team(m_est.get('home'))}-{_abbr_team(m_est.get('away'))}",
+                    "flag_labels": f"{m_est.get('flag_home', '')}{m_est.get('flag_away', '')}",
+                    "dates": date, "titles": _match_prog_title(m_est),
+                    "phases": "r8", "earned": est_earned,
+                },
+            ]
+            if any(v > 0 for v in bel_grid.values()):
+                w = str(m_est.get("actual_winner") or "").strip()
+                events.append({
+                    "labels": f"Clasif. {_abbr_team(w)}",
+                    "flag_labels": "✓", "dates": date,
+                    "titles": f"Clasificado a fase siguiente: {w}",
+                    "phases": "r4_team", "earned": bel_grid,
+                })
+            events.append({
+                "labels": f"{_abbr_team(m_arg.get('home'))}-{_abbr_team(m_arg.get('away'))}",
+                "flag_labels": f"{m_arg.get('flag_home', '')}{m_arg.get('flag_away', '')}",
+                "dates": date, "titles": _match_prog_title(m_arg),
+                "phases": "r8", "earned": arg_earned,
+            })
+            if any(v > 0 for v in arg_combined.values()):
+                w = str(m_arg.get("actual_winner") or "").strip()
+                events.append({
+                    "labels": f"Clasif. {_abbr_team(w)}",
+                    "flag_labels": "✓", "dates": date,
+                    "titles": f"Clasificado a fase siguiente: {w}",
+                    "phases": "r4_team", "earned": arg_combined,
+                })
+
+            old_totals = {n: prog["day_points"][n][bundled_idx] for n in players}
+            new_totals = {
+                n: round(
+                    est_earned.get(n, 0) + bel_grid.get(n, 0)
+                    + arg_earned.get(n, 0) + arg_combined.get(n, 0),
+                    1,
+                )
+                for n in players
+            }
+            if all(abs(old_totals[n] - new_totals[n]) < 0.05 for n in players):
+                _insert_progression_events(prog, bundled_idx, events, players)
+            else:
+                _sync_prog_players(prog, players)
+        else:
+            _sync_prog_players(prog, players)
+    else:
+        _sync_prog_players(prog, players)
+
+    dj["progression"] = prog
+    return dj
 
 
 def _ko_match_qual_target_phase(m):
@@ -1383,7 +1743,7 @@ def _build_daily_progression(matches, player_names, player_positions_pts=None,
                 {n: player_q16_pts.get(n, 0.0) for n in player_names},
             )
 
-    return {
+    progression = {
         "labels":      labels,
         "flag_labels": flag_labels,
         "dates":       dates,
@@ -1392,6 +1752,7 @@ def _build_daily_progression(matches, player_names, player_positions_pts=None,
         "day_points":  day_points,
         "phases":      phases,
     }
+    return _sync_prog_players(progression, player_names)
 
 
 def _load_file1():
@@ -2116,15 +2477,8 @@ def build_data():
             if m_obj["actual_winner"]:
                 winner_by_num[match_num] = m_obj["actual_winner"]
 
-    _r8_flag_by_team = {}
-    for _m in matches:
-        if _m.get("phase") == "r16" and _m.get("played"):
-            _r8_flag_by_team[_m["home"]] = _m.get("flag_home", "")
-            _r8_flag_by_team[_m["away"]] = _m.get("flag_away", "")
-    for _m in matches:
-        if _m.get("phase") == "r16":
-            _r8_flag_by_team.setdefault(_m["home"], _m.get("flag_home", ""))
-            _r8_flag_by_team.setdefault(_m["away"], _m.get("flag_away", ""))
+    _backfill_match_flags(matches)
+    _propagate_bracket_winners(matches)
 
     # ── Corregir bracket_order visual de los octavos ──────────────────────────
     # En el Admin Excel los octavos van en pares: (89,90), (91,92), (93,94), (95,96).

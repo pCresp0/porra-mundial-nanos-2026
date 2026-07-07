@@ -3916,6 +3916,13 @@
   font-weight: 800; color: var(--gold);
   background: rgba(245,197,24,.08); border-radius: 6px; padding: .1rem .45rem;
 }
+.twins-phase-row {
+  display: flex; flex-wrap: wrap; gap: .45rem; align-items: center;
+}
+.twins-phase-n {
+  font-weight: 600; opacity: .75; font-size: .85em;
+}
+.twins-phase-hint strong { font-weight: 700; }
 
 /* ── Liga table ── */
 .tm-league-table {
