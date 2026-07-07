@@ -1367,6 +1367,16 @@ function _confirmedBreakdown(m, pd) {
   return _computeLiveBreakdown(m, pd.pred, +gl, +gv);
 }
 
+function _qualPtsEarned(m, pd) {
+  if (!m?.played || !pd || m.phase === "groups") return 0;
+  const q = parseFloat(pd.qual_pts);
+  return Number.isFinite(q) && q > 0 ? q : 0;
+}
+
+function _playedPredTotal(m, pd) {
+  return (parseFloat(pd?.score) || 0) + _qualPtsEarned(m, pd);
+}
+
 let _liveOverlayCache = null;
 let _liveOverlayKey = "";
 
@@ -3311,7 +3321,8 @@ function renderMatchCard(m, players, colors) {
     const bd = _confirmedBreakdown(m, pd);
     let badgeClass = "badge-pending";
     if (m.played) {
-      if (pd.score > 0) {
+      const playedTotal = _playedPredTotal(m, pd);
+      if (playedTotal > 0) {
         const isExact = m.result && pd.pred.score === m.result.score;
         badgeClass = isExact ? "badge-exact" : "badge-sign";
       } else {
@@ -3328,20 +3339,12 @@ function renderMatchCard(m, players, colors) {
 
     let brkHtml = "";
     let qualHtml = "";
-    if (m.phase && m.phase !== "groups" && m.played && pd.pred && pd.pred.winner) {
-      const actualW = (m.actual_winner || "").trim().toLowerCase();
-      const predW = (pd.pred.winner || "").trim().toLowerCase();
-      const winnerOk = actualW && predW && (predW.includes(actualW) || actualW.includes(predW));
-      const getQualifierPts = (ph) => {
-        if (ph === "r16") return 3;
-        if (ph === "r8") return 5;
-        if (ph === "r4") return 8;
-        if (ph === "r2") return 12;
-        return 0;
-      };
-      const pts = getQualifierPts(m.phase);
-      if (pts > 0) {
-        qualHtml = `<span class="brk-chip ${winnerOk ? "ok" : "miss"}">Pasa: ${escapeHtml(pd.pred.winner)} ${winnerOk ? "✓" : "✗"}${winnerOk ? ` (+${pts})` : ""}</span>`;
+    if (m.phase && m.phase !== "groups" && m.played && pd.pred?.winner) {
+      const qualEarned = _qualPtsEarned(m, pd);
+      const maxQual = { r16: 3, r8: 5, r4: 8, r2: 12 }[m.phase] || 0;
+      if (maxQual > 0) {
+        const ok = qualEarned > 0;
+        qualHtml = `<span class="brk-chip ${ok ? "ok" : "miss"}">Pasa: ${escapeHtml(pd.pred.winner)} ${ok ? "✓" : "✗"}${ok ? ` (+${fmt(qualEarned)})` : ""}</span>`;
       }
     }
 
@@ -3458,7 +3461,8 @@ function renderMatchCard(m, players, colors) {
 
     let scoreHtml = "";
     if (m.played) {
-      scoreHtml = `<span class="text-base font-extrabold" style="color:${pd.score > 0 ? colors[name] : '#EF4444'}">${pd.score > 0 ? "+"+Math.round(pd.score) : "✗"}</span>`;
+      const total = _playedPredTotal(m, pd);
+      scoreHtml = `<span class="text-base font-extrabold" style="color:${total > 0 ? colors[name] : '#EF4444'}">${total > 0 ? "+"+fmt(total) : "✗"}</span>`;
     } else if (lb) {
       scoreHtml = `<span class="text-base font-extrabold live-prov-score" style="color:${lb.total > 0 ? colors[name] : '#EF4444'}">${lb.total > 0 ? "+"+fmt(lb.total) : "✗"}<span class="prov-tag">prov.</span></span>`;
     }
