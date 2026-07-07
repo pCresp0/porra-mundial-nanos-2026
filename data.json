@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "2026-07-07T22:52:17Z",
+    "generated": "2026-07-07T22:54:19Z",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-07T19:40",
       "next_update_time": "19:40",
       "next_update_date": "07/07/2026",
-      "last_checked_iso": "2026-07-08T00:53",
-      "last_checked_time": "00:53",
+      "last_checked_iso": "2026-07-08T00:54",
+      "last_checked_time": "00:54",
       "last_checked_date": "08/07/2026"
     },
     "players": [
@@ -23,7 +23,7 @@
       "VÍCTOR",
       "CRESPO"
     ],
-    "live": true,
+    "live": false,
     "colors": {
       "JUANCHO": "#F5C518",
       "LARRY": "#3B82F6",
@@ -421,6 +421,32 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-08T00:54:21+02:00",
+        "date": "08/07/2026",
+        "time": "00:54:21",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇨🇭Suiza 0-0 Colombia🇨🇴",
+            "name": "Suiza-Colombia",
+            "date": "2026-07-07",
+            "fields": [
+              "marcador",
+              "jugado"
+            ],
+            "old": {
+              "marcador": "sin resultado",
+              "jugado": "no"
+            },
+            "new": {
+              "marcador": "0-0",
+              "jugado": "sí"
+            }
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-08T00:53:17+02:00",
         "date": "08/07/2026",
@@ -4457,14 +4483,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T03:01:08+02:00",
-        "date": "06/07/2026",
-        "time": "03:01:08",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4472,7 +4490,7 @@
     {
       "name": "MEDINA",
       "total": 373,
-      "live_points": 0.0,
+      "live_points": 0,
       "total_live": 373.0,
       "groups": 130.0,
       "positions": 89.0,
@@ -4524,7 +4542,7 @@
     {
       "name": "VÍCTOR",
       "total": 344,
-      "live_points": 0.0,
+      "live_points": 0,
       "total_live": 344.0,
       "groups": 134.0,
       "positions": 75.0,
@@ -4576,7 +4594,7 @@
     {
       "name": "JUANCHO",
       "total": 342.0,
-      "live_points": 0.0,
+      "live_points": 0,
       "total_live": 342.0,
       "groups": 121.0,
       "positions": 85.0,
@@ -4628,7 +4646,7 @@
     {
       "name": "CRESPO",
       "total": 331,
-      "live_points": 0.0,
+      "live_points": 0,
       "total_live": 331.0,
       "groups": 121.0,
       "positions": 81.0,
@@ -4680,7 +4698,7 @@
     {
       "name": "LUIS/VIR",
       "total": 317,
-      "live_points": 0.0,
+      "live_points": 0,
       "total_live": 317.0,
       "groups": 101.0,
       "positions": 77.0,
@@ -4732,7 +4750,7 @@
     {
       "name": "LARRY",
       "total": 289.0,
-      "live_points": 0.0,
+      "live_points": 0,
       "total_live": 289.0,
       "groups": 105.0,
       "positions": 67.0,
@@ -22690,15 +22708,18 @@
       "day_label": "Martes 07 julio",
       "datetime_es": "2026-07-07T22:00:00",
       "phase": "r8",
-      "result": null,
-      "played": false,
-      "live": true,
-      "live_minute": "live",
-      "live_goals_l": 0,
-      "live_goals_v": 0,
+      "result": {
+        "sign": "X",
+        "score": "0-0"
+      },
+      "played": true,
+      "live": false,
+      "live_minute": "",
+      "live_goals_l": null,
+      "live_goals_v": null,
       "live_scorers": [],
-      "goals_l": null,
-      "goals_v": null,
+      "goals_l": 0,
+      "goals_v": 0,
       "scorers": [],
       "phase_pts": {
         "sign": 4.0,
@@ -22715,8 +22736,7 @@
             "pred_away": "Colombia"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -22728,7 +22748,8 @@
             "pred_home": "Suiza",
             "pred_away": "Colombia"
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "LARRY": {
           "pred": {
@@ -22739,8 +22760,7 @@
             "pred_away": "Colombia"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -22752,7 +22772,8 @@
             "pred_home": "Suiza",
             "pred_away": "Colombia"
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "LUIS/VIR": {
           "pred": {
@@ -22763,8 +22784,7 @@
             "pred_away": "Colombia"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -22776,7 +22796,8 @@
             "pred_home": "Suiza",
             "pred_away": "Colombia"
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "MEDINA": {
           "pred": {
@@ -22787,8 +22808,7 @@
             "pred_away": "Colombia"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -22800,7 +22820,8 @@
             "pred_home": "Suiza",
             "pred_away": "Colombia"
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "VÍCTOR": {
           "pred": {
@@ -22811,8 +22832,7 @@
             "pred_away": "Colombia"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -22824,7 +22844,8 @@
             "pred_home": "Suiza",
             "pred_away": "Colombia"
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "CRESPO": {
           "pred": {
@@ -22835,8 +22856,7 @@
             "pred_away": "Colombia"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -22848,11 +22868,15 @@
             "pred_home": "Suiza",
             "pred_away": "Colombia"
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         }
       },
-      "penalties": null,
-      "actual_winner": null
+      "penalties": {
+        "home": 4,
+        "away": 3
+      },
+      "actual_winner": ""
     },
     {
       "row": 220,
@@ -24187,7 +24211,8 @@
       "BÉL-EST",
       "Clasif. BÉL",
       "ARG-EGI",
-      "Clasif. ARG"
+      "Clasif. ARG",
+      "SUI-COL"
     ],
     "flag_labels": [
       "🇲🇽🇿🇦",
@@ -24332,7 +24357,8 @@
       "🇧🇪🇺🇸",
       "✓",
       "🇦🇷🇪🇬",
-      "✓"
+      "✓",
+      "🇨🇭🇨🇴"
     ],
     "dates": [
       "2026-06-11",
@@ -24474,6 +24500,7 @@
       "2026-07-06",
       "2026-07-06",
       "2026-07-06",
+      "2026-07-07",
       "2026-07-07",
       "2026-07-07",
       "2026-07-07",
@@ -24622,7 +24649,8 @@
       "Bélgica 4-1 Estados Unidos · 7 jul",
       "Clasificado a fase siguiente: Bélgica",
       "Argentina 3-2 Egipto · 7 jul",
-      "Clasificado a fase siguiente: Argentina"
+      "Clasificado a fase siguiente: Argentina",
+      "Suiza 0-0 Colombia · 7 jul"
     ],
     "players": {
       "JUANCHO": [
@@ -24768,6 +24796,7 @@
         437.0,
         437.0,
         437.0,
+        447.0,
         447.0
       ],
       "LARRY": [
@@ -24913,6 +24942,7 @@
         334.0,
         334.0,
         334.0,
+        344.0,
         344.0
       ],
       "LUIS/VIR": [
@@ -25058,6 +25088,7 @@
         397.0,
         407.0,
         407.0,
+        417.0,
         417.0
       ],
       "MEDINA": [
@@ -25203,6 +25234,7 @@
         443.0,
         443.0,
         443.0,
+        453.0,
         453.0
       ],
       "VÍCTOR": [
@@ -25348,6 +25380,7 @@
         424.0,
         434.0,
         434.0,
+        444.0,
         444.0
       ],
       "CRESPO": [
@@ -25493,6 +25526,7 @@
         411.0,
         421.0,
         421.0,
+        431.0,
         431.0
       ]
     },
@@ -25640,7 +25674,8 @@
         0.0,
         0.0,
         0.0,
-        10.0
+        10.0,
+        0.0
       ],
       "LARRY": [
         2.0,
@@ -25785,7 +25820,8 @@
         0.0,
         0.0,
         0.0,
-        10.0
+        10.0,
+        0.0
       ],
       "LUIS/VIR": [
         2.0,
@@ -25930,7 +25966,8 @@
         0.0,
         10.0,
         0.0,
-        10.0
+        10.0,
+        0.0
       ],
       "MEDINA": [
         2.0,
@@ -26075,7 +26112,8 @@
         0.0,
         0.0,
         0.0,
-        10.0
+        10.0,
+        0.0
       ],
       "VÍCTOR": [
         6.0,
@@ -26220,7 +26258,8 @@
         0.0,
         10.0,
         0.0,
-        10.0
+        10.0,
+        0.0
       ],
       "CRESPO": [
         3.0,
@@ -26365,7 +26404,8 @@
         0.0,
         10.0,
         0.0,
-        10.0
+        10.0,
+        0.0
       ]
     },
     "phases": [
@@ -26511,7 +26551,8 @@
       "r8",
       "r4_team",
       "r8",
-      "r4_team"
+      "r4_team",
+      "r8"
     ]
   },
   "honor": [
