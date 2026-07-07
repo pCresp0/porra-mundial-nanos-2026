@@ -1188,12 +1188,20 @@ def _propagate_bracket_winners(matches):
         return loser, _winner_flag(src, loser)
 
     for m in matches:
+        renamed = False
         for side, fk in (("home", "flag_home"), ("away", "flag_away")):
             ph_key = "home_placeholder" if side == "home" else "away_placeholder"
-            candidates = [str(m.get(side) or "").strip(), str(m.get(ph_key) or "").strip()]
-            for slot in candidates:
-                if not slot:
-                    continue
+            current = str(m.get(side) or "").strip()
+            # Octavos/cuartos ya fijados por nombre real: no pisar con W86/W88 del cuadro.
+            if _is_real_team_name(current):
+                continue
+            slots = []
+            if re.match(r"^[WL]\d+$", current):
+                slots.append(current)
+            ph = str(m.get(ph_key) or "").strip()
+            if ph and ph not in slots:
+                slots.append(ph)
+            for slot in slots:
                 wm = re.match(r"^W(\d+)$", slot)
                 lm = re.match(r"^L(\d+)$", slot)
                 resolved = None
@@ -1205,10 +1213,11 @@ def _propagate_bracket_winners(matches):
                     m[side] = resolved[0]
                     if resolved[1]:
                         m[fk] = resolved[1]
+                    renamed = True
                     break
 
         h, a = str(m.get("home") or "").strip(), str(m.get("away") or "").strip()
-        if h and a:
+        if renamed and h and a:
             m["name"] = f"{h}-{a}"
 
     _backfill_match_flags(matches)
