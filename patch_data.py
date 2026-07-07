@@ -211,6 +211,38 @@ def calc_match_score(pred: dict | None, gl: int, gv: int, phase: str, match: dic
     return score, bd
 
 
+def backfill_breakdowns(dj: dict) -> int:
+    """Rellena breakdown en predicciones de partidos jugados que no lo tienen."""
+    from app import _score_breakdown
+
+    updated = 0
+    for m in dj.get("matches", []):
+        if not m.get("played"):
+            continue
+        gl, gv = m.get("goals_l"), m.get("goals_v")
+        if gl is None or gv is None:
+            continue
+        phase = m.get("phase", "groups")
+        result = m.get("result") or {"sign": _sign(int(gl), int(gv)), "score": f"{int(gl)}-{int(gv)}"}
+        pp = m.get("phase_pts") or PHASE_PTS.get(phase, PHASE_PTS["groups"])
+
+        for pred_data in m.get("predictions", {}).values():
+            pred = pred_data.get("pred")
+            if not pred:
+                continue
+            if phase == "groups":
+                bd = _score_breakdown(
+                    pred, result, int(gl), int(gv),
+                    pp.get("sign", 2), pp.get("diff", 1), pp.get("exact", 3),
+                )
+            else:
+                _, bd = calc_match_score(pred, int(gl), int(gv), phase, m)
+            if pred_data.get("breakdown") != bd:
+                pred_data["breakdown"] = bd
+                updated += 1
+    return updated
+
+
 def load_json(path: str) -> dict | list:
     if not os.path.isfile(path):
         return {}
@@ -549,6 +581,11 @@ def main():
     if not args.dry_run and changes > 0:
         from app import repair_progression
         repair_progression(dj)
+
+    bf = backfill_breakdowns(dj)
+    if bf:
+        print(f"  ↻ Desgloses rellenados: {bf}")
+        changes += bf
 
     if args.dry_run:
         print(f"\n📋 Dry-run: {changes} cambio(s) detectados (sin guardar)")

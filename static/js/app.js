@@ -1358,6 +1358,15 @@ function _getLiveBreakdown(m, pd) {
   return _computeLiveBreakdown(m, pd.pred, goals[0], goals[1]);
 }
 
+function _confirmedBreakdown(m, pd) {
+  if (!m.played || !pd?.pred) return null;
+  if (pd.breakdown) return pd.breakdown;
+  const gl = m.goals_l;
+  const gv = m.goals_v;
+  if (gl == null || gv == null) return null;
+  return _computeLiveBreakdown(m, pd.pred, +gl, +gv);
+}
+
 let _liveOverlayCache = null;
 let _liveOverlayKey = "";
 
@@ -3299,6 +3308,7 @@ function renderMatchCard(m, players, colors) {
       </div>`;
     }
     const lb = _getLiveBreakdown(m, pd);
+    const bd = _confirmedBreakdown(m, pd);
     let badgeClass = "badge-pending";
     if (m.played) {
       if (pd.score > 0) {
@@ -3335,8 +3345,8 @@ function renderMatchCard(m, players, colors) {
       }
     }
 
-    if (m.played && pd.breakdown) {
-      const b = pd.breakdown;
+    if (m.played && bd) {
+      const b = bd;
       const tm = m.phase === "r16" ? null : b.team_match;  // Ignore team match for r16
       let teamHtml = "";
       if (tm !== null && tm !== undefined) {
@@ -3366,8 +3376,11 @@ function renderMatchCard(m, players, colors) {
         ${qualHtml}
       </div>`;
     } else if (m.played && pd.score === 0) {
+      const b0 = bd;
+      const missReason = b0?.reasons?.[0];
+      const missTitle = missReason ? ` title="${escapeHtml(missReason)}"` : "";
       brkHtml = `<div class="mt-1 flex flex-wrap justify-center gap-0.5">
-        <span class="brk-chip miss">1X2 ✗</span>
+        <span class="brk-chip miss"${missTitle}>1X2 ✗</span>
         <span class="brk-chip miss">Dif. goles ✗</span>
         <span class="brk-chip miss">Exacto ✗</span>
         ${qualHtml}
