@@ -58,6 +58,25 @@ function matchesAnchorISO() {
   return today;
 }
 
+/** Fecha (ISO) del partido inmediatamente posterior al en juego o al próximo por jugar. */
+function matchesNextDayISO(matchesList) {
+  const sortKey = m => `${m.date || ""}T${m.time_es || "99:99"}`;
+  const unplayed = (matchesList || [])
+    .filter(m => !m.played && m.date && m.date.length >= 10)
+    .sort((a, b) => sortKey(a).localeCompare(sortKey(b)));
+  if (!unplayed.length) return null;
+
+  let curIdx = -1;
+  if (_liveMatchIds?.size) {
+    const live = [..._liveMatchIds][0];
+    curIdx = unplayed.findIndex(m => m.name === live);
+  } else if (_nextMatchId) {
+    curIdx = unplayed.findIndex(m => m.name === _nextMatchId);
+  }
+  const nextM = curIdx >= 0 ? unplayed[curIdx + 1] : unplayed[1];
+  return nextM?.date?.slice(0, 10) || null;
+}
+
 function shortDayLabel(label) {
   if (!label) return "";
   const m = label.match(/(\d{1,2})\s+de\s+(\w+)/i);
@@ -2735,6 +2754,7 @@ function renderMatches(phase, week) {
 
   const today = todaySpainISO();
   const anchor = matchesAnchorISO();
+  const nextDay = matchesNextDayISO(filtered);
   const dayISO = key => {
     const iso = byDay[key][0]?.date;
     return iso && iso.length >= 10 ? iso : null;
@@ -2753,7 +2773,11 @@ function renderMatches(phase, week) {
 
   if (filterDates.length > 0) {
     const startIdx = Math.max(0, anchorIdx - 1 - matchesDaysBefore);
-    const endIdx   = Math.min(filterDates.length - 1, anchorIdx + 1 + matchesDaysAfter);
+    let endIdx   = Math.min(filterDates.length - 1, anchorIdx + 1 + matchesDaysAfter);
+    if (nextDay) {
+      const nextIdx = filterDates.findIndex(d => d >= nextDay);
+      if (nextIdx >= 0) endIdx = Math.max(endIdx, nextIdx);
+    }
     visibleStart = filterDates[startIdx];
     visibleEnd   = filterDates[endIdx];
   }
@@ -2792,7 +2816,8 @@ function renderMatches(phase, week) {
     const isYesterday = isoDate === addDaysISO(today, -1);
     const isTomorrow = isoDate === addDaysISO(today, 1);
     const isAnchor = isoDate === anchor;
-    const keepOpen = isToday || isYesterday || isTomorrow || isAnchor || teamMode || dayKey === NO_DATE;
+    const isNextDay = nextDay && isoDate === nextDay;
+    const keepOpen = isToday || isYesterday || isTomorrow || isAnchor || isNextDay || teamMode || dayKey === NO_DATE;
     const colCls = keepOpen ? "" : " collapsed";
     const todayCls = isToday ? " today-header" : "";
     const cards = dayMatches.map(m => renderMatchCard(m, players, colors)).join("");
@@ -3952,11 +3977,29 @@ function _signFromScore(score) {
 /* ─── STATS helpers: tabla paginada ─── */
 const _matchTableState = {};
 
-function _buildMatchRowHtml(row, globalIndex, MAX_PTS) {
+function _scoringSectionPts(key) {
+  const sec = (D?.scoring_rules?.sections || []).find(s => s.key === key);
+  return sec ? sec.items.reduce((s, i) => s + (+i.pts || 0), 0) : 0;
+}
+
+/** Máximo teórico por jugador en un partido (resultado + clasificado de fase, si aplica). */
+function _maxPtsPerPlayerForMatch(m) {
+  const phase = m?.phase || "groups";
+  if (phase === "groups") {
+    return +(D?.scoring_rules?.max_per_group_match || 6);
+  }
+  const pp = m.phase_pts;
+  const matchPts = pp ? (+pp.sign || 0) + (+pp.diff || 0) + (+pp.exact || 0) : 0;
+  const qualKey = { r16: "r8_team", r8: "r4_team", r4: "r2_team", r2: "final_team" }[phase];
+  return matchPts + (qualKey ? _scoringSectionPts(qualKey) : 0);
+}
+
+function _buildMatchRowHtml(row, globalIndex) {
   const MEDAL = ["🥇", "🥈", "🥉"];
   const ptColor = pts => pts >= 5 ? "#22C55E" : pts >= 3 ? "#EAB308" : pts >= 1 ? "#F97316" : "#374151";
-  const { m, byPlayer, totalPts } = row;
-  const pct    = Math.round(totalPts / MAX_PTS * 100);
+  const { m, byPlayer, totalPts, maxPts, pct } = row;
+  const pctRounded = Math.round(pct);
+  const barPct = Math.min(100, Math.max(0, pctRounded));
   const medal  = globalIndex < 3 ? MEDAL[globalIndex] : `${globalIndex + 1}`;
   const score  = m.goals_l != null
     ? `<span class="font-bold" style="color:var(--gold)">${m.goals_l}–${m.goals_v}</span>`
@@ -3973,16 +4016,17 @@ function _buildMatchRowHtml(row, globalIndex, MAX_PTS) {
         <div style="font-size:.7rem;color:#64748B;margin-top:.1rem">${score}${score ? " · " : ""}${m.day_label || ""}</div>
       </td>
       <td class="text-center">
-        <span class="font-bold" style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--gold);line-height:1">${totalPts}</span><span style="font-size:.7rem;color:#475569">/${MAX_PTS}</span>
-        <div style="height:3px;background:rgba(255,255,255,.07);border-radius:2px;margin-top:.25rem"><div style="height:3px;width:${pct}%;background:var(--gold);border-radius:2px"></div></div>
+        <span class="font-bold" style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--gold);line-height:1">${pctRounded}%</span>
+        <div style="font-size:.68rem;color:#475569;margin-top:.1rem">${totalPts}/${maxPts} pts</div>
+        <div style="height:3px;background:rgba(255,255,255,.07);border-radius:2px;margin-top:.25rem"><div style="height:3px;width:${barPct}%;background:var(--gold);border-radius:2px"></div></div>
       </td>
       ${playerCells}
     </tr>`;
 }
 
-function _initMatchTable(containerId, matchRows, title, subtitle, MAX_PTS, playerCols, step) {
+function _initMatchTable(containerId, matchRows, title, subtitle, playerCols, step) {
   step = step || 5;
-  const allRowHtml = matchRows.map((row, i) => _buildMatchRowHtml(row, i, MAX_PTS));
+  const allRowHtml = matchRows.map((row, i) => _buildMatchRowHtml(row, i));
   _matchTableState[containerId] = { rowHtml: allRowHtml, shown: step, step };
   const el = document.getElementById(containerId);
   if (!el) return;
@@ -4001,7 +4045,7 @@ function _initMatchTable(containerId, matchRows, title, subtitle, MAX_PTS, playe
       </div>
       <div class="overflow-x-auto">
         <table class="pred-table w-full">
-          <thead><tr><th>#</th><th class="text-left">Partido</th><th>Pts totales</th>${playerCols}</tr></thead>
+          <thead><tr><th>#</th><th class="text-left">Partido</th><th>% acierto</th>${playerCols}</tr></thead>
           <tbody id="${containerId}-tbody">${firstHtml}</tbody>
         </table>
       </div>
@@ -4902,7 +4946,6 @@ function renderStats() {
   if (playedAll.length) {
     const players2 = D.meta.players;
     const colors2  = D.meta.colors;
-    const MAX_PTS  = players2.length * 6;
 
     const matchRows = playedAll.map(m => {
       const byPlayer = players2.map(name => ({
@@ -4910,31 +4953,35 @@ function renderStats() {
         pts: m.predictions?.[name]?.score ?? 0,
       }));
       const totalPts = byPlayer.reduce((s, p) => s + p.pts, 0);
-      return { m, byPlayer, totalPts };
+      const maxPts = _maxPtsPerPlayerForMatch(m) * players2.length;
+      const pct = maxPts > 0 ? (totalPts / maxPts) * 100 : 0;
+      return { m, byPlayer, totalPts, maxPts, pct };
     });
 
     const playerCols2 = players2.map(name =>
       `<th class="text-center" style="color:${colors2[name] || '#94A3B8'}">${name}</th>`
     ).join("");
 
-    // Más acertados (desc)
-    const topRows  = [...matchRows].sort((a, b) => b.totalPts - a.totalPts);
+    const sortByPct = (a, b) => b.pct - a.pct || b.totalPts - a.totalPts;
+
+    // Más acertados (desc por % del máximo posible en ese partido)
+    const topRows  = [...matchRows].sort(sortByPct);
     _initMatchTable(
       "stats-top-matches",
       topRows,
       "🏆 Partidos más acertados",
-      `Puntos totales sumados entre todos los participantes. Máximo ${MAX_PTS} pts (${players2.length} jugadores × 6 pts). Solo partidos ya jugados.`,
-      MAX_PTS, playerCols2, 5
+      `Ordenado por % de puntos conseguidos respecto al máximo posible en cada partido (varía por fase: grupos 6 pts/jugador, dieciseisavos hasta 12, octavos hasta 17…). Solo partidos ya jugados.`,
+      playerCols2, 5
     );
 
-    // Menos acertados (asc)
-    const worstRows = [...matchRows].sort((a, b) => a.totalPts - b.totalPts);
+    // Menos acertados (asc por %)
+    const worstRows = [...matchRows].sort((a, b) => a.pct - b.pct || a.totalPts - b.totalPts);
     _initMatchTable(
       "stats-worst-matches",
       worstRows,
       "📉 Partidos menos acertados",
-      `Los partidos donde la porra acertó menos (menos puntos totales entre todos). Solo partidos ya jugados.`,
-      MAX_PTS, playerCols2, 5
+      `Los partidos con peor % de acierto respecto al máximo posible en ese cruce. Solo partidos ya jugados.`,
+      playerCols2, 5
     );
   }
 
