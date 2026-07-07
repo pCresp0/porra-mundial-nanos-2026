@@ -1,7 +1,7 @@
 {
   "Estados Unidos-Bélgica": {
     "home": 1,
-    "away": 2,
+    "away": 3,
     "minute": "live",
     "scorers": [
       {
@@ -21,6 +21,13 @@
       {
         "player": "Sharl D Ktlar",
         "minute": "33'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Hans Vanaken",
+        "minute": "57'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
