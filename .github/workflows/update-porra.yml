@@ -18,6 +18,7 @@ on:
       - "data/**"
       - "update_config.json"
       - "fetch_results.py"
+      - "patch_data.py"
       - "team_names.py"
       - "app.py"
       - "excel_sync.py"
@@ -50,17 +51,39 @@ jobs:
             python should_update.py >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Sincronizar resultados → Excel (API)
+      - name: Descargar resultados de la API
         if: steps.guard.outputs.run == 'yes'
-        run: python fetch_results.py
+        # Solo descarga resultados/live → results.json, live.json, scorers.json
+        # NO llama a build_static para no sobreescribir el data.json manual
+        run: |
+          python -c "
+import sys, json, os
+sys.path.insert(0, '.')
+import fetch_results as fr
+cfg = fr._load_config()
+url = cfg.get('api_url', 'https://worldcup26.ir/get/games')
+print(f'Descargando desde {url}...')
+try:
+    games = fr._fetch_games(url)
+    # Build match map from data.json
+    match_map = fr._load_data_json_match_map()
+    fr.write_results_json(games, match_map)
+    fr.write_scorers_json(games)
+    fr.write_penalties_json(games)
+    fr.write_live_json(games)
+    print('Descarga completada')
+except Exception as e:
+    print(f'Error: {e}')
+    sys.exit(0)  # No falla el workflow si la API no responde
+"
 
-      - name: Regenerar data.json
+      - name: Aplicar resultados a data.json (patch incremental)
         if: steps.guard.outputs.run == 'yes'
-        run: python build_static.py
+        run: python patch_data.py
 
-      - name: Regenerar data.json para highlights (aunque no haya partido activo)
+      - name: Aplicar puntos en vivo (aunque no haya partido activo)
         if: steps.guard.outputs.run != 'yes'
-        run: python build_static.py
+        run: python patch_data.py --live-only
 
       - name: Buscar resúmenes DAZN en YouTube
         env:
@@ -68,8 +91,33 @@ jobs:
         run: python fetch_highlights.py
         continue-on-error: true
 
-      - name: Regenerar data.json con highlights
-        run: python build_static.py
+      - name: Integrar highlights en data.json
+        run: |
+          python -c "
+import json, os
+BASE = '.'
+highlights_path = os.path.join(BASE, 'data', 'highlights.json')
+data_path = os.path.join(BASE, 'data.json')
+if not os.path.isfile(highlights_path):
+    print('Sin highlights.json')
+    exit(0)
+with open(highlights_path) as f:
+    highlights = json.load(f)
+with open(data_path) as f:
+    dj = json.load(f)
+count = 0
+for m in dj.get('matches', []):
+    vid = highlights.get(m.get('name', ''))
+    if vid and m.get('highlights_video_id') != vid:
+        m['highlights_video_id'] = vid
+        count += 1
+if count:
+    with open(data_path, 'w') as f:
+        json.dump(dj, f, ensure_ascii=False, separators=(',', ':'))
+    print(f'Highlights integrados: {count}')
+else:
+    print('Sin nuevos highlights')
+"
 
       - name: Subir highlights si hay nuevos (sin partido activo)
         if: steps.guard.outputs.run != 'yes'

@@ -1,0 +1,473 @@
+#!/usr/bin/env python3
+"""
+patch_data.py — Aplica resultados nuevos de la API a data.json sin reconstruir
+desde cero. Solo modifica los partidos de las fases de octavos en adelante
+(r8, r4, r2, r34, final) calculando puntos automáticamente.
+
+Las fases anteriores (grupos, dieciseisavos) no se tocan: sus puntos
+ya están correctamente fijados desde el Excel por el proceso manual.
+
+Uso:
+    python3 patch_data.py               # aplica results.json + live.json
+    python3 patch_data.py --live-only   # solo actualiza puntos provisionales
+    python3 patch_data.py --dry-run     # muestra cambios sin guardar
+
+Se puede llamar desde GitHub Actions después de fetch_results.py:
+    python3 fetch_results.py
+    python3 patch_data.py
+"""
+from __future__ import annotations
+import argparse
+import json
+import os
+import sys
+import unicodedata
+from datetime import datetime, timezone
+
+BASE = os.path.dirname(os.path.abspath(__file__))
+DATA_JSON    = os.path.join(BASE, "data.json")
+RESULTS_JSON = os.path.join(BASE, "data", "results.json")
+LIVE_JSON    = os.path.join(BASE, "data", "live.json")
+SCORERS_JSON = os.path.join(BASE, "data", "scorers.json")
+
+# ─── Scoring rules per phase (sign, diff, exact) ────────────────────────────
+PHASE_PTS: dict[str, dict[str, float]] = {
+    "groups": {"sign": 2.0, "diff": 1.0, "exact": 3.0},
+    "r16":    {"sign": 3.0, "diff": 2.0, "exact": 4.0},
+    "r8":     {"sign": 4.0, "diff": 3.0, "exact": 5.0},
+    "r4":     {"sign": 5.0, "diff": 4.0, "exact": 6.0},
+    "r2":     {"sign": 6.0, "diff": 5.0, "exact": 8.0},
+    "r34":    {"sign": 6.0, "diff": 5.0, "exact": 8.0},
+    "final":  {"sign": 8.0, "diff": 6.0, "exact": 12.0},
+}
+
+# Phases that patch_data.py manages (don't touch groups, r16, positions)
+AUTO_PHASES = {"r8", "r4", "r2", "r34", "final"}
+
+
+def _norm(s: str) -> str:
+    """Normalize string: remove accents, lowercase."""
+    s2 = unicodedata.normalize("NFD", s.lower())
+    return "".join(c for c in s2 if unicodedata.category(c) != "Mn")
+
+
+def _sign(gl: int, gv: int) -> str:
+    if gl > gv:
+        return "1"
+    elif gl < gv:
+        return "2"
+    return "X"
+
+
+def calc_match_score(pred: dict | None, gl: int, gv: int, phase: str) -> tuple[float, dict]:
+    """Calculate player score given prediction and actual result.
+    Returns (score, breakdown).
+    """
+    if not pred:
+        return 0.0, {}
+
+    pts = PHASE_PTS.get(phase, PHASE_PTS["r8"])
+    sign_pts = pts["sign"]
+    diff_pts = pts["diff"]
+    exact_pts = pts["exact"]
+
+    # Parse prediction score
+    pred_score = pred.get("score", "") or ""
+    pred_sign  = pred.get("sign", "")
+
+    actual_sign = _sign(gl, gv)
+    sign_ok = (pred_sign == actual_sign)
+
+    reasons = []
+    score = 0.0
+
+    if not sign_ok:
+        reasons.append("1X2 incorrecto — 0 pts")
+        return 0.0, {"sign": 0.0, "diff": 0.0, "exact": 0, "total": 0.0, "reasons": reasons}
+
+    score += sign_pts
+    reasons.append(f"1X2 correcto (+{sign_pts:.0f})")
+
+    # Parse prediction score for diff/exact
+    diff_ok = False
+    exact_ok = False
+    pred_gl, pred_gv = None, None
+    try:
+        parts = str(pred_score).split("-")
+        pred_gl = int(parts[0].strip())
+        pred_gv = int(parts[1].strip())
+        pred_diff = pred_gl - pred_gv
+        actual_diff = gl - gv
+        diff_ok = (pred_diff == actual_diff)
+        exact_ok = (pred_gl == gl and pred_gv == gv)
+    except (IndexError, ValueError, AttributeError):
+        pass
+
+    if exact_ok:
+        score += diff_pts + exact_pts
+        reasons.append(f"Diferencia de goles (+{diff_pts:.0f})")
+        reasons.append(f"Resultado exacto (+{exact_pts:.0f})")
+    elif diff_ok:
+        score += diff_pts
+        reasons.append(f"Diferencia de goles (+{diff_pts:.0f})")
+    else:
+        reasons.append("Diferencia de goles no acertada")
+
+    return score, {
+        "sign": sign_pts if sign_ok else 0.0,
+        "diff": diff_pts if diff_ok or exact_ok else 0.0,
+        "exact": exact_pts if exact_ok else 0,
+        "total": score,
+        "reasons": reasons,
+    }
+
+
+def load_json(path: str) -> dict | list:
+    if not os.path.isfile(path):
+        return {}
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def apply_confirmed_result(
+    match: dict,
+    goals_h: int,
+    goals_a: int,
+    winner: str,
+    scorers: list | None = None,
+    penalties: dict | None = None,
+) -> dict[str, float]:
+    """Apply a confirmed final result to a match dict.
+    Returns {player_name: score_delta} for standings update.
+    """
+    phase = match.get("phase", "")
+    gl, gv = goals_h, goals_a
+    score_str = f"{gl}-{gv}"
+    act_sign  = _sign(gl, gv)
+
+    match["result"]       = {"sign": act_sign, "score": score_str}
+    match["played"]       = True
+    match["live"]         = False
+    match["live_minute"]  = ""
+    match["live_goals_l"] = None
+    match["live_goals_v"] = None
+    match["goals_l"]      = gl
+    match["goals_v"]      = gv
+    match["actual_winner"] = winner
+    if scorers is not None:
+        match["scorers"] = scorers
+    if penalties is not None:
+        match["penalties"] = penalties
+
+    deltas: dict[str, float] = {}
+    for player, pred_data in match.get("predictions", {}).items():
+        pred = pred_data.get("pred")
+        old_score = float(pred_data.get("score") or 0)
+        new_score, breakdown = calc_match_score(pred, gl, gv, phase)
+        pred_data["score"] = new_score
+        pred_data["breakdown"] = breakdown
+        pred_data["live_score"] = None
+        pred_data["live_breakdown"] = None
+        deltas[player] = new_score - old_score
+
+    return deltas
+
+
+def apply_live_score(match: dict, gl: int, gv: int, minute: str, scorers: list | None = None):
+    """Update in-progress live scores (provisional points)."""
+    phase    = match.get("phase", "")
+    act_sign = _sign(gl, gv)
+
+    match["live"]         = True
+    match["live_minute"]  = minute
+    match["live_goals_l"] = gl
+    match["live_goals_v"] = gv
+    if scorers is not None:
+        match["live_scorers"] = scorers
+
+    for player, pred_data in match.get("predictions", {}).items():
+        pred = pred_data.get("pred")
+        live_score, live_breakdown = calc_match_score(pred, gl, gv, phase)
+        pred_data["live_score"]     = live_score
+        pred_data["live_breakdown"] = live_breakdown
+
+
+def clear_live_score(match: dict):
+    """Remove live overlay if match is no longer live."""
+    match["live"]         = False
+    match["live_minute"]  = ""
+    match["live_goals_l"] = None
+    match["live_goals_v"] = None
+    for pred_data in match.get("predictions", {}).values():
+        pred_data["live_score"]     = None
+        pred_data["live_breakdown"] = None
+
+
+def rebuild_standings(dj: dict):
+    """Recompute standings totals from match prediction scores."""
+    player_names = [p["name"] for p in dj.get("standings", [])]
+
+    # Sum per-player scores across all AUTO_PHASES matches
+    auto_sums: dict[str, float] = {p: 0.0 for p in player_names}
+    auto_live: dict[str, float] = {p: 0.0 for p in player_names}
+
+    for m in dj.get("matches", []):
+        if m.get("phase") not in AUTO_PHASES:
+            continue
+        for player, pred_data in m.get("predictions", {}).items():
+            if player not in auto_sums:
+                continue
+            auto_sums[player] += float(pred_data.get("score") or 0)
+            live = pred_data.get("live_score")
+            if live is not None:
+                auto_live[player] += float(live)
+
+    for st in dj.get("standings", []):
+        name = st["name"]
+        # Get base (non-auto) totals from existing phase data
+        base_total = (
+            float(st.get("groups") or 0)
+            + float(st.get("positions") or 0)
+            + float(st.get("r16") or 0)
+        )
+        # Compute auto-phase subtotals from match scores
+        r8_pts = r4_pts = r2_pts = r34_final_pts = 0.0
+        for m in dj.get("matches", []):
+            phase = m.get("phase")
+            if phase not in AUTO_PHASES:
+                continue
+            score = float(m.get("predictions", {}).get(name, {}).get("score") or 0)
+            if phase == "r8":
+                r8_pts += score
+            elif phase == "r4":
+                r4_pts += score
+            elif phase in ("r2",):
+                r2_pts += score
+            elif phase in ("r34", "final"):
+                r34_final_pts += score
+
+        # Also add Octavofinalista (Clasif.) and Cuartofinalista scores from base
+        # These are stored in the phase sums already in standings from Excel.
+        # We need to keep the clasif/Octavofinalista portion of r8 and r4 intact.
+        # The auto_sums only has the match scores; clasif portions come from Excel.
+        # So we use: r8 = (r8 from Excel, i.e., Octavofinalista portion) + (r8 match scores)
+        # But we already stored the total r8 (including Octavofinalista) in standings from Excel.
+        # The delta from apply_confirmed_result gives us what to add.
+
+        # This is the AUTHORITATIVE total: base + all match predictions (r8–final)
+        st["r8"]        = float(st.get("r8") or 0)   # preserve Octavofinalista portion from Excel
+        st["r4"]        = float(st.get("r4") or 0)   # preserve Cuartofinalista from Excel
+        # The above will be incremented via deltas; we don't recompute fully here.
+        # Total
+        total = (float(st.get("groups") or 0)
+                 + float(st.get("positions") or 0)
+                 + float(st.get("r16") or 0)
+                 + float(st.get("r8") or 0)
+                 + float(st.get("r4") or 0)
+                 + float(st.get("r2") or 0)
+                 + float(st.get("r34_final") or 0)
+                 + float(st.get("honor") or 0))
+        st["total"] = total
+        live_extra = auto_live.get(name, 0.0)
+        st["live_points"] = live_extra
+        st["total_live"] = total + live_extra
+
+    # Re-sort and re-assign positions
+    dj["standings"].sort(key=lambda x: x.get("total_live", x.get("total", 0)), reverse=True)
+    for i, st in enumerate(dj["standings"]):
+        st["live_pos"] = i + 1
+    dj["standings"].sort(key=lambda x: x.get("total", 0), reverse=True)
+    for i, st in enumerate(dj["standings"]):
+        st["pos"] = i + 1
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Parchear data.json con resultados de API")
+    parser.add_argument("--live-only", action="store_true",
+                        help="Solo actualizar puntos en vivo (no resultados confirmados)")
+    parser.add_argument("--dry-run", action="store_true",
+                        help="Mostrar cambios sin guardar")
+    args = parser.parse_args()
+
+    if not os.path.isfile(DATA_JSON):
+        print(f"❌ No encontrado: {DATA_JSON}")
+        return 1
+
+    with open(DATA_JSON, encoding="utf-8") as f:
+        dj = json.load(f)
+
+    # Build match_num → match index
+    num_to_match: dict[int, dict] = {}
+    name_to_match: dict[str, dict] = {}
+    for m in dj.get("matches", []):
+        if m.get("match_num"):
+            num_to_match[int(m["match_num"])] = m
+        if m.get("name"):
+            name_to_match[_norm(m["name"])] = m
+
+    changes = 0
+
+    # ── 1. Apply confirmed results ───────────────────────────────────────────
+    if not args.live_only:
+        results_data = load_json(RESULTS_JSON)
+        by_match_num = results_data.get("by_match_num", {}) if isinstance(results_data, dict) else {}
+        scorers_data = load_json(SCORERS_JSON)
+        pen_data     = load_json(os.path.join(BASE, "data", "penalties.json"))
+
+        for num_str, entry in by_match_num.items():
+            try:
+                num = int(num_str)
+            except ValueError:
+                continue
+
+            match = num_to_match.get(num)
+            if not match:
+                # Try by name
+                home = entry.get("home", "")
+                away = entry.get("away", "")
+                key  = _norm(f"{home}-{away}")
+                krev = _norm(f"{away}-{home}")
+                match = name_to_match.get(key) or name_to_match.get(krev)
+
+            if not match:
+                continue
+
+            phase = match.get("phase", "")
+            if phase not in AUTO_PHASES:
+                continue  # Don't touch groups or r16 (trust Excel)
+
+            if match.get("played"):
+                continue  # Already applied
+
+            goals_h = int(entry.get("goals_h", 0))
+            goals_a = int(entry.get("goals_a", 0))
+            winner  = entry.get("winner", "")
+
+            # Get scorers
+            sc_key = f"{entry.get('home','')}-{entry.get('away','')}"
+            scorers = scorers_data.get(sc_key) if isinstance(scorers_data, dict) else None
+
+            # Get penalties
+            pen_entry = (pen_data.get(sc_key)
+                         if isinstance(pen_data, dict) else None)
+
+            deltas = apply_confirmed_result(match, goals_h, goals_a, winner, scorers, pen_entry)
+
+            # Update standings phase totals
+            for st in dj.get("standings", []):
+                name = st["name"]
+                delta = deltas.get(name, 0.0)
+                if delta == 0:
+                    continue
+                if phase == "r8":
+                    st["r8"] = float(st.get("r8") or 0) + delta
+                elif phase == "r4":
+                    st["r4"] = float(st.get("r4") or 0) + delta
+                elif phase in ("r2",):
+                    st["r2"] = float(st.get("r2") or 0) + delta
+                elif phase in ("r34", "final"):
+                    st["r34_final"] = float(st.get("r34_final") or 0) + delta
+                st["total"] = (float(st.get("total") or 0) + delta)
+                st["total_live"] = (float(st.get("total_live") or 0) + delta)
+
+            # Update progression
+            _update_progression(dj, match, deltas)
+
+            print(f"  ✓ {match['name']} {goals_h}-{goals_a} → scores: "
+                  + " ".join(f"{n}={d:.0f}" for n, d in deltas.items() if d != 0))
+            changes += 1
+
+    # ── 2. Apply live in-progress scores ────────────────────────────────────
+    live_data = load_json(LIVE_JSON)
+    if isinstance(live_data, dict):
+        for key, live_entry in live_data.items():
+            # Try to find match
+            key_n = _norm(key)
+            parts = key.split("-", 1)
+            key_rev = _norm(f"{parts[1].strip()}-{parts[0].strip()}") if len(parts) == 2 else ""
+            match = name_to_match.get(key_n) or name_to_match.get(key_rev)
+            if not match:
+                continue
+            if match.get("phase") not in AUTO_PHASES:
+                continue
+            if match.get("played"):
+                continue
+
+            gl = int(live_entry.get("home", 0))
+            gv = int(live_entry.get("away", 0))
+            minute = live_entry.get("minute", "")
+            scorers = live_entry.get("scorers")
+            apply_live_score(match, gl, gv, minute, scorers)
+            changes += 1
+
+    # Clear live overlay from matches not in live.json anymore
+    live_keys = {_norm(k) for k in (live_data.keys() if isinstance(live_data, dict) else [])}
+    for m in dj.get("matches", []):
+        if m.get("phase") not in AUTO_PHASES:
+            continue
+        if m.get("played"):
+            continue
+        n = _norm(m.get("name", ""))
+        home_s = _norm(m.get("home", ""))
+        away_s = _norm(m.get("away", ""))
+        key_n  = f"{home_s}-{away_s}"
+        if m.get("live") and key_n not in live_keys and n not in live_keys:
+            clear_live_score(m)
+
+    # Recompute live standings positions
+    for st in dj.get("standings", []):
+        live = sum(
+            float(m.get("predictions", {}).get(st["name"], {}).get("live_score") or 0)
+            for m in dj.get("matches", [])
+            if m.get("live")
+        )
+        st["live_points"]  = live
+        st["total_live"]   = float(st.get("total") or 0) + live
+
+    dj["standings"].sort(key=lambda x: x.get("total_live", x.get("total", 0)), reverse=True)
+    for i, st in enumerate(dj["standings"]):
+        st["live_pos"] = i + 1
+    dj["standings"].sort(key=lambda x: x.get("total", 0), reverse=True)
+    for i, st in enumerate(dj["standings"]):
+        st["pos"] = i + 1
+
+    # Update meta timestamp
+    if "meta" in dj:
+        dj["meta"]["generated"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        dj["meta"]["live"] = any(m.get("live") for m in dj.get("matches", []))
+
+    if args.dry_run:
+        print(f"\n📋 Dry-run: {changes} cambio(s) detectados (sin guardar)")
+        return 0
+
+    with open(DATA_JSON, "w", encoding="utf-8") as f:
+        json.dump(dj, f, ensure_ascii=False, separators=(",", ":"))
+
+    live_count = sum(1 for m in dj.get("matches", []) if m.get("live"))
+    played_count = sum(1 for m in dj.get("matches", []) if m.get("played"))
+    print(f"✅ data.json actualizado: {changes} cambio(s), {played_count} jugados, {live_count} en vivo")
+    return 0
+
+
+def _update_progression(dj: dict, match: dict, deltas: dict[str, float]):
+    """Add score deltas to the progression array for the given match.
+    For AUTO_PHASES, the match score is stored in event 113 (bundled slot).
+    Future versions can expand this to individual events.
+    """
+    prog = dj.get("progression")
+    if not prog or not prog.get("day_points"):
+        return
+
+    # For now, add to the last progression event (index 113) which holds
+    # bundled scores for remaining r8/r4 matches without dedicated events.
+    # This ensures the cumulative progression total stays consistent.
+    day_pts = prog["day_points"]
+    last_idx = len(next(iter(day_pts.values()))) - 1
+
+    for player, delta in deltas.items():
+        if player in day_pts and delta != 0:
+            day_pts[player][last_idx] = float(day_pts[player][last_idx] or 0) + delta
+
+
+if __name__ == "__main__":
+    sys.exit(main())
