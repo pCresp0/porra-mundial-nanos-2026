@@ -1995,5 +1995,42 @@
       "penalty": false,
       "team": "away"
     }
+  ],
+  "Estados Unidos-Bélgica": [
+    {
+      "player": "Malik Tillman",
+      "minute": "31'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Sharl D Ktlar",
+      "minute": "9'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Sharl D Ktlar",
+      "minute": "33'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Hans Vanaken",
+      "minute": "57'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Romelu Lukaku",
+      "minute": "90'+3'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
   ]
 }

@@ -1,16 +1,19 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "07/07/2026 02:01",
+    "generated": "07/07/2026 02:03",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
-      "last_updated_iso": "2026-07-07T04:01",
-      "last_updated_time": "04:01",
+      "last_updated_iso": "2026-07-07T04:03",
+      "last_updated_time": "04:03",
       "last_updated_date": "07/07/2026",
       "next_update_iso": "2026-07-07T04:05",
       "next_update_time": "04:05",
-      "next_update_date": "07/07/2026"
+      "next_update_date": "07/07/2026",
+      "last_checked_iso": "2026-07-07T04:03",
+      "last_checked_time": "04:03",
+      "last_checked_date": "07/07/2026"
     },
     "players": [
       "JUANCHO",
@@ -21,11 +24,9 @@
       "CRESPO"
     ],
     "live": {
-      "active": true,
-      "count": 1,
-      "matches": [
-        "Estados Unidos-Bélgica"
-      ]
+      "active": false,
+      "count": 0,
+      "matches": []
     },
     "colors": {
       "JUANCHO": "#F5C518",
@@ -436,6 +437,32 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-07T04:03:21+02:00",
+        "date": "07/07/2026",
+        "time": "04:03:21",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "Estados Unidos 1-4 Bélgica",
+            "name": "Estados Unidos-Bélgica",
+            "date": "Octavos de",
+            "fields": [
+              "marcador",
+              "jugado"
+            ],
+            "old": {
+              "marcador": "sin resultado",
+              "jugado": "no"
+            },
+            "new": {
+              "marcador": "1-4",
+              "jugado": "sí"
+            }
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-07T03:46:27+02:00",
         "date": "07/07/2026",
@@ -4454,29 +4481,21 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-05T23:16:29+02:00",
-        "date": "05/07/2026",
-        "time": "23:16:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
   "standings": [
     {
       "name": "CRESPO",
-      "total": 422.0,
-      "live_points": 4.0,
-      "total_live": 426.0,
+      "total": 431.0,
+      "live_points": 0.0,
+      "total_live": 431.0,
       "groups": 121.0,
       "positions": 81.0,
       "q16": 50.0,
       "r16": 100.0,
-      "r8": 85.0,
-      "r4": 35.0,
+      "r8": 89.0,
+      "r4": 40.0,
       "r2": 0.0,
       "r34_final": 0.0,
       "honor": 0.0,
@@ -4503,19 +4522,19 @@
           "key": "r8",
           "label": "Octavos",
           "desc": "Partidos de octavos",
-          "pts": 85.0
+          "pts": 89.0
         },
         {
           "key": "r4",
           "label": "Cuartos",
           "desc": "Partidos de cuartos",
-          "pts": 35.0
+          "pts": 40.0
         }
       ],
       "color": "#EF4444",
       "played": 72,
       "pos": 1,
-      "pos_change": 1,
+      "pos_change": 0,
       "live_pos": 1
     },
     {
@@ -4567,7 +4586,7 @@
       "color": "#F97316",
       "played": 72,
       "pos": 2,
-      "pos_change": -1,
+      "pos_change": 0,
       "live_pos": 2
     },
     {
@@ -4624,15 +4643,15 @@
     },
     {
       "name": "VÍCTOR",
-      "total": 376.0,
-      "live_points": 4.0,
-      "total_live": 380.0,
+      "total": 385.0,
+      "live_points": 0.0,
+      "total_live": 385.0,
       "groups": 134.0,
       "positions": 75.0,
       "q16": 50.0,
       "r16": 113.0,
-      "r8": 39.0,
-      "r4": 15.0,
+      "r8": 43.0,
+      "r4": 20.0,
       "r2": 0.0,
       "r34_final": 0.0,
       "honor": 0.0,
@@ -4659,13 +4678,13 @@
           "key": "r8",
           "label": "Octavos",
           "desc": "Partidos de octavos",
-          "pts": 39.0
+          "pts": 43.0
         },
         {
           "key": "r4",
           "label": "Cuartos",
           "desc": "Partidos de cuartos",
-          "pts": 15.0
+          "pts": 20.0
         }
       ],
       "color": "#A855F7",
@@ -4728,15 +4747,15 @@
     },
     {
       "name": "LUIS/VIR",
-      "total": 356.0,
-      "live_points": 7.0,
-      "total_live": 363.0,
+      "total": 365.0,
+      "live_points": 0.0,
+      "total_live": 365.0,
       "groups": 104.0,
       "positions": 77.0,
       "q16": 54.0,
       "r16": 111.0,
-      "r8": 49.0,
-      "r4": 15.0,
+      "r8": 53.0,
+      "r4": 20.0,
       "r2": 0.0,
       "r34_final": 0.0,
       "honor": 0.0,
@@ -4763,13 +4782,13 @@
           "key": "r8",
           "label": "Octavos",
           "desc": "Partidos de octavos",
-          "pts": 49.0
+          "pts": 53.0
         },
         {
           "key": "r4",
           "label": "Cuartos",
           "desc": "Partidos de cuartos",
-          "pts": 15.0
+          "pts": 20.0
         }
       ],
       "color": "#10B981",
@@ -22593,13 +22612,19 @@
       "day_label": "Octavos de",
       "datetime_es": "Octavos de",
       "phase": "r8",
-      "result": null,
-      "played": false,
-      "live": true,
-      "live_minute": "live",
-      "live_goals_l": 1,
-      "live_goals_v": 3,
-      "live_scorers": [
+      "result": {
+        "sign": "2",
+        "score": "1-4"
+      },
+      "played": true,
+      "live": false,
+      "live_minute": "",
+      "live_goals_l": null,
+      "live_goals_v": null,
+      "live_scorers": [],
+      "goals_l": 1,
+      "goals_v": 4,
+      "scorers": [
         {
           "player": "Malik Tillman",
           "minute": "31'",
@@ -22627,11 +22652,15 @@
           "own_goal": false,
           "penalty": false,
           "team": "away"
+        },
+        {
+          "player": "R. Lukaku",
+          "minute": "90'+3'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
         }
       ],
-      "goals_l": null,
-      "goals_v": null,
-      "scorers": [],
       "phase_pts": {
         "sign": 4.0,
         "diff": 3.0,
@@ -22647,8 +22676,7 @@
             "pred_away": "Bélgica"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -22660,7 +22688,8 @@
             "pred_home": "Estados Unidos",
             "pred_away": "Bélgica"
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "LARRY": {
           "pred": {
@@ -22671,8 +22700,7 @@
             "pred_away": "Senegal"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0.0,
@@ -22684,7 +22712,8 @@
             "pred_home": "Estados Unidos",
             "pred_away": "Senegal"
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "LUIS/VIR": {
           "pred": {
@@ -22694,22 +22723,24 @@
             "pred_home": "Estados Unidos",
             "pred_away": "Bélgica"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 9.0,
+          "breakdown": {
             "sign": 4.0,
-            "diff": 3.0,
+            "diff": 0.0,
             "exact": 0,
-            "total": 7.0,
+            "total": 9.0,
             "reasons": [
               "1X2 correcto (+4.0)",
-              "Diferencia de goles (+3)"
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+5.0 pts)"
             ],
             "team_match": "both",
             "pred_home": "Estados Unidos",
             "pred_away": "Bélgica"
           },
-          "live_score": 7.0
+          "live_breakdown": null,
+          "live_score": null,
+          "qual_pts": 5.0
         },
         "MEDINA": {
           "pred": {
@@ -22720,8 +22751,7 @@
             "pred_away": "Bélgica"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -22733,7 +22763,8 @@
             "pred_home": "Estados Unidos",
             "pred_away": "Bélgica"
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "VÍCTOR": {
           "pred": {
@@ -22743,22 +22774,24 @@
             "pred_home": "Estados Unidos",
             "pred_away": "Bélgica"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 9.0,
+          "breakdown": {
             "sign": 4.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 4.0,
+            "total": 9.0,
             "reasons": [
               "1X2 correcto (+4.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+5.0 pts)"
             ],
             "team_match": "both",
             "pred_home": "Estados Unidos",
             "pred_away": "Bélgica"
           },
-          "live_score": 4.0
+          "live_breakdown": null,
+          "live_score": null,
+          "qual_pts": 5.0
         },
         "CRESPO": {
           "pred": {
@@ -22768,26 +22801,28 @@
             "pred_home": "Estados Unidos",
             "pred_away": "Bélgica"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 9.0,
+          "breakdown": {
             "sign": 4.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 4.0,
+            "total": 9.0,
             "reasons": [
               "1X2 correcto (+4.0)",
-              "Diferencia de goles no acertada"
+              "Diferencia de goles no acertada",
+              "Clasificado correcto (+5.0 pts)"
             ],
             "team_match": "both",
             "pred_home": "Estados Unidos",
             "pred_away": "Bélgica"
           },
-          "live_score": 4.0
+          "live_breakdown": null,
+          "live_score": null,
+          "qual_pts": 5.0
         }
       },
       "penalties": null,
-      "actual_winner": null
+      "actual_winner": "Bélgica"
     },
     {
       "row": 206,
@@ -23170,12 +23205,12 @@
     {
       "row": 221,
       "id": "",
-      "name": "W93-W94",
+      "name": "España-Bélgica",
       "home": "España",
-      "away": "W94",
+      "away": "Bélgica",
       "home_placeholder": "W93",
       "away_placeholder": "W94",
-      "flag_home": "🇪🇸",
+      "flag_home": "",
       "flag_away": "",
       "match_num": 98,
       "bracket_order": 1,
@@ -23190,10 +23225,10 @@
       "city_pop": "13.2 M (área metro)",
       "venue_fact": "El estadio más caro jamás construido (~5.500 M$). Casa de los Rams y Chargers.",
       "wiki": "SoFi_Stadium",
-      "date": "2026-07-10",
-      "time_es": "21:00",
-      "day_label": "Viernes 10 julio",
-      "datetime_es": "2026-07-10T21:00:00",
+      "date": "Cuartos de",
+      "time_es": "",
+      "day_label": "Cuartos de",
+      "datetime_es": "Cuartos de",
       "phase": "r4",
       "result": null,
       "played": false,
@@ -24344,7 +24379,8 @@
       "MÉX-ING",
       "Clasif. ING",
       "POR-ESP",
-      "Clasif. ESP"
+      "Clasif. ESP",
+      "EST-BÉL"
     ],
     "flag_labels": [
       "🇲🇽🇿🇦",
@@ -24459,7 +24495,8 @@
       "🇲🇽🇬🇧",
       "✓",
       "🇵🇹🇪🇸",
-      "✓"
+      "✓",
+      "EST-BÉL"
     ],
     "dates": [
       "2026-06-11",
@@ -24574,7 +24611,8 @@
       "2026-07-06",
       "2026-07-06",
       "2026-07-06",
-      "2026-07-06"
+      "2026-07-06",
+      "Octavos de"
     ],
     "titles": [
       "México 2-0 Sudáfrica · 11 jun",
@@ -24689,7 +24727,8 @@
       "México 2-3 Inglaterra · 6 jul",
       "Clasificado a fase siguiente: Inglaterra",
       "Portugal 0-1 España · 6 jul",
-      "Clasificado a fase siguiente: España"
+      "Clasificado a fase siguiente: España",
+      "Estados Unidos 1-4 Bélgica"
     ],
     "players": {
       "JUANCHO": [
@@ -24804,6 +24843,7 @@
         367.0,
         379.0,
         379.0,
+        391.0,
         391.0,
         391.0
       ],
@@ -24920,6 +24960,7 @@
         351.0,
         356.0,
         361.0,
+        366.0,
         366.0
       ],
       "LUIS/VIR": [
@@ -25035,7 +25076,8 @@
         344.0,
         344.0,
         356.0,
-        356.0
+        356.0,
+        365.0
       ],
       "MEDINA": [
         2.0,
@@ -25149,6 +25191,7 @@
         392.0,
         404.0,
         404.0,
+        416.0,
         416.0,
         416.0
       ],
@@ -25265,7 +25308,8 @@
         371.0,
         371.0,
         376.0,
-        376.0
+        376.0,
+        385.0
       ],
       "CRESPO": [
         3.0,
@@ -25380,7 +25424,8 @@
         400.0,
         405.0,
         417.0,
-        422.0
+        422.0,
+        431.0
       ]
     },
     "day_points": {
@@ -25497,6 +25542,7 @@
         12.0,
         0.0,
         12.0,
+        0.0,
         0.0
       ],
       "LARRY": [
@@ -25612,7 +25658,8 @@
         5.0,
         5.0,
         5.0,
-        5.0
+        5.0,
+        0.0
       ],
       "LUIS/VIR": [
         2.0,
@@ -25727,7 +25774,8 @@
         5.0,
         0.0,
         12.0,
-        0.0
+        0.0,
+        9.0
       ],
       "MEDINA": [
         2.0,
@@ -25842,6 +25890,7 @@
         12.0,
         0.0,
         12.0,
+        0.0,
         0.0
       ],
       "VÍCTOR": [
@@ -25957,7 +26006,8 @@
         5.0,
         0.0,
         5.0,
-        0.0
+        0.0,
+        9.0
       ],
       "CRESPO": [
         3.0,
@@ -26072,7 +26122,8 @@
         5.0,
         5.0,
         12.0,
-        5.0
+        5.0,
+        9.0
       ]
     },
     "phases": [
@@ -26188,7 +26239,8 @@
       "r8",
       "r4_team",
       "r8",
-      "r4_team"
+      "r4_team",
+      "r8"
     ]
   },
   "honor": [
@@ -27331,7 +27383,7 @@
             "label": "Eliminatorias (KO)",
             "icon": "⚔️",
             "rank": 1,
-            "display": "220 pts"
+            "display": "229 pts"
           },
           {
             "key": "phase_positions",
@@ -27363,7 +27415,7 @@
         ],
         "best_phase": {
           "label": "Eliminatorias",
-          "pts": 220.0
+          "pts": 229.0
         }
       },
       {
@@ -27579,7 +27631,7 @@
         ],
         "best_phase": {
           "label": "Eliminatorias",
-          "pts": 167.0
+          "pts": 176.0
         }
       },
       {
@@ -27720,7 +27772,7 @@
         "badges": [],
         "best_phase": {
           "label": "Eliminatorias",
-          "pts": 175.0
+          "pts": 184.0
         }
       }
     ],
@@ -28126,8 +28178,8 @@
           "rank": 1,
           "name": "CRESPO",
           "color": "#EF4444",
-          "display": "220 pts",
-          "value": 220.0
+          "display": "229 pts",
+          "value": 229.0
         },
         {
           "rank": 2,
@@ -28154,15 +28206,15 @@
           "rank": 5,
           "name": "LUIS/VIR",
           "color": "#10B981",
-          "display": "175 pts",
-          "value": 175.0
+          "display": "184 pts",
+          "value": 184.0
         },
         {
           "rank": 6,
           "name": "VÍCTOR",
           "color": "#A855F7",
-          "display": "167 pts",
-          "value": 167.0
+          "display": "176 pts",
+          "value": 176.0
         }
       ],
       "phase_honor": [

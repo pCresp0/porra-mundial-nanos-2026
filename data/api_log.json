@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-07-01T04:58:28+02:00",
-    "date": "01/07/2026",
-    "time": "04:58:28",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-07-01T05:01:03+02:00",
     "date": "01/07/2026",
     "time": "05:01:03",
@@ -16564,5 +16556,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-07-07T04:03:21+02:00",
+    "date": "07/07/2026",
+    "time": "04:03:21",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "Estados Unidos 1-4 Bélgica",
+        "name": "Estados Unidos-Bélgica",
+        "date": "Octavos de",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "sin resultado",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "1-4",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]

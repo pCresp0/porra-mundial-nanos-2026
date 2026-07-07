@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_updated": "2026-07-07T01:46:17Z",
+  "last_updated": "2026-07-07T02:02:18Z",
   "by_match_num": {
     "1": {
       "home": "México",
@@ -652,6 +652,13 @@
       "goals_h": 0,
       "goals_a": 1,
       "winner": "España"
+    },
+    "94": {
+      "home": "Estados Unidos",
+      "away": "Bélgica",
+      "goals_h": 1,
+      "goals_a": 4,
+      "winner": "Bélgica"
     }
   }
 }
