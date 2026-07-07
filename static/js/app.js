@@ -1418,7 +1418,18 @@ function _confirmedBreakdown(m, pd) {
 function _qualPtsEarned(m, pd) {
   if (!m?.played || !pd || m.phase === "groups") return 0;
   const q = parseFloat(pd.qual_pts);
-  return Number.isFinite(q) && q > 0 ? q : 0;
+  if (Number.isFinite(q) && q > 0) return q;
+  // Fallback si qual_pts no está en data.json (partidos parcheados por API)
+  if (!pd.pred?.winner || !m.actual_winner) return 0;
+  const predW = String(pd.pred.winner).trim().toLowerCase();
+  const actualW = String(m.actual_winner).trim().toLowerCase();
+  const winnerOk = predW && actualW && (predW === actualW || predW.includes(actualW) || actualW.includes(predW));
+  if (!winnerOk) return 0;
+  const bd = pd.breakdown || _confirmedBreakdown(m, pd);
+  const tm = m.phase === "r16" ? null : bd?.team_match;
+  if (tm === "none") return 0;
+  const byPhase = { r16: 3, r8: 5, r4: 8, r2: 12, r34: 5, final: 12 };
+  return byPhase[m.phase] || 0;
 }
 
 function _playedPredTotal(m, pd) {
@@ -3389,7 +3400,7 @@ function renderMatchCard(m, players, colors) {
     let qualHtml = "";
     if (m.phase && m.phase !== "groups" && m.played && pd.pred?.winner) {
       const qualEarned = _qualPtsEarned(m, pd);
-      const maxQual = { r16: 3, r8: 5, r4: 8, r2: 12 }[m.phase] || 0;
+      const maxQual = { r16: 3, r8: 5, r4: 8, r2: 12, r34: 5, final: 12 }[m.phase] || 0;
       if (maxQual > 0) {
         const ok = qualEarned > 0;
         qualHtml = `<span class="brk-chip ${ok ? "ok" : "miss"}">Pasa: ${escapeHtml(pd.pred.winner)} ${ok ? "✓" : "✗"}${ok ? ` (+${fmt(qualEarned)})` : ""}</span>`;

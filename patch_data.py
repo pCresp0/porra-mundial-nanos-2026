@@ -44,6 +44,26 @@ PHASE_PTS: dict[str, dict[str, float]] = {
 # Phases that patch_data.py manages (don't touch groups, r16, positions)
 AUTO_PHASES = {"r8", "r4", "r2", "r34", "final"}
 
+# Puntos por acertar quién pasa de ronda en cada fase (bonus «Pasa: X»)
+QUAL_PTS_BY_PHASE: dict[str, float] = {
+    "r16": 3.0,
+    "r8":  5.0,
+    "r4":  8.0,
+    "r2":  12.0,
+    "r34": 5.0,
+    "final": 12.0,
+}
+
+# Columna de standings donde suman esos bonus (r8 partido → columna r4, etc.)
+STANDINGS_COL_FOR_QUAL: dict[str, str] = {
+    "r16": "r8",
+    "r8":  "r4",
+    "r4":  "r2",
+    "r2":  "r34_final",
+    "r34": "r34_final",
+    "final": "r34_final",
+}
+
 
 def _norm(s: str) -> str:
     """Normalize string: remove accents, lowercase."""
@@ -211,6 +231,83 @@ def calc_match_score(pred: dict | None, gl: int, gv: int, phase: str, match: dic
     return score, bd
 
 
+def _winners_match(pred_w: str, actual_w: str) -> bool:
+    pw = str(pred_w or "").strip().lower()
+    aw = str(actual_w or "").strip().lower()
+    if not pw or not aw:
+        return False
+    return pw == aw or pw in aw or aw in pw
+
+
+def apply_qual_pts(match: dict) -> dict[str, float]:
+    """Asigna qual_pts (bonus «Pasa: X») y devuelve delta por jugador."""
+    phase = match.get("phase", "")
+    base = QUAL_PTS_BY_PHASE.get(phase, 0.0)
+    if not base or not match.get("played"):
+        return {}
+    actual_w = str(match.get("actual_winner") or "").strip()
+    if not actual_w:
+        return {}
+
+    deltas: dict[str, float] = {}
+    for player, pred_data in match.get("predictions", {}).items():
+        pred = pred_data.get("pred")
+        if not pred:
+            continue
+        old_qual = float(pred_data.get("qual_pts") or 0)
+
+        if phase not in ("groups", "r16"):
+            tm = (pred_data.get("breakdown") or {}).get("team_match")
+            if tm == "none":
+                new_qual = 0.0
+            elif _winners_match(pred.get("winner"), actual_w):
+                new_qual = base
+            else:
+                new_qual = 0.0
+        elif _winners_match(pred.get("winner"), actual_w):
+            new_qual = base
+        else:
+            new_qual = 0.0
+
+        if abs(new_qual - old_qual) < 0.001:
+            continue
+        pred_data["qual_pts"] = new_qual if new_qual > 0 else None
+        deltas[player] = new_qual - old_qual
+    return deltas
+
+
+def backfill_qual_pts(dj: dict) -> tuple[int, dict[str, dict[str, float]]]:
+    """Recalcula qual_pts en todos los KO jugados. Devuelve (n preds, deltas standings)."""
+    from collections import defaultdict
+
+    standings_deltas: dict[str, dict[str, float]] = defaultdict(lambda: defaultdict(float))
+    updated = 0
+    for m in dj.get("matches", []):
+        if not m.get("played") or m.get("phase") in ("groups", None):
+            continue
+        phase = m.get("phase", "")
+        col = STANDINGS_COL_FOR_QUAL.get(phase)
+        if not col:
+            continue
+        for player, delta in apply_qual_pts(m).items():
+            if delta == 0:
+                continue
+            standings_deltas[player][col] += delta
+            updated += 1
+    return updated, standings_deltas
+
+
+def _apply_standings_qual_deltas(dj: dict, standings_deltas: dict[str, dict[str, float]]):
+    for st in dj.get("standings", []):
+        name = st["name"]
+        for col, delta in standings_deltas.get(name, {}).items():
+            if delta == 0:
+                continue
+            st[col] = float(st.get(col) or 0) + delta
+            st["total"] = float(st.get("total") or 0) + delta
+            st["total_live"] = float(st.get("total_live") or 0) + delta
+
+
 def backfill_breakdowns(dj: dict) -> int:
     """Rellena breakdown en predicciones de partidos jugados que no lo tienen."""
     from app import _score_breakdown
@@ -293,7 +390,8 @@ def apply_confirmed_result(
         pred_data["live_breakdown"] = None
         deltas[player] = new_score - old_score
 
-    return deltas
+    qual_deltas = apply_qual_pts(match)
+    return deltas, qual_deltas
 
 
 def apply_live_score(match: dict, gl: int, gv: int, minute: str, scorers: list | None = None):
@@ -484,9 +582,9 @@ def main():
             pen_entry = (pen_data.get(sc_key)
                          if isinstance(pen_data, dict) else None)
 
-            deltas = apply_confirmed_result(match, gl, gv, winner, scorers, pen_entry)
+            deltas, qual_deltas = apply_confirmed_result(match, gl, gv, winner, scorers, pen_entry)
 
-            # Update standings phase totals
+            # Update standings phase totals (match result points)
             for st in dj.get("standings", []):
                 name = st["name"]
                 delta = deltas.get(name, 0.0)
@@ -502,6 +600,17 @@ def main():
                     st["r34_final"] = float(st.get("r34_final") or 0) + delta
                 st["total"] = (float(st.get("total") or 0) + delta)
                 st["total_live"] = (float(st.get("total_live") or 0) + delta)
+
+            # Bonus «Pasa: X» → columna de la fase siguiente
+            qual_col = STANDINGS_COL_FOR_QUAL.get(phase)
+            if qual_col:
+                for st in dj.get("standings", []):
+                    qd = qual_deltas.get(st["name"], 0.0)
+                    if qd == 0:
+                        continue
+                    st[qual_col] = float(st.get(qual_col) or 0) + qd
+                    st["total"] = float(st.get("total") or 0) + qd
+                    st["total_live"] = float(st.get("total_live") or 0) + qd
 
             # Update progression
             _update_progression(dj, match, deltas)
@@ -586,6 +695,18 @@ def main():
     if bf:
         print(f"  ↻ Desgloses rellenados: {bf}")
         changes += bf
+
+    bq, qual_sd = backfill_qual_pts(dj)
+    if bq:
+        print(f"  ↻ Puntos «Pasa» rellenados: {bq}")
+        _apply_standings_qual_deltas(dj, qual_sd)
+        dj["standings"].sort(key=lambda x: x.get("total_live", x.get("total", 0)), reverse=True)
+        for i, st in enumerate(dj["standings"]):
+            st["live_pos"] = i + 1
+        dj["standings"].sort(key=lambda x: x.get("total", 0), reverse=True)
+        for i, st in enumerate(dj["standings"]):
+            st["pos"] = i + 1
+        changes += bq
 
     if args.dry_run:
         print(f"\n📋 Dry-run: {changes} cambio(s) detectados (sin guardar)")
