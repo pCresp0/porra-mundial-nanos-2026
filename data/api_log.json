@@ -1,31 +1,5 @@
 [
   {
-    "ts_iso": "2026-07-01T20:04:28+02:00",
-    "date": "01/07/2026",
-    "time": "20:04:28",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇬🇧Inglaterra 2-1 RD Congo🇨🇩",
-        "name": "Inglaterra-RD Congo",
-        "date": "2026-07-01",
-        "fields": [
-          "marcador",
-          "jugado"
-        ],
-        "old": {
-          "marcador": "sin resultado",
-          "jugado": "no"
-        },
-        "new": {
-          "marcador": "2-1",
-          "jugado": "sí"
-        }
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-07-01T20:19:51+02:00",
     "date": "01/07/2026",
     "time": "20:19:51",
@@ -16543,6 +16517,14 @@
     "ts_iso": "2026-07-08T13:48:15+02:00",
     "date": "08/07/2026",
     "time": "13:48:15",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-08T14:04:18+02:00",
+    "date": "08/07/2026",
+    "time": "14:04:18",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
