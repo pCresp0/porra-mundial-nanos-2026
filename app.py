@@ -710,6 +710,17 @@ def _lookup_spain_time(times, match_name):
     for k, v in times.items():
         if k.replace(" ", "") == compact:
             return v
+    # Excel a veces tiene Local-Visitante en orden inverso al bracket (p. ej. Francia-Marruecos vs Marruecos-Francia)
+    if "-" in name:
+        rev = "-".join(name.split("-", 1)[::-1]).strip()
+        rev_c = rev.replace(" ", "")
+        if rev in times:
+            return times[rev]
+        if rev_c in times:
+            return times[rev_c]
+        for k, v in times.items():
+            if k.replace(" ", "") == rev_c:
+                return v
     return None
 
 

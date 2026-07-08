@@ -259,11 +259,11 @@ FIXTURE_BY_ROW = {
     205: {"city": "Seattle",          "tv": "dazn"},  # 7 jul 02:00 EE.UU.-Bélgica · DAZN
     206: {"city": "Atlanta",          "tv": "dazn"},  # 7 jul 19:00 Argentina-Egipto · DAZN
     207: {"city": "Vancouver",        "tv": "dazn"},  # 7 jul 22:00 Suiza-Colombia · DAZN
-    # ── Cuartos ──
-    220: {"city": "Boston",           "tv": "dazn"},  # 9 jul 21:00 Francia-Marruecos
-    221: {"city": "Los Ángeles",      "tv": "both"},  # 10 jul 23:00 España-Bélgica
-    222: {"city": "Miami",            "tv": "dazn"},  # 11 jul 22:00 Noruega-Inglaterra
-    223: {"city": "Kansas City",      "tv": "dazn"},  # 12 jul 03:00 W95-W96
+    # ── Cuartos (horarios España peninsular, CEST) ──
+    220: {"city": "Boston",           "tv": "dazn"},  # 9 jul 22:00 Marruecos-Francia
+    221: {"city": "Los Ángeles",      "tv": "both"},  # 10 jul 21:00 España-Bélgica · La 1 + DAZN
+    222: {"city": "Miami",            "tv": "dazn"},  # 11 jul 23:00 Noruega-Inglaterra
+    223: {"city": "Kansas City",      "tv": "dazn"},  # 12 jul 03:00 Argentina-Suiza
     # ── Semis ──
     232: {"city": "Dallas",           "tv": "both"},
     233: {"city": "Atlanta",          "tv": "both"},
@@ -284,10 +284,14 @@ SCHEDULE_BY_ROW: dict[int, dict] = {
     205: {"date": "2026-07-07", "time_es": "02:00", "day_label": "Martes 07 julio"},
     206: {"date": "2026-07-07", "time_es": "19:00", "day_label": "Martes 07 julio"},
     207: {"date": "2026-07-07", "time_es": "22:00", "day_label": "Martes 07 julio"},
-    220: {"date": "2026-07-09", "time_es": "21:00", "day_label": "Jueves 09 julio"},
-    221: {"date": "2026-07-10", "time_es": "23:00", "day_label": "Viernes 10 julio"},
-    222: {"date": "2026-07-11", "time_es": "22:00", "day_label": "Sábado 11 julio"},
+    220: {"date": "2026-07-09", "time_es": "22:00", "day_label": "Jueves 09 julio"},
+    221: {"date": "2026-07-10", "time_es": "21:00", "day_label": "Viernes 10 julio"},
+    222: {"date": "2026-07-11", "time_es": "23:00", "day_label": "Sábado 11 julio"},
     223: {"date": "2026-07-12", "time_es": "03:00", "day_label": "Domingo 12 julio"},
+    232: {"date": "2026-07-14", "time_es": "21:00", "day_label": "Martes 14 julio"},
+    233: {"date": "2026-07-15", "time_es": "21:00", "day_label": "Miércoles 15 julio"},
+    244: {"date": "2026-07-18", "time_es": "23:00", "day_label": "Sábado 18 julio"},
+    247: {"date": "2026-07-19", "time_es": "21:00", "day_label": "Domingo 19 julio"},
 }
 
 
