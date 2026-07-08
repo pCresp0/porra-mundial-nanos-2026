@@ -756,10 +756,6 @@ def main():
     from app import _backfill_match_flags, _propagate_bracket_winners
     _backfill_match_flags(dj.get("matches", []))
     _propagate_bracket_winners(dj.get("matches", []))
-    if not args.dry_run and changes > 0:
-        from app import repair_progression
-        repair_progression(dj)
-
     bf = backfill_breakdowns(dj)
     if bf:
         print(f"  ↻ Desgloses rellenados: {bf}")
@@ -784,6 +780,11 @@ def main():
             st["pos"] = i + 1
         changes += bq
 
+    if not args.dry_run:
+        from app import sync_progression_from_matches
+        sync_progression_from_matches(dj)
+        print("  ↻ Progresión sincronizada (incl. puntos «Pasa»)")
+
     if args.dry_run:
         print(f"\n📋 Dry-run: {changes} cambio(s) detectados (sin guardar)")
         return 0
@@ -801,7 +802,7 @@ def _update_progression(dj: dict, match: dict, deltas: dict[str, float]):
     """Añade un evento de progresión por partido y sincroniza la serie acumulada."""
     from app import (
         _abbr_team, _append_progression_event, _award_grid_on_ko_win,
-        _ko_match_qual_bonus, _match_prog_title, _progression_grid_context_from_data,
+        _match_prog_title, _prog_match_earned, _progression_grid_context_from_data,
         _sync_prog_players,
     )
 
@@ -818,7 +819,10 @@ def _update_progression(dj: dict, match: dict, deltas: dict[str, float]):
         dates = prog.get("dates", [])
         date = next((d for d in reversed(dates) if str(d).startswith("2026-")), "2026-07-07")
 
-    earned = {n: round(float(deltas.get(n, 0.0)), 1) for n in player_names}
+    earned = {
+        n: round(_prog_match_earned(match, match.get("predictions", {}).get(n, {})), 1)
+        for n in player_names
+    }
     label = f"{_abbr_team(match.get('home'))}-{_abbr_team(match.get('away'))}"
     flag = f"{match.get('flag_home', '')}{match.get('flag_away', '')}" or label
     _append_progression_event(
@@ -833,22 +837,9 @@ def _update_progression(dj: dict, match: dict, deltas: dict[str, float]):
             match, player_names, grid_ctx["grid_preds"],
             grid_ctx["pts"], awarded, grid_ctx["actual"],
         )
-        qual_earned = _ko_match_qual_bonus(match, player_names, grid_ctx["pts"].get("r4", 5.0))
-        if match.get("phase") == "r8":
-            combined = {
-                n: round(grid_earned.get(n, 0) + qual_earned.get(n, 0), 1)
-                for n in player_names
-            }
-            if any(v > 0 for v in combined.values()):
-                w = str(match.get("actual_winner") or "").strip()
-                grid_phase = "r4_team"
-                _append_progression_event(
-                    prog, player_names, f"Clasif. {_abbr_team(w)}", "✓", date,
-                    f"Clasificado a fase siguiente: {w}", grid_phase, combined,
-                )
-        elif any(v > 0 for v in grid_earned.values()):
+        if any(v > 0 for v in grid_earned.values()):
             w = str(match.get("actual_winner") or "").strip()
-            phase_map = {"r16": "r8_team", "r4": "r2_team", "r2": "final_team"}
+            phase_map = {"r16": "r8_team", "r8": "r4_team", "r4": "r2_team", "r2": "final_team"}
             _append_progression_event(
                 prog, player_names, f"Clasif. {_abbr_team(w)}", "✓", date,
                 f"Clasificado a fase siguiente: {w}",

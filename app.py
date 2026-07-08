@@ -1364,6 +1364,106 @@ def _match_prog_title(m):
     return title
 
 
+def _insert_progression_event_at(prog, idx, label, flag, date, title, phase, earned, player_names):
+    """Inserta un evento en la progresión sin sustituir el existente en idx."""
+    prog.setdefault("labels", []).insert(idx, label)
+    prog.setdefault("flag_labels", []).insert(idx, flag)
+    prog.setdefault("dates", []).insert(idx, date)
+    prog.setdefault("titles", []).insert(idx, title)
+    prog.setdefault("phases", []).insert(idx, phase)
+    for n in player_names:
+        prog.setdefault("day_points", {}).setdefault(n, []).insert(
+            idx, round(float(earned.get(n, 0.0)), 1)
+        )
+    return _sync_prog_players(prog, player_names)
+
+
+def sync_progression_from_matches(dj):
+    """Sincroniza day_points de la progresión con partidos (incluye qual_pts «Pasa»)."""
+    prog = dj.get("progression")
+    if not prog or not prog.get("labels"):
+        return dj
+    player_names = dj.get("meta", {}).get("players", [])
+    if not player_names:
+        return dj
+
+    labels = prog.get("labels", [])
+    phases = prog.get("phases", [])
+
+    def _label_indices():
+        out = {}
+        for i, lbl in enumerate(prog.get("labels", [])):
+            out.setdefault(lbl, []).append(i)
+        return out
+
+    matches_by_abbr = {}
+    played_ko = []
+    for m in dj.get("matches", []):
+        if not m.get("played"):
+            continue
+        ab = f"{_abbr_team(m.get('home'))}-{_abbr_team(m.get('away'))}"
+        matches_by_abbr[ab] = m
+        if m.get("phase") in ("groups", "r16", "r8", "r4", "r2", "r34", "final"):
+            played_ko.append(m)
+
+    label_idx = _label_indices()
+
+    # Partidos: marcador + bonus «Pasa: X» (qual_pts)
+    for ab, m in matches_by_abbr.items():
+        phase = m.get("phase", "")
+        if phase not in ("groups", "r16", "r8", "r4", "r2", "r34", "final"):
+            continue
+        indices = label_idx.get(ab, [])
+        if not indices:
+            continue
+        idx = indices[-1]
+        for n in player_names:
+            pd = m.get("predictions", {}).get(n, {})
+            prog["day_points"][n][idx] = round(_prog_match_earned(m, pd), 1)
+
+    # Cuadro de clasificados: evento «Clasif. X» tras cada KO
+    grid_ctx = _progression_grid_context_from_data(dj)
+    if grid_ctx:
+        phase_map = {"r16": "r8_team", "r8": "r4_team", "r4": "r2_team", "r2": "final_team"}
+        awarded = set()
+        played_ko.sort(key=lambda x: (x.get("date", ""), x.get("time_es", "")))
+        for m in played_ko:
+            phase = m.get("phase")
+            if phase not in phase_map:
+                continue
+            w = str(m.get("actual_winner") or "").strip()
+            if not w:
+                continue
+            ab = f"{_abbr_team(m.get('home'))}-{_abbr_team(m.get('away'))}"
+            match_indices = label_idx.get(ab, [])
+            if not match_indices:
+                continue
+            match_idx = match_indices[-1]
+            clasif_lbl = f"Clasif. {_abbr_team(w)}"
+            grid_earned = _award_grid_on_ko_win(
+                m, player_names, grid_ctx["grid_preds"], grid_ctx["pts"],
+                awarded, grid_ctx["actual"],
+            )
+            clasif_indices = [i for i in label_idx.get(clasif_lbl, []) if i > match_idx]
+            if clasif_indices:
+                ci = clasif_indices[0]
+                for n in player_names:
+                    prog["day_points"][n][ci] = round(float(grid_earned.get(n, 0.0)), 1)
+            elif any(v > 0 for v in grid_earned.values()):
+                insert_at = match_idx + 1
+                date = m.get("date") or (prog["dates"][match_idx] if match_idx < len(prog.get("dates", [])) else "")
+                _insert_progression_event_at(
+                    prog, insert_at, clasif_lbl, "✓", date,
+                    f"Clasificado a fase siguiente: {w}",
+                    phase_map[phase], grid_earned, player_names,
+                )
+                label_idx = _label_indices()
+
+    _sync_prog_players(prog, player_names)
+    dj["progression"] = prog
+    return dj
+
+
 def repair_progression(dj):
     """Corrige progresión: sincroniza players, fechas y eventos agrupados de octavos."""
     prog = dj.get("progression")
@@ -1509,7 +1609,7 @@ def repair_progression(dj):
     else:
         _sync_prog_players(prog, players)
 
-    dj["progression"] = prog
+    dj = sync_progression_from_matches(dj)
     return dj
 
 
