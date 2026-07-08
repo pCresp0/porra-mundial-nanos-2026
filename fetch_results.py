@@ -5,6 +5,7 @@ Fuente: https://worldcup26.ir/get/games (API pública, sin clave).
 
   python3 fetch_results.py
 """
+from __future__ import annotations
 import json
 import os
 import re
@@ -172,6 +173,38 @@ def write_penalties_json(games: list) -> int:
         json.dump(penalties, f, ensure_ascii=False, indent=2)
     print(f"🎯 Penaltis guardados: {len(penalties)} partido(s) → {PENALTIES_JSON}")
     return len(penalties)
+
+
+def _penalties_from_game(g: dict) -> dict | None:
+    """Penaltis del partido en la respuesta API (si existen)."""
+    if "home_penalty_score" not in g or "away_penalty_score" not in g:
+        return None
+    try:
+        ph = int(g.get("home_penalty_score"))
+        pa = int(g.get("away_penalty_score"))
+    except (TypeError, ValueError):
+        return None
+    if ph == pa:
+        return None
+    return {"home": ph, "away": pa}
+
+
+def _winner_on_draw(home_es: str, away_es: str, g: dict, pen_data: dict) -> str:
+    """Ganador en empate: penaltis de la API o penalties.json."""
+    pen = _penalties_from_game(g)
+    if not pen:
+        pen_key = f"{home_es}-{away_es}"
+        pen_key_rev = f"{away_es}-{home_es}"
+        pen = pen_data.get(pen_key) or pen_data.get(pen_key_rev)
+        if not pen:
+            return ""
+        ph = int(pen.get("home", 0))
+        pa = int(pen.get("away", 0))
+        if pen_key in pen_data:
+            return home_es if ph > pa else away_es
+        return away_es if ph > pa else home_es
+    ph, pa = pen["home"], pen["away"]
+    return home_es if ph > pa else away_es
 
 
 def _is_live(g) -> bool:
@@ -671,18 +704,7 @@ def write_results_json(games: list, match_map: dict) -> int:
         elif gv > gl:
             winner = away_es
         else:
-            pen_key     = f"{home_es}-{away_es}"
-            pen_key_rev = f"{away_es}-{home_es}"
-            pen = pen_data.get(pen_key) or pen_data.get(pen_key_rev)
-            if pen:
-                ph = int(pen.get("home", 0))
-                pa = int(pen.get("away", 0))
-                if pen_key in pen_data:
-                    winner = home_es if ph > pa else away_es
-                else:
-                    winner = away_es if ph > pa else home_es
-            else:
-                winner = ""
+            winner = _winner_on_draw(home_es, away_es, g, pen_data)
 
         entry = {"home": home_es, "away": away_es,
                  "goals_h": gl, "goals_a": gv, "winner": winner}
@@ -749,11 +771,9 @@ def main():
         pass
 
     # ── Write match results to results.json (no Excel writes) ──────────────
-    write_results_json(games, match_map)
-
-    # ── Side-data files (unchanged) ─────────────────────────────────────────
-    write_scorers_json(games)
     write_penalties_json(games)
+    write_scorers_json(games)
+    write_results_json(games, match_map)
     write_live_json(games)
 
     # ── Rebuild data.json from updated results ───────────────────────────────

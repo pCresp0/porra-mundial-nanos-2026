@@ -755,7 +755,6 @@ def main():
 
     from app import _backfill_match_flags, _propagate_bracket_winners
     _backfill_match_flags(dj.get("matches", []))
-    _propagate_bracket_winners(dj.get("matches", []))
     bf = backfill_breakdowns(dj)
     if bf:
         print(f"  ↻ Desgloses rellenados: {bf}")
@@ -780,7 +779,11 @@ def main():
             st["pos"] = i + 1
         changes += bq
 
-    if not args.dry_run:
+    # Tras reparar ganadores/qual_pts, actualizar cuadro (Wxx → equipo real)
+    _propagate_bracket_winners(dj.get("matches", []))
+    _backfill_match_flags(dj.get("matches", []))
+
+    if not args.dry_run and changes > 0:
         from app import sync_progression_from_matches
         sync_progression_from_matches(dj)
         print("  ↻ Progresión sincronizada (incl. puntos «Pasa»)")

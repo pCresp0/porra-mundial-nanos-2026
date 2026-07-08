@@ -17,9 +17,10 @@ print(f"Descargando desde {url}...")
 try:
     games = fr._fetch_games(url)
     match_map = fr._load_data_json_match_map()
-    fr.write_results_json(games, match_map)
-    fr.write_scorers_json(games)
+    # Penaltis antes que resultados: write_results_json necesita el ganador en empates 0-0
     fr.write_penalties_json(games)
+    fr.write_scorers_json(games)
+    fr.write_results_json(games, match_map)
     fr.write_live_json(games)
     print("Descarga completada")
 except Exception as e:
