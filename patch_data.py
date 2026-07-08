@@ -239,6 +239,74 @@ def _winners_match(pred_w: str, actual_w: str) -> bool:
     return pw == aw or pw in aw or aw in pw
 
 
+def _winner_from_penalties(home: str, away: str, pen: dict, pen_key_home: str) -> str:
+    """pen.home/away son goles de penalti; pen_key_home es el local del key en penalties.json."""
+    ph = int(pen.get("home", 0))
+    pa = int(pen.get("away", 0))
+    if ph == pa:
+        return ""
+    if pen_key_home == home:
+        return home if ph > pa else away
+    return away if ph > pa else home
+
+
+def _resolve_ko_winner(
+    match: dict,
+    gl: int,
+    gv: int,
+    winner: str = "",
+    pen_entry: dict | None = None,
+    pen_data: dict | None = None,
+) -> str:
+    """Ganador del partido KO: goles en tiempo reglamentario o penaltis si empate."""
+    w = str(winner or "").strip()
+    home = str(match.get("home") or "").strip()
+    away = str(match.get("away") or "").strip()
+    if gl > gv:
+        return home or w
+    if gv > gl:
+        return away or w
+    if w:
+        return w
+    pen = pen_entry or match.get("penalties")
+    if isinstance(pen, dict) and home and away:
+        return _winner_from_penalties(home, away, pen, home)
+    if isinstance(pen_data, dict) and home and away:
+        pen_key = f"{home}-{away}"
+        pen_key_rev = f"{away}-{home}"
+        pen = pen_data.get(pen_key) or pen_data.get(pen_key_rev)
+        if isinstance(pen, dict):
+            key_home = home if pen_key in pen_data else away
+            return _winner_from_penalties(home, away, pen, key_home)
+    return ""
+
+
+def repair_missing_winners(
+    dj: dict,
+    pen_data: dict | None = None,
+    by_match_num: dict | None = None,
+) -> int:
+    """Partidos jugados con empate/penaltis pero sin actual_winner (p. ej. penaltis llegaron después)."""
+    fixed = 0
+    for m in dj.get("matches", []):
+        if not m.get("played"):
+            continue
+        if str(m.get("actual_winner") or "").strip():
+            continue
+        gl, gv = m.get("goals_l"), m.get("goals_v")
+        if gl is None or gv is None:
+            continue
+        entry = (by_match_num or {}).get(str(m.get("match_num", "")))
+        winner_hint = entry.get("winner", "") if isinstance(entry, dict) else ""
+        w = _resolve_ko_winner(m, int(gl), int(gv), winner_hint, None, pen_data)
+        if not w:
+            continue
+        m["actual_winner"] = w
+        fixed += 1
+        print(f"  ↻ Ganador reparado: {m.get('name')} → {w}")
+    return fixed
+
+
 def apply_qual_pts(match: dict) -> dict[str, float]:
     """Asigna qual_pts (bonus «Pasa: X») y devuelve delta por jugador."""
     phase = match.get("phase", "")
@@ -371,7 +439,7 @@ def apply_confirmed_result(
     match["live_goals_v"] = None
     match["goals_l"]      = gl
     match["goals_v"]      = gv
-    match["actual_winner"] = winner
+    match["actual_winner"] = _resolve_ko_winner(match, gl, gv, winner, penalties)
     if scorers is not None:
         match["scorers"] = scorers
     elif match.get("scorers"):
@@ -581,6 +649,7 @@ def main():
             # Get penalties
             pen_entry = (pen_data.get(sc_key)
                          if isinstance(pen_data, dict) else None)
+            winner = _resolve_ko_winner(match, gl, gv, winner, pen_entry, pen_data)
 
             deltas, qual_deltas = apply_confirmed_result(match, gl, gv, winner, scorers, pen_entry)
 
@@ -695,6 +764,13 @@ def main():
     if bf:
         print(f"  ↻ Desgloses rellenados: {bf}")
         changes += bf
+
+    pen_data_repair = load_json(os.path.join(BASE, "data", "penalties.json"))
+    results_repair = load_json(RESULTS_JSON)
+    by_num_repair = results_repair.get("by_match_num", {}) if isinstance(results_repair, dict) else {}
+    rw = repair_missing_winners(dj, pen_data_repair, by_num_repair)
+    if rw:
+        changes += rw
 
     bq, qual_sd = backfill_qual_pts(dj)
     if bq:
