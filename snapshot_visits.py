@@ -125,10 +125,14 @@ def main() -> None:
     # Embebe las fotos recientes en data.json
     try:
         with open(DATA_JSON, encoding="utf-8") as f:
-            data = json.load(f)
-    except (OSError, ValueError) as exc:
+            raw = f.read()
+        if "<<<<<<<" in raw or ">>>>>>>" in raw:
+            print("data.json tiene marcadores de conflicto git — abortando", file=sys.stderr)
+            sys.exit(1)
+        data = json.loads(raw)
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
         print(f"No se pudo leer data.json para embeber: {exc}", file=sys.stderr)
-        return
+        sys.exit(1)
 
     data.setdefault("meta", {})["visits_log"] = _embed_recent(entries, now)
     with open(DATA_JSON, "w", encoding="utf-8") as f:
