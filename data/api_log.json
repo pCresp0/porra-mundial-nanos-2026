@@ -1,31 +1,5 @@
 [
   {
-    "ts_iso": "2026-07-02T04:08:32+02:00",
-    "date": "02/07/2026",
-    "time": "04:08:32",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇺🇸Estados Unidos 2-0 Bosnia y Herzegovina🇧🇦",
-        "name": "Estados Unidos-Bosnia y Herzegovina",
-        "date": "2026-07-02",
-        "fields": [
-          "marcador",
-          "jugado"
-        ],
-        "old": {
-          "marcador": "sin resultado",
-          "jugado": "no"
-        },
-        "new": {
-          "marcador": "2-0",
-          "jugado": "sí"
-        }
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-07-02T04:24:27+02:00",
     "date": "02/07/2026",
     "time": "04:24:27",
@@ -16428,6 +16402,14 @@
     "time": "23:48:17",
     "updated": false,
     "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-09T23:50:16+02:00",
+    "date": "09/07/2026",
+    "time": "23:50:16",
+    "updated": false,
+    "trigger": "schedule",
     "changes": []
   }
 ]
