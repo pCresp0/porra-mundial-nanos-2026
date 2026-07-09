@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-07-02T06:16:31+02:00",
-    "date": "02/07/2026",
-    "time": "06:16:31",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-07-02T06:32:28+02:00",
     "date": "02/07/2026",
     "time": "06:32:28",
@@ -16411,5 +16403,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-07-10T00:05:14+02:00",
+    "date": "10/07/2026",
+    "time": "00:05:14",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇲🇦Marruecos 0-2 Francia🇫🇷",
+        "name": "Marruecos-Francia",
+        "date": "2026-07-09",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "sin resultado",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "0-2",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]

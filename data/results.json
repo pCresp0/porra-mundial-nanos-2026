@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_updated": "2026-07-09T22:02:15Z",
+  "last_updated": "2026-07-09T22:04:19Z",
   "by_match_num": {
     "1": {
       "home": "México",
@@ -673,6 +673,13 @@
       "goals_h": 0,
       "goals_a": 0,
       "winner": "Suiza"
+    },
+    "97": {
+      "home": "Francia",
+      "away": "Marruecos",
+      "goals_h": 2,
+      "goals_a": 0,
+      "winner": "Francia"
     }
   }
 }
