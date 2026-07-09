@@ -1,105 +1,4 @@
 {
-  "México-Sudáfrica": [
-    {
-      "player": "J. Quiñones",
-      "minute": "9'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "R. Jiménez",
-      "minute": "67'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    }
-  ],
-  "Corea del Sur-República Checa": [
-    {
-      "player": "I.B. Hwang",
-      "minute": "67'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "H.G. Oh",
-      "minute": "80'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "L. Krejčí",
-      "minute": "59'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Canadá-Bosnia y Herzegovina": [
-    {
-      "player": "C. Larin",
-      "minute": "11'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Jovo Lukić",
-      "minute": "21'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Estados Unidos-Paraguay": [
-    {
-      "player": "D. Bobadilla",
-      "minute": "7'",
-      "own_goal": true,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "F. Balogun",
-      "minute": "31'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "F. Balogun",
-      "minute": "45'+5'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "G. Reyna",
-      "minute": "90'+8'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Maurício",
-      "minute": "73'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Haití-Escocia": [
-    {
-      "player": "J. McGinn",
-      "minute": "28'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
   "Australia-Turquía": [
     {
       "player": "Nestory Irankunda",
@@ -114,22 +13,6 @@
       "own_goal": false,
       "penalty": false,
       "team": "home"
-    }
-  ],
-  "Brasil-Marruecos": [
-    {
-      "player": "V. Júnior",
-      "minute": "32'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "I. Saibari",
-      "minute": "21'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
     }
   ],
   "Catar-Suiza": [
@@ -148,545 +31,6 @@
       "team": "away"
     }
   ],
-  "Costa de Marfil-Ecuador": [
-    {
-      "player": "A. Diallo",
-      "minute": "90'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    }
-  ],
-  "Alemania-Curazao": [
-    {
-      "player": "Felix Nmecha",
-      "minute": "7'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "N. Schlotterbeck",
-      "minute": "38'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "K. Havertz",
-      "minute": "45'+5'",
-      "own_goal": false,
-      "penalty": true,
-      "team": "home"
-    },
-    {
-      "player": "J. Musiala",
-      "minute": "47'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "N. Brown",
-      "minute": "68'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "D. Undav",
-      "minute": "78'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "K. Havertz",
-      "minute": "88'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "L. Comenencia",
-      "minute": "21'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Países Bajos-Japón": [
-    {
-      "player": "Virgil van Dijk",
-      "minute": "51'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "C. Summerville",
-      "minute": "64'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "K. Nakamura",
-      "minute": "57'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "K. Ogawa",
-      "minute": "89'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Suecia-Túnez": [
-    {
-      "player": "Y.Ayari",
-      "minute": "7'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "A. Isak",
-      "minute": "30'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "V. Gyökeres",
-      "minute": "59'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "M. Svanberg",
-      "minute": "84'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Y.Ayari",
-      "minute": "90'+6'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "O. Rekik",
-      "minute": "43'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Irán-Nueva Zelanda": [
-    {
-      "player": "Ramin Rezaiian",
-      "minute": "32'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Mohammad Mohebi",
-      "minute": "64'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Elijah Just",
-      "minute": "7'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Elijah Just",
-      "minute": "54'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Bélgica-Egipto": [
-    {
-      "player": "Mohamed Hany",
-      "minute": "66'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Emam Ashour",
-      "minute": "20'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Arabia Saudita-Uruguay": [
-    {
-      "player": "Abdulelah Al-Amri",
-      "minute": "41'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Maximiliano Araújo",
-      "minute": "80'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Francia-Senegal": [
-    {
-      "player": "K. Mbappé",
-      "minute": "66'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "B. Barcola",
-      "minute": "82'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "K. Mbappé",
-      "minute": "90'+6'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "I. Mbaye",
-      "minute": "90'+5'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Irak-Noruega": [
-    {
-      "player": "Aymen Hussein",
-      "minute": "39'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Erling Haaland",
-      "minute": "29'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Erling Haaland",
-      "minute": "43'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Leo Østigård",
-      "minute": "76'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Aymen Hussein",
-      "minute": "90'+7'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Argentina-Argelia": [
-    {
-      "player": "Lionel Messi",
-      "minute": "17'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Lionel Messi",
-      "minute": "60'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Lionel Messi",
-      "minute": "76'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    }
-  ],
-  "Austria-Jordania": [
-    {
-      "player": "Rvmanv Ashmid",
-      "minute": "21'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Izn Alarb",
-      "minute": "76'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Ali Avlvan",
-      "minute": "50'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Portugal-RD Congo": [
-    {
-      "player": "J. Neves",
-      "minute": "6'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Y. Wissa",
-      "minute": "45'+5'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Inglaterra-Croacia": [
-    {
-      "player": "H. Kane",
-      "minute": "12'",
-      "own_goal": false,
-      "penalty": true,
-      "team": "home"
-    },
-    {
-      "player": "H. Kane",
-      "minute": "42'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "J. Bellingham",
-      "minute": "47'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "M. Rashford",
-      "minute": "85'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "M. Baturina",
-      "minute": "36'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "P. Musa",
-      "minute": "45'+5'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Uzbekistán-Colombia": [
-    {
-      "player": "Abas Bk Fiz Allh Af",
-      "minute": "60'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Dnil Mvnvz",
-      "minute": "40'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Lviiz Diaz",
-      "minute": "65'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Khamintvn Kampaz",
-      "minute": "90'+9'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Ghana-Panamá": [
-    {
-      "player": "Kalb Iirnki",
-      "minute": "90'+5'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    }
-  ],
-  "México-Corea del Sur": [
-    {
-      "player": "Luis Romo",
-      "minute": "50'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    }
-  ],
-  "Suiza-Bosnia y Herzegovina": [
-    {
-      "player": "Jvhan Mnzambi",
-      "minute": "74'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Rvbn Vargas",
-      "minute": "84'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Jvhan Mnzambi",
-      "minute": "90'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Armin Mhmich",
-      "minute": "90'+3'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Canadá-Catar": [
-    {
-      "player": "Kail Larin",
-      "minute": "16'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Jonathan David",
-      "minute": "29'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Jonathan David",
-      "minute": "45'+3'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Nathan Saliba",
-      "minute": "64'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Mohamed Almnai",
-      "minute": "75'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Jonathan David",
-      "minute": "90'+2'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    }
-  ],
-  "República Checa-Sudáfrica": [
-    {
-      "player": "‫mikhal Sadilk",
-      "minute": "6'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    }
-  ],
-  "Brasil-Haití": [
-    {
-      "player": "Matheus Cunha",
-      "minute": "23'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Matheus Cunha",
-      "minute": "36'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Vinícius Júnior",
-      "minute": "45'+3'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    }
-  ],
-  "Escocia-Marruecos": [
-    {
-      "player": "Asmaail Saibari",
-      "minute": "2'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
   "Estados Unidos-Australia": [
     {
       "player": "Kamrvn Bargs",
@@ -701,15 +45,6 @@
       "own_goal": false,
       "penalty": false,
       "team": "home"
-    }
-  ],
-  "Turquía-Paraguay": [
-    {
-      "player": "Matías Galarza",
-      "minute": "2'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
     }
   ],
   "Alemania-Costa de Marfil": [
@@ -779,126 +114,6 @@
       "team": "away"
     }
   ],
-  "Túnez-Japón": [
-    {
-      "player": "Daichi Kamada",
-      "minute": "4'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Aiash Ivida",
-      "minute": "31'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Junya Itō",
-      "minute": "69'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Aiash Ivida",
-      "minute": "83'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Nueva Zelanda-Egipto": [
-    {
-      "player": "Fin Svrman",
-      "minute": "15'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Mostafa Ziko",
-      "minute": "58'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Mohamed Salah",
-      "minute": "67'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Mahmoud Hassan Trezeguet",
-      "minute": "82'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "España-Arabia Saudita": [
-    {
-      "player": "Lamine Yamal",
-      "minute": "10'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Mikel Oyarzabal",
-      "minute": "21'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Mikel Oyarzabal",
-      "minute": "24'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Hassan Mohamed Altmbkti",
-      "minute": "49'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    }
-  ],
-  "Uruguay-Cabo Verde": [
-    {
-      "player": "Maximiliano Araújo",
-      "minute": "44'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Agustín Canobbio",
-      "minute": "45'+6'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Kevin Pina",
-      "minute": "21'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Hliv Varla",
-      "minute": "61'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
   "Francia-Irak": [
     {
       "player": "Kylian Mbappé",
@@ -959,17 +174,137 @@
       "team": "away"
     }
   ],
-  "Argentina-Austria": [
+  "Japón-Suecia": [
     {
-      "player": "Lionel Messi",
-      "minute": "38'",
+      "player": "Daizen Maeda",
+      "minute": "56'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Anthony Elanga",
+      "minute": "62'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Argentina-Egipto": [
+    {
+      "player": "Cristian Romero",
+      "minute": "79'",
       "own_goal": false,
       "penalty": false,
       "team": "home"
     },
     {
       "player": "Lionel Messi",
-      "minute": "90'+5'",
+      "minute": "83'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Enzo Fernández",
+      "minute": "90'+2'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Yasser Ibrahim",
+      "minute": "15'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Mostafa Ziko",
+      "minute": "67'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Haití-Escocia": [
+    {
+      "player": "J. McGinn",
+      "minute": "28'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Inglaterra-Croacia": [
+    {
+      "player": "H. Kane",
+      "minute": "12'",
+      "own_goal": false,
+      "penalty": true,
+      "team": "home"
+    },
+    {
+      "player": "H. Kane",
+      "minute": "42'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "J. Bellingham",
+      "minute": "47'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "M. Rashford",
+      "minute": "85'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "M. Baturina",
+      "minute": "36'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "P. Musa",
+      "minute": "45'+5'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "España-Arabia Saudita": [
+    {
+      "player": "Lamine Yamal",
+      "minute": "10'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Mikel Oyarzabal",
+      "minute": "21'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Mikel Oyarzabal",
+      "minute": "24'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Hassan Mohamed Altmbkti",
+      "minute": "49'",
       "own_goal": false,
       "penalty": false,
       "team": "home"
@@ -1044,91 +379,6 @@
       "team": "away"
     }
   ],
-  "Colombia-RD Congo": [
-    {
-      "player": "Dnil Mvnvz",
-      "minute": "76'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    }
-  ],
-  "Escocia-Brasil": [
-    {
-      "player": "Vinícius Júnior",
-      "minute": "7'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Vinícius Júnior",
-      "minute": "45'+3'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Matheus Cunha",
-      "minute": "60'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Marruecos-Haití": [
-    {
-      "player": "Achraf Hakimi",
-      "minute": "39'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Asmaail Saibari",
-      "minute": "45'+1'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Svfian Rhimi",
-      "minute": "78'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Gessime Yassine",
-      "minute": "89'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Yassine Bounou",
-      "minute": "10'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Wilson Isidor",
-      "minute": "43'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Sudáfrica-Corea del Sur": [
-    {
-      "player": "Taplv Maskv",
-      "minute": "63'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    }
-  ],
   "República Checa-México": [
     {
       "player": "Mateo Chávez",
@@ -1147,151 +397,6 @@
     {
       "player": "Álvaro Fidalgo",
       "minute": "90'+4'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Bosnia y Herzegovina-Catar": [
-    {
-      "player": "Karim Alaibgvvich",
-      "minute": "29'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Abvnad",
-      "minute": "34'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Armin Mhmich",
-      "minute": "80'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Hassan Al-Haydos",
-      "minute": "42'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Suiza-Canadá": [
-    {
-      "player": "Rubén Vargas",
-      "minute": "46'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Jvhan Mnzambi",
-      "minute": "57'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Prvmis Divid",
-      "minute": "76'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Curazao-Costa de Marfil": [
-    {
-      "player": "Nikvlas Ph Ph",
-      "minute": "7'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Nikvlas Ph Ph",
-      "minute": "64'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Ecuador-Alemania": [
-    {
-      "player": "Nilsvn Angvlv",
-      "minute": "9'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Gvnzalv Plata",
-      "minute": "77'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Leroy Sané",
-      "minute": "2'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Turquía-Estados Unidos": [
-    {
-      "player": "Arda Güler",
-      "minute": "10'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Baris Alpr Ailmaz",
-      "minute": "31'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Kan Aihan",
-      "minute": "90'+8'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Auston Trusty",
-      "minute": "3'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Sebastian Berhalter",
-      "minute": "49'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Japón-Suecia": [
-    {
-      "player": "Daizen Maeda",
-      "minute": "56'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Anthony Elanga",
-      "minute": "62'",
       "own_goal": false,
       "penalty": false,
       "team": "away"
@@ -1364,6 +469,591 @@
       "team": "home"
     }
   ],
+  "Panamá-Inglaterra": [
+    {
+      "player": "Jvd Blingham",
+      "minute": "62'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Hri Kin",
+      "minute": "67'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "RD Congo-Uzbekistán": [
+    {
+      "player": "Fistvn Mail",
+      "minute": "78'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Yoane Wissa",
+      "minute": "90'+1'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Aldvr Shvmvrvdvf",
+      "minute": "10'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Argentina-Cabo Verde": [
+    {
+      "player": "Lionel Messi",
+      "minute": "29'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Lisandro Martínez",
+      "minute": "92'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Dini Bvrgs",
+      "minute": "111'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Drvi Dviart",
+      "minute": "59'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Lvpz Kabral",
+      "minute": "103'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Australia-Egipto": [
+    {
+      "player": "Mohamed Hany",
+      "minute": "55'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Emam Ashour",
+      "minute": "13'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Corea del Sur-República Checa": [
+    {
+      "player": "I.B. Hwang",
+      "minute": "67'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "H.G. Oh",
+      "minute": "80'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "L. Krejčí",
+      "minute": "59'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Estados Unidos-Paraguay": [
+    {
+      "player": "D. Bobadilla",
+      "minute": "7'",
+      "own_goal": true,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "F. Balogun",
+      "minute": "31'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "F. Balogun",
+      "minute": "45'+5'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "G. Reyna",
+      "minute": "90'+8'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Maurício",
+      "minute": "73'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Francia-Senegal": [
+    {
+      "player": "K. Mbappé",
+      "minute": "66'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "B. Barcola",
+      "minute": "82'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "K. Mbappé",
+      "minute": "90'+6'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "I. Mbaye",
+      "minute": "90'+5'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Irak-Noruega": [
+    {
+      "player": "Aymen Hussein",
+      "minute": "39'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Erling Haaland",
+      "minute": "29'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Erling Haaland",
+      "minute": "43'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Leo Østigård",
+      "minute": "76'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Aymen Hussein",
+      "minute": "90'+7'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Portugal-RD Congo": [
+    {
+      "player": "J. Neves",
+      "minute": "6'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Y. Wissa",
+      "minute": "45'+5'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Marruecos-Haití": [
+    {
+      "player": "Achraf Hakimi",
+      "minute": "39'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Asmaail Saibari",
+      "minute": "45'+1'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Svfian Rhimi",
+      "minute": "78'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Gessime Yassine",
+      "minute": "89'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Yassine Bounou",
+      "minute": "10'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Wilson Isidor",
+      "minute": "43'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Sudáfrica-Corea del Sur": [
+    {
+      "player": "Taplv Maskv",
+      "minute": "63'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
+  "Colombia-Ghana": [
+    {
+      "player": "Jan Arias",
+      "minute": "14'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
+  "Costa de Marfil-Ecuador": [
+    {
+      "player": "A. Diallo",
+      "minute": "90'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
+  "Alemania-Curazao": [
+    {
+      "player": "Felix Nmecha",
+      "minute": "7'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "N. Schlotterbeck",
+      "minute": "38'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "K. Havertz",
+      "minute": "45'+5'",
+      "own_goal": false,
+      "penalty": true,
+      "team": "home"
+    },
+    {
+      "player": "J. Musiala",
+      "minute": "47'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "N. Brown",
+      "minute": "68'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "D. Undav",
+      "minute": "78'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "K. Havertz",
+      "minute": "88'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "L. Comenencia",
+      "minute": "21'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Suecia-Túnez": [
+    {
+      "player": "Y.Ayari",
+      "minute": "7'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "A. Isak",
+      "minute": "30'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "V. Gyökeres",
+      "minute": "59'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "M. Svanberg",
+      "minute": "84'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Y.Ayari",
+      "minute": "90'+6'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "O. Rekik",
+      "minute": "43'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "México-Corea del Sur": [
+    {
+      "player": "Luis Romo",
+      "minute": "50'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
+  "Canadá-Catar": [
+    {
+      "player": "Kail Larin",
+      "minute": "16'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Jonathan David",
+      "minute": "29'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Jonathan David",
+      "minute": "45'+3'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Nathan Saliba",
+      "minute": "64'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Mohamed Almnai",
+      "minute": "75'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Jonathan David",
+      "minute": "90'+2'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
+  "Escocia-Marruecos": [
+    {
+      "player": "Asmaail Saibari",
+      "minute": "2'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Turquía-Paraguay": [
+    {
+      "player": "Matías Galarza",
+      "minute": "2'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Argentina-Austria": [
+    {
+      "player": "Lionel Messi",
+      "minute": "38'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Lionel Messi",
+      "minute": "90'+5'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
+  "Escocia-Brasil": [
+    {
+      "player": "Vinícius Júnior",
+      "minute": "7'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Vinícius Júnior",
+      "minute": "45'+3'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Matheus Cunha",
+      "minute": "60'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Bosnia y Herzegovina-Catar": [
+    {
+      "player": "Karim Alaibgvvich",
+      "minute": "29'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Abvnad",
+      "minute": "34'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Armin Mhmich",
+      "minute": "80'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Hassan Al-Haydos",
+      "minute": "42'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Turquía-Estados Unidos": [
+    {
+      "player": "Arda Güler",
+      "minute": "10'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Baris Alpr Ailmaz",
+      "minute": "31'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Kan Aihan",
+      "minute": "90'+8'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Auston Trusty",
+      "minute": "3'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Sebastian Berhalter",
+      "minute": "49'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
   "Noruega-Francia": [
     {
       "player": "Thelo Aasgaard",
@@ -1417,50 +1107,6 @@
       "team": "away"
     }
   ],
-  "Nueva Zelanda-Bélgica": [
-    {
-      "player": "Ali Jast",
-      "minute": "84'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Leandro Trossard",
-      "minute": "28'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Leandro Trossard",
-      "minute": "50'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Kevin De Bruyne",
-      "minute": "66'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Romelu Lukaku",
-      "minute": "86'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Alexis Saelemaekers",
-      "minute": "90'+4'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
   "Uruguay-España": [
     {
       "player": "Álex Baena",
@@ -1470,17 +1116,658 @@
       "team": "away"
     }
   ],
-  "Panamá-Inglaterra": [
+  "Jordania-Argentina": [
     {
-      "player": "Jvd Blingham",
-      "minute": "62'",
+      "player": "Mvsi Altmari",
+      "minute": "55'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Jivani Lv Slsv",
+      "minute": "19'",
       "own_goal": false,
       "penalty": false,
       "team": "away"
     },
     {
-      "player": "Hri Kin",
+      "player": "Lautaro Martínez",
+      "minute": "31'",
+      "own_goal": false,
+      "penalty": true,
+      "team": "away"
+    },
+    {
+      "player": "Lionel Messi",
+      "minute": "80'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Brasil-Japón": [
+    {
+      "player": "Casemiro",
+      "minute": "56'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Gabriel Martinelli",
+      "minute": "90'+5'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Kaishū Sano",
+      "minute": "29'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Portugal-Croacia": [
+    {
+      "player": "Gvnchalv Ramvs",
+      "minute": "90'+4'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Ivan Perišić",
+      "minute": "53'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Suiza-Argelia": [
+    {
+      "player": "Breel Embolo",
+      "minute": "10'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Dn Andvi",
+      "minute": "46'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
+  "Portugal-España": [
+    {
+      "player": "Mikel Merino",
+      "minute": "90'+1'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "México-Sudáfrica": [
+    {
+      "player": "J. Quiñones",
+      "minute": "9'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "R. Jiménez",
       "minute": "67'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
+  "Brasil-Marruecos": [
+    {
+      "player": "V. Júnior",
+      "minute": "32'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "I. Saibari",
+      "minute": "21'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Países Bajos-Japón": [
+    {
+      "player": "Virgil van Dijk",
+      "minute": "51'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "C. Summerville",
+      "minute": "64'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "K. Nakamura",
+      "minute": "57'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "K. Ogawa",
+      "minute": "89'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Suiza-Bosnia y Herzegovina": [
+    {
+      "player": "Jvhan Mnzambi",
+      "minute": "74'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Rvbn Vargas",
+      "minute": "84'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Jvhan Mnzambi",
+      "minute": "90'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Armin Mhmich",
+      "minute": "90'+3'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Brasil-Haití": [
+    {
+      "player": "Matheus Cunha",
+      "minute": "23'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Matheus Cunha",
+      "minute": "36'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Vinícius Júnior",
+      "minute": "45'+3'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
+  "Túnez-Japón": [
+    {
+      "player": "Daichi Kamada",
+      "minute": "4'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Aiash Ivida",
+      "minute": "31'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Junya Itō",
+      "minute": "69'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Aiash Ivida",
+      "minute": "83'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Nueva Zelanda-Egipto": [
+    {
+      "player": "Fin Svrman",
+      "minute": "15'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Mostafa Ziko",
+      "minute": "58'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Mohamed Salah",
+      "minute": "67'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Mahmoud Hassan Trezeguet",
+      "minute": "82'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Uruguay-Cabo Verde": [
+    {
+      "player": "Maximiliano Araújo",
+      "minute": "44'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Agustín Canobbio",
+      "minute": "45'+6'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Kevin Pina",
+      "minute": "21'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Hliv Varla",
+      "minute": "61'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Colombia-RD Congo": [
+    {
+      "player": "Dnil Mvnvz",
+      "minute": "76'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
+  "Sudáfrica-Canadá": [
+    {
+      "player": "Astfan Avstakviv",
+      "minute": "90'+2'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Francia-Suecia": [
+    {
+      "player": "Kylian Mbappé",
+      "minute": "45'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Bradley Barcola",
+      "minute": "53'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Kylian Mbappé",
+      "minute": "74'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
+  "España-Austria": [
+    {
+      "player": "Mikel Oyarzabal",
+      "minute": "36'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Pedro Porro",
+      "minute": "66'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Mikel Oyarzabal",
+      "minute": "89'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
+  "Canadá-Marruecos": [
+    {
+      "player": "Azdin Avnahi",
+      "minute": "50'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Azdin Avnahi",
+      "minute": "82'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Svfian Rhimi",
+      "minute": "90'+8'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "México-Inglaterra": [
+    {
+      "player": "Jvlian Kviinvnz",
+      "minute": "42'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Jvd Blingham",
+      "minute": "36'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Jvd Blingham",
+      "minute": "38'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Estados Unidos-Bélgica": [
+    {
+      "player": "Malik Tillman",
+      "minute": "31'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Sharl D Ktlar",
+      "minute": "9'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Sharl D Ktlar",
+      "minute": "33'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Hans Vanaken",
+      "minute": "57'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Romelu Lukaku",
+      "minute": "90'+3'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Arabia Saudita-Uruguay": [
+    {
+      "player": "Abdulelah Al-Amri",
+      "minute": "41'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Maximiliano Araújo",
+      "minute": "80'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Austria-Jordania": [
+    {
+      "player": "Rvmanv Ashmid",
+      "minute": "21'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Izn Alarb",
+      "minute": "76'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Ali Avlvan",
+      "minute": "50'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Uzbekistán-Colombia": [
+    {
+      "player": "Abas Bk Fiz Allh Af",
+      "minute": "60'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Dnil Mvnvz",
+      "minute": "40'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Lviiz Diaz",
+      "minute": "65'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Khamintvn Kampaz",
+      "minute": "90'+9'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Brasil-Noruega": [
+    {
+      "player": "Erling Haaland",
+      "minute": "79'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Erling Haaland",
+      "minute": "90'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Canadá-Bosnia y Herzegovina": [
+    {
+      "player": "C. Larin",
+      "minute": "11'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Jovo Lukić",
+      "minute": "21'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Irán-Nueva Zelanda": [
+    {
+      "player": "Ramin Rezaiian",
+      "minute": "32'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Mohammad Mohebi",
+      "minute": "64'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Elijah Just",
+      "minute": "7'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Elijah Just",
+      "minute": "54'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Argentina-Argelia": [
+    {
+      "player": "Lionel Messi",
+      "minute": "17'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Lionel Messi",
+      "minute": "60'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Lionel Messi",
+      "minute": "76'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
+  "Ghana-Panamá": [
+    {
+      "player": "Kalb Iirnki",
+      "minute": "90'+5'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
+  "República Checa-Sudáfrica": [
+    {
+      "player": "‫mikhal Sadilk",
+      "minute": "6'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
+  "Curazao-Costa de Marfil": [
+    {
+      "player": "Nikvlas Ph Ph",
+      "minute": "7'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Nikvlas Ph Ph",
+      "minute": "64'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Ecuador-Alemania": [
+    {
+      "player": "Nilsvn Angvlv",
+      "minute": "9'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Gvnzalv Plata",
+      "minute": "77'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Leroy Sané",
+      "minute": "2'",
       "own_goal": false,
       "penalty": false,
       "team": "away"
@@ -1553,68 +1840,6 @@
       "team": "away"
     }
   ],
-  "Jordania-Argentina": [
-    {
-      "player": "Mvsi Altmari",
-      "minute": "55'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Jivani Lv Slsv",
-      "minute": "19'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Lautaro Martínez",
-      "minute": "31'",
-      "own_goal": false,
-      "penalty": true,
-      "team": "away"
-    },
-    {
-      "player": "Lionel Messi",
-      "minute": "80'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "RD Congo-Uzbekistán": [
-    {
-      "player": "Fistvn Mail",
-      "minute": "78'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Yoane Wissa",
-      "minute": "90'+1'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Aldvr Shvmvrvdvf",
-      "minute": "10'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Sudáfrica-Canadá": [
-    {
-      "player": "Astfan Avstakviv",
-      "minute": "90'+2'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
   "Alemania-Paraguay": [
     {
       "player": "Kai Havertz",
@@ -1626,6 +1851,105 @@
     {
       "player": "Khvliv Ansisv",
       "minute": "42'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Estados Unidos-Bosnia y Herzegovina": [
+    {
+      "player": "Flvrin Balvgan",
+      "minute": "45'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Malik Tillman",
+      "minute": "82'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
+  "Bélgica-Egipto": [
+    {
+      "player": "Mohamed Hany",
+      "minute": "66'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Emam Ashour",
+      "minute": "20'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Suiza-Canadá": [
+    {
+      "player": "Rubén Vargas",
+      "minute": "46'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Jvhan Mnzambi",
+      "minute": "57'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Prvmis Divid",
+      "minute": "76'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
+  ],
+  "Nueva Zelanda-Bélgica": [
+    {
+      "player": "Ali Jast",
+      "minute": "84'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Leandro Trossard",
+      "minute": "28'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Leandro Trossard",
+      "minute": "50'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Kevin De Bruyne",
+      "minute": "66'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Romelu Lukaku",
+      "minute": "86'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Alexis Saelemaekers",
+      "minute": "90'+4'",
       "own_goal": false,
       "penalty": false,
       "team": "away"
@@ -1645,52 +1969,6 @@
       "own_goal": false,
       "penalty": false,
       "team": "away"
-    }
-  ],
-  "Brasil-Japón": [
-    {
-      "player": "Casemiro",
-      "minute": "56'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Gabriel Martinelli",
-      "minute": "90'+5'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Kaishū Sano",
-      "minute": "29'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Francia-Suecia": [
-    {
-      "player": "Kylian Mbappé",
-      "minute": "45'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Bradley Barcola",
-      "minute": "53'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Kylian Mbappé",
-      "minute": "74'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
     }
   ],
   "Costa de Marfil-Noruega": [
@@ -1755,22 +2033,6 @@
       "team": "away"
     }
   ],
-  "Estados Unidos-Bosnia y Herzegovina": [
-    {
-      "player": "Flvrin Balvgan",
-      "minute": "45'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Malik Tillman",
-      "minute": "82'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    }
-  ],
   "Bélgica-Senegal": [
     {
       "player": "Romelu Lukaku",
@@ -1803,268 +2065,6 @@
     {
       "player": "Ismaïla Sarr",
       "minute": "51'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Portugal-Croacia": [
-    {
-      "player": "Gvnchalv Ramvs",
-      "minute": "90'+4'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Ivan Perišić",
-      "minute": "53'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "España-Austria": [
-    {
-      "player": "Mikel Oyarzabal",
-      "minute": "36'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Pedro Porro",
-      "minute": "66'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Mikel Oyarzabal",
-      "minute": "89'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    }
-  ],
-  "Suiza-Argelia": [
-    {
-      "player": "Breel Embolo",
-      "minute": "10'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Dn Andvi",
-      "minute": "46'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    }
-  ],
-  "Argentina-Cabo Verde": [
-    {
-      "player": "Lionel Messi",
-      "minute": "29'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Lisandro Martínez",
-      "minute": "92'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Dini Bvrgs",
-      "minute": "111'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Drvi Dviart",
-      "minute": "59'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Lvpz Kabral",
-      "minute": "103'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Colombia-Ghana": [
-    {
-      "player": "Jan Arias",
-      "minute": "14'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    }
-  ],
-  "Australia-Egipto": [
-    {
-      "player": "Mohamed Hany",
-      "minute": "55'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Emam Ashour",
-      "minute": "13'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Canadá-Marruecos": [
-    {
-      "player": "Azdin Avnahi",
-      "minute": "50'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Azdin Avnahi",
-      "minute": "82'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Svfian Rhimi",
-      "minute": "90'+8'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Brasil-Noruega": [
-    {
-      "player": "Erling Haaland",
-      "minute": "79'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Erling Haaland",
-      "minute": "90'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "México-Inglaterra": [
-    {
-      "player": "Jvlian Kviinvnz",
-      "minute": "42'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Jvd Blingham",
-      "minute": "36'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Jvd Blingham",
-      "minute": "38'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Portugal-España": [
-    {
-      "player": "Mikel Merino",
-      "minute": "90'+1'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Estados Unidos-Bélgica": [
-    {
-      "player": "Malik Tillman",
-      "minute": "31'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Sharl D Ktlar",
-      "minute": "9'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Sharl D Ktlar",
-      "minute": "33'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Hans Vanaken",
-      "minute": "57'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Romelu Lukaku",
-      "minute": "90'+3'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    }
-  ],
-  "Argentina-Egipto": [
-    {
-      "player": "Cristian Romero",
-      "minute": "79'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Lionel Messi",
-      "minute": "83'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Enzo Fernández",
-      "minute": "90'+2'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "home"
-    },
-    {
-      "player": "Yasser Ibrahim",
-      "minute": "15'",
-      "own_goal": false,
-      "penalty": false,
-      "team": "away"
-    },
-    {
-      "player": "Mostafa Ziko",
-      "minute": "67'",
       "own_goal": false,
       "penalty": false,
       "team": "away"
