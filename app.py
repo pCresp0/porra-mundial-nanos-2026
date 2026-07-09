@@ -499,6 +499,19 @@ def _lookup_live(live, match_name):
     compact = name.replace(" ", "")
     if compact in live:
         return live[compact]
+    # Try reversed team order (API may list teams in opposite home/away vs fixture)
+    if "-" in name:
+        parts = name.split("-", 1)
+        rev = f"{parts[1].strip()}-{parts[0].strip()}"
+        if rev in live:
+            li = dict(live[rev])
+            li["home"], li["away"] = li.get("away"), li.get("home")
+            return li
+        rev_compact = rev.replace(" ", "")
+        if rev_compact in live:
+            li = dict(live[rev_compact])
+            li["home"], li["away"] = li.get("away"), li.get("home")
+            return li
     return None
 
 
@@ -593,6 +606,11 @@ def _build_wc_scores(filepath):
             key = f"{h}-{a}"
             scores[key] = (gl, gv)
             scores[key.replace(" ", "")] = (gl, gv)
+            # Also add reversed key with swapped goals so lookup works
+            # regardless of whether fixture has home/away in API order or not.
+            rev_key = f"{a}-{h}"
+            scores[rev_key] = (gv, gl)
+            scores[rev_key.replace(" ", "")] = (gv, gl)
         if scores:
             return scores
 
@@ -2006,6 +2024,11 @@ def build_data():
                 gl = entry.get("goals_h")
                 gv = entry.get("goals_a")
                 if gl is not None and gv is not None:
+                    # If API home team differs from resolved fixture home, swap goals
+                    # so that goals_l/goals_v always map to fixture local/visitante.
+                    api_home = entry.get("home", "")
+                    if api_home and h_resolved and api_home != h_resolved:
+                        gl, gv = gv, gl
                     wc_scores[meta_key] = (int(gl), int(gv))
                     wc_scores[meta_key.replace(" ", "")] = (int(gl), int(gv))
     pts_sign  = float(_val(ws1, 8,  4) or 2)
