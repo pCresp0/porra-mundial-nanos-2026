@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "2026-07-10T18:42:16Z",
+    "generated": "2026-07-10T18:44:27Z",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-07T19:40",
       "next_update_time": "19:40",
       "next_update_date": "07/07/2026",
-      "last_checked_iso": "2026-07-10T20:42",
-      "last_checked_time": "20:42",
+      "last_checked_iso": "2026-07-10T20:45",
+      "last_checked_time": "20:45",
       "last_checked_date": "10/07/2026"
     },
     "players": [
@@ -23,7 +23,7 @@
       "VÍCTOR",
       "CRESPO"
     ],
-    "live": false,
+    "live": true,
     "colors": {
       "JUANCHO": "#F5C518",
       "LARRY": "#3B82F6",
@@ -429,6 +429,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-10T20:45:11+02:00",
+        "date": "10/07/2026",
+        "time": "20:45:11",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇪🇸España ?-? Bélgica🇧🇪",
+            "name": "España-Bélgica",
+            "date": "2026-07-10",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-10T20:42:16+02:00",
         "date": "10/07/2026",
@@ -4501,14 +4518,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-06T23:18:25+02:00",
-        "date": "06/07/2026",
-        "time": "23:18:25",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4516,7 +4525,7 @@
     {
       "name": "MEDINA",
       "total": 381.0,
-      "live_points": 0,
+      "live_points": 0.0,
       "total_live": 381.0,
       "groups": 130.0,
       "positions": 89.0,
@@ -4568,7 +4577,7 @@
     {
       "name": "JUANCHO",
       "total": 359.0,
-      "live_points": 0,
+      "live_points": 0.0,
       "total_live": 359.0,
       "groups": 121.0,
       "positions": 85.0,
@@ -4620,7 +4629,7 @@
     {
       "name": "VÍCTOR",
       "total": 357.0,
-      "live_points": 0,
+      "live_points": 0.0,
       "total_live": 357.0,
       "groups": 134.0,
       "positions": 75.0,
@@ -4672,7 +4681,7 @@
     {
       "name": "CRESPO",
       "total": 339.0,
-      "live_points": 0,
+      "live_points": 0.0,
       "total_live": 339.0,
       "groups": 121.0,
       "positions": 81.0,
@@ -4724,8 +4733,8 @@
     {
       "name": "LUIS/VIR",
       "total": 325.0,
-      "live_points": 0,
-      "total_live": 325.0,
+      "live_points": 9.0,
+      "total_live": 334.0,
       "groups": 101.0,
       "positions": 77.0,
       "q16": 64.0,
@@ -4776,7 +4785,7 @@
     {
       "name": "LARRY",
       "total": 294.0,
-      "live_points": 0,
+      "live_points": 0.0,
       "total_live": 294.0,
       "groups": 105.0,
       "positions": 67.0,
@@ -23167,10 +23176,10 @@
       "phase": "r4",
       "result": null,
       "played": false,
-      "live": false,
-      "live_minute": "",
-      "live_goals_l": null,
-      "live_goals_v": null,
+      "live": true,
+      "live_minute": "live",
+      "live_goals_l": 0,
+      "live_goals_v": 0,
       "live_scorers": [],
       "goals_l": null,
       "goals_v": null,
@@ -23191,8 +23200,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "team_match": "home",
+            "pred_home": "España",
+            "pred_away": "Estados Unidos",
+            "reasons": [
+              "Solo un equipo correcto — sin puntos de resultado"
+            ]
+          },
+          "live_score": 0.0
         },
         "LARRY": {
           "pred": {
@@ -23204,8 +23224,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "team_match": "home",
+            "pred_home": "España",
+            "pred_away": "Estados Unidos",
+            "reasons": [
+              "Solo un equipo correcto — sin puntos de resultado"
+            ]
+          },
+          "live_score": 0.0
         },
         "LUIS/VIR": {
           "pred": {
@@ -23217,8 +23248,20 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 5.0,
+            "diff": 4.0,
+            "exact": 0,
+            "total": 9.0,
+            "reasons": [
+              "1X2 correcto (+5)",
+              "Diferencia de goles (+4)"
+            ],
+            "team_match": "both",
+            "pred_home": "España",
+            "pred_away": "Bélgica"
+          },
+          "live_score": 9.0
         },
         "MEDINA": {
           "pred": {
@@ -23230,8 +23273,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "team_match": "home",
+            "pred_home": "España",
+            "pred_away": "Estados Unidos",
+            "reasons": [
+              "Solo un equipo correcto — sin puntos de resultado"
+            ]
+          },
+          "live_score": 0.0
         },
         "VÍCTOR": {
           "pred": {
@@ -23243,8 +23297,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ],
+            "team_match": "both",
+            "pred_home": "España",
+            "pred_away": "Bélgica"
+          },
+          "live_score": 0.0
         },
         "CRESPO": {
           "pred": {
@@ -23256,8 +23321,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "reasons": [
+              "1X2 incorrecto — 0 pts"
+            ],
+            "team_match": "both",
+            "pred_home": "España",
+            "pred_away": "Bélgica"
+          },
+          "live_score": 0.0
         }
       },
       "penalties": null,
