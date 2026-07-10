@@ -2085,5 +2085,28 @@
       "penalty": false,
       "team": "home"
     }
+  ],
+  "España-Bélgica": [
+    {
+      "player": "Fabin Rviz",
+      "minute": "30'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Mikel Merino",
+      "minute": "88'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Sharl D Ktlar",
+      "minute": "41'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
   ]
 }

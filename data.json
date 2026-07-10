@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "2026-07-10T21:01:02Z",
+    "generated": "2026-07-10T21:02:15Z",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-07T19:40",
       "next_update_time": "19:40",
       "next_update_date": "07/07/2026",
-      "last_checked_iso": "2026-07-10T23:01",
-      "last_checked_time": "23:01",
+      "last_checked_iso": "2026-07-10T23:02",
+      "last_checked_time": "23:02",
       "last_checked_date": "10/07/2026"
     },
     "players": [
@@ -23,7 +23,7 @@
       "VÍCTOR",
       "CRESPO"
     ],
-    "live": true,
+    "live": false,
     "colors": {
       "JUANCHO": "#F5C518",
       "LARRY": "#3B82F6",
@@ -433,6 +433,32 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-10T23:02:17+02:00",
+        "date": "10/07/2026",
+        "time": "23:02:17",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇪🇸España 2-1 Bélgica🇧🇪",
+            "name": "España-Bélgica",
+            "date": "2026-07-10",
+            "fields": [
+              "marcador",
+              "jugado"
+            ],
+            "old": {
+              "marcador": "sin resultado",
+              "jugado": "no"
+            },
+            "new": {
+              "marcador": "2-1",
+              "jugado": "sí"
+            }
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-10T23:01:03+02:00",
         "date": "10/07/2026",
@@ -4496,30 +4522,22 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-07T07:16:29+02:00",
-        "date": "07/07/2026",
-        "time": "07:16:29",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
   "standings": [
     {
       "name": "MEDINA",
-      "total": 381.0,
-      "live_points": 0.0,
-      "total_live": 381.0,
+      "total": 389.0,
+      "live_points": 0,
+      "total_live": 389.0,
       "groups": 130.0,
       "positions": 89.0,
       "q16": 64.0,
       "r16": 74.0,
       "r8": 60.0,
       "r4": 20,
-      "r2": 8.0,
+      "r2": 16.0,
       "r34_final": 0.0,
       "honor": 0.0,
       "phase_detail": [
@@ -4561,69 +4579,17 @@
       "live_pos": 1
     },
     {
-      "name": "JUANCHO",
-      "total": 359.0,
-      "live_points": 0.0,
-      "total_live": 359.0,
-      "groups": 121.0,
-      "positions": 85.0,
-      "q16": 64.0,
-      "r16": 53.0,
-      "r8": 63.0,
-      "r4": 29.0,
-      "r2": 8.0,
-      "r34_final": 0.0,
-      "honor": 0.0,
-      "phase_detail": [
-        {
-          "key": "groups",
-          "label": "Fase de Grupos",
-          "desc": "Partidos + marcadores",
-          "pts": 121
-        },
-        {
-          "key": "positions",
-          "label": "Posiciones Grupos",
-          "desc": "1º, 2º, 3º y 4º por grupo",
-          "pts": 85
-        },
-        {
-          "key": "r16",
-          "label": "Dieciseisavos",
-          "desc": "Partidos de 16avos",
-          "pts": 53
-        },
-        {
-          "key": "r8",
-          "label": "Octavos",
-          "desc": "Partidos + clasificados octavos",
-          "pts": 67
-        },
-        {
-          "key": "r4",
-          "label": "Cuartos",
-          "desc": "Clasificados cuartos de final",
-          "pts": 25
-        }
-      ],
-      "color": "#F5C518",
-      "played": 72,
-      "pos": 2,
-      "pos_change": 0,
-      "live_pos": 3
-    },
-    {
       "name": "VÍCTOR",
-      "total": 357.0,
-      "live_points": 15.0,
-      "total_live": 372.0,
+      "total": 380.0,
+      "live_points": 0,
+      "total_live": 380.0,
       "groups": 134.0,
       "positions": 75.0,
       "q16": 64.0,
       "r16": 63.0,
       "r8": 47.0,
-      "r4": 30.0,
-      "r2": 8.0,
+      "r4": 45.0,
+      "r2": 16.0,
       "r34_final": 0.0,
       "honor": 0.0,
       "phase_detail": [
@@ -4660,22 +4626,74 @@
       ],
       "color": "#A855F7",
       "played": 72,
-      "pos": 3,
+      "pos": 2,
       "pos_change": 0,
       "live_pos": 2
     },
     {
+      "name": "JUANCHO",
+      "total": 367.0,
+      "live_points": 0,
+      "total_live": 367.0,
+      "groups": 121.0,
+      "positions": 85.0,
+      "q16": 64.0,
+      "r16": 53.0,
+      "r8": 63.0,
+      "r4": 29.0,
+      "r2": 16.0,
+      "r34_final": 0.0,
+      "honor": 0.0,
+      "phase_detail": [
+        {
+          "key": "groups",
+          "label": "Fase de Grupos",
+          "desc": "Partidos + marcadores",
+          "pts": 121
+        },
+        {
+          "key": "positions",
+          "label": "Posiciones Grupos",
+          "desc": "1º, 2º, 3º y 4º por grupo",
+          "pts": 85
+        },
+        {
+          "key": "r16",
+          "label": "Dieciseisavos",
+          "desc": "Partidos de 16avos",
+          "pts": 53
+        },
+        {
+          "key": "r8",
+          "label": "Octavos",
+          "desc": "Partidos + clasificados octavos",
+          "pts": 67
+        },
+        {
+          "key": "r4",
+          "label": "Cuartos",
+          "desc": "Clasificados cuartos de final",
+          "pts": 25
+        }
+      ],
+      "color": "#F5C518",
+      "played": 72,
+      "pos": 3,
+      "pos_change": 0,
+      "live_pos": 3
+    },
+    {
       "name": "CRESPO",
-      "total": 339.0,
-      "live_points": 9.0,
-      "total_live": 348.0,
+      "total": 356.0,
+      "live_points": 0,
+      "total_live": 356.0,
       "groups": 121.0,
       "positions": 81.0,
       "q16": 64.0,
       "r16": 50.0,
       "r8": 54.0,
-      "r4": 25,
-      "r2": 8.0,
+      "r4": 34.0,
+      "r2": 16.0,
       "r34_final": 0.0,
       "honor": 0.0,
       "phase_detail": [
@@ -4718,16 +4736,16 @@
     },
     {
       "name": "LUIS/VIR",
-      "total": 325.0,
-      "live_points": 0.0,
-      "total_live": 325.0,
+      "total": 333.0,
+      "live_points": 0,
+      "total_live": 333.0,
       "groups": 101.0,
       "positions": 77.0,
       "q16": 64.0,
       "r16": 57.0,
       "r8": 57.0,
       "r4": 25,
-      "r2": 8.0,
+      "r2": 16.0,
       "r34_final": 0.0,
       "honor": 0.0,
       "phase_detail": [
@@ -4770,16 +4788,16 @@
     },
     {
       "name": "LARRY",
-      "total": 294.0,
-      "live_points": 0.0,
-      "total_live": 294.0,
+      "total": 302.0,
+      "live_points": 0,
+      "total_live": 302.0,
       "groups": 105.0,
       "positions": 67.0,
       "q16": 64.0,
       "r16": 60.0,
       "r8": 37.0,
       "r4": 25.0,
-      "r2": 0.0,
+      "r2": 8.0,
       "r34_final": 0.0,
       "honor": 0.0,
       "phase_detail": [
@@ -23160,12 +23178,15 @@
       "day_label": "Viernes 10 julio",
       "datetime_es": "2026-07-10T21:00:00",
       "phase": "r4",
-      "result": null,
-      "played": false,
-      "live": true,
-      "live_minute": "live",
-      "live_goals_l": 2,
-      "live_goals_v": 1,
+      "result": {
+        "sign": "1",
+        "score": "2-1"
+      },
+      "played": true,
+      "live": false,
+      "live_minute": "",
+      "live_goals_l": null,
+      "live_goals_v": null,
       "live_scorers": [
         {
           "player": "Fabin Rviz",
@@ -23189,9 +23210,31 @@
           "team": "away"
         }
       ],
-      "goals_l": null,
-      "goals_v": null,
-      "scorers": [],
+      "goals_l": 2,
+      "goals_v": 1,
+      "scorers": [
+        {
+          "player": "Fabin Rviz",
+          "minute": "30'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Mikel Merino",
+          "minute": "88'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Sharl D Ktlar",
+          "minute": "41'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        }
+      ],
       "phase_pts": {
         "sign": 5.0,
         "diff": 4.0,
@@ -23207,8 +23250,7 @@
             "pred_away": "Estados Unidos"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -23220,7 +23262,9 @@
               "Solo un equipo correcto — sin puntos de resultado"
             ]
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null,
+          "qual_pts": 8.0
         },
         "LARRY": {
           "pred": {
@@ -23231,8 +23275,7 @@
             "pred_away": "Estados Unidos"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -23244,7 +23287,9 @@
               "Solo un equipo correcto — sin puntos de resultado"
             ]
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null,
+          "qual_pts": 8.0
         },
         "LUIS/VIR": {
           "pred": {
@@ -23255,8 +23300,7 @@
             "pred_away": "Bélgica"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -23268,7 +23312,9 @@
             "pred_home": "España",
             "pred_away": "Bélgica"
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null,
+          "qual_pts": 8.0
         },
         "MEDINA": {
           "pred": {
@@ -23279,8 +23325,7 @@
             "pred_away": "Estados Unidos"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -23292,7 +23337,9 @@
               "Solo un equipo correcto — sin puntos de resultado"
             ]
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null,
+          "qual_pts": 8.0
         },
         "VÍCTOR": {
           "pred": {
@@ -23302,9 +23349,8 @@
             "pred_home": "España",
             "pred_away": "Bélgica"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 15.0,
+          "breakdown": {
             "sign": 5.0,
             "diff": 4.0,
             "exact": 6.0,
@@ -23318,7 +23364,9 @@
             "pred_home": "España",
             "pred_away": "Bélgica"
           },
-          "live_score": 15.0
+          "live_breakdown": null,
+          "live_score": null,
+          "qual_pts": 8.0
         },
         "CRESPO": {
           "pred": {
@@ -23328,9 +23376,8 @@
             "pred_home": "España",
             "pred_away": "Bélgica"
           },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "score": 9.0,
+          "breakdown": {
             "sign": 5.0,
             "diff": 4.0,
             "exact": 0,
@@ -23343,11 +23390,13 @@
             "pred_home": "España",
             "pred_away": "Bélgica"
           },
-          "live_score": 9.0
+          "live_breakdown": null,
+          "live_score": null,
+          "qual_pts": 8.0
         }
       },
       "penalties": null,
-      "actual_winner": null
+      "actual_winner": "España"
     },
     {
       "row": 222,
@@ -23604,13 +23653,13 @@
     {
       "row": 232,
       "id": "1/2",
-      "name": "Francia-W98",
+      "name": "Francia-España",
       "home": "Francia",
-      "away": "W98",
+      "away": "España",
       "home_placeholder": "W97",
       "away_placeholder": "W98",
       "flag_home": "🇫🇷",
-      "flag_away": "",
+      "flag_away": "🇪🇸",
       "match_num": 101,
       "bracket_order": 0,
       "city": "Dallas",
@@ -24435,7 +24484,9 @@
       "SUI-COL",
       "Clasif. SUI",
       "MAR-FRA",
-      "Clasif. FRA"
+      "Clasif. FRA",
+      "ESP-BÉL",
+      "Clasif. ESP"
     ],
     "flag_labels": [
       "🇲🇽🇿🇦",
@@ -24585,6 +24636,8 @@
       "🇨🇭🇨🇴",
       "✓",
       "🇲🇦🇫🇷",
+      "✓",
+      "🇪🇸🇧🇪",
       "✓"
     ],
     "dates": [
@@ -24735,7 +24788,9 @@
       "2026-07-07",
       "2026-07-07",
       "2026-07-09",
-      "2026-07-09"
+      "2026-07-09",
+      "2026-07-10",
+      "2026-07-10"
     ],
     "titles": [
       "México 2-0 Sudáfrica · 11 jun",
@@ -24885,7 +24940,9 @@
       "Suiza 0-0 Colombia · 7 jul",
       "Clasificado a fase siguiente: Suiza",
       "Marruecos 0-2 Francia · 9 jul",
-      "Clasificado a fase siguiente: Francia"
+      "Clasificado a fase siguiente: Francia",
+      "España 2-1 Bélgica · 10 jul",
+      "Clasificado a fase siguiente: España"
     ],
     "players": {
       "JUANCHO": [
@@ -25036,7 +25093,9 @@
         500.0,
         500.0,
         517.0,
-        525.0
+        525.0,
+        533.0,
+        541.0
       ],
       "LARRY": [
         2.0,
@@ -25186,7 +25245,9 @@
         388.0,
         393.0,
         393.0,
-        393.0
+        393.0,
+        401.0,
+        409.0
       ],
       "LUIS/VIR": [
         2.0,
@@ -25336,7 +25397,9 @@
         469.0,
         469.0,
         477.0,
-        485.0
+        485.0,
+        493.0,
+        501.0
       ],
       "MEDINA": [
         2.0,
@@ -25486,7 +25549,9 @@
         512.0,
         512.0,
         520.0,
-        528.0
+        528.0,
+        536.0,
+        544.0
       ],
       "VÍCTOR": [
         6.0,
@@ -25636,7 +25701,9 @@
         495.0,
         500.0,
         508.0,
-        516.0
+        516.0,
+        539.0,
+        547.0
       ],
       "CRESPO": [
         3.0,
@@ -25786,7 +25853,9 @@
         480.0,
         480.0,
         488.0,
-        496.0
+        496.0,
+        513.0,
+        521.0
       ]
     },
     "day_points": {
@@ -25938,6 +26007,8 @@
         0.0,
         0.0,
         17.0,
+        8.0,
+        8.0,
         8.0
       ],
       "LARRY": [
@@ -26088,7 +26159,9 @@
         5.0,
         5.0,
         0.0,
-        0.0
+        0.0,
+        8.0,
+        8.0
       ],
       "LUIS/VIR": [
         2.0,
@@ -26237,6 +26310,8 @@
         5.0,
         0.0,
         0.0,
+        8.0,
+        8.0,
         8.0,
         8.0
       ],
@@ -26388,6 +26463,8 @@
         0.0,
         0.0,
         8.0,
+        8.0,
+        8.0,
         8.0
       ],
       "VÍCTOR": [
@@ -26538,6 +26615,8 @@
         5.0,
         5.0,
         8.0,
+        8.0,
+        23.0,
         8.0
       ],
       "CRESPO": [
@@ -26688,6 +26767,8 @@
         0.0,
         0.0,
         8.0,
+        8.0,
+        17.0,
         8.0
       ]
     },
@@ -26838,6 +26919,8 @@
       "r4_team",
       "r8",
       "r4_team",
+      "r4",
+      "r2_team",
       "r4",
       "r2_team"
     ]

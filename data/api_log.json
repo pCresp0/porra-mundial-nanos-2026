@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-07-03T01:01:06+02:00",
-    "date": "03/07/2026",
-    "time": "01:01:06",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-07-03T01:02:25+02:00",
     "date": "03/07/2026",
     "time": "01:02:25",
@@ -16411,5 +16403,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-07-10T23:02:17+02:00",
+    "date": "10/07/2026",
+    "time": "23:02:17",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇪🇸España 2-1 Bélgica🇧🇪",
+        "name": "España-Bélgica",
+        "date": "2026-07-10",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "sin resultado",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "2-1",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]
