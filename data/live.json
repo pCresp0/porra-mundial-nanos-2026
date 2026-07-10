@@ -1,12 +1,19 @@
 {
   "España-Bélgica": {
-    "home": 1,
+    "home": 2,
     "away": 1,
     "minute": "live",
     "scorers": [
       {
         "player": "Fabin Rviz",
         "minute": "30'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Mikel Merino",
+        "minute": "88'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
