@@ -1,7 +1,7 @@
 {
   "España-Bélgica": {
     "home": 1,
-    "away": 0,
+    "away": 1,
     "minute": "live",
     "scorers": [
       {
@@ -10,6 +10,13 @@
         "own_goal": false,
         "penalty": false,
         "team": "home"
+      },
+      {
+        "player": "Sharl D Ktlar",
+        "minute": "41'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
       }
     ]
   }
