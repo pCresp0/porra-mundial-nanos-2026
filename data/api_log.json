@@ -1,22 +1,5 @@
 [
   {
-    "ts_iso": "2026-07-02T21:40:43+02:00",
-    "date": "02/07/2026",
-    "time": "21:40:43",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇪🇸España ?-? Austria🇦🇹",
-        "name": "España-Austria",
-        "date": "2026-07-02",
-        "fields": [],
-        "old": {},
-        "new": {}
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-07-02T21:42:31+02:00",
     "date": "02/07/2026",
     "time": "21:42:31",
@@ -16426,6 +16409,14 @@
     "ts_iso": "2026-07-10T20:56:21+02:00",
     "date": "10/07/2026",
     "time": "20:56:21",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-10T20:58:17+02:00",
+    "date": "10/07/2026",
+    "time": "20:58:17",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
