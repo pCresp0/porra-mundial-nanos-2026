@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "2026-07-11T23:48:17Z",
+    "generated": "2026-07-11T23:50:45Z",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-07T19:40",
       "next_update_time": "19:40",
       "next_update_date": "07/07/2026",
-      "last_checked_iso": "2026-07-12T01:48",
-      "last_checked_time": "01:48",
+      "last_checked_iso": "2026-07-12T01:50",
+      "last_checked_time": "01:50",
       "last_checked_date": "12/07/2026"
     },
     "players": [
@@ -23,7 +23,7 @@
       "VÍCTOR",
       "CRESPO"
     ],
-    "live": true,
+    "live": false,
     "colors": {
       "JUANCHO": "#F5C518",
       "LARRY": "#3B82F6",
@@ -445,6 +445,32 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-12T01:50:47+02:00",
+        "date": "12/07/2026",
+        "time": "01:50:47",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇳🇴Noruega 1-2 Inglaterra🇬🇧",
+            "name": "Noruega-Inglaterra",
+            "date": "2026-07-11",
+            "fields": [
+              "marcador",
+              "jugado"
+            ],
+            "old": {
+              "marcador": "sin resultado",
+              "jugado": "no"
+            },
+            "new": {
+              "marcador": "1-2",
+              "jugado": "sí"
+            }
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-12T01:48:19+02:00",
         "date": "12/07/2026",
@@ -4580,30 +4606,22 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-09T00:31:36+02:00",
-        "date": "09/07/2026",
-        "time": "00:31:36",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
   "standings": [
     {
       "name": "MEDINA",
-      "total": 389.0,
-      "live_points": 0.0,
-      "total_live": 389.0,
+      "total": 397.0,
+      "live_points": 0,
+      "total_live": 397.0,
       "groups": 130.0,
       "positions": 89.0,
       "q16": 64.0,
       "r16": 74.0,
       "r8": 60.0,
       "r4": 20,
-      "r2": 16.0,
+      "r2": 24.0,
       "r34_final": 0.0,
       "honor": 0.0,
       "phase_detail": [
@@ -4646,16 +4664,16 @@
     },
     {
       "name": "VÍCTOR",
-      "total": 380.0,
-      "live_points": 0.0,
-      "total_live": 380.0,
+      "total": 388.0,
+      "live_points": 0,
+      "total_live": 388.0,
       "groups": 134.0,
       "positions": 75.0,
       "q16": 64.0,
       "r16": 63.0,
       "r8": 47.0,
       "r4": 45.0,
-      "r2": 16.0,
+      "r2": 24.0,
       "r34_final": 0.0,
       "honor": 0.0,
       "phase_detail": [
@@ -4698,16 +4716,16 @@
     },
     {
       "name": "JUANCHO",
-      "total": 367.0,
-      "live_points": 0.0,
-      "total_live": 367.0,
+      "total": 375.0,
+      "live_points": 0,
+      "total_live": 375.0,
       "groups": 121.0,
       "positions": 85.0,
       "q16": 64.0,
       "r16": 53.0,
       "r8": 63.0,
       "r4": 29.0,
-      "r2": 16.0,
+      "r2": 24.0,
       "r34_final": 0.0,
       "honor": 0.0,
       "phase_detail": [
@@ -4750,16 +4768,16 @@
     },
     {
       "name": "CRESPO",
-      "total": 356.0,
-      "live_points": 0.0,
-      "total_live": 356.0,
+      "total": 364.0,
+      "live_points": 0,
+      "total_live": 364.0,
       "groups": 121.0,
       "positions": 81.0,
       "q16": 64.0,
       "r16": 50.0,
       "r8": 54.0,
       "r4": 34.0,
-      "r2": 16.0,
+      "r2": 24.0,
       "r34_final": 0.0,
       "honor": 0.0,
       "phase_detail": [
@@ -4803,7 +4821,7 @@
     {
       "name": "LUIS/VIR",
       "total": 333.0,
-      "live_points": 0.0,
+      "live_points": 0,
       "total_live": 333.0,
       "groups": 101.0,
       "positions": 77.0,
@@ -4854,16 +4872,16 @@
     },
     {
       "name": "LARRY",
-      "total": 302.0,
-      "live_points": 0.0,
-      "total_live": 302.0,
+      "total": 310.0,
+      "live_points": 0,
+      "total_live": 310.0,
       "groups": 105.0,
       "positions": 67.0,
       "q16": 64.0,
       "r16": 60.0,
       "r8": 37.0,
       "r4": 25.0,
-      "r2": 8.0,
+      "r2": 16.0,
       "r34_final": 0.0,
       "honor": 0.0,
       "phase_detail": [
@@ -23492,12 +23510,15 @@
       "day_label": "Sábado 11 julio",
       "datetime_es": "2026-07-11T23:00:00",
       "phase": "r4",
-      "result": null,
-      "played": false,
-      "live": true,
-      "live_minute": "live",
-      "live_goals_l": 1,
-      "live_goals_v": 2,
+      "result": {
+        "sign": "2",
+        "score": "1-2"
+      },
+      "played": true,
+      "live": false,
+      "live_minute": "",
+      "live_goals_l": null,
+      "live_goals_v": null,
       "live_scorers": [
         {
           "player": "Andrias Shldrvp",
@@ -23521,9 +23542,31 @@
           "team": "away"
         }
       ],
-      "goals_l": null,
-      "goals_v": null,
-      "scorers": [],
+      "goals_l": 1,
+      "goals_v": 2,
+      "scorers": [
+        {
+          "player": "Andrias Shldrvp",
+          "minute": "36'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Jvd Blingham",
+          "minute": "45'+2'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        },
+        {
+          "player": "Jvd Blingham",
+          "minute": "93'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        }
+      ],
       "phase_pts": {
         "sign": 5.0,
         "diff": 4.0,
@@ -23539,8 +23582,7 @@
             "pred_away": "Inglaterra"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -23552,7 +23594,9 @@
               "Solo un equipo correcto — sin puntos de resultado"
             ]
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null,
+          "qual_pts": 8.0
         },
         "LARRY": {
           "pred": {
@@ -23563,8 +23607,7 @@
             "pred_away": "Inglaterra"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -23576,7 +23619,9 @@
               "Solo un equipo correcto — sin puntos de resultado"
             ]
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null,
+          "qual_pts": 8.0
         },
         "LUIS/VIR": {
           "pred": {
@@ -23587,8 +23632,7 @@
             "pred_away": "Inglaterra"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -23600,7 +23644,8 @@
               "Solo un equipo correcto — sin puntos de resultado"
             ]
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "MEDINA": {
           "pred": {
@@ -23611,8 +23656,7 @@
             "pred_away": "Inglaterra"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -23624,7 +23668,9 @@
               "Solo un equipo correcto — sin puntos de resultado"
             ]
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null,
+          "qual_pts": 8.0
         },
         "VÍCTOR": {
           "pred": {
@@ -23635,8 +23681,7 @@
             "pred_away": "Inglaterra"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -23648,7 +23693,9 @@
               "Solo un equipo correcto — sin puntos de resultado"
             ]
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null,
+          "qual_pts": 8.0
         },
         "CRESPO": {
           "pred": {
@@ -23659,8 +23706,7 @@
             "pred_away": "Inglaterra"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -23672,11 +23718,13 @@
               "Solo un equipo correcto — sin puntos de resultado"
             ]
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null,
+          "qual_pts": 8.0
         }
       },
       "penalties": null,
-      "actual_winner": null
+      "actual_winner": "Inglaterra"
     },
     {
       "row": 223,
@@ -23933,12 +23981,12 @@
     {
       "row": 233,
       "id": "",
-      "name": "W99-W100",
-      "home": "W99",
+      "name": "Inglaterra-W100",
+      "home": "Inglaterra",
       "away": "W100",
       "home_placeholder": "W99",
       "away_placeholder": "W100",
-      "flag_home": "",
+      "flag_home": "🇬🇧",
       "flag_away": "",
       "match_num": 102,
       "bracket_order": 1,
@@ -24640,7 +24688,9 @@
       "MAR-FRA",
       "Clasif. FRA",
       "ESP-BÉL",
-      "Clasif. ESP"
+      "Clasif. ESP",
+      "NOR-ING",
+      "Clasif. ING"
     ],
     "flag_labels": [
       "🇲🇽🇿🇦",
@@ -24792,6 +24842,8 @@
       "🇲🇦🇫🇷",
       "✓",
       "🇪🇸🇧🇪",
+      "✓",
+      "🇳🇴🇬🇧",
       "✓"
     ],
     "dates": [
@@ -24944,7 +24996,9 @@
       "2026-07-09",
       "2026-07-09",
       "2026-07-10",
-      "2026-07-10"
+      "2026-07-10",
+      "2026-07-11",
+      "2026-07-11"
     ],
     "titles": [
       "México 2-0 Sudáfrica · 11 jun",
@@ -25096,7 +25150,9 @@
       "Marruecos 0-2 Francia · 9 jul",
       "Clasificado a fase siguiente: Francia",
       "España 2-1 Bélgica · 10 jul",
-      "Clasificado a fase siguiente: España"
+      "Clasificado a fase siguiente: España",
+      "Noruega 1-2 Inglaterra · 11 jul",
+      "Clasificado a fase siguiente: Inglaterra"
     ],
     "players": {
       "JUANCHO": [
@@ -25249,7 +25305,9 @@
         517.0,
         525.0,
         533.0,
-        541.0
+        541.0,
+        549.0,
+        557.0
       ],
       "LARRY": [
         2.0,
@@ -25401,7 +25459,9 @@
         393.0,
         393.0,
         401.0,
-        409.0
+        409.0,
+        417.0,
+        425.0
       ],
       "LUIS/VIR": [
         2.0,
@@ -25553,6 +25613,8 @@
         477.0,
         485.0,
         493.0,
+        501.0,
+        501.0,
         501.0
       ],
       "MEDINA": [
@@ -25705,7 +25767,9 @@
         520.0,
         528.0,
         536.0,
-        544.0
+        544.0,
+        552.0,
+        560.0
       ],
       "VÍCTOR": [
         6.0,
@@ -25857,7 +25921,9 @@
         508.0,
         516.0,
         539.0,
-        547.0
+        547.0,
+        555.0,
+        563.0
       ],
       "CRESPO": [
         3.0,
@@ -26009,7 +26075,9 @@
         488.0,
         496.0,
         513.0,
-        521.0
+        521.0,
+        529.0,
+        537.0
       ]
     },
     "day_points": {
@@ -26163,6 +26231,8 @@
         17.0,
         8.0,
         8.0,
+        8.0,
+        8.0,
         8.0
       ],
       "LARRY": [
@@ -26314,6 +26384,8 @@
         5.0,
         0.0,
         0.0,
+        8.0,
+        8.0,
         8.0,
         8.0
       ],
@@ -26467,7 +26539,9 @@
         8.0,
         8.0,
         8.0,
-        8.0
+        8.0,
+        0.0,
+        0.0
       ],
       "MEDINA": [
         2.0,
@@ -26616,6 +26690,8 @@
         5.0,
         0.0,
         0.0,
+        8.0,
+        8.0,
         8.0,
         8.0,
         8.0,
@@ -26771,6 +26847,8 @@
         8.0,
         8.0,
         23.0,
+        8.0,
+        8.0,
         8.0
       ],
       "CRESPO": [
@@ -26923,6 +27001,8 @@
         8.0,
         8.0,
         17.0,
+        8.0,
+        8.0,
         8.0
       ]
     },
@@ -27073,6 +27153,8 @@
       "r4_team",
       "r8",
       "r4_team",
+      "r4",
+      "r2_team",
       "r4",
       "r2_team",
       "r4",

@@ -2108,5 +2108,28 @@
       "penalty": false,
       "team": "away"
     }
+  ],
+  "Noruega-Inglaterra": [
+    {
+      "player": "Andrias Shldrvp",
+      "minute": "36'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Jvd Blingham",
+      "minute": "45'+2'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Jvd Blingham",
+      "minute": "93'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
   ]
 }
