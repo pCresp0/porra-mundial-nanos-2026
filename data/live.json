@@ -1,7 +1,7 @@
 {
   "Noruega-Inglaterra": {
     "home": 1,
-    "away": 0,
+    "away": 1,
     "minute": "live",
     "scorers": [
       {
@@ -10,6 +10,13 @@
         "own_goal": false,
         "penalty": false,
         "team": "home"
+      },
+      {
+        "player": "Jvd Blingham",
+        "minute": "45'+2'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
       }
     ]
   }
