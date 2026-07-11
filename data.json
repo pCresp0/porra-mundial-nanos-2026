@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "2026-07-11T21:38:15Z",
+    "generated": "2026-07-11T21:40:47Z",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-07T19:40",
       "next_update_time": "19:40",
       "next_update_date": "07/07/2026",
-      "last_checked_iso": "2026-07-11T23:38",
-      "last_checked_time": "23:38",
+      "last_checked_iso": "2026-07-11T23:40",
+      "last_checked_time": "23:40",
       "last_checked_date": "11/07/2026"
     },
     "players": [
@@ -445,6 +445,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-11T23:40:48+02:00",
+        "date": "11/07/2026",
+        "time": "23:40:48",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇳🇴Noruega ?-? Inglaterra🇬🇧",
+            "name": "Noruega-Inglaterra",
+            "date": "2026-07-11",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-11T23:38:16+02:00",
         "date": "11/07/2026",
@@ -4532,14 +4549,6 @@
         "ts_iso": "2026-07-08T07:02:14+02:00",
         "date": "08/07/2026",
         "time": "07:02:14",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-08T06:46:17+02:00",
-        "date": "08/07/2026",
-        "time": "06:46:17",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -23451,9 +23460,17 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 0,
+      "live_goals_l": 1,
       "live_goals_v": 0,
-      "live_scorers": [],
+      "live_scorers": [
+        {
+          "player": "Andrias Shldrvp",
+          "minute": "36'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        }
+      ],
       "goals_l": null,
       "goals_v": null,
       "scorers": [],

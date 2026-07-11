@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-07-03T06:14:28+02:00",
-    "date": "03/07/2026",
-    "time": "06:14:28",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-07-03T06:16:29+02:00",
     "date": "03/07/2026",
     "time": "06:16:29",
@@ -16357,5 +16349,22 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-07-11T23:40:48+02:00",
+    "date": "11/07/2026",
+    "time": "23:40:48",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇳🇴Noruega ?-? Inglaterra🇬🇧",
+        "name": "Noruega-Inglaterra",
+        "date": "2026-07-11",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]
