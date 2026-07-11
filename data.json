@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "2026-07-11T21:02:15Z",
+    "generated": "2026-07-11T21:04:13Z",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-07T19:40",
       "next_update_time": "19:40",
       "next_update_date": "07/07/2026",
-      "last_checked_iso": "2026-07-11T23:02",
-      "last_checked_time": "23:02",
+      "last_checked_iso": "2026-07-11T23:04",
+      "last_checked_time": "23:04",
       "last_checked_date": "11/07/2026"
     },
     "players": [
@@ -23,7 +23,7 @@
       "VÍCTOR",
       "CRESPO"
     ],
-    "live": false,
+    "live": true,
     "colors": {
       "JUANCHO": "#F5C518",
       "LARRY": "#3B82F6",
@@ -445,6 +445,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-11T23:04:15+02:00",
+        "date": "11/07/2026",
+        "time": "23:04:15",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇳🇴Noruega ?-? Inglaterra🇬🇧",
+            "name": "Noruega-Inglaterra",
+            "date": "2026-07-11",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-11T23:02:16+02:00",
         "date": "11/07/2026",
@@ -4526,14 +4543,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-08T01:42:16+02:00",
-        "date": "08/07/2026",
-        "time": "01:42:16",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4541,7 +4550,7 @@
     {
       "name": "MEDINA",
       "total": 389.0,
-      "live_points": 0,
+      "live_points": 0.0,
       "total_live": 389.0,
       "groups": 130.0,
       "positions": 89.0,
@@ -4593,7 +4602,7 @@
     {
       "name": "VÍCTOR",
       "total": 380.0,
-      "live_points": 0,
+      "live_points": 0.0,
       "total_live": 380.0,
       "groups": 134.0,
       "positions": 75.0,
@@ -4645,7 +4654,7 @@
     {
       "name": "JUANCHO",
       "total": 367.0,
-      "live_points": 0,
+      "live_points": 0.0,
       "total_live": 367.0,
       "groups": 121.0,
       "positions": 85.0,
@@ -4697,7 +4706,7 @@
     {
       "name": "CRESPO",
       "total": 356.0,
-      "live_points": 0,
+      "live_points": 0.0,
       "total_live": 356.0,
       "groups": 121.0,
       "positions": 81.0,
@@ -4749,7 +4758,7 @@
     {
       "name": "LUIS/VIR",
       "total": 333.0,
-      "live_points": 0,
+      "live_points": 0.0,
       "total_live": 333.0,
       "groups": 101.0,
       "positions": 77.0,
@@ -4801,7 +4810,7 @@
     {
       "name": "LARRY",
       "total": 302.0,
-      "live_points": 0,
+      "live_points": 0.0,
       "total_live": 302.0,
       "groups": 105.0,
       "positions": 67.0,
@@ -23440,10 +23449,10 @@
       "phase": "r4",
       "result": null,
       "played": false,
-      "live": false,
-      "live_minute": "",
-      "live_goals_l": null,
-      "live_goals_v": null,
+      "live": true,
+      "live_minute": "live",
+      "live_goals_l": 0,
+      "live_goals_v": 0,
       "live_scorers": [],
       "goals_l": null,
       "goals_v": null,
@@ -23464,8 +23473,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "team_match": "away",
+            "pred_home": "Brasil",
+            "pred_away": "Inglaterra",
+            "reasons": [
+              "Solo un equipo correcto — sin puntos de resultado"
+            ]
+          },
+          "live_score": 0.0
         },
         "LARRY": {
           "pred": {
@@ -23477,8 +23497,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "team_match": "away",
+            "pred_home": "Japón",
+            "pred_away": "Inglaterra",
+            "reasons": [
+              "Solo un equipo correcto — sin puntos de resultado"
+            ]
+          },
+          "live_score": 0.0
         },
         "LUIS/VIR": {
           "pred": {
@@ -23490,8 +23521,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "team_match": "away",
+            "pred_home": "Brasil",
+            "pred_away": "Inglaterra",
+            "reasons": [
+              "Solo un equipo correcto — sin puntos de resultado"
+            ]
+          },
+          "live_score": 0.0
         },
         "MEDINA": {
           "pred": {
@@ -23503,8 +23545,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "team_match": "away",
+            "pred_home": "Brasil",
+            "pred_away": "Inglaterra",
+            "reasons": [
+              "Solo un equipo correcto — sin puntos de resultado"
+            ]
+          },
+          "live_score": 0.0
         },
         "VÍCTOR": {
           "pred": {
@@ -23516,8 +23569,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "team_match": "away",
+            "pred_home": "Brasil",
+            "pred_away": "Inglaterra",
+            "reasons": [
+              "Solo un equipo correcto — sin puntos de resultado"
+            ]
+          },
+          "live_score": 0.0
         },
         "CRESPO": {
           "pred": {
@@ -23529,8 +23593,19 @@
           },
           "score": 0.0,
           "breakdown": null,
-          "live_breakdown": null,
-          "live_score": null
+          "live_breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "team_match": "away",
+            "pred_home": "Brasil",
+            "pred_away": "Inglaterra",
+            "reasons": [
+              "Solo un equipo correcto — sin puntos de resultado"
+            ]
+          },
+          "live_score": 0.0
         }
       },
       "penalties": null,
