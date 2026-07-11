@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "2026-07-11T23:10:37Z",
+    "generated": "2026-07-11T23:12:16Z",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-07T19:40",
       "next_update_time": "19:40",
       "next_update_date": "07/07/2026",
-      "last_checked_iso": "2026-07-12T01:10",
-      "last_checked_time": "01:10",
+      "last_checked_iso": "2026-07-12T01:12",
+      "last_checked_time": "01:12",
       "last_checked_date": "12/07/2026"
     },
     "players": [
@@ -445,6 +445,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-12T01:12:17+02:00",
+        "date": "12/07/2026",
+        "time": "01:12:17",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇳🇴Noruega ?-? Inglaterra🇬🇧",
+            "name": "Noruega-Inglaterra",
+            "date": "2026-07-11",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-12T01:10:38+02:00",
         "date": "12/07/2026",
@@ -4568,14 +4585,6 @@
         "ts_iso": "2026-07-08T19:42:18+02:00",
         "date": "08/07/2026",
         "time": "19:42:18",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-08T19:26:21+02:00",
-        "date": "08/07/2026",
-        "time": "19:26:21",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -23488,7 +23497,7 @@
       "live": true,
       "live_minute": "live",
       "live_goals_l": 1,
-      "live_goals_v": 1,
+      "live_goals_v": 2,
       "live_scorers": [
         {
           "player": "Andrias Shldrvp",
@@ -23500,6 +23509,13 @@
         {
           "player": "Jvd Blingham",
           "minute": "45'+2'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        },
+        {
+          "player": "Jvd Blingham",
+          "minute": "93'",
           "own_goal": false,
           "penalty": false,
           "team": "away"
