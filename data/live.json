@@ -1,12 +1,19 @@
 {
   "Noruega-Inglaterra": {
-    "home": 1,
+    "home": 2,
     "away": 1,
     "minute": "live",
     "scorers": [
       {
         "player": "Andrias Shldrvp",
         "minute": "36'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Tvrbivrn Hgm",
+        "minute": "55'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
