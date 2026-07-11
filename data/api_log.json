@@ -1,22 +1,5 @@
 [
   {
-    "ts_iso": "2026-07-03T03:06:27+02:00",
-    "date": "03/07/2026",
-    "time": "03:06:27",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇵🇹Portugal ?-? Croacia🇭🇷",
-        "name": "Portugal-Croacia",
-        "date": "2026-07-03",
-        "fields": [],
-        "old": {},
-        "new": {}
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-07-03T03:08:27+02:00",
     "date": "03/07/2026",
     "time": "03:08:27",
@@ -16399,6 +16382,14 @@
     "ts_iso": "2026-07-11T15:54:19+02:00",
     "date": "11/07/2026",
     "time": "15:54:19",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-11T16:10:49+02:00",
+    "date": "11/07/2026",
+    "time": "16:10:49",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
