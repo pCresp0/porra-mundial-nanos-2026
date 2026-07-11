@@ -1,31 +1,5 @@
 [
   {
-    "ts_iso": "2026-07-03T07:01:03+02:00",
-    "date": "03/07/2026",
-    "time": "07:01:03",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇨🇭Suiza 2-0 Argelia🇩🇿",
-        "name": "Suiza-Argelia",
-        "date": "2026-07-03",
-        "fields": [
-          "marcador",
-          "jugado"
-        ],
-        "old": {
-          "marcador": "sin resultado",
-          "jugado": "no"
-        },
-        "new": {
-          "marcador": "2-0",
-          "jugado": "sí"
-        }
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-07-03T07:16:29+02:00",
     "date": "03/07/2026",
     "time": "07:16:29",
@@ -16393,5 +16367,13 @@
         "new": {}
       }
     ]
+  },
+  {
+    "ts_iso": "2026-07-12T00:24:17+02:00",
+    "date": "12/07/2026",
+    "time": "00:24:17",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
   }
 ]
