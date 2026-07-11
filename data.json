@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "2026-07-11T22:20:45Z",
+    "generated": "2026-07-11T22:22:20Z",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-07T19:40",
       "next_update_time": "19:40",
       "next_update_date": "07/07/2026",
-      "last_checked_iso": "2026-07-12T00:20",
-      "last_checked_time": "00:20",
+      "last_checked_iso": "2026-07-12T00:22",
+      "last_checked_time": "00:22",
       "last_checked_date": "12/07/2026"
     },
     "players": [
@@ -445,6 +445,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-12T00:22:22+02:00",
+        "date": "12/07/2026",
+        "time": "00:22:22",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇳🇴Noruega ?-? Inglaterra🇬🇧",
+            "name": "Noruega-Inglaterra",
+            "date": "2026-07-11",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-12T00:20:46+02:00",
         "date": "12/07/2026",
@@ -4559,14 +4576,6 @@
         "ts_iso": "2026-07-08T13:16:19+02:00",
         "date": "08/07/2026",
         "time": "13:16:19",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-08T13:01:10+02:00",
-        "date": "08/07/2026",
-        "time": "13:01:10",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -23478,19 +23487,12 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 2,
+      "live_goals_l": 1,
       "live_goals_v": 1,
       "live_scorers": [
         {
           "player": "Andrias Shldrvp",
           "minute": "36'",
-          "own_goal": false,
-          "penalty": false,
-          "team": "home"
-        },
-        {
-          "player": "Tvrbivrn Hgm",
-          "minute": "55'",
           "own_goal": false,
           "penalty": false,
           "team": "home"
