@@ -1,31 +1,5 @@
 [
   {
-    "ts_iso": "2026-07-03T22:56:31+02:00",
-    "date": "03/07/2026",
-    "time": "22:56:31",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇦🇺Australia 1-1 Egipto🇪🇬",
-        "name": "Australia-Egipto",
-        "date": "2026-07-03",
-        "fields": [
-          "marcador",
-          "jugado"
-        ],
-        "old": {
-          "marcador": "sin resultado",
-          "jugado": "no"
-        },
-        "new": {
-          "marcador": "1-1",
-          "jugado": "sí"
-        }
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-07-03T23:13:22+02:00",
     "date": "03/07/2026",
     "time": "23:13:22",
@@ -16372,6 +16346,14 @@
     "ts_iso": "2026-07-12T05:02:16+02:00",
     "date": "12/07/2026",
     "time": "05:02:16",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-12T05:04:17+02:00",
+    "date": "12/07/2026",
+    "time": "05:04:17",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
