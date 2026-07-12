@@ -2131,5 +2131,35 @@
       "penalty": false,
       "team": "away"
     }
+  ],
+  "Argentina-Suiza": [
+    {
+      "player": "Alexis Mac Allister",
+      "minute": "10'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Khvlin Alvarz",
+      "minute": "112'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Lautaro Martínez",
+      "minute": "120'+1'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Dn Andvi",
+      "minute": "67'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
   ]
 }

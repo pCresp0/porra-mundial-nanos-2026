@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "2026-07-12T05:02:21Z",
+    "generated": "2026-07-12T05:04:17Z",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-07T19:40",
       "next_update_time": "19:40",
       "next_update_date": "07/07/2026",
-      "last_checked_iso": "2026-07-12T07:02",
-      "last_checked_time": "07:02",
+      "last_checked_iso": "2026-07-12T07:04",
+      "last_checked_time": "07:04",
       "last_checked_date": "12/07/2026"
     },
     "players": [
@@ -445,6 +445,32 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-12T07:04:19+02:00",
+        "date": "12/07/2026",
+        "time": "07:04:19",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇦🇷Argentina 3-1 Suiza🇨🇭",
+            "name": "Argentina-Suiza",
+            "date": "2026-07-12",
+            "fields": [
+              "marcador",
+              "jugado"
+            ],
+            "old": {
+              "marcador": "sin resultado",
+              "jugado": "no"
+            },
+            "new": {
+              "marcador": "3-1",
+              "jugado": "sí"
+            }
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-12T07:02:22+02:00",
         "date": "12/07/2026",
@@ -4598,30 +4624,22 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-09T23:34:20+02:00",
-        "date": "09/07/2026",
-        "time": "23:34:20",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
   "standings": [
     {
       "name": "MEDINA",
-      "total": 397.0,
+      "total": 405.0,
       "live_points": 0,
-      "total_live": 397.0,
+      "total_live": 405.0,
       "groups": 130.0,
       "positions": 89.0,
       "q16": 64.0,
       "r16": 74.0,
       "r8": 60.0,
       "r4": 20,
-      "r2": 24.0,
+      "r2": 32.0,
       "r34_final": 0.0,
       "honor": 0.0,
       "phase_detail": [
@@ -4664,16 +4682,16 @@
     },
     {
       "name": "VÍCTOR",
-      "total": 388.0,
+      "total": 401.0,
       "live_points": 0,
-      "total_live": 388.0,
+      "total_live": 401.0,
       "groups": 134.0,
       "positions": 75.0,
       "q16": 64.0,
       "r16": 63.0,
       "r8": 47.0,
-      "r4": 45.0,
-      "r2": 24.0,
+      "r4": 50.0,
+      "r2": 32.0,
       "r34_final": 0.0,
       "honor": 0.0,
       "phase_detail": [
@@ -4716,16 +4734,16 @@
     },
     {
       "name": "JUANCHO",
-      "total": 375.0,
+      "total": 383.0,
       "live_points": 0,
-      "total_live": 375.0,
+      "total_live": 383.0,
       "groups": 121.0,
       "positions": 85.0,
       "q16": 64.0,
       "r16": 53.0,
       "r8": 63.0,
       "r4": 29.0,
-      "r2": 24.0,
+      "r2": 32.0,
       "r34_final": 0.0,
       "honor": 0.0,
       "phase_detail": [
@@ -4768,16 +4786,16 @@
     },
     {
       "name": "CRESPO",
-      "total": 364.0,
+      "total": 372.0,
       "live_points": 0,
-      "total_live": 364.0,
+      "total_live": 372.0,
       "groups": 121.0,
       "positions": 81.0,
       "q16": 64.0,
       "r16": 50.0,
       "r8": 54.0,
       "r4": 34.0,
-      "r2": 24.0,
+      "r2": 32.0,
       "r34_final": 0.0,
       "honor": 0.0,
       "phase_detail": [
@@ -4820,16 +4838,16 @@
     },
     {
       "name": "LUIS/VIR",
-      "total": 333.0,
+      "total": 341.0,
       "live_points": 0,
-      "total_live": 333.0,
+      "total_live": 341.0,
       "groups": 101.0,
       "positions": 77.0,
       "q16": 64.0,
       "r16": 57.0,
       "r8": 57.0,
       "r4": 25,
-      "r2": 16.0,
+      "r2": 24.0,
       "r34_final": 0.0,
       "honor": 0.0,
       "phase_detail": [
@@ -4872,16 +4890,16 @@
     },
     {
       "name": "LARRY",
-      "total": 310.0,
+      "total": 323.0,
       "live_points": 0,
-      "total_live": 310.0,
+      "total_live": 323.0,
       "groups": 105.0,
       "positions": 67.0,
       "q16": 64.0,
       "r16": 60.0,
       "r8": 37.0,
-      "r4": 25.0,
-      "r2": 16.0,
+      "r4": 30.0,
+      "r2": 24.0,
       "r34_final": 0.0,
       "honor": 0.0,
       "phase_detail": [
@@ -23754,16 +23772,48 @@
       "day_label": "Domingo 12 julio",
       "datetime_es": "2026-07-12T03:00:00",
       "phase": "r4",
-      "result": null,
-      "played": false,
+      "result": {
+        "sign": "1",
+        "score": "3-1"
+      },
+      "played": true,
       "live": false,
       "live_minute": "",
       "live_goals_l": null,
       "live_goals_v": null,
       "live_scorers": [],
-      "goals_l": null,
-      "goals_v": null,
-      "scorers": [],
+      "goals_l": 3,
+      "goals_v": 1,
+      "scorers": [
+        {
+          "player": "Alexis Mac Allister",
+          "minute": "10'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Khvlin Alvarz",
+          "minute": "112'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Lautaro Martínez",
+          "minute": "120'+1'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Dn Andvi",
+          "minute": "67'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        }
+      ],
       "phase_pts": {
         "sign": 5.0,
         "diff": 4.0,
@@ -23779,9 +23829,21 @@
             "pred_away": "Colombia"
           },
           "score": 0.0,
-          "breakdown": null,
+          "breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "team_match": "home",
+            "pred_home": "Argentina",
+            "pred_away": "Colombia",
+            "reasons": [
+              "Solo un equipo correcto — sin puntos de resultado"
+            ]
+          },
           "live_breakdown": null,
-          "live_score": null
+          "live_score": null,
+          "qual_pts": 8.0
         },
         "LARRY": {
           "pred": {
@@ -23791,10 +23853,23 @@
             "pred_home": "Argentina",
             "pred_away": "Suiza"
           },
-          "score": 0.0,
-          "breakdown": null,
+          "score": 5.0,
+          "breakdown": {
+            "sign": 5.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 5.0,
+            "reasons": [
+              "1X2 correcto (+5)",
+              "Diferencia de goles no acertada"
+            ],
+            "team_match": "both",
+            "pred_home": "Argentina",
+            "pred_away": "Suiza"
+          },
           "live_breakdown": null,
-          "live_score": null
+          "live_score": null,
+          "qual_pts": 8.0
         },
         "LUIS/VIR": {
           "pred": {
@@ -23805,9 +23880,21 @@
             "pred_away": "Colombia"
           },
           "score": 0.0,
-          "breakdown": null,
+          "breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "team_match": "home",
+            "pred_home": "Argentina",
+            "pred_away": "Colombia",
+            "reasons": [
+              "Solo un equipo correcto — sin puntos de resultado"
+            ]
+          },
           "live_breakdown": null,
-          "live_score": null
+          "live_score": null,
+          "qual_pts": 8.0
         },
         "MEDINA": {
           "pred": {
@@ -23818,9 +23905,21 @@
             "pred_away": "Colombia"
           },
           "score": 0.0,
-          "breakdown": null,
+          "breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "team_match": "home",
+            "pred_home": "Argentina",
+            "pred_away": "Colombia",
+            "reasons": [
+              "Solo un equipo correcto — sin puntos de resultado"
+            ]
+          },
           "live_breakdown": null,
-          "live_score": null
+          "live_score": null,
+          "qual_pts": 8.0
         },
         "VÍCTOR": {
           "pred": {
@@ -23830,10 +23929,23 @@
             "pred_home": "Argentina",
             "pred_away": "Suiza"
           },
-          "score": 0.0,
-          "breakdown": null,
+          "score": 5.0,
+          "breakdown": {
+            "sign": 5.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 5.0,
+            "reasons": [
+              "1X2 correcto (+5)",
+              "Diferencia de goles no acertada"
+            ],
+            "team_match": "both",
+            "pred_home": "Argentina",
+            "pred_away": "Suiza"
+          },
           "live_breakdown": null,
-          "live_score": null
+          "live_score": null,
+          "qual_pts": 8.0
         },
         "CRESPO": {
           "pred": {
@@ -23844,13 +23956,25 @@
             "pred_away": "Colombia"
           },
           "score": 0.0,
-          "breakdown": null,
+          "breakdown": {
+            "sign": 0.0,
+            "diff": 0.0,
+            "exact": 0,
+            "total": 0.0,
+            "team_match": "home",
+            "pred_home": "Argentina",
+            "pred_away": "Colombia",
+            "reasons": [
+              "Solo un equipo correcto — sin puntos de resultado"
+            ]
+          },
           "live_breakdown": null,
-          "live_score": null
+          "live_score": null,
+          "qual_pts": 8.0
         }
       },
       "penalties": null,
-      "actual_winner": null
+      "actual_winner": "Argentina"
     },
     {
       "row": 232,
@@ -23981,13 +24105,13 @@
     {
       "row": 233,
       "id": "",
-      "name": "Inglaterra-W100",
+      "name": "Inglaterra-Argentina",
       "home": "Inglaterra",
-      "away": "W100",
+      "away": "Argentina",
       "home_placeholder": "W99",
       "away_placeholder": "W100",
       "flag_home": "🇬🇧",
-      "flag_away": "",
+      "flag_away": "🇦🇷",
       "match_num": 102,
       "bracket_order": 1,
       "city": "Atlanta",
@@ -24690,7 +24814,9 @@
       "ESP-BÉL",
       "Clasif. ESP",
       "NOR-ING",
-      "Clasif. ING"
+      "Clasif. ING",
+      "ARG-SUI",
+      "Clasif. ARG"
     ],
     "flag_labels": [
       "🇲🇽🇿🇦",
@@ -24844,6 +24970,8 @@
       "🇪🇸🇧🇪",
       "✓",
       "🇳🇴🇬🇧",
+      "✓",
+      "🇦🇷🇨🇭",
       "✓"
     ],
     "dates": [
@@ -24998,7 +25126,9 @@
       "2026-07-10",
       "2026-07-10",
       "2026-07-11",
-      "2026-07-11"
+      "2026-07-11",
+      "2026-07-12",
+      "2026-07-12"
     ],
     "titles": [
       "México 2-0 Sudáfrica · 11 jun",
@@ -25152,7 +25282,9 @@
       "España 2-1 Bélgica · 10 jul",
       "Clasificado a fase siguiente: España",
       "Noruega 1-2 Inglaterra · 11 jul",
-      "Clasificado a fase siguiente: Inglaterra"
+      "Clasificado a fase siguiente: Inglaterra",
+      "Argentina 3-1 Suiza · 12 jul",
+      "Clasificado a fase siguiente: Argentina"
     ],
     "players": {
       "JUANCHO": [
@@ -25307,7 +25439,9 @@
         533.0,
         541.0,
         549.0,
-        557.0
+        557.0,
+        565.0,
+        573.0
       ],
       "LARRY": [
         2.0,
@@ -25461,7 +25595,9 @@
         401.0,
         409.0,
         417.0,
-        425.0
+        425.0,
+        438.0,
+        446.0
       ],
       "LUIS/VIR": [
         2.0,
@@ -25615,7 +25751,9 @@
         493.0,
         501.0,
         501.0,
-        501.0
+        501.0,
+        509.0,
+        517.0
       ],
       "MEDINA": [
         2.0,
@@ -25769,7 +25907,9 @@
         536.0,
         544.0,
         552.0,
-        560.0
+        560.0,
+        568.0,
+        576.0
       ],
       "VÍCTOR": [
         6.0,
@@ -25923,7 +26063,9 @@
         539.0,
         547.0,
         555.0,
-        563.0
+        563.0,
+        576.0,
+        584.0
       ],
       "CRESPO": [
         3.0,
@@ -26077,7 +26219,9 @@
         513.0,
         521.0,
         529.0,
-        537.0
+        537.0,
+        545.0,
+        553.0
       ]
     },
     "day_points": {
@@ -26233,6 +26377,8 @@
         8.0,
         8.0,
         8.0,
+        8.0,
+        8.0,
         8.0
       ],
       "LARRY": [
@@ -26387,6 +26533,8 @@
         8.0,
         8.0,
         8.0,
+        8.0,
+        13.0,
         8.0
       ],
       "LUIS/VIR": [
@@ -26541,7 +26689,9 @@
         8.0,
         8.0,
         0.0,
-        0.0
+        0.0,
+        8.0,
+        8.0
       ],
       "MEDINA": [
         2.0,
@@ -26690,6 +26840,8 @@
         5.0,
         0.0,
         0.0,
+        8.0,
+        8.0,
         8.0,
         8.0,
         8.0,
@@ -26849,6 +27001,8 @@
         23.0,
         8.0,
         8.0,
+        8.0,
+        13.0,
         8.0
       ],
       "CRESPO": [
@@ -27003,6 +27157,8 @@
         17.0,
         8.0,
         8.0,
+        8.0,
+        8.0,
         8.0
       ]
     },
@@ -27153,6 +27309,8 @@
       "r4_team",
       "r8",
       "r4_team",
+      "r4",
+      "r2_team",
       "r4",
       "r2_team",
       "r4",
