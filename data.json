@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "2026-07-14T19:22:16Z",
+    "generated": "2026-07-14T19:24:17Z",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-07T19:40",
       "next_update_time": "19:40",
       "next_update_date": "07/07/2026",
-      "last_checked_iso": "2026-07-14T21:22",
-      "last_checked_time": "21:22",
+      "last_checked_iso": "2026-07-14T21:24",
+      "last_checked_time": "21:24",
       "last_checked_date": "14/07/2026"
     },
     "players": [
@@ -441,6 +441,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-14T21:24:19+02:00",
+        "date": "14/07/2026",
+        "time": "21:24:19",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇫🇷Francia ?-? España🇪🇸",
+            "name": "Francia-España",
+            "date": "2026-07-14",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-14T21:22:18+02:00",
         "date": "14/07/2026",
@@ -4531,14 +4548,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-11T22:30:53+02:00",
-        "date": "11/07/2026",
-        "time": "22:30:53",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4697,13 +4706,13 @@
       "played": 72,
       "pos": 3,
       "pos_change": 0,
-      "live_pos": 3
+      "live_pos": 4
     },
     {
       "name": "CRESPO",
       "total": 372.0,
-      "live_points": 0.0,
-      "total_live": 372.0,
+      "live_points": 19.0,
+      "total_live": 391.0,
       "groups": 121.0,
       "positions": 81.0,
       "q16": 64.0,
@@ -4749,7 +4758,7 @@
       "played": 72,
       "pos": 4,
       "pos_change": 0,
-      "live_pos": 4
+      "live_pos": 3
     },
     {
       "name": "LUIS/VIR",
@@ -23924,7 +23933,7 @@
       "live": true,
       "live_minute": "live",
       "live_goals_l": 0,
-      "live_goals_v": 0,
+      "live_goals_v": 1,
       "live_scorers": [],
       "goals_l": null,
       "goals_v": null,
@@ -24066,18 +24075,20 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 0.0,
-            "diff": 0.0,
-            "exact": 0,
-            "total": 0.0,
+            "sign": 6.0,
+            "diff": 5.0,
+            "exact": 8.0,
+            "total": 19.0,
             "reasons": [
-              "1X2 incorrecto — 0 pts"
+              "1X2 correcto (+6)",
+              "Diferencia de goles (+5)",
+              "Resultado exacto (+8)"
             ],
             "team_match": "both",
             "pred_home": "Francia",
             "pred_away": "España"
           },
-          "live_score": 0.0
+          "live_score": 19.0
         }
       },
       "penalties": null,
