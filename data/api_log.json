@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-07-04T22:28:27+02:00",
-    "date": "04/07/2026",
-    "time": "22:28:27",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-07-04T22:31:01+02:00",
     "date": "04/07/2026",
     "time": "22:31:01",
@@ -16267,5 +16259,22 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-07-14T22:22:21+02:00",
+    "date": "14/07/2026",
+    "time": "22:22:21",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇫🇷Francia ?-? España🇪🇸",
+        "name": "Francia-España",
+        "date": "2026-07-14",
+        "fields": [],
+        "old": {},
+        "new": {}
+      }
+    ]
   }
 ]

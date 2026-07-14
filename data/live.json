@@ -1,8 +1,16 @@
 {
   "Francia-España": {
     "home": 0,
-    "away": 1,
+    "away": 2,
     "minute": "live",
-    "scorers": []
+    "scorers": [
+      {
+        "player": "Pedro Porro",
+        "minute": "58'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      }
+    ]
   }
 }
