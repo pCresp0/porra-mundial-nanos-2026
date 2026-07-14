@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-07-04T23:08:29+02:00",
-    "date": "04/07/2026",
-    "time": "23:08:29",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-07-04T23:10:54+02:00",
     "date": "04/07/2026",
     "time": "23:10:54",
@@ -16276,5 +16268,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-07-14T23:01:08+02:00",
+    "date": "14/07/2026",
+    "time": "23:01:08",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇫🇷Francia 0-2 España🇪🇸",
+        "name": "Francia-España",
+        "date": "2026-07-14",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "sin resultado",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "0-2",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]

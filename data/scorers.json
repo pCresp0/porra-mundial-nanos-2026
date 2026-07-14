@@ -2161,5 +2161,14 @@
       "penalty": false,
       "team": "away"
     }
+  ],
+  "Francia-España": [
+    {
+      "player": "Pedro Porro",
+      "minute": "58'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
   ]
 }
