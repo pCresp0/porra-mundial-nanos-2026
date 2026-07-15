@@ -1,7 +1,7 @@
 {
   "Inglaterra-Argentina": {
     "home": 1,
-    "away": 0,
+    "away": 2,
     "minute": "live",
     "scorers": [
       {
@@ -10,6 +10,20 @@
         "own_goal": false,
         "penalty": false,
         "team": "home"
+      },
+      {
+        "player": "Enzo Fernández",
+        "minute": "85'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Lautaro Martínez",
+        "minute": "90'+2'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
       }
     ]
   }

@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "2026-07-15T20:57:41Z",
+    "generated": "2026-07-15T20:59:12Z",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-07T19:40",
       "next_update_time": "19:40",
       "next_update_date": "07/07/2026",
-      "last_checked_iso": "2026-07-15T22:57",
-      "last_checked_time": "22:57",
+      "last_checked_iso": "2026-07-15T22:59",
+      "last_checked_time": "22:59",
       "last_checked_date": "15/07/2026"
     },
     "players": [
@@ -449,6 +449,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-15T22:59:14+02:00",
+        "date": "15/07/2026",
+        "time": "22:59:14",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇬🇧Inglaterra ?-? Argentina🇦🇷",
+            "name": "Inglaterra-Argentina",
+            "date": "2026-07-15",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-15T22:57:44+02:00",
         "date": "15/07/2026",
@@ -4521,14 +4538,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-12T05:36:22+02:00",
-        "date": "12/07/2026",
-        "time": "05:36:22",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4536,8 +4545,8 @@
     {
       "name": "MEDINA",
       "total": 405.0,
-      "live_points": 0.0,
-      "total_live": 405.0,
+      "live_points": 19.0,
+      "total_live": 424.0,
       "groups": 130.0,
       "positions": 89.0,
       "q16": 64.0,
@@ -4583,13 +4592,13 @@
       "played": 72,
       "pos": 1,
       "pos_change": 0,
-      "live_pos": 2
+      "live_pos": 1
     },
     {
       "name": "VÍCTOR",
       "total": 401.0,
-      "live_points": 11.0,
-      "total_live": 412.0,
+      "live_points": 0.0,
+      "total_live": 401.0,
       "groups": 134.0,
       "positions": 75.0,
       "q16": 64.0,
@@ -4635,13 +4644,13 @@
       "played": 72,
       "pos": 2,
       "pos_change": 0,
-      "live_pos": 1
+      "live_pos": 3
     },
     {
       "name": "CRESPO",
       "total": 390.0,
-      "live_points": 0.0,
-      "total_live": 390.0,
+      "live_points": 19.0,
+      "total_live": 409.0,
       "groups": 121.0,
       "positions": 81.0,
       "q16": 64.0,
@@ -4687,13 +4696,13 @@
       "played": 72,
       "pos": 3,
       "pos_change": 0,
-      "live_pos": 4
+      "live_pos": 2
     },
     {
       "name": "JUANCHO",
       "total": 383.0,
-      "live_points": 11.0,
-      "total_live": 394.0,
+      "live_points": 0.0,
+      "total_live": 383.0,
       "groups": 121.0,
       "positions": 85.0,
       "q16": 64.0,
@@ -4739,7 +4748,7 @@
       "played": 72,
       "pos": 4,
       "pos_change": 0,
-      "live_pos": 3
+      "live_pos": 4
     },
     {
       "name": "LUIS/VIR",
@@ -4796,8 +4805,8 @@
     {
       "name": "LARRY",
       "total": 335.0,
-      "live_points": 6.0,
-      "total_live": 341.0,
+      "live_points": 0.0,
+      "total_live": 335.0,
       "groups": 105.0,
       "positions": 67.0,
       "q16": 64.0,
@@ -24128,7 +24137,7 @@
       "live": true,
       "live_minute": "live",
       "live_goals_l": 1,
-      "live_goals_v": 0,
+      "live_goals_v": 2,
       "live_scorers": [
         {
           "player": "Antvni Gvrdvn",
@@ -24136,6 +24145,20 @@
           "own_goal": false,
           "penalty": false,
           "team": "home"
+        },
+        {
+          "player": "Enzo Fernández",
+          "minute": "85'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        },
+        {
+          "player": "Lautaro Martínez",
+          "minute": "90'+2'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
         }
       ],
       "goals_l": null,
@@ -24158,19 +24181,18 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 6.0,
-            "diff": 5.0,
+            "sign": 0.0,
+            "diff": 0.0,
             "exact": 0,
-            "total": 11.0,
+            "total": 0.0,
             "reasons": [
-              "1X2 correcto (+6)",
-              "Diferencia de goles (+5)"
+              "1X2 incorrecto — 0 pts"
             ],
             "team_match": "both",
             "pred_home": "Inglaterra",
             "pred_away": "Argentina"
           },
-          "live_score": 11.0
+          "live_score": 0.0
         },
         "LARRY": {
           "pred": {
@@ -24183,19 +24205,18 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 6.0,
+            "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
-            "total": 6.0,
+            "total": 0.0,
             "reasons": [
-              "1X2 correcto (+6)",
-              "Diferencia de goles no acertada"
+              "1X2 incorrecto — 0 pts"
             ],
             "team_match": "both",
             "pred_home": "Inglaterra",
             "pred_away": "Argentina"
           },
-          "live_score": 6.0
+          "live_score": 0.0
         },
         "LUIS/VIR": {
           "pred": {
@@ -24232,18 +24253,20 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 0.0,
-            "diff": 0.0,
-            "exact": 0,
-            "total": 0.0,
+            "sign": 6.0,
+            "diff": 5.0,
+            "exact": 8.0,
+            "total": 19.0,
             "reasons": [
-              "1X2 incorrecto — 0 pts"
+              "1X2 correcto (+6)",
+              "Diferencia de goles (+5)",
+              "Resultado exacto (+8)"
             ],
             "team_match": "both",
             "pred_home": "Inglaterra",
             "pred_away": "Argentina"
           },
-          "live_score": 0.0
+          "live_score": 19.0
         },
         "VÍCTOR": {
           "pred": {
@@ -24256,31 +24279,6 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 6.0,
-            "diff": 5.0,
-            "exact": 0,
-            "total": 11.0,
-            "reasons": [
-              "1X2 correcto (+6)",
-              "Diferencia de goles (+5)"
-            ],
-            "team_match": "both",
-            "pred_home": "Inglaterra",
-            "pred_away": "Argentina"
-          },
-          "live_score": 11.0
-        },
-        "CRESPO": {
-          "pred": {
-            "sign": "2",
-            "score": "1-2",
-            "winner": "Argentina",
-            "pred_home": "Inglaterra",
-            "pred_away": "Argentina"
-          },
-          "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -24293,6 +24291,32 @@
             "pred_away": "Argentina"
           },
           "live_score": 0.0
+        },
+        "CRESPO": {
+          "pred": {
+            "sign": "2",
+            "score": "1-2",
+            "winner": "Argentina",
+            "pred_home": "Inglaterra",
+            "pred_away": "Argentina"
+          },
+          "score": 0.0,
+          "breakdown": null,
+          "live_breakdown": {
+            "sign": 6.0,
+            "diff": 5.0,
+            "exact": 8.0,
+            "total": 19.0,
+            "reasons": [
+              "1X2 correcto (+6)",
+              "Diferencia de goles (+5)",
+              "Resultado exacto (+8)"
+            ],
+            "team_match": "both",
+            "pred_home": "Inglaterra",
+            "pred_away": "Argentina"
+          },
+          "live_score": 19.0
         }
       },
       "penalties": null,
