@@ -2170,5 +2170,28 @@
       "penalty": false,
       "team": "away"
     }
+  ],
+  "Inglaterra-Argentina": [
+    {
+      "player": "Antvni Gvrdvn",
+      "minute": "55'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    },
+    {
+      "player": "Enzo Fernández",
+      "minute": "85'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    },
+    {
+      "player": "Lautaro Martínez",
+      "minute": "90'+2'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "away"
+    }
   ]
 }
