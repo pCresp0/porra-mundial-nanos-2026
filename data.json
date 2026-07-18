@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "2026-07-18T22:28:22Z",
+    "generated": "2026-07-18T22:30:34Z",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-07T19:40",
       "next_update_time": "19:40",
       "next_update_date": "07/07/2026",
-      "last_checked_iso": "2026-07-19T00:28",
-      "last_checked_time": "00:28",
+      "last_checked_iso": "2026-07-19T00:30",
+      "last_checked_time": "00:30",
       "last_checked_date": "19/07/2026"
     },
     "players": [
@@ -477,6 +477,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-19T00:30:35+02:00",
+        "date": "19/07/2026",
+        "time": "00:30:35",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇫🇷Francia ?-? Inglaterra🇬🇧",
+            "name": "Francia-Inglaterra",
+            "date": "2026-07-18",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-19T00:28:24+02:00",
         "date": "19/07/2026",
@@ -4585,23 +4602,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-14T22:22:21+02:00",
-        "date": "14/07/2026",
-        "time": "22:22:21",
-        "updated": true,
-        "trigger": "workflow_dispatch",
-        "changes": [
-          {
-            "label": "🇫🇷Francia ?-? España🇪🇸",
-            "name": "Francia-España",
-            "date": "2026-07-14",
-            "fields": [],
-            "old": {},
-            "new": {}
-          }
-        ]
       }
     ]
   },
@@ -24536,7 +24536,7 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 2,
+      "live_goals_l": 3,
       "live_goals_v": 4,
       "live_scorers": [
         {
@@ -24549,6 +24549,13 @@
         {
           "player": "Bradley Barcola",
           "minute": "54'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Kylian Mbappé",
+          "minute": "66'",
           "own_goal": false,
           "penalty": false,
           "team": "home"

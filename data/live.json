@@ -1,6 +1,6 @@
 {
   "Francia-Inglaterra": {
-    "home": 2,
+    "home": 3,
     "away": 4,
     "minute": "live",
     "scorers": [
@@ -14,6 +14,13 @@
       {
         "player": "Bradley Barcola",
         "minute": "54'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Kylian Mbappé",
+        "minute": "66'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
