@@ -1,1 +1,16 @@
-{}
+{
+  "Francia-Inglaterra": {
+    "home": 0,
+    "away": 1,
+    "minute": "live",
+    "scorers": [
+      {
+        "player": "Dklan Rais",
+        "minute": "3'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      }
+    ]
+  }
+}
