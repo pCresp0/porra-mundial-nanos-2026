@@ -1,6 +1,6 @@
 {
   "Francia-Inglaterra": {
-    "home": 3,
+    "home": 4,
     "away": 5,
     "minute": "live",
     "scorers": [
@@ -21,6 +21,13 @@
       {
         "player": "Kylian Mbappé",
         "minute": "66'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      },
+      {
+        "player": "Ousmane Dembélé",
+        "minute": "90'+6'",
         "own_goal": false,
         "penalty": false,
         "team": "home"
