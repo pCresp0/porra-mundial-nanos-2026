@@ -1,7 +1,7 @@
 {
   "Francia-Inglaterra": {
     "home": 0,
-    "away": 3,
+    "away": 4,
     "minute": "live",
     "scorers": [
       {
@@ -21,6 +21,13 @@
       {
         "player": "Bvkaiv Saka",
         "minute": "37'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "away"
+      },
+      {
+        "player": "Bvkaiv Saka",
+        "minute": "45'+1'",
         "own_goal": false,
         "penalty": false,
         "team": "away"
