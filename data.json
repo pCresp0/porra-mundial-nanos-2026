@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "2026-07-18T22:10:22Z",
+    "generated": "2026-07-18T22:12:21Z",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-07T19:40",
       "next_update_time": "19:40",
       "next_update_date": "07/07/2026",
-      "last_checked_iso": "2026-07-19T00:10",
-      "last_checked_time": "00:10",
+      "last_checked_iso": "2026-07-19T00:12",
+      "last_checked_time": "00:12",
       "last_checked_date": "19/07/2026"
     },
     "players": [
@@ -477,6 +477,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-19T00:12:23+02:00",
+        "date": "19/07/2026",
+        "time": "00:12:23",
+        "updated": false,
+        "trigger": "workflow_dispatch",
+        "changes": []
+      },
       {
         "ts_iso": "2026-07-19T00:10:23+02:00",
         "date": "19/07/2026",
@@ -4573,14 +4581,6 @@
         "ts_iso": "2026-07-14T22:06:17+02:00",
         "date": "14/07/2026",
         "time": "22:06:17",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-14T22:04:20+02:00",
-        "date": "14/07/2026",
-        "time": "22:04:20",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -24521,6 +24521,13 @@
       "live_goals_l": 0,
       "live_goals_v": 4,
       "live_scorers": [
+        {
+          "player": "Kylian Mbappé",
+          "minute": "48'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
         {
           "player": "Dklan Rais",
           "minute": "3'",
