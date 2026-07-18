@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "2026-07-18T23:00:46Z",
+    "generated": "2026-07-18T23:02:18Z",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-07T19:40",
       "next_update_time": "19:40",
       "next_update_date": "07/07/2026",
-      "last_checked_iso": "2026-07-19T01:00",
-      "last_checked_time": "01:00",
+      "last_checked_iso": "2026-07-19T01:03",
+      "last_checked_time": "01:03",
       "last_checked_date": "19/07/2026"
     },
     "players": [
@@ -477,6 +477,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-19T01:03:01+02:00",
+        "date": "19/07/2026",
+        "time": "01:03:01",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇫🇷Francia ?-? Inglaterra🇬🇧",
+            "name": "Francia-Inglaterra",
+            "date": "2026-07-18",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-19T01:00:48+02:00",
         "date": "19/07/2026",
@@ -4609,14 +4626,6 @@
         "ts_iso": "2026-07-14T22:56:17+02:00",
         "date": "14/07/2026",
         "time": "22:56:17",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-14T22:54:15+02:00",
-        "date": "14/07/2026",
-        "time": "22:54:15",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -24555,7 +24564,7 @@
       "live": true,
       "live_minute": "live",
       "live_goals_l": 4,
-      "live_goals_v": 5,
+      "live_goals_v": 6,
       "live_scorers": [
         {
           "player": "Kylian Mbappé",
@@ -24609,6 +24618,13 @@
         {
           "player": "Bvkaiv Saka",
           "minute": "45'+1'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        },
+        {
+          "player": "Jvd Blingham",
+          "minute": "90'+8'",
           "own_goal": false,
           "penalty": false,
           "team": "away"
