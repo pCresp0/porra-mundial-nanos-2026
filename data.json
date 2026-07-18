@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "2026-07-18T21:38:16Z",
+    "generated": "2026-07-18T21:40:24Z",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-07T19:40",
       "next_update_time": "19:40",
       "next_update_date": "07/07/2026",
-      "last_checked_iso": "2026-07-18T23:38",
-      "last_checked_time": "23:38",
+      "last_checked_iso": "2026-07-18T23:40",
+      "last_checked_time": "23:40",
       "last_checked_date": "18/07/2026"
     },
     "players": [
@@ -477,6 +477,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-18T23:40:26+02:00",
+        "date": "18/07/2026",
+        "time": "23:40:26",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇫🇷Francia ?-? Inglaterra🇬🇧",
+            "name": "Francia-Inglaterra",
+            "date": "2026-07-18",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-18T23:38:18+02:00",
         "date": "18/07/2026",
@@ -4555,14 +4572,6 @@
         "ts_iso": "2026-07-14T21:34:19+02:00",
         "date": "14/07/2026",
         "time": "21:34:19",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-07-14T21:32:23+02:00",
-        "date": "14/07/2026",
-        "time": "21:32:23",
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
@@ -24501,7 +24510,7 @@
       "live": true,
       "live_minute": "live",
       "live_goals_l": 0,
-      "live_goals_v": 2,
+      "live_goals_v": 3,
       "live_scorers": [
         {
           "player": "Dklan Rais",
@@ -24513,6 +24522,13 @@
         {
           "player": "Azri Knsa",
           "minute": "18'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        },
+        {
+          "player": "Bvkaiv Saka",
+          "minute": "37'",
           "own_goal": false,
           "penalty": false,
           "team": "away"
