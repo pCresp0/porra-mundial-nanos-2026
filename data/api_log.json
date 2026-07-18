@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-07-06T04:06:29+02:00",
-    "date": "06/07/2026",
-    "time": "04:06:29",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-07-06T04:08:30+02:00",
     "date": "06/07/2026",
     "time": "04:08:30",
@@ -16427,6 +16419,32 @@
         "fields": [],
         "old": {},
         "new": {}
+      }
+    ]
+  },
+  {
+    "ts_iso": "2026-07-19T01:04:17+02:00",
+    "date": "19/07/2026",
+    "time": "01:04:17",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇫🇷Francia 4-6 Inglaterra🇬🇧",
+        "name": "Francia-Inglaterra",
+        "date": "2026-07-18",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "sin resultado",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "4-6",
+          "jugado": "sí"
+        }
       }
     ]
   }

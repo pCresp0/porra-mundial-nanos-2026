@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "2026-07-18T23:02:18Z",
+    "generated": "2026-07-18T23:04:15Z",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-07T19:40",
       "next_update_time": "19:40",
       "next_update_date": "07/07/2026",
-      "last_checked_iso": "2026-07-19T01:03",
-      "last_checked_time": "01:03",
+      "last_checked_iso": "2026-07-19T01:04",
+      "last_checked_time": "01:04",
       "last_checked_date": "19/07/2026"
     },
     "players": [
@@ -23,7 +23,7 @@
       "VÍCTOR",
       "CRESPO"
     ],
-    "live": true,
+    "live": false,
     "colors": {
       "JUANCHO": "#F5C518",
       "LARRY": "#3B82F6",
@@ -477,6 +477,32 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-19T01:04:17+02:00",
+        "date": "19/07/2026",
+        "time": "01:04:17",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇫🇷Francia 4-6 Inglaterra🇬🇧",
+            "name": "Francia-Inglaterra",
+            "date": "2026-07-18",
+            "fields": [
+              "marcador",
+              "jugado"
+            ],
+            "old": {
+              "marcador": "sin resultado",
+              "jugado": "no"
+            },
+            "new": {
+              "marcador": "4-6",
+              "jugado": "sí"
+            }
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-19T01:03:01+02:00",
         "date": "19/07/2026",
@@ -4621,14 +4647,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-14T22:56:17+02:00",
-        "date": "14/07/2026",
-        "time": "22:56:17",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4636,7 +4654,7 @@
     {
       "name": "MEDINA",
       "total": 436.0,
-      "live_points": 0.0,
+      "live_points": 0,
       "total_live": 436.0,
       "groups": 130.0,
       "positions": 89.0,
@@ -4688,7 +4706,7 @@
     {
       "name": "CRESPO",
       "total": 421.0,
-      "live_points": 0.0,
+      "live_points": 0,
       "total_live": 421.0,
       "groups": 121.0,
       "positions": 81.0,
@@ -4740,7 +4758,7 @@
     {
       "name": "VÍCTOR",
       "total": 401.0,
-      "live_points": 0.0,
+      "live_points": 0,
       "total_live": 401.0,
       "groups": 134.0,
       "positions": 75.0,
@@ -4792,7 +4810,7 @@
     {
       "name": "JUANCHO",
       "total": 383.0,
-      "live_points": 0.0,
+      "live_points": 0,
       "total_live": 383.0,
       "groups": 121.0,
       "positions": 85.0,
@@ -4844,7 +4862,7 @@
     {
       "name": "LUIS/VIR",
       "total": 353.0,
-      "live_points": 0.0,
+      "live_points": 0,
       "total_live": 353.0,
       "groups": 101.0,
       "positions": 77.0,
@@ -4896,7 +4914,7 @@
     {
       "name": "LARRY",
       "total": 335.0,
-      "live_points": 0.0,
+      "live_points": 0,
       "total_live": 335.0,
       "groups": 105.0,
       "positions": 67.0,
@@ -24559,12 +24577,15 @@
       "day_label": "Sábado 18 julio",
       "datetime_es": "2026-07-18T23:00:00",
       "phase": "r34",
-      "result": null,
-      "played": false,
-      "live": true,
-      "live_minute": "live",
-      "live_goals_l": 4,
-      "live_goals_v": 6,
+      "result": {
+        "sign": "2",
+        "score": "4-6"
+      },
+      "played": true,
+      "live": false,
+      "live_minute": "",
+      "live_goals_l": null,
+      "live_goals_v": null,
       "live_scorers": [
         {
           "player": "Kylian Mbappé",
@@ -24630,9 +24651,73 @@
           "team": "away"
         }
       ],
-      "goals_l": null,
-      "goals_v": null,
-      "scorers": [],
+      "goals_l": 4,
+      "goals_v": 6,
+      "scorers": [
+        {
+          "player": "Kylian Mbappé",
+          "minute": "48'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Bradley Barcola",
+          "minute": "54'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Kylian Mbappé",
+          "minute": "66'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Ousmane Dembélé",
+          "minute": "90'+6'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        },
+        {
+          "player": "Dklan Rais",
+          "minute": "3'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        },
+        {
+          "player": "Azri Knsa",
+          "minute": "18'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        },
+        {
+          "player": "Bvkaiv Saka",
+          "minute": "37'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        },
+        {
+          "player": "Bvkaiv Saka",
+          "minute": "45'+1'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        },
+        {
+          "player": "Jvd Blingham",
+          "minute": "90'+8'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "away"
+        }
+      ],
       "phase_pts": {
         "sign": 6.0,
         "diff": 5.0,
@@ -24648,8 +24733,7 @@
             "pred_away": "Argentina"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -24661,7 +24745,8 @@
               "Equipos incorrectos (0 pts)"
             ]
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "LARRY": {
           "pred": {
@@ -24672,8 +24757,7 @@
             "pred_away": "Argentina"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -24685,7 +24769,8 @@
               "Equipos incorrectos (0 pts)"
             ]
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "LUIS/VIR": {
           "pred": {
@@ -24696,8 +24781,7 @@
             "pred_away": "Brasil"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -24709,7 +24793,8 @@
               "Equipos incorrectos (0 pts)"
             ]
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "MEDINA": {
           "pred": {
@@ -24720,8 +24805,7 @@
             "pred_away": "Inglaterra"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -24733,7 +24817,8 @@
               "Solo un equipo correcto — sin puntos de resultado"
             ]
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "VÍCTOR": {
           "pred": {
@@ -24744,8 +24829,7 @@
             "pred_away": "Argentina"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -24757,7 +24841,8 @@
               "Equipos incorrectos (0 pts)"
             ]
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         },
         "CRESPO": {
           "pred": {
@@ -24768,8 +24853,7 @@
             "pred_away": "Inglaterra"
           },
           "score": 0.0,
-          "breakdown": null,
-          "live_breakdown": {
+          "breakdown": {
             "sign": 0.0,
             "diff": 0.0,
             "exact": 0,
@@ -24781,11 +24865,12 @@
             "pred_home": "Francia",
             "pred_away": "Inglaterra"
           },
-          "live_score": 0.0
+          "live_breakdown": null,
+          "live_score": null
         }
       },
       "penalties": null,
-      "actual_winner": null
+      "actual_winner": "Inglaterra"
     },
     {
       "row": 246,
@@ -25163,7 +25248,8 @@
       "FRA-ESP",
       "Clasif. ESP",
       "ING-ARG",
-      "Clasif. ARG"
+      "Clasif. ARG",
+      "FRA-ING"
     ],
     "flag_labels": [
       "🇲🇽🇿🇦",
@@ -25323,7 +25409,8 @@
       "🇫🇷🇪🇸",
       "✓",
       "🇬🇧🇦🇷",
-      "✓"
+      "✓",
+      "🇫🇷🇬🇧"
     ],
     "dates": [
       "2026-06-11",
@@ -25483,7 +25570,8 @@
       "2026-07-14",
       "2026-07-14",
       "2026-07-15",
-      "2026-07-15"
+      "2026-07-15",
+      "2026-07-18"
     ],
     "titles": [
       "México 2-0 Sudáfrica · 11 jun",
@@ -25643,7 +25731,8 @@
       "Francia 0-2 España · 14 jul",
       "Clasificado a fase siguiente: España",
       "Inglaterra 1-2 Argentina · 15 jul",
-      "Clasificado a fase siguiente: Argentina"
+      "Clasificado a fase siguiente: Argentina",
+      "Francia 4-6 Inglaterra · 18 jul"
     ],
     "players": {
       "JUANCHO": [
@@ -25800,6 +25889,7 @@
         549.0,
         557.0,
         565.0,
+        573.0,
         573.0,
         573.0,
         573.0,
@@ -25964,6 +26054,7 @@
         458.0,
         466.0,
         466.0,
+        466.0,
         466.0
       ],
       "LUIS/VIR": [
@@ -26124,6 +26215,7 @@
         517.0,
         517.0,
         529.0,
+        537.0,
         537.0
       ],
       "MEDINA": [
@@ -26284,6 +26376,7 @@
         576.0,
         576.0,
         607.0,
+        623.0,
         623.0
       ],
       "VÍCTOR": [
@@ -26440,6 +26533,7 @@
         555.0,
         563.0,
         576.0,
+        584.0,
         584.0,
         584.0,
         584.0,
@@ -26604,6 +26698,7 @@
         571.0,
         587.0,
         618.0,
+        634.0,
         634.0
       ]
     },
@@ -26763,6 +26858,7 @@
         8.0,
         8.0,
         8.0,
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -26926,6 +27022,7 @@
         12.0,
         8.0,
         0.0,
+        0.0,
         0.0
       ],
       "LUIS/VIR": [
@@ -27086,7 +27183,8 @@
         0.0,
         0.0,
         12.0,
-        8.0
+        8.0,
+        0.0
       ],
       "MEDINA": [
         2.0,
@@ -27246,7 +27344,8 @@
         0.0,
         0.0,
         31.0,
-        16.0
+        16.0,
+        0.0
       ],
       "VÍCTOR": [
         6.0,
@@ -27403,6 +27502,7 @@
         8.0,
         13.0,
         8.0,
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -27566,7 +27666,8 @@
         18.0,
         16.0,
         31.0,
-        16.0
+        16.0,
+        0.0
       ]
     },
     "phases": [
@@ -27727,7 +27828,8 @@
       "r2",
       "final_team",
       "r2",
-      "final_team"
+      "final_team",
+      "r34"
     ]
   },
   "honor": [
