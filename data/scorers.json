@@ -1748,6 +1748,15 @@
       "team": "home"
     }
   ],
+  "España-Argentina": [
+    {
+      "player": "Ferran Torres",
+      "minute": "106'",
+      "own_goal": false,
+      "penalty": false,
+      "team": "home"
+    }
+  ],
   "Canadá-Bosnia y Herzegovina": [
     {
       "player": "C. Larin",

@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-07-06T13:10:50+02:00",
-    "date": "06/07/2026",
-    "time": "13:10:50",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-07-06T13:26:28+02:00",
     "date": "06/07/2026",
     "time": "13:26:28",
@@ -16465,5 +16457,31 @@
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
+  },
+  {
+    "ts_iso": "2026-07-20T00:08:26+02:00",
+    "date": "20/07/2026",
+    "time": "00:08:26",
+    "updated": true,
+    "trigger": "workflow_dispatch",
+    "changes": [
+      {
+        "label": "🇪🇸España 1-0 Argentina🇦🇷",
+        "name": "España-Argentina",
+        "date": "2026-07-19",
+        "fields": [
+          "marcador",
+          "jugado"
+        ],
+        "old": {
+          "marcador": "sin resultado",
+          "jugado": "no"
+        },
+        "new": {
+          "marcador": "1-0",
+          "jugado": "sí"
+        }
+      }
+    ]
   }
 ]
