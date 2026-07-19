@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "2026-07-19T21:42:16Z",
+    "generated": "2026-07-19T21:44:14Z",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-07T19:40",
       "next_update_time": "19:40",
       "next_update_date": "07/07/2026",
-      "last_checked_iso": "2026-07-19T23:42",
-      "last_checked_time": "23:42",
+      "last_checked_iso": "2026-07-19T23:44",
+      "last_checked_time": "23:44",
       "last_checked_date": "19/07/2026"
     },
     "players": [
@@ -489,6 +489,23 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-19T23:44:15+02:00",
+        "date": "19/07/2026",
+        "time": "23:44:15",
+        "updated": true,
+        "trigger": "workflow_dispatch",
+        "changes": [
+          {
+            "label": "🇪🇸España ?-? Argentina🇦🇷",
+            "name": "España-Argentina",
+            "date": "2026-07-19",
+            "fields": [],
+            "old": {},
+            "new": {}
+          }
+        ]
+      },
       {
         "ts_iso": "2026-07-19T23:42:18+02:00",
         "date": "19/07/2026",
@@ -4597,14 +4614,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-16T04:10:45+02:00",
-        "date": "16/07/2026",
-        "time": "04:10:45",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4664,8 +4673,8 @@
     {
       "name": "CRESPO",
       "total": 421.0,
-      "live_points": 0.0,
-      "total_live": 421.0,
+      "live_points": 14.0,
+      "total_live": 435.0,
       "groups": 121.0,
       "positions": 81.0,
       "q16": 64.0,
@@ -24952,9 +24961,17 @@
       "played": false,
       "live": true,
       "live_minute": "live",
-      "live_goals_l": 0,
+      "live_goals_l": 1,
       "live_goals_v": 0,
-      "live_scorers": [],
+      "live_scorers": [
+        {
+          "player": "Ferran Torres",
+          "minute": "106'",
+          "own_goal": false,
+          "penalty": false,
+          "team": "home"
+        }
+      ],
       "goals_l": null,
       "goals_v": null,
       "scorers": [],
@@ -25095,18 +25112,19 @@
           "score": 0.0,
           "breakdown": null,
           "live_breakdown": {
-            "sign": 0.0,
-            "diff": 0.0,
+            "sign": 8.0,
+            "diff": 6.0,
             "exact": 0,
-            "total": 0.0,
+            "total": 14.0,
             "reasons": [
-              "1X2 incorrecto — 0 pts"
+              "1X2 correcto (+8)",
+              "Diferencia de goles (+6)"
             ],
             "team_match": "both",
             "pred_home": "España",
             "pred_away": "Argentina"
           },
-          "live_score": 0.0
+          "live_score": 14.0
         }
       },
       "penalties": null,

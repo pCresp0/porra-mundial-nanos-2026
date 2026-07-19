@@ -1,8 +1,16 @@
 {
   "España-Argentina": {
-    "home": 0,
+    "home": 1,
     "away": 0,
     "minute": "live",
-    "scorers": []
+    "scorers": [
+      {
+        "player": "Ferran Torres",
+        "minute": "106'",
+        "own_goal": false,
+        "penalty": false,
+        "team": "home"
+      }
+    ]
   }
 }
