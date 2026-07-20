@@ -291,6 +291,22 @@
       </div>
     </div>
 
+    <!-- posición en la clasificación a lo largo del torneo -->
+    <div class="card p-6 mb-4">
+      <div class="info-wrap mb-3">
+        <h2 class="text-lg font-bold text-white">¿Quién iba primero, y cuándo? 👑</h2>
+        <span class="info-btn">i</span>
+        <div class="info-tip">
+          <strong>¿Qué muestra esta gráfica?</strong><br>
+          La <strong>posición en la clasificación</strong> (1º-6º) de cada jugador tras cada hito puntuado de todo el torneo (partidos, posiciones de grupo, cuadros de clasificados y cuadro de honor). Si dos jugadores empatan a puntos, comparten la misma posición.
+        </div>
+      </div>
+      <p class="text-sm text-gray-400 mt-1 mb-4">Ranking tras cada partido jugado (orden cronológico) — usa el mismo filtro «Últimos» de la gráfica de arriba.</p>
+      <div style="height:320px; position:relative">
+        <canvas id="positionChart"></canvas>
+      </div>
+    </div>
+
     <!-- mini scorecards per player -->
     <div id="prog-cards" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3"></div>
 

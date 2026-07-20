@@ -12,6 +12,7 @@ const VISITOR_PATH = "/porra-mundial-nanos-2026";
 // Si queda vacía, el formulario avisa de que el envío no está disponible.
 const FEEDBACK_API = "https://script.google.com/macros/s/AKfycbwoXHBr6i2H7Klp4KBPS2KCBUtIiuX2DAimFk1e-mkRKzNeWLtZRlfKZikyvltcRPLd/exec";
 let progressionChart = null;
+let positionChart = null;
 let hitRateChart = null;
 let soloLeaderChart = null;
 let _progWindow = 0; // last N matches to show in progression chart (0 = all; Mundial terminado → mostrar todo por defecto)
@@ -2769,7 +2770,95 @@ function renderProgression() {
       </div>`;
   }).join("");
 
+  renderPositionChart(players, colors, labels, titles, dates, winStart, cutIdx, prog);
+
   renderForma(prog, cutIdx);
+}
+
+// Ranking 1º..Nº de cada jugador tras cada hito puntuado (partidos, posiciones, cuadros, honor).
+// Ranking "estándar de competición": empates comparten la mejor posición (ej. dos 1º, siguiente es 3º).
+function _computeRankSeries(prog, players) {
+  const n = (prog.labels || []).length;
+  const series = {};
+  players.forEach(p => { series[p] = []; });
+  for (let i = 0; i < n; i++) {
+    const vals = players
+      .map(p => ({ p, v: (prog.players?.[p] || [])[i] ?? 0 }))
+      .sort((a, b) => b.v - a.v);
+    let rank = 1;
+    vals.forEach((entry, idx) => {
+      if (idx > 0 && entry.v !== vals[idx - 1].v) rank = idx + 1;
+      series[entry.p].push(rank);
+    });
+  }
+  return series;
+}
+
+function renderPositionChart(players, colors, labels, titles, dates, winStart, cutIdx, prog) {
+  const canvas = document.getElementById("positionChart");
+  if (!canvas) return;
+
+  const rankSeries = _computeRankSeries(prog, players);
+  const DASHES = [[], [8,4], [4,4], [12,4,4,4], [5,2,2,2], [2,2]];
+  const POINT_STYLES = ["circle","triangle","rect","rectRot","star","cross"];
+  const n = players.length;
+
+  const datasets = players.map((name, idx) => ({
+    label: name,
+    data: (rankSeries[name] || []).slice(winStart, cutIdx + 1),
+    borderColor: colors[name],
+    backgroundColor: colors[name] + "22",
+    borderWidth: 2.5,
+    pointRadius: 3.5,
+    pointHoverRadius: 6.5,
+    pointStyle: POINT_STYLES[idx % POINT_STYLES.length],
+    borderDash: DASHES[idx % DASHES.length],
+    stepped: "before",
+    tension: 0,
+    fill: false,
+  }));
+
+  if (positionChart) positionChart.destroy();
+  positionChart = new Chart(canvas.getContext("2d"), {
+    type: "line",
+    data: { labels, datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: "index", intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: "#1C2240",
+          borderColor: "#2A3060",
+          borderWidth: 1,
+          titleColor: "#F5C518",
+          bodyColor: "#E2E8F0",
+          callbacks: {
+            title: items => titles[items[0].dataIndex] || dates[items[0].dataIndex] || labels[items[0].dataIndex],
+            label: item => ` ${item.dataset.label}: ${item.parsed.y}º`,
+          }
+        }
+      },
+      scales: {
+        x: {
+          title: { display: true, text: "Partido (orden cronológico)", color: "#64748B", font: { size: 11 } },
+          grid: { color: "rgba(255,255,255,.05)" },
+          ticks: { color: "#475569", font: { size: 14 }, maxRotation: 0, minRotation: 0, autoSkip: true, autoSkipPadding: 4, padding: 6 }
+        },
+        y: {
+          reverse: true,
+          min: 1,
+          max: n,
+          title: { display: true, text: "Posición en la clasificación", color: "#64748B", font: { size: 11 } },
+          grid: { color: "rgba(255,255,255,.05)" },
+          ticks: {
+            color: "#475569", font: { size: 11 }, stepSize: 1,
+            callback: v => `${v}º`,
+          }
+        }
+      }
+    }
+  });
 }
 
 function renderForma(prog, cutIdx) {
@@ -4653,8 +4742,8 @@ function renderStats() {
   const bestPlayer  = [...perPlayer].sort((a,b) => b.pct - a.pct)[0];
   const bestPct     = bestPlayer?.pct ?? -1;
   const bestPlayers = perPlayer.filter(p => p.pct === bestPct);
-  const streakKing  = [...perPlayer].sort((a,b) => b.streak - a.streak)[0];
-  const streakKings = streakKing ? perPlayer.filter(p => p.streak === streakKing.streak) : [];
+  const streakKing  = [...perPlayer].sort((a,b) => b.maxStreak - a.maxStreak)[0];
+  const streakKings = streakKing ? perPlayer.filter(p => p.maxStreak === streakKing.maxStreak) : [];
   const topExact    = [...perPlayer].sort((a,b) => b.exact - a.exact)[0];
   const bestSub     = bestPlayers.length > 1 ? bestPlayers.map(p => p.name).join(" · ") + " (empate)" : (bestPlayer?.name || "");
   heroEl.innerHTML = [
@@ -4664,8 +4753,8 @@ function renderStats() {
       info: "Número total de <strong>marcadores exactos clavados</strong> entre todos los jugadores en todo el Mundial." },
     { icon: "📈", val: bestPlayer ? `${bestPlayer.pct}%` : "—", label: "Mayor tasa de acierto", sub: bestSub,
       info: "Jugador con mayor <strong>tasa de acierto</strong>: porcentaje de partidos jugados (grupos y eliminatorias) en los que ha sumado al menos 1 punto." },
-    { icon: streakKing?.streak > 0 ? "🔥" : "🤦", val: streakKing ? `${streakKing.streak}` : "—", label: "Racha activa más larga", sub: streakKing?.streak > 0 ? `${streakKings.map(p=>p.name).join(" · ")} · ${streakKing.streak} en racha${streakKings.length > 1 ? " (empate)" : ""}` : "Nadie acertó en el último partido",
-      info: "<strong>Racha activa</strong>: partidos seguidos puntuando (≥1 pt) contando desde el último partido hacia atrás." },
+    { icon: streakKing?.maxStreak > 0 ? "🔥" : "🤦", val: streakKing ? `${streakKing.maxStreak}` : "—", label: "Mejor racha del Mundial", sub: streakKing?.maxStreak > 0 ? `${streakKings.map(p=>p.name).join(" · ")} · ${streakKing.maxStreak} partidos seguidos${streakKings.length > 1 ? " (empate)" : ""}` : "Nadie encadenó puntos",
+      info: "<strong>Mejor racha</strong>: la mayor cantidad de partidos seguidos puntuando (≥1 pt) que consiguió un jugador en cualquier momento de todo el torneo." },
   ].map(h => `
     <div class="card p-4 text-center" style="position:relative;isolation:isolate">
       <div class="stat-info-corner">${infoTip(h.info, "right")}</div>
@@ -5189,7 +5278,7 @@ function renderStats() {
       "• <strong>Puntos totales</strong>: clasificación actual (partidos + posiciones + eliminatorias + honor).<br>" +
       "• <strong>Tasa de acierto</strong>: % de partidos jugados en los que sumó ≥1 pt.<br>" +
       "• <strong>Pts/partido</strong>: media de puntos ganados solo en partidos (sin posiciones ni cuadros).<br>" +
-      "• <strong>Racha activa</strong>: partidos seguidos puntuando ahora mismo.<br>" +
+      "• <strong>Mejor racha del Mundial</strong>: la mayor cantidad de partidos seguidos puntuando (≥1 pt) en todo el torneo.<br>" +
       "• <strong>Exactos</strong>: marcadores exactos clavados.<br>" +
       "• <strong>pts (últ. 4)</strong>: suma de puntos en los últimos 4 partidos jugados.<br>" +
       "• <strong>Últimos partidos</strong>: cada cuadro es un partido reciente (ver leyenda).",
@@ -5255,8 +5344,8 @@ function renderStats() {
             <div class="pstat-lbl">Pts / partido</div>
           </div>
           <div class="pstat-box" style="background:rgba(34,197,94,.10)">
-            <div class="pstat-num" style="color:var(--green)">${pp.streak ?? 0}</div>
-            <div class="pstat-lbl">Racha activa</div>
+            <div class="pstat-num" style="color:var(--green)">${pp.maxStreak ?? 0}</div>
+            <div class="pstat-lbl">Mejor racha del Mundial</div>
           </div>
           <div class="pstat-box" style="background:rgba(245,197,24,.10)">
             <div class="pstat-num" style="color:var(--gold)">${pp.exact ?? 0}</div>
