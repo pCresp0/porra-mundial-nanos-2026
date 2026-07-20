@@ -14,8 +14,9 @@ const FEEDBACK_API = "https://script.google.com/macros/s/AKfycbwoXHBr6i2H7Klp4KB
 let progressionChart = null;
 let hitRateChart = null;
 let soloLeaderChart = null;
-let _progWindow = 10; // last N matches to show in progression chart (0 = all)
+let _progWindow = 0; // last N matches to show in progression chart (0 = all; Mundial terminado → mostrar todo por defecto)
 let breakdownChart = null;
+let phaseBreakdownChart = null;
 let breakdownViewMode = "matches"; // matches or points
 let _twinsPhase = "total"; // groups | final | total
 let currentPhase = "all";
@@ -2685,7 +2686,7 @@ function renderProgression() {
               const absIdx = winStart + i; // map sliced index back to full array
               const dayPts = prog.day_points?.[items[0].dataset.label]?.[absIdx];
               const head = titles[i] || dates[i] || labels[i];
-              return `${head}${dayPts > 0 ? ` (+${dayPts} este partido)` : ""}`;
+              return `${head}${dayPts > 0 ? ` (+${dayPts} pts aquí)` : ""}`;
             },
             label: item => ` ${item.dataset.label}: ${item.parsed.y} pts acumulados`,
           }
@@ -2798,12 +2799,20 @@ function renderForma(prog, cutIdx) {
   function getMaxPointsForPhase(phase) {
     if (phase === "groups") return 6;      // 2 (1X2) + 1 (dif) + 3 (exacto)
     if (phase === "positions") return 10;   // Máximo por grupo individual
-    if (phase === "r16") return 12;        // 3 (1X2) + 2 (dif) + 4 (exacto) + 3 (r8_team)
-    if (phase === "r8") return 20;         // 5 (1X2) + 4 (dif) + 6 (exacto) + 5 (r4_team)
-    if (phase === "r4") return 27;         // 6 (1X2) + 5 (dif) + 8 (exacto) + 8 (r2_team)
-    if (phase === "r2") return 36;         // 8 (1X2) + 6 (dif) + 10 (exacto) + 12 (campeón)
-    if (phase === "r34") return 17;        // 4 (1X2) + 3 (dif) + 5 (exacto) + 5 (tercero)
-    if (phase === "honor") return 25;      // Campeón (máx. premio honor)
+    if (phase === "q16_team") return 2;    // Bonus por equipo clasificado a 16avos (1 equipo)
+    if (phase === "r16") return 9;         // 3 (1X2) + 2 (dif) + 4 (exacto)
+    if (phase === "r8") return 12;         // 4 (1X2) + 3 (dif) + 5 (exacto)
+    if (phase === "r4") return 15;         // 5 (1X2) + 4 (dif) + 6 (exacto)
+    if (phase === "r2") return 19;         // 6 (1X2) + 5 (dif) + 8 (exacto)
+    if (phase === "r34") return 19;        // 6 (1X2) + 5 (dif) + 8 (exacto)
+    if (phase === "final") return 26;      // 8 (1X2) + 6 (dif) + 12 (exacto)
+    if (phase === "honor") return 63;      // Máximo real anotado (Campeón+Bota+Balón acumulados)
+    // Bonus «cuadro»: equipos clasificados a cada ronda (según Excel, el máx. real observado)
+    if (phase === "cuadro_r8") return 45;
+    if (phase === "cuadro_r4") return 30;
+    if (phase === "cuadro_r2") return 32;
+    if (phase === "cuadro_r34") return 16;
+    if (phase === "cuadro_final") return 24;
     if (phase === "grid_bonus") return 20;
     return 6;
   }
@@ -4257,10 +4266,10 @@ function _maxPtsPerPlayerForMatch(m) {
   if (phase === "groups") {
     return +(D?.scoring_rules?.max_per_group_match || 6);
   }
+  // Solo 1X2 + diferencia + resultado exacto de ESE partido. El bonus de «equipo
+  // clasificado» (cuadro) se computa y se muestra una vez por fase, no por partido.
   const pp = m.phase_pts;
-  const matchPts = pp ? (+pp.sign || 0) + (+pp.diff || 0) + (+pp.exact || 0) : 0;
-  const qualKey = { r16: "r8_team", r8: "r4_team", r4: "r2_team", r2: "final_team" }[phase];
-  return matchPts + (qualKey ? _scoringSectionPts(qualKey) : 0);
+  return pp ? (+pp.sign || 0) + (+pp.diff || 0) + (+pp.exact || 0) : 0;
 }
 
 function _buildMatchRowHtml(row, globalIndex) {
@@ -4529,6 +4538,65 @@ function computeSoloLeaderStats(players, prog) {
     total: nMatches,
     pct: Math.round(counts[name] / nMatches * 100),
   }));
+}
+
+function renderPhaseBreakdownChart(players, colors) {
+  const canvas = document.getElementById("phaseBreakdownChart");
+  if (!canvas) return;
+  const standByName = Object.fromEntries(D.standings.map(s => [s.name, s]));
+  const order = [...D.standings].sort((a, b) => (a.pos ?? 99) - (b.pos ?? 99)).map(s => s.name);
+
+  const segments = [
+    { key: "groups_pos", label: "Grupos", color: "#3B82F6",
+      val: n => (+standByName[n]?.groups || 0) + (+standByName[n]?.positions || 0) + (+standByName[n]?.q16 || 0) },
+    { key: "r16", label: "16avos", color: "#22C55E", val: n => +standByName[n]?.r16 || 0 },
+    { key: "r8", label: "Octavos", color: "#EAB308", val: n => +standByName[n]?.r8 || 0 },
+    { key: "r4", label: "Cuartos", color: "#F97316", val: n => +standByName[n]?.r4 || 0 },
+    { key: "r2", label: "Semifinales", color: "#EF4444", val: n => +standByName[n]?.r2 || 0 },
+    { key: "r34_final", label: "3º-4º y Final", color: "#A855F7", val: n => +standByName[n]?.r34_final || 0 },
+    { key: "honor", label: "Cuadro de Honor", color: "#F5C518", val: n => +standByName[n]?.honor || 0 },
+  ];
+
+  if (phaseBreakdownChart) phaseBreakdownChart.destroy();
+  phaseBreakdownChart = new Chart(canvas.getContext("2d"), {
+    type: "bar",
+    data: {
+      labels: order,
+      datasets: segments.map(seg => ({
+        label: seg.label,
+        data: order.map(n => seg.val(n)),
+        backgroundColor: seg.color + "CC",
+        borderColor: seg.color,
+        borderWidth: 1,
+      })),
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: "bottom", labels: { color: "#94A3B8", font: { size: 10 }, boxWidth: 12 } },
+        tooltip: {
+          callbacks: {
+            label: i => ` ${i.dataset.label}: ${i.parsed.x} pts`,
+            footer: items => {
+              const total = items.reduce((s, it) => s + it.parsed.x, 0);
+              return `Total: ${total} pts`;
+            },
+          },
+        },
+      },
+      scales: {
+        x: { stacked: true, grid: { color: "rgba(255,255,255,.05)" }, ticks: { color: "#475569" } },
+        y: {
+          stacked: true, grid: { display: false },
+          ticks: {
+            color: ctx => colors[order[ctx.index]] || "#94A3B8",
+            font: { weight: "bold" },
+          },
+        },
+      },
+    },
+  });
 }
 
 function renderStats() {
@@ -4829,6 +4897,8 @@ function renderStats() {
       }
     }
   });
+
+  renderPhaseBreakdownChart(players, colors);
 
   // ── 5 mayores diferencias (1º vs 2º) ───────────────────────────────────
   const topDiffsBody = document.getElementById("top-diffs-table-body");
@@ -5239,7 +5309,7 @@ function renderStats() {
       "stats-top-matches",
       topRows,
       "🏆 Partidos más acertados",
-      `Ordenado por % de puntos conseguidos respecto al máximo posible en cada partido (varía por fase: grupos 6 pts/jugador, dieciseisavos hasta 12, octavos hasta 17…). Solo partidos ya jugados.`,
+      `Ordenado por % de puntos conseguidos respecto al máximo posible en cada partido (1X2 + diferencia + resultado exacto de ESE partido; varía por fase: grupos 6 pts/jugador, 16avos 9, octavos 12, cuartos 15, semis y 3º-4º 19, final 26). El bonus por «equipo clasificado» se cuenta una vez por fase, no aquí. Solo partidos ya jugados.`,
       playerCols2, 5
     );
 

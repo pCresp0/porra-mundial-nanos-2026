@@ -1261,10 +1261,13 @@ def _propagate_bracket_winners(matches):
 
 
 def _prog_match_earned(m, pred_obj):
-    """Puntos de un partido para la progresión (score + bonus «Pasa», como en clasificación)."""
-    score = round(float(pred_obj.get("score") or 0), 2)
-    qual = round(float(pred_obj.get("qual_pts") or 0), 2)
-    return round(score + qual, 2)
+    """Puntos de un partido para la progresión (1X2 + diferencia + exacto de ESE partido).
+
+    El bonus de «equipo clasificado a la siguiente ronda» (cuadro) NO se reparte aquí:
+    es un premio por fase que se añade una sola vez, justo cuando la fase se cierra
+    (ver `_build_daily_progression` / eventos "Cuadro: ..."), igual que en el Excel.
+    """
+    return round(float(pred_obj.get("score") or 0), 2)
 
 
 def _sync_prog_players(progression, player_names):
@@ -1277,67 +1280,6 @@ def _sync_prog_players(progression, player_names):
             players_out[name].append(cumulative)
     progression["players"] = players_out
     return progression
-
-
-def _normalize_player_grid_preds(grid_preds):
-    """Excel usa VICTOR; la web usa VÍCTOR."""
-    if "VICTOR" in grid_preds and "VÍCTOR" not in grid_preds:
-        grid_preds["VÍCTOR"] = grid_preds.pop("VICTOR")
-    return grid_preds
-
-
-def _progression_grid_context_from_data(dj):
-    """Construye grid_ctx para progresión a partir de Excel + partidos jugados."""
-    global FILE1, FILE2
-    FILE1 = os.path.join(BASE, "data", "Admin real", "ALL_ADMIN-Excel-Mundial-2026_1.xlsx")
-    FILE2 = os.path.join(BASE, "data", "Admin real", "ALL_ADMIN-Excel-Mundial-2026_2.xlsx")
-    if not os.path.isfile(FILE1) or not os.path.isfile(FILE2):
-        return None
-    ws1, players1, _ = _load_file1()
-    ws2, player2, _ = _load_file2()
-    all_players = players1 + [player2]
-    all_ws = [ws1] * len(players1) + [ws2]
-    grid_preds = _normalize_player_grid_preds(_build_player_grid_preds(all_players, all_ws))
-    actual_r8, actual_r4, actual_r2, actual_r34, actual_final = (set(), set(), set(), set(), set())
-    _augment_actual_qualifiers_from_matches(
-        dj.get("matches", []), actual_r8, actual_r4, actual_r2, actual_r34, actual_final,
-    )
-    return {
-        "grid_preds": grid_preds,
-        "pts": {
-            "r8": float(_val(ws1, 19, 4) or 3.0),
-            "r4": float(_val(ws1, 23, 4) or 5.0),
-            "r2": float(_val(ws1, 27, 4) or 8.0),
-            "r34": float(_val(ws1, 31, 4) or 10.0),
-            "final": float(_val(ws1, 35, 4) or 15.0),
-        },
-        "actual": {
-            "r8": actual_r8, "r4": actual_r4, "r2": actual_r2,
-            "r34": actual_r34, "final": actual_final,
-        },
-    }
-
-
-def _ko_match_qual_bonus(m, player_names, qual_pts):
-    """Bonus «clasificado correcto» del partido (sin duplicar el cuadro de equipos)."""
-    if m.get("phase") not in ("r16", "r8", "r4", "r2", "r34", "final"):
-        return {}
-    winner = str(m.get("actual_winner") or "").strip()
-    if not winner:
-        return {}
-    earned = {}
-    for n in player_names:
-        pred_obj = m.get("predictions", {}).get(n, {})
-        if float(pred_obj.get("qual_pts") or 0) > 0:
-            earned[n] = float(pred_obj["qual_pts"])
-            continue
-        pred = pred_obj.get("pred") or {}
-        if (pred_obj.get("breakdown") or {}).get("team_match") == "none":
-            continue
-        pred_w = str(pred.get("winner") or "").strip()
-        if pred_w and pred_w.lower() == winner.lower():
-            earned[n] = qual_pts
-    return earned
 
 
 def _append_progression_event(prog, player_names, label, flag, date, title, phase, earned):
@@ -1398,10 +1340,33 @@ def _insert_progression_event_at(prog, idx, label, flag, date, title, phase, ear
     return _sync_prog_players(prog, player_names)
 
 
+def _cuadro_bonus_from_data(dj, player_names):
+    """Bonus «equipo clasificado» por fase, con los valores exactos del Excel (fuente de verdad).
+
+    Se guarda en dj["cuadro_bonus"][jugador] = {r8, r4, r2, r34, final} y se calculó una vez
+    a partir de la hoja CLAS/ADMIN (columnas «Equipos 1/8», «Equipos 1/4», ...). No depende de
+    qual_pts ni de reconstruir el Excel: es un dato ya consolidado en data.json.
+    """
+    raw = dj.get("cuadro_bonus", {})
+    out = {}
+    for n in player_names:
+        b = raw.get(n, {})
+        out[n] = {
+            "r8": float(b.get("r8") or 0.0),
+            "r4": float(b.get("r4") or 0.0),
+            "r2": float(b.get("r2") or 0.0),
+            "r34": float(b.get("r34") or 0.0),
+            "final": float(b.get("final") or 0.0),
+        }
+    return out
+
+
 def _grid_bonus_from_standings(dj, player_names):
-    """Bonus residual del cuadro estimado (no cubierto por qual_pts en partidos)."""
+    """Residual de seguridad: si algún jugador no cuadra tras el bonus de cuadro exacto,
+    esta diferencia (normalmente 0) se muestra como ajuste explícito en la progresión."""
     out = {n: 0.0 for n in player_names}
     standings = {st["name"]: st for st in dj.get("standings", [])}
+    cuadro = _cuadro_bonus_from_data(dj, player_names)
     for n in player_names:
         st = standings.get(n, {})
         match_pts = 0.0
@@ -1409,9 +1374,10 @@ def _grid_bonus_from_standings(dj, player_names):
             if not m.get("played"):
                 continue
             pd = m.get("predictions", {}).get(n, {})
-            match_pts += float(pd.get("score") or 0) + float(pd.get("qual_pts") or 0)
+            match_pts += float(pd.get("score") or 0)
+        cuadro_total = sum(cuadro.get(n, {}).values())
         non_honor = float(st.get("total") or 0) - float(st.get("honor") or 0)
-        base = match_pts + float(st.get("positions") or 0) + float(st.get("q16") or 0)
+        base = match_pts + cuadro_total + float(st.get("positions") or 0) + float(st.get("q16") or 0)
         delta = round(non_honor - base, 1)
         if abs(delta) > 0.05:
             out[n] = delta
@@ -1431,11 +1397,12 @@ def rebuild_progression(dj):
     all_groups_finished = all(
         m.get("played") for m in dj.get("matches", []) if m.get("phase") == "groups"
     )
-    grid_ctx = _progression_grid_context_from_data(dj) or {}
+    grid_ctx = {}
     grid_ctx["player_q16_pts"] = {
         st["name"]: float(st.get("q16") or 0)
         for st in dj.get("standings", [])
     }
+    grid_ctx["cuadro_bonus"] = _cuadro_bonus_from_data(dj, player_names)
 
     prog = _build_daily_progression(
         dj.get("matches", []),
@@ -1457,8 +1424,8 @@ def rebuild_progression(dj):
             cumulative, prog["players"], prog["day_points"],
             prog["labels"], prog["flag_labels"], prog["dates"],
             prog["titles"], prog["phases"], player_names,
-            "Bonus cuadro", "📋", last_date,
-            "Bonus residual del cuadro estimado", "grid_bonus",
+            "Ajuste", "📋", last_date,
+            "Ajuste de cuadre con el Excel", "grid_bonus",
             grid_bonus,
         )
 
@@ -1528,28 +1495,6 @@ def _augment_actual_qualifiers_from_matches(matches, actual_r8, actual_r4, actua
             actual_final.add(w)
 
 
-def _build_player_grid_preds(all_players, all_ws):
-    """Equipos predichos en cada cuadro de clasificados (filas ADMIN)."""
-    ranges = {
-        "r8":    range(182, 198),
-        "r4":    range(210, 218),
-        "r2":    range(226, 230),
-        "r34":   range(236, 238),
-        "final": range(240, 242),
-    }
-    out = {}
-    for p, ws in zip(all_players, all_ws):
-        name = p["name"]
-        pc = p["pred_col"]
-        out[name] = {}
-        for key, rows in ranges.items():
-            out[name][key] = {
-                str(_val(ws, r, pc) or "").strip()
-                for r in rows if _val(ws, r, pc)
-            }
-    return out
-
-
 def _append_prog_step(cumulative, players_out, day_points, labels, flag_labels,
                       dates, titles, phases, player_names, label, flag, date,
                       title, phase, earned_by_player):
@@ -1564,58 +1509,6 @@ def _append_prog_step(cumulative, players_out, day_points, labels, flag_labels,
         cumulative[n] = round(cumulative[n] + e, 1)
         players_out[n].append(cumulative[n])
         day_points[n].append(e)
-
-
-def _award_grid_on_ko_win(m, player_names, grid_preds, pts_cfg, awarded_grid, actual_sets=None):
-    """Puntos de cuadro de clasificados al clasificar un equipo (misma lógica que CLAS)."""
-    phase = m.get("phase")
-    winner = m.get("actual_winner")
-    if not winner:
-        return {}
-    actual_sets = actual_sets or {}
-    winner = str(winner).strip()
-    earned = {n: 0.0 for n in player_names}
-
-    if phase == "r16":
-        grid_key, pt_key = "r8", "r8"
-    elif phase == "r8":
-        grid_key, pt_key = "r4", "r4"
-    elif phase == "r4":
-        grid_key, pt_key = "r2", "r2"
-    elif phase == "r2":
-        home = str(m.get("home") or "").strip()
-        away = str(m.get("away") or "").strip()
-        loser = away if winner == home else home if winner == away else ""
-        actual_final = actual_sets.get("final", set())
-        actual_r34 = actual_sets.get("r34", set())
-        pt_val_f = pts_cfg.get("final", 0)
-        pt_val_34 = pts_cfg.get("r34", 0)
-        for n in player_names:
-            preds = grid_preds.get(n, {})
-            if winner and winner in preds.get("final", set()) and winner in actual_final:
-                key = (n, winner, "final")
-                if key not in awarded_grid:
-                    awarded_grid.add(key)
-                    earned[n] += pt_val_f
-            if loser and loser in preds.get("r34", set()) and loser in actual_r34:
-                key = (n, loser, "r34")
-                if key not in awarded_grid:
-                    awarded_grid.add(key)
-                    earned[n] += pt_val_34
-        return earned
-    else:
-        return earned
-
-    actual = actual_sets.get(grid_key, set())
-    pt_val = pts_cfg.get(pt_key, 0)
-    for n in player_names:
-        if (winner in grid_preds.get(n, {}).get(grid_key, set())
-                and winner in actual):
-            key = (n, winner, grid_key)
-            if key not in awarded_grid:
-                awarded_grid.add(key)
-                earned[n] += pt_val
-    return earned
 
 
 def _build_daily_progression(matches, player_names, player_positions_pts=None,
@@ -1636,10 +1529,7 @@ def _build_daily_progression(matches, player_names, player_positions_pts=None,
 
     grid_ctx = grid_ctx or {}
     player_q16_pts = grid_ctx.get("player_q16_pts") or {}
-    grid_preds = grid_ctx.get("grid_preds") or {}
-    pts_cfg = grid_ctx.get("pts") or {}
-    actual_sets = grid_ctx.get("actual") or {}
-    awarded_grid = set()
+    cuadro_bonus = grid_ctx.get("cuadro_bonus") or {}
 
     played_matches.sort(key=lambda m: (m.get("date", ""), m.get("time_es", "")))
 
@@ -1657,6 +1547,30 @@ def _build_daily_progression(matches, player_names, player_positions_pts=None,
         for i, m in enumerate(played_matches):
             if m["phase"] == "groups":
                 last_group_idx = i
+
+    def _last_idx_if_phase_closed(phase, total_in_phase):
+        """Índice del último partido jugado de `phase`, sólo si ya se jugaron todos."""
+        idxs = [i for i, m in enumerate(played_matches) if m.get("phase") == phase]
+        if not idxs or len(idxs) < total_in_phase:
+            return -1
+        return max(idxs)
+
+    last_r16_idx = _last_idx_if_phase_closed("r16", 16)
+    last_r8_idx = _last_idx_if_phase_closed("r8", 8)
+    last_r4_idx = _last_idx_if_phase_closed("r4", 4)
+    last_r2_idx = _last_idx_if_phase_closed("r2", 2)
+
+    def _cuadro_step(key, label, title, idx):
+        earned = {n: cuadro_bonus.get(n, {}).get(key, 0.0) for n in player_names}
+        if not any(v > 0 for v in earned.values()):
+            return
+        _append_prog_step(
+            cumulative, players_out, day_points, labels, flag_labels,
+            dates, titles, phases, player_names,
+            label, "📋", dates[idx],
+            title, f"cuadro_{key}",
+            earned,
+        )
 
     def _match_title(m):
         gl, gv = m.get("goals_l"), m.get("goals_v")
@@ -1702,6 +1616,16 @@ def _build_daily_progression(matches, player_names, player_positions_pts=None,
                     "Clasificados a Dieciseisavos", "q16_team",
                     {n: player_q16_pts.get(n, 0.0) for n in player_names},
                 )
+
+        if i == last_r16_idx:
+            _cuadro_step("r8", "Cuadro 8os", "Cuadro: equipos que llegaron a Octavos", i)
+        if i == last_r8_idx:
+            _cuadro_step("r4", "Cuadro 4tos", "Cuadro: equipos que llegaron a Cuartos", i)
+        if i == last_r4_idx:
+            _cuadro_step("r2", "Cuadro SF", "Cuadro: equipos que llegaron a Semifinales", i)
+        if i == last_r2_idx:
+            _cuadro_step("r34", "Cuadro 3º/4º", "Cuadro: equipo en la final por el 3º puesto", i)
+            _cuadro_step("final", "Cuadro Final", "Cuadro: equipos finalistas", i)
 
     if all_groups_finished and player_positions_pts and last_group_idx == -1:
         last_date = dates[-1] if dates else datetime.now().strftime("%Y-%m-%d")
@@ -2946,20 +2870,15 @@ def build_data():
     weeks = _week_ranges_from_dates(spain_dates)
     prog_grid_ctx = {
         "player_q16_pts": player_q16_pts,
-        "grid_preds": _build_player_grid_preds(all_players, all_ws),
-        "pts": {
-            "r8":    pts_r8_team,
-            "r4":    pts_r4_team,
-            "r2":    pts_r2_team,
-            "r34":   pts_r34_team,
-            "final": pts_final_team,
-        },
-        "actual": {
-            "r8":    actual_r8_qualifiers,
-            "r4":    actual_r4_qualifiers,
-            "r2":    actual_r2_qualifiers,
-            "r34":   actual_r34_qualifiers,
-            "final": actual_final_qualifiers,
+        "cuadro_bonus": {
+            name: {
+                "r8": player_r8_team_pts.get(name, 0.0),
+                "r4": player_r4_team_pts.get(name, 0.0),
+                "r2": player_r2_team_pts.get(name, 0.0),
+                "r34": player_r34_team_pts.get(name, 0.0),
+                "final": player_final_team_pts.get(name, 0.0),
+            }
+            for name in player_names
         },
     }
     progression = _build_daily_progression(
@@ -2999,6 +2918,7 @@ def build_data():
         "max_points":  max_points,
         "scoring_rules": scoring_rules,
         "player_strengths": player_strengths,
+        "cuadro_bonus": prog_grid_ctx["cuadro_bonus"],
     }
 
 

@@ -328,7 +328,7 @@
           <span class="info-btn">i</span>
           <div class="info-tip">
             <strong>¿Qué muestra esta gráfica?</strong><br>
-            Porcentaje de partidos jugados en fase de grupos en los que sumaste <strong>al menos 1 punto</strong>.
+            Porcentaje de partidos jugados en <strong>todo el Mundial</strong> (grupos + eliminatorias) en los que sumaste <strong>al menos 1 punto</strong>.
             Cuenta cualquier acierto: signo (1X2), diferencia de goles o resultado exacto.
             El número entre paréntesis en el título indica cuántos partidos se han jugado.
           </div>
@@ -345,9 +345,9 @@
           <span class="info-btn">i</span>
           <div class="info-tip">
             <strong>¿Qué muestra esta gráfica?</strong><br>
-            Tras cada partido de grupos jugado, se mira quién encabezaba la clasificación.
+            Tras cada hito puntuado de <strong>todo el torneo</strong> (partidos, posiciones de grupo, cuadros de clasificados y cuadro de honor), se mira quién encabezaba la clasificación.
             Solo cuenta si <strong>un único jugador</strong> lideraba (sin empatar a puntos con nadie más).
-            El % es sobre el total de partidos de grupos ya disputados.
+            El % es sobre el total de hitos ya disputados.
           </div>
         </div>
         <div style="height:260px;position:relative">
@@ -359,14 +359,15 @@
       <div class="card p-5">
         <div class="flex items-center justify-between mb-4">
           <div class="info-wrap">
-            <h3 class="font-bold text-white">Desglose de aciertos (fase de grupos)</h3>
+            <h3 class="font-bold text-white">Desglose de aciertos (todo el Mundial)</h3>
             <span class="info-btn">i</span>
             <div class="info-tip">
-              <strong>Tipos de acierto por partido:</strong><br>
-              🟢 <strong>Exacto</strong> — signo + dif. + resultado exacto (máx. 6 pts)<br>
+              <strong>Tipos de acierto en los partidos jugados (grupos + eliminatorias):</strong><br>
+              🟢 <strong>Exacto</strong> — signo + dif. + resultado exacto<br>
               🔵 <strong>1X2 + Dif.</strong> — signo correcto y diferencia de goles<br>
               🟠 <strong>Solo 1X2</strong> — solo acertó el signo (1/X/2)<br>
-              ⚪ <strong>0 pts</strong> — sin ningún acierto en ese partido
+              ⚪ <strong>0 pts</strong> — sin ningún acierto en ese partido<br>
+              <span class="text-gray-500">En vista «Puntos», cada partido pesa según su fase (los de eliminatorias valen más).</span>
             </div>
           </div>
           <div class="flex bg-slate-800 rounded-lg p-0.5 border border-slate-700 text-xs font-semibold">
@@ -379,6 +380,24 @@
         </div>
       </div>
 
+      <!-- puntos por fase (de dónde viene tu total) -->
+      <div class="card p-5">
+        <div class="info-wrap mb-4">
+          <h3 class="font-bold text-white">¿De dónde vienen tus puntos?</h3>
+          <span class="info-btn">i</span>
+          <div class="info-tip">
+            <strong>¿Qué muestra esta gráfica?</strong><br>
+            El total final de cada jugador, desglosado por fase: <strong>Grupos</strong> (partidos + posiciones),
+            <strong>16avos, Octavos, Cuartos, Semifinales, 3º/Final</strong> (resultado del partido + bonus por
+            equipo clasificado de esa ronda) y <strong>Honor</strong> (premios individuales). La suma de todos
+            los tramos es el total de la Clasificación de la Porra.
+          </div>
+        </div>
+        <div style="height:300px;position:relative">
+          <canvas id="phaseBreakdownChart"></canvas>
+        </div>
+      </div>
+
       <!-- 5 mayores diferencias -->
       <div class="card p-5">
         <div class="info-wrap mb-4">
@@ -386,7 +405,7 @@
           <span class="info-btn">i</span>
           <div class="info-tip">
             <strong>¿Qué muestra esta tabla?</strong><br>
-            Las 5 mayores diferencias de puntos del líder en solitario (1º) respecto al segundo clasificado (2º) después de cualquier partido disputado en la fase de grupos.
+            Las 5 mayores diferencias de puntos del líder en solitario (1º) respecto al segundo clasificado (2º), tras cualquier hito puntuado de todo el torneo (partidos de grupos y eliminatorias, posiciones, cuadros de clasificados y cuadro de honor).
           </div>
         </div>
         <div class="overflow-x-auto" style="max-height: 260px; overflow-y: auto;">
@@ -412,7 +431,7 @@
           <span class="info-btn">i</span>
           <div class="info-tip">
             <strong>¿Qué muestra esta tabla?</strong><br>
-            Las 5 mayores diferencias de puntos entre el primer clasificado (1º) y el último clasificado después de cualquier partido disputado en la fase de grupos.
+            Las 5 mayores diferencias de puntos entre el primer clasificado (1º) y el último clasificado, tras cualquier hito puntuado de todo el torneo (partidos de grupos y eliminatorias, posiciones, cuadros de clasificados y cuadro de honor).
           </div>
         </div>
         <div class="overflow-x-auto" style="max-height: 260px; overflow-y: auto;">
@@ -438,7 +457,7 @@
           <span class="info-btn">i</span>
           <div class="info-tip">
             <strong>¿Qué muestra esta tabla?</strong><br>
-            Cada vez que el líder de la porra ha cambiado durante la fase de grupos. Solo se registra cuando un único jugador se coloca por primera vez en cabeza, desbancando al anterior líder en solitario.
+            Cada vez que el líder de la porra ha cambiado durante <strong>todo el torneo</strong> (grupos y eliminatorias). Solo se registra cuando un único jugador se coloca por primera vez en cabeza, desbancando al anterior líder en solitario.
           </div>
         </div>
         <table class="pred-table w-full">
@@ -467,7 +486,7 @@
       <h3 class="font-bold text-white text-lg">Ficha de cada jugador</h3>
       <span id="stats-players-info"></span>
     </div>
-    <p class="text-sm text-gray-400 mb-4">Resumen individual de cada participante en la fase de grupos.</p>
+    <p class="text-sm text-gray-400 mb-4">Resumen individual de cada participante en todo el Mundial (grupos + eliminatorias).</p>
     <div id="stats-players" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
 
     <div id="stats-top-matches" class="mt-6"></div>

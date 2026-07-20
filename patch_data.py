@@ -800,56 +800,5 @@ def main():
     return 0
 
 
-def _update_progression(dj: dict, match: dict, deltas: dict[str, float]):
-    """Añade un evento de progresión por partido y sincroniza la serie acumulada."""
-    from app import (
-        _abbr_team, _append_progression_event, _award_grid_on_ko_win,
-        _match_prog_title, _prog_match_earned, _progression_grid_context_from_data,
-        _sync_prog_players,
-    )
-
-    prog = dj.get("progression")
-    if not prog or not prog.get("day_points"):
-        return
-
-    player_names = dj.get("meta", {}).get("players", [])
-    if not player_names:
-        return
-
-    date = match.get("date", "")
-    if not str(date).startswith("2026-"):
-        dates = prog.get("dates", [])
-        date = next((d for d in reversed(dates) if str(d).startswith("2026-")), "2026-07-07")
-
-    earned = {
-        n: round(_prog_match_earned(match, match.get("predictions", {}).get(n, {})), 1)
-        for n in player_names
-    }
-    label = f"{_abbr_team(match.get('home'))}-{_abbr_team(match.get('away'))}"
-    flag = f"{match.get('flag_home', '')}{match.get('flag_away', '')}" or label
-    _append_progression_event(
-        prog, player_names, label, flag, date,
-        _match_prog_title(match), match.get("phase", "r8"), earned,
-    )
-
-    grid_ctx = _progression_grid_context_from_data(dj)
-    if grid_ctx and match.get("phase") in ("r16", "r8", "r4", "r2"):
-        awarded = set()
-        grid_earned = _award_grid_on_ko_win(
-            match, player_names, grid_ctx["grid_preds"],
-            grid_ctx["pts"], awarded, grid_ctx["actual"],
-        )
-        if any(v > 0 for v in grid_earned.values()):
-            w = str(match.get("actual_winner") or "").strip()
-            phase_map = {"r16": "r8_team", "r8": "r4_team", "r4": "r2_team", "r2": "final_team"}
-            _append_progression_event(
-                prog, player_names, f"Clasif. {_abbr_team(w)}", "✓", date,
-                f"Clasificado a fase siguiente: {w}",
-                phase_map.get(match.get("phase"), "grid"), grid_earned,
-            )
-
-    _sync_prog_players(prog, player_names)
-
-
 if __name__ == "__main__":
     sys.exit(main())
