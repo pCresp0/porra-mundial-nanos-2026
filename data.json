@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "2026-07-20T10:02:16Z",
+    "generated": "2026-07-20T10:05:01Z",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-07T19:40",
       "next_update_time": "19:40",
       "next_update_date": "07/07/2026",
-      "last_checked_iso": "2026-07-20T11:50",
-      "last_checked_time": "11:50",
+      "last_checked_iso": "2026-07-20T12:05",
+      "last_checked_time": "12:05",
       "last_checked_date": "20/07/2026"
     },
     "players": [
@@ -493,6 +493,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-07-20T12:05:03+02:00",
+        "date": "20/07/2026",
+        "time": "12:05:03",
+        "updated": false,
+        "trigger": "push",
+        "changes": []
+      },
       {
         "ts_iso": "2026-07-20T11:50:29+02:00",
         "date": "20/07/2026",
@@ -4628,14 +4636,6 @@
         "updated": false,
         "trigger": "workflow_dispatch",
         "changes": []
-      },
-      {
-        "ts_iso": "2026-07-16T19:14:14+02:00",
-        "date": "16/07/2026",
-        "time": "19:14:14",
-        "updated": false,
-        "trigger": "workflow_dispatch",
-        "changes": []
       }
     ]
   },
@@ -4643,7 +4643,7 @@
     {
       "name": "CRESPO",
       "total": 519.0,
-      "live_points": 0.0,
+      "live_points": 0,
       "total_live": 519.0,
       "groups": 121.0,
       "positions": 81.0,
@@ -4695,7 +4695,7 @@
     {
       "name": "MEDINA",
       "total": 490.0,
-      "live_points": 0.0,
+      "live_points": 0,
       "total_live": 490.0,
       "groups": 130.0,
       "positions": 89.0,
@@ -4747,7 +4747,7 @@
     {
       "name": "VÍCTOR",
       "total": 421.0,
-      "live_points": 0.0,
+      "live_points": 0,
       "total_live": 421.0,
       "groups": 134.0,
       "positions": 75.0,
@@ -4799,7 +4799,7 @@
     {
       "name": "JUANCHO",
       "total": 412.0,
-      "live_points": 0.0,
+      "live_points": 0,
       "total_live": 412.0,
       "groups": 121.0,
       "positions": 85.0,
@@ -4851,7 +4851,7 @@
     {
       "name": "LARRY",
       "total": 375.0,
-      "live_points": 0.0,
+      "live_points": 0,
       "total_live": 375.0,
       "groups": 105.0,
       "positions": 67.0,
@@ -4903,7 +4903,7 @@
     {
       "name": "LUIS/VIR",
       "total": 371.0,
-      "live_points": 0.0,
+      "live_points": 0,
       "total_live": 371.0,
       "groups": 101.0,
       "positions": 77.0,
