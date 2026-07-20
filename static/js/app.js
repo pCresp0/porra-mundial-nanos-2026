@@ -1831,23 +1831,23 @@ function renderStandingsTable() {
   const liveActive = _liveStandingsActive();
   const anyTblChange = true;  // siempre mostrar indicadores ▲▼=
   const maxVals = {
-    groups: Math.max(...rows.map(r => r.groups || 0)),
-    positions: Math.max(...rows.map(r => r.positions || 0)),
+    grupos: Math.max(...rows.map(r => r.grupos || 0)),
     r16: Math.max(...rows.map(r => r.r16 || 0)),
     r8: Math.max(...rows.map(r => r.r8 || 0)),
     r4: Math.max(...rows.map(r => r.r4 || 0)),
     r2: Math.max(...rows.map(r => r.r2 || 0)),
-    r34_final: Math.max(...rows.map(r => r.r34_final || 0))
+    r34_final: Math.max(...rows.map(r => r.r34_final || 0)),
+    honor: Math.max(...rows.map(r => r.honor || 0))
   };
 
   const minVals = {
-    groups: Math.min(...rows.map(r => r.groups || 0).filter(v => v > 0)),
-    positions: Math.min(...rows.map(r => r.positions || 0).filter(v => v > 0)),
+    grupos: Math.min(...rows.map(r => r.grupos || 0).filter(v => v > 0)),
     r16: Math.min(...rows.map(r => r.r16 || 0).filter(v => v > 0)),
     r8: Math.min(...rows.map(r => r.r8 || 0).filter(v => v > 0)),
     r4: Math.min(...rows.map(r => r.r4 || 0).filter(v => v > 0)),
     r2: Math.min(...rows.map(r => r.r2 || 0).filter(v => v > 0)),
-    r34_final: Math.min(...rows.map(r => r.r34_final || 0).filter(v => v > 0))
+    r34_final: Math.min(...rows.map(r => r.r34_final || 0).filter(v => v > 0)),
+    honor: Math.min(...rows.map(r => r.honor || 0).filter(v => v > 0))
   };
 
   const cellHtml = (val, maxVal, minVal) => {
@@ -1877,13 +1877,13 @@ function renderStandingsTable() {
       <td class="font-bold" style="color:${r.color}">${r.pos}</td>
       <td class="text-left font-semibold text-white">${medal}${r.name} ${chgHtml}</td>
       <td class="font-extrabold text-lg" style="color:${r.color}">${fmt(liveActive ? _effectiveTotalLive(r) : r.total)}${provBadge}</td>
-      ${cellHtml(r.groups, maxVals.groups, minVals.groups)}
-      ${cellHtml(r.positions, maxVals.positions, minVals.positions)}
+      ${cellHtml(r.grupos, maxVals.grupos, minVals.grupos)}
       ${cellHtml(r.r16, maxVals.r16, minVals.r16)}
       ${cellHtml(r.r8, maxVals.r8, minVals.r8)}
       ${cellHtml(r.r4, maxVals.r4, minVals.r4)}
       ${cellHtml(r.r2, maxVals.r2, minVals.r2)}
       ${cellHtml(r.r34_final, maxVals.r34_final, minVals.r34_final)}
+      ${cellHtml(r.honor, maxVals.honor, minVals.honor)}
     </tr>`;
   }).join("");
   _syncStandingsSortIndicators();
@@ -1959,6 +1959,7 @@ function _standingsRows() {
       total: liveActive ? _effectiveTotalLive(p) : (+p.total || 0),
       groups: (+p.groups || 0) + (liveActive ? lp : 0),
       positions: +p.positions || 0,
+      grupos: (+p.groups || 0) + (+p.positions || 0) + (liveActive ? lp : 0),
       s1x2, sdiff, sexact,
       q16: +p.q16 || 0,
       r16: +p.r16 || 0,
@@ -1977,8 +1978,9 @@ const _stSort = { key: "pos", dir: "asc" };
 const _ST_DEFAULT_DIR = { name: "asc" }; // el resto, numéricas → desc
 
 const _ST_COL_LABELS = {
-  groups: "F.Grupos", positions: "Pos.Grupos",
+  grupos: "Grupos",
   r16: "16avos", r8: "Octavos", r4: "Cuartos", r2: "Semis", r34_final: "Final",
+  honor: "Honor",
 };
 
 function _scoringSec(key) {
@@ -2019,8 +2021,9 @@ function _colMaxPts(colKey) {
     const s = (rules.sections || []).find(x => x.key === key);
     return s?.items?.[0] ? Number(s.items[0].pts) : 0;
   }
-  if (colKey === "groups")     return 72 * secPts("groups_match");   // 72 × 6 = 432
-  if (colKey === "positions")  return 12 * secPts("groups_pos");     // 12 × 10 = 120
+  if (colKey === "grupos")      return 72 * secPts("groups_match") + 12 * secPts("groups_pos");
+  if (colKey === "groups")     return 72 * secPts("groups_match");   // legacy
+  if (colKey === "positions")  return 12 * secPts("groups_pos");     // legacy
   if (colKey === "r16") {
     // 16 r16 matches × max pts/match + 32 team predictions × 2 pts
     return 16 * secPts("r16") + 32 * secTeamPts("q16_team");
@@ -2057,29 +2060,36 @@ function _colMaxBadge(colKey) {
 
 function _standingsColTip(colKey) {
   const tips = {
-    groups: () => {
+    grupos: () => {
       const m = _scoringSec("groups_match");
-      const maxM = m ? m.items.reduce((s, i) => s + Number(i.pts), 0) : 6;
-      return `<strong>📊 Columna F.Grupos — Resultados de partidos:</strong><br><br>`
-        + `• <strong>2 pts</strong> por acertar el signo 1X2 (local/empate/visitante).<br>`
-        + `• <strong>+1 pt</strong> por diferencia de goles (solo si acertaste el 1X2).<br>`
-        + `• <strong>+3 pts</strong> por resultado exacto (se acumula con los anteriores).<br>`
-        + `→ Máx. <strong>${maxM} pts</strong> por partido.<br><br>`
-        + `72 partidos × máx. ${maxM} = <strong>${72*maxM} pts</strong> máx. totales`
-        + `<br><div style="margin-top:6px;padding:3px 7px;background:rgba(234,179,8,.15);border:1px solid rgba(234,179,8,.35);border-radius:4px;font-size:0.78em;color:#fcd34d;display:inline-block">🏆 Máx. posible esta columna: <strong>${72*maxM} pts</strong></div>`;
-    },
-    positions: () => {
       const p = _scoringSec("groups_pos");
+      const maxM = m ? m.items.reduce((s, i) => s + Number(i.pts), 0) : 6;
       const maxP = p ? p.items.reduce((s, i) => s + Number(i.pts), 0) : 10;
-      return `<strong>📊 Columna Pos.Grupos — Posiciones finales en grupos:</strong><br><br>`
-        + `Puntos por acertar la posición exacta dentro de cada grupo:<br>`
-        + `• <strong>4 pts</strong> por acertar el 1º del grupo.<br>`
-        + `• <strong>3 pts</strong> por acertar el 2º.<br>`
-        + `• <strong>2 pts</strong> por acertar el 3º.<br>`
-        + `• <strong>1 pt</strong> por acertar el 4º.<br>`
-        + `→ Máx. <strong>${maxP} pts</strong> por grupo.<br><br>`
-        + `12 grupos × máx. ${maxP} = <strong>${12*maxP} pts</strong> máx. totales`
-        + `<br><div style="margin-top:6px;padding:3px 7px;background:rgba(234,179,8,.15);border:1px solid rgba(234,179,8,.35);border-radius:4px;font-size:0.78em;color:#fcd34d;display:inline-block">🏆 Máx. posible esta columna: <strong>${12*maxP} pts</strong></div>`;
+      const total = 72 * maxM + 12 * maxP;
+      return `<strong>📊 Columna Grupos — Fase de grupos:</strong><br><br>`
+        + `<strong>① Resultados de partidos (72 partidos):</strong><br>`
+        + `• <strong>2 pts</strong> por acertar el signo 1X2.<br>`
+        + `• <strong>+1 pt</strong> por diferencia de goles (solo si acertaste el 1X2).<br>`
+        + `• <strong>+3 pts</strong> por resultado exacto.<br>`
+        + `→ Máx. <strong>${maxM} pts</strong> por partido × 72 = <strong>${72*maxM} pts</strong><br><br>`
+        + `<strong>② Posiciones finales (12 grupos):</strong><br>`
+        + `• <strong>4 pts</strong> por acertar el 1º · <strong>3</strong> el 2º · <strong>2</strong> el 3º · <strong>1</strong> el 4º.<br>`
+        + `→ Máx. <strong>${maxP} pts</strong> por grupo × 12 = <strong>${12*maxP} pts</strong>`
+        + `<br><div style="margin-top:6px;padding:3px 7px;background:rgba(234,179,8,.15);border:1px solid rgba(234,179,8,.35);border-radius:4px;font-size:0.78em;color:#fcd34d;display:inline-block">🏆 Máx. posible esta columna: <strong>${total} pts</strong></div>`;
+    },
+    honor: () => {
+      return `<strong>🏆 Columna Cuadro de Honor:</strong><br><br>`
+        + `Puntos por acertar los premios individuales y de equipo:<br><br>`
+        + `• <strong>25 pts</strong> — Campeón del Mundial<br>`
+        + `• <strong>18 pts</strong> — Subcampeón<br>`
+        + `• <strong>12 pts</strong> — 3er Puesto<br>`
+        + `• <strong>20 pts</strong> — Bota de Oro (máximo goleador)<br>`
+        + `• <strong>12 pts</strong> — Bota de Plata<br>`
+        + `• <strong>8 pts</strong> — Bota de Bronce<br>`
+        + `• <strong>20 pts</strong> — Balón de Oro (MVP)<br>`
+        + `• <strong>12 pts</strong> — Balón de Plata<br>`
+        + `• <strong>8 pts</strong> — Balón de Bronce<br><br>`
+        + `<span style="color:#94A3B8;font-size:0.88em">Máx. teórico: 135 pts (acertando los 9 premios)</span>`;
     },
     r16: () => {
       const q = _scoringSec("q16_team");

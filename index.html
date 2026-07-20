@@ -78,7 +78,7 @@
     <button class="tab-btn active" data-tab="matches">⚽ Partidos</button>
     <button class="tab-btn" data-tab="calendar">📅&nbsp;&thinsp;Calendario</button>
     <button class="tab-btn porra-only" data-tab="standings">🏅 Clasificación Porra</button>
-    <button class="tab-btn porra-only" data-tab="bracket">⚔️ Eliminatoria</button>
+    <button class="tab-btn porra-only" data-tab="honor">🏆 Cuadro de Honor</button>
     <button class="tab-btn porra-only" data-tab="progression">📈 Progresión</button>
     <button class="tab-btn porra-only" data-tab="stats">📊 Estadísticas</button>
     <!-- Accesos directos (solo modo público): sustituyen a 'Clasificaciones Mundial' -->
@@ -87,16 +87,12 @@
     <button class="tab-btn subnav-btn guest-only" data-stab="bracket">⚔️ Fase Final</button>
     <button class="tab-btn guest-only" data-tab="toptable">🔥 Partidos Top</button>
     <button class="tab-btn guest-only" data-tab="info">🛠️ Sobre la web</button>
-    <!-- overflow: Cuadro de Honor + Sistema de puntuación + Apuestas + Más info → dropdown (solo modo porra) -->
+    <!-- overflow: Sistema de puntuación + Partidos Top + Más info → dropdown (solo modo porra) -->
     <div class="tab-more-wrap porra-only" id="tab-more-wrap">
       <button class="tab-btn tab-more-btn" id="tab-more-btn" type="button" aria-expanded="false" aria-haspopup="true">⋯ Más ▾</button>
       <div class="tab-more-dropdown hidden" id="tab-more-dropdown">
-        <button class="tab-btn porra-only" data-tab="teams">🌍 Clasif. Mundial</button>
         <button class="tab-btn" data-tab="toptable">🔥 Partidos Top</button>
-        <button class="tab-btn porra-only" data-tab="scenarios">🎯 Escenarios</button>
         <button class="tab-btn subnav-btn porra-only" data-stab="general">🏆 Clasificación General</button>
-        <button class="tab-btn porra-only" data-tab="honor">🏆 Cuadro de Honor</button>
-        <button class="tab-btn porra-only" data-tab="h2h">🆚 Cara a cara</button>
         <button class="tab-btn porra-only" data-tab="scoring">📋 Sistema de puntuación</button>
         <!-- <button class="tab-btn porra-only hidden" data-tab="bets">🎲 Apuestas internas</button> -->
         <button class="tab-btn" data-tab="info">🛠️ Sobre la web</button>
@@ -142,10 +138,9 @@
   <button class="tab-btn active" data-tab="matches">⚽ Partidos</button>
   <button class="tab-btn" data-tab="calendar">📅 Calendario</button>
   <button class="tab-btn porra-only" data-tab="standings">🏅 Clasificación Porra</button>
-  <button class="tab-btn porra-only" data-tab="bracket">⚔️ Eliminatoria</button>
+  <button class="tab-btn porra-only" data-tab="honor">🏆 Cuadro de Honor</button>
   <button class="tab-btn porra-only" data-tab="progression">📈 Progresión</button>
   <button class="tab-btn porra-only" data-tab="stats">📊 Estadísticas</button>
-  <button class="tab-btn porra-only" data-tab="teams">🌍 Clasif. Mundial</button>
   <button class="tab-btn" data-tab="toptable">🔥 Partidos Top</button>
   <button class="tab-btn subnav-btn porra-only" data-stab="general">🏆 Clasificación General</button>
   <!-- Accesos directos (solo modo público) -->
@@ -153,9 +148,6 @@
   <button class="tab-btn subnav-btn guest-only" data-stab="scorers">⚽ Goleadores</button>
   <button class="tab-btn subnav-btn guest-only" data-stab="bracket">⚔️ Fase Final</button>
   <button class="tab-btn guest-only" data-tab="toptable">🔥 Partidos Top</button>
-  <button class="tab-btn porra-only" data-tab="scenarios">🎯 Escenarios</button>
-  <button class="tab-btn porra-only" data-tab="honor">🏆 Cuadro de Honor</button>
-  <button class="tab-btn porra-only" data-tab="h2h">🆚 Cara a cara</button>
   <button class="tab-btn porra-only" data-tab="scoring">📋 Sistema de puntuación</button>
   <!-- <button class="tab-btn porra-only hidden" data-tab="bets">🎲 Apuestas internas</button> -->
   <button class="tab-btn" data-tab="info">🛠️ Sobre la web</button>
@@ -250,13 +242,13 @@
               <th class="st-sortable" data-key="pos">Pos</th>
               <th class="st-sortable text-left" data-key="name">Jugador</th>
               <th class="st-sortable" data-key="total">Total</th>
-              <th class="st-sortable" data-key="groups">F.Grupos</th>
-              <th class="st-sortable" data-key="positions">Pos.Grupos</th>
+              <th class="st-sortable" data-key="grupos">Grupos</th>
               <th class="st-sortable" data-key="r16">16avos</th>
               <th class="st-sortable" data-key="r8">Octavos</th>
               <th class="st-sortable" data-key="r4">Cuartos</th>
               <th class="st-sortable" data-key="r2">Semis</th>
               <th class="st-sortable" data-key="r34_final">Final</th>
+              <th class="st-sortable" data-key="honor">Honor</th>
             </tr>
           </thead>
           <tbody id="standings-table"></tbody>
