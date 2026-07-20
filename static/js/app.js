@@ -4157,6 +4157,12 @@ function renderHonor() {
   const hs = D.honor_summary || {};
   const items = D.honor || [];
 
+  const allResolved = (hs.resolved || 0) >= (hs.total_items || 9) && (hs.pending || 9) === 0;
+  const statusBadges = allResolved
+    ? `<span class="px-2 py-1 rounded badge-exact text-xs">✓ Todo resuelto</span>`
+    : `<span class="px-2 py-1 rounded badge-exact text-xs">${hs.resolved || 0} resueltas</span>
+       <span class="px-2 py-1 rounded badge-pending text-xs">${hs.pending || 9} pendientes</span>`;
+
   // Resumen superior
   summaryEl.innerHTML = `
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
@@ -4167,10 +4173,7 @@ function renderHonor() {
           máximo ${hs.max_total_pts || 135} pts en total por jugador
         </p>
       </div>
-      <div class="flex gap-2 text-xs">
-        <span class="px-2 py-1 rounded badge-exact">${hs.resolved || 0} resueltas</span>
-        <span class="px-2 py-1 rounded badge-pending">${hs.pending || 9} pendientes</span>
-      </div>
+      <div class="flex gap-2">${statusBadges}</div>
     </div>
     <p class="text-xs text-gray-500 uppercase font-bold mb-2">Puntos en honor (clasificación)</p>
     <div class="honor-summary-grid">
