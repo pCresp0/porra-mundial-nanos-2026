@@ -2803,6 +2803,8 @@ function renderForma(prog, cutIdx) {
     if (phase === "r4") return 27;         // 6 (1X2) + 5 (dif) + 8 (exacto) + 8 (r2_team)
     if (phase === "r2") return 36;         // 8 (1X2) + 6 (dif) + 10 (exacto) + 12 (campeón)
     if (phase === "r34") return 17;        // 4 (1X2) + 3 (dif) + 5 (exacto) + 5 (tercero)
+    if (phase === "honor") return 25;      // Campeón (máx. premio honor)
+    if (phase === "grid_bonus") return 20;
     return 6;
   }
 
@@ -5114,7 +5116,7 @@ function renderStats() {
   if (playersInfoEl) {
     playersInfoEl.innerHTML = infoTip(
       "<strong>Cómo leer cada ficha:</strong><br>" +
-      "• <strong>Puntos totales</strong>: clasificación actual (partidos + posiciones + eliminatorias).<br>" +
+      "• <strong>Puntos totales</strong>: clasificación actual (partidos + posiciones + eliminatorias + honor).<br>" +
       "• <strong>Tasa de acierto</strong>: % de partidos jugados en los que sumó ≥1 pt.<br>" +
       "• <strong>Pts/partido</strong>: media de puntos ganados solo en partidos (sin posiciones ni cuadros).<br>" +
       "• <strong>Racha activa</strong>: partidos seguidos puntuando ahora mismo.<br>" +

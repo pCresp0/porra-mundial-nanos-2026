@@ -681,8 +681,7 @@ def main():
                     st["total"] = float(st.get("total") or 0) + qd
                     st["total_live"] = float(st.get("total_live") or 0) + qd
 
-            # Update progression
-            _update_progression(dj, match, deltas)
+            # La progresión se reconstruye al final del script (evita duplicados)
 
             print(f"  ✓ {match['name']} {gl}-{gv} → scores: "
                   + " ".join(f"{n}={d:+.0f}" for n, d in deltas.items() if d != 0))
@@ -783,10 +782,10 @@ def main():
     _propagate_bracket_winners(dj.get("matches", []))
     _backfill_match_flags(dj.get("matches", []))
 
-    if not args.dry_run and changes > 0:
-        from app import sync_progression_from_matches
-        sync_progression_from_matches(dj)
-        print("  ↻ Progresión sincronizada (incl. puntos «Pasa»)")
+    if not args.dry_run:
+        from app import rebuild_progression
+        rebuild_progression(dj)
+        print("  ↻ Progresión reconstruida (alineada con clasificación)")
 
     if args.dry_run:
         print(f"\n📋 Dry-run: {changes} cambio(s) detectados (sin guardar)")
