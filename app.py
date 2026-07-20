@@ -1413,7 +1413,7 @@ def _grid_bonus_from_standings(dj, player_names):
         non_honor = float(st.get("total") or 0) - float(st.get("honor") or 0)
         base = match_pts + float(st.get("positions") or 0) + float(st.get("q16") or 0)
         delta = round(non_honor - base, 1)
-        if delta > 0:
+        if abs(delta) > 0.05:
             out[n] = delta
     return out
 
@@ -1452,7 +1452,7 @@ def rebuild_progression(dj):
     last_date = prog["dates"][-1] if prog.get("dates") else "2026-07-19"
 
     grid_bonus = _grid_bonus_from_standings(dj, player_names)
-    if any(v > 0 for v in grid_bonus.values()):
+    if any(abs(v) > 0.05 for v in grid_bonus.values()):
         _append_prog_step(
             cumulative, prog["players"], prog["day_points"],
             prog["labels"], prog["flag_labels"], prog["dates"],
