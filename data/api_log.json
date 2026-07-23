@@ -1,31 +1,5 @@
 [
   {
-    "ts_iso": "2026-07-08T00:54:21+02:00",
-    "date": "08/07/2026",
-    "time": "00:54:21",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇨🇭Suiza 0-0 Colombia🇨🇴",
-        "name": "Suiza-Colombia",
-        "date": "2026-07-07",
-        "fields": [
-          "marcador",
-          "jugado"
-        ],
-        "old": {
-          "marcador": "sin resultado",
-          "jugado": "no"
-        },
-        "new": {
-          "marcador": "0-0",
-          "jugado": "sí"
-        }
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-07-08T01:10:39+02:00",
     "date": "08/07/2026",
     "time": "01:10:39",
@@ -16435,6 +16409,14 @@
     "ts_iso": "2026-07-23T03:10:25+02:00",
     "date": "23/07/2026",
     "time": "03:10:25",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-23T03:26:57+02:00",
+    "date": "23/07/2026",
+    "time": "03:26:57",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
