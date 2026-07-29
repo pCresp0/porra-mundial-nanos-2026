@@ -1,31 +1,5 @@
 [
   {
-    "ts_iso": "2026-07-12T01:50:47+02:00",
-    "date": "12/07/2026",
-    "time": "01:50:47",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇳🇴Noruega 1-2 Inglaterra🇬🇧",
-        "name": "Noruega-Inglaterra",
-        "date": "2026-07-11",
-        "fields": [
-          "marcador",
-          "jugado"
-        ],
-        "old": {
-          "marcador": "sin resultado",
-          "jugado": "no"
-        },
-        "new": {
-          "marcador": "1-2",
-          "jugado": "sí"
-        }
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-07-12T02:06:17+02:00",
     "date": "12/07/2026",
     "time": "02:06:17",
@@ -16273,6 +16247,14 @@
     "ts_iso": "2026-07-29T17:04:18+02:00",
     "date": "29/07/2026",
     "time": "17:04:18",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-07-29T17:20:25+02:00",
+    "date": "29/07/2026",
+    "time": "17:20:25",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
