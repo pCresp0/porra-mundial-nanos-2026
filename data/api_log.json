@@ -1,31 +1,5 @@
 [
   {
-    "ts_iso": "2026-07-14T23:01:08+02:00",
-    "date": "14/07/2026",
-    "time": "23:01:08",
-    "updated": true,
-    "trigger": "workflow_dispatch",
-    "changes": [
-      {
-        "label": "🇫🇷Francia 0-2 España🇪🇸",
-        "name": "Francia-España",
-        "date": "2026-07-14",
-        "fields": [
-          "marcador",
-          "jugado"
-        ],
-        "old": {
-          "marcador": "sin resultado",
-          "jugado": "no"
-        },
-        "new": {
-          "marcador": "0-2",
-          "jugado": "sí"
-        }
-      }
-    ]
-  },
-  {
     "ts_iso": "2026-07-14T23:16:14+02:00",
     "date": "14/07/2026",
     "time": "23:16:14",
@@ -16210,6 +16184,14 @@
     "ts_iso": "2026-08-04T07:21:46+02:00",
     "date": "04/08/2026",
     "time": "07:21:46",
+    "updated": false,
+    "trigger": "workflow_dispatch",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-08-04T07:45:46+02:00",
+    "date": "04/08/2026",
+    "time": "07:45:46",
     "updated": false,
     "trigger": "workflow_dispatch",
     "changes": []
