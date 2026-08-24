@@ -1,29 +1,5 @@
 [
   {
-    "ts_iso": "2026-07-25T18:10:23+02:00",
-    "date": "25/07/2026",
-    "time": "18:10:23",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-07-25T18:26:18+02:00",
-    "date": "25/07/2026",
-    "time": "18:26:18",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-07-25T18:42:23+02:00",
-    "date": "25/07/2026",
-    "time": "18:42:23",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-07-25T18:58:22+02:00",
     "date": "25/07/2026",
     "time": "18:58:22",
@@ -14547,6 +14523,14 @@
     "ts_iso": "2026-08-24T18:07:29+02:00",
     "date": "24/08/2026",
     "time": "18:07:29",
+    "updated": false,
+    "trigger": "schedule",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-08-24T18:54:09+02:00",
+    "date": "24/08/2026",
+    "time": "18:54:09",
     "updated": false,
     "trigger": "schedule",
     "changes": []
