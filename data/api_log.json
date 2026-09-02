@@ -1,85 +1,5 @@
 [
   {
-    "ts_iso": "2026-08-03T17:25:11+02:00",
-    "date": "03/08/2026",
-    "time": "17:25:11",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-03T17:44:04+02:00",
-    "date": "03/08/2026",
-    "time": "17:44:04",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-03T18:04:14+02:00",
-    "date": "03/08/2026",
-    "time": "18:04:14",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-03T18:26:44+02:00",
-    "date": "03/08/2026",
-    "time": "18:26:44",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-03T18:47:43+02:00",
-    "date": "03/08/2026",
-    "time": "18:47:43",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-03T19:09:45+02:00",
-    "date": "03/08/2026",
-    "time": "19:09:45",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-03T19:30:15+02:00",
-    "date": "03/08/2026",
-    "time": "19:30:15",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-03T19:51:47+02:00",
-    "date": "03/08/2026",
-    "time": "19:51:47",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-03T20:13:49+02:00",
-    "date": "03/08/2026",
-    "time": "20:13:49",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-03T20:35:48+02:00",
-    "date": "03/08/2026",
-    "time": "20:35:48",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-08-03T20:55:43+02:00",
     "date": "03/08/2026",
     "time": "20:55:43",
@@ -9299,6 +9219,14 @@
     "ts_iso": "2026-09-02T17:14:00+02:00",
     "date": "02/09/2026",
     "time": "17:14:00",
+    "updated": false,
+    "trigger": "schedule",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-09-02T20:43:44+02:00",
+    "date": "02/09/2026",
+    "time": "20:43:44",
     "updated": false,
     "trigger": "schedule",
     "changes": []
