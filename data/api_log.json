@@ -1,77 +1,5 @@
 [
   {
-    "ts_iso": "2026-08-09T17:35:45+02:00",
-    "date": "09/08/2026",
-    "time": "17:35:45",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-09T17:57:45+02:00",
-    "date": "09/08/2026",
-    "time": "17:57:45",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-09T18:19:38+02:00",
-    "date": "09/08/2026",
-    "time": "18:19:38",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-09T18:39:40+02:00",
-    "date": "09/08/2026",
-    "time": "18:39:40",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-09T19:01:50+02:00",
-    "date": "09/08/2026",
-    "time": "19:01:50",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-09T19:23:47+02:00",
-    "date": "09/08/2026",
-    "time": "19:23:47",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-09T19:48:51+02:00",
-    "date": "09/08/2026",
-    "time": "19:48:51",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-09T20:09:40+02:00",
-    "date": "09/08/2026",
-    "time": "20:09:40",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-09T20:31:43+02:00",
-    "date": "09/08/2026",
-    "time": "20:31:43",
-    "updated": false,
-    "trigger": "workflow_dispatch",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-08-09T20:52:24+02:00",
     "date": "09/08/2026",
     "time": "20:52:24",
@@ -6571,6 +6499,14 @@
     "ts_iso": "2026-09-08T17:20:52+02:00",
     "date": "08/09/2026",
     "time": "17:20:52",
+    "updated": false,
+    "trigger": "schedule",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-09-08T20:49:57+02:00",
+    "date": "08/09/2026",
+    "time": "20:49:57",
     "updated": false,
     "trigger": "schedule",
     "changes": []
