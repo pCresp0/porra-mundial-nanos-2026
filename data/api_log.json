@@ -1,69 +1,5 @@
 [
   {
-    "ts_iso": "2026-08-15T07:45:26+02:00",
-    "date": "15/08/2026",
-    "time": "07:45:26",
-    "updated": false,
-    "trigger": "schedule",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-15T09:22:31+02:00",
-    "date": "15/08/2026",
-    "time": "09:22:31",
-    "updated": false,
-    "trigger": "schedule",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-15T09:50:29+02:00",
-    "date": "15/08/2026",
-    "time": "09:50:29",
-    "updated": false,
-    "trigger": "schedule",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-15T11:05:45+02:00",
-    "date": "15/08/2026",
-    "time": "11:05:45",
-    "updated": false,
-    "trigger": "schedule",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-15T11:37:32+02:00",
-    "date": "15/08/2026",
-    "time": "11:37:32",
-    "updated": false,
-    "trigger": "schedule",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-15T11:56:49+02:00",
-    "date": "15/08/2026",
-    "time": "11:56:49",
-    "updated": false,
-    "trigger": "schedule",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-15T12:16:13+02:00",
-    "date": "15/08/2026",
-    "time": "12:16:13",
-    "updated": false,
-    "trigger": "schedule",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-15T12:41:50+02:00",
-    "date": "15/08/2026",
-    "time": "12:41:50",
-    "updated": false,
-    "trigger": "schedule",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-08-15T13:21:32+02:00",
     "date": "15/08/2026",
     "time": "13:21:32",
@@ -4387,6 +4323,14 @@
     "ts_iso": "2026-09-14T07:19:31+02:00",
     "date": "14/09/2026",
     "time": "07:19:31",
+    "updated": false,
+    "trigger": "schedule",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-09-14T12:49:22+02:00",
+    "date": "14/09/2026",
+    "time": "12:49:22",
     "updated": false,
     "trigger": "schedule",
     "changes": []
