@@ -1,77 +1,5 @@
 [
   {
-    "ts_iso": "2026-08-15T13:21:32+02:00",
-    "date": "15/08/2026",
-    "time": "13:21:32",
-    "updated": false,
-    "trigger": "schedule",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-15T13:42:39+02:00",
-    "date": "15/08/2026",
-    "time": "13:42:39",
-    "updated": false,
-    "trigger": "schedule",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-15T14:25:30+02:00",
-    "date": "15/08/2026",
-    "time": "14:25:30",
-    "updated": false,
-    "trigger": "schedule",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-15T15:07:59+02:00",
-    "date": "15/08/2026",
-    "time": "15:07:59",
-    "updated": false,
-    "trigger": "schedule",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-15T15:41:54+02:00",
-    "date": "15/08/2026",
-    "time": "15:41:54",
-    "updated": false,
-    "trigger": "schedule",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-15T16:23:36+02:00",
-    "date": "15/08/2026",
-    "time": "16:23:36",
-    "updated": false,
-    "trigger": "schedule",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-15T16:46:21+02:00",
-    "date": "15/08/2026",
-    "time": "16:46:21",
-    "updated": false,
-    "trigger": "schedule",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-15T17:31:02+02:00",
-    "date": "15/08/2026",
-    "time": "17:31:02",
-    "updated": false,
-    "trigger": "schedule",
-    "changes": []
-  },
-  {
-    "ts_iso": "2026-08-15T17:50:34+02:00",
-    "date": "15/08/2026",
-    "time": "17:50:34",
-    "updated": false,
-    "trigger": "schedule",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-08-15T18:58:24+02:00",
     "date": "15/08/2026",
     "time": "18:58:24",
@@ -4331,6 +4259,14 @@
     "ts_iso": "2026-09-14T12:49:22+02:00",
     "date": "14/09/2026",
     "time": "12:49:22",
+    "updated": false,
+    "trigger": "schedule",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-09-14T18:41:04+02:00",
+    "date": "14/09/2026",
+    "time": "18:41:04",
     "updated": false,
     "trigger": "schedule",
     "changes": []
