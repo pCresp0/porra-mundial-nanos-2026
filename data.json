@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "2026-09-17T20:02:57Z",
+    "generated": "2026-09-17T22:50:04Z",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,9 +11,9 @@
       "next_update_iso": "2026-07-07T19:40",
       "next_update_time": "19:40",
       "next_update_date": "07/07/2026",
-      "last_checked_iso": "2026-09-17T22:04",
-      "last_checked_time": "22:04",
-      "last_checked_date": "17/09/2026"
+      "last_checked_iso": "2026-09-18T00:50",
+      "last_checked_time": "00:50",
+      "last_checked_date": "18/09/2026"
     },
     "players": [
       "JUANCHO",
@@ -325,6 +325,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-09-18T00:50:38+02:00",
+        "date": "18/09/2026",
+        "time": "00:50:38",
+        "updated": false,
+        "trigger": "schedule",
+        "changes": []
+      },
       {
         "ts_iso": "2026-09-17T22:04:03+02:00",
         "date": "17/09/2026",
@@ -3745,54 +3753,6 @@
         "ts_iso": "2026-08-19T01:52:37+02:00",
         "date": "19/08/2026",
         "time": "01:52:37",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-19T00:47:18+02:00",
-        "date": "19/08/2026",
-        "time": "00:47:18",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-19T00:18:04+02:00",
-        "date": "19/08/2026",
-        "time": "00:18:04",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-18T23:39:43+02:00",
-        "date": "18/08/2026",
-        "time": "23:39:43",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-18T23:15:00+02:00",
-        "date": "18/08/2026",
-        "time": "23:15:00",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-18T22:54:43+02:00",
-        "date": "18/08/2026",
-        "time": "22:54:43",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-18T22:32:58+02:00",
-        "date": "18/08/2026",
-        "time": "22:32:58",
         "updated": false,
         "trigger": "schedule",
         "changes": []
