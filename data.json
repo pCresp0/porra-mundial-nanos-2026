@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "2026-09-19T20:45:45Z",
+    "generated": "2026-09-19T22:33:22Z",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,9 +11,9 @@
       "next_update_iso": "2026-07-07T19:40",
       "next_update_time": "19:40",
       "next_update_date": "07/07/2026",
-      "last_checked_iso": "2026-09-19T22:46",
-      "last_checked_time": "22:46",
-      "last_checked_date": "19/09/2026"
+      "last_checked_iso": "2026-09-20T00:34",
+      "last_checked_time": "00:34",
+      "last_checked_date": "20/09/2026"
     },
     "players": [
       "JUANCHO",
@@ -329,6 +329,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-09-20T00:34:22+02:00",
+        "date": "20/09/2026",
+        "time": "00:34:22",
+        "updated": false,
+        "trigger": "schedule",
+        "changes": []
+      },
       {
         "ts_iso": "2026-09-19T22:46:27+02:00",
         "date": "19/09/2026",
@@ -3253,38 +3261,6 @@
         "ts_iso": "2026-08-21T00:59:00+02:00",
         "date": "21/08/2026",
         "time": "00:59:00",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-21T00:31:46+02:00",
-        "date": "21/08/2026",
-        "time": "00:31:46",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-21T00:00:51+02:00",
-        "date": "21/08/2026",
-        "time": "00:00:51",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-20T23:39:51+02:00",
-        "date": "20/08/2026",
-        "time": "23:39:51",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-20T23:04:47+02:00",
-        "date": "20/08/2026",
-        "time": "23:04:47",
         "updated": false,
         "trigger": "schedule",
         "changes": []
