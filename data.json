@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "2026-09-21T18:59:35Z",
+    "generated": "2026-09-21T22:28:37Z",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,9 +11,9 @@
       "next_update_iso": "2026-07-07T19:40",
       "next_update_time": "19:40",
       "next_update_date": "07/07/2026",
-      "last_checked_iso": "2026-09-21T21:00",
-      "last_checked_time": "21:00",
-      "last_checked_date": "21/09/2026"
+      "last_checked_iso": "2026-09-22T00:29",
+      "last_checked_time": "00:29",
+      "last_checked_date": "22/09/2026"
     },
     "players": [
       "JUANCHO",
@@ -325,6 +325,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-09-22T00:29:19+02:00",
+        "date": "22/09/2026",
+        "time": "00:29:19",
+        "updated": false,
+        "trigger": "schedule",
+        "changes": []
+      },
       {
         "ts_iso": "2026-09-21T21:00:17+02:00",
         "date": "21/09/2026",
@@ -2737,70 +2745,6 @@
         "ts_iso": "2026-08-23T00:45:06+02:00",
         "date": "23/08/2026",
         "time": "00:45:06",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-23T00:20:54+02:00",
-        "date": "23/08/2026",
-        "time": "00:20:54",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-22T23:42:52+02:00",
-        "date": "22/08/2026",
-        "time": "23:42:52",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-22T23:18:50+02:00",
-        "date": "22/08/2026",
-        "time": "23:18:50",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-22T22:58:55+02:00",
-        "date": "22/08/2026",
-        "time": "22:58:55",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-22T22:38:33+02:00",
-        "date": "22/08/2026",
-        "time": "22:38:33",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-22T22:10:05+02:00",
-        "date": "22/08/2026",
-        "time": "22:10:05",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-22T21:37:34+02:00",
-        "date": "22/08/2026",
-        "time": "21:37:34",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-22T21:13:59+02:00",
-        "date": "22/08/2026",
-        "time": "21:13:59",
         "updated": false,
         "trigger": "schedule",
         "changes": []
