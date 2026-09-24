@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Porra Mundial 'Los Nanos' 2026",
-    "generated": "2026-09-24T03:52:05Z",
+    "generated": "2026-09-24T08:50:06Z",
     "update": {
       "timezone": "Europe/Madrid",
       "schedule_label": "Comprueba cada 5 min · actualiza durante los partidos",
@@ -11,8 +11,8 @@
       "next_update_iso": "2026-07-07T19:40",
       "next_update_time": "19:40",
       "next_update_date": "07/07/2026",
-      "last_checked_iso": "2026-09-24T05:52",
-      "last_checked_time": "05:52",
+      "last_checked_iso": "2026-09-24T10:51",
+      "last_checked_time": "10:51",
       "last_checked_date": "24/09/2026"
     },
     "players": [
@@ -317,6 +317,14 @@
       }
     ],
     "api_log": [
+      {
+        "ts_iso": "2026-09-24T10:51:34+02:00",
+        "date": "24/09/2026",
+        "time": "10:51:34",
+        "updated": false,
+        "trigger": "schedule",
+        "changes": []
+      },
       {
         "ts_iso": "2026-09-24T05:52:41+02:00",
         "date": "24/09/2026",
@@ -2193,62 +2201,6 @@
         "ts_iso": "2026-08-25T10:58:30+02:00",
         "date": "25/08/2026",
         "time": "10:58:30",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-25T10:08:18+02:00",
-        "date": "25/08/2026",
-        "time": "10:08:18",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-25T09:27:14+02:00",
-        "date": "25/08/2026",
-        "time": "09:27:14",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-25T08:27:42+02:00",
-        "date": "25/08/2026",
-        "time": "08:27:42",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-25T07:56:35+02:00",
-        "date": "25/08/2026",
-        "time": "07:56:35",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-25T07:23:28+02:00",
-        "date": "25/08/2026",
-        "time": "07:23:28",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-25T06:55:26+02:00",
-        "date": "25/08/2026",
-        "time": "06:55:26",
-        "updated": false,
-        "trigger": "schedule",
-        "changes": []
-      },
-      {
-        "ts_iso": "2026-08-25T06:12:49+02:00",
-        "date": "25/08/2026",
-        "time": "06:12:49",
         "updated": false,
         "trigger": "schedule",
         "changes": []
