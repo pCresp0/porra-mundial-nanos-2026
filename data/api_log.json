@@ -1,13 +1,5 @@
 [
   {
-    "ts_iso": "2026-10-03T04:20:47+02:00",
-    "date": "03/10/2026",
-    "time": "04:20:47",
-    "updated": false,
-    "trigger": "schedule",
-    "changes": []
-  },
-  {
     "ts_iso": "2026-10-03T10:19:12+02:00",
     "date": "03/10/2026",
     "time": "10:19:12",
@@ -1307,6 +1299,14 @@
     "ts_iso": "2026-11-02T02:56:58+01:00",
     "date": "02/11/2026",
     "time": "02:56:58",
+    "updated": false,
+    "trigger": "schedule",
+    "changes": []
+  },
+  {
+    "ts_iso": "2026-11-02T09:34:26+01:00",
+    "date": "02/11/2026",
+    "time": "09:34:26",
     "updated": false,
     "trigger": "schedule",
     "changes": []
